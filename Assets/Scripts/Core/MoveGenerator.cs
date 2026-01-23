@@ -44,6 +44,8 @@ namespace Diceforge.Core
             // SameDirectionLoop: всегда "вперёд" (pos + steps)
             for (int steps = 0; steps <= rules.maxStep; steps++)
             {
+                if (steps == 0 && !rules.allowZeroStep) continue;
+
                 int from = s.GetPos(s.CurrentPlayer);
                 int to = GameState.Mod(from + steps, rules.ringSize);
 
@@ -77,9 +79,9 @@ namespace Diceforge.Core
             return moves;
         }
 
-        public static void ApplyMove(GameState s, Move m)
+        public static ApplyResult ApplyMove(GameState s, Move m)
         {
-            if (s.IsFinished) return;
+            if (s.IsFinished) return ApplyResult.Illegal;
 
             switch (m.Kind)
             {
@@ -89,34 +91,39 @@ namespace Diceforge.Core
                     int to = GameState.Mod(from + m.Value, s.Rules.ringSize);
 
                     // защита от неверных ходов (на всякий случай)
-                    if (m.Value < 0 || m.Value > s.Rules.maxStep) return;
-                    if (s.Blocked[to]) return;
+                    if (m.Value < 0 || m.Value > s.Rules.maxStep) return ApplyResult.Illegal;
+                    if (!s.Rules.allowZeroStep && m.Value == 0) return ApplyResult.Illegal;
+                    if (s.Blocked[to]) return ApplyResult.Illegal;
 
                     s.SetPos(s.CurrentPlayer, to);
 
                     // win-condition MVP:
                     // если встали на клетку соперника => победа
                     if (to == s.GetOpponentPos(s.CurrentPlayer))
+                    {
                         s.Finish(s.CurrentPlayer);
+                        return ApplyResult.Finished;
+                    }
 
-                    break;
+                    return ApplyResult.Ok;
                 }
                 case MoveKind.PlaceBlock:
                 {
-                    if (s.GetBlocksLeft(s.CurrentPlayer) <= 0) return;
+                    if (s.GetBlocksLeft(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
 
                     int cell = GameState.Mod(m.Value, s.Rules.ringSize);
-                    if (s.Blocked[cell]) return;
+                    if (s.Blocked[cell]) return ApplyResult.Illegal;
 
-                    if (!s.Rules.allowBlockOnPlayers && (cell == s.PosA || cell == s.PosB)) return;
-                    if (cell == s.GetPos(s.CurrentPlayer)) return;
+                    if (!s.Rules.allowBlockOnPlayers && (cell == s.PosA || cell == s.PosB))
+                        return ApplyResult.Illegal;
+                    if (cell == s.GetPos(s.CurrentPlayer)) return ApplyResult.Illegal;
 
                     s.Blocked[cell] = true;
                     s.SpendBlock(s.CurrentPlayer);
-                    break;
+                    return ApplyResult.Ok;
                 }
                 default:
-                    return;
+                    return ApplyResult.Illegal;
             }
         }
     }

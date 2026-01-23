@@ -1,88 +1,170 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace Diceforge.Core
 {
-    public static class BattleRunner
+    public sealed class BattleRunner
     {
-        // Чтобы "в консоли пошёл бой" сразу при Play:
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void AutoRunOnPlay()
+        private BotEasy _botA;
+        private BotEasy _botB;
+        private int _seed;
+
+        public GameState State { get; private set; }
+        public MatchLog Log { get; } = new MatchLog();
+        public RulesetConfig Rules { get; private set; }
+
+        public event Action<GameState> OnMatchStarted;
+        public event Action<MoveRecord> OnMoveApplied;
+        public event Action<GameState> OnMatchEnded;
+
+        public void Init(RulesetConfig rules, int seed)
         {
-            RunSingleMatch();
+            Rules = rules ?? throw new ArgumentNullException(nameof(rules));
+            Rules.Validate();
+            _seed = seed;
+
+            State = new GameState(Rules);
+            CreateBots();
+            Log.Clear();
+
+            OnMatchStarted?.Invoke(State);
         }
 
-        public static void RunSingleMatch()
+        public void Reset()
         {
-            var rules = new RulesetConfig
+            if (State == null)
+                throw new InvalidOperationException("BattleRunner is not initialized. Call Init first.");
+
+            State.Reset();
+            CreateBots();
+            Log.Clear();
+
+            OnMatchStarted?.Invoke(State);
+        }
+
+        public bool Tick()
+        {
+            if (State == null)
+                throw new InvalidOperationException("BattleRunner is not initialized. Call Init first.");
+
+            if (State.IsFinished)
+                return false;
+
+            int posABefore = State.PosA;
+            int posBBefore = State.PosB;
+
+            var legal = MoveGenerator.GenerateLegalMoves(State);
+            if (legal.Count == 0)
             {
-                ringSize = 9,
-                maxStep = 2,
-                blocksPerPlayer = 3,
-                allowBlockOnPlayers = false,
-                maxTurns = 60,
-                randomSeed = 12345,
-                verboseLog = true
-            };
-            rules.Validate();
+                var winner = State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
+                State.Finish(winner);
 
-            var state = new GameState(rules);
-            var botA = new BotEasy(rules.randomSeed + 100);
-            var botB = new BotEasy(rules.randomSeed + 200);
-
-            if (rules.verboseLog)
-                Debug.Log("[Diceforge] Match start: " + state.DebugSnapshot());
-
-            while (!state.IsFinished && state.TurnIndex < rules.maxTurns)
-            {
-                var legal = MoveGenerator.GenerateLegalMoves(state);
-                if (legal.Count == 0)
-                {
-                    // нет ходов => поражение текущего
-                    var winner = state.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
-                    state.Finish(winner);
-                    break;
-                }
-
-                var bot = state.CurrentPlayer == PlayerId.A ? botA : botB;
-                var move = bot.ChooseMove(state, legal);
-
-                MoveGenerator.ApplyMove(state, move);
-
-                if (rules.verboseLog)
-                    Debug.Log($"[Diceforge] {state.CurrentPlayer} -> {move}   {state.DebugSnapshot()}");
-
-                if (state.IsFinished) break;
-
-                state.AdvanceTurn();
+                var record = BuildRecord(
+                    State.CurrentPlayer,
+                    null,
+                    posABefore,
+                    posBBefore,
+                    State.PosA,
+                    State.PosB,
+                    ApplyResult.Illegal,
+                    MatchEndReason.NoMoves
+                );
+                Log.Add(record);
+                OnMoveApplied?.Invoke(record);
+                OnMatchEnded?.Invoke(State);
+                return true;
             }
 
-            if (!state.IsFinished)
+            var bot = State.CurrentPlayer == PlayerId.A ? _botA : _botB;
+            var move = bot.ChooseMove(State, legal);
+
+            var result = MoveGenerator.ApplyMove(State, move);
+            int posAAfter = State.PosA;
+            int posBAfter = State.PosB;
+            var endReason = MatchEndReason.None;
+
+            if (result == ApplyResult.Finished || State.IsFinished)
+                endReason = MatchEndReason.Win;
+
+            if (!State.IsFinished && State.TurnIndex >= Rules.maxTurns - 1)
             {
-                // тайм-аут: победитель тот, кто ближе к сопернику по направлению
-                var winner = DecideWinnerOnTimeout(state);
-                state.Finish(winner);
+                var winner = DecideWinnerOnTimeout(State);
+                State.Finish(winner);
+                endReason = MatchEndReason.Timeout;
             }
 
-            Debug.Log($"[Diceforge] Match end. Winner: {state.Winner}  Turns: {state.TurnIndex}");
+            var record = BuildRecord(
+                State.CurrentPlayer,
+                move,
+                posABefore,
+                posBBefore,
+                posAAfter,
+                posBAfter,
+                result,
+                endReason
+            );
+            Log.Add(record);
+            OnMoveApplied?.Invoke(record);
+
+            if (State.IsFinished)
+            {
+                OnMatchEnded?.Invoke(State);
+                return true;
+            }
+
+            State.AdvanceTurn();
+            return true;
+        }
+
+        private void CreateBots()
+        {
+            _botA = new BotEasy(_seed + 100);
+            _botB = new BotEasy(_seed + 200);
+        }
+
+        private MoveRecord BuildRecord(
+            PlayerId player,
+            Move? move,
+            int posABefore,
+            int posBBefore,
+            int posAAfter,
+            int posBAfter,
+            ApplyResult result,
+            MatchEndReason endReason)
+        {
+            int? blockCell = null;
+
+            if (move.HasValue && move.Value.Kind == MoveKind.PlaceBlock)
+                blockCell = GameState.Mod(move.Value.Value, State.Rules.ringSize);
+
+            return new MoveRecord(
+                State.TurnIndex,
+                player,
+                move,
+                posABefore,
+                posBBefore,
+                posAAfter,
+                posBAfter,
+                blockCell,
+                result,
+                endReason,
+                State.Winner
+            );
         }
 
         private static PlayerId DecideWinnerOnTimeout(GameState s)
         {
-            // метрика: сколько шагов "вперёд" нужно, чтобы догнать соперника
             int distA = ForwardDistance(s.PosA, s.PosB, s.Rules.ringSize);
             int distB = ForwardDistance(s.PosB, s.PosA, s.Rules.ringSize);
 
             if (distA < distB) return PlayerId.A;
             if (distB < distA) return PlayerId.B;
 
-            // ничья — пусть выигрывает тот, кто ходил первым (для детерминизма)
             return PlayerId.A;
         }
 
         private static int ForwardDistance(int from, int to, int ringSize)
         {
-            // шаги по направлению SameDirectionLoop
             int d = to - from;
             if (d < 0) d += ringSize;
             return d;
