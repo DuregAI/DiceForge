@@ -17,6 +17,9 @@ namespace Diceforge.Core
         // шаги за ход: 0..maxStep
         public int maxStep = 2;
 
+        // разрешать нулевой шаг (Step(0))
+        public bool allowZeroStep = false;
+
         // сколько блоков у игрока на матч
         public int blocksPerPlayer = 3;
 
