@@ -25,22 +25,20 @@ namespace Diceforge.Core
                 if (to == oppPos) return m;
             }
 
-            // 2) иначе: попробуем поставить блок "перед" соперником (чуть-чуть мешаем)
+            // 2) иначе: попробуем поставить фишку "перед" соперником (чуть-чуть мешаем)
             // (перед = oppPos+1 по SameDirection)
             int ahead = GameState.Mod(oppPos + 1, s.Rules.ringSize);
             foreach (var m in legal)
             {
-                if (m.Kind == MoveKind.PlaceBlock && m.Value == ahead)
+                if (m.Kind == MoveKind.PlaceChip && m.Value == ahead)
                     return m;
             }
 
             // 3) иначе: небольшой приоритет шагам (чтобы матч двигался)
             var stepMoves = new List<Move>();
-            var blockMoves = new List<Move>();
             foreach (var m in legal)
             {
                 if (m.Kind == MoveKind.Step) stepMoves.Add(m);
-                else blockMoves.Add(m);
             }
 
             if (stepMoves.Count > 0 && _rng.NextDouble() < 0.75)

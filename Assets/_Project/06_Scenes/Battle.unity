@@ -415,11 +415,14 @@ MonoBehaviour:
   ringRadius: 6
   cellRadius: 0.5
   playerRadius: 0.4
+  chipHeight: 0.2
   cellColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.8}
-  blockedColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.9}
+  chipColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.9}
   playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
   playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
   lastMoveColor: {r: 1, g: 0.9, b: 0.3, a: 0.9}
+  pawnPrefab: {fileID: 0}
+  chipPrefab: {fileID: 0}
 --- !u!4 &426479108
 Transform:
   m_ObjectHideFlags: 0
@@ -483,8 +486,11 @@ MonoBehaviour:
     ringSize: 12
     maxStep: 2
     allowZeroStep: 0
-    blocksPerPlayer: 3
-    allowBlockOnPlayers: 0
+    chipsPerPlayer: 3
+    allowChipOnPlayers: 0
+    startChipsOnBoard: 0
+    startChipsRandom: 1
+    startChipsSeedOffset: 1337
     maxTurns: 60
     randomSeed: 12345
     verboseLog: 1
@@ -494,6 +500,16 @@ MonoBehaviour:
   secondsPerTurn: 0.5
   verboseLog: 1
   boardView: {fileID: 426479107}
+  controlModeA: 1
+  controlModeB: 0
+  turnText: {fileID: 0}
+  currentPlayerText: {fileID: 0}
+  rollText: {fileID: 0}
+  chipsInHandText: {fileID: 0}
+  lastMoveText: {fileID: 0}
+  winnerText: {fileID: 0}
+  moveButton: {fileID: 0}
+  placeChipButton: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

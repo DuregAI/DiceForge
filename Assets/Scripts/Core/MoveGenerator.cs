@@ -6,7 +6,7 @@ namespace Diceforge.Core
     public enum MoveKind : byte
     {
         Step = 0,
-        PlaceBlock = 1
+        PlaceChip = 1
     }
 
     public readonly struct Move
@@ -21,11 +21,11 @@ namespace Diceforge.Core
         }
 
         public static Move Step(int steps) => new Move(MoveKind.Step, steps);
-        public static Move PlaceBlock(int cellIndex) => new Move(MoveKind.PlaceBlock, cellIndex);
+        public static Move PlaceChip(int cellIndex) => new Move(MoveKind.PlaceChip, cellIndex);
 
         public override string ToString()
         {
-            return Kind == MoveKind.Step ? $"Step({Value})" : $"Block({Value})";
+            return Kind == MoveKind.Step ? $"Step({Value})" : $"Chip({Value})";
         }
     }
 
@@ -40,31 +40,34 @@ namespace Diceforge.Core
 
             if (s.IsFinished) return moves;
 
-            // 1) Step moves: 0..maxStep
-            // SameDirectionLoop: всегда "вперёд" (pos + steps)
-            for (int steps = 0; steps <= rules.maxStep; steps++)
+            // 1) Step move: только по броску кубика
+            int steps = s.CurrentRoll;
+            if (steps == 0 && !rules.allowZeroStep)
             {
-                if (steps == 0 && !rules.allowZeroStep) continue;
-
+                // no-op
+            }
+            else
+            {
                 int from = s.GetPos(s.CurrentPlayer);
                 int to = GameState.Mod(from + steps, rules.ringSize);
 
-                // нельзя в блок
-                if (s.Blocked[to]) continue;
-
-                // нельзя на соперника (для MVP сделаем столкновение = победа, поэтому разрешаем как "атаку")
-                // но чтобы был осмысленный win-condition, разрешаем ход на соперника как завершающий
-                moves.Add(Move.Step(steps));
+                // нельзя в фишку
+                if (!s.HasChip[to])
+                {
+                    // нельзя на соперника (для MVP сделаем столкновение = победа, поэтому разрешаем как "атаку")
+                    // но чтобы был осмысленный win-condition, разрешаем ход на соперника как завершающий
+                    moves.Add(Move.Step(steps));
+                }
             }
 
-            // 2) Place block moves (если есть блоки)
-            if (s.GetBlocksLeft(s.CurrentPlayer) > 0)
+            // 2) Place chip moves (если есть фишки)
+            if (s.GetChipsInHand(s.CurrentPlayer) > 0)
             {
                 for (int i = 0; i < rules.ringSize; i++)
                 {
-                    if (s.Blocked[i]) continue;
+                    if (s.HasChip[i]) continue;
 
-                    if (!rules.allowBlockOnPlayers)
+                    if (!rules.allowChipOnPlayers)
                     {
                         if (i == s.PosA || i == s.PosB) continue;
                     }
@@ -72,7 +75,7 @@ namespace Diceforge.Core
                     // не ставим блок "под себя" (чтобы не было тупняка)
                     if (i == s.GetPos(s.CurrentPlayer)) continue;
 
-                    moves.Add(Move.PlaceBlock(i));
+                    moves.Add(Move.PlaceChip(i));
                 }
             }
 
@@ -91,9 +94,10 @@ namespace Diceforge.Core
                     int to = GameState.Mod(from + m.Value, s.Rules.ringSize);
 
                     // защита от неверных ходов (на всякий случай)
+                    if (m.Value != s.CurrentRoll) return ApplyResult.Illegal;
                     if (m.Value < 0 || m.Value > s.Rules.maxStep) return ApplyResult.Illegal;
                     if (!s.Rules.allowZeroStep && m.Value == 0) return ApplyResult.Illegal;
-                    if (s.Blocked[to]) return ApplyResult.Illegal;
+                    if (s.HasChip[to]) return ApplyResult.Illegal;
 
                     s.SetPos(s.CurrentPlayer, to);
 
@@ -107,19 +111,19 @@ namespace Diceforge.Core
 
                     return ApplyResult.Ok;
                 }
-                case MoveKind.PlaceBlock:
+                case MoveKind.PlaceChip:
                 {
-                    if (s.GetBlocksLeft(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
+                    if (s.GetChipsInHand(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
 
                     int cell = GameState.Mod(m.Value, s.Rules.ringSize);
-                    if (s.Blocked[cell]) return ApplyResult.Illegal;
+                    if (s.HasChip[cell]) return ApplyResult.Illegal;
 
-                    if (!s.Rules.allowBlockOnPlayers && (cell == s.PosA || cell == s.PosB))
+                    if (!s.Rules.allowChipOnPlayers && (cell == s.PosA || cell == s.PosB))
                         return ApplyResult.Illegal;
                     if (cell == s.GetPos(s.CurrentPlayer)) return ApplyResult.Illegal;
 
-                    s.Blocked[cell] = true;
-                    s.SpendBlock(s.CurrentPlayer);
+                    s.HasChip[cell] = true;
+                    s.SpendChip(s.CurrentPlayer);
                     return ApplyResult.Ok;
                 }
                 default:
