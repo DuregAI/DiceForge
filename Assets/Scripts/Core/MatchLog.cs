@@ -27,7 +27,8 @@ namespace Diceforge.Core
         public int PosBBefore { get; }
         public int PosAAfter { get; }
         public int PosBAfter { get; }
-        public int? BlockCell { get; }
+        public int? ChipCell { get; }
+        public int Roll { get; }
         public ApplyResult ApplyResult { get; }
         public MatchEndReason EndReason { get; }
         public PlayerId? Winner { get; }
@@ -40,7 +41,8 @@ namespace Diceforge.Core
             int posBBefore,
             int posAAfter,
             int posBAfter,
-            int? blockCell,
+            int? chipCell,
+            int roll,
             ApplyResult applyResult,
             MatchEndReason endReason,
             PlayerId? winner)
@@ -52,7 +54,8 @@ namespace Diceforge.Core
             PosBBefore = posBBefore;
             PosAAfter = posAAfter;
             PosBAfter = posBAfter;
-            BlockCell = blockCell;
+            ChipCell = chipCell;
+            Roll = roll;
             ApplyResult = applyResult;
             EndReason = endReason;
             Winner = winner;

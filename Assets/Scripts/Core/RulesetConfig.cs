@@ -5,12 +5,12 @@ namespace Diceforge.Core
     [Serializable]
     public sealed class RulesetConfig
     {
-        // MVP: Long / SameDirectionLoop / BlockOnly / 9
+        // MVP: Long / SameDirectionLoop / ChipOnly / 9
         // Интерпретация для старта:
         // - Loop: поле кольцом
         // - SameDirection: оба игрока двигаются "вперёд" по кольцу
         // - 9: размер кольца (0..8)
-        // - BlockOnly: есть действие "поставить блок", которое мешает движению (движение тоже есть, иначе матч не едет)
+        // - ChipOnly: есть действие "поставить фишку", которое мешает движению (движение тоже есть, иначе матч не едет)
 
         public int ringSize = 9;
 
@@ -20,11 +20,20 @@ namespace Diceforge.Core
         // разрешать нулевой шаг (Step(0))
         public bool allowZeroStep = false;
 
-        // сколько блоков у игрока на матч
-        public int blocksPerPlayer = 3;
+        // сколько фишек у игрока в запасе на матч
+        public int chipsPerPlayer = 3;
 
-        // блок нельзя ставить на клетки игроков
-        public bool allowBlockOnPlayers = false;
+        // фишку нельзя ставить на клетки игроков
+        public bool allowChipOnPlayers = false;
+
+        // сколько нейтральных фишек поставить на поле в начале матча
+        public int startChipsOnBoard = 0;
+
+        // ставить стартовые фишки случайно (иначе заполняем по порядку)
+        public bool startChipsRandom = true;
+
+        // дополнительный сдвиг сидов для стартовой расстановки
+        public int startChipsSeedOffset = 1337;
 
         // лимит ходов на всякий случай
         public int maxTurns = 60;
@@ -39,7 +48,8 @@ namespace Diceforge.Core
         {
             ringSize = Math.Clamp(ringSize, 3, 99);
             maxStep = Math.Clamp(maxStep, 0, 10);
-            blocksPerPlayer = Math.Clamp(blocksPerPlayer, 0, 99);
+            chipsPerPlayer = Math.Clamp(chipsPerPlayer, 0, 99);
+            startChipsOnBoard = Math.Clamp(startChipsOnBoard, 0, ringSize - 2);
             maxTurns = Math.Clamp(maxTurns, 1, 9999);
         }
     }
