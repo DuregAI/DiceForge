@@ -59,7 +59,7 @@ namespace Diceforge.Core
                 var winner = State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
                 State.Finish(winner);
 
-                var record = BuildRecord(
+                var buildRecord = BuildRecord(
                     State.CurrentPlayer,
                     null,
                     posABefore,
@@ -69,8 +69,8 @@ namespace Diceforge.Core
                     ApplyResult.Illegal,
                     MatchEndReason.NoMoves
                 );
-                Log.Add(record);
-                OnMoveApplied?.Invoke(record);
+                Log.Add(buildRecord);
+                OnMoveApplied?.Invoke(buildRecord);
                 OnMatchEnded?.Invoke(State);
                 return true;
             }
