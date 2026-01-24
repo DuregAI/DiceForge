@@ -421,8 +421,8 @@ MonoBehaviour:
   playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
   playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
   lastMoveColor: {r: 1, g: 0.9, b: 0.3, a: 0.9}
-  pawnPrefab: {fileID: 0}
-  chipPrefab: {fileID: 0}
+  pawnPrefab: {fileID: 4651965059315984526, guid: 870de3ebfc85c5b428d66977832719ae, type: 3}
+  chipPrefab: {fileID: 2776706138654497508, guid: bbd2ab4c2db4ec8479cf94ea5a37545f, type: 3}
 --- !u!4 &426479108
 Transform:
   m_ObjectHideFlags: 0
@@ -483,10 +483,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
   rules:
-    ringSize: 12
+    ringSize: 24
     maxStep: 2
     allowZeroStep: 0
-    chipsPerPlayer: 3
+    chipsPerPlayer: 7
     allowChipOnPlayers: 0
     startChipsOnBoard: 0
     startChipsRandom: 1
@@ -502,14 +502,7 @@ MonoBehaviour:
   boardView: {fileID: 426479107}
   controlModeA: 1
   controlModeB: 0
-  turnText: {fileID: 0}
-  currentPlayerText: {fileID: 0}
-  rollText: {fileID: 0}
-  chipsInHandText: {fileID: 0}
-  lastMoveText: {fileID: 0}
-  winnerText: {fileID: 0}
-  moveButton: {fileID: 0}
-  placeChipButton: {fileID: 0}
+  hud: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +665,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1869959124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869959126}
+  - component: {fileID: 1869959125}
+  m_Layer: 5
+  m_Name: UI_DebugHUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1869959125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869959124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 19f53bedf0e2a1d4f8b33baddac488ed, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 64cabcf305db55642b9502de510f4b25, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &1869959126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869959124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -682,3 +730,4 @@ SceneRoots:
   - {fileID: 783023279}
   - {fileID: 426479108}
   - {fileID: 1136167094}
+  - {fileID: 1869959126}
