@@ -1,9 +1,5 @@
 using Diceforge.Core;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 namespace Diceforge.View
 {
@@ -33,14 +29,7 @@ namespace Diceforge.View
         [SerializeField] private ControlMode controlModeB = ControlMode.Bot;
 
         [Header("UI")]
-        [SerializeField] private TMP_Text turnText;
-        [SerializeField] private TMP_Text currentPlayerText;
-        [SerializeField] private TMP_Text rollText;
-        [SerializeField] private TMP_Text chipsInHandText;
-        [SerializeField] private TMP_Text lastMoveText;
-        [SerializeField] private TMP_Text winnerText;
-        [SerializeField] private Button moveButton;
-        [SerializeField] private Button placeChipButton;
+        [SerializeField] private DebugHudUITK hud;
 
         private BattleRunner _runner;
         private bool _isRunning;
@@ -57,15 +46,13 @@ namespace Diceforge.View
             _runner.OnMoveApplied += HandleMoveApplied;
             _runner.OnMatchEnded += HandleMatchEnded;
 
-            EnsureRuntimeUI();
-
             if (boardView != null)
                 boardView.OnCellClicked += HandleCellClicked;
 
-            if (moveButton != null)
-                moveButton.onClick.AddListener(HandleMoveClicked);
-            if (placeChipButton != null)
-                placeChipButton.onClick.AddListener(HandlePlaceChipClicked);
+            if (hud == null)
+                hud = GetComponentInChildren<DebugHudUITK>(true);
+
+            RegisterHudCallbacks();
 
             InitializeMatch();
         }
@@ -81,16 +68,15 @@ namespace Diceforge.View
             if (boardView != null)
                 boardView.OnCellClicked -= HandleCellClicked;
 
-            if (moveButton != null)
-                moveButton.onClick.RemoveListener(HandleMoveClicked);
-            if (placeChipButton != null)
-                placeChipButton.onClick.RemoveListener(HandlePlaceChipClicked);
+            UnregisterHudCallbacks();
         }
 
         private void Start()
         {
             if (autoStart)
                 StartMatch();
+
+            SyncHudState();
         }
 
         private void Update()
@@ -126,12 +112,14 @@ namespace Diceforge.View
         public void StartMatch()
         {
             _isRunning = true;
+            SyncHudState();
         }
 
         [ContextMenu("Stop")]
         public void StopMatch()
         {
             _isRunning = false;
+            SyncHudState();
         }
 
         [ContextMenu("Step")]
@@ -147,6 +135,8 @@ namespace Diceforge.View
             _elapsed = 0f;
             _runner.Reset();
             _isRunning = wasRunning;
+            SyncHudState();
+            UpdateUI();
         }
 
         private void TickOnce()
@@ -190,100 +180,6 @@ namespace Diceforge.View
             UpdateUI();
         }
 
-        private void EnsureRuntimeUI()
-        {
-            bool needsBuild = turnText == null || currentPlayerText == null || rollText == null
-                              || chipsInHandText == null || lastMoveText == null || winnerText == null
-                              || moveButton == null || placeChipButton == null;
-
-            if (!needsBuild)
-                return;
-
-            var canvas = FindObjectOfType<Canvas>();
-            if (canvas == null)
-            {
-                var canvasObj = new GameObject("DebugCanvas");
-                canvas = canvasObj.AddComponent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                canvasObj.AddComponent<CanvasScaler>();
-                canvasObj.AddComponent<GraphicRaycaster>();
-            }
-
-            if (FindObjectOfType<EventSystem>() == null)
-            {
-                var eventSystemObj = new GameObject("EventSystem");
-                eventSystemObj.AddComponent<EventSystem>();
-                eventSystemObj.AddComponent<InputSystemUIInputModule>();
-            }
-
-            var panelObj = new GameObject("DebugPanel");
-            panelObj.transform.SetParent(canvas.transform, false);
-            var panelRect = panelObj.AddComponent<RectTransform>();
-            panelRect.anchorMin = new Vector2(0f, 1f);
-            panelRect.anchorMax = new Vector2(0f, 1f);
-            panelRect.pivot = new Vector2(0f, 1f);
-            panelRect.anchoredPosition = new Vector2(20f, -20f);
-            panelRect.sizeDelta = new Vector2(260f, 300f);
-
-            var layout = panelObj.AddComponent<VerticalLayoutGroup>();
-            layout.childAlignment = TextAnchor.UpperLeft;
-            layout.spacing = 6f;
-            layout.padding = new RectOffset(6, 6, 6, 6);
-
-            var fitter = panelObj.AddComponent<ContentSizeFitter>();
-            fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            turnText = CreateText(panelObj.transform, "Turn");
-            currentPlayerText = CreateText(panelObj.transform, "Player");
-            rollText = CreateText(panelObj.transform, "Roll");
-            chipsInHandText = CreateText(panelObj.transform, "Chips");
-            lastMoveText = CreateText(panelObj.transform, "Last Move");
-            winnerText = CreateText(panelObj.transform, "Winner");
-
-            moveButton = CreateButton(panelObj.transform, "Move");
-            placeChipButton = CreateButton(panelObj.transform, "Place Chip");
-        }
-
-        private static TMP_Text CreateText(Transform parent, string label)
-        {
-            var obj = new GameObject($"Text_{label}");
-            obj.transform.SetParent(parent, false);
-            var text = obj.AddComponent<TextMeshProUGUI>();
-            text.fontSize = 18;
-            text.alignment = TextAlignmentOptions.Left;
-            text.text = $"{label}:";
-            return text;
-        }
-
-        private static Button CreateButton(Transform parent, string label)
-        {
-            var obj = new GameObject($"Button_{label}");
-            obj.transform.SetParent(parent, false);
-            var image = obj.AddComponent<Image>();
-            image.color = new Color(0.2f, 0.2f, 0.2f, 0.85f);
-            var button = obj.AddComponent<Button>();
-
-            var rect = obj.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(180f, 32f);
-
-            var textObj = new GameObject("Label");
-            textObj.transform.SetParent(obj.transform, false);
-            var text = textObj.AddComponent<TextMeshProUGUI>();
-            text.fontSize = 18;
-            text.alignment = TextAlignmentOptions.Center;
-            text.text = label;
-            text.color = Color.white;
-
-            var textRect = textObj.GetComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = Vector2.zero;
-            textRect.offsetMax = Vector2.zero;
-
-            return button;
-        }
-
         private bool IsHumanTurn()
         {
             if (_runner?.State == null) return false;
@@ -322,6 +218,16 @@ namespace Diceforge.View
             ApplyHumanMove(Move.PlaceChip(cellIndex));
         }
 
+        private void HandleEnterClicked()
+        {
+            HandlePlaceChipClicked();
+        }
+
+        private void HandlePlaceClicked()
+        {
+            HandlePlaceChipClicked();
+        }
+
         private void ApplyHumanMove(Move move)
         {
             if (_runner == null || _runner.State == null || _runner.State.IsFinished)
@@ -337,26 +243,147 @@ namespace Diceforge.View
             if (_runner?.State == null) return;
 
             var state = _runner.State;
-            string lastMove = _runner.Log.Last?.Move?.ToString() ?? "None";
+            string lastMove = BuildLastMoveText();
 
-            if (turnText != null)
-                turnText.text = $"Turn: {state.TurnIndex}";
-            if (currentPlayerText != null)
-                currentPlayerText.text = $"Player: {state.CurrentPlayer}";
-            if (rollText != null)
-                rollText.text = $"Roll: {state.CurrentRoll}";
-            if (chipsInHandText != null)
-                chipsInHandText.text = $"Chips In Hand A:{state.ChipsInHandA} B:{state.ChipsInHandB}";
-            if (lastMoveText != null)
-                lastMoveText.text = $"Last Move: {lastMove}";
-            if (winnerText != null)
-                winnerText.text = state.IsFinished ? $"Winner: {state.Winner}" : "Winner: -";
+            hud?.SetTurn(state.TurnIndex);
+            hud?.SetCurrentPlayer(state.CurrentPlayer.ToString());
+            hud?.SetRoll(state.CurrentRoll);
+            hud?.SetLastMove(lastMove);
+            hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "-" : "-");
+            hud?.SetPlayerStatsA($"A: Hand {state.ChipsInHandA}");
+            hud?.SetPlayerStatsB($"B: Hand {state.ChipsInHandB}");
+            hud?.SetStatus(BuildStatusText());
 
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
-            if (moveButton != null)
-                moveButton.interactable = humanTurn;
-            if (placeChipButton != null)
-                placeChipButton.interactable = humanTurn && state.GetChipsInHand(state.CurrentPlayer) > 0;
+            hud?.SetHumanControlsEnabled(humanTurn);
+            hud?.SetMoveEnabled(humanTurn);
+            hud?.SetEnterEnabled(humanTurn && state.GetChipsInHand(state.CurrentPlayer) > 0);
+            hud?.SetPlaceEnabled(humanTurn && state.GetChipsInHand(state.CurrentPlayer) > 0);
+        }
+
+        private void RegisterHudCallbacks()
+        {
+            if (hud == null)
+                return;
+
+            hud.OnStartStop += HandleStartStopChanged;
+            hud.OnStep += StepOnce;
+            hud.OnRestart += RestartMatch;
+            hud.OnMove += HandleMoveClicked;
+            hud.OnEnter += HandleEnterClicked;
+            hud.OnPlace += HandlePlaceClicked;
+            hud.OnToggleAutoRun += HandleAutoRunChanged;
+            hud.OnSpeedChanged += HandleSpeedChanged;
+            hud.OnHumanAChanged += HandleHumanAChanged;
+            hud.OnHumanBChanged += HandleHumanBChanged;
+        }
+
+        private void UnregisterHudCallbacks()
+        {
+            if (hud == null)
+                return;
+
+            hud.OnStartStop -= HandleStartStopChanged;
+            hud.OnStep -= StepOnce;
+            hud.OnRestart -= RestartMatch;
+            hud.OnMove -= HandleMoveClicked;
+            hud.OnEnter -= HandleEnterClicked;
+            hud.OnPlace -= HandlePlaceClicked;
+            hud.OnToggleAutoRun -= HandleAutoRunChanged;
+            hud.OnSpeedChanged -= HandleSpeedChanged;
+            hud.OnHumanAChanged -= HandleHumanAChanged;
+            hud.OnHumanBChanged -= HandleHumanBChanged;
+        }
+
+        private void HandleStartStopChanged(bool isRunning)
+        {
+            if (isRunning)
+                StartMatch();
+            else
+                StopMatch();
+        }
+
+        private void HandleAutoRunChanged(bool autoRun)
+        {
+            runContinuously = autoRun;
+            SyncHudState();
+        }
+
+        private void HandleSpeedChanged(float speed)
+        {
+            secondsPerTurn = Mathf.Max(0f, speed);
+            SyncHudState();
+        }
+
+        private void HandleHumanAChanged(bool isHuman)
+        {
+            controlModeA = isHuman ? ControlMode.Human : ControlMode.Bot;
+            UpdateUI();
+        }
+
+        private void HandleHumanBChanged(bool isHuman)
+        {
+            controlModeB = isHuman ? ControlMode.Human : ControlMode.Bot;
+            UpdateUI();
+        }
+
+        private void SyncHudState()
+        {
+            if (hud == null)
+                return;
+
+            hud.SetRunToggle(_isRunning);
+            hud.SetAutoRunToggle(runContinuously);
+            hud.SetSpeed(secondsPerTurn);
+            hud.SetHumanAToggle(controlModeA == ControlMode.Human);
+            hud.SetHumanBToggle(controlModeB == ControlMode.Human);
+            UpdateUI();
+        }
+
+        private string BuildStatusText()
+        {
+            if (_runner?.State == null)
+                return "Status: -";
+
+            if (_runner.State.IsFinished)
+                return $"Status: Finished ({_runner.State.Winner})";
+
+            string running = _isRunning ? "Running" : "Paused";
+            string mode = runContinuously ? "Auto" : "Manual";
+            return $"Status: {running} ({mode})";
+        }
+
+        private string BuildLastMoveText()
+        {
+            var last = _runner?.Log.Last;
+            if (!last.HasValue || !last.Value.Move.HasValue)
+                return "None";
+
+            var record = last.Value;
+            var move = record.Move.Value;
+            string player = record.PlayerId.ToString();
+            string text;
+
+            if (move.Kind == MoveKind.Step)
+            {
+                int from = record.PlayerId == PlayerId.A ? record.PosABefore : record.PosBBefore;
+                int to = record.PlayerId == PlayerId.A ? record.PosAAfter : record.PosBAfter;
+                bool hit = record.PlayerId == PlayerId.A
+                    ? to == record.PosBBefore
+                    : to == record.PosABefore;
+                string hitText = hit ? " hit" : string.Empty;
+                text = $"{player} {from}→{to} (Roll {record.Roll}){hitText}";
+            }
+            else
+            {
+                string cellText = record.ChipCell.HasValue ? record.ChipCell.Value.ToString() : "-";
+                text = $"{player} Place {cellText}";
+            }
+
+            if (record.ApplyResult == ApplyResult.Illegal)
+                text += " [Illegal]";
+
+            return text;
         }
     }
 }
