@@ -1,5 +1,6 @@
 using Diceforge.Core;
 using UnityEngine;
+using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -73,21 +74,23 @@ namespace Diceforge.View
         {
             if (!_cellSelectionEnabled) return;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (_camera == null)
-                    _camera = Camera.main;
-                if (_camera == null)
-                    return;
+            var mouse = Mouse.current;
+            if (mouse == null || !mouse.leftButton.wasPressedThisFrame)
+                return;
 
-                if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out var hit))
+            if (_camera == null)
+                _camera = Camera.main;
+            if (_camera == null)
+                return;
+
+            Vector2 position = mouse.position.ReadValue();
+            if (Physics.Raycast(_camera.ScreenPointToRay(position), out var hit))
+            {
+                var marker = hit.collider.GetComponent<CellMarker>();
+                if (marker != null)
                 {
-                    var marker = hit.collider.GetComponent<CellMarker>();
-                    if (marker != null)
-                    {
-                        _cellSelectionEnabled = false;
-                        OnCellClicked?.Invoke(marker.Index);
-                    }
+                    _cellSelectionEnabled = false;
+                    OnCellClicked?.Invoke(marker.Index);
                 }
             }
         }

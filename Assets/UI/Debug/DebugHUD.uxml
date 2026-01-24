@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="DebugHUD.uss" />
+    <ui:VisualElement class="hud-root">
+        <ui:VisualElement class="hud-header">
+            <ui:Label text="Battle Debug HUD" class="hud-title" />
+            <ui:Label name="statusLabel" text="Status: -" class="hud-status" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="hud-section hud-info">
+            <ui:VisualElement class="hud-column">
+                <ui:Label name="turnLabel" text="Turn: -" />
+                <ui:Label name="playerLabel" text="Player: -" />
+                <ui:Label name="rollLabel" text="Roll: -" />
+                <ui:Label name="lastMoveLabel" text="Last Move: -" />
+                <ui:Label name="winnerLabel" text="Winner: -" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-column">
+                <ui:Label name="aStatsLabel" text="A: Hand -" />
+                <ui:Label name="bStatsLabel" text="B: Hand -" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="hud-section hud-controls">
+            <ui:VisualElement class="hud-row">
+                <ui:Toggle name="startStopButton" text="Run" />
+                <ui:Button name="stepButton" text="Step" />
+                <ui:Button name="restartButton" text="Restart" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-row">
+                <ui:Slider name="speedSlider" label="Speed (s)" low-value="0" high-value="2" />
+                <ui:Toggle name="autoRunToggle" text="Auto Run" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-row">
+                <ui:Toggle name="humanAToggle" text="Human A" />
+                <ui:Toggle name="humanBToggle" text="Human B" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-row">
+                <ui:Button name="moveButton" text="Move" />
+                <ui:Button name="enterButton" text="Enter" />
+                <ui:Button name="placeButton" text="Place" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
