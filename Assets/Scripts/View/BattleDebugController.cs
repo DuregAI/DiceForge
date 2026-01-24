@@ -1,6 +1,7 @@
 using Diceforge.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -212,7 +213,7 @@ namespace Diceforge.View
             {
                 var eventSystemObj = new GameObject("EventSystem");
                 eventSystemObj.AddComponent<EventSystem>();
-                eventSystemObj.AddComponent<StandaloneInputModule>();
+                eventSystemObj.AddComponent<InputSystemUIInputModule>();
             }
 
             var panelObj = new GameObject("DebugPanel");
