@@ -16,15 +16,18 @@ namespace Diceforge.Core
         public PlayerId CurrentPlayer { get; private set; }
         public int CurrentRoll { get; private set; }
 
-        // позиции на кольце
+        // позиции на кольце (устаревшее, не используется в новой модели)
         public int PosA { get; private set; }
         public int PosB { get; private set; }
 
-        // клетки с фишками-препятствиями
+        // клетки с фишками-препятствиями (устаревшее, не используется)
         public bool[] HasChip { get; }
 
-        public int ChipsInHandA { get; private set; }
-        public int ChipsInHandB { get; private set; }
+        public int[] StonesAByCell { get; }
+        public int[] StonesBByCell { get; }
+
+        public int StonesInHandA { get; private set; }
+        public int StonesInHandB { get; private set; }
 
         public bool IsFinished { get; private set; }
         public PlayerId? Winner { get; private set; }
@@ -35,6 +38,8 @@ namespace Diceforge.Core
             Rules.Validate();
 
             HasChip = new bool[Rules.ringSize];
+            StonesAByCell = new int[Rules.ringSize];
+            StonesBByCell = new int[Rules.ringSize];
 
             Reset();
         }
@@ -42,13 +47,21 @@ namespace Diceforge.Core
         public void Reset()
         {
             Array.Clear(HasChip, 0, HasChip.Length);
+            Array.Clear(StonesAByCell, 0, StonesAByCell.Length);
+            Array.Clear(StonesBByCell, 0, StonesBByCell.Length);
 
-            // старт: напротив друг друга (для 9 будет 0 и 4)
             PosA = 0;
             PosB = Rules.ringSize / 2;
 
-            ChipsInHandA = Rules.chipsPerPlayer;
-            ChipsInHandB = Rules.chipsPerPlayer;
+            int startCellA = Mod(Rules.startCellA, Rules.ringSize);
+            int startCellB = Mod(Rules.startCellB, Rules.ringSize);
+            int startStones = Math.Clamp(Rules.startStonesPerPlayer, 0, Rules.totalStonesPerPlayer);
+            StonesAByCell[startCellA] = startStones;
+            StonesBByCell[startCellB] = startStones;
+
+            int stonesInHand = Rules.totalStonesPerPlayer - startStones;
+            StonesInHandA = stonesInHand;
+            StonesInHandB = stonesInHand;
 
             TurnIndex = 0;
             CurrentPlayer = PlayerId.A;
@@ -61,19 +74,46 @@ namespace Diceforge.Core
         public int GetPos(PlayerId p) => p == PlayerId.A ? PosA : PosB;
         public int GetOpponentPos(PlayerId p) => p == PlayerId.A ? PosB : PosA;
 
-        public int GetChipsInHand(PlayerId p) => p == PlayerId.A ? ChipsInHandA : ChipsInHandB;
+        public int GetStonesInHand(PlayerId p) => p == PlayerId.A ? StonesInHandA : StonesInHandB;
 
-        public void SpendChip(PlayerId p)
+        public void SpendStoneFromHand(PlayerId p)
         {
-            if (p == PlayerId.A) ChipsInHandA--;
-            else ChipsInHandB--;
+            if (p == PlayerId.A) StonesInHandA--;
+            else StonesInHandB--;
         }
 
-        public void SetPos(PlayerId p, int pos)
+        public void AddStoneToHand(PlayerId p)
         {
-            pos = Mod(pos, Rules.ringSize);
-            if (p == PlayerId.A) PosA = pos;
-            else PosB = pos;
+            if (p == PlayerId.A) StonesInHandA++;
+            else StonesInHandB++;
+        }
+
+        public int GetStonesAt(PlayerId p, int cell)
+        {
+            cell = Mod(cell, Rules.ringSize);
+            return p == PlayerId.A ? StonesAByCell[cell] : StonesBByCell[cell];
+        }
+
+        public void AddStoneToCell(PlayerId p, int cell)
+        {
+            cell = Mod(cell, Rules.ringSize);
+            if (p == PlayerId.A) StonesAByCell[cell]++;
+            else StonesBByCell[cell]++;
+        }
+
+        public bool RemoveStoneFromCell(PlayerId p, int cell)
+        {
+            cell = Mod(cell, Rules.ringSize);
+            if (p == PlayerId.A)
+            {
+                if (StonesAByCell[cell] <= 0) return false;
+                StonesAByCell[cell]--;
+                return true;
+            }
+
+            if (StonesBByCell[cell] <= 0) return false;
+            StonesBByCell[cell]--;
+            return true;
         }
 
         public void AdvanceTurn()
@@ -98,10 +138,13 @@ namespace Diceforge.Core
             // компактный снимок: позиции, блоки, чей ход
             var sb = new StringBuilder();
             sb.Append($"T{TurnIndex} P:{CurrentPlayer}  ");
-            sb.Append($"A@{PosA}({ChipsInHandA}c)  B@{PosB}({ChipsInHandB}c)  ");
-            sb.Append("Chips:");
-            for (int i = 0; i < HasChip.Length; i++)
-                if (HasChip[i]) sb.Append(i).Append(' ');
+            sb.Append($"Hand A:{StonesInHandA}  Hand B:{StonesInHandB}  ");
+            sb.Append("A cells:");
+            for (int i = 0; i < StonesAByCell.Length; i++)
+                if (StonesAByCell[i] > 0) sb.Append($"{i}({StonesAByCell[i]}) ");
+            sb.Append(" B cells:");
+            for (int i = 0; i < StonesBByCell.Length; i++)
+                if (StonesBByCell[i] > 0) sb.Append($"{i}({StonesBByCell[i]}) ");
             return sb.ToString();
         }
 

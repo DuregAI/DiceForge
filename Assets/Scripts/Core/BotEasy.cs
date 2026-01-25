@@ -14,46 +14,33 @@ namespace Diceforge.Core
 
         public Move ChooseMove(GameState s, List<Move> legal)
         {
-            // 1) если можно выиграть шагом — делаем это
-            int myPos = s.GetPos(s.CurrentPlayer);
-            int oppPos = s.GetOpponentPos(s.CurrentPlayer);
+            var opponent = s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
 
+            // 1) если можно сделать hit — делаем это
             foreach (var m in legal)
             {
-                if (m.Kind != MoveKind.Step) continue;
-                int to = GameState.Mod(myPos + m.Value, s.Rules.ringSize);
-                if (to == oppPos) return m;
-            }
-
-            // 2) иначе: попробуем поставить фишку "перед" соперником (чуть-чуть мешаем)
-            // (перед = oppPos+1 по SameDirection)
-            int ahead = GameState.Mod(oppPos + 1, s.Rules.ringSize);
-            foreach (var m in legal)
-            {
-                if (m.Kind == MoveKind.PlaceChip && m.Value == ahead)
+                int to = GetTargetCell(s, m);
+                if (to < 0) continue;
+                if (s.GetStonesAt(opponent, to) == 1)
                     return m;
             }
 
-            // 3) иначе: небольшой приоритет шагам (чтобы матч двигался)
-            var stepMoves = new List<Move>();
-            foreach (var m in legal)
-            {
-                if (m.Kind == MoveKind.Step) stepMoves.Add(m);
-            }
-
-            if (stepMoves.Count > 0 && _rng.NextDouble() < 0.75)
-            {
-                // предпочитаем "не нулевой" шаг, если есть
-                for (int tries = 0; tries < 6; tries++)
-                {
-                    var pick = stepMoves[_rng.Next(stepMoves.Count)];
-                    if (pick.Value > 0) return pick;
-                }
-                return stepMoves[_rng.Next(stepMoves.Count)];
-            }
-
-            // 4) fallback — случайный легальный
+            // 2) иначе — случайный легальный
             return legal[_rng.Next(legal.Count)];
+        }
+
+        private static int GetTargetCell(GameState s, Move move)
+        {
+            if (move.Kind == MoveKind.MoveOneStone)
+            {
+                int from = GameState.Mod(move.Value, s.Rules.ringSize);
+                return GameState.Mod(from + s.CurrentRoll, s.Rules.ringSize);
+            }
+
+            if (move.Kind == MoveKind.EnterFromHand)
+                return GameState.Mod(move.Value, s.Rules.ringSize);
+
+            return -1;
         }
     }
 }

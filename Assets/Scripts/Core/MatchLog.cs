@@ -23,11 +23,9 @@ namespace Diceforge.Core
         public int TurnIndex { get; }
         public PlayerId PlayerId { get; }
         public Move? Move { get; }
-        public int PosABefore { get; }
-        public int PosBBefore { get; }
-        public int PosAAfter { get; }
-        public int PosBAfter { get; }
-        public int? ChipCell { get; }
+        public int? FromCell { get; }
+        public int? ToCell { get; }
+        public bool WasHit { get; }
         public int Roll { get; }
         public ApplyResult ApplyResult { get; }
         public MatchEndReason EndReason { get; }
@@ -37,11 +35,9 @@ namespace Diceforge.Core
             int turnIndex,
             PlayerId playerId,
             Move? move,
-            int posABefore,
-            int posBBefore,
-            int posAAfter,
-            int posBAfter,
-            int? chipCell,
+            int? fromCell,
+            int? toCell,
+            bool wasHit,
             int roll,
             ApplyResult applyResult,
             MatchEndReason endReason,
@@ -50,11 +46,9 @@ namespace Diceforge.Core
             TurnIndex = turnIndex;
             PlayerId = playerId;
             Move = move;
-            PosABefore = posABefore;
-            PosBBefore = posBBefore;
-            PosAAfter = posAAfter;
-            PosBAfter = posBAfter;
-            ChipCell = chipCell;
+            FromCell = fromCell;
+            ToCell = toCell;
+            WasHit = wasHit;
             Roll = roll;
             ApplyResult = applyResult;
             EndReason = endReason;
