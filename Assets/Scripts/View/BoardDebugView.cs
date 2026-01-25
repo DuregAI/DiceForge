@@ -13,25 +13,25 @@ namespace Diceforge.View
         [SerializeField] private float ringRadius = 3f;
         [SerializeField] private float cellRadius = 0.15f;
         [SerializeField] private float playerRadius = 0.25f;
-        [SerializeField] private float chipHeight = 0.2f;
+        [SerializeField] private float stoneHeight = 0.2f;
+        [SerializeField] private float stoneSpreadRadius = 0.18f;
+        [SerializeField] private float stoneRingSpacing = 0.08f;
 
         [Header("Colors")]
         [SerializeField] private Color cellColor = new Color(0.7f, 0.7f, 0.7f, 0.8f);
-        [SerializeField] private Color chipColor = new Color(0.2f, 0.2f, 0.2f, 0.9f);
         [SerializeField] private Color playerAColor = new Color(0.2f, 0.6f, 1f, 0.9f);
         [SerializeField] private Color playerBColor = new Color(1f, 0.4f, 0.2f, 0.9f);
         [SerializeField] private Color lastMoveColor = new Color(1f, 0.9f, 0.3f, 0.9f);
 
         [Header("Prefabs")]
-        [SerializeField] private GameObject pawnPrefab;
-        [SerializeField] private GameObject chipPrefab;
+        [SerializeField] private GameObject stonePrefabA;
+        [SerializeField] private GameObject stonePrefabB;
 
         private GameState _state;
         private MatchLog _log;
         private MoveRecord? _lastRecord;
-        private GameObject _pawnA;
-        private GameObject _pawnB;
-        private readonly System.Collections.Generic.List<GameObject> _chipPool = new System.Collections.Generic.List<GameObject>();
+        private readonly System.Collections.Generic.List<GameObject> _stonePoolA = new System.Collections.Generic.List<GameObject>();
+        private readonly System.Collections.Generic.List<GameObject> _stonePoolB = new System.Collections.Generic.List<GameObject>();
         private CellMarker[] _cellMarkers;
         private bool _cellSelectionEnabled;
         private Camera _camera;
@@ -49,7 +49,6 @@ namespace Diceforge.View
             _log = log;
             _lastRecord = null;
             BuildCells();
-            BuildPawns();
             RefreshPieces();
         }
 
@@ -127,14 +126,6 @@ namespace Diceforge.View
 #endif
         }
 
-        private void BuildPawns()
-        {
-            if (_pawnA == null)
-                _pawnA = CreatePiece(pawnPrefab, PrimitiveType.Sphere, "PawnA", playerAColor);
-            if (_pawnB == null)
-                _pawnB = CreatePiece(pawnPrefab, PrimitiveType.Sphere, "PawnB", playerBColor);
-        }
-
         private void BuildCells()
         {
             if (_cellMarkers != null)
@@ -172,38 +163,69 @@ namespace Diceforge.View
                 return;
 
             int ringSize = _state.Rules.ringSize;
-            if (_pawnA != null)
-                _pawnA.transform.position = CellPosition(_state.PosA, ringSize) + Vector3.up * 0.2f;
-            if (_pawnB != null)
-                _pawnB.transform.position = CellPosition(_state.PosB, ringSize) + Vector3.up * 0.2f;
-
-            int chipCount = 0;
-            for (int i = 0; i < _state.HasChip.Length; i++)
-                if (_state.HasChip[i]) chipCount++;
-
-            EnsureChipPool(chipCount);
-
-            int used = 0;
-            for (int i = 0; i < _state.HasChip.Length; i++)
+            int totalA = 0;
+            int totalB = 0;
+            for (int i = 0; i < ringSize; i++)
             {
-                if (!_state.HasChip[i]) continue;
-
-                var chip = _chipPool[used++];
-                chip.SetActive(true);
-                chip.transform.position = CellPosition(i, ringSize) + Vector3.up * (chipHeight * 0.5f);
+                totalA += _state.StonesAByCell[i];
+                totalB += _state.StonesBByCell[i];
             }
 
-            for (int i = used; i < _chipPool.Count; i++)
-                _chipPool[i].SetActive(false);
+            EnsureStonePool(_stonePoolA, stonePrefabA, playerAColor, totalA, "StoneA");
+            EnsureStonePool(_stonePoolB, stonePrefabB, playerBColor, totalB, "StoneB");
+
+            int usedA = 0;
+            int usedB = 0;
+            for (int cell = 0; cell < ringSize; cell++)
+            {
+                usedA = PlaceStonesOnCell(cell, _state.StonesAByCell[cell], ringSize, _stonePoolA, usedA);
+                usedB = PlaceStonesOnCell(cell, _state.StonesBByCell[cell], ringSize, _stonePoolB, usedB);
+            }
+
+            for (int i = usedA; i < _stonePoolA.Count; i++)
+                _stonePoolA[i].SetActive(false);
+            for (int i = usedB; i < _stonePoolB.Count; i++)
+                _stonePoolB[i].SetActive(false);
         }
 
-        private void EnsureChipPool(int count)
+        private int PlaceStonesOnCell(int cell, int count, int ringSize, System.Collections.Generic.List<GameObject> pool, int used)
         {
-            while (_chipPool.Count < count)
+            if (count <= 0) return used;
+
+            Vector3 center = CellPosition(cell, ringSize);
+            for (int i = 0; i < count; i++)
             {
-                var chip = CreatePiece(chipPrefab, PrimitiveType.Cylinder, $"Chip_{_chipPool.Count}", chipColor);
-                chip.transform.localScale = new Vector3(cellRadius * 2f, chipHeight * 0.5f, cellRadius * 2f);
-                _chipPool.Add(chip);
+                var stone = pool[used++];
+                stone.SetActive(true);
+                Vector3 offset = CalculateStoneOffset(i, count);
+                stone.transform.position = center + offset;
+            }
+
+            return used;
+        }
+
+        private Vector3 CalculateStoneOffset(int index, int count)
+        {
+            if (count <= 1)
+                return Vector3.up * (stoneHeight * 0.5f);
+
+            int ringIndex = index / 6;
+            int indexInRing = index % 6;
+            int ringCount = Mathf.Min(6, count - ringIndex * 6);
+            float radius = stoneSpreadRadius + ringIndex * stoneRingSpacing;
+            float angle = Mathf.PI * 2f * indexInRing / Mathf.Max(1, ringCount);
+            Vector3 planar = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * radius;
+            float height = stoneHeight * 0.5f + ringIndex * (stoneHeight * 0.15f);
+            return planar + Vector3.up * height;
+        }
+
+        private void EnsureStonePool(System.Collections.Generic.List<GameObject> pool, GameObject prefab, Color color, int count, string namePrefix)
+        {
+            while (pool.Count < count)
+            {
+                var stone = CreatePiece(prefab, PrimitiveType.Sphere, $"{namePrefix}_{pool.Count}", color);
+                stone.transform.localScale = Vector3.one * cellRadius * 1.4f;
+                pool.Add(stone);
             }
         }
 
@@ -232,23 +254,20 @@ namespace Diceforge.View
             if (!record.Move.HasValue) return null;
 
             var move = record.Move.Value;
-            if (move.Kind == MoveKind.PlaceChip)
-                return record.ChipCell;
-
-            return record.PlayerId == PlayerId.A ? record.PosAAfter : record.PosBAfter;
+            return record.ToCell;
         }
 
         private string BuildInfoText()
         {
             string lastMoveText = _lastRecord?.Move?.ToString() ?? "None";
-            string chips = $"A:{_state.ChipsInHandA}  B:{_state.ChipsInHandB}";
+            string chips = $"A:{_state.StonesInHandA}  B:{_state.StonesInHandB}";
             string status = _state.IsFinished
                 ? $"Finished ({_state.Winner})"
                 : $"Turn {_state.TurnIndex} - {_state.CurrentPlayer}";
 
             string endReason = _lastRecord?.EndReason.ToString() ?? "None";
 
-            return $"Diceforge Debug\n{status}\nRoll: {_state.CurrentRoll}\nChips: {chips}\nLast Move: {lastMoveText}\nEnd: {endReason}";
+            return $"Diceforge Debug\n{status}\nRoll: {_state.CurrentRoll}\nHand: {chips}\nLast Move: {lastMoveText}\nEnd: {endReason}";
         }
     }
 }

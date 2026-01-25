@@ -9,11 +9,12 @@ namespace Diceforge.Core
         private BotEasy _botB;
         private int _seed;
         private Random _rng;
+        private int _currentRoll;
 
         public GameState State { get; private set; }
         public MatchLog Log { get; } = new MatchLog();
         public RulesetConfig Rules { get; private set; }
-        public int CurrentRoll => State?.CurrentRoll ?? 0;
+        public int CurrentRoll => _currentRoll;
 
         public event Action<GameState> OnMatchStarted;
         public event Action<MoveRecord> OnMoveApplied;
@@ -29,7 +30,6 @@ namespace Diceforge.Core
             State = new GameState(Rules);
             CreateBots();
             Log.Clear();
-            PlaceStartingChips();
             RollForTurn();
 
             OnMatchStarted?.Invoke(State);
@@ -43,7 +43,6 @@ namespace Diceforge.Core
             State.Reset();
             CreateBots();
             Log.Clear();
-            PlaceStartingChips();
             RollForTurn();
 
             OnMatchStarted?.Invoke(State);
@@ -57,17 +56,14 @@ namespace Diceforge.Core
             if (State.IsFinished)
                 return false;
 
-            int posABefore = State.PosA;
-            int posBBefore = State.PosB;
-
-            var legal = MoveGenerator.GenerateLegalMoves(State);
+            var legal = MoveGenerator.GenerateLegalMoves(State, _currentRoll);
             if (legal.Count == 0)
-                return HandleNoMoves(posABefore, posBBefore);
+                return HandleNoMoves();
 
             var bot = State.CurrentPlayer == PlayerId.A ? _botA : _botB;
             var move = bot.ChooseMove(State, legal);
 
-            return ApplyCurrentMove(move, posABefore, posBBefore);
+            return ApplyCurrentMove(move);
         }
 
         public bool TryApplyHumanMove(Move move)
@@ -75,17 +71,14 @@ namespace Diceforge.Core
             if (State == null || State.IsFinished)
                 return false;
 
-            int posABefore = State.PosA;
-            int posBBefore = State.PosB;
-
-            var legal = MoveGenerator.GenerateLegalMoves(State);
+            var legal = MoveGenerator.GenerateLegalMoves(State, _currentRoll);
             if (legal.Count == 0)
-                return HandleNoMoves(posABefore, posBBefore);
+                return HandleNoMoves();
 
             if (!legal.Contains(move))
                 return false;
 
-            return ApplyCurrentMove(move, posABefore, posBBefore);
+            return ApplyCurrentMove(move);
         }
 
         private void CreateBots()
@@ -94,77 +87,33 @@ namespace Diceforge.Core
             _botB = new BotEasy(_seed + 200);
         }
 
-        private void PlaceStartingChips()
-        {
-            int count = Math.Clamp(Rules.startChipsOnBoard, 0, Rules.ringSize - 2);
-            if (count <= 0) return;
-
-            int seed = _seed + Rules.startChipsSeedOffset;
-            var rng = Rules.startChipsRandom ? new Random(seed) : null;
-
-            int placed = 0;
-            if (Rules.startChipsRandom)
-            {
-                int attempts = 0;
-                while (placed < count && attempts < Rules.ringSize * 10)
-                {
-                    int cell = rng.Next(Rules.ringSize);
-                    attempts++;
-
-                    if (cell == State.PosA || cell == State.PosB) continue;
-                    if (State.HasChip[cell]) continue;
-
-                    State.HasChip[cell] = true;
-                    placed++;
-                }
-            }
-            else
-            {
-                for (int cell = 0; cell < Rules.ringSize && placed < count; cell++)
-                {
-                    if (cell == State.PosA || cell == State.PosB) continue;
-                    if (State.HasChip[cell]) continue;
-
-                    State.HasChip[cell] = true;
-                    placed++;
-                }
-            }
-        }
-
         private void RollForTurn()
         {
             if (State.IsFinished) return;
 
             int roll = 0;
-            if (Rules.maxStep > 0)
-                roll = _rng.Next(1, Rules.maxStep + 1);
+            if (Rules.maxRoll > 0)
+                roll = _rng.Next(1, Rules.maxRoll + 1);
+            _currentRoll = roll;
             State.SetCurrentRoll(roll);
         }
 
         private MoveRecord BuildRecord(
             PlayerId player,
             Move? move,
-            int posABefore,
-            int posBBefore,
-            int posAAfter,
-            int posBAfter,
+            int? fromCell,
+            int? toCell,
+            bool wasHit,
             ApplyResult result,
             MatchEndReason endReason)
         {
-            int? chipCell = null;
-
-            if (move.HasValue && move.Value.Kind == MoveKind.PlaceChip)
-                chipCell = GameState.Mod(move.Value.Value, State.Rules.ringSize);
-
             return new MoveRecord(
                 State.TurnIndex,
                 player,
                 move,
-                posABefore,
-                posBBefore,
-                posAAfter,
-                posBAfter,
-                chipCell,
+                fromCell,
+                toCell,
+                wasHit,
                 State.CurrentRoll,
                 result,
                 endReason,
@@ -172,11 +121,10 @@ namespace Diceforge.Core
             );
         }
 
-        private bool ApplyCurrentMove(Move move, int posABefore, int posBBefore)
+        private bool ApplyCurrentMove(Move move)
         {
+            var beforeMove = DescribeMoveBeforeApply(move);
             var result = MoveGenerator.ApplyMove(State, move);
-            int posAAfter = State.PosA;
-            int posBAfter = State.PosB;
             var endReason = MatchEndReason.None;
 
             if (result == ApplyResult.Finished || State.IsFinished)
@@ -192,10 +140,9 @@ namespace Diceforge.Core
             var record = BuildRecord(
                 State.CurrentPlayer,
                 move,
-                posABefore,
-                posBBefore,
-                posAAfter,
-                posBAfter,
+                beforeMove.FromCell,
+                beforeMove.ToCell,
+                beforeMove.WasHit,
                 result,
                 endReason
             );
@@ -213,7 +160,7 @@ namespace Diceforge.Core
             return true;
         }
 
-        private bool HandleNoMoves(int posABefore, int posBBefore)
+        private bool HandleNoMoves()
         {
             var winner = State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
             State.Finish(winner);
@@ -221,10 +168,9 @@ namespace Diceforge.Core
             var buildRecord = BuildRecord(
                 State.CurrentPlayer,
                 null,
-                posABefore,
-                posBBefore,
-                State.PosA,
-                State.PosB,
+                null,
+                null,
+                false,
                 ApplyResult.Illegal,
                 MatchEndReason.NoMoves
             );
@@ -236,20 +182,31 @@ namespace Diceforge.Core
 
         private static PlayerId DecideWinnerOnTimeout(GameState s)
         {
-            int distA = ForwardDistance(s.PosA, s.PosB, s.Rules.ringSize);
-            int distB = ForwardDistance(s.PosB, s.PosA, s.Rules.ringSize);
-
-            if (distA < distB) return PlayerId.A;
-            if (distB < distA) return PlayerId.B;
-
             return PlayerId.A;
         }
 
-        private static int ForwardDistance(int from, int to, int ringSize)
+        private (int? FromCell, int? ToCell, bool WasHit) DescribeMoveBeforeApply(Move move)
         {
-            int d = to - from;
-            if (d < 0) d += ringSize;
-            return d;
+            if (State == null) return (null, null, false);
+
+            if (move.Kind == MoveKind.MoveOneStone)
+            {
+                int from = GameState.Mod(move.Value, State.Rules.ringSize);
+                int to = GameState.Mod(from + _currentRoll, State.Rules.ringSize);
+                bool wasHit = State.Rules.allowHitSingleStone
+                    && State.GetStonesAt(State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to) == 1;
+                return (from, to, wasHit);
+            }
+
+            if (move.Kind == MoveKind.EnterFromHand)
+            {
+                int to = GameState.Mod(move.Value, State.Rules.ringSize);
+                bool wasHit = State.Rules.allowHitSingleStone
+                    && State.GetStonesAt(State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to) == 1;
+                return (null, to, wasHit);
+            }
+
+            return (null, null, false);
         }
     }
 }

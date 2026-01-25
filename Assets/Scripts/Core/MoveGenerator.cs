@@ -5,8 +5,8 @@ namespace Diceforge.Core
 {
     public enum MoveKind : byte
     {
-        Step = 0,
-        PlaceChip = 1
+        MoveOneStone = 0,
+        EnterFromHand = 1
     }
 
     public readonly struct Move
@@ -20,18 +20,18 @@ namespace Diceforge.Core
             Value = value;
         }
 
-        public static Move Step(int steps) => new Move(MoveKind.Step, steps);
-        public static Move PlaceChip(int cellIndex) => new Move(MoveKind.PlaceChip, cellIndex);
+        public static Move MoveOneStone(int fromCell) => new Move(MoveKind.MoveOneStone, fromCell);
+        public static Move EnterFromHand(int targetCell) => new Move(MoveKind.EnterFromHand, targetCell);
 
         public override string ToString()
         {
-            return Kind == MoveKind.Step ? $"Step({Value})" : $"Chip({Value})";
+            return Kind == MoveKind.MoveOneStone ? $"Move({Value})" : $"Enter({Value})";
         }
     }
 
     public static class MoveGenerator
     {
-        public static List<Move> GenerateLegalMoves(GameState s)
+        public static List<Move> GenerateLegalMoves(GameState s, int roll)
         {
             if (s == null) throw new ArgumentNullException(nameof(s));
 
@@ -40,43 +40,28 @@ namespace Diceforge.Core
 
             if (s.IsFinished) return moves;
 
-            // 1) Step move: только по броску кубика
-            int steps = s.CurrentRoll;
-            if (steps == 0 && !rules.allowZeroStep)
-            {
-                // no-op
-            }
-            else
-            {
-                int from = s.GetPos(s.CurrentPlayer);
-                int to = GameState.Mod(from + steps, rules.ringSize);
+            if (roll <= 0)
+                return moves;
 
-                // нельзя в фишку
-                if (!s.HasChip[to])
-                {
-                    // нельзя на соперника (для MVP сделаем столкновение = победа, поэтому разрешаем как "атаку")
-                    // но чтобы был осмысленный win-condition, разрешаем ход на соперника как завершающий
-                    moves.Add(Move.Step(steps));
-                }
+            // 1) Move one stone from any occupied cell
+            var current = s.CurrentPlayer;
+            var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
+            for (int cell = 0; cell < rules.ringSize; cell++)
+            {
+                if (s.GetStonesAt(current, cell) <= 0) continue;
+                int to = GameState.Mod(cell + roll, rules.ringSize);
+                if (!CanEnterCell(s, opponent, to))
+                    continue;
+                moves.Add(Move.MoveOneStone(cell));
             }
 
-            // 2) Place chip moves (если есть фишки)
-            if (s.GetChipsInHand(s.CurrentPlayer) > 0)
+            // 2) Enter from hand (into start cell)
+            if (s.GetStonesInHand(current) > 0)
             {
-                for (int i = 0; i < rules.ringSize; i++)
-                {
-                    if (s.HasChip[i]) continue;
-
-                    if (!rules.allowChipOnPlayers)
-                    {
-                        if (i == s.PosA || i == s.PosB) continue;
-                    }
-
-                    // не ставим блок "под себя" (чтобы не было тупняка)
-                    if (i == s.GetPos(s.CurrentPlayer)) continue;
-
-                    moves.Add(Move.PlaceChip(i));
-                }
+                int target = current == PlayerId.A ? rules.startCellA : rules.startCellB;
+                target = GameState.Mod(target, rules.ringSize);
+                if (CanEnterCell(s, opponent, target))
+                    moves.Add(Move.EnterFromHand(target));
             }
 
             return moves;
@@ -88,46 +73,62 @@ namespace Diceforge.Core
 
             switch (m.Kind)
             {
-                case MoveKind.Step:
+                case MoveKind.MoveOneStone:
                 {
-                    int from = s.GetPos(s.CurrentPlayer);
-                    int to = GameState.Mod(from + m.Value, s.Rules.ringSize);
+                    int roll = s.CurrentRoll;
+                    if (roll <= 0 || roll > s.Rules.maxRoll) return ApplyResult.Illegal;
 
-                    // защита от неверных ходов (на всякий случай)
-                    if (m.Value != s.CurrentRoll) return ApplyResult.Illegal;
-                    if (m.Value < 0 || m.Value > s.Rules.maxStep) return ApplyResult.Illegal;
-                    if (!s.Rules.allowZeroStep && m.Value == 0) return ApplyResult.Illegal;
-                    if (s.HasChip[to]) return ApplyResult.Illegal;
+                    int from = GameState.Mod(m.Value, s.Rules.ringSize);
+                    if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
 
-                    s.SetPos(s.CurrentPlayer, to);
+                    int to = GameState.Mod(from + roll, s.Rules.ringSize);
+                    if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to))
+                        return ApplyResult.Illegal;
 
-                    // win-condition MVP:
-                    // если встали на клетку соперника => победа
-                    if (to == s.GetOpponentPos(s.CurrentPlayer))
-                    {
-                        s.Finish(s.CurrentPlayer);
-                        return ApplyResult.Finished;
-                    }
+                    if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
+                    ResolveHitIfNeeded(s, to);
+                    s.AddStoneToCell(s.CurrentPlayer, to);
 
                     return ApplyResult.Ok;
                 }
-                case MoveKind.PlaceChip:
+                case MoveKind.EnterFromHand:
                 {
-                    if (s.GetChipsInHand(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
+                    if (s.GetStonesInHand(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
 
-                    int cell = GameState.Mod(m.Value, s.Rules.ringSize);
-                    if (s.HasChip[cell]) return ApplyResult.Illegal;
+                    int target = s.CurrentPlayer == PlayerId.A ? s.Rules.startCellA : s.Rules.startCellB;
+                    target = GameState.Mod(target, s.Rules.ringSize);
+                    if (GameState.Mod(m.Value, s.Rules.ringSize) != target) return ApplyResult.Illegal;
 
-                    if (!s.Rules.allowChipOnPlayers && (cell == s.PosA || cell == s.PosB))
+                    if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, target))
                         return ApplyResult.Illegal;
-                    if (cell == s.GetPos(s.CurrentPlayer)) return ApplyResult.Illegal;
 
-                    s.HasChip[cell] = true;
-                    s.SpendChip(s.CurrentPlayer);
+                    s.SpendStoneFromHand(s.CurrentPlayer);
+                    ResolveHitIfNeeded(s, target);
+                    s.AddStoneToCell(s.CurrentPlayer, target);
                     return ApplyResult.Ok;
                 }
                 default:
                     return ApplyResult.Illegal;
+            }
+        }
+
+        private static bool CanEnterCell(GameState s, PlayerId opponent, int cell)
+        {
+            int opponentCount = s.GetStonesAt(opponent, cell);
+            if (opponentCount <= 0) return true;
+            if (opponentCount == 1 && s.Rules.allowHitSingleStone) return true;
+            return false;
+        }
+
+        private static void ResolveHitIfNeeded(GameState s, int cell)
+        {
+            if (!s.Rules.allowHitSingleStone) return;
+
+            PlayerId opponent = s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
+            if (s.GetStonesAt(opponent, cell) == 1)
+            {
+                s.RemoveStoneFromCell(opponent, cell);
+                s.AddStoneToHand(opponent);
             }
         }
     }

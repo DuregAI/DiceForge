@@ -5,35 +5,28 @@ namespace Diceforge.Core
     [Serializable]
     public sealed class RulesetConfig
     {
-        // MVP: Long / SameDirectionLoop / ChipOnly / 9
-        // Интерпретация для старта:
-        // - Loop: поле кольцом
-        // - SameDirection: оба игрока двигаются "вперёд" по кольцу
-        // - 9: размер кольца (0..8)
-        // - ChipOnly: есть действие "поставить фишку", которое мешает движению (движение тоже есть, иначе матч не едет)
+        // Модель "камни игроков" на кольце.
+        // - ringSize: размер кольца (0..ringSize-1)
+        // - оба игрока двигаются "вперёд" по кольцу (по часовой)
+        // - камни двигаются по броску кубика
 
         public int ringSize = 9;
 
-        // шаги за ход: 0..maxStep
-        public int maxStep = 2;
+        // максимальный бросок кубика
+        public int maxRoll = 6;
 
-        // разрешать нулевой шаг (Step(0))
-        public bool allowZeroStep = false;
+        // всего камней у игрока на матч
+        public int totalStonesPerPlayer = 15;
 
-        // сколько фишек у игрока в запасе на матч
-        public int chipsPerPlayer = 3;
+        // сколько камней сразу стоит на старте
+        public int startStonesPerPlayer = 5;
 
-        // фишку нельзя ставить на клетки игроков
-        public bool allowChipOnPlayers = false;
+        // стартовые клетки для игроков
+        public int startCellA = 0;
+        public int startCellB = 4;
 
-        // сколько нейтральных фишек поставить на поле в начале матча
-        public int startChipsOnBoard = 0;
-
-        // ставить стартовые фишки случайно (иначе заполняем по порядку)
-        public bool startChipsRandom = true;
-
-        // дополнительный сдвиг сидов для стартовой расстановки
-        public int startChipsSeedOffset = 1337;
+        // разрешать "hit" одиночного камня соперника
+        public bool allowHitSingleStone = true;
 
         // лимит ходов на всякий случай
         public int maxTurns = 60;
@@ -47,9 +40,11 @@ namespace Diceforge.Core
         public void Validate()
         {
             ringSize = Math.Clamp(ringSize, 3, 99);
-            maxStep = Math.Clamp(maxStep, 0, 10);
-            chipsPerPlayer = Math.Clamp(chipsPerPlayer, 0, 99);
-            startChipsOnBoard = Math.Clamp(startChipsOnBoard, 0, ringSize - 2);
+            maxRoll = Math.Clamp(maxRoll, 0, 20);
+            totalStonesPerPlayer = Math.Clamp(totalStonesPerPlayer, 0, 99);
+            startStonesPerPlayer = Math.Clamp(startStonesPerPlayer, 0, totalStonesPerPlayer);
+            startCellA = Math.Clamp(startCellA, 0, ringSize - 1);
+            startCellB = Math.Clamp(startCellB, 0, ringSize - 1);
             maxTurns = Math.Clamp(maxTurns, 1, 9999);
         }
     }

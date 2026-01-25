@@ -34,7 +34,7 @@ namespace Diceforge.View
         private BattleRunner _runner;
         private bool _isRunning;
         private float _elapsed;
-        private bool _waitingForChipCell;
+        private bool _waitingForFromCell;
 
         private void Awake()
         {
@@ -153,7 +153,7 @@ namespace Diceforge.View
         private void HandleMatchStarted(GameState state)
         {
             boardView?.HandleMatchStarted(state, _runner.Log);
-            _waitingForChipCell = false;
+            _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             UpdateUI();
             if (verboseLog)
@@ -175,7 +175,7 @@ namespace Diceforge.View
             boardView?.HandleMatchEnded(state);
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {state.Winner}  Turns: {state.TurnIndex}");
-            _waitingForChipCell = false;
+            _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             UpdateUI();
         }
@@ -195,32 +195,42 @@ namespace Diceforge.View
             if (!IsHumanTurn() || _runner.State == null)
                 return;
 
-            var roll = _runner.State.CurrentRoll;
-            ApplyHumanMove(Move.Step(roll));
+            if (!HasLegalMoveOneStone())
+                return;
+
+            _waitingForFromCell = true;
+            boardView?.SetCellSelectionEnabled(true);
         }
 
         private void HandlePlaceChipClicked()
         {
-            if (!IsHumanTurn() || _runner.State == null)
-                return;
-
-            _waitingForChipCell = true;
-            boardView?.SetCellSelectionEnabled(true);
+            HandleEnterClicked();
         }
 
         private void HandleCellClicked(int cellIndex)
         {
-            if (!_waitingForChipCell)
+            if (!_waitingForFromCell || _runner?.State == null)
                 return;
 
-            _waitingForChipCell = false;
+            var move = Move.MoveOneStone(cellIndex);
+            if (!IsMoveLegal(move))
+                return;
+
+            _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
-            ApplyHumanMove(Move.PlaceChip(cellIndex));
+            ApplyHumanMove(move);
         }
 
         private void HandleEnterClicked()
         {
-            HandlePlaceChipClicked();
+            if (!IsHumanTurn() || _runner?.State == null)
+                return;
+
+            var target = _runner.State.CurrentPlayer == PlayerId.A
+                ? _runner.State.Rules.startCellA
+                : _runner.State.Rules.startCellB;
+            var move = Move.EnterFromHand(target);
+            ApplyHumanMove(move);
         }
 
         private void HandlePlaceClicked()
@@ -250,15 +260,17 @@ namespace Diceforge.View
             hud?.SetRoll(state.CurrentRoll);
             hud?.SetLastMove(lastMove);
             hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "-" : "-");
-            hud?.SetPlayerStatsA($"A: Hand {state.ChipsInHandA}");
-            hud?.SetPlayerStatsB($"B: Hand {state.ChipsInHandB}");
+            hud?.SetPlayerStatsA($"A: Hand {state.StonesInHandA}");
+            hud?.SetPlayerStatsB($"B: Hand {state.StonesInHandB}");
             hud?.SetStatus(BuildStatusText());
 
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
             hud?.SetHumanControlsEnabled(humanTurn);
-            hud?.SetMoveEnabled(humanTurn);
-            hud?.SetEnterEnabled(humanTurn && state.GetChipsInHand(state.CurrentPlayer) > 0);
-            hud?.SetPlaceEnabled(humanTurn && state.GetChipsInHand(state.CurrentPlayer) > 0);
+            hud?.SetMoveEnabled(humanTurn && HasLegalMoveOneStone());
+            hud?.SetEnterEnabled(humanTurn && HasLegalEnter());
+            hud?.SetPlaceEnabled(humanTurn && HasLegalEnter());
+            boardView?.SetCellSelectionEnabled(humanTurn && HasLegalMoveOneStone());
+            _waitingForFromCell = humanTurn && HasLegalMoveOneStone();
         }
 
         private void RegisterHudCallbacks()
@@ -364,26 +376,55 @@ namespace Diceforge.View
             string player = record.PlayerId.ToString();
             string text;
 
-            if (move.Kind == MoveKind.Step)
+            if (move.Kind == MoveKind.MoveOneStone)
             {
-                int from = record.PlayerId == PlayerId.A ? record.PosABefore : record.PosBBefore;
-                int to = record.PlayerId == PlayerId.A ? record.PosAAfter : record.PosBAfter;
-                bool hit = record.PlayerId == PlayerId.A
-                    ? to == record.PosBBefore
-                    : to == record.PosABefore;
-                string hitText = hit ? " hit" : string.Empty;
-                text = $"{player} {from}→{to} (Roll {record.Roll}){hitText}";
+                string fromText = record.FromCell.HasValue ? record.FromCell.Value.ToString() : "-";
+                string toText = record.ToCell.HasValue ? record.ToCell.Value.ToString() : "-";
+                string hitText = record.WasHit ? " hit" : string.Empty;
+                text = $"{player} {fromText}→{toText} (Roll {record.Roll}){hitText}";
             }
             else
             {
-                string cellText = record.ChipCell.HasValue ? record.ChipCell.Value.ToString() : "-";
-                text = $"{player} Place {cellText}";
+                string toText = record.ToCell.HasValue ? record.ToCell.Value.ToString() : "-";
+                string hitText = record.WasHit ? " hit" : string.Empty;
+                text = $"{player} Enter {toText}{hitText}";
             }
 
             if (record.ApplyResult == ApplyResult.Illegal)
                 text += " [Illegal]";
 
             return text;
+        }
+
+        private bool HasLegalMoveOneStone()
+        {
+            if (_runner?.State == null) return false;
+            var legal = MoveGenerator.GenerateLegalMoves(_runner.State, _runner.CurrentRoll);
+            foreach (var move in legal)
+            {
+                if (move.Kind == MoveKind.MoveOneStone)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool HasLegalEnter()
+        {
+            if (_runner?.State == null) return false;
+            var legal = MoveGenerator.GenerateLegalMoves(_runner.State, _runner.CurrentRoll);
+            foreach (var move in legal)
+            {
+                if (move.Kind == MoveKind.EnterFromHand)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool IsMoveLegal(Move move)
+        {
+            if (_runner?.State == null) return false;
+            var legal = MoveGenerator.GenerateLegalMoves(_runner.State, _runner.CurrentRoll);
+            return legal.Contains(move);
         }
     }
 }
