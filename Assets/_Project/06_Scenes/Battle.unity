@@ -415,14 +415,15 @@ MonoBehaviour:
   ringRadius: 6
   cellRadius: 0.5
   playerRadius: 0.4
-  chipHeight: 0.2
+  stoneHeight: 0.2
+  stoneSpreadRadius: 0.18
+  stoneRingSpacing: 0.08
   cellColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.8}
-  chipColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.9}
   playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
   playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
   lastMoveColor: {r: 1, g: 0.9, b: 0.3, a: 0.9}
-  pawnPrefab: {fileID: 4651965059315984526, guid: 870de3ebfc85c5b428d66977832719ae, type: 3}
-  chipPrefab: {fileID: 2776706138654497508, guid: bbd2ab4c2db4ec8479cf94ea5a37545f, type: 3}
+  stonePrefabA: {fileID: 4651965059315984526, guid: 870de3ebfc85c5b428d66977832719ae, type: 3}
+  stonePrefabB: {fileID: 2776706138654497508, guid: bbd2ab4c2db4ec8479cf94ea5a37545f, type: 3}
 --- !u!4 &426479108
 Transform:
   m_ObjectHideFlags: 0
@@ -540,24 +541,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
   rules:
-    ringSize: 24
-    maxStep: 2
-    allowZeroStep: 0
-    chipsPerPlayer: 7
-    allowChipOnPlayers: 0
-    startChipsOnBoard: 0
-    startChipsRandom: 1
-    startChipsSeedOffset: 1337
-    maxTurns: 60
+    gameMode: 0
+    boardSize: 24
+    homeSize: 6
+    totalStonesPerPlayer: 15
+    startCellA: 0
+    startCellB: 12
+    allowHitSingleStone: 0
+    blockIfOpponentAnyStone: 1
+    maxTurns: 123
     randomSeed: 12345
     verboseLog: 1
+    headRules:
+      restrictHeadMoves: 1
+      maxHeadMovesPerTurn: 1
+      firstTurnHeadAllowance:
+      - dieA: 6
+        dieB: 6
+        maxHeadMoves: 2
+      - dieA: 4
+        dieB: 4
+        maxHeadMoves: 2
+      - dieA: 3
+        dieB: 3
+        maxHeadMoves: 2
   autoStart: 1
   runContinuously: 1
-  stepMode: 0
-  secondsPerTurn: 0.5
+  stepMode: 1
+  secondsPerTurn: 0.1
   verboseLog: 1
   boardView: {fileID: 426479107}
-  controlModeA: 1
+  controlModeA: 0
   controlModeB: 0
   hud: {fileID: 1869959127}
 --- !u!1 &832575517
