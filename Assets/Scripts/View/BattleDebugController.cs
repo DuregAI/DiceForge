@@ -153,8 +153,6 @@ namespace Diceforge.View
         private void HandleMatchStarted(GameState state)
         {
             boardView?.HandleMatchStarted(state, _runner.Log);
-            _waitingForFromCell = false;
-            boardView?.SetCellSelectionEnabled(false);
             UpdateUI();
             if (verboseLog)
                 Debug.Log("[Diceforge] Match start: " + state.DebugSnapshot());
@@ -175,8 +173,6 @@ namespace Diceforge.View
             boardView?.HandleMatchEnded(state);
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {state.Winner}  Turns: {state.TurnIndex}");
-            _waitingForFromCell = false;
-            boardView?.SetCellSelectionEnabled(false);
             UpdateUI();
         }
 
@@ -250,7 +246,11 @@ namespace Diceforge.View
 
         private void UpdateUI()
         {
-            if (_runner?.State == null) return;
+            if (_runner?.State == null)
+            {
+                RefreshTurnUIAndInput();
+                return;
+            }
 
             var state = _runner.State;
             string lastMove = BuildLastMoveText();
@@ -263,14 +263,34 @@ namespace Diceforge.View
             hud?.SetPlayerStatsA($"A: Hand {state.StonesInHandA}");
             hud?.SetPlayerStatsB($"B: Hand {state.StonesInHandB}");
             hud?.SetStatus(BuildStatusText());
+            RefreshTurnUIAndInput();
+        }
 
+        private void RefreshTurnUIAndInput()
+        {
+            if (_runner?.State == null)
+            {
+                hud?.SetHumanControlsEnabled(false);
+                hud?.SetMoveEnabled(false);
+                hud?.SetEnterEnabled(false);
+                hud?.SetPlaceEnabled(false);
+                _waitingForFromCell = false;
+                boardView?.SetCellSelectionEnabled(false);
+                return;
+            }
+
+            var state = _runner.State;
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
+            bool canMove = humanTurn && HasLegalMoveOneStone();
+            bool canEnter = humanTurn && HasLegalEnter();
+
             hud?.SetHumanControlsEnabled(humanTurn);
-            hud?.SetMoveEnabled(humanTurn && HasLegalMoveOneStone());
-            hud?.SetEnterEnabled(humanTurn && HasLegalEnter());
-            hud?.SetPlaceEnabled(humanTurn && HasLegalEnter());
-            boardView?.SetCellSelectionEnabled(humanTurn && HasLegalMoveOneStone());
-            _waitingForFromCell = humanTurn && HasLegalMoveOneStone();
+            hud?.SetMoveEnabled(canMove);
+            hud?.SetEnterEnabled(canEnter);
+            hud?.SetPlaceEnabled(canEnter);
+
+            _waitingForFromCell = canMove;
+            boardView?.SetCellSelectionEnabled(canMove);
         }
 
         private void RegisterHudCallbacks()
