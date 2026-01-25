@@ -5,63 +5,96 @@ namespace Diceforge.Core
 {
     public enum MoveKind : byte
     {
-        MoveOneStone = 0,
-        EnterFromHand = 1
+        MoveStone = 0,
+        BearOff = 1
     }
 
-    public readonly struct Move
+    public readonly struct Move : IEquatable<Move>
     {
-        public readonly MoveKind Kind;
-        public readonly int Value;
+        public MoveKind Kind { get; }
+        public int FromCell { get; }
+        public int PipUsed { get; }
 
-        private Move(MoveKind kind, int value)
+        private Move(MoveKind kind, int fromCell, int pipUsed)
         {
             Kind = kind;
-            Value = value;
+            FromCell = fromCell;
+            PipUsed = pipUsed;
         }
 
-        public static Move MoveOneStone(int fromCell) => new Move(MoveKind.MoveOneStone, fromCell);
-        public static Move EnterFromHand(int targetCell) => new Move(MoveKind.EnterFromHand, targetCell);
+        public static Move MoveStone(int fromCell, int pipUsed) => new Move(MoveKind.MoveStone, fromCell, pipUsed);
+        public static Move BearOff(int fromCell, int pipUsed) => new Move(MoveKind.BearOff, fromCell, pipUsed);
 
         public override string ToString()
         {
-            return Kind == MoveKind.MoveOneStone ? $"Move({Value})" : $"Enter({Value})";
+            return Kind == MoveKind.BearOff
+                ? $"BearOff({FromCell}, {PipUsed})"
+                : $"Move({FromCell}, {PipUsed})";
+        }
+
+        public bool Equals(Move other)
+        {
+            return Kind == other.Kind && FromCell == other.FromCell && PipUsed == other.PipUsed;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Move other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine((int)Kind, FromCell, PipUsed);
         }
     }
 
     public static class MoveGenerator
     {
-        public static List<Move> GenerateLegalMoves(GameState s, int roll)
+        public static List<Move> GenerateLegalMoves(
+            GameState s,
+            IReadOnlyList<int> remainingPips,
+            int headMovesUsed,
+            int maxHeadMovesThisTurn)
         {
             if (s == null) throw new ArgumentNullException(nameof(s));
 
-            var rules = s.Rules;
             var moves = new List<Move>(32);
 
             if (s.IsFinished) return moves;
+            if (remainingPips == null || remainingPips.Count == 0) return moves;
 
-            if (roll <= 0)
-                return moves;
-
-            // 1) Move one stone from any occupied cell
+            var rules = s.Rules;
             var current = s.CurrentPlayer;
             var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
-            for (int cell = 0; cell < rules.ringSize; cell++)
+            int headCell = GetHeadCell(s, current);
+            bool allInHome = AllStonesInHome(s, current);
+
+            var pipValues = CollectDistinctPips(remainingPips);
+
+            for (int cell = 0; cell < rules.boardSize; cell++)
             {
                 if (s.GetStonesAt(current, cell) <= 0) continue;
-                int to = GameState.Mod(cell + roll, rules.ringSize);
-                if (!CanEnterCell(s, opponent, to))
+                if (cell == headCell && rules.headRules.restrictHeadMoves && headMovesUsed >= maxHeadMovesThisTurn)
                     continue;
-                moves.Add(Move.MoveOneStone(cell));
-            }
 
-            // 2) Enter from hand (into start cell)
-            if (s.GetStonesInHand(current) > 0)
-            {
-                int target = current == PlayerId.A ? rules.startCellA : rules.startCellB;
-                target = GameState.Mod(target, rules.ringSize);
-                if (CanEnterCell(s, opponent, target))
-                    moves.Add(Move.EnterFromHand(target));
+                foreach (var pip in pipValues)
+                {
+                    if (pip <= 0) continue;
+
+                    if (allInHome && CanBearOff(s, current, cell, pip))
+                    {
+                        moves.Add(Move.BearOff(cell, pip));
+                        continue;
+                    }
+
+                    if (IsOvershootWithoutBearOff(s, current, cell, pip))
+                        continue;
+
+                    int to = GameState.Mod(cell + pip, rules.boardSize);
+                    if (!CanEnterCell(s, opponent, to))
+                        continue;
+                    moves.Add(Move.MoveStone(cell, pip));
+                }
             }
 
             return moves;
@@ -73,38 +106,35 @@ namespace Diceforge.Core
 
             switch (m.Kind)
             {
-                case MoveKind.MoveOneStone:
+                case MoveKind.MoveStone:
                 {
-                    int roll = s.CurrentRoll;
-                    if (roll <= 0 || roll > s.Rules.maxRoll) return ApplyResult.Illegal;
-
-                    int from = GameState.Mod(m.Value, s.Rules.ringSize);
+                    int from = GameState.Mod(m.FromCell, s.Rules.boardSize);
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
 
-                    int to = GameState.Mod(from + roll, s.Rules.ringSize);
+                    int to = GameState.Mod(from + m.PipUsed, s.Rules.boardSize);
                     if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to))
                         return ApplyResult.Illegal;
 
                     if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
-                    ResolveHitIfNeeded(s, to);
                     s.AddStoneToCell(s.CurrentPlayer, to);
-
                     return ApplyResult.Ok;
                 }
-                case MoveKind.EnterFromHand:
+                case MoveKind.BearOff:
                 {
-                    if (s.GetStonesInHand(s.CurrentPlayer) <= 0) return ApplyResult.Illegal;
+                    int from = GameState.Mod(m.FromCell, s.Rules.boardSize);
+                    if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
+                    if (!AllStonesInHome(s, s.CurrentPlayer)) return ApplyResult.Illegal;
+                    if (!CanBearOff(s, s.CurrentPlayer, from, m.PipUsed)) return ApplyResult.Illegal;
 
-                    int target = s.CurrentPlayer == PlayerId.A ? s.Rules.startCellA : s.Rules.startCellB;
-                    target = GameState.Mod(target, s.Rules.ringSize);
-                    if (GameState.Mod(m.Value, s.Rules.ringSize) != target) return ApplyResult.Illegal;
+                    if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
+                    s.AddBorneOff(s.CurrentPlayer);
 
-                    if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, target))
-                        return ApplyResult.Illegal;
+                    if (s.GetBorneOff(s.CurrentPlayer) >= s.Rules.totalStonesPerPlayer)
+                    {
+                        s.Finish(s.CurrentPlayer);
+                        return ApplyResult.Finished;
+                    }
 
-                    s.SpendStoneFromHand(s.CurrentPlayer);
-                    ResolveHitIfNeeded(s, target);
-                    s.AddStoneToCell(s.CurrentPlayer, target);
                     return ApplyResult.Ok;
                 }
                 default:
@@ -112,24 +142,94 @@ namespace Diceforge.Core
             }
         }
 
+        public static bool AllStonesInHome(GameState s, PlayerId player)
+        {
+            int total = 0;
+            int homeCount = 0;
+            for (int i = 0; i < s.Rules.boardSize; i++)
+            {
+                int count = s.GetStonesAt(player, i);
+                if (count <= 0) continue;
+                total += count;
+                if (IsInHome(s, player, i))
+                    homeCount += count;
+            }
+
+            return total == homeCount && total + s.GetBorneOff(player) == s.Rules.totalStonesPerPlayer;
+        }
+
+        public static bool CanBearOff(GameState s, PlayerId player, int fromCell, int pip)
+        {
+            if (!IsInHome(s, player, fromCell)) return false;
+
+            int distance = DistanceToStart(s, player, fromCell);
+            if (pip == distance)
+                return true;
+
+            if (pip > distance)
+                return !HasStoneFurtherFromStart(s, player, distance);
+
+            return false;
+        }
+
+        private static bool IsOvershootWithoutBearOff(GameState s, PlayerId player, int fromCell, int pip)
+        {
+            if (!IsInHome(s, player, fromCell)) return false;
+
+            int distance = DistanceToStart(s, player, fromCell);
+            return pip >= distance;
+        }
+
+        private static bool IsInHome(GameState s, PlayerId player, int cell)
+        {
+            int distance = DistanceToStart(s, player, cell);
+            return distance >= 1 && distance <= s.Rules.homeSize;
+        }
+
+        private static int DistanceToStart(GameState s, PlayerId player, int cell)
+        {
+            int startCell = GetHeadCell(s, player);
+            return (startCell - GameState.Mod(cell, s.Rules.boardSize) + s.Rules.boardSize) % s.Rules.boardSize;
+        }
+
+        private static bool HasStoneFurtherFromStart(GameState s, PlayerId player, int distance)
+        {
+            for (int i = 0; i < s.Rules.boardSize; i++)
+            {
+                if (!IsInHome(s, player, i))
+                    continue;
+
+                int d = DistanceToStart(s, player, i);
+                if (d > distance && s.GetStonesAt(player, i) > 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static int GetHeadCell(GameState s, PlayerId player)
+        {
+            return player == PlayerId.A ? s.Rules.startCellA : s.Rules.startCellB;
+        }
+
         private static bool CanEnterCell(GameState s, PlayerId opponent, int cell)
         {
             int opponentCount = s.GetStonesAt(opponent, cell);
             if (opponentCount <= 0) return true;
-            if (opponentCount == 1 && s.Rules.allowHitSingleStone) return true;
-            return false;
+            if (s.Rules.blockIfOpponentAnyStone) return false;
+            return opponentCount == 1 && s.Rules.allowHitSingleStone;
         }
 
-        private static void ResolveHitIfNeeded(GameState s, int cell)
+        private static List<int> CollectDistinctPips(IReadOnlyList<int> remainingPips)
         {
-            if (!s.Rules.allowHitSingleStone) return;
-
-            PlayerId opponent = s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
-            if (s.GetStonesAt(opponent, cell) == 1)
+            var values = new List<int>(remainingPips.Count);
+            foreach (var pip in remainingPips)
             {
-                s.RemoveStoneFromCell(opponent, cell);
-                s.AddStoneToHand(opponent);
+                if (!values.Contains(pip))
+                    values.Add(pip);
             }
+
+            return values;
         }
     }
 }

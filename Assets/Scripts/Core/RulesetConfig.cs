@@ -1,51 +1,100 @@
 using System;
+using System.Collections.Generic;
 
 namespace Diceforge.Core
 {
-    [Serializable]
-    public sealed class RulesetConfig
+    public enum GameMode : byte
     {
-        // Модель "камни игроков" на кольце.
-        // - ringSize: размер кольца (0..ringSize-1)
-        // - оба игрока двигаются "вперёд" по кольцу (по часовой)
-        // - камни двигаются по броску кубика
+        Long = 0,
+        Short = 1
+    }
 
-        public int ringSize = 9;
+    [Serializable]
+    public sealed class HeadRuleEntry
+    {
+        public int dieA;
+        public int dieB;
+        public int maxHeadMoves;
 
-        // максимальный бросок кубика
-        public int maxRoll = 6;
+        public HeadRuleEntry(int dieA, int dieB, int maxHeadMoves)
+        {
+            this.dieA = dieA;
+            this.dieB = dieB;
+            this.maxHeadMoves = maxHeadMoves;
+        }
 
-        // всего камней у игрока на матч
-        public int totalStonesPerPlayer = 15;
+        public bool Matches(int a, int b)
+        {
+            return (dieA == a && dieB == b) || (dieA == b && dieB == a);
+        }
+    }
 
-        // сколько камней сразу стоит на старте
-        public int startStonesPerPlayer = 5;
+    [Serializable]
+    public sealed class HeadRuleConfig
+    {
+        public bool restrictHeadMoves = true;
+        public int maxHeadMovesPerTurn = 1;
+        public List<HeadRuleEntry> firstTurnHeadAllowance = new List<HeadRuleEntry>
+        {
+            new HeadRuleEntry(6, 6, 2),
+            new HeadRuleEntry(4, 4, 2),
+            new HeadRuleEntry(3, 3, 2)
+        };
 
-        // стартовые клетки для игроков
-        public int startCellA = 0;
-        public int startCellB = 4;
+        public int? GetFirstTurnAllowance(int dieA, int dieB)
+        {
+            foreach (var entry in firstTurnHeadAllowance)
+            {
+                if (entry != null && entry.Matches(dieA, dieB))
+                    return entry.maxHeadMoves;
+            }
 
-        // разрешать "hit" одиночного камня соперника
-        public bool allowHitSingleStone = true;
-
-        // лимит ходов на всякий случай
-        public int maxTurns = 60;
-
-        // сид для повторяемости боя
-        public int randomSeed = 12345;
-
-        // логировать каждый ход
-        public bool verboseLog = true;
+            return null;
+        }
 
         public void Validate()
         {
-            ringSize = Math.Clamp(ringSize, 3, 99);
-            maxRoll = Math.Clamp(maxRoll, 0, 20);
-            totalStonesPerPlayer = Math.Clamp(totalStonesPerPlayer, 0, 99);
-            startStonesPerPlayer = Math.Clamp(startStonesPerPlayer, 0, totalStonesPerPlayer);
-            startCellA = Math.Clamp(startCellA, 0, ringSize - 1);
-            startCellB = Math.Clamp(startCellB, 0, ringSize - 1);
+            maxHeadMovesPerTurn = Math.Clamp(maxHeadMovesPerTurn, 0, 4);
+            foreach (var entry in firstTurnHeadAllowance)
+            {
+                if (entry == null) continue;
+                entry.dieA = Math.Clamp(entry.dieA, 1, 6);
+                entry.dieB = Math.Clamp(entry.dieB, 1, 6);
+                entry.maxHeadMoves = Math.Clamp(entry.maxHeadMoves, 0, 4);
+            }
+        }
+    }
+
+    [Serializable]
+    public sealed class RulesetConfig
+    {
+        public GameMode gameMode = GameMode.Long;
+
+        public int boardSize = 24;
+        public int homeSize = 6;
+        public int totalStonesPerPlayer = 15;
+
+        public int startCellA = 0;
+        public int startCellB = 12;
+
+        public bool allowHitSingleStone = false;
+        public bool blockIfOpponentAnyStone = true;
+
+        public int maxTurns = 120;
+        public int randomSeed = 12345;
+        public bool verboseLog = true;
+
+        public HeadRuleConfig headRules = new HeadRuleConfig();
+
+        public void Validate()
+        {
+            boardSize = Math.Clamp(boardSize, 6, 48);
+            homeSize = Math.Clamp(homeSize, 1, boardSize / 2);
+            totalStonesPerPlayer = Math.Clamp(totalStonesPerPlayer, 1, 30);
+            startCellA = Math.Clamp(startCellA, 0, boardSize - 1);
+            startCellB = Math.Clamp(startCellB, 0, boardSize - 1);
             maxTurns = Math.Clamp(maxTurns, 1, 9999);
+            headRules?.Validate();
         }
     }
 }

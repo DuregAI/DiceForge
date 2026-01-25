@@ -9,14 +9,21 @@ namespace Diceforge.Core
         private BotEasy _botB;
         private int _seed;
         private Random _rng;
-        private int _currentRoll;
+        private readonly List<int> _remainingPips = new List<int>();
+        private DiceRoll _currentDice;
+        private int _headMovesUsed;
+        private int _maxHeadMovesThisTurn;
 
         public GameState State { get; private set; }
         public MatchLog Log { get; } = new MatchLog();
         public RulesetConfig Rules { get; private set; }
-        public int CurrentRoll => _currentRoll;
+        public DiceRoll CurrentDice => _currentDice;
+        public IReadOnlyList<int> RemainingPips => _remainingPips;
+        public int HeadMovesUsed => _headMovesUsed;
+        public int HeadMovesLimit => _maxHeadMovesThisTurn;
 
         public event Action<GameState> OnMatchStarted;
+        public event Action<GameState> OnTurnStarted;
         public event Action<MoveRecord> OnMoveApplied;
         public event Action<GameState> OnMatchEnded;
 
@@ -30,7 +37,7 @@ namespace Diceforge.Core
             State = new GameState(Rules);
             CreateBots();
             Log.Clear();
-            RollForTurn();
+            BeginTurn();
 
             OnMatchStarted?.Invoke(State);
         }
@@ -43,7 +50,7 @@ namespace Diceforge.Core
             State.Reset();
             CreateBots();
             Log.Clear();
-            RollForTurn();
+            BeginTurn();
 
             OnMatchStarted?.Invoke(State);
         }
@@ -56,9 +63,12 @@ namespace Diceforge.Core
             if (State.IsFinished)
                 return false;
 
-            var legal = MoveGenerator.GenerateLegalMoves(State, _currentRoll);
+            var legal = MoveGenerator.GenerateLegalMoves(State, _remainingPips, _headMovesUsed, _maxHeadMovesThisTurn);
             if (legal.Count == 0)
-                return HandleNoMoves();
+            {
+                EndTurn();
+                return true;
+            }
 
             var bot = State.CurrentPlayer == PlayerId.A ? _botA : _botB;
             var move = bot.ChooseMove(State, legal);
@@ -71,9 +81,12 @@ namespace Diceforge.Core
             if (State == null || State.IsFinished)
                 return false;
 
-            var legal = MoveGenerator.GenerateLegalMoves(State, _currentRoll);
+            var legal = MoveGenerator.GenerateLegalMoves(State, _remainingPips, _headMovesUsed, _maxHeadMovesThisTurn);
             if (legal.Count == 0)
-                return HandleNoMoves();
+            {
+                EndTurn();
+                return true;
+            }
 
             if (!legal.Contains(move))
                 return false;
@@ -87,15 +100,46 @@ namespace Diceforge.Core
             _botB = new BotEasy(_seed + 200);
         }
 
-        private void RollForTurn()
+        private void BeginTurn()
         {
             if (State.IsFinished) return;
 
-            int roll = 0;
-            if (Rules.maxRoll > 0)
-                roll = _rng.Next(1, Rules.maxRoll + 1);
-            _currentRoll = roll;
-            State.SetCurrentRoll(roll);
+            int dieA = _rng.Next(1, 7);
+            int dieB = _rng.Next(1, 7);
+            _currentDice = new DiceRoll(dieA, dieB);
+            State.SetCurrentDice(_currentDice);
+
+            _remainingPips.Clear();
+            if (_currentDice.IsDouble)
+            {
+                for (int i = 0; i < 4; i++)
+                    _remainingPips.Add(dieA);
+            }
+            else
+            {
+                _remainingPips.Add(dieA);
+                _remainingPips.Add(dieB);
+            }
+
+            _headMovesUsed = 0;
+            _maxHeadMovesThisTurn = CalculateHeadMoveLimit(State.CurrentPlayer);
+
+            OnTurnStarted?.Invoke(State);
+        }
+
+        private int CalculateHeadMoveLimit(PlayerId player)
+        {
+            if (Rules.headRules == null || !Rules.headRules.restrictHeadMoves)
+                return int.MaxValue;
+
+            if (State.GetTurnsTaken(player) == 0)
+            {
+                int? allowance = Rules.headRules.GetFirstTurnAllowance(_currentDice.DieA, _currentDice.DieB);
+                if (allowance.HasValue)
+                    return allowance.Value;
+            }
+
+            return Rules.headRules.maxHeadMovesPerTurn;
         }
 
         private MoveRecord BuildRecord(
@@ -103,7 +147,7 @@ namespace Diceforge.Core
             Move? move,
             int? fromCell,
             int? toCell,
-            bool wasHit,
+            int? pipUsed,
             ApplyResult result,
             MatchEndReason endReason)
         {
@@ -113,8 +157,9 @@ namespace Diceforge.Core
                 move,
                 fromCell,
                 toCell,
-                wasHit,
-                State.CurrentRoll,
+                pipUsed,
+                _currentDice,
+                _remainingPips.ToArray(),
                 result,
                 endReason,
                 State.Winner
@@ -137,12 +182,19 @@ namespace Diceforge.Core
                 endReason = MatchEndReason.Timeout;
             }
 
+            if (result == ApplyResult.Ok || result == ApplyResult.Finished)
+            {
+                RemovePip(move.PipUsed);
+                if (beforeMove.FromCell.HasValue && beforeMove.FromCell.Value == GetHeadCell(State.CurrentPlayer))
+                    _headMovesUsed++;
+            }
+
             var record = BuildRecord(
                 State.CurrentPlayer,
                 move,
                 beforeMove.FromCell,
                 beforeMove.ToCell,
-                beforeMove.WasHit,
+                move.PipUsed,
                 result,
                 endReason
             );
@@ -155,29 +207,36 @@ namespace Diceforge.Core
                 return true;
             }
 
-            State.AdvanceTurn();
-            RollForTurn();
+            if (_remainingPips.Count == 0)
+            {
+                EndTurn();
+                return true;
+            }
+
+            var legal = MoveGenerator.GenerateLegalMoves(State, _remainingPips, _headMovesUsed, _maxHeadMovesThisTurn);
+            if (legal.Count == 0)
+            {
+                EndTurn();
+                return true;
+            }
+
             return true;
         }
 
-        private bool HandleNoMoves()
+        private void RemovePip(int pip)
         {
-            var winner = State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A;
-            State.Finish(winner);
+            int index = _remainingPips.IndexOf(pip);
+            if (index >= 0)
+                _remainingPips.RemoveAt(index);
+        }
 
-            var buildRecord = BuildRecord(
-                State.CurrentPlayer,
-                null,
-                null,
-                null,
-                false,
-                ApplyResult.Illegal,
-                MatchEndReason.NoMoves
-            );
-            Log.Add(buildRecord);
-            OnMoveApplied?.Invoke(buildRecord);
-            OnMatchEnded?.Invoke(State);
-            return true;
+        private void EndTurn()
+        {
+            if (State.IsFinished)
+                return;
+
+            State.AdvanceTurn();
+            BeginTurn();
         }
 
         private static PlayerId DecideWinnerOnTimeout(GameState s)
@@ -185,28 +244,22 @@ namespace Diceforge.Core
             return PlayerId.A;
         }
 
-        private (int? FromCell, int? ToCell, bool WasHit) DescribeMoveBeforeApply(Move move)
+        private (int? FromCell, int? ToCell) DescribeMoveBeforeApply(Move move)
         {
-            if (State == null) return (null, null, false);
+            if (State == null) return (null, null);
 
-            if (move.Kind == MoveKind.MoveOneStone)
-            {
-                int from = GameState.Mod(move.Value, State.Rules.ringSize);
-                int to = GameState.Mod(from + _currentRoll, State.Rules.ringSize);
-                bool wasHit = State.Rules.allowHitSingleStone
-                    && State.GetStonesAt(State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to) == 1;
-                return (from, to, wasHit);
-            }
+            int from = GameState.Mod(move.FromCell, State.Rules.boardSize);
+            int to = GameState.Mod(from + move.PipUsed, State.Rules.boardSize);
 
-            if (move.Kind == MoveKind.EnterFromHand)
-            {
-                int to = GameState.Mod(move.Value, State.Rules.ringSize);
-                bool wasHit = State.Rules.allowHitSingleStone
-                    && State.GetStonesAt(State.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to) == 1;
-                return (null, to, wasHit);
-            }
+            if (move.Kind == MoveKind.BearOff)
+                return (from, null);
 
-            return (null, null, false);
+            return (from, to);
+        }
+
+        private int GetHeadCell(PlayerId player)
+        {
+            return player == PlayerId.A ? Rules.startCellA : Rules.startCellB;
         }
     }
 }
