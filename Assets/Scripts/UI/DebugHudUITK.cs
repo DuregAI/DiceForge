@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,7 +13,9 @@ namespace Diceforge.View
         private VisualElement _root;
         private Label _turnLabel;
         private Label _playerLabel;
-        private Label _rollLabel;
+        private Label _diceLabel;
+        private Label _remainingPipsLabel;
+        private Label _headMovesLabel;
         private Label _lastMoveLabel;
         private Label _winnerLabel;
         private Label _statusLabel;
@@ -75,10 +78,30 @@ namespace Diceforge.View
                 _playerLabel.text = $"Player: {player}";
         }
 
-        public void SetRoll(int roll)
+        public void SetDice(DiceRoll dice, IReadOnlyList<int> remainingPips)
         {
-            if (_rollLabel != null)
-                _rollLabel.text = $"Roll: {roll}";
+            if (_diceLabel != null)
+            {
+                string diceText = dice.IsDouble ? $"{dice.DieA}, {dice.DieB} (DOUBLE)" : $"{dice.DieA}, {dice.DieB}";
+                _diceLabel.text = $"Dice: {diceText}";
+            }
+
+            if (_remainingPipsLabel != null)
+            {
+                string pips = remainingPips == null || remainingPips.Count == 0
+                    ? "-"
+                    : string.Join(", ", remainingPips);
+                _remainingPipsLabel.text = $"Remaining: {pips}";
+            }
+        }
+
+        public void SetHeadMovesInfo(int used, int limit)
+        {
+            if (_headMovesLabel != null)
+            {
+                string limitText = limit == int.MaxValue ? "∞" : limit.ToString();
+                _headMovesLabel.text = $"Head: {used}/{limitText}";
+            }
         }
 
         public void SetLastMove(string text)
@@ -167,7 +190,9 @@ namespace Diceforge.View
         {
             _turnLabel = GetElement<Label>("turnLabel");
             _playerLabel = GetElement<Label>("playerLabel");
-            _rollLabel = GetElement<Label>("rollLabel");
+            _diceLabel = GetElement<Label>("diceLabel");
+            _remainingPipsLabel = GetElement<Label>("remainingPipsLabel");
+            _headMovesLabel = GetElement<Label>("headMovesLabel");
             _lastMoveLabel = GetElement<Label>("lastMoveLabel");
             _winnerLabel = GetElement<Label>("winnerLabel");
             _statusLabel = GetElement<Label>("statusLabel");

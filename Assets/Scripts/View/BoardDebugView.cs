@@ -99,13 +99,13 @@ namespace Diceforge.View
             if (_state == null)
                 return;
 
-            int ringSize = _state.Rules.ringSize;
-            if (ringSize <= 0)
+            int boardSize = _state.Rules.boardSize;
+            if (boardSize <= 0)
                 return;
 
-            for (int i = 0; i < ringSize; i++)
+            for (int i = 0; i < boardSize; i++)
             {
-                Vector3 pos = CellPosition(i, ringSize);
+                Vector3 pos = CellPosition(i, boardSize);
                 Gizmos.color = cellColor;
                 Gizmos.DrawWireSphere(pos, cellRadius);
             }
@@ -116,7 +116,7 @@ namespace Diceforge.View
                 if (target.HasValue)
                 {
                     Gizmos.color = lastMoveColor;
-                    Gizmos.DrawWireSphere(CellPosition(target.Value, ringSize), playerRadius * 1.1f);
+                    Gizmos.DrawWireSphere(CellPosition(target.Value, boardSize), playerRadius * 1.1f);
                 }
             }
 
@@ -137,16 +137,16 @@ namespace Diceforge.View
                 }
             }
 
-            int ringSize = _state?.Rules.ringSize ?? 0;
-            if (ringSize <= 0)
+            int boardSize = _state?.Rules.boardSize ?? 0;
+            if (boardSize <= 0)
                 return;
 
-            _cellMarkers = new CellMarker[ringSize];
-            for (int i = 0; i < ringSize; i++)
+            _cellMarkers = new CellMarker[boardSize];
+            for (int i = 0; i < boardSize; i++)
             {
                 var cellObj = new GameObject($"Cell_{i}");
                 cellObj.transform.SetParent(transform, false);
-                cellObj.transform.position = CellPosition(i, ringSize);
+                cellObj.transform.position = CellPosition(i, boardSize);
 
                 var collider = cellObj.AddComponent<SphereCollider>();
                 collider.radius = cellRadius * 2f;
@@ -162,10 +162,10 @@ namespace Diceforge.View
             if (_state == null)
                 return;
 
-            int ringSize = _state.Rules.ringSize;
+            int boardSize = _state.Rules.boardSize;
             int totalA = 0;
             int totalB = 0;
-            for (int i = 0; i < ringSize; i++)
+            for (int i = 0; i < boardSize; i++)
             {
                 totalA += _state.StonesAByCell[i];
                 totalB += _state.StonesBByCell[i];
@@ -176,10 +176,10 @@ namespace Diceforge.View
 
             int usedA = 0;
             int usedB = 0;
-            for (int cell = 0; cell < ringSize; cell++)
+            for (int cell = 0; cell < boardSize; cell++)
             {
-                usedA = PlaceStonesOnCell(cell, _state.StonesAByCell[cell], ringSize, _stonePoolA, usedA);
-                usedB = PlaceStonesOnCell(cell, _state.StonesBByCell[cell], ringSize, _stonePoolB, usedB);
+                usedA = PlaceStonesOnCell(cell, _state.StonesAByCell[cell], boardSize, _stonePoolA, usedA);
+                usedB = PlaceStonesOnCell(cell, _state.StonesBByCell[cell], boardSize, _stonePoolB, usedB);
             }
 
             for (int i = usedA; i < _stonePoolA.Count; i++)
@@ -188,11 +188,11 @@ namespace Diceforge.View
                 _stonePoolB[i].SetActive(false);
         }
 
-        private int PlaceStonesOnCell(int cell, int count, int ringSize, System.Collections.Generic.List<GameObject> pool, int used)
+        private int PlaceStonesOnCell(int cell, int count, int boardSize, System.Collections.Generic.List<GameObject> pool, int used)
         {
             if (count <= 0) return used;
 
-            Vector3 center = CellPosition(cell, ringSize);
+            Vector3 center = CellPosition(cell, boardSize);
             for (int i = 0; i < count; i++)
             {
                 var stone = pool[used++];
@@ -242,9 +242,9 @@ namespace Diceforge.View
             return obj;
         }
 
-        private Vector3 CellPosition(int index, int ringSize)
+        private Vector3 CellPosition(int index, int boardSize)
         {
-            float angle = Mathf.PI * 2f * index / ringSize;
+            float angle = Mathf.PI * 2f * index / boardSize;
             Vector3 offset = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * ringRadius;
             return transform.position + offset;
         }
@@ -253,21 +253,23 @@ namespace Diceforge.View
         {
             if (!record.Move.HasValue) return null;
 
-            var move = record.Move.Value;
             return record.ToCell;
         }
 
         private string BuildInfoText()
         {
             string lastMoveText = _lastRecord?.Move?.ToString() ?? "None";
-            string chips = $"A:{_state.StonesInHandA}  B:{_state.StonesInHandB}";
+            string off = $"A:{_state.BorneOffA}  B:{_state.BorneOffB}";
             string status = _state.IsFinished
                 ? $"Finished ({_state.Winner})"
                 : $"Turn {_state.TurnIndex} - {_state.CurrentPlayer}";
 
             string endReason = _lastRecord?.EndReason.ToString() ?? "None";
+            string diceText = _state.CurrentDice.IsDouble
+                ? $"{_state.CurrentDice.DieA},{_state.CurrentDice.DieB} (D)"
+                : $"{_state.CurrentDice.DieA},{_state.CurrentDice.DieB}";
 
-            return $"Diceforge Debug\n{status}\nRoll: {_state.CurrentRoll}\nHand: {chips}\nLast Move: {lastMoveText}\nEnd: {endReason}";
+            return $"Diceforge Debug\n{status}\nDice: {diceText}\nOff: {off}\nLast Move: {lastMoveText}\nEnd: {endReason}";
         }
     }
 }

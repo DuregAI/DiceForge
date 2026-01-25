@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Diceforge.Core
@@ -25,8 +24,9 @@ namespace Diceforge.Core
         public Move? Move { get; }
         public int? FromCell { get; }
         public int? ToCell { get; }
-        public bool WasHit { get; }
-        public int Roll { get; }
+        public int? PipUsed { get; }
+        public DiceRoll Dice { get; }
+        public int[] RemainingPips { get; }
         public ApplyResult ApplyResult { get; }
         public MatchEndReason EndReason { get; }
         public PlayerId? Winner { get; }
@@ -37,8 +37,9 @@ namespace Diceforge.Core
             Move? move,
             int? fromCell,
             int? toCell,
-            bool wasHit,
-            int roll,
+            int? pipUsed,
+            DiceRoll dice,
+            int[] remainingPips,
             ApplyResult applyResult,
             MatchEndReason endReason,
             PlayerId? winner)
@@ -48,8 +49,9 @@ namespace Diceforge.Core
             Move = move;
             FromCell = fromCell;
             ToCell = toCell;
-            WasHit = wasHit;
-            Roll = roll;
+            PipUsed = pipUsed;
+            Dice = dice;
+            RemainingPips = remainingPips;
             ApplyResult = applyResult;
             EndReason = endReason;
             Winner = winner;

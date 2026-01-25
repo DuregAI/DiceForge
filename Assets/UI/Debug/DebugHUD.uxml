@@ -10,13 +10,15 @@
             <ui:VisualElement class="hud-column">
                 <ui:Label name="turnLabel" text="Turn: -" />
                 <ui:Label name="playerLabel" text="Player: -" />
-                <ui:Label name="rollLabel" text="Roll: -" />
+                <ui:Label name="diceLabel" text="Dice: -" />
+                <ui:Label name="remainingPipsLabel" text="Remaining: -" />
+                <ui:Label name="headMovesLabel" text="Head: -" />
                 <ui:Label name="lastMoveLabel" text="Last Move: -" />
                 <ui:Label name="winnerLabel" text="Winner: -" />
             </ui:VisualElement>
             <ui:VisualElement class="hud-column">
-                <ui:Label name="aStatsLabel" text="A: Hand -" />
-                <ui:Label name="bStatsLabel" text="B: Hand -" />
+                <ui:Label name="aStatsLabel" text="A: Off -" />
+                <ui:Label name="bStatsLabel" text="B: Off -" />
             </ui:VisualElement>
         </ui:VisualElement>
 
