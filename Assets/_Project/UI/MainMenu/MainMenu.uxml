@@ -3,21 +3,41 @@
   <ui:Style src="MainMenu.uss" />
   <ui:VisualElement name="Root">
     <ui:VisualElement name="Corners">
-      <ui:Button name="btnBack" text="Back" />
-      <ui:Button name="btnSettings" text="Settings" />
-      <ui:Button name="btnQuit" text="Quit" />
-      <ui:Button name="btnHelp" text="Help" />
+      <ui:VisualElement name="CornerTL">
+        <ui:Button name="btnProfile" text="Avatar" />
+        <ui:Label name="lblPlayerName" text="PlayerName" />
+        <ui:Label name="lblPlayerLevel" text="Lvl 1" />
+      </ui:VisualElement>
+      <ui:VisualElement name="CornerTR">
+        <ui:VisualElement name="resourcesBar">
+          <ui:Label text="Gold: 0" />
+          <ui:Label text="Crystals: 0" />
+          <ui:Label text="Energy: 0" />
+        </ui:VisualElement>
+        <ui:Button name="btnUpgrades" text="Upgrades" />
+        <ui:Button name="btnBuildings" text="Workshop" />
+      </ui:VisualElement>
+      <ui:VisualElement name="CornerBL">
+        <ui:Button name="btnSettings" text="Settings" />
+      </ui:VisualElement>
+      <ui:VisualElement name="CornerBR">
+        <ui:Label name="lblBuildInfo" text="Build v0.0.1" />
+        <ui:Button name="btnCopyLog" text="Copy Log" />
+        <ui:Button name="btnAbout" text="About" />
+      </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Center">
-      <ui:VisualElement name="MenuPanel">
-        <ui:VisualElement>
-          <ui:Button name="btnLong" text="Long" />
-          <ui:Button name="btnShort" text="Short" />
-          <ui:Button name="btnTutorial" text="Tutorial" />
-          <ui:Button name="btnExperimental" text="Experimental" />
-        </ui:VisualElement>
-      </ui:VisualElement>
+      <ui:Button name="btnLong" text="Long" />
+      <ui:Button name="btnShort" text="Short" />
+      <ui:Button name="btnTutorial" text="Tutorial" />
+      <ui:Button name="btnExperimental" text="Experimental" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Panels">
+      <ui:VisualElement name="ProfilePanel" />
       <ui:VisualElement name="SettingsPanel" />
+      <ui:VisualElement name="UpgradesPanel" />
+      <ui:VisualElement name="BuildingsPanel" />
+      <ui:VisualElement name="AboutPanel" />
     </ui:VisualElement>
   </ui:VisualElement>
 </ui:UXML>
