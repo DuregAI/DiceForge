@@ -25,5 +25,13 @@ namespace Diceforge.Core
 
             return legal[_rng.Next(legal.Count)];
         }
+
+        public int ChooseDieIndex(IReadOnlyList<int> candidateIndices)
+        {
+            if (candidateIndices == null || candidateIndices.Count == 0)
+                return -1;
+
+            return candidateIndices[_rng.Next(candidateIndices.Count)];
+        }
     }
 }

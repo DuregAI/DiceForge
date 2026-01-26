@@ -70,3 +70,19 @@
     min-width: 160px;
     flex-grow: 1;
 }
+
+.dice-row {
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.dice-button {
+    min-width: 32px;
+    min-height: 26px;
+    unity-font-style: bold;
+}
+
+.dice-button--selected {
+    background-color: rgba(70, 190, 120, 0.9);
+    color: white;
+}
