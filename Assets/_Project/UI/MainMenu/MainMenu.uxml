@@ -4,40 +4,39 @@
   <ui:VisualElement name="Root">
     <ui:VisualElement name="Corners">
       <ui:VisualElement name="CornerTL">
-        <ui:Button name="btnProfile" text="Avatar" />
-        <ui:Label name="lblPlayerName" text="PlayerName" />
-        <ui:Label name="lblPlayerLevel" text="Lvl 1" />
+        <ui:Button name="btnProfile" text="Profile" />
+        <ui:Label name="lblPlayerName" text="Player" />
       </ui:VisualElement>
       <ui:VisualElement name="CornerTR">
         <ui:VisualElement name="resourcesBar">
-          <ui:Label text="Gold: 0" />
-          <ui:Label text="Crystals: 0" />
-          <ui:Label text="Energy: 0" />
+          <ui:Label name="lblGold" text="Gold: 0" />
+          <ui:Label name="lblGems" text="Gems: 0" />
+          <ui:Label name="lblEnergy" text="Energy: 0" />
         </ui:VisualElement>
-        <ui:Button name="btnUpgrades" text="Upgrades" />
-        <ui:Button name="btnBuildings" text="Workshop" />
+        <ui:VisualElement name="buildingsBar">
+          <ui:Button name="btnUpgrades" text="Upgrades" />
+          <ui:Button name="btnBuildings" text="Buildings" />
+        </ui:VisualElement>
       </ui:VisualElement>
       <ui:VisualElement name="CornerBL">
         <ui:Button name="btnSettings" text="Settings" />
       </ui:VisualElement>
       <ui:VisualElement name="CornerBR">
-        <ui:Label name="lblBuildInfo" text="Build v0.0.1" />
+        <ui:Label name="lblBuildInfo" text="Build: dev" />
         <ui:Button name="btnCopyLog" text="Copy Log" />
         <ui:Button name="btnAbout" text="About" />
       </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Center">
-      <ui:Button name="btnLong" text="Long" />
-      <ui:Button name="btnShort" text="Short" />
-      <ui:Button name="btnTutorial" text="Tutorial" />
-      <ui:Button name="btnExperimental" text="Experimental" />
-    </ui:VisualElement>
-    <ui:VisualElement name="Panels">
-      <ui:VisualElement name="ProfilePanel" />
+      <ui:VisualElement name="MenuPanel">
+        <ui:VisualElement name="ModeButtonsColumn">
+          <ui:Button name="btnLong" text="Long" />
+          <ui:Button name="btnShort" text="Short" />
+          <ui:Button name="btnTutorial" text="Tutorial" />
+          <ui:Button name="btnExperimental" text="Experimental" />
+        </ui:VisualElement>
+      </ui:VisualElement>
       <ui:VisualElement name="SettingsPanel" />
-      <ui:VisualElement name="UpgradesPanel" />
-      <ui:VisualElement name="BuildingsPanel" />
-      <ui:VisualElement name="AboutPanel" />
     </ui:VisualElement>
   </ui:VisualElement>
 </ui:UXML>
