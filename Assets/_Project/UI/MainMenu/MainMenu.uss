@@ -1,0 +1,59 @@
+Root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+Corners {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#btnBack {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+}
+
+#btnSettings {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+
+#btnQuit {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+}
+
+#btnHelp {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+}
+
+Center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}
+
+MenuPanel {
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+MenuPanel Button {
+  min-width: 280px;
+  height: 50px;
+}
+
+SettingsPanel {
+  display: none;
+}
