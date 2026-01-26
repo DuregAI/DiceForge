@@ -28,7 +28,7 @@
       </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Center">
-      <ui:VisualElement name="MenuPanel">
+      <ui:VisualElement name="MenuPanel" class="panel is-visible">
         <ui:VisualElement name="ModeButtonsColumn">
           <ui:Button name="btnLong" text="Long" />
           <ui:Button name="btnShort" text="Short" />
@@ -36,7 +36,26 @@
           <ui:Button name="btnExperimental" text="Experimental" />
         </ui:VisualElement>
       </ui:VisualElement>
-      <ui:VisualElement name="SettingsPanel" />
+      <ui:VisualElement name="SettingsPanel" class="panel">
+        <ui:Label text="SETTINGS" />
+        <ui:Button name="btnSettingsBack" text="Back" />
+      </ui:VisualElement>
+      <ui:VisualElement name="ProfilePanel" class="panel">
+        <ui:Label text="PROFILE" />
+        <ui:Button name="btnProfileBack" text="Back" />
+      </ui:VisualElement>
+      <ui:VisualElement name="UpgradesPanel" class="panel">
+        <ui:Label text="UPGRADES" />
+        <ui:Button name="btnUpgradesBack" text="Back" />
+      </ui:VisualElement>
+      <ui:VisualElement name="BuildingsPanel" class="panel">
+        <ui:Label text="BUILDINGS" />
+        <ui:Button name="btnBuildingsBack" text="Back" />
+      </ui:VisualElement>
+      <ui:VisualElement name="AboutPanel" class="panel">
+        <ui:Label text="ABOUT" />
+        <ui:Button name="btnAboutBack" text="Back" />
+      </ui:VisualElement>
     </ui:VisualElement>
   </ui:VisualElement>
 </ui:UXML>
