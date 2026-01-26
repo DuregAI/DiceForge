@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+  <ui:Style src="MainMenu.uss" />
+  <ui:VisualElement name="Root">
+    <ui:VisualElement name="Corners">
+      <ui:Button name="btnBack" text="Back" />
+      <ui:Button name="btnSettings" text="Settings" />
+      <ui:Button name="btnQuit" text="Quit" />
+      <ui:Button name="btnHelp" text="Help" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Center">
+      <ui:VisualElement name="MenuPanel">
+        <ui:VisualElement>
+          <ui:Button name="btnLong" text="Long" />
+          <ui:Button name="btnShort" text="Short" />
+          <ui:Button name="btnTutorial" text="Tutorial" />
+          <ui:Button name="btnExperimental" text="Experimental" />
+        </ui:VisualElement>
+      </ui:VisualElement>
+      <ui:VisualElement name="SettingsPanel" />
+    </ui:VisualElement>
+  </ui:VisualElement>
 </ui:UXML>
