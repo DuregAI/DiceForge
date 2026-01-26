@@ -68,6 +68,13 @@ namespace Diceforge.Core
     [Serializable]
     public sealed class RulesetConfig
     {
+        public string rulesetId = "default";
+        public string displayName = "Default Ruleset";
+        public int maxRounds = 1;
+        public int maxUnitsPerSide = 15;
+        public bool allowReroll = false;
+        public int actionsPerTurn = 2;
+
         public GameMode gameMode = GameMode.Long;
 
         public int boardSize = 24;
@@ -92,8 +99,71 @@ namespace Diceforge.Core
 
         public HeadRuleConfig headRules = new HeadRuleConfig();
 
+        public static RulesetConfig FromPreset(Presets.RulesetPreset preset)
+        {
+            if (preset == null)
+                throw new ArgumentNullException(nameof(preset));
+
+            var config = new RulesetConfig
+            {
+                rulesetId = preset.rulesetId,
+                displayName = preset.displayName,
+                maxRounds = preset.maxRounds,
+                maxUnitsPerSide = preset.maxUnitsPerSide,
+                allowReroll = preset.allowReroll,
+                actionsPerTurn = preset.actionsPerTurn,
+                gameMode = preset.gameMode,
+                boardSize = preset.boardSize,
+                homeSize = preset.homeSize,
+                totalStonesPerPlayer = preset.totalStonesPerPlayer,
+                dieMin = preset.dieMin,
+                dieMax = preset.dieMax,
+                diceBagA = preset.diceBagA,
+                diceBagB = preset.diceBagB,
+                startCellA = preset.startCellA,
+                startCellB = preset.startCellB,
+                allowHitSingleStone = preset.allowHitSingleStone,
+                blockIfOpponentAnyStone = preset.blockIfOpponentAnyStone,
+                maxTurns = preset.maxTurns,
+                randomSeed = preset.randomSeed,
+                verboseLog = preset.verboseLog,
+                headRules = CloneHeadRules(preset.headRules)
+            };
+
+            return config;
+        }
+
+        private static HeadRuleConfig CloneHeadRules(HeadRuleConfig source)
+        {
+            if (source == null)
+                return new HeadRuleConfig();
+
+            var clone = new HeadRuleConfig
+            {
+                restrictHeadMoves = source.restrictHeadMoves,
+                maxHeadMovesPerTurn = source.maxHeadMovesPerTurn,
+                firstTurnHeadAllowance = new List<HeadRuleEntry>()
+            };
+
+            if (source.firstTurnHeadAllowance != null)
+            {
+                foreach (var entry in source.firstTurnHeadAllowance)
+                {
+                    if (entry == null)
+                        continue;
+
+                    clone.firstTurnHeadAllowance.Add(new HeadRuleEntry(entry.dieA, entry.dieB, entry.maxHeadMoves));
+                }
+            }
+
+            return clone;
+        }
+
         public void Validate()
         {
+            maxRounds = Math.Clamp(maxRounds, 1, 9999);
+            maxUnitsPerSide = Math.Clamp(maxUnitsPerSide, 1, 999);
+            actionsPerTurn = Math.Clamp(actionsPerTurn, 1, 10);
             boardSize = Math.Clamp(boardSize, 6, 48);
             homeSize = Math.Clamp(homeSize, 1, boardSize / 2);
             totalStonesPerPlayer = Math.Clamp(totalStonesPerPlayer, 1, 30);
