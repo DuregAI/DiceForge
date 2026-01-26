@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Diceforge.Core;
+using Diceforge.Presets;
 using UnityEngine;
 
 namespace Diceforge.View
@@ -13,7 +14,7 @@ namespace Diceforge.View
         }
 
         [Header("Rules")]
-        [SerializeField] private RulesetConfig rules = new RulesetConfig();
+        [SerializeField] private RulesetPreset rulesetPreset;
 
         [Header("Controls")]
         [SerializeField] private bool autoStart = true;
@@ -33,6 +34,7 @@ namespace Diceforge.View
         [SerializeField] private DebugHudUITK hud;
 
         private BattleRunner _runner;
+        private RulesetConfig _rules;
         private bool _isRunning;
         private float _elapsed;
         private bool _waitingForFromCell;
@@ -108,9 +110,17 @@ namespace Diceforge.View
 
         private void InitializeMatch()
         {
-            var bagA = BuildBagConfig(rules?.diceBagA);
-            var bagB = BuildBagConfig(rules?.diceBagB);
-            _runner.Init(rules, bagA, bagB, rules.randomSeed);
+            if (rulesetPreset == null)
+            {
+                Debug.LogError("[Diceforge] Missing RulesetPreset. Aborting match bootstrap.");
+                enabled = false;
+                return;
+            }
+
+            _rules = RulesetConfig.FromPreset(rulesetPreset);
+            var bagA = BuildBagConfig(_rules.diceBagA);
+            var bagB = BuildBagConfig(_rules.diceBagB);
+            _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
         }
 
         [ContextMenu("Start")]
@@ -400,8 +410,8 @@ namespace Diceforge.View
 
         private DiceBagConfigData BuildBagConfig(DiceBagDefinition definition)
         {
-            int dieMin = rules?.dieMin ?? 1;
-            int dieMax = rules?.dieMax ?? 6;
+            int dieMin = _rules?.dieMin ?? 1;
+            int dieMax = _rules?.dieMax ?? 6;
             var outcomes = new List<DiceOutcomeData>();
             var drawMode = definition != null ? definition.drawMode : DiceBagDrawMode.Sequential;
 
