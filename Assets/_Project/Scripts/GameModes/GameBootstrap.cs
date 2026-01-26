@@ -21,6 +21,7 @@ public class GameBootstrap : MonoBehaviour
             }
         }
 
+        MatchService.BuildFromPreset(selectedPreset);
         Debug.Log($"[GameBootstrap] Starting mode: {selectedPreset.modeId} / {selectedPreset.displayName}");
     }
 }
