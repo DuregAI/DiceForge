@@ -12,28 +12,47 @@ Corners {
   bottom: 0;
 }
 
-#btnBack {
+#CornerTL {
   position: absolute;
   left: 24px;
   top: 24px;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 }
 
-#btnSettings {
+#CornerTR {
   position: absolute;
   right: 24px;
   top: 24px;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
 }
 
-#btnQuit {
+#CornerBL {
   position: absolute;
   left: 24px;
   bottom: 24px;
 }
 
-#btnHelp {
+#CornerBR {
   position: absolute;
   right: 24px;
   bottom: 24px;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+#btnProfile {
+  width: 72px;
+  height: 72px;
+}
+
+#resourcesBar {
+  flex-direction: row;
+  gap: 12px;
 }
 
 Center {
@@ -41,19 +60,29 @@ Center {
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-}
-
-MenuPanel {
   flex-direction: column;
   gap: 12px;
   align-items: stretch;
 }
 
-MenuPanel Button {
+Center Button {
   min-width: 280px;
   height: 50px;
 }
 
-SettingsPanel {
+#Panels {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+#ProfilePanel,
+#SettingsPanel,
+#UpgradesPanel,
+#BuildingsPanel,
+#AboutPanel {
   display: none;
 }
