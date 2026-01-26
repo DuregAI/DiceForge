@@ -13,8 +13,10 @@ namespace Diceforge.View
         private VisualElement _root;
         private Label _turnLabel;
         private Label _playerLabel;
-        private Label _diceLabel;
-        private Label _remainingPipsLabel;
+        private Label _rolledDiceLabel;
+        private Label _remainingDiceLabel;
+        private Label _usedDiceLabel;
+        private Label _bagLabel;
         private Label _headMovesLabel;
         private Label _lastMoveLabel;
         private Label _winnerLabel;
@@ -31,6 +33,7 @@ namespace Diceforge.View
         private Toggle _humanAToggle;
         private Toggle _humanBToggle;
         private Slider _speedSlider;
+        private VisualElement _diceButtonsRow;
 
         private readonly HashSet<string> _missingWarnings = new HashSet<string>();
 
@@ -44,6 +47,7 @@ namespace Diceforge.View
         public event Action<float> OnSpeedChanged;
         public event Action<bool> OnHumanAChanged;
         public event Action<bool> OnHumanBChanged;
+        public event Action<int> OnDieSelected;
 
         private void OnEnable()
         {
@@ -78,21 +82,36 @@ namespace Diceforge.View
                 _playerLabel.text = $"Player: {player}";
         }
 
-        public void SetDice(DiceRoll dice, IReadOnlyList<int> remainingPips)
+        public void SetDiceOutcome(DiceOutcomeResult outcome, IReadOnlyList<int> remainingDice, IReadOnlyList<int> usedDice)
         {
-            if (_diceLabel != null)
+            if (_rolledDiceLabel != null)
             {
-                string diceText = dice.IsDouble ? $"{dice.DieA}, {dice.DieB} (DOUBLE)" : $"{dice.DieA}, {dice.DieB}";
-                _diceLabel.text = $"Dice: {diceText}";
+                string diceText = outcome.Dice.Length == 0 ? "-" : string.Join(" ", outcome.Dice);
+                string label = string.IsNullOrWhiteSpace(outcome.Label) ? string.Empty : $" ({outcome.Label})";
+                _rolledDiceLabel.text = $"Rolled: {diceText}{label}";
             }
 
-            if (_remainingPipsLabel != null)
+            if (_remainingDiceLabel != null)
             {
-                string pips = remainingPips == null || remainingPips.Count == 0
+                string pips = remainingDice == null || remainingDice.Count == 0
                     ? "-"
-                    : string.Join(", ", remainingPips);
-                _remainingPipsLabel.text = $"Remaining: {pips}";
+                    : string.Join(", ", remainingDice);
+                _remainingDiceLabel.text = $"Remaining: {pips}";
             }
+
+            if (_usedDiceLabel != null)
+            {
+                string used = usedDice == null || usedDice.Count == 0
+                    ? "-"
+                    : string.Join(", ", usedDice);
+                _usedDiceLabel.text = $"Used: {used}";
+            }
+        }
+
+        public void SetBagStatus(int remaining, int total)
+        {
+            if (_bagLabel != null)
+                _bagLabel.text = $"Bag: {remaining}/{total}";
         }
 
         public void SetHeadMovesInfo(int used, int limit)
@@ -156,6 +175,30 @@ namespace Diceforge.View
             _placeButton?.SetEnabled(enabled);
         }
 
+        public void SetDiceButtons(IReadOnlyList<int> remainingDice, int? selectedIndex, bool enabled)
+        {
+            if (_diceButtonsRow == null)
+                return;
+
+            _diceButtonsRow.Clear();
+            if (remainingDice == null || remainingDice.Count == 0)
+                return;
+
+            for (int i = 0; i < remainingDice.Count; i++)
+            {
+                int index = i;
+                var button = new Button(() => OnDieSelected?.Invoke(index))
+                {
+                    text = remainingDice[i].ToString()
+                };
+                button.SetEnabled(enabled);
+                button.AddToClassList("dice-button");
+                if (selectedIndex.HasValue && selectedIndex.Value == index)
+                    button.AddToClassList("dice-button--selected");
+                _diceButtonsRow.Add(button);
+            }
+        }
+
         public void SetRunToggle(bool isRunning)
         {
             if (_startStopToggle != null)
@@ -190,8 +233,10 @@ namespace Diceforge.View
         {
             _turnLabel = GetElement<Label>("turnLabel");
             _playerLabel = GetElement<Label>("playerLabel");
-            _diceLabel = GetElement<Label>("diceLabel");
-            _remainingPipsLabel = GetElement<Label>("remainingPipsLabel");
+            _rolledDiceLabel = GetElement<Label>("rolledDiceLabel");
+            _remainingDiceLabel = GetElement<Label>("remainingDiceLabel");
+            _usedDiceLabel = GetElement<Label>("usedDiceLabel");
+            _bagLabel = GetElement<Label>("bagLabel");
             _headMovesLabel = GetElement<Label>("headMovesLabel");
             _lastMoveLabel = GetElement<Label>("lastMoveLabel");
             _winnerLabel = GetElement<Label>("winnerLabel");
@@ -208,6 +253,7 @@ namespace Diceforge.View
             _humanAToggle = GetElement<Toggle>("humanAToggle");
             _humanBToggle = GetElement<Toggle>("humanBToggle");
             _speedSlider = GetElement<Slider>("speedSlider");
+            _diceButtonsRow = GetElement<VisualElement>("diceButtonsRow");
         }
 
         private void RegisterCallbacks()

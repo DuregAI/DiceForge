@@ -10,8 +10,10 @@
             <ui:VisualElement class="hud-column">
                 <ui:Label name="turnLabel" text="Turn: -" />
                 <ui:Label name="playerLabel" text="Player: -" />
-                <ui:Label name="diceLabel" text="Dice: -" />
-                <ui:Label name="remainingPipsLabel" text="Remaining: -" />
+                <ui:Label name="rolledDiceLabel" text="Rolled: -" />
+                <ui:Label name="remainingDiceLabel" text="Remaining: -" />
+                <ui:Label name="usedDiceLabel" text="Used: -" />
+                <ui:Label name="bagLabel" text="Bag: -" />
                 <ui:Label name="headMovesLabel" text="Head: -" />
                 <ui:Label name="lastMoveLabel" text="Last Move: -" />
                 <ui:Label name="winnerLabel" text="Winner: -" />
@@ -41,6 +43,7 @@
                 <ui:Button name="enterButton" text="Enter" />
                 <ui:Button name="placeButton" text="Place" />
             </ui:VisualElement>
+            <ui:VisualElement name="diceButtonsRow" class="hud-row dice-row" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

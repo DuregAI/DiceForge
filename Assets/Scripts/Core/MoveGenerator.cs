@@ -52,7 +52,7 @@ namespace Diceforge.Core
     {
         public static List<Move> GenerateLegalMoves(
             GameState s,
-            IReadOnlyList<int> remainingPips,
+            int dieValue,
             int headMovesUsed,
             int maxHeadMovesThisTurn)
         {
@@ -61,7 +61,7 @@ namespace Diceforge.Core
             var moves = new List<Move>(32);
 
             if (s.IsFinished) return moves;
-            if (remainingPips == null || remainingPips.Count == 0) return moves;
+            if (dieValue <= 0) return moves;
 
             var rules = s.Rules;
             var current = s.CurrentPlayer;
@@ -69,32 +69,25 @@ namespace Diceforge.Core
             int headCell = GetHeadCell(s, current);
             bool allInHome = AllStonesInHome(s, current);
 
-            var pipValues = CollectDistinctPips(remainingPips);
-
             for (int cell = 0; cell < rules.boardSize; cell++)
             {
                 if (s.GetStonesAt(current, cell) <= 0) continue;
                 if (cell == headCell && rules.headRules.restrictHeadMoves && headMovesUsed >= maxHeadMovesThisTurn)
                     continue;
 
-                foreach (var pip in pipValues)
+                if (allInHome && CanBearOff(s, current, cell, dieValue))
                 {
-                    if (pip <= 0) continue;
-
-                    if (allInHome && CanBearOff(s, current, cell, pip))
-                    {
-                        moves.Add(Move.BearOff(cell, pip));
-                        continue;
-                    }
-
-                    if (IsOvershootWithoutBearOff(s, current, cell, pip))
-                        continue;
-
-                    int to = GameState.Mod(cell + pip, rules.boardSize);
-                    if (!CanEnterCell(s, opponent, to))
-                        continue;
-                    moves.Add(Move.MoveStone(cell, pip));
+                    moves.Add(Move.BearOff(cell, dieValue));
+                    continue;
                 }
+
+                if (IsOvershootWithoutBearOff(s, current, cell, dieValue))
+                    continue;
+
+                int to = GameState.Mod(cell + dieValue, rules.boardSize);
+                if (!CanEnterCell(s, opponent, to))
+                    continue;
+                moves.Add(Move.MoveStone(cell, dieValue));
             }
 
             return moves;
@@ -220,16 +213,5 @@ namespace Diceforge.Core
             return opponentCount == 1 && s.Rules.allowHitSingleStone;
         }
 
-        private static List<int> CollectDistinctPips(IReadOnlyList<int> remainingPips)
-        {
-            var values = new List<int>(remainingPips.Count);
-            foreach (var pip in remainingPips)
-            {
-                if (!values.Contains(pip))
-                    values.Add(pip);
-            }
-
-            return values;
-        }
     }
 }

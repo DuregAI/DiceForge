@@ -108,7 +108,9 @@ namespace Diceforge.View
 
         private void InitializeMatch()
         {
-            _runner.Init(rules, rules.randomSeed);
+            var bagA = BuildBagConfig(rules?.diceBagA);
+            var bagB = BuildBagConfig(rules?.diceBagB);
+            _runner.Init(rules, bagA, bagB, rules.randomSeed);
         }
 
         [ContextMenu("Start")]
@@ -174,7 +176,7 @@ namespace Diceforge.View
 
             string moveText = record.Move?.ToString() ?? "NoMove";
             string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
-            Debug.Log($"[Diceforge] {record.PlayerId} -> {moveText}  Dice={record.Dice}  Pip={pipText}  T{record.TurnIndex}");
+            Debug.Log($"[Diceforge] {record.PlayerId} -> {moveText}  Outcome={record.Outcome}  Pip={pipText}  T{record.TurnIndex}");
         }
 
         private void HandleMatchEnded(GameState state)
@@ -200,6 +202,9 @@ namespace Diceforge.View
             if (!IsHumanTurn() || _runner.State == null)
                 return;
 
+            if (_runner.IsWaitingForDieSelection)
+                return;
+
             if (!HasLegalMove())
                 return;
 
@@ -219,6 +224,19 @@ namespace Diceforge.View
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             ApplyHumanMove(move.Value);
+        }
+
+        private void HandleDieSelected(int index)
+        {
+            if (!IsHumanTurn() || _runner?.State == null)
+                return;
+
+            if (!_runner.SelectDieIndex(index))
+                return;
+
+            _waitingForFromCell = false;
+            boardView?.SetCellSelectionEnabled(false);
+            UpdateUI();
         }
 
         private void HandleEnterClicked()
@@ -252,7 +270,8 @@ namespace Diceforge.View
 
             hud?.SetTurn(state.TurnIndex);
             hud?.SetCurrentPlayer(state.CurrentPlayer.ToString());
-            hud?.SetDice(state.CurrentDice, _runner.RemainingPips);
+            hud?.SetDiceOutcome(_runner.CurrentOutcome, _runner.RemainingDice, _runner.UsedDice);
+            hud?.SetBagStatus(_runner.CurrentBagRemaining, _runner.CurrentBagTotal);
             hud?.SetLastMove(lastMove);
             hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "-" : "-");
             hud?.SetPlayerStatsA($"A: Off {state.BorneOffA}");
@@ -270,22 +289,32 @@ namespace Diceforge.View
                 hud?.SetMoveEnabled(false);
                 hud?.SetEnterEnabled(false);
                 hud?.SetPlaceEnabled(false);
+                hud?.SetDiceButtons(null, null, false);
                 _waitingForFromCell = false;
                 boardView?.SetCellSelectionEnabled(false);
+                boardView?.SetHighlightedCells(null);
                 return;
             }
 
             var state = _runner.State;
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
-            bool canMove = humanTurn && HasLegalMove();
+            if (humanTurn && _runner.EndTurnIfNoMoves())
+                return;
+
+            bool needsDieSelection = humanTurn && _runner.IsWaitingForDieSelection;
+            bool canMove = humanTurn && !needsDieSelection && HasLegalMove();
 
             hud?.SetHumanControlsEnabled(humanTurn);
             hud?.SetMoveEnabled(canMove);
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
+            hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, humanTurn);
 
-            _waitingForFromCell = canMove;
-            boardView?.SetCellSelectionEnabled(canMove);
+            if (!canMove)
+                _waitingForFromCell = false;
+
+            boardView?.SetCellSelectionEnabled(_waitingForFromCell);
+            UpdateHighlightedCells();
         }
 
         private void RegisterHudCallbacks()
@@ -303,6 +332,7 @@ namespace Diceforge.View
             hud.OnSpeedChanged += HandleSpeedChanged;
             hud.OnHumanAChanged += HandleHumanAChanged;
             hud.OnHumanBChanged += HandleHumanBChanged;
+            hud.OnDieSelected += HandleDieSelected;
         }
 
         private void UnregisterHudCallbacks()
@@ -320,6 +350,7 @@ namespace Diceforge.View
             hud.OnSpeedChanged -= HandleSpeedChanged;
             hud.OnHumanAChanged -= HandleHumanAChanged;
             hud.OnHumanBChanged -= HandleHumanBChanged;
+            hud.OnDieSelected -= HandleDieSelected;
         }
 
         private void HandleStartStopChanged(bool isRunning)
@@ -367,6 +398,41 @@ namespace Diceforge.View
             UpdateUI();
         }
 
+        private DiceBagConfigData BuildBagConfig(DiceBagDefinition definition)
+        {
+            int dieMin = rules?.dieMin ?? 1;
+            int dieMax = rules?.dieMax ?? 6;
+            var outcomes = new List<DiceOutcomeData>();
+            var drawMode = definition != null ? definition.drawMode : DiceBagDrawMode.Sequential;
+
+            if (definition != null && definition.outcomes != null)
+            {
+                foreach (var outcome in definition.outcomes)
+                {
+                    if (outcome == null || outcome.dice == null || outcome.dice.Length == 0)
+                        continue;
+
+                    int weight = Mathf.Max(1, outcome.weight);
+                    int length = Mathf.Clamp(outcome.dice.Length, 1, 6);
+                    var dice = new int[length];
+                    for (int i = 0; i < length; i++)
+                        dice[i] = Mathf.Clamp(outcome.dice[i], dieMin, dieMax);
+
+                    outcomes.Add(new DiceOutcomeData(outcome.label, weight, dice));
+                }
+            }
+
+            if (outcomes.Count == 0)
+            {
+                int defaultDie = Mathf.Clamp(dieMax, dieMin, dieMax);
+                outcomes.Add(new DiceOutcomeData("Default", 1, new[] { defaultDie }));
+                if (definition == null && verboseLog)
+                    Debug.LogWarning("[Diceforge] Missing DiceBagDefinition, using fallback outcome.");
+            }
+
+            return new DiceBagConfigData(drawMode, outcomes);
+        }
+
         private string BuildStatusText()
         {
             if (_runner?.State == null)
@@ -374,6 +440,13 @@ namespace Diceforge.View
 
             if (_runner.State.IsFinished)
                 return $"Status: Finished ({_runner.State.Winner})";
+
+            if (IsHumanTurn())
+            {
+                if (_runner.IsWaitingForDieSelection)
+                    return "Status: Waiting: choose die";
+                return "Status: Waiting: choose move";
+            }
 
             string running = _isRunning ? "Running" : "Paused";
             string mode = runContinuously ? "Auto" : "Manual";
@@ -411,24 +484,65 @@ namespace Diceforge.View
             return text;
         }
 
+        private void UpdateHighlightedCells()
+        {
+            if (_runner?.State == null || boardView == null)
+            {
+                boardView?.SetHighlightedCells(null);
+                return;
+            }
+
+            if (!IsHumanTurn() || _runner.State.IsFinished)
+            {
+                boardView.SetHighlightedCells(null);
+                return;
+            }
+
+            int? selectedIndex = _runner.SelectedDieIndex;
+            if (!selectedIndex.HasValue && _runner.RemainingDice.Count == 1)
+                selectedIndex = 0;
+
+            if (!selectedIndex.HasValue)
+            {
+                boardView.SetHighlightedCells(null);
+                return;
+            }
+
+            int dieValue = _runner.RemainingDice[selectedIndex.Value];
+            var legal = MoveGenerator.GenerateLegalMoves(
+                _runner.State,
+                dieValue,
+                _runner.HeadMovesUsed,
+                _runner.HeadMovesLimit);
+
+            var cells = new HashSet<int>();
+            foreach (var move in legal)
+                cells.Add(move.FromCell);
+
+            boardView.SetHighlightedCells(cells);
+        }
+
         private bool HasLegalMove()
         {
             if (_runner?.State == null) return false;
-            var legal = MoveGenerator.GenerateLegalMoves(
-                _runner.State,
-                _runner.RemainingPips,
-                _runner.HeadMovesUsed,
-                _runner.HeadMovesLimit);
-            return legal.Count > 0;
+            return _runner.HasLegalMoveForSelectedDie();
         }
 
         private Move? SelectMoveForCell(int cellIndex)
         {
             if (_runner?.State == null) return null;
 
+            int? selectedIndex = _runner.SelectedDieIndex;
+            if (!selectedIndex.HasValue && _runner.RemainingDice.Count == 1)
+                selectedIndex = 0;
+
+            if (!selectedIndex.HasValue)
+                return null;
+
+            int dieValue = _runner.RemainingDice[selectedIndex.Value];
             var legal = MoveGenerator.GenerateLegalMoves(
                 _runner.State,
-                _runner.RemainingPips,
+                dieValue,
                 _runner.HeadMovesUsed,
                 _runner.HeadMovesLimit);
 

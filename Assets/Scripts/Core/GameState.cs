@@ -14,7 +14,7 @@ namespace Diceforge.Core
         public RulesetConfig Rules { get; }
         public int TurnIndex { get; private set; }
         public PlayerId CurrentPlayer { get; private set; }
-        public DiceRoll CurrentDice { get; private set; }
+        public DiceOutcomeResult CurrentOutcome { get; private set; }
 
         public int[] StonesAByCell { get; }
         public int[] StonesBByCell { get; }
@@ -55,7 +55,7 @@ namespace Diceforge.Core
 
             TurnIndex = 0;
             CurrentPlayer = PlayerId.A;
-            CurrentDice = new DiceRoll(0, 0);
+            CurrentOutcome = new DiceOutcomeResult(string.Empty, Array.Empty<int>());
 
             TurnsTakenA = 0;
             TurnsTakenB = 0;
@@ -117,9 +117,9 @@ namespace Diceforge.Core
             Winner = winner;
         }
 
-        public void SetCurrentDice(DiceRoll dice)
+        public void SetCurrentOutcome(DiceOutcomeResult outcome)
         {
-            CurrentDice = dice;
+            CurrentOutcome = outcome;
         }
 
         public string DebugSnapshot()

@@ -25,8 +25,8 @@ namespace Diceforge.Core
         public int? FromCell { get; }
         public int? ToCell { get; }
         public int? PipUsed { get; }
-        public DiceRoll Dice { get; }
-        public int[] RemainingPips { get; }
+        public DiceOutcomeResult Outcome { get; }
+        public int[] RemainingDice { get; }
         public ApplyResult ApplyResult { get; }
         public MatchEndReason EndReason { get; }
         public PlayerId? Winner { get; }
@@ -38,8 +38,8 @@ namespace Diceforge.Core
             int? fromCell,
             int? toCell,
             int? pipUsed,
-            DiceRoll dice,
-            int[] remainingPips,
+            DiceOutcomeResult outcome,
+            int[] remainingDice,
             ApplyResult applyResult,
             MatchEndReason endReason,
             PlayerId? winner)
@@ -50,8 +50,8 @@ namespace Diceforge.Core
             FromCell = fromCell;
             ToCell = toCell;
             PipUsed = pipUsed;
-            Dice = dice;
-            RemainingPips = remainingPips;
+            Outcome = outcome;
+            RemainingDice = remainingDice;
             ApplyResult = applyResult;
             EndReason = endReason;
             Winner = winner;

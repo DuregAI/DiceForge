@@ -74,6 +74,12 @@ namespace Diceforge.Core
         public int homeSize = 6;
         public int totalStonesPerPlayer = 15;
 
+        public int dieMin = 1;
+        public int dieMax = 6;
+
+        public DiceBagDefinition diceBagA;
+        public DiceBagDefinition diceBagB;
+
         public int startCellA = 0;
         public int startCellB = 12;
 
@@ -91,6 +97,10 @@ namespace Diceforge.Core
             boardSize = Math.Clamp(boardSize, 6, 48);
             homeSize = Math.Clamp(homeSize, 1, boardSize / 2);
             totalStonesPerPlayer = Math.Clamp(totalStonesPerPlayer, 1, 30);
+            dieMin = Math.Clamp(dieMin, 1, 999);
+            dieMax = Math.Clamp(dieMax, 1, 999);
+            if (dieMax < dieMin)
+                dieMax = dieMin;
             startCellA = Math.Clamp(startCellA, 0, boardSize - 1);
             startCellB = Math.Clamp(startCellB, 0, boardSize - 1);
             maxTurns = Math.Clamp(maxTurns, 1, 9999);

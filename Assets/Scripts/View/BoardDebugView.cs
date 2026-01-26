@@ -22,6 +22,7 @@ namespace Diceforge.View
         [SerializeField] private Color playerAColor = new Color(0.2f, 0.6f, 1f, 0.9f);
         [SerializeField] private Color playerBColor = new Color(1f, 0.4f, 0.2f, 0.9f);
         [SerializeField] private Color lastMoveColor = new Color(1f, 0.9f, 0.3f, 0.9f);
+        [SerializeField] private Color legalMoveColor = new Color(0.3f, 1f, 0.6f, 0.9f);
 
         [Header("Prefabs")]
         [SerializeField] private GameObject stonePrefabA;
@@ -32,6 +33,7 @@ namespace Diceforge.View
         private MoveRecord? _lastRecord;
         private readonly System.Collections.Generic.List<GameObject> _stonePoolA = new System.Collections.Generic.List<GameObject>();
         private readonly System.Collections.Generic.List<GameObject> _stonePoolB = new System.Collections.Generic.List<GameObject>();
+        private readonly System.Collections.Generic.HashSet<int> _highlightedCells = new System.Collections.Generic.HashSet<int>();
         private CellMarker[] _cellMarkers;
         private bool _cellSelectionEnabled;
         private Camera _camera;
@@ -67,6 +69,15 @@ namespace Diceforge.View
         public void SetCellSelectionEnabled(bool enabled)
         {
             _cellSelectionEnabled = enabled;
+        }
+
+        public void SetHighlightedCells(System.Collections.Generic.IReadOnlyCollection<int> cells)
+        {
+            _highlightedCells.Clear();
+            if (cells == null) return;
+
+            foreach (var cell in cells)
+                _highlightedCells.Add(cell);
         }
 
         private void Update()
@@ -108,6 +119,12 @@ namespace Diceforge.View
                 Vector3 pos = CellPosition(i, boardSize);
                 Gizmos.color = cellColor;
                 Gizmos.DrawWireSphere(pos, cellRadius);
+
+                if (_highlightedCells.Contains(i))
+                {
+                    Gizmos.color = legalMoveColor;
+                    Gizmos.DrawSphere(pos, cellRadius * 0.6f);
+                }
             }
 
             if (_lastRecord.HasValue)
@@ -265,9 +282,9 @@ namespace Diceforge.View
                 : $"Turn {_state.TurnIndex} - {_state.CurrentPlayer}";
 
             string endReason = _lastRecord?.EndReason.ToString() ?? "None";
-            string diceText = _state.CurrentDice.IsDouble
-                ? $"{_state.CurrentDice.DieA},{_state.CurrentDice.DieB} (D)"
-                : $"{_state.CurrentDice.DieA},{_state.CurrentDice.DieB}";
+            string diceText = _state.CurrentOutcome.Dice.Length == 0
+                ? "-"
+                : string.Join(",", _state.CurrentOutcome.Dice);
 
             return $"Diceforge Debug\n{status}\nDice: {diceText}\nOff: {off}\nLast Move: {lastMoveText}\nEnd: {endReason}";
         }
