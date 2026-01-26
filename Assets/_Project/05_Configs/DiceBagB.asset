@@ -16,7 +16,7 @@ MonoBehaviour:
   outcomes:
   - label: Two Dice
     weight: 1
-    dice: [6, 6]
+    dice: 0600000006000000
   - label: Single
     weight: 2
-    dice: [5]
+    dice: 05000000

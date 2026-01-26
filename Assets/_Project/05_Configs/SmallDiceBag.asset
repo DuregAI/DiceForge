@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14b5f9d6f9e14a4383962e3cc2bf6674, type: 3}
-  m_Name: DiceBagA
+  m_Name: SmallDiceBag
   m_EditorClassIdentifier: 
-  drawMode: 0
+  drawMode: 1
   outcomes:
-  - label: Two Dice
+  - label: Meat
+    weight: 3
+    dice: 01000000
+  - label: Jump
+    weight: 2
+    dice: 02000000
+  - label: Rocket
     weight: 1
-    dice: 0100000002000000
-  - label: Triple
-    weight: 1
-    dice: 030000000400000005000000
+    dice: 03000000
