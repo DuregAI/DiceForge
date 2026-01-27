@@ -186,10 +186,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36847669a8840fb935c2f75a49b6ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  longPreset: {fileID: 11400000, guid: f1beb0500e954055bc968548df7a3b14, type: 2}
-  shortPreset: {fileID: 11400000, guid: e1c237ea68be4ef3bbe924751e61a2b2, type: 2}
-  tutorialPreset: {fileID: 11400000, guid: e8121e8cea8a4e80aeb0bac3897f84d1, type: 2}
-  experimentalPreset: {fileID: 11400000, guid: 88c7c233009948f09ca137c4515d10cd, type: 2}
+  longPreset: {fileID: 11400000, guid: c4a54d743c274014883c17aedb6b23a6, type: 2}
+  shortPreset: {fileID: 11400000, guid: 75f279eaea7d4427a94909726fd3866a, type: 2}
+  tutorialPreset: {fileID: 11400000, guid: dbe1a0feca0b4e428a7a863dcb03824a, type: 2}
+  experimentalPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
