@@ -485,35 +485,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
   rulesetPreset: {fileID: 11400000, guid: 8a043cfbf96d47438a1b77af213157f1, type: 2}
-  rules:
-    gameMode: 0
-    boardSize: 12
-    homeSize: 3
-    totalStonesPerPlayer: 3
-    dieMin: 1
-    dieMax: 6
-    diceBagA: {fileID: 11400000, guid: 19891482dde62c1488e181fda1bc02ce, type: 2}
-    diceBagB: {fileID: 11400000, guid: 04536c91098eee7488568854d3adf3ea, type: 2}
-    startCellA: 0
-    startCellB: 6
-    allowHitSingleStone: 0
-    blockIfOpponentAnyStone: 1
-    maxTurns: 123
-    randomSeed: 12345
-    verboseLog: 1
-    headRules:
-      restrictHeadMoves: 1
-      maxHeadMovesPerTurn: 1
-      firstTurnHeadAllowance:
-      - dieA: 6
-        dieB: 6
-        maxHeadMoves: 2
-      - dieA: 4
-        dieB: 4
-        maxHeadMoves: 2
-      - dieA: 3
-        dieB: 3
-        maxHeadMoves: 2
   autoStart: 1
   runContinuously: 1
   stepMode: 1
@@ -564,6 +535,52 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832575517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &985011911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 985011913}
+  - component: {fileID: 985011912}
+  m_Layer: 0
+  m_Name: GameBootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &985011912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985011911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9046d00e529404987f91209ca66381a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
+  fallbackPreset: {fileID: 11400000, guid: 75f279eaea7d4427a94909726fd3866a, type: 2}
+  matchController: {fileID: 0}
+--- !u!4 &985011913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985011911}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -765,3 +782,4 @@ SceneRoots:
   - {fileID: 426479108}
   - {fileID: 1136167094}
   - {fileID: 1869959126}
+  - {fileID: 985011913}

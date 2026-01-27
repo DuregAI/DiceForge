@@ -157,6 +157,6 @@ public class MainMenuController : MonoBehaviour
             GameModeSelection.SetSelected(preset);
         }
 
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Battle");
     }
 }
