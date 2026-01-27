@@ -484,6 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cd26a8a9bd1514d8d2372ca94e42be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
+  rulesetPreset: {fileID: 11400000, guid: 8a043cfbf96d47438a1b77af213157f1, type: 2}
   rules:
     gameMode: 0
     boardSize: 12
