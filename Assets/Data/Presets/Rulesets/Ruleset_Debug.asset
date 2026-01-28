@@ -27,13 +27,9 @@ MonoBehaviour:
   diceBagA: {fileID: 0}
   diceBagB: {fileID: 0}
   startCellA: 0
-<<<<<<< HEAD
-  startCellB: 7
-=======
   startCellB: 4
   moveDirA: 1
   moveDirB: -1
->>>>>>> 04ad48286bb84b84fa0a6bc0420d9dcccab963cc
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
   maxTurns: 40
