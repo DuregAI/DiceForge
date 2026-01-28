@@ -21,28 +21,19 @@ MonoBehaviour:
   gameMode: 1
   boardSize: 8
   homeSize: 2
-  totalStonesPerPlayer: 5
+  totalStonesPerPlayer: 2
   dieMin: 1
   dieMax: 6
-  diceBagA: {fileID: 11400000, guid: 1e4c15b2ec80450a8b348aff89420a6a, type: 2}
-  diceBagB: {fileID: 11400000, guid: eefd2adea1784d3fba24120e24aecdbc, type: 2}
+  diceBagA: {fileID: 0}
+  diceBagB: {fileID: 0}
   startCellA: 0
-  startCellB: 4
+  startCellB: 7
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
   maxTurns: 40
   randomSeed: 45678
   verboseLog: 1
   headRules:
-    restrictHeadMoves: 1
+    restrictHeadMoves: 0
     maxHeadMovesPerTurn: 1
-    firstTurnHeadAllowance:
-    - dieA: 6
-      dieB: 6
-      maxHeadMoves: 2
-    - dieA: 4
-      dieB: 4
-      maxHeadMoves: 2
-    - dieA: 3
-      dieB: 3
-      maxHeadMoves: 2
+    firstTurnHeadAllowance: []

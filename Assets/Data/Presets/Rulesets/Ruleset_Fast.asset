@@ -14,35 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rulesetId: fast
   displayName: Fast
-  maxRounds: 1
-  maxUnitsPerSide: 10
-  allowReroll: 1
+  maxRounds: 0
+  maxUnitsPerSide: 1
+  allowReroll: 0
   actionsPerTurn: 1
   gameMode: 1
-  boardSize: 12
-  homeSize: 3
-  totalStonesPerPlayer: 7
+  boardSize: 24
+  homeSize: 6
+  totalStonesPerPlayer: 15
   dieMin: 1
   dieMax: 6
-  diceBagA: {fileID: 11400000, guid: a25082fc44644ec0a6508eb281017758, type: 2}
-  diceBagB: {fileID: 11400000, guid: a1aa69e567f54ee4a7598c04681dcf68, type: 2}
+  diceBagA: {fileID: 0}
+  diceBagB: {fileID: 0}
   startCellA: 0
-  startCellB: 6
-  allowHitSingleStone: 0
-  blockIfOpponentAnyStone: 1
+  startCellB: 0
+  allowHitSingleStone: 1
+  blockIfOpponentAnyStone: 0
   maxTurns: 60
   randomSeed: 23456
   verboseLog: 0
   headRules:
-    restrictHeadMoves: 1
+    restrictHeadMoves: 0
     maxHeadMovesPerTurn: 1
-    firstTurnHeadAllowance:
-    - dieA: 6
-      dieB: 6
-      maxHeadMoves: 2
-    - dieA: 4
-      dieB: 4
-      maxHeadMoves: 2
-    - dieA: 3
-      dieB: 3
-      maxHeadMoves: 2
+    firstTurnHeadAllowance: []

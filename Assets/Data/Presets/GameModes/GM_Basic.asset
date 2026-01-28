@@ -15,6 +15,6 @@ MonoBehaviour:
   modeId: basic
   displayName: Basic
   rulesetPreset: {fileID: 11400000, guid: 0624f92d2c5646ae8971293772de3da9, type: 2}
-  diceBagA: {fileID: 11400000, guid: d7bda9e709164f7387372d9217b7a47a, type: 2}
-  diceBagB: {fileID: 11400000, guid: ad641b3e4f61477a8738b2e4f4c2c3e3, type: 2}
+  diceBagA: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
+  diceBagB: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
   setupPreset: {fileID: 11400000, guid: e7370ccba21f4054ac8ef3928036dd18, type: 2}

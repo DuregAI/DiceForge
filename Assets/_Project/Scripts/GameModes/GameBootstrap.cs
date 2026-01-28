@@ -51,7 +51,7 @@ public class GameBootstrap : MonoBehaviour
         if (selectedPreset.diceBagB == null && selectedPreset.rulesetPreset.diceBagB == null)
             Debug.LogWarning("[GameBootstrap] Missing DiceBagDefinition for Bag B; using fallback.");
 
-        var battleController = FindObjectOfType<BattleDebugController>();
+        var battleController = FindAnyObjectByType<BattleDebugController>();
         if (battleController != null)
         {
             Debug.Log("[GameBootstrap] BattleDebugController found; bootstrapping battle debug mode.");
@@ -68,7 +68,7 @@ public class GameBootstrap : MonoBehaviour
         if (matchController == null)
         {
             Debug.LogWarning("[GameBootstrap] MatchController reference missing, searching scene.");
-            matchController = FindObjectOfType<MatchController>();
+            matchController = FindAnyObjectByType<MatchController>();
         }
 
         if (matchController == null)

@@ -15,6 +15,6 @@ MonoBehaviour:
   modeId: debug
   displayName: Debug
   rulesetPreset: {fileID: 11400000, guid: 8a043cfbf96d47438a1b77af213157f1, type: 2}
-  diceBagA: {fileID: 11400000, guid: 1e4c15b2ec80450a8b348aff89420a6a, type: 2}
-  diceBagB: {fileID: 11400000, guid: eefd2adea1784d3fba24120e24aecdbc, type: 2}
+  diceBagA: {fileID: 11400000, guid: 740bdf39f2364d245bba2f6f9385ebda, type: 2}
+  diceBagB: {fileID: 11400000, guid: 8f251436e071bd547ad57b49a7c72336, type: 2}
   setupPreset: {fileID: 11400000, guid: b2a98b74703a47e08424d8d4bd625e25, type: 2}

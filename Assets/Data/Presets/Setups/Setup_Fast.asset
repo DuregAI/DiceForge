@@ -14,5 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setupId: fast
   displayName: Fast
-  boardSize: 12
-  unitPlacements: []
+  boardSize: 24
+  unitPlacements:
+  - player: 0
+    cellIndex: 0
+    count: 2
+  - player: 0
+    cellIndex: 11
+    count: 5
+  - player: 0
+    cellIndex: 16
+    count: 3
+  - player: 0
+    cellIndex: 18
+    count: 5
+  - player: 1
+    cellIndex: 4
+    count: 5
+  - player: 1
+    cellIndex: 6
+    count: 3
+  - player: 1
+    cellIndex: 12
+    count: 5
+  - player: 1
+    cellIndex: 23
+    count: 2
