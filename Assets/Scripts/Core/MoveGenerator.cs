@@ -66,6 +66,7 @@ namespace Diceforge.Core
             var rules = s.Rules;
             var current = s.CurrentPlayer;
             var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
+            int dir = GetMoveDir(s, current);
             int headCell = GetHeadCell(s, current);
             bool allInHome = AllStonesInHome(s, current);
 
@@ -84,7 +85,7 @@ namespace Diceforge.Core
                 if (IsOvershootWithoutBearOff(s, current, cell, dieValue))
                     continue;
 
-                int to = GameState.Mod(cell + dieValue, rules.boardSize);
+                int to = GameState.Mod(cell + dieValue * dir, rules.boardSize);
                 if (!CanEnterCell(s, opponent, to))
                     continue;
                 moves.Add(Move.MoveStone(cell, dieValue));
@@ -104,7 +105,8 @@ namespace Diceforge.Core
                     int from = GameState.Mod(m.FromCell, s.Rules.boardSize);
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
 
-                    int to = GameState.Mod(from + m.PipUsed, s.Rules.boardSize);
+                    int dir = GetMoveDir(s, s.CurrentPlayer);
+                    int to = GameState.Mod(from + m.PipUsed * dir, s.Rules.boardSize);
                     if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to))
                         return ApplyResult.Illegal;
 
@@ -182,7 +184,9 @@ namespace Diceforge.Core
         private static int DistanceToStart(GameState s, PlayerId player, int cell)
         {
             int startCell = GetHeadCell(s, player);
-            return (startCell - GameState.Mod(cell, s.Rules.boardSize) + s.Rules.boardSize) % s.Rules.boardSize;
+            int dir = GetMoveDir(s, player);
+            int delta = GameState.Mod(cell - startCell, s.Rules.boardSize);
+            return (delta * dir + s.Rules.boardSize) % s.Rules.boardSize;
         }
 
         private static bool HasStoneFurtherFromStart(GameState s, PlayerId player, int distance)
@@ -203,6 +207,11 @@ namespace Diceforge.Core
         private static int GetHeadCell(GameState s, PlayerId player)
         {
             return player == PlayerId.A ? s.Rules.startCellA : s.Rules.startCellB;
+        }
+
+        private static int GetMoveDir(GameState s, PlayerId player)
+        {
+            return player == PlayerId.A ? s.Rules.moveDirA : s.Rules.moveDirB;
         }
 
         private static bool CanEnterCell(GameState s, PlayerId opponent, int cell)

@@ -32,6 +32,8 @@ namespace Diceforge.Presets
         [Header("Start Cells")]
         public int startCellA = 0;
         public int startCellB = 12;
+        public int moveDirA = 1;
+        public int moveDirB = -1;
 
         [Header("Collision Rules")]
         public bool allowHitSingleStone = false;
