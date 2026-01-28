@@ -1,5 +1,6 @@
 using Diceforge.Core;
 using Diceforge.Match;
+using Diceforge.View;
 using UnityEngine;
 
 public class GameBootstrap : MonoBehaviour
@@ -38,10 +39,25 @@ public class GameBootstrap : MonoBehaviour
             return;
         }
 
-        if (selectedPreset.diceBagA == null)
-            Debug.LogWarning("[GameBootstrap] Selected preset is missing DiceBagDefinition for Bag A.");
-        if (selectedPreset.diceBagB == null)
-            Debug.LogWarning("[GameBootstrap] Selected preset is missing DiceBagDefinition for Bag B.");
+        Debug.Log($"[GameBootstrap] Ruleset: {selectedPreset.rulesetPreset.rulesetId} / {selectedPreset.rulesetPreset.displayName}");
+        Debug.Log($"[GameBootstrap] Setup: {selectedPreset.setupPreset.setupId} / {selectedPreset.setupPreset.displayName}");
+
+        string bagAName = ResolveBagName(selectedPreset.diceBagA, selectedPreset.rulesetPreset.diceBagA);
+        string bagBName = ResolveBagName(selectedPreset.diceBagB, selectedPreset.rulesetPreset.diceBagB);
+        Debug.Log($"[GameBootstrap] Dice bags: A={bagAName} B={bagBName}");
+
+        if (selectedPreset.diceBagA == null && selectedPreset.rulesetPreset.diceBagA == null)
+            Debug.LogWarning("[GameBootstrap] Missing DiceBagDefinition for Bag A; using fallback.");
+        if (selectedPreset.diceBagB == null && selectedPreset.rulesetPreset.diceBagB == null)
+            Debug.LogWarning("[GameBootstrap] Missing DiceBagDefinition for Bag B; using fallback.");
+
+        var battleController = FindObjectOfType<BattleDebugController>();
+        if (battleController != null)
+        {
+            Debug.Log("[GameBootstrap] BattleDebugController found; bootstrapping battle debug mode.");
+            battleController.StartFromPreset(selectedPreset);
+            return;
+        }
 
         var rules = RulesetConfig.FromPreset(selectedPreset.rulesetPreset);
         var setup = SetupConfig.FromPreset(selectedPreset.setupPreset);
@@ -62,5 +78,14 @@ public class GameBootstrap : MonoBehaviour
         }
 
         matchController.Initialize(matchConfig);
+    }
+
+    private static string ResolveBagName(DiceBagDefinition primary, DiceBagDefinition fallback)
+    {
+        if (primary != null)
+            return primary.name;
+        if (fallback != null)
+            return fallback.name;
+        return "Default";
     }
 }

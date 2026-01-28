@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Diceforge.Core;
 using Diceforge.Presets;
@@ -38,6 +39,10 @@ namespace Diceforge.View
         private bool _isRunning;
         private float _elapsed;
         private bool _waitingForFromCell;
+        private bool _isInitialized;
+        private bool _hasExternalPreset;
+        private GameModePreset _externalPreset;
+        private Coroutine _autoStartRoutine;
 
         private void Awake()
         {
@@ -57,8 +62,6 @@ namespace Diceforge.View
                 hud = GetComponentInChildren<DebugHudUITK>(true);
 
             RegisterHudCallbacks();
-
-            InitializeMatch();
         }
 
         private void OnDestroy()
@@ -78,8 +81,7 @@ namespace Diceforge.View
 
         private void Start()
         {
-            if (autoStart)
-                StartMatch();
+            _autoStartRoutine = StartCoroutine(DeferredInitialize());
 
             SyncHudState();
         }
@@ -108,24 +110,85 @@ namespace Diceforge.View
             }
         }
 
-        private void InitializeMatch()
+        public void StartFromPreset(GameModePreset preset)
         {
-            if (rulesetPreset == null)
+            if (preset == null)
+            {
+                Debug.LogWarning("[Diceforge] Null GameModePreset provided. Aborting external start.");
+                return;
+            }
+
+            if (_isInitialized && _isRunning)
+            {
+                Debug.LogWarning("[Diceforge] Match already running. External preset ignored.");
+                return;
+            }
+
+            _hasExternalPreset = true;
+            _externalPreset = preset;
+            InitializeMatchFromPreset(preset);
+            if (autoStart && !_isRunning)
+                StartMatch();
+        }
+
+        private IEnumerator DeferredInitialize()
+        {
+            yield return null;
+
+            if (_hasExternalPreset && _externalPreset != null)
+            {
+                if (!_isInitialized)
+                    InitializeMatchFromPreset(_externalPreset);
+
+                if (autoStart && !_isRunning)
+                    StartMatch();
+
+                yield break;
+            }
+
+            InitializeMatchFromRuleset(rulesetPreset);
+            if (autoStart && !_isRunning)
+                StartMatch();
+        }
+
+        private void InitializeMatchFromRuleset(RulesetPreset preset)
+        {
+            if (preset == null)
             {
                 Debug.LogError("[Diceforge] Missing RulesetPreset. Aborting match bootstrap.");
                 enabled = false;
                 return;
             }
 
-            _rules = RulesetConfig.FromPreset(rulesetPreset);
+            _rules = RulesetConfig.FromPreset(preset);
             var bagA = BuildBagConfig(_rules.diceBagA);
             var bagB = BuildBagConfig(_rules.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
+            _isInitialized = true;
+        }
+
+        private void InitializeMatchFromPreset(GameModePreset preset)
+        {
+            if (preset.rulesetPreset == null)
+            {
+                Debug.LogError("[Diceforge] Missing RulesetPreset on GameModePreset. Aborting match bootstrap.");
+                enabled = false;
+                return;
+            }
+
+            _rules = RulesetConfig.FromPreset(preset.rulesetPreset);
+            var bagA = BuildBagConfig(preset.diceBagA ?? preset.rulesetPreset.diceBagA);
+            var bagB = BuildBagConfig(preset.diceBagB ?? preset.rulesetPreset.diceBagB);
+            _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
+            _isInitialized = true;
         }
 
         [ContextMenu("Start")]
         public void StartMatch()
         {
+            if (!_isInitialized)
+                InitializeMatchFromRuleset(rulesetPreset);
+
             _isRunning = true;
             SyncHudState();
         }
