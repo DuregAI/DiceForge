@@ -89,6 +89,8 @@ namespace Diceforge.Core
 
         public int startCellA = 0;
         public int startCellB = 12;
+        public int moveDirA = 1;
+        public int moveDirB = -1;
 
         public bool allowHitSingleStone = false;
         public bool blockIfOpponentAnyStone = true;
@@ -122,6 +124,8 @@ namespace Diceforge.Core
                 diceBagB = preset.diceBagB,
                 startCellA = preset.startCellA,
                 startCellB = preset.startCellB,
+                moveDirA = preset.moveDirA,
+                moveDirB = preset.moveDirB,
                 allowHitSingleStone = preset.allowHitSingleStone,
                 blockIfOpponentAnyStone = preset.blockIfOpponentAnyStone,
                 maxTurns = preset.maxTurns,
@@ -173,6 +177,8 @@ namespace Diceforge.Core
                 dieMax = dieMin;
             startCellA = Math.Clamp(startCellA, 0, boardSize - 1);
             startCellB = Math.Clamp(startCellB, 0, boardSize - 1);
+            moveDirA = moveDirA >= 0 ? 1 : -1;
+            moveDirB = moveDirB >= 0 ? 1 : -1;
             maxTurns = Math.Clamp(maxTurns, 1, 9999);
             headRules?.Validate();
         }

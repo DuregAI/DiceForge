@@ -28,6 +28,8 @@ MonoBehaviour:
   diceBagB: {fileID: 11400000, guid: ff63a6516ea6490f9ab18c9955184455, type: 2}
   startCellA: 0
   startCellB: 15
+  moveDirA: 1
+  moveDirB: -1
   allowHitSingleStone: 1
   blockIfOpponentAnyStone: 1
   maxTurns: 180
