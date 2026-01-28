@@ -27,9 +27,17 @@ MonoBehaviour:
   diceBagA: {fileID: 0}
   diceBagB: {fileID: 0}
   startCellA: 0
+<<<<<<< HEAD
   startCellB: 0
   allowHitSingleStone: 1
   blockIfOpponentAnyStone: 0
+=======
+  startCellB: 6
+  moveDirA: 1
+  moveDirB: -1
+  allowHitSingleStone: 0
+  blockIfOpponentAnyStone: 1
+>>>>>>> 04ad48286bb84b84fa0a6bc0420d9dcccab963cc
   maxTurns: 60
   randomSeed: 23456
   verboseLog: 0
