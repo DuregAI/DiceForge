@@ -1,6 +1,4 @@
 using System;
-using System.Text;
-
 namespace Diceforge.Core
 {
     public enum PlayerId : byte
@@ -11,13 +9,16 @@ namespace Diceforge.Core
 
     public sealed class GameState
     {
+        private readonly int[] _stonesAByCell;
+        private readonly int[] _stonesBByCell;
+
         public RulesetConfig Rules { get; }
         public int TurnIndex { get; private set; }
         public PlayerId CurrentPlayer { get; private set; }
         public DiceOutcomeResult CurrentOutcome { get; private set; }
 
-        public int[] StonesAByCell { get; }
-        public int[] StonesBByCell { get; }
+        public ReadOnlySpan<int> StonesAByCell => _stonesAByCell;
+        public ReadOnlySpan<int> StonesBByCell => _stonesBByCell;
 
         public int BorneOffA { get; private set; }
         public int BorneOffB { get; private set; }
@@ -33,22 +34,22 @@ namespace Diceforge.Core
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
             Rules.Validate();
 
-            StonesAByCell = new int[Rules.boardSize];
-            StonesBByCell = new int[Rules.boardSize];
+            _stonesAByCell = new int[Rules.boardSize];
+            _stonesBByCell = new int[Rules.boardSize];
 
             Reset();
         }
 
         public void Reset()
         {
-            Array.Clear(StonesAByCell, 0, StonesAByCell.Length);
-            Array.Clear(StonesBByCell, 0, StonesBByCell.Length);
+            Array.Clear(_stonesAByCell, 0, _stonesAByCell.Length);
+            Array.Clear(_stonesBByCell, 0, _stonesBByCell.Length);
 
             int startCellA = Mod(Rules.startCellA, Rules.boardSize);
             int startCellB = Mod(Rules.startCellB, Rules.boardSize);
-            int startStones = Math.Clamp(Rules.totalStonesPerPlayer, 0, Rules.totalStonesPerPlayer);
-            StonesAByCell[startCellA] = startStones;
-            StonesBByCell[startCellB] = startStones;
+            int startStones = Math.Max(0, Rules.totalStonesPerPlayer);
+            _stonesAByCell[startCellA] = startStones;
+            _stonesBByCell[startCellB] = startStones;
 
             BorneOffA = 0;
             BorneOffB = 0;
@@ -77,14 +78,19 @@ namespace Diceforge.Core
         public int GetStonesAt(PlayerId p, int cell)
         {
             cell = Mod(cell, Rules.boardSize);
-            return p == PlayerId.A ? StonesAByCell[cell] : StonesBByCell[cell];
+            return p == PlayerId.A ? _stonesAByCell[cell] : _stonesBByCell[cell];
+        }
+
+        internal ReadOnlySpan<int> GetStonesByCell(PlayerId p)
+        {
+            return p == PlayerId.A ? _stonesAByCell : _stonesBByCell;
         }
 
         public void AddStoneToCell(PlayerId p, int cell)
         {
             cell = Mod(cell, Rules.boardSize);
-            if (p == PlayerId.A) StonesAByCell[cell]++;
-            else StonesBByCell[cell]++;
+            if (p == PlayerId.A) _stonesAByCell[cell]++;
+            else _stonesBByCell[cell]++;
         }
 
         public bool RemoveStoneFromCell(PlayerId p, int cell)
@@ -92,13 +98,13 @@ namespace Diceforge.Core
             cell = Mod(cell, Rules.boardSize);
             if (p == PlayerId.A)
             {
-                if (StonesAByCell[cell] <= 0) return false;
-                StonesAByCell[cell]--;
+                if (_stonesAByCell[cell] <= 0) return false;
+                _stonesAByCell[cell]--;
                 return true;
             }
 
-            if (StonesBByCell[cell] <= 0) return false;
-            StonesBByCell[cell]--;
+            if (_stonesBByCell[cell] <= 0) return false;
+            _stonesBByCell[cell]--;
             return true;
         }
 
@@ -122,19 +128,7 @@ namespace Diceforge.Core
             CurrentOutcome = outcome;
         }
 
-        public string DebugSnapshot()
-        {
-            var sb = new StringBuilder();
-            sb.Append($"T{TurnIndex} P:{CurrentPlayer}  ");
-            sb.Append($"Off A:{BorneOffA}  Off B:{BorneOffB}  ");
-            sb.Append("A cells:");
-            for (int i = 0; i < StonesAByCell.Length; i++)
-                if (StonesAByCell[i] > 0) sb.Append($"{i}({StonesAByCell[i]}) ");
-            sb.Append(" B cells:");
-            for (int i = 0; i < StonesBByCell.Length; i++)
-                if (StonesBByCell[i] > 0) sb.Append($"{i}({StonesBByCell[i]}) ");
-            return sb.ToString();
-        }
+        public string DebugSnapshot() => GameStateDebug.Snapshot(this);
 
         public static int Mod(int x, int m)
         {
