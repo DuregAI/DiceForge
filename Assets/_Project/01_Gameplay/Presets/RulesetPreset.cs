@@ -26,8 +26,8 @@ namespace Diceforge.Presets
         [Header("Dice")]
         public int dieMin = 1;
         public int dieMax = 6;
-        public DiceBagDefinition diceBagA;
-        public DiceBagDefinition diceBagB;
+        //public DiceBagDefinition diceBagA;
+        //public DiceBagDefinition diceBagB;
 
         [Header("Start Cells")]
         public int startCellA = 0;

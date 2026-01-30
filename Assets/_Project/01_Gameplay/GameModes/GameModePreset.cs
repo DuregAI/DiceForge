@@ -2,7 +2,7 @@ using Diceforge.Core;
 using Diceforge.Presets;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "DiceForge/Game Mode Preset", fileName = "GM_New")]
+[CreateAssetMenu(menuName = "Diceforge/Game Mode Preset", fileName = "GM_New")]
 public class GameModePreset : ScriptableObject
 {
     public string modeId;

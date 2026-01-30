@@ -42,13 +42,13 @@ public class GameBootstrap : MonoBehaviour
         Debug.Log($"[GameBootstrap] Ruleset: {selectedPreset.rulesetPreset.rulesetId} / {selectedPreset.rulesetPreset.displayName}");
         Debug.Log($"[GameBootstrap] Setup: {selectedPreset.setupPreset.setupId} / {selectedPreset.setupPreset.displayName}");
 
-        string bagAName = ResolveBagName(selectedPreset.diceBagA, selectedPreset.rulesetPreset.diceBagA);
-        string bagBName = ResolveBagName(selectedPreset.diceBagB, selectedPreset.rulesetPreset.diceBagB);
+        string bagAName = ResolveBagName(selectedPreset.diceBagA);
+        string bagBName = ResolveBagName(selectedPreset.diceBagB);
         Debug.Log($"[GameBootstrap] Dice bags: A={bagAName} B={bagBName}");
 
-        if (selectedPreset.diceBagA == null && selectedPreset.rulesetPreset.diceBagA == null)
+        if (selectedPreset.diceBagA == null)
             Debug.LogWarning("[GameBootstrap] Missing DiceBagDefinition for Bag A; using fallback.");
-        if (selectedPreset.diceBagB == null && selectedPreset.rulesetPreset.diceBagB == null)
+        if (selectedPreset.diceBagB == null)
             Debug.LogWarning("[GameBootstrap] Missing DiceBagDefinition for Bag B; using fallback.");
 
         var battleController = FindAnyObjectByType<BattleDebugController>();
@@ -80,12 +80,10 @@ public class GameBootstrap : MonoBehaviour
         matchController.Initialize(matchConfig);
     }
 
-    private static string ResolveBagName(DiceBagDefinition primary, DiceBagDefinition fallback)
+    private static string ResolveBagName(DiceBagDefinition primary)
     {
         if (primary != null)
             return primary.name;
-        if (fallback != null)
-            return fallback.name;
         return "Default";
     }
 }

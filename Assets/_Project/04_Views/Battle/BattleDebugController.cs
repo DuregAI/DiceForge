@@ -177,8 +177,8 @@ namespace Diceforge.View
             }
 
             _rules = RulesetConfig.FromPreset(preset.rulesetPreset);
-            var bagA = BuildBagConfig(preset.diceBagA ?? preset.rulesetPreset.diceBagA);
-            var bagB = BuildBagConfig(preset.diceBagB ?? preset.rulesetPreset.diceBagB);
+            var bagA = BuildBagConfig(preset.diceBagA);
+            var bagB = BuildBagConfig(preset.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
             _isInitialized = true;
         }
