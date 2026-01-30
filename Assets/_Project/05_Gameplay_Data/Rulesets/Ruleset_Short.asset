@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5caa3f3cf274c1a9d7c8cc311a02211, type: 3}
+  m_Name: Ruleset_Short
+  m_EditorClassIdentifier: 
+  rulesetId: short
+  displayName: Short
+  maxRounds: 120
+  maxUnitsPerSide: 15
+  allowReroll: 0
+  actionsPerTurn: 2
+  gameMode: 1
+  boardSize: 24
+  homeSize: 6
+  totalStonesPerPlayer: 15
+  dieMin: 1
+  dieMax: 6
+  diceBagA: {fileID: 0}
+  diceBagB: {fileID: 0}
+  startCellA: 18
+  startCellB: 17
+  moveDirA: 1
+  moveDirB: -1
+  allowHitSingleStone: 1
+  blockIfOpponentAnyStone: 0
+  maxTurns: 120
+  randomSeed: 23456
+  verboseLog: 0
+  headRules:
+    restrictHeadMoves: 0
+    maxHeadMovesPerTurn: 1
+    firstTurnHeadAllowance: []

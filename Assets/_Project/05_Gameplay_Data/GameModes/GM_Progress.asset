@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c660931a2f4a67afe674a6986e2908, type: 3}
+  m_Name: GM_Progress
+  m_EditorClassIdentifier: 
+  modeId: progress
+  displayName: Progress
+  rulesetPreset: {fileID: 11400000, guid: 808a564323754501a4c1fcb90c66841e, type: 2}
+  diceBagA: {fileID: 11400000, guid: 05023fe95bd18d447b9c1aa4c024eb43, type: 2}
+  diceBagB: {fileID: 11400000, guid: 05023fe95bd18d447b9c1aa4c024eb43, type: 2}
+  setupPreset: {fileID: 11400000, guid: f40d7abf312a46028d1a2d6a3091c297, type: 2}
