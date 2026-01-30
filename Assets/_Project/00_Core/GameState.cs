@@ -81,6 +81,11 @@ namespace Diceforge.Core
             return p == PlayerId.A ? _stonesAByCell[cell] : _stonesBByCell[cell];
         }
 
+        internal ReadOnlySpan<int> GetStonesByCell(PlayerId p)
+        {
+            return p == PlayerId.A ? _stonesAByCell : _stonesBByCell;
+        }
+
         public void AddStoneToCell(PlayerId p, int cell)
         {
             cell = Mod(cell, Rules.boardSize);
