@@ -27,6 +27,8 @@ public class MainMenuController : MonoBehaviour
     private Slider musicSlider;
     private Slider sfxSlider;
     private Button settingsButton;
+    private Button copyLogButton;
+    private VisualElement copyLogTooltip;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
     private bool isSettingsOpen;
@@ -52,6 +54,8 @@ public class MainMenuController : MonoBehaviour
         musicSlider = root.Q<Slider>("sliderMusicVolume");
         sfxSlider = root.Q<Slider>("sliderSfxVolume");
         settingsButton = root.Q<Button>("btnSettings");
+        copyLogButton = root.Q<Button>("btnCopyLog");
+        copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
@@ -65,8 +69,6 @@ public class MainMenuController : MonoBehaviour
 
         RegisterButton("btnSettings", ToggleSettingsPanel);
 
-        RegisterButton("btnSettingsBack", CloseSettings);
-
         RegisterButton("btnCopyLog", CopyLogToClipboard);
 
         RegisterButton("btnLong", () => SelectModeAndLoad(longPreset));
@@ -76,6 +78,7 @@ public class MainMenuController : MonoBehaviour
 
         InitializeAboutSection();
         InitializeAudioSliders();
+        InitializeCopyLogTooltip();
         UpdateSettingsButtonState(isSettingsOpen);
     }
 
@@ -178,8 +181,26 @@ public class MainMenuController : MonoBehaviour
     {
         if (aboutVersionLabel != null)
         {
-            aboutVersionLabel.text = $"Version: {Application.version}";
+            aboutVersionLabel.text = $"Version {Application.version}";
         }
+    }
+
+    private void InitializeCopyLogTooltip()
+    {
+        if (copyLogButton == null || copyLogTooltip == null)
+        {
+            return;
+        }
+
+        copyLogTooltip.style.display = DisplayStyle.None;
+        copyLogButton.RegisterCallback<MouseEnterEvent>(_ =>
+        {
+            copyLogTooltip.style.display = DisplayStyle.Flex;
+        });
+        copyLogButton.RegisterCallback<MouseLeaveEvent>(_ =>
+        {
+            copyLogTooltip.style.display = DisplayStyle.None;
+        });
     }
 
     private void InitializeAudioSliders()

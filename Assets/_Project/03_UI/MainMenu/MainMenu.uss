@@ -77,16 +77,105 @@
   unity-font-style: bold;
 }
 
+.settings-window {
+  width: 92vw;
+  max-width: 720px;
+  padding: 32px 36px;
+  gap: 20px;
+  flex-direction: column;
+  align-items: stretch;
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#settings_bg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.settings-label {
+  font-size: 14px;
+  unity-font-style: bold;
+}
+
 .settings-block {
-  min-width: 320px;
   flex-direction: column;
   gap: 6px;
 }
 
-.settings-about {
+.settings-slider {
+  height: 20px;
+}
+
+.settings-slider .unity-slider__track {
+  height: 18px;
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_bg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.settings-slider .unity-slider__dragger {
+  width: 32px;
+  height: 32px;
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_thumb_inactive");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-width: 0;
+  background-color: transparent;
+}
+
+.settings-slider .unity-slider__dragger:hover,
+.settings-slider .unity-slider__dragger:active,
+.settings-slider .unity-slider__dragger:focus {
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_thumb_active");
+}
+
+.settings-about-row {
   margin-top: 12px;
-  flex-direction: column;
-  gap: 6px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.about-text {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.about-separator {
+  opacity: 0.7;
+}
+
+.copy-log-wrapper {
+  position: relative;
+  align-items: center;
+}
+
+.copy-log-button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#copy_log");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-width: 0;
+}
+
+.copy-log-tooltip {
+  position: absolute;
+  right: 0;
+  bottom: 48px;
+  width: 180px;
+  height: 60px;
+  display: none;
+  background-image: url("../../../_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#log_tooltip");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .panel {
