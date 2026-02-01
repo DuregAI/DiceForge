@@ -3,28 +3,8 @@
   <ui:Style src="MainMenu.uss" />
   <ui:VisualElement name="Root">
     <ui:VisualElement name="Corners">
-      <ui:VisualElement name="CornerTL">
-        <ui:Button name="btnProfile" text="Profile" />
-        <ui:Label name="lblPlayerName" text="Player" />
-      </ui:VisualElement>
-      <ui:VisualElement name="CornerTR">
-        <ui:VisualElement name="resourcesBar">
-          <ui:Label name="lblGold" text="Gold: 0" />
-          <ui:Label name="lblGems" text="Gems: 0" />
-          <ui:Label name="lblEnergy" text="Energy: 0" />
-        </ui:VisualElement>
-        <ui:VisualElement name="buildingsBar">
-          <ui:Button name="btnUpgrades" text="Upgrades" />
-          <ui:Button name="btnBuildings" text="Buildings" />
-        </ui:VisualElement>
-      </ui:VisualElement>
-      <ui:VisualElement name="CornerBL">
-        <ui:Button name="btnSettings" text="Settings" />
-      </ui:VisualElement>
       <ui:VisualElement name="CornerBR">
-        <ui:Label name="lblBuildInfo" text="Build: dev" />
-        <ui:Button name="btnCopyLog" text="Copy Log" />
-        <ui:Button name="btnAbout" text="About" />
+        <ui:Button name="btnSettings" text="Settings" />
       </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Center">
@@ -37,24 +17,22 @@
         </ui:VisualElement>
       </ui:VisualElement>
       <ui:VisualElement name="SettingsPanel" class="panel">
-        <ui:Label text="SETTINGS" />
+        <ui:Label class="panel-title" text="SETTINGS" />
+        <ui:VisualElement class="settings-block">
+          <ui:Label text="Music Volume" />
+          <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="1" />
+        </ui:VisualElement>
+        <ui:VisualElement class="settings-block">
+          <ui:Label text="SFX Volume" />
+          <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" />
+        </ui:VisualElement>
+        <ui:VisualElement class="settings-about">
+          <ui:Label class="panel-title" text="ABOUT" />
+          <ui:Label name="lblAboutVersion" text="Version: 0.0.0" />
+          <ui:Label name="lblBuildInfo" text="Build: dev" />
+          <ui:Button name="btnCopyLog" text="Copy Log" />
+        </ui:VisualElement>
         <ui:Button name="btnSettingsBack" text="Back" />
-      </ui:VisualElement>
-      <ui:VisualElement name="ProfilePanel" class="panel">
-        <ui:Label text="PROFILE" />
-        <ui:Button name="btnProfileBack" text="Back" />
-      </ui:VisualElement>
-      <ui:VisualElement name="UpgradesPanel" class="panel">
-        <ui:Label text="UPGRADES" />
-        <ui:Button name="btnUpgradesBack" text="Back" />
-      </ui:VisualElement>
-      <ui:VisualElement name="BuildingsPanel" class="panel">
-        <ui:Label text="BUILDINGS" />
-        <ui:Button name="btnBuildingsBack" text="Back" />
-      </ui:VisualElement>
-      <ui:VisualElement name="AboutPanel" class="panel">
-        <ui:Label text="ABOUT" />
-        <ui:Button name="btnAboutBack" text="Back" />
       </ui:VisualElement>
     </ui:VisualElement>
   </ui:VisualElement>
