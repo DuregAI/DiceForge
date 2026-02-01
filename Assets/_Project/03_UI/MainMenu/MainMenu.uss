@@ -21,13 +21,13 @@
 }
 
 .settings-button {
-  width: 96px;
-  height: 96px;
+  width: 128px;
+  height: 182px;
   padding: 0;
   margin: 0;
   background-color: transparent;
   background-image: url("../../../_Project/07_Art/UI/MainMenu/Icons/settings_icon_wrench_gear.png");
-  background-size: 72px 72px;
+  background-size: auto 120px;
   background-repeat: no-repeat;
   background-position: center;
   border-width: 0;
