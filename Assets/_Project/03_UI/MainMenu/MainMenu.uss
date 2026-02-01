@@ -22,7 +22,7 @@
 
 .settings-button {
   width: 128px;
-  height: 128px;
+  height: 182px;
   padding: 0;
   margin: 0;
   background-color: transparent;
