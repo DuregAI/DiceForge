@@ -17,22 +17,28 @@
         </ui:VisualElement>
       </ui:VisualElement>
       <ui:VisualElement name="SettingsPanel" class="panel">
-        <ui:Label class="panel-title" text="SETTINGS" />
-        <ui:VisualElement class="settings-block">
-          <ui:Label text="Music Volume" />
-          <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="1" />
+        <ui:VisualElement name="SettingsWindow" class="settings-window">
+          <ui:Label class="panel-title" text="SETTINGS" />
+          <ui:VisualElement class="settings-block">
+            <ui:Label class="settings-label" text="Music Volume" />
+            <ui:Slider name="sliderMusicVolume" class="settings-slider" low-value="0" high-value="1" value="1" />
+          </ui:VisualElement>
+          <ui:VisualElement class="settings-block">
+            <ui:Label class="settings-label" text="SFX Volume" />
+            <ui:Slider name="sliderSfxVolume" class="settings-slider" low-value="0" high-value="1" value="1" />
+          </ui:VisualElement>
+          <ui:VisualElement class="settings-about-row">
+            <ui:VisualElement class="about-text">
+              <ui:Label name="lblAboutVersion" text="Version 0.0.0" />
+              <ui:Label class="about-separator" text="|" />
+              <ui:Label name="lblBuildInfo" text="Build: dev" />
+            </ui:VisualElement>
+            <ui:VisualElement class="copy-log-wrapper">
+              <ui:Button name="btnCopyLog" class="copy-log-button" text="" />
+              <ui:VisualElement name="copyLogTooltip" class="copy-log-tooltip" />
+            </ui:VisualElement>
+          </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="settings-block">
-          <ui:Label text="SFX Volume" />
-          <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" />
-        </ui:VisualElement>
-        <ui:VisualElement class="settings-about">
-          <ui:Label class="panel-title" text="ABOUT" />
-          <ui:Label name="lblAboutVersion" text="Version: 0.0.0" />
-          <ui:Label name="lblBuildInfo" text="Build: dev" />
-          <ui:Button name="btnCopyLog" text="Copy Log" />
-        </ui:VisualElement>
-        <ui:Button name="btnSettingsBack" text="Back" />
       </ui:VisualElement>
     </ui:VisualElement>
   </ui:VisualElement>
