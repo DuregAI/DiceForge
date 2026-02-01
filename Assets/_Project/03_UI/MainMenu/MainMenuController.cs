@@ -11,7 +11,8 @@ public class MainMenuController : MonoBehaviour
     private const string MusicVolumeKey = "audio.musicVolume";
     private const string SfxVolumeKey = "audio.sfxVolume";
     private const float DefaultVolume = 1f;
-    private const string HiddenClass = "is-hidden";
+    private const string SettingsStateClass = "state-settings";
+    private const string BackStateClass = "state-back";
 
     [Header("Game Mode Presets")]
     [SerializeField] private GameModePreset longPreset;
@@ -28,6 +29,7 @@ public class MainMenuController : MonoBehaviour
     private Button settingsButton;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
+    private bool isSettingsOpen;
 
     private void Awake()
     {
@@ -61,9 +63,9 @@ public class MainMenuController : MonoBehaviour
             menuPanel.AddToClassList(VisibleClass);
         }
 
-        RegisterButton("btnSettings", () => ShowPanel("SettingsPanel"));
+        RegisterButton("btnSettings", ToggleSettingsPanel);
 
-        RegisterButton("btnSettingsBack", BackToMenu);
+        RegisterButton("btnSettingsBack", CloseSettings);
 
         RegisterButton("btnCopyLog", CopyLogToClipboard);
 
@@ -74,7 +76,7 @@ public class MainMenuController : MonoBehaviour
 
         InitializeAboutSection();
         InitializeAudioSliders();
-        UpdateSettingsButtonVisibility(currentPanel);
+        UpdateSettingsButtonState(isSettingsOpen);
     }
 
     public void ShowPanel(string panelName)
@@ -99,12 +101,30 @@ public class MainMenuController : MonoBehaviour
         targetPanel.style.display = DisplayStyle.Flex;
         targetPanel.RemoveFromClassList(VisibleClass);
         targetPanel.schedule.Execute(() => targetPanel.AddToClassList(VisibleClass)).ExecuteLater(1);
-        UpdateSettingsButtonVisibility(currentPanel);
+        isSettingsOpen = currentPanel.name == "SettingsPanel";
+        UpdateSettingsButtonState(isSettingsOpen);
     }
 
-    public void BackToMenu()
+    public void CloseSettings()
     {
         ShowPanel("MenuPanel");
+    }
+
+    public void OpenSettings()
+    {
+        ShowPanel("SettingsPanel");
+    }
+
+    private void ToggleSettingsPanel()
+    {
+        if (isSettingsOpen)
+        {
+            CloseSettings();
+        }
+        else
+        {
+            OpenSettings();
+        }
     }
 
     public void HidePanel(VisualElement panel)
@@ -143,15 +163,15 @@ public class MainMenuController : MonoBehaviour
         button.clicked += () => action?.Invoke();
     }
 
-    private void UpdateSettingsButtonVisibility(VisualElement panel)
+    private void UpdateSettingsButtonState(bool settingsOpen)
     {
         if (settingsButton == null)
         {
             return;
         }
 
-        var hide = panel != null && panel.name == "SettingsPanel";
-        settingsButton.EnableInClassList(HiddenClass, hide);
+        settingsButton.EnableInClassList(SettingsStateClass, !settingsOpen);
+        settingsButton.EnableInClassList(BackStateClass, settingsOpen);
     }
 
     private void InitializeAboutSection()
