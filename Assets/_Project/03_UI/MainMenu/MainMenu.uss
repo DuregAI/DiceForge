@@ -46,12 +46,12 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
 }
 
-.icon-button--settings {
+.state-settings {
   background-image: url("../../../_Project/07_Art/UI/MainMenu/Icons/settings_icon_wrench_gear.png");
 }
 
-.icon-button.is-hidden {
-  display: none;
+.state-back {
+  background-image: url("../../../_Project/07_Art/UI/MainMenu/Icons/back_icon_alchemy.png");
 }
 
 #Center {
