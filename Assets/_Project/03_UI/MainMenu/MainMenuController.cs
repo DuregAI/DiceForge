@@ -11,6 +11,7 @@ public class MainMenuController : MonoBehaviour
     private const string MusicVolumeKey = "audio.musicVolume";
     private const string SfxVolumeKey = "audio.sfxVolume";
     private const float DefaultVolume = 1f;
+    private const string HiddenClass = "is-hidden";
 
     [Header("Game Mode Presets")]
     [SerializeField] private GameModePreset longPreset;
@@ -24,6 +25,7 @@ public class MainMenuController : MonoBehaviour
     private Label aboutVersionLabel;
     private Slider musicSlider;
     private Slider sfxSlider;
+    private Button settingsButton;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
 
@@ -47,6 +49,7 @@ public class MainMenuController : MonoBehaviour
         aboutVersionLabel = root.Q<Label>("lblAboutVersion");
         musicSlider = root.Q<Slider>("sliderMusicVolume");
         sfxSlider = root.Q<Slider>("sliderSfxVolume");
+        settingsButton = root.Q<Button>("btnSettings");
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
@@ -71,6 +74,7 @@ public class MainMenuController : MonoBehaviour
 
         InitializeAboutSection();
         InitializeAudioSliders();
+        UpdateSettingsButtonVisibility(currentPanel);
     }
 
     public void ShowPanel(string panelName)
@@ -95,6 +99,7 @@ public class MainMenuController : MonoBehaviour
         targetPanel.style.display = DisplayStyle.Flex;
         targetPanel.RemoveFromClassList(VisibleClass);
         targetPanel.schedule.Execute(() => targetPanel.AddToClassList(VisibleClass)).ExecuteLater(1);
+        UpdateSettingsButtonVisibility(currentPanel);
     }
 
     public void BackToMenu()
@@ -136,6 +141,17 @@ public class MainMenuController : MonoBehaviour
         }
 
         button.clicked += () => action?.Invoke();
+    }
+
+    private void UpdateSettingsButtonVisibility(VisualElement panel)
+    {
+        if (settingsButton == null)
+        {
+            return;
+        }
+
+        var hide = panel != null && panel.name == "SettingsPanel";
+        settingsButton.EnableInClassList(HiddenClass, hide);
     }
 
     private void InitializeAboutSection()

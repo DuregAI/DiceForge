@@ -4,7 +4,7 @@
   <ui:VisualElement name="Root">
     <ui:VisualElement name="Corners">
       <ui:VisualElement name="CornerBR">
-        <ui:Button name="btnSettings" class="settings-button" text="" />
+        <ui:Button name="btnSettings" class="icon-button icon-button--settings" text="" />
       </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Center">
