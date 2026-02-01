@@ -8,6 +8,9 @@ public class MainMenuController : MonoBehaviour
 {
     private const string VisibleClass = "is-visible";
     private const float TransitionSeconds = 0.2f;
+    private const string MusicVolumeKey = "audio.musicVolume";
+    private const string SfxVolumeKey = "audio.sfxVolume";
+    private const float DefaultVolume = 1f;
 
     [Header("Game Mode Presets")]
     [SerializeField] private GameModePreset longPreset;
@@ -18,6 +21,9 @@ public class MainMenuController : MonoBehaviour
     private UIDocument document;
     private VisualElement root;
     private Label buildInfoLabel;
+    private Label aboutVersionLabel;
+    private Slider musicSlider;
+    private Slider sfxSlider;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
 
@@ -38,13 +44,12 @@ public class MainMenuController : MonoBehaviour
         }
 
         buildInfoLabel = root.Q<Label>("lblBuildInfo");
+        aboutVersionLabel = root.Q<Label>("lblAboutVersion");
+        musicSlider = root.Q<Slider>("sliderMusicVolume");
+        sfxSlider = root.Q<Slider>("sliderSfxVolume");
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
-        RegisterPanel("ProfilePanel");
-        RegisterPanel("UpgradesPanel");
-        RegisterPanel("BuildingsPanel");
-        RegisterPanel("AboutPanel");
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -53,17 +58,9 @@ public class MainMenuController : MonoBehaviour
             menuPanel.AddToClassList(VisibleClass);
         }
 
-        RegisterButton("btnProfile", () => ShowPanel("ProfilePanel"));
-        RegisterButton("btnUpgrades", () => ShowPanel("UpgradesPanel"));
-        RegisterButton("btnBuildings", () => ShowPanel("BuildingsPanel"));
         RegisterButton("btnSettings", () => ShowPanel("SettingsPanel"));
-        RegisterButton("btnAbout", () => ShowPanel("AboutPanel"));
 
         RegisterButton("btnSettingsBack", BackToMenu);
-        RegisterButton("btnProfileBack", BackToMenu);
-        RegisterButton("btnUpgradesBack", BackToMenu);
-        RegisterButton("btnBuildingsBack", BackToMenu);
-        RegisterButton("btnAboutBack", BackToMenu);
 
         RegisterButton("btnCopyLog", CopyLogToClipboard);
 
@@ -71,6 +68,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", () => SelectModeAndLoad(tutorialPreset));
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+
+        InitializeAboutSection();
+        InitializeAudioSliders();
     }
 
     public void ShowPanel(string panelName)
@@ -136,6 +136,38 @@ public class MainMenuController : MonoBehaviour
         }
 
         button.clicked += () => action?.Invoke();
+    }
+
+    private void InitializeAboutSection()
+    {
+        if (aboutVersionLabel != null)
+        {
+            aboutVersionLabel.text = $"Version: {Application.version}";
+        }
+    }
+
+    private void InitializeAudioSliders()
+    {
+        var musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, DefaultVolume);
+        var sfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, DefaultVolume);
+
+        if (musicSlider != null)
+        {
+            musicSlider.value = musicVolume;
+            musicSlider.RegisterValueChangedCallback(evt =>
+            {
+                PlayerPrefs.SetFloat(MusicVolumeKey, evt.newValue);
+            });
+        }
+
+        if (sfxSlider != null)
+        {
+            sfxSlider.value = sfxVolume;
+            sfxSlider.RegisterValueChangedCallback(evt =>
+            {
+                PlayerPrefs.SetFloat(SfxVolumeKey, evt.newValue);
+            });
+        }
     }
 
     private void CopyLogToClipboard()
