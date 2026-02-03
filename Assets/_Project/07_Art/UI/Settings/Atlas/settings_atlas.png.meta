@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7391e6d6919e33545aceb10677121cdb
+guid: f33f9627bb2eb5b499e34d24a5eec65e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -123,123 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: settings_panel_frame
-      rect:
-        serializedVersion: 2
-        x: 95
-        y: 110
-        width: 801
-        height: 854
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 135, y: 120, z: 134, w: 158}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6394857e7a27f764cbf9fc9ffc4c19ad
-      internalID: -1055583638
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slider_track_bg
-      rect:
-        serializedVersion: 2
-        x: 897
-        y: 835
-        width: 540
-        height: 78
-      alignment: 9
-      pivot: {x: 0.36663768, y: 0.5532725}
-      border: {x: 27, y: 20, z: 40, w: 14}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 73a97291e347dbb458417c9107b45352
-      internalID: -2023761644
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slider_thumb_alchemy
-      rect:
-        serializedVersion: 2
-        x: 1243
-        y: 566
-        width: 157
-        height: 156
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 48, y: 40, z: 38, w: 42}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a5eee2450be0444c99654d689635615
-      internalID: -956113131
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tooltip_frame_small
-      rect:
-        serializedVersion: 2
-        x: 1078
-        y: 205
-        width: 360
-        height: 145
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 18, y: 18, z: 20, w: 17}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0fd97c627b3d9bc44b59cf17d53d0316
-      internalID: -870072322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: icon_copy_log
-      rect:
-        serializedVersion: 2
-        x: 924
-        y: 464
-        width: 152
-        height: 172
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 35, y: 32, z: 36, w: 62}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b9643ecb7823d14e989a177a3ee6488
-      internalID: -319155543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: settings_atlas_0
+      name: settings_bg
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1536
-        height: 1024
+        y: 359
+        width: 789
+        height: 801
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,8 +138,228 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1894ce0e11144a439f92037324ba436
-      internalID: 327844000
+      spriteID: 2941403c9a112a14a8d43dae9faf161f
+      internalID: -2018858640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: button
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 273
+        width: 272
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 133, y: 35, z: 101, w: 37}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 867fd3c5eb3442a48b5116fc219b96cf
+      internalID: 1479138588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: settings_atlas_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 296
+        width: 456
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69d30222ad0c21c4b8780cf57040d01f
+      internalID: -2006512524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: settings_atlas_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 197
+        width: 289
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f795b98fdd1601489701949611d4e82
+      internalID: -471605920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slider_bg
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 201
+        width: 121
+        height: 55
+      alignment: 9
+      pivot: {x: 0.5647442, y: 0.48457447}
+      border: {x: 54, y: 20, z: 38, w: 19}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c27d1301fe26ea44ba4f489126088a2
+      internalID: -2032385572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slider_thumb_inactive
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 188
+        width: 68
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6e7b682dec63543bc7faa3eb87f50d
+      internalID: -21477623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slider_thumb_active
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 188
+        width: 68
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ea1659a7ab84e41bfa8a676a8a9a85
+      internalID: 1751022810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: copy_log
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 141
+        width: 115
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1158343c053f7ef4dbaa34189bd17d8a
+      internalID: 512409149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: settings_atlas_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 137
+        width: 257
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 18, y: 19, z: 30, w: 19}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08788408d11c04a4da5f6af8f5c67853
+      internalID: -145892709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: settings_atlas_11
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 97
+        width: 359
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ad287c3988ef524ba9535e32c6a14bd
+      internalID: -2029429464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: log_tooltip
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 2
+        width: 311
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 909b6b0f4c1df284993b23c0dddbb4a0
+      internalID: -215124535
       vertices: []
       indices: 
       edges: []
@@ -258,7 +368,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bac2d189f8e617d42bb41d1c36bc970a
+    spriteID: baebf34f521954a48add046a5939ff10
     internalID: 0
     vertices: []
     indices: 
@@ -268,16 +378,22 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":true,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
-      - key: SpriteEditor.SliceOnImport
-        value: True
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      icon_copy_log: -319155543
-      settings_atlas_0: 327844000
-      settings_panel_frame: -1055583638
-      slider_thumb_alchemy: -956113131
-      slider_track_bg: -2023761644
-      tooltip_frame_small: -870072322
+      button: 1479138588
+      copy_log: 512409149
+      log_tooltip: -215124535
+      settings_atlas_1: -1391515607
+      settings_atlas_10: -145892709
+      settings_atlas_11: -2029429464
+      settings_atlas_12: 184932473
+      settings_atlas_3: -2006512524
+      settings_atlas_4: -471605920
+      settings_atlas_9: 1194043634
+      settings_bg: -2018858640
+      slider_bg: -2032385572
+      slider_thumb_active: 1751022810
+      slider_thumb_inactive: -21477623
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
