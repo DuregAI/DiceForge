@@ -1,39 +1,39 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
     <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
-        <ui:VisualElement name="Center">
+        <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
-                    <ui:Button name="btnLong" text="Long" class="menu-button"/>
-                    <ui:Button name="btnShort" text="Short" class="menu-button"/>
-                    <ui:Button name="btnTutorial" text="Tutorial" class="menu-button"/>
-                    <ui:Button name="btnExperimental" text="Experimental" class="menu-button"/>
+                    <ui:Button name="btnLong" text="Long" class="menu-button main-menu-button" style="padding-top: 14px;"/>
+                    <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button" style="padding-top: 11px;"/>
+                    <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button" style="padding-top: 10px;"/>
+                    <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center;">
-            <ui:VisualElement name="SettingsWindow" class="settings-window" style="padding-bottom: 0; padding-top: 0; padding-right: 0; padding-left: 0; width: 871px; height: 899px;">
-                <ui:Label text="SETTINGS" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); -unity-text-outline-width: 14px; font-size: 56px; -unity-text-align: upper-center; margin-top: 10px; padding-top: 8px; top: 50px; text-shadow: 5px 5px 0 rgba(0, 0, 0, 0); -unity-font-style: bold;"/>
-                <ui:VisualElement name="VisualElement" enabled="true" class="settings-block debug-blue" style="width: 100%;">
-                    <ui:Label text="Music Volume" class="settings-label"/>
+        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 1;">
+            <ui:VisualElement name="SettingsWindow" enabled="true" class="settings-window" style="padding-bottom: 124px; padding-top: 34px; padding-right: 164px; padding-left: 180px; justify-content: space-evenly; -unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); font-size: 30px; height: 843px; max-width: 828px; width: 828px; opacity: 1;">
+                <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 26px;"/>
+                <ui:VisualElement name="MusicBlock" enabled="true" class="settings-block" style="-unity-text-outline-width: 2px; text-shadow: 5px 5px 0 rgb(3, 3, 3); padding-top: 52px;">
+                    <ui:Label text="Music Volume" class="settings-label" style="font-size: 32px; color: rgb(249, 240, 172); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="1" class="settings-slider"/>
                 </ui:VisualElement>
-                <ui:VisualElement class="settings-block">
-                    <ui:Label text="SFX Volume" class="settings-label"/>
+                <ui:VisualElement name="SFXBlock" picking-mode="Ignore" class="settings-block" style="padding-top: 45px;">
+                    <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider"/>
                 </ui:VisualElement>
-                <ui:VisualElement class="settings-about-row">
-                    <ui:VisualElement class="about-text">
+                <ui:VisualElement name="AboutBlock" picking-mode="Ignore" class="settings-about-row" style="padding-top: 70px;">
+                    <ui:VisualElement class="about-text" style="-unity-font-style: normal; color: rgb(246, 235, 176); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; text-shadow: 4px 4px 0 rgb(0, 0, 0);">
                         <ui:Label name="lblAboutVersion" text="Version 0.0.0"/>
                         <ui:Label text="|" class="about-separator"/>
                         <ui:Label name="lblBuildInfo" text="Build: dev"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="copy-log-wrapper" style="-unity-text-align: lower-left; height: 128px; width: 118px; align-self: flex-end; align-items: auto; justify-content: flex-end; flex-direction: column;">
-                        <ui:VisualElement name="copyLogTooltip" class="copy-log-tooltip"/>
-                        <ui:Label text="Copy log too Clipboard" style="font-size: 21px;"/>
+                    <ui:VisualElement name="VisualElement" class="copy-log-wrapper" style="-unity-text-align: lower-left; position: relative;">
+                        <ui:VisualElement name="copyLogTooltip" enabled="true" class="copy-log-tooltip"/>
+                        <ui:Label text="Copy log to Clipboard" style="font-size: 18px; color: rgb(246, 235, 176); white-space: normal; width: 121px; -unity-text-align: lower-center; padding-top: 4px; -unity-text-outline-width: 2px; text-shadow: 3px 3px 0 rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Button name="btnCopyLog" text="" class="copy-log-button" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end;"/>
+                <ui:Button name="btnCopyLog" class="copy-log-button icon-button" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Corners" enabled="true" style="top: auto; bottom: 0; right: 0; left: auto; align-self: stretch; border-left-width: 0; background-size: 10% 10%; background-position-x: right 0; width: 329px; height: 293px;">

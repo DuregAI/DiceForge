@@ -51,7 +51,7 @@
     box-shadow: 0 0 18px rgba(120, 255, 190, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-.menu-button:active{
+.menu-button:active {
     scale: 0.94;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
 }
@@ -74,39 +74,28 @@
 .df-theme Button {
     min-width: 520px;
     height: 110px;
-
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-
     background-color: transparent;
     border-width: 0;
-
-    /* фон-кнопка из атласа */
-    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#button");
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=1479138588&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#button");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
-
-    /* текст */
-    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular SDF.asset");
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
     font-size: 50px;
     color: rgb(243, 227, 176);
-
-    /* чтобы текст был по центру */
     unity-text-align: middle-center;
-
-    /* лёгкая тень/объём */
     text-shadow: 0 2px 0 rgba(40, 25, 10, 0.85);
-
     transition-property: scale, box-shadow;
     transition-duration: 0.14s;
     transition-timing-function: ease-out;
 }
 
 .panel-title {
-    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular SDF.asset");
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
     font-size: 32px;
     unity-font-style: bold;
 }
@@ -120,7 +109,7 @@
     gap: 20px;
     flex-direction: column;
     align-items: stretch;
-    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=1315233508&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#settings_bg");
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-2018858640&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#settings_bg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -142,32 +131,30 @@
 }
 
 .settings-slider .unity-base-slider__tracker {
-  height: 18px;
-  background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_bg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
+    height: 18px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-2032385572&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#slider_bg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
 }
 
 .settings-slider .unity-base-slider__dragger {
-  width: 32px;
-  height: 32px;
-  background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_thumb_inactive");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-width: 0;
-  background-color: transparent;
+    width: 32px;
+    height: 32px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-21477623&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#slider_thumb_inactive");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 0;
+    background-color: transparent;
 }
 
-/* hover/active лучше ловить через родителя */
 .settings-slider:hover .unity-base-slider__dragger,
 .settings-slider:active .unity-base-slider__dragger,
 .settings-slider:focus .unity-base-slider__dragger {
-  background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#slider_thumb_active");
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=1751022810&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#slider_thumb_active");
 }
-
 
 .settings-about-row {
     margin-top: 12px;
@@ -198,7 +185,7 @@
     height: 40px;
     padding: 0;
     background-color: transparent;
-    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png#copy_log");
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=512409149&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#copy_log");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -212,7 +199,7 @@
     width: 180px;
     height: 60px;
     display: none;
-    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=1485152668&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#log_tooltip");
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-215124535&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#log_tooltip");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -224,17 +211,11 @@
     right: 0;
     top: 0;
     bottom: 0;
-
-    /*display: none;            /* closed */
-    justify-content: center;  /* center vertically (column main-axis) */
-    align-items: center;      /* center horizontally (cross-axis) */
-
-    /* optional dim background */
-    background-color: rgba(0,0,0,0.35);
-
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.35);
     opacity: 0;
     translate: 0 10px;
-
     transition-property: opacity, translate;
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
@@ -270,4 +251,14 @@
 
 .settings-overlay {
     position: absolute;
+}
+
+.main-menu-button {
+    text-shadow: 5px 5px 0 rgb(40, 25, 10);
+    -unity-text-outline-width: 4px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&guid=3cf501bc73dc1144aa7910d77ab93b5f&type=3#LuckiestGuy-Regular");
+    -unity-text-outline-color: rgb(68, 68, 68);
+    -unity-text-align: middle-center;
+    padding-top: 16px;
 }
