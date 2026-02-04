@@ -13,12 +13,12 @@
         </ui:VisualElement>
         <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 1;">
             <ui:VisualElement name="SettingsWindow" enabled="true" class="settings-window" style="padding-bottom: 124px; padding-top: 34px; padding-right: 164px; padding-left: 180px; justify-content: space-evenly; -unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); font-size: 30px; height: 843px; max-width: 828px; width: 828px; opacity: 1;">
-                <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 26px;"/>
+                <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 12px;"/>
                 <ui:VisualElement name="MusicBlock" enabled="true" class="settings-block" style="-unity-text-outline-width: 2px; text-shadow: 5px 5px 0 rgb(3, 3, 3); padding-top: 52px;">
                     <ui:Label text="Music Volume" class="settings-label" style="font-size: 32px; color: rgb(249, 240, 172); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="1" class="settings-slider"/>
                 </ui:VisualElement>
-                <ui:VisualElement name="SFXBlock" picking-mode="Ignore" class="settings-block" style="padding-top: 45px;">
+                <ui:VisualElement name="SFXBlock" picking-mode="Ignore" class="settings-block" style="padding-top: 30px;">
                     <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider"/>
                 </ui:VisualElement>
