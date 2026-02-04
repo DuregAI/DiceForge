@@ -21,6 +21,12 @@ namespace Diceforge.UI.MainMenu
         private Slider _musicSlider;
         private Slider _sfxSlider;
 
+        [Header("UI Click SFX")]
+        [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private AudioClip uiClickClip;
+        [SerializeField] private string clickableClass = "df-interactive";
+
+
         private void Reset()
         {
             // Handy auto-fill when you add the component
@@ -84,6 +90,16 @@ namespace Diceforge.UI.MainMenu
                 _sfxSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(SfxKey, 1f));
                 _sfxSlider.RegisterValueChangedCallback(OnSfxSliderChanged);
             }
+
+            // Auto-bind click sound to all interactive buttons
+            var buttons = root.Query<Button>(className: clickableClass).ToList();
+            foreach (var btn in buttons)
+            {
+                btn.clicked -= PlayClick; // защита от двойной подписки
+                btn.clicked += PlayClick;
+            }
+
+
         }
 
         private void UnbindUi()
@@ -111,7 +127,8 @@ namespace Diceforge.UI.MainMenu
             PlayerPrefs.SetFloat(SfxKey, v);
             PlayerPrefs.Save();
 
-            // SFX source будет на шаге 4 Ч тут пока только сохран€ем
+            if (sfxSource != null)
+                sfxSource.volume = v;
         }
 
         /// <summary>
@@ -127,5 +144,16 @@ namespace Diceforge.UI.MainMenu
             if (_sfxSlider != null)
                 _sfxSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(SfxKey, 1f));
         }
+
+        public void PlayClick()
+        {
+            if (sfxSource == null || uiClickClip == null)
+                return;
+
+            float volume = PlayerPrefs.GetFloat("audio.sfxVolume", 1f);
+            sfxSource.PlayOneShot(uiClickClip, Mathf.Clamp01(volume));
+        }
+
+
     }
 }

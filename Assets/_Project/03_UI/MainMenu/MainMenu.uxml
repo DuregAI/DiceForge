@@ -4,10 +4,10 @@
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
-                    <ui:Button name="btnLong" text="Long" class="menu-button main-menu-button" style="padding-top: 14px;"/>
-                    <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button" style="padding-top: 11px;"/>
-                    <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button" style="padding-top: 10px;"/>
-                    <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button" style="padding-top: 9px;"/>
+                    <ui:Button name="btnLong" text="Long" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
+                    <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button df-interactive" style="padding-top: 11px;"/>
+                    <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
+                    <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -20,7 +20,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="SFXBlock" picking-mode="Ignore" class="settings-block" style="padding-top: 30px;">
                     <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
-                    <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider"/>
+                    <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider df-interactive"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="AboutBlock" picking-mode="Ignore" class="settings-about-row" style="padding-top: 70px;">
                     <ui:VisualElement class="about-text" style="-unity-font-style: normal; color: rgb(246, 235, 176); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; text-shadow: 4px 4px 0 rgb(0, 0, 0);">
@@ -30,15 +30,15 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" class="copy-log-wrapper" style="-unity-text-align: lower-left; position: relative;">
                         <ui:VisualElement name="copyLogTooltip" enabled="true" class="copy-log-tooltip"/>
-                        <ui:Label text="Copy log to Clipboard" style="font-size: 18px; color: rgb(246, 235, 176); white-space: normal; width: 121px; -unity-text-align: lower-center; padding-top: 4px; -unity-text-outline-width: 2px; text-shadow: 3px 3px 0 rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
+                        <ui:Label text="Copy log to Clipboard" style="font-size: 18px; color: rgb(246, 235, 176); white-space: normal; width: 121px; -unity-text-align: lower-center; padding-top: 4px; -unity-text-outline-width: 2px; text-shadow: 3px 3px 0 rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0); position: absolute;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Button name="btnCopyLog" class="copy-log-button icon-button" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
+                <ui:Button name="btnCopyLog" class="copy-log-button icon-button df-interactive" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Corners" enabled="true" style="top: auto; bottom: 0; right: 0; left: auto; align-self: stretch; border-left-width: 0; background-size: 10% 10%; background-position-x: right 0; width: 329px; height: 293px;">
             <ui:VisualElement name="CornerBR" style="background-size: 129% 206%;">
-                <ui:Button name="btnSettings" text="" class="icon-button state-settings" style="background-size: 124% 260px; width: 158px; height: 222px;"/>
+                <ui:Button name="btnSettings" text="" class="icon-button state-settings df-interactive" style="background-size: 124% 260px; width: 158px; height: 222px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
