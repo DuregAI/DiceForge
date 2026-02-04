@@ -126,16 +126,18 @@
 }
 
 .settings-slider {
-    height: 40px;
+    height: 45px;
     width: 100%;
 }
 
 .settings-slider .unity-base-slider__tracker {
-    height: 18px;
+    height: 20px;
     background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-2032385572&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#slider_bg");
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: transparent;
+    border-width: 0;
     width: 100%;
 }
 
@@ -198,7 +200,7 @@
     bottom: 48px;
     width: 180px;
     height: 60px;
-    display: none;
+    /*display: none;*/
     background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-215124535&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#log_tooltip");
     background-size: contain;
     background-repeat: no-repeat;

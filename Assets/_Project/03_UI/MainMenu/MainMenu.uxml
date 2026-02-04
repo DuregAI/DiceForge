@@ -28,8 +28,8 @@
                         <ui:Label text="|" class="about-separator"/>
                         <ui:Label name="lblBuildInfo" text="Build: dev"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="copy-log-wrapper" style="-unity-text-align: lower-left; position: relative;">
-                        <ui:VisualElement name="copyLogTooltip" enabled="true" class="copy-log-tooltip"/>
+                    <ui:VisualElement name="copyLogTooltip" class="copy-log-wrapper" style="-unity-text-align: lower-left; position: relative;">
+                        <ui:VisualElement name="copyLogTooltip" enabled="true" class="copy-log-tooltip" style="top: -5px; left: -86px; right: auto; bottom: auto;"/>
                         <ui:Label text="Copy log to Clipboard" style="font-size: 18px; color: rgb(246, 235, 176); white-space: normal; width: 121px; -unity-text-align: lower-center; padding-top: 4px; -unity-text-outline-width: 2px; text-shadow: 3px 3px 0 rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0); position: absolute;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
