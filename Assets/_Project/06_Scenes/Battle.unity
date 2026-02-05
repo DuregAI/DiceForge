@@ -422,7 +422,16 @@ MonoBehaviour:
   playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
   playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
   lastMoveColor: {r: 1, g: 0.9, b: 0.3, a: 0.9}
+  invalidMoveColor: {r: 1, g: 0.3, b: 0.3, a: 0.95}
+  homeMarkerColorA: {r: 0.2, g: 0.8, b: 1, a: 1}
+  homeMarkerColorB: {r: 1, g: 0.4, b: 0.2, a: 1}
+  lastMovedStoneHighlightColor: {r: 1, g: 0.95, b: 0.4, a: 1}
   legalMoveColor: {r: 0.3, g: 1, b: 0.6, a: 0.9}
+  showCellIndices: 1
+  showHomeMarkers: 1
+  showLastMoveArrow: 1
+  showLastMovedStoneHighlight: 1
+  labelHeight: 0.35
   stonePrefabA: {fileID: 4651965059315984526, guid: 870de3ebfc85c5b428d66977832719ae, type: 3}
   stonePrefabB: {fileID: 2776706138654497508, guid: bbd2ab4c2db4ec8479cf94ea5a37545f, type: 3}
 --- !u!4 &426479108
@@ -484,11 +493,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cd26a8a9bd1514d8d2372ca94e42be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
-  rulesetPreset: {fileID: 11400000, guid: 8a043cfbf96d47438a1b77af213157f1, type: 2}
+  rulesetPreset: {fileID: 11400000, guid: 0624f92d2c5646ae8971293772de3da9, type: 2}
   autoStart: 1
   runContinuously: 1
   stepMode: 1
-  secondsPerTurn: 0.1
+  secondsPerTurn: 1
   verboseLog: 1
   boardView: {fileID: 426479107}
   controlModeA: 0
@@ -572,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9046d00e529404987f91209ca66381a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
-  fallbackPreset: {fileID: 11400000, guid: 75f279eaea7d4427a94909726fd3866a, type: 2}
+  fallbackPreset: {fileID: 11400000, guid: c4a54d743c274014883c17aedb6b23a6, type: 2}
   matchController: {fileID: 0}
 --- !u!4 &985011913
 Transform:

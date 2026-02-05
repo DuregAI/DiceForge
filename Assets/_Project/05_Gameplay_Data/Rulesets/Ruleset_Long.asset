@@ -24,8 +24,6 @@ MonoBehaviour:
   totalStonesPerPlayer: 15
   dieMin: 1
   dieMax: 6
-  diceBagA: {fileID: 0}
-  diceBagB: {fileID: 0}
   startCellA: 0
   startCellB: 12
   moveDirA: 1

@@ -162,7 +162,9 @@ namespace Diceforge.View
                     Gizmos.DrawSphere(pos, cellRadius * 0.6f);
                 }
             }
-
+#if UNITY_EDITOR
+            EnsureLabelStyles();
+#endif
             DrawHomeMarkers(boardSize);
             DrawLastMoveGizmos(boardSize);
             DrawLastMovedStoneHighlight(boardSize);
@@ -178,7 +180,7 @@ namespace Diceforge.View
             }
 
 #if UNITY_EDITOR
-            EnsureLabelStyles();
+            //EnsureLabelStyles();
             DrawCellIndices(boardSize);
             Handles.color = Color.white;
             Handles.Label(transform.position + Vector3.up * 1.5f, BuildInfoText());
