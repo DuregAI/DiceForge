@@ -48,6 +48,7 @@ namespace Diceforge.Core
             CreateBots();
             Log.Clear();
             BeginTurn();
+            LogHomeZonesOnce();
 
             OnMatchStarted?.Invoke(State);
         }
@@ -63,6 +64,7 @@ namespace Diceforge.Core
             _bagA?.Reset();
             _bagB?.Reset();
             BeginTurn();
+            LogHomeZonesOnce();
 
             OnMatchStarted?.Invoke(State);
         }
@@ -375,14 +377,31 @@ namespace Diceforge.Core
         private (int? FromCell, int? ToCell) DescribeMoveBeforeApply(Move move)
         {
             if (State == null) return (null, null);
+            if (move.FromCell < 0 || move.FromCell >= State.Rules.boardSize)
+                return (null, null);
 
-            int from = GameState.Mod(move.FromCell, State.Rules.boardSize);
-            int to = GameState.Mod(from + move.PipUsed, State.Rules.boardSize);
+            int from = move.FromCell;
+            var classification = BoardPathRules.ClassifyMove(State.Rules, State.CurrentPlayer, from, move.PipUsed, out _, out int to);
 
-            if (move.Kind == MoveKind.BearOff)
+            if (move.Kind == MoveKind.BearOff || classification == MovePathClassification.ExactBearOff)
+                return (from, null);
+
+            if (classification != MovePathClassification.Normal)
                 return (from, null);
 
             return (from, to);
+        }
+
+
+        private void LogHomeZonesOnce()
+        {
+            if (!Rules.verboseLog)
+                return;
+
+            var homeA = BoardPathRules.GetHomeCells(Rules, PlayerId.A);
+            var homeB = BoardPathRules.GetHomeCells(Rules, PlayerId.B);
+            Console.WriteLine($"[HomeZone] A: [{string.Join(",", homeA)}]");
+            Console.WriteLine($"[HomeZone] B: [{string.Join(",", homeB)}]");
         }
 
         private int GetHeadCell(PlayerId player)
