@@ -7,6 +7,19 @@ using UnityEditor;
 
 namespace Diceforge.View
 {
+    public struct LastMoveDebugInfo
+    {
+        public int fromCell;
+        public int toCell;
+        public int die1;
+        public int die2;
+        public bool hasDice;
+        public bool valid;
+        public PlayerId player;
+        public int movedStoneCellAfter;
+        public bool hasMovedStoneCell;
+    }
+
     public sealed class BoardDebugView : MonoBehaviour
     {
         [Header("Layout")]
@@ -22,7 +35,18 @@ namespace Diceforge.View
         [SerializeField] private Color playerAColor = new Color(0.2f, 0.6f, 1f, 0.9f);
         [SerializeField] private Color playerBColor = new Color(1f, 0.4f, 0.2f, 0.9f);
         [SerializeField] private Color lastMoveColor = new Color(1f, 0.9f, 0.3f, 0.9f);
+        [SerializeField] private Color invalidMoveColor = new Color(1f, 0.3f, 0.3f, 0.95f);
+        [SerializeField] private Color homeMarkerColorA = new Color(0.2f, 0.8f, 1f, 1f);
+        [SerializeField] private Color homeMarkerColorB = new Color(1f, 0.4f, 0.2f, 1f);
+        [SerializeField] private Color lastMovedStoneHighlightColor = new Color(1f, 0.95f, 0.4f, 1f);
         [SerializeField] private Color legalMoveColor = new Color(0.3f, 1f, 0.6f, 0.9f);
+
+        [Header("Debug Gizmos")]
+        [SerializeField] private bool showCellIndices = true;
+        [SerializeField] private bool showHomeMarkers = true;
+        [SerializeField] private bool showLastMoveArrow = true;
+        [SerializeField] private bool showLastMovedStoneHighlight = true;
+        [SerializeField] private float labelHeight = 0.35f;
 
         [Header("Prefabs")]
         [SerializeField] private GameObject stonePrefabA;
@@ -34,9 +58,15 @@ namespace Diceforge.View
         private readonly System.Collections.Generic.List<GameObject> _stonePoolA = new System.Collections.Generic.List<GameObject>();
         private readonly System.Collections.Generic.List<GameObject> _stonePoolB = new System.Collections.Generic.List<GameObject>();
         private readonly System.Collections.Generic.HashSet<int> _highlightedCells = new System.Collections.Generic.HashSet<int>();
+        private LastMoveDebugInfo? _lastMoveDebugInfo;
         private CellMarker[] _cellMarkers;
         private bool _cellSelectionEnabled;
         private Camera _camera;
+#if UNITY_EDITOR
+        private GUIStyle _cellLabelStyle;
+        private GUIStyle _moveLabelStyle;
+        private GUIStyle _homeLabelStyle;
+#endif
 
         public event System.Action<int> OnCellClicked;
 
@@ -50,6 +80,7 @@ namespace Diceforge.View
             _state = state;
             _log = log;
             _lastRecord = null;
+            _lastMoveDebugInfo = null;
             BuildCells();
             RefreshPieces();
         }
@@ -58,6 +89,11 @@ namespace Diceforge.View
         {
             _lastRecord = record;
             RefreshPieces();
+        }
+
+        public void SetLastMove(LastMoveDebugInfo info)
+        {
+            _lastMoveDebugInfo = info;
         }
 
         public void HandleMatchEnded(GameState state)
@@ -127,6 +163,10 @@ namespace Diceforge.View
                 }
             }
 
+            DrawHomeMarkers(boardSize);
+            DrawLastMoveGizmos(boardSize);
+            DrawLastMovedStoneHighlight(boardSize);
+
             if (_lastRecord.HasValue)
             {
                 int? target = GetLastMoveTarget(_lastRecord.Value);
@@ -138,10 +178,145 @@ namespace Diceforge.View
             }
 
 #if UNITY_EDITOR
+            EnsureLabelStyles();
+            DrawCellIndices(boardSize);
             Handles.color = Color.white;
             Handles.Label(transform.position + Vector3.up * 1.5f, BuildInfoText());
 #endif
         }
+
+        private void DrawHomeMarkers(int boardSize)
+        {
+            if (!showHomeMarkers)
+                return;
+
+            int homeCellA = GetHomeEdgeCell(PlayerId.A, boardSize);
+            int homeCellB = GetHomeEdgeCell(PlayerId.B, boardSize);
+
+            DrawHomeMarker(homeCellA, boardSize, homeMarkerColorA, "HOME / BEAR-OFF A");
+            DrawHomeMarker(homeCellB, boardSize, homeMarkerColorB, "HOME / BEAR-OFF B");
+        }
+
+        private void DrawHomeMarker(int cellIndex, int boardSize, Color color, string label)
+        {
+            Vector3 center = CellPosition(cellIndex, boardSize);
+            Gizmos.color = color;
+            Gizmos.DrawWireSphere(center, playerRadius * 1.4f);
+            Gizmos.DrawWireSphere(center, playerRadius * 1.7f);
+
+#if UNITY_EDITOR
+            Handles.color = color;
+            Handles.Label(center + Vector3.up * (labelHeight + 0.25f), label, _homeLabelStyle);
+#endif
+        }
+
+        private void DrawLastMoveGizmos(int boardSize)
+        {
+            if (!showLastMoveArrow || !_lastMoveDebugInfo.HasValue)
+                return;
+
+            var info = _lastMoveDebugInfo.Value;
+            Vector3 from = CellPosition(GameState.Mod(info.fromCell, boardSize), boardSize) + Vector3.up * 0.02f;
+            Vector3 to = CellPosition(GameState.Mod(info.toCell, boardSize), boardSize) + Vector3.up * 0.02f;
+            Color moveColor = info.valid ? lastMoveColor : invalidMoveColor;
+
+            Gizmos.color = moveColor;
+            Gizmos.DrawLine(from, to);
+            DrawArrowHead(from, to, moveColor);
+
+#if UNITY_EDITOR
+            if (info.hasDice)
+            {
+                string diceLabel = info.die2 > 0 ? $"{info.die1},{info.die2}" : info.die1.ToString();
+                Handles.color = moveColor;
+                Vector3 midpoint = Vector3.Lerp(from, to, 0.5f) + Vector3.up * 0.2f;
+                Handles.Label(midpoint, diceLabel, _moveLabelStyle);
+            }
+#endif
+        }
+
+        private void DrawArrowHead(Vector3 from, Vector3 to, Color moveColor)
+        {
+            Vector3 dir = to - from;
+            float length = dir.magnitude;
+            if (length <= 0.001f)
+                return;
+
+            dir /= length;
+            Vector3 side = Vector3.Cross(Vector3.up, dir).normalized;
+            float headLength = playerRadius * 0.7f;
+            float headWidth = playerRadius * 0.35f;
+            Vector3 tip = to;
+            Vector3 basePoint = tip - dir * headLength;
+            Vector3 left = basePoint + side * headWidth;
+            Vector3 right = basePoint - side * headWidth;
+
+            Gizmos.color = moveColor;
+            Gizmos.DrawLine(tip, left);
+            Gizmos.DrawLine(tip, right);
+        }
+
+        private void DrawLastMovedStoneHighlight(int boardSize)
+        {
+            if (!showLastMovedStoneHighlight || !_lastMoveDebugInfo.HasValue)
+                return;
+
+            var info = _lastMoveDebugInfo.Value;
+            if (!info.hasMovedStoneCell)
+                return;
+
+            int targetCell = GameState.Mod(info.movedStoneCellAfter, boardSize);
+            Vector3 center = CellPosition(targetCell, boardSize) + Vector3.up * (stoneHeight * 0.5f);
+            Gizmos.color = lastMovedStoneHighlightColor;
+            Gizmos.DrawWireSphere(center, cellRadius * 1.8f);
+            Gizmos.DrawWireSphere(center, cellRadius * 2.2f);
+        }
+
+        private int GetHomeEdgeCell(PlayerId player, int boardSize)
+        {
+            int startCell = player == PlayerId.A ? _state.Rules.startCellA : _state.Rules.startCellB;
+            int dir = player == PlayerId.A ? _state.Rules.moveDirA : _state.Rules.moveDirB;
+            return GameState.Mod(startCell + dir * _state.Rules.homeSize, boardSize);
+        }
+
+#if UNITY_EDITOR
+        private void DrawCellIndices(int boardSize)
+        {
+            if (!showCellIndices)
+                return;
+
+            Handles.color = Color.white;
+            for (int i = 0; i < boardSize; i++)
+            {
+                Vector3 pos = CellPosition(i, boardSize) + Vector3.up * labelHeight;
+                Handles.Label(pos, i.ToString(), _cellLabelStyle);
+            }
+        }
+
+        private void EnsureLabelStyles()
+        {
+            if (_cellLabelStyle != null)
+                return;
+
+            _cellLabelStyle = new GUIStyle(EditorStyles.boldLabel)
+            {
+                fontSize = 11,
+                normal = { textColor = Color.white }
+            };
+
+            _moveLabelStyle = new GUIStyle(EditorStyles.miniBoldLabel)
+            {
+                fontSize = 12,
+                normal = { textColor = Color.yellow }
+            };
+
+            _homeLabelStyle = new GUIStyle(EditorStyles.boldLabel)
+            {
+                fontSize = 12,
+                normal = { textColor = Color.white }
+            };
+        }
+#endif
 
         private void BuildCells()
         {

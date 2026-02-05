@@ -244,12 +244,38 @@ namespace Diceforge.View
         private void HandleMoveApplied(MoveRecord record)
         {
             boardView?.HandleMoveApplied(record);
+            PushLastMoveDebugInfo(record);
             UpdateUI();
             if (!verboseLog) return;
 
             string moveText = record.Move?.ToString() ?? "NoMove";
             string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
             Debug.Log($"[Diceforge] {record.PlayerId} -> {moveText}  Outcome={record.Outcome}  Pip={pipText}  T{record.TurnIndex}");
+        }
+
+        private void PushLastMoveDebugInfo(MoveRecord record)
+        {
+            if (boardView == null || _runner?.State == null)
+                return;
+
+            if (!record.FromCell.HasValue)
+                return;
+
+            int fallbackTo = record.ToCell ?? record.FromCell.Value;
+            var info = new LastMoveDebugInfo
+            {
+                fromCell = record.FromCell.Value,
+                toCell = fallbackTo,
+                die1 = record.PipUsed ?? 0,
+                die2 = 0,
+                hasDice = record.PipUsed.HasValue,
+                valid = record.ApplyResult != ApplyResult.Illegal,
+                player = record.PlayerId,
+                movedStoneCellAfter = fallbackTo,
+                hasMovedStoneCell = record.ApplyResult != ApplyResult.Illegal && record.Move.HasValue
+            };
+
+            boardView.SetLastMove(info);
         }
 
         private void HandleMatchEnded(GameState state)
