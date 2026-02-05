@@ -68,6 +68,7 @@ namespace Diceforge.Core
             var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
             int headCell = GetHeadCell(s, current);
             bool allInHome = AllStonesInHome(s, current);
+            int maxPipsInHome = allInHome ? GetMaxPipsInHome(s.Rules, s, current) : -1;
 
             for (int cell = 0; cell < rules.boardSize; cell++)
             {
@@ -78,14 +79,14 @@ namespace Diceforge.Core
                 var classification = BoardPathRules.ClassifyMove(rules, current, cell, dieValue, out int rawToCell, out int toCell);
                 LogMoveClassification(s, current, cell, dieValue, rawToCell, classification);
 
-                if (classification == MovePathClassification.ExactBearOff)
+                if (classification == MovePathClassification.ExactBearOff || classification == MovePathClassification.Overshoot)
                 {
-                    if (allInHome && CanBearOff(s, current, cell, dieValue))
+                    if (allInHome && CanBearOff(s, current, cell, dieValue, maxPipsInHome))
                         moves.Add(Move.BearOff(cell, dieValue));
                     continue;
                 }
 
-                if (classification == MovePathClassification.Overshoot || classification == MovePathClassification.Invalid)
+                if (classification == MovePathClassification.Invalid)
                     continue;
 
                 if (!CanEnterCell(s, opponent, toCell))
@@ -132,7 +133,7 @@ namespace Diceforge.Core
 
                     var classification = BoardPathRules.ClassifyMove(s.Rules, s.CurrentPlayer, from, m.PipUsed, out int rawToCell, out _);
                     LogMoveClassification(s, s.CurrentPlayer, from, m.PipUsed, rawToCell, classification);
-                    if (classification != MovePathClassification.ExactBearOff)
+                    if (classification != MovePathClassification.ExactBearOff && classification != MovePathClassification.Overshoot)
                         return ApplyResult.Illegal;
 
                     if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
@@ -171,13 +172,47 @@ namespace Diceforge.Core
         {
             if (!IsInHome(s, player, fromCell)) return false;
 
-            int distance = BoardPathRules.PipsToBearOff(s.Rules, player, fromCell);
-            return pip == distance;
+            int maxPipsInHome = GetMaxPipsInHome(s.Rules, s, player);
+            return CanBearOff(s, player, fromCell, pip, maxPipsInHome);
+        }
+
+        public static int GetMaxPipsInHome(RulesetConfig rules, GameState s, PlayerId player)
+        {
+            if (rules == null) throw new ArgumentNullException(nameof(rules));
+            if (s == null) throw new ArgumentNullException(nameof(s));
+
+            int maxPips = -1;
+            var homeCells = BoardPathRules.GetHomeCells(rules, player);
+            for (int i = 0; i < homeCells.Count; i++)
+            {
+                int cell = homeCells[i];
+                if (s.GetStonesAt(player, cell) <= 0)
+                    continue;
+
+                int pips = BoardPathRules.PipsToBearOff(rules, player, cell);
+                if (pips > maxPips)
+                    maxPips = pips;
+            }
+
+            return maxPips;
         }
 
         private static bool IsInHome(GameState s, PlayerId player, int cell)
         {
             return BoardPathRules.IsInHome(s.Rules, player, cell);
+        }
+
+        private static bool CanBearOff(GameState s, PlayerId player, int fromCell, int pip, int maxPipsInHome)
+        {
+            int distance = BoardPathRules.PipsToBearOff(s.Rules, player, fromCell);
+
+            if (pip == distance)
+                return true;
+
+            if (pip > distance)
+                return maxPipsInHome >= 0 && distance == maxPipsInHome;
+
+            return false;
         }
 
         private static int GetHeadCell(GameState s, PlayerId player)
