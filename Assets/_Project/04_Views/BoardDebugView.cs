@@ -1,4 +1,5 @@
 using Diceforge.Core;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #if UNITY_EDITOR
@@ -192,23 +193,43 @@ namespace Diceforge.View
             if (!showHomeMarkers)
                 return;
 
-            int homeCellA = GetHomeEdgeCell(PlayerId.A, boardSize);
-            int homeCellB = GetHomeEdgeCell(PlayerId.B, boardSize);
+            var homeCellsA = GetHomeCells(PlayerId.A, boardSize, _state.Rules.homeSize);
+            var homeCellsB = GetHomeCells(PlayerId.B, boardSize, _state.Rules.homeSize);
 
-            DrawHomeMarker(homeCellA, boardSize, homeMarkerColorA, "HOME / BEAR-OFF A");
-            DrawHomeMarker(homeCellB, boardSize, homeMarkerColorB, "HOME / BEAR-OFF B");
+            DrawHomeMarkersForPlayer(homeCellsA, boardSize, homeMarkerColorA, "HOME / BEAR-OFF A");
+            DrawHomeMarkersForPlayer(homeCellsB, boardSize, homeMarkerColorB, "HOME / BEAR-OFF B");
         }
 
-        private void DrawHomeMarker(int cellIndex, int boardSize, Color color, string label)
+        private void DrawHomeMarkersForPlayer(IReadOnlyList<int> cellIndices, int boardSize, Color color, string label)
         {
+            if (cellIndices == null || cellIndices.Count == 0)
+                return;
+
+            for (int i = 0; i < cellIndices.Count; i++)
+            {
+                bool drawLabel = i == 0;
+                DrawHomeMarkerVisual(cellIndices[i], boardSize, color, drawLabel ? label : null);
+            }
+        }
+
+        private void DrawHomeMarkerVisual(int cellIndex, int boardSize, Color color, string label)
+        {
+            if (_cellMarkers == null)
+                return;
+            if (cellIndex < 0 || cellIndex >= _cellMarkers.Length)
+                return;
+
             Vector3 center = CellPosition(cellIndex, boardSize);
             Gizmos.color = color;
             Gizmos.DrawWireSphere(center, playerRadius * 1.4f);
             Gizmos.DrawWireSphere(center, playerRadius * 1.7f);
 
 #if UNITY_EDITOR
-            Handles.color = color;
-            Handles.Label(center + Vector3.up * (labelHeight + 0.25f), label, _homeLabelStyle);
+            if (!string.IsNullOrEmpty(label))
+            {
+                Handles.color = color;
+                Handles.Label(center + Vector3.up * (labelHeight + 0.25f), label, _homeLabelStyle);
+            }
 #endif
         }
 
@@ -274,11 +295,43 @@ namespace Diceforge.View
             Gizmos.DrawWireSphere(center, cellRadius * 2.2f);
         }
 
-        private int GetHomeEdgeCell(PlayerId player, int boardSize)
+        private IReadOnlyList<int> GetHomeCells(PlayerId player, int boardSize, int homeSize)
         {
+            if (boardSize <= 0 || homeSize <= 0)
+                return new List<int>(0);
+
             int startCell = player == PlayerId.A ? _state.Rules.startCellA : _state.Rules.startCellB;
             int dir = player == PlayerId.A ? _state.Rules.moveDirA : _state.Rules.moveDirB;
-            return GameState.Mod(startCell + dir * _state.Rules.homeSize, boardSize);
+            var cells = new List<int>(homeSize);
+
+            // Long mode (24/6): home is the far-side block from the head, centered on opposite anchor.
+            if (boardSize == 24 && homeSize == 6)
+            {
+                int opposite = startCell + dir * (boardSize / 2);
+                int zoneStart = opposite + dir * homeSize;
+
+                for (int i = 0; i < homeSize; i++)
+                {
+                    int rawCell = zoneStart + i * dir;
+                    cells.Add(WrapIndex(rawCell, boardSize));
+                }
+
+                return cells;
+            }
+
+            for (int i = 0; i < homeSize; i++)
+            {
+                int rawCell = startCell + dir * (i + 1);
+                cells.Add(WrapIndex(rawCell, boardSize));
+            }
+
+            return cells;
+        }
+
+        private static int WrapIndex(int index, int boardSize)
+        {
+            int wrapped = index % boardSize;
+            return wrapped < 0 ? wrapped + boardSize : wrapped;
         }
 
 #if UNITY_EDITOR
