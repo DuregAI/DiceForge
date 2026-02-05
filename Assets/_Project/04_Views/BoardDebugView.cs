@@ -308,7 +308,7 @@ namespace Diceforge.View
             // home cells are distances 1..homeSize from each player's startCell along move direction.
             for (int i = 0; i < homeSize; i++)
             {
-                int rawCell = startCell + dir * (i + 1);
+                int rawCell = boardSize - (startCell + dir * (i + 1));
                 cells.Add(WrapIndex(rawCell, boardSize));
             }
 
