@@ -45,8 +45,8 @@ namespace Diceforge.Core
             Array.Clear(_stonesAByCell, 0, _stonesAByCell.Length);
             Array.Clear(_stonesBByCell, 0, _stonesBByCell.Length);
 
-            int startCellA = Mod(Rules.startCellA, Rules.boardSize);
-            int startCellB = Mod(Rules.startCellB, Rules.boardSize);
+            int startCellA = Rules.startCellA;
+            int startCellB = Rules.startCellB;
             int startStones = Math.Max(0, Rules.totalStonesPerPlayer);
             _stonesAByCell[startCellA] = startStones;
             _stonesBByCell[startCellB] = startStones;
@@ -77,7 +77,9 @@ namespace Diceforge.Core
 
         public int GetStonesAt(PlayerId p, int cell)
         {
-            cell = Mod(cell, Rules.boardSize);
+            if (cell < 0 || cell >= Rules.boardSize)
+                return 0;
+
             return p == PlayerId.A ? _stonesAByCell[cell] : _stonesBByCell[cell];
         }
 
@@ -88,14 +90,18 @@ namespace Diceforge.Core
 
         public void AddStoneToCell(PlayerId p, int cell)
         {
-            cell = Mod(cell, Rules.boardSize);
+            if (cell < 0 || cell >= Rules.boardSize)
+                throw new ArgumentOutOfRangeException(nameof(cell), $"Cell index must be in [0..{Rules.boardSize - 1}] for state writes.");
+
             if (p == PlayerId.A) _stonesAByCell[cell]++;
             else _stonesBByCell[cell]++;
         }
 
         public bool RemoveStoneFromCell(PlayerId p, int cell)
         {
-            cell = Mod(cell, Rules.boardSize);
+            if (cell < 0 || cell >= Rules.boardSize)
+                return false;
+
             if (p == PlayerId.A)
             {
                 if (_stonesAByCell[cell] <= 0) return false;

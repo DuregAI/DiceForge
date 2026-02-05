@@ -297,28 +297,10 @@ namespace Diceforge.View
 
         private IReadOnlyList<int> GetHomeCells(PlayerId player, int boardSize, int homeSize)
         {
-            if (boardSize <= 0 || homeSize <= 0)
+            if (_state == null || boardSize <= 0 || homeSize <= 0)
                 return new List<int>(0);
 
-            int startCell = player == PlayerId.A ? _state.Rules.startCellA : _state.Rules.startCellB;
-            int dir = player == PlayerId.A ? _state.Rules.moveDirA : _state.Rules.moveDirB;
-            var cells = new List<int>(homeSize);
-
-            // Keep debug HOME markers aligned with gameplay rules (MoveGenerator.IsInHome):
-            // home cells are distances 1..homeSize from each player's startCell along move direction.
-            for (int i = 0; i < homeSize; i++)
-            {
-                int rawCell = boardSize - (startCell + dir * (i + 1));
-                cells.Add(WrapIndex(rawCell, boardSize));
-            }
-
-            return cells;
-        }
-
-        private static int WrapIndex(int index, int boardSize)
-        {
-            int wrapped = index % boardSize;
-            return wrapped < 0 ? wrapped + boardSize : wrapped;
+            return BoardPathRules.GetHomeCells(_state.Rules, player);
         }
 
 #if UNITY_EDITOR

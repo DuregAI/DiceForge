@@ -66,7 +66,6 @@ namespace Diceforge.Core
             var rules = s.Rules;
             var current = s.CurrentPlayer;
             var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
-            int dir = GetMoveDir(s, current);
             int headCell = GetHeadCell(s, current);
             bool allInHome = AllStonesInHome(s, current);
 
@@ -76,16 +75,19 @@ namespace Diceforge.Core
                 if (cell == headCell && rules.headRules.restrictHeadMoves && headMovesUsed >= maxHeadMovesThisTurn)
                     continue;
 
-                if (allInHome && CanBearOff(s, current, cell, dieValue))
+                var classification = BoardPathRules.ClassifyMove(rules, current, cell, dieValue, out int rawToCell, out int toCell);
+                LogMoveClassification(s, current, cell, dieValue, rawToCell, classification);
+
+                if (classification == MovePathClassification.ExactBearOff)
                 {
-                    moves.Add(Move.BearOff(cell, dieValue));
+                    if (allInHome && CanBearOff(s, current, cell, dieValue))
+                        moves.Add(Move.BearOff(cell, dieValue));
                     continue;
                 }
 
-                if (IsOvershootWithoutBearOff(s, current, cell, dieValue))
+                if (classification == MovePathClassification.Overshoot || classification == MovePathClassification.Invalid)
                     continue;
 
-                int to = GameState.Mod(cell + dieValue * dir, rules.boardSize);
                 if (!CanEnterCell(s, opponent, to))
                     continue;
                 moves.Add(Move.MoveStone(cell, dieValue));
@@ -102,11 +104,16 @@ namespace Diceforge.Core
             {
                 case MoveKind.MoveStone:
                 {
-                    int from = GameState.Mod(m.FromCell, s.Rules.boardSize);
+                    int from = m.FromCell;
+                    if (from < 0 || from >= s.Rules.boardSize)
+                        return ApplyResult.Illegal;
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
 
-                    int dir = GetMoveDir(s, s.CurrentPlayer);
-                    int to = GameState.Mod(from + m.PipUsed * dir, s.Rules.boardSize);
+                    var classification = BoardPathRules.ClassifyMove(s.Rules, s.CurrentPlayer, from, m.PipUsed, out int rawToCell, out int to);
+                    LogMoveClassification(s, s.CurrentPlayer, from, m.PipUsed, rawToCell, classification);
+                    if (classification != MovePathClassification.Normal)
+                        return ApplyResult.Illegal;
+
                     if (!CanEnterCell(s, s.CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A, to))
                         return ApplyResult.Illegal;
 
@@ -116,10 +123,17 @@ namespace Diceforge.Core
                 }
                 case MoveKind.BearOff:
                 {
-                    int from = GameState.Mod(m.FromCell, s.Rules.boardSize);
+                    int from = m.FromCell;
+                    if (from < 0 || from >= s.Rules.boardSize)
+                        return ApplyResult.Illegal;
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
                     if (!AllStonesInHome(s, s.CurrentPlayer)) return ApplyResult.Illegal;
                     if (!CanBearOff(s, s.CurrentPlayer, from, m.PipUsed)) return ApplyResult.Illegal;
+
+                    var classification = BoardPathRules.ClassifyMove(s.Rules, s.CurrentPlayer, from, m.PipUsed, out int rawToCell, out _);
+                    LogMoveClassification(s, s.CurrentPlayer, from, m.PipUsed, rawToCell, classification);
+                    if (classification != MovePathClassification.ExactBearOff)
+                        return ApplyResult.Illegal;
 
                     if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
                     s.AddBorneOff(s.CurrentPlayer);
@@ -157,61 +171,18 @@ namespace Diceforge.Core
         {
             if (!IsInHome(s, player, fromCell)) return false;
 
-            int distance = DistanceToStart(s, player, fromCell);
-            if (pip == distance)
-                return true;
-
-            if (pip > distance)
-                return !HasStoneFurtherFromStart(s, player, distance);
-
-            return false;
-        }
-
-        private static bool IsOvershootWithoutBearOff(GameState s, PlayerId player, int fromCell, int pip)
-        {
-            if (!IsInHome(s, player, fromCell)) return false;
-
-            int distance = DistanceToStart(s, player, fromCell);
-            return pip >= distance;
+            int distance = BoardPathRules.PipsToBearOff(s.Rules, player, fromCell);
+            return pip == distance;
         }
 
         private static bool IsInHome(GameState s, PlayerId player, int cell)
         {
-            int distance = DistanceToStart(s, player, cell);
-            return distance >= 1 && distance <= s.Rules.homeSize;
-        }
-
-        private static int DistanceToStart(GameState s, PlayerId player, int cell)
-        {
-            int startCell = GetHeadCell(s, player);
-            int dir = GetMoveDir(s, player);
-            int delta = GameState.Mod(cell - startCell, s.Rules.boardSize);
-            return (delta * dir + s.Rules.boardSize) % s.Rules.boardSize;
-        }
-
-        private static bool HasStoneFurtherFromStart(GameState s, PlayerId player, int distance)
-        {
-            for (int i = 0; i < s.Rules.boardSize; i++)
-            {
-                if (!IsInHome(s, player, i))
-                    continue;
-
-                int d = DistanceToStart(s, player, i);
-                if (d > distance && s.GetStonesAt(player, i) > 0)
-                    return true;
-            }
-
-            return false;
+            return BoardPathRules.IsInHome(s.Rules, player, cell);
         }
 
         private static int GetHeadCell(GameState s, PlayerId player)
         {
             return player == PlayerId.A ? s.Rules.startCellA : s.Rules.startCellB;
-        }
-
-        private static int GetMoveDir(GameState s, PlayerId player)
-        {
-            return player == PlayerId.A ? s.Rules.moveDirA : s.Rules.moveDirB;
         }
 
         private static bool CanEnterCell(GameState s, PlayerId opponent, int cell)
@@ -220,6 +191,20 @@ namespace Diceforge.Core
             if (opponentCount <= 0) return true;
             if (s.Rules.blockIfOpponentAnyStone) return false;
             return opponentCount == 1 && s.Rules.allowHitSingleStone;
+        }
+
+        private static void LogMoveClassification(
+            GameState state,
+            PlayerId player,
+            int fromCell,
+            int steps,
+            int rawToCell,
+            MovePathClassification classification)
+        {
+            if (!state.Rules.verboseLog)
+                return;
+
+            Console.WriteLine($"[MovePath] {player}: from={fromCell}, steps={steps}, rawTo={rawToCell}, class={classification}");
         }
 
     }
