@@ -88,7 +88,7 @@ namespace Diceforge.Core
                 if (classification == MovePathClassification.Overshoot || classification == MovePathClassification.Invalid)
                     continue;
 
-                if (!CanEnterCell(s, opponent, to))
+                if (!CanEnterCell(s, opponent, toCell))
                     continue;
                 moves.Add(Move.MoveStone(cell, dieValue));
             }
