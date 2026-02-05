@@ -304,21 +304,8 @@ namespace Diceforge.View
             int dir = player == PlayerId.A ? _state.Rules.moveDirA : _state.Rules.moveDirB;
             var cells = new List<int>(homeSize);
 
-            // Long mode (24/6): home is the far-side block from the head, centered on opposite anchor.
-            if (boardSize == 24 && homeSize == 6)
-            {
-                int opposite = startCell + dir * (boardSize / 2);
-                int zoneStart = opposite + dir * homeSize;
-
-                for (int i = 0; i < homeSize; i++)
-                {
-                    int rawCell = zoneStart + i * dir;
-                    cells.Add(WrapIndex(rawCell, boardSize));
-                }
-
-                return cells;
-            }
-
+            // Keep debug HOME markers aligned with gameplay rules (MoveGenerator.IsInHome):
+            // home cells are distances 1..homeSize from each player's startCell along move direction.
             for (int i = 0; i < homeSize; i++)
             {
                 int rawCell = startCell + dir * (i + 1);
