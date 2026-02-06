@@ -483,7 +483,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.OnStartStop += HandleStartStopChanged;
             hud.OnStep += StepOnce;
             hud.OnRestart += RestartMatch;
             hud.OnMove += HandleMoveClicked;
@@ -501,7 +500,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.OnStartStop -= HandleStartStopChanged;
             hud.OnStep -= StepOnce;
             hud.OnRestart -= RestartMatch;
             hud.OnMove -= HandleMoveClicked;
@@ -512,14 +510,6 @@ namespace Diceforge.View
             hud.OnHumanAChanged -= HandleHumanAChanged;
             hud.OnHumanBChanged -= HandleHumanBChanged;
             hud.OnDieSelected -= HandleDieSelected;
-        }
-
-        private void HandleStartStopChanged(bool isRunning)
-        {
-            if (isRunning)
-                StartMatch();
-            else
-                StopMatch();
         }
 
         private void HandleAutoRunChanged(bool autoRun)
@@ -551,7 +541,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.SetRunToggle(_isRunning);
             hud.SetAutoRunToggle(runContinuously);
             hud.SetSpeed(secondsPerTurn);
             hud.SetHumanAToggle(controlModeA == ControlMode.Human);

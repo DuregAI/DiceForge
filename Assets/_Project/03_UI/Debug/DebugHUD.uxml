@@ -26,14 +26,13 @@
 
         <ui:VisualElement class="hud-section hud-controls">
             <ui:VisualElement class="hud-row">
-                <ui:Toggle name="startStopButton" text="Run" />
+                <ui:Toggle name="startStopButton" text="Auto Run" />
                 <ui:Button name="stepButton" text="Step" />
                 <ui:Button name="restartButton" text="Restart" />
             </ui:VisualElement>
             <ui:VisualElement class="hud-row">
                 <ui:Slider name="speedSlider" label="Speed (s)" low-value="0" high-value="2" />
                 <ui:Label name="speedValueLabel" text="Speed (s): 0.50" />
-                <ui:Toggle name="autoRunToggle" text="Auto Run" />
             </ui:VisualElement>
             <ui:VisualElement class="hud-row">
                 <ui:Toggle name="humanAToggle" text="Human A" />

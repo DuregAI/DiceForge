@@ -23,13 +23,12 @@ namespace Diceforge.View
         private Label _statusLabel;
         private Label _aStatsLabel;
         private Label _bStatsLabel;
-        private Toggle _startStopToggle;
+        private Toggle _autoRunToggle;
         private Button _stepButton;
         private Button _restartButton;
         private Button _moveButton;
         private Button _enterButton;
         private Button _placeButton;
-        private Toggle _autoRunToggle;
         private Toggle _humanAToggle;
         private Toggle _humanBToggle;
         private Slider _speedSlider;
@@ -38,7 +37,6 @@ namespace Diceforge.View
 
         private readonly HashSet<string> _missingWarnings = new HashSet<string>();
 
-        public event Action<bool> OnStartStop;
         public event Action OnStep;
         public event Action OnRestart;
         public event Action OnMove;
@@ -200,12 +198,6 @@ namespace Diceforge.View
             }
         }
 
-        public void SetRunToggle(bool isRunning)
-        {
-            if (_startStopToggle != null)
-                _startStopToggle.SetValueWithoutNotify(isRunning);
-        }
-
         public void SetAutoRunToggle(bool autoRun)
         {
             if (_autoRunToggle != null)
@@ -246,13 +238,12 @@ namespace Diceforge.View
             _statusLabel = GetElement<Label>("statusLabel");
             _aStatsLabel = GetElement<Label>("aStatsLabel");
             _bStatsLabel = GetElement<Label>("bStatsLabel");
-            _startStopToggle = GetElement<Toggle>("startStopButton");
+            _autoRunToggle = GetElement<Toggle>("startStopButton");
             _stepButton = GetElement<Button>("stepButton");
             _restartButton = GetElement<Button>("restartButton");
             _moveButton = GetElement<Button>("moveButton");
             _enterButton = GetElement<Button>("enterButton");
             _placeButton = GetElement<Button>("placeButton");
-            _autoRunToggle = GetElement<Toggle>("autoRunToggle");
             _humanAToggle = GetElement<Toggle>("humanAToggle");
             _humanBToggle = GetElement<Toggle>("humanBToggle");
             _speedSlider = GetElement<Slider>("speedSlider");
@@ -262,8 +253,8 @@ namespace Diceforge.View
 
         private void RegisterCallbacks()
         {
-            if (_startStopToggle != null)
-                _startStopToggle.RegisterValueChangedCallback(HandleStartStopChanged);
+            if (_autoRunToggle != null)
+                _autoRunToggle.RegisterValueChangedCallback(HandleAutoRunChanged);
             if (_stepButton != null)
                 _stepButton.clicked += HandleStepClicked;
             if (_restartButton != null)
@@ -274,8 +265,6 @@ namespace Diceforge.View
                 _enterButton.clicked += HandleEnterClicked;
             if (_placeButton != null)
                 _placeButton.clicked += HandlePlaceClicked;
-            if (_autoRunToggle != null)
-                _autoRunToggle.RegisterValueChangedCallback(HandleAutoRunChanged);
             if (_speedSlider != null)
             {
                 _speedSlider.RegisterValueChangedCallback(HandleSpeedChanged);
@@ -289,8 +278,8 @@ namespace Diceforge.View
 
         private void UnregisterCallbacks()
         {
-            if (_startStopToggle != null)
-                _startStopToggle.UnregisterValueChangedCallback(HandleStartStopChanged);
+            if (_autoRunToggle != null)
+                _autoRunToggle.UnregisterValueChangedCallback(HandleAutoRunChanged);
             if (_stepButton != null)
                 _stepButton.clicked -= HandleStepClicked;
             if (_restartButton != null)
@@ -301,19 +290,12 @@ namespace Diceforge.View
                 _enterButton.clicked -= HandleEnterClicked;
             if (_placeButton != null)
                 _placeButton.clicked -= HandlePlaceClicked;
-            if (_autoRunToggle != null)
-                _autoRunToggle.UnregisterValueChangedCallback(HandleAutoRunChanged);
             if (_speedSlider != null)
                 _speedSlider.UnregisterValueChangedCallback(HandleSpeedChanged);
             if (_humanAToggle != null)
                 _humanAToggle.UnregisterValueChangedCallback(HandleHumanAChanged);
             if (_humanBToggle != null)
                 _humanBToggle.UnregisterValueChangedCallback(HandleHumanBChanged);
-        }
-
-        private void HandleStartStopChanged(ChangeEvent<bool> evt)
-        {
-            OnStartStop?.Invoke(evt.newValue);
         }
 
         private void HandleStepClicked()
