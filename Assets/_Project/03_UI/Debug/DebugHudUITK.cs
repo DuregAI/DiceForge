@@ -33,6 +33,7 @@ namespace Diceforge.View
         private Toggle _humanAToggle;
         private Toggle _humanBToggle;
         private Slider _speedSlider;
+        private Label _speedValueLabel;
         private VisualElement _diceButtonsRow;
 
         private readonly HashSet<string> _missingWarnings = new HashSet<string>();
@@ -227,6 +228,8 @@ namespace Diceforge.View
         {
             if (_speedSlider != null)
                 _speedSlider.SetValueWithoutNotify(speed);
+
+            UpdateSpeedLabel(speed);
         }
 
         private void CacheElements()
@@ -253,6 +256,7 @@ namespace Diceforge.View
             _humanAToggle = GetElement<Toggle>("humanAToggle");
             _humanBToggle = GetElement<Toggle>("humanBToggle");
             _speedSlider = GetElement<Slider>("speedSlider");
+            _speedValueLabel = GetElement<Label>("speedValueLabel");
             _diceButtonsRow = GetElement<VisualElement>("diceButtonsRow");
         }
 
@@ -273,7 +277,10 @@ namespace Diceforge.View
             if (_autoRunToggle != null)
                 _autoRunToggle.RegisterValueChangedCallback(HandleAutoRunChanged);
             if (_speedSlider != null)
+            {
                 _speedSlider.RegisterValueChangedCallback(HandleSpeedChanged);
+                UpdateSpeedLabel(_speedSlider.value);
+            }
             if (_humanAToggle != null)
                 _humanAToggle.RegisterValueChangedCallback(HandleHumanAChanged);
             if (_humanBToggle != null)
@@ -341,6 +348,7 @@ namespace Diceforge.View
 
         private void HandleSpeedChanged(ChangeEvent<float> evt)
         {
+            UpdateSpeedLabel(evt.newValue);
             OnSpeedChanged?.Invoke(evt.newValue);
         }
 
@@ -352,6 +360,12 @@ namespace Diceforge.View
         private void HandleHumanBChanged(ChangeEvent<bool> evt)
         {
             OnHumanBChanged?.Invoke(evt.newValue);
+        }
+
+        private void UpdateSpeedLabel(float value)
+        {
+            if (_speedValueLabel != null)
+                _speedValueLabel.text = $"Speed (s): {value:0.00}";
         }
 
         private T GetElement<T>(string name) where T : VisualElement

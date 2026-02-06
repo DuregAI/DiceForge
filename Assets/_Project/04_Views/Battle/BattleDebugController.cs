@@ -39,6 +39,7 @@ namespace Diceforge.View
         private bool _isRunning;
         private float _elapsed;
         private bool _waitingForFromCell;
+        private string _lastHumanInputFeedback = string.Empty;
         private bool _isInitialized;
         private bool _hasExternalPreset;
         private GameModePreset _externalPreset;
@@ -91,23 +92,24 @@ namespace Diceforge.View
             if (!_isRunning || stepMode || !runContinuously)
                 return;
 
-            if (IsHumanTurn())
-                return;
-
             float interval = secondsPerTurn <= 0f ? 0f : secondsPerTurn;
             _elapsed += Time.deltaTime;
 
-            if (interval == 0f)
+            if (_elapsed < interval)
+                return;
+
+            _elapsed = 0f;
+
+            if (_runner?.State == null || _runner.State.IsFinished)
+                return;
+
+            if (IsHumanTurn())
             {
-                TickOnce();
+                EnsureHumanTurnReady();
                 return;
             }
 
-            if (_elapsed >= interval)
-            {
-                _elapsed = 0f;
-                TickOnce();
-            }
+            TickOnce();
         }
 
         public void StartFromPreset(GameModePreset preset)
@@ -190,6 +192,7 @@ namespace Diceforge.View
                 InitializeMatchFromRuleset(rulesetPreset);
 
             _isRunning = true;
+            _elapsed = 0f;
             SyncHudState();
         }
 
@@ -197,6 +200,7 @@ namespace Diceforge.View
         public void StopMatch()
         {
             _isRunning = false;
+            _elapsed = 0f;
             SyncHudState();
         }
 
@@ -219,11 +223,15 @@ namespace Diceforge.View
 
         private void TickOnce()
         {
-            if (_runner.State == null || _runner.State.IsFinished)
+            if (_runner?.State == null || _runner.State.IsFinished)
                 return;
 
-            if (IsHumanTurn())
+            if (!_runner.HasAnyLegalMove())
+            {
+                _runner.EndTurnIfNoMoves();
+                UpdateUI();
                 return;
+            }
 
             _runner.Tick();
         }
@@ -298,30 +306,44 @@ namespace Diceforge.View
 
         private void HandleMoveClicked()
         {
-            if (!IsHumanTurn() || _runner.State == null)
+            if (!IsHumanTurn() || _runner?.State == null)
                 return;
 
-            if (_runner.IsWaitingForDieSelection)
-                return;
-
-            if (!HasLegalMove())
-                return;
-
+            EnsureHumanTurnReady();
             _waitingForFromCell = true;
             boardView?.SetCellSelectionEnabled(true);
+            UpdateHighlightedCells();
         }
 
         private void HandleCellClicked(int cellIndex)
         {
-            if (!_waitingForFromCell || _runner?.State == null)
+            if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished)
                 return;
+
+            EnsureHumanTurnReady();
 
             var move = SelectMoveForCell(cellIndex);
             if (!move.HasValue)
+            {
+                if (_runner.SelectedDieIndex.HasValue && _runner.RemainingDice.Count > _runner.SelectedDieIndex.Value)
+                {
+                    int die = _runner.RemainingDice[_runner.SelectedDieIndex.Value];
+                    _lastHumanInputFeedback = $"No legal move from cell {cellIndex} with die {die}";
+                }
+                else
+                {
+                    _lastHumanInputFeedback = $"No legal move from cell {cellIndex}";
+                }
+
+                if (verboseLog)
+                    Debug.Log($"[Diceforge] {_lastHumanInputFeedback}");
+                UpdateUI();
                 return;
+            }
 
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
+            _lastHumanInputFeedback = string.Empty;
             ApplyHumanMove(move.Value);
         }
 
@@ -335,6 +357,7 @@ namespace Diceforge.View
 
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
+            _lastHumanInputFeedback = string.Empty;
             UpdateUI();
         }
 
@@ -397,11 +420,14 @@ namespace Diceforge.View
 
             var state = _runner.State;
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
-            if (humanTurn && _runner.EndTurnIfNoMoves())
-                return;
+            if (humanTurn)
+            {
+                EnsureHumanTurnReady();
+                if (_runner.EndTurnIfNoMoves())
+                    return;
+            }
 
-            bool needsDieSelection = humanTurn && _runner.IsWaitingForDieSelection;
-            bool canMove = humanTurn && !needsDieSelection && HasLegalMove();
+            bool canMove = humanTurn && HasLegalMove();
 
             hud?.SetHumanControlsEnabled(humanTurn);
             hud?.SetMoveEnabled(canMove);
@@ -409,11 +435,21 @@ namespace Diceforge.View
             hud?.SetPlaceEnabled(false);
             hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, humanTurn);
 
-            if (!canMove)
+            if (humanTurn)
+                _waitingForFromCell = canMove;
+            else if (_waitingForFromCell)
                 _waitingForFromCell = false;
 
             boardView?.SetCellSelectionEnabled(_waitingForFromCell);
             UpdateHighlightedCells();
+        }
+
+        private void EnsureHumanTurnReady()
+        {
+            if (_runner?.State == null || _runner.State.IsFinished || !IsHumanTurn())
+                return;
+
+            _runner.EnsureSelectedDie();
         }
 
         private void RegisterHudCallbacks()
@@ -542,9 +578,9 @@ namespace Diceforge.View
 
             if (IsHumanTurn())
             {
-                if (_runner.IsWaitingForDieSelection)
-                    return "Status: Waiting: choose die";
-                return "Status: Waiting: choose move";
+                if (!string.IsNullOrWhiteSpace(_lastHumanInputFeedback))
+                    return $"Status: {_lastHumanInputFeedback}";
+                return "Status: Waiting: click a cell";
             }
 
             string running = _isRunning ? "Running" : "Paused";
