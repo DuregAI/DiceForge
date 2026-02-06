@@ -32,6 +32,7 @@
             </ui:VisualElement>
             <ui:VisualElement class="hud-row">
                 <ui:Slider name="speedSlider" label="Speed (s)" low-value="0" high-value="2" />
+                <ui:Label name="speedValueLabel" text="Speed (s): 0.50" />
                 <ui:Toggle name="autoRunToggle" text="Auto Run" />
             </ui:VisualElement>
             <ui:VisualElement class="hud-row">

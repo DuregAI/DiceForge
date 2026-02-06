@@ -130,6 +130,24 @@ namespace Diceforge.Core
             return true;
         }
 
+        public bool EnsureSelectedDie()
+        {
+            if (State == null || State.IsFinished)
+                return false;
+
+            if (_remainingDice.Count == 0)
+            {
+                _selectedDieIndex = null;
+                return false;
+            }
+
+            if (_selectedDieIndex.HasValue && _selectedDieIndex.Value >= 0 && _selectedDieIndex.Value < _remainingDice.Count)
+                return true;
+
+            _selectedDieIndex = 0;
+            return true;
+        }
+
         public bool HasAnyLegalMove()
         {
             if (State == null || _remainingDice.Count == 0)
@@ -224,7 +242,7 @@ namespace Diceforge.Core
             _remainingDice.AddRange(_currentOutcome.Dice);
             _usedDice.Clear();
 
-            _selectedDieIndex = _remainingDice.Count == 1 ? 0 : null;
+            _selectedDieIndex = _remainingDice.Count > 0 ? 0 : (int?)null;
             _headMovesUsed = 0;
             _maxHeadMovesThisTurn = CalculateHeadMoveLimit(State.CurrentPlayer, _currentOutcome);
 
@@ -346,7 +364,7 @@ namespace Diceforge.Core
                 _usedDice.Add(value);
             }
 
-            _selectedDieIndex = _remainingDice.Count == 1 ? 0 : null;
+            _selectedDieIndex = _remainingDice.Count > 0 ? 0 : (int?)null;
         }
 
         private int? ResolveSelectedDieIndex()
