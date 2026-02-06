@@ -89,7 +89,7 @@ namespace Diceforge.View
 
         private void Update()
         {
-            if (!_isRunning || stepMode || !runContinuously)
+            if (stepMode || !runContinuously || !_isInitialized)
                 return;
 
             float interval = secondsPerTurn <= 0f ? 0f : secondsPerTurn;
@@ -103,13 +103,10 @@ namespace Diceforge.View
             if (_runner?.State == null || _runner.State.IsFinished)
                 return;
 
-            if (IsHumanTurn())
-            {
-                EnsureHumanTurnReady();
+            if (_runner?.State == null || _runner.State.IsFinished || IsHumanTurn())
                 return;
-            }
 
-            TickOnce();
+            ExecuteAutoTurn();
         }
 
         public void StartFromPreset(GameModePreset preset)
@@ -236,6 +233,34 @@ namespace Diceforge.View
             _runner.Tick();
         }
 
+        private void ExecuteAutoTurn()
+        {
+            if (_runner?.State == null || _runner.State.IsFinished || IsHumanTurn())
+                return;
+
+            int startingTurn = _runner.State.TurnIndex;
+            int safety = 0;
+
+            while (_runner?.State != null
+                   && !_runner.State.IsFinished
+                   && !IsHumanTurn()
+                   && _runner.State.TurnIndex == startingTurn
+                   && safety++ < 64)
+            {
+                if (!_runner.HasAnyLegalMove())
+                {
+                    _runner.EndTurnIfNoMoves();
+                    continue;
+                }
+
+                if (!_runner.Tick())
+                    break;
+            }
+
+            if (safety >= 64 && verboseLog)
+                Debug.LogWarning("[Diceforge] Auto turn safety guard reached.");
+        }
+
         private void HandleMatchStarted(GameState state)
         {
             boardView?.HandleMatchStarted(state, _runner.Log);
@@ -246,6 +271,7 @@ namespace Diceforge.View
 
         private void HandleTurnStarted(GameState state)
         {
+            _elapsed = 0f;
             UpdateUI();
         }
 
@@ -457,7 +483,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.OnStartStop += HandleStartStopChanged;
             hud.OnStep += StepOnce;
             hud.OnRestart += RestartMatch;
             hud.OnMove += HandleMoveClicked;
@@ -475,7 +500,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.OnStartStop -= HandleStartStopChanged;
             hud.OnStep -= StepOnce;
             hud.OnRestart -= RestartMatch;
             hud.OnMove -= HandleMoveClicked;
@@ -486,14 +510,6 @@ namespace Diceforge.View
             hud.OnHumanAChanged -= HandleHumanAChanged;
             hud.OnHumanBChanged -= HandleHumanBChanged;
             hud.OnDieSelected -= HandleDieSelected;
-        }
-
-        private void HandleStartStopChanged(bool isRunning)
-        {
-            if (isRunning)
-                StartMatch();
-            else
-                StopMatch();
         }
 
         private void HandleAutoRunChanged(bool autoRun)
@@ -525,7 +541,6 @@ namespace Diceforge.View
             if (hud == null)
                 return;
 
-            hud.SetRunToggle(_isRunning);
             hud.SetAutoRunToggle(runContinuously);
             hud.SetSpeed(secondsPerTurn);
             hud.SetHumanAToggle(controlModeA == ControlMode.Human);
