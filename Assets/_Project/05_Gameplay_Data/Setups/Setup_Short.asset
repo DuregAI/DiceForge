@@ -29,10 +29,10 @@ MonoBehaviour:
     cellIndex: 18
     count: 5
   - player: 1
-    cellIndex: 4
+    cellIndex: 5
     count: 5
   - player: 1
-    cellIndex: 6
+    cellIndex: 7
     count: 3
   - player: 1
     cellIndex: 12
