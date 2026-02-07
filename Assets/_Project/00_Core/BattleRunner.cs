@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Diceforge.Core
 {
@@ -16,6 +17,7 @@ namespace Diceforge.Core
         private int? _selectedDieIndex;
         private int _headMovesUsed;
         private int _maxHeadMovesThisTurn;
+        private SetupConfig _setup;
 
         public GameState State { get; private set; }
         public MatchLog Log { get; } = new MatchLog();
@@ -35,16 +37,18 @@ namespace Diceforge.Core
         public event Action<MoveRecord> OnMoveApplied;
         public event Action<GameState> OnMatchEnded;
 
-        public void Init(RulesetConfig rules, DiceBagConfigData bagA, DiceBagConfigData bagB, int seed)
+        public void Init(RulesetConfig rules, DiceBagConfigData bagA, DiceBagConfigData bagB, int seed, SetupConfig setup = null)
         {
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
             Rules.Validate();
             _seed = seed;
+            _setup = setup;
 
             _bagA = bagA == null ? null : new DiceBagRuntime(bagA, _seed + 1000);
             _bagB = bagB == null ? null : new DiceBagRuntime(bagB, _seed + 2000);
 
             State = new GameState(Rules);
+            ApplySetupPresetIfAvailable();
             CreateBots();
             Log.Clear();
             BeginTurn();
@@ -59,6 +63,7 @@ namespace Diceforge.Core
                 throw new InvalidOperationException("BattleRunner is not initialized. Call Init first.");
 
             State.Reset();
+            ApplySetupPresetIfAvailable();
             CreateBots();
             Log.Clear();
             _bagA?.Reset();
@@ -67,6 +72,70 @@ namespace Diceforge.Core
             LogHomeZonesOnce();
 
             OnMatchStarted?.Invoke(State);
+        }
+
+        private void ApplySetupPresetIfAvailable()
+        {
+            if (_setup == null || _setup.UnitPlacements == null || _setup.UnitPlacements.Count == 0)
+                return;
+
+            if (_setup.BoardSize != Rules.boardSize)
+            {
+                Debug.LogWarning($"[BattleRunner] Setup board size ({_setup.BoardSize}) does not match rules board size ({Rules.boardSize}). Using rules board size.");
+            }
+
+            Debug.Log($"Applying SetupPreset: {_setup.SetupId} ({_setup.DisplayName}), placements={_setup.UnitPlacements.Count}");
+
+            ClearInitialStones();
+
+            int placedA = 0;
+            int placedB = 0;
+            int boardSize = Rules.boardSize;
+
+            for (int i = 0; i < _setup.UnitPlacements.Count; i++)
+            {
+                var placement = _setup.UnitPlacements[i];
+                if (placement.count <= 0)
+                {
+                    Debug.LogWarning($"[BattleRunner] Skipping setup placement at index {i}: count must be > 0.");
+                    continue;
+                }
+
+                if (placement.cellIndex < 0 || placement.cellIndex >= boardSize)
+                {
+                    Debug.LogWarning($"[BattleRunner] Skipping setup placement at index {i}: cellIndex {placement.cellIndex} is outside [0..{boardSize - 1}].");
+                    continue;
+                }
+
+                for (int c = 0; c < placement.count; c++)
+                    State.AddStoneToCell(placement.player, placement.cellIndex);
+
+                if (placement.player == PlayerId.A)
+                    placedA += placement.count;
+                else
+                    placedB += placement.count;
+            }
+
+            Debug.Log($"[BattleRunner] Setup counts after placement: A={placedA}, B={placedB}");
+
+            if (placedA != Rules.totalStonesPerPlayer || placedB != Rules.totalStonesPerPlayer)
+            {
+                Debug.LogWarning($"[BattleRunner] Setup stone count mismatch. Expected per player={Rules.totalStonesPerPlayer}, actual A={placedA}, B={placedB}.");
+            }
+        }
+
+        private void ClearInitialStones()
+        {
+            for (int cell = 0; cell < Rules.boardSize; cell++)
+            {
+                int countA = State.GetStonesAt(PlayerId.A, cell);
+                for (int i = 0; i < countA; i++)
+                    State.RemoveStoneFromCell(PlayerId.A, cell);
+
+                int countB = State.GetStonesAt(PlayerId.B, cell);
+                for (int i = 0; i < countB; i++)
+                    State.RemoveStoneFromCell(PlayerId.B, cell);
+            }
         }
 
         public bool Tick()
