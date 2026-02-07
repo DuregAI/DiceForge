@@ -124,7 +124,7 @@ public static class MatchService
         DisposeRunner();
         Runner = new BattleRunner();
         AttachRunner(Runner);
-        Runner.Init(Rules, BagA, BagB, Rules.randomSeed);
+        Runner.Init(Rules, BagA, BagB, Rules.randomSeed, Setup);
     }
 
     private static void DisposeRunner()
