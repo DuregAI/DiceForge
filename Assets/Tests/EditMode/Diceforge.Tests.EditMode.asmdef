@@ -1,0 +1,16 @@
+{
+    "name": "Diceforge.Tests.EditMode",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [
+        "LinuxStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
