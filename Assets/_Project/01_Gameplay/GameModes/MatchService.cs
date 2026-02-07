@@ -16,7 +16,7 @@ public static class MatchService
     public static event Action<GameState> OnMatchStarted;
     public static event Action<GameState> OnTurnStarted;
     public static event Action<MoveRecord> OnMoveApplied;
-    public static event Action<GameState> OnMatchEnded;
+    public static event Action<MatchResult> OnMatchEnded;
 
     public static void BuildFromPreset(GameModePreset preset)
     {
@@ -167,9 +167,9 @@ public static class MatchService
         OnMoveApplied?.Invoke(record);
     }
 
-    private static void HandleMatchEnded(GameState state)
+    private static void HandleMatchEnded(MatchResult result)
     {
-        OnMatchEnded?.Invoke(state);
+        OnMatchEnded?.Invoke(result);
     }
 
     private static void ClearEventSubscribers()

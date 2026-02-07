@@ -18,6 +18,9 @@ namespace Diceforge.Core
         private int _headMovesUsed;
         private int _maxHeadMovesThisTurn;
         private SetupConfig _setup;
+        private bool _matchEnded;
+        private bool _matchEndedEventFired;
+        private MatchResult? _matchResult;
 
         public GameState State { get; private set; }
         public MatchLog Log { get; } = new MatchLog();
@@ -31,11 +34,13 @@ namespace Diceforge.Core
         public int HeadMovesLimit => _maxHeadMovesThisTurn;
         public int CurrentBagRemaining => GetCurrentBag()?.RemainingCount ?? 0;
         public int CurrentBagTotal => GetCurrentBag()?.TotalCount ?? 0;
+        public bool MatchEnded => _matchEnded;
+        public MatchResult? MatchResult => _matchResult;
 
         public event Action<GameState> OnMatchStarted;
         public event Action<GameState> OnTurnStarted;
         public event Action<MoveRecord> OnMoveApplied;
-        public event Action<GameState> OnMatchEnded;
+        public event Action<MatchResult> OnMatchEnded;
 
         public void Init(RulesetConfig rules, DiceBagConfigData bagA, DiceBagConfigData bagB, int seed, SetupConfig setup = null)
         {
@@ -51,6 +56,9 @@ namespace Diceforge.Core
             ApplySetupPresetIfAvailable();
             CreateBots();
             Log.Clear();
+            _matchEnded = false;
+            _matchEndedEventFired = false;
+            _matchResult = null;
             BeginTurn();
             LogHomeZonesOnce();
 
@@ -68,6 +76,9 @@ namespace Diceforge.Core
             Log.Clear();
             _bagA?.Reset();
             _bagB?.Reset();
+            _matchEnded = false;
+            _matchEndedEventFired = false;
+            _matchResult = null;
             BeginTurn();
             LogHomeZonesOnce();
 
@@ -143,7 +154,7 @@ namespace Diceforge.Core
             if (State == null)
                 throw new InvalidOperationException("BattleRunner is not initialized. Call Init first.");
 
-            if (State.IsFinished)
+            if (_matchEnded || State.IsFinished)
                 return false;
 
             if (_remainingDice.Count == 0)
@@ -163,7 +174,7 @@ namespace Diceforge.Core
 
         public bool TryApplyHumanMove(Move move)
         {
-            if (State == null || State.IsFinished)
+            if (State == null || _matchEnded || State.IsFinished)
                 return false;
 
             int? selectedIndex = ResolveSelectedDieIndex();
@@ -190,7 +201,7 @@ namespace Diceforge.Core
 
         public bool SelectDieIndex(int index)
         {
-            if (State == null || State.IsFinished)
+            if (State == null || _matchEnded || State.IsFinished)
                 return false;
             if (index < 0 || index >= _remainingDice.Count)
                 return false;
@@ -201,7 +212,7 @@ namespace Diceforge.Core
 
         public bool EnsureSelectedDie()
         {
-            if (State == null || State.IsFinished)
+            if (State == null || _matchEnded || State.IsFinished)
                 return false;
 
             if (_remainingDice.Count == 0)
@@ -251,7 +262,7 @@ namespace Diceforge.Core
 
         public bool EndTurnIfNoMoves()
         {
-            if (State == null || State.IsFinished)
+            if (State == null || _matchEnded || State.IsFinished)
                 return false;
 
             if (HasAnyLegalMove())
@@ -376,11 +387,17 @@ namespace Diceforge.Core
             if (result == ApplyResult.Finished || State.IsFinished)
                 endReason = MatchEndReason.Win;
 
-            if (!State.IsFinished && State.TurnIndex >= Rules.maxTurns - 1)
+            if (!_matchEnded && !State.IsFinished && State.TurnIndex >= Rules.maxTurns - 1)
             {
                 var winner = DecideWinnerOnTimeout(State);
-                State.Finish(winner);
+                CompleteMatch(winner, MatchEndReason.Timeout);
                 endReason = MatchEndReason.Timeout;
+            }
+
+            if (!_matchEnded && result == ApplyResult.Finished)
+            {
+                var winner = State.Winner ?? State.CurrentPlayer;
+                CompleteMatch(winner, MatchEndReason.Win);
             }
 
             if (result == ApplyResult.Ok || result == ApplyResult.Finished)
@@ -402,9 +419,12 @@ namespace Diceforge.Core
             Log.Add(record);
             OnMoveApplied?.Invoke(record);
 
-            if (State.IsFinished)
+            if (_matchEnded || State.IsFinished)
             {
-                OnMatchEnded?.Invoke(State);
+                if (!_matchEnded && State.IsFinished && State.Winner.HasValue)
+                    CompleteMatch(State.Winner.Value, MatchEndReason.Win);
+
+                FireMatchEndedIfNeeded();
                 return true;
             }
 
@@ -449,7 +469,7 @@ namespace Diceforge.Core
 
         private void EndTurn()
         {
-            if (State.IsFinished)
+            if (_matchEnded || State.IsFinished)
                 return;
 
             State.AdvanceTurn();
@@ -459,6 +479,25 @@ namespace Diceforge.Core
         private static PlayerId DecideWinnerOnTimeout(GameState s)
         {
             return PlayerId.A;
+        }
+
+        private void CompleteMatch(PlayerId winner, MatchEndReason reason)
+        {
+            if (_matchEnded)
+                return;
+
+            State.Finish(winner);
+            _matchEnded = true;
+            _matchResult = new MatchResult(winner, reason);
+        }
+
+        private void FireMatchEndedIfNeeded()
+        {
+            if (_matchEndedEventFired || !_matchResult.HasValue)
+                return;
+
+            _matchEndedEventFired = true;
+            OnMatchEnded?.Invoke(_matchResult.Value);
         }
 
         private (int? FromCell, int? ToCell) DescribeMoveBeforeApply(Move move)
