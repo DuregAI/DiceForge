@@ -22,6 +22,8 @@ namespace Diceforge.Core
 
         public int BorneOffA { get; private set; }
         public int BorneOffB { get; private set; }
+        public int BarA { get; private set; }
+        public int BarB { get; private set; }
 
         public int TurnsTakenA { get; private set; }
         public int TurnsTakenB { get; private set; }
@@ -53,6 +55,8 @@ namespace Diceforge.Core
 
             BorneOffA = 0;
             BorneOffB = 0;
+            BarA = 0;
+            BarB = 0;
 
             TurnIndex = 0;
             CurrentPlayer = PlayerId.A;
@@ -67,10 +71,38 @@ namespace Diceforge.Core
 
         public int GetBorneOff(PlayerId p) => p == PlayerId.A ? BorneOffA : BorneOffB;
 
+        public int GetBarCount(PlayerId p) => p == PlayerId.A ? BarA : BarB;
+
         public void AddBorneOff(PlayerId p)
         {
             if (p == PlayerId.A) BorneOffA++;
             else BorneOffB++;
+        }
+
+        public void AddToBar(PlayerId p, int count = 1)
+        {
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count), "Bar increment must be > 0.");
+
+            if (p == PlayerId.A) BarA += count;
+            else BarB += count;
+        }
+
+        public bool RemoveFromBar(PlayerId p, int count = 1)
+        {
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count), "Bar decrement must be > 0.");
+
+            if (p == PlayerId.A)
+            {
+                if (BarA < count) return false;
+                BarA -= count;
+                return true;
+            }
+
+            if (BarB < count) return false;
+            BarB -= count;
+            return true;
         }
 
         public int GetTurnsTaken(PlayerId p) => p == PlayerId.A ? TurnsTakenA : TurnsTakenB;

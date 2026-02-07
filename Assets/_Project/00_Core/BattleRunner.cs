@@ -464,6 +464,15 @@ namespace Diceforge.Core
         private (int? FromCell, int? ToCell) DescribeMoveBeforeApply(Move move)
         {
             if (State == null) return (null, null);
+
+            if (move.Kind == MoveKind.EnterFromBar)
+            {
+                var entryCells = MoveGenerator.GetEntryCellsForPlayer(State.Rules, State.CurrentPlayer);
+                if (move.PipUsed > 0 && move.PipUsed <= entryCells.Count)
+                    return (null, entryCells[move.PipUsed - 1]);
+                return (null, null);
+            }
+
             if (move.FromCell < 0 || move.FromCell >= State.Rules.boardSize)
                 return (null, null);
 

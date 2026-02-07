@@ -30,6 +30,8 @@ namespace Diceforge.View
         [SerializeField] private float stoneHeight = 0.2f;
         [SerializeField] private float stoneSpreadRadius = 0.18f;
         [SerializeField] private float stoneRingSpacing = 0.08f;
+        [SerializeField] private float barOffsetX = 0.65f;
+        [SerializeField] private float barStackSpacing = 0.24f;
 
         [Header("Colors")]
         [SerializeField] private Color cellColor = new Color(0.7f, 0.7f, 0.7f, 0.8f);
@@ -379,8 +381,8 @@ namespace Diceforge.View
                 return;
 
             int boardSize = _state.Rules.boardSize;
-            int totalA = 0;
-            int totalB = 0;
+            int totalA = _state.GetBarCount(PlayerId.A);
+            int totalB = _state.GetBarCount(PlayerId.B);
             for (int i = 0; i < boardSize; i++)
             {
                 totalA += _state.StonesAByCell[i];
@@ -397,6 +399,9 @@ namespace Diceforge.View
                 usedA = PlaceStonesOnCell(cell, _state.StonesAByCell[cell], boardSize, _stonePoolA, usedA);
                 usedB = PlaceStonesOnCell(cell, _state.StonesBByCell[cell], boardSize, _stonePoolB, usedB);
             }
+
+            usedA = PlaceBarStones(PlayerId.A, _state.GetBarCount(PlayerId.A), _stonePoolA, usedA);
+            usedB = PlaceBarStones(PlayerId.B, _state.GetBarCount(PlayerId.B), _stonePoolB, usedB);
 
             for (int i = usedA; i < _stonePoolA.Count; i++)
                 _stonePoolA[i].SetActive(false);
@@ -415,6 +420,23 @@ namespace Diceforge.View
                 stone.SetActive(true);
                 Vector3 offset = CalculateStoneOffset(i, count);
                 stone.transform.position = center + offset;
+            }
+
+            return used;
+        }
+
+        private int PlaceBarStones(PlayerId player, int count, System.Collections.Generic.List<GameObject> pool, int used)
+        {
+            if (count <= 0)
+                return used;
+
+            float side = player == PlayerId.A ? -1f : 1f;
+            Vector3 basePos = transform.position + new Vector3(side * barOffsetX, stoneHeight * 0.5f, 0f);
+            for (int i = 0; i < count; i++)
+            {
+                var stone = pool[used++];
+                stone.SetActive(true);
+                stone.transform.position = basePos + Vector3.up * (i * barStackSpacing);
             }
 
             return used;
@@ -476,6 +498,7 @@ namespace Diceforge.View
         {
             string lastMoveText = _lastRecord?.Move?.ToString() ?? "None";
             string off = $"A:{_state.BorneOffA}  B:{_state.BorneOffB}";
+            string bar = $"A:{_state.BarA}  B:{_state.BarB}";
             string status = _state.IsFinished
                 ? $"Finished ({_state.Winner})"
                 : $"Turn {_state.TurnIndex} - {_state.CurrentPlayer}";
@@ -485,7 +508,7 @@ namespace Diceforge.View
                 ? "-"
                 : string.Join(",", _state.CurrentOutcome.Dice);
 
-            return $"Diceforge Debug\n{status}\nDice: {diceText}\nOff: {off}\nLast Move: {lastMoveText}\nEnd: {endReason}";
+            return $"Diceforge Debug\n{status}\nDice: {diceText}\nOff: {off}\nBar: {bar}\nLast Move: {lastMoveText}\nEnd: {endReason}";
         }
     }
 }
