@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20786062b9ca4d7ab8f9d3e39fafaf45, type: 3}
   m_Name: Setup_Short
   m_EditorClassIdentifier: 
-  setupId: fast
-  displayName: Fast
+  setupId: short
+  displayName: Short
   boardSize: 24
   unitPlacements:
   - player: 0

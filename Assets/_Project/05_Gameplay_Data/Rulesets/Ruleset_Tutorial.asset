@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rulesetId: tutorial
   displayName: Tutorial
-  maxRounds: 1
-  maxUnitsPerSide: 5
+  maxRounds: 100
+  maxUnitsPerSide: 3
   allowReroll: 1
   actionsPerTurn: 1
   gameMode: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
   homeSize: 2
   totalStonesPerPlayer: 2
   dieMin: 1
-  dieMax: 6
+  dieMax: 2
   startCellA: 0
-  startCellB: 7
+  startCellB: 4
   moveDirA: 1
-  moveDirB: -1
+  moveDirB: 1
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
   maxTurns: 40

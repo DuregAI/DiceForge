@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5caa3f3cf274c1a9d7c8cc311a02211, type: 3}
-  m_Name: Ruleset_Progress
+  m_Name: Ruleset_Experimantal
   m_EditorClassIdentifier: 
-  rulesetId: progress
-  displayName: Progress
-  maxRounds: 3
-  maxUnitsPerSide: 20
+  rulesetId: experimantal
+  displayName: Experimantal
+  maxRounds: 30
+  maxUnitsPerSide: 10
   allowReroll: 0
-  actionsPerTurn: 2
+  actionsPerTurn: 1
   gameMode: 0
   boardSize: 30
   homeSize: 6
   totalStonesPerPlayer: 20
   dieMin: 1
   dieMax: 6
-  diceBagA: {fileID: 11400000, guid: 6a0f809e92174812b64454ec8cda447d, type: 2}
-  diceBagB: {fileID: 11400000, guid: ff63a6516ea6490f9ab18c9955184455, type: 2}
   startCellA: 0
   startCellB: 15
   moveDirA: 1

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20786062b9ca4d7ab8f9d3e39fafaf45, type: 3}
-  m_Name: Setup_Progress
+  m_Name: Setup_Experimantal
   m_EditorClassIdentifier: 
-  setupId: heavy
-  displayName: Heavy
+  setupId: experimental
+  displayName: Experimantal
   boardSize: 30
   unitPlacements: []
