@@ -10,6 +10,7 @@ namespace Diceforge.Core
             var sb = new StringBuilder();
             sb.Append($"T{state.TurnIndex} P:{state.CurrentPlayer}  ");
             sb.Append($"Off A:{state.BorneOffA}  Off B:{state.BorneOffB}  ");
+            sb.Append($"Bar A:{state.BarA}  Bar B:{state.BarB}  ");
             sb.Append("A cells:");
             ReadOnlySpan<int> stonesAByCell = state.GetStonesByCell(PlayerId.A);
             for (int i = 0; i < stonesAByCell.Length; i++)

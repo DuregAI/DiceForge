@@ -6,7 +6,8 @@ namespace Diceforge.Core
     public enum MoveKind : byte
     {
         MoveStone = 0,
-        BearOff = 1
+        BearOff = 1,
+        EnterFromBar = 2
     }
 
     public readonly struct Move : IEquatable<Move>
@@ -24,12 +25,15 @@ namespace Diceforge.Core
 
         public static Move MoveStone(int fromCell, int pipUsed) => new Move(MoveKind.MoveStone, fromCell, pipUsed);
         public static Move BearOff(int fromCell, int pipUsed) => new Move(MoveKind.BearOff, fromCell, pipUsed);
+        public static Move EnterFromBar(int pipUsed) => new Move(MoveKind.EnterFromBar, -1, pipUsed);
 
         public override string ToString()
         {
-            return Kind == MoveKind.BearOff
-                ? $"BearOff({FromCell}, {PipUsed})"
-                : $"Move({FromCell}, {PipUsed})";
+            if (Kind == MoveKind.BearOff)
+                return $"BearOff({FromCell}, {PipUsed})";
+            if (Kind == MoveKind.EnterFromBar)
+                return $"EnterFromBar({PipUsed})";
+            return $"Move({FromCell}, {PipUsed})";
         }
 
         public bool Equals(Move other)
@@ -65,7 +69,20 @@ namespace Diceforge.Core
 
             var rules = s.Rules;
             var current = s.CurrentPlayer;
-            var opponent = current == PlayerId.A ? PlayerId.B : PlayerId.A;
+            var opponent = Opponent(current);
+            int barCount = s.GetBarCount(current);
+            if (barCount > 0)
+            {
+                int? entryCell = TryGetEntryCell(rules, current, dieValue);
+                if (!entryCell.HasValue)
+                    return moves;
+
+                if (CanEnterCell(s, opponent, entryCell.Value))
+                    moves.Add(Move.EnterFromBar(dieValue));
+
+                return moves;
+            }
+
             int headCell = GetHeadCell(s, current);
             bool allInHome = AllStonesInHome(s, current);
             int maxPipsInHome = allInHome ? GetMaxPipsInHome(s.Rules, s, current) : -1;
@@ -109,6 +126,7 @@ namespace Diceforge.Core
                     if (from < 0 || from >= s.Rules.boardSize)
                         return ApplyResult.Illegal;
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
+                    if (s.GetBarCount(s.CurrentPlayer) > 0) return ApplyResult.Illegal;
 
                     var classification = BoardPathRules.ClassifyMove(s.Rules, s.CurrentPlayer, from, m.PipUsed, out int rawToCell, out int to);
                     LogMoveClassification(s, s.CurrentPlayer, from, m.PipUsed, rawToCell, classification);
@@ -119,6 +137,27 @@ namespace Diceforge.Core
                         return ApplyResult.Illegal;
 
                     if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
+                    TryHitSingleStone(s, Opponent(s.CurrentPlayer), to);
+                    s.AddStoneToCell(s.CurrentPlayer, to);
+                    return ApplyResult.Ok;
+                }
+                case MoveKind.EnterFromBar:
+                {
+                    int? entryCell = TryGetEntryCell(s.Rules, s.CurrentPlayer, m.PipUsed);
+                    if (!entryCell.HasValue)
+                        return ApplyResult.Illegal;
+                    if (s.GetBarCount(s.CurrentPlayer) <= 0)
+                        return ApplyResult.Illegal;
+
+                    var opponent = Opponent(s.CurrentPlayer);
+                    int to = entryCell.Value;
+                    if (!CanEnterCell(s, opponent, to))
+                        return ApplyResult.Illegal;
+
+                    if (!s.RemoveFromBar(s.CurrentPlayer, 1))
+                        return ApplyResult.Illegal;
+
+                    TryHitSingleStone(s, opponent, to);
                     s.AddStoneToCell(s.CurrentPlayer, to);
                     return ApplyResult.Ok;
                 }
@@ -128,6 +167,7 @@ namespace Diceforge.Core
                     if (from < 0 || from >= s.Rules.boardSize)
                         return ApplyResult.Illegal;
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
+                    if (s.GetBarCount(s.CurrentPlayer) > 0) return ApplyResult.Illegal;
                     if (!AllStonesInHome(s, s.CurrentPlayer)) return ApplyResult.Illegal;
                     if (!CanBearOff(s, s.CurrentPlayer, from, m.PipUsed)) return ApplyResult.Illegal;
 
@@ -226,6 +266,43 @@ namespace Diceforge.Core
             if (opponentCount <= 0) return true;
             if (s.Rules.blockIfOpponentAnyStone) return false;
             return opponentCount == 1 && s.Rules.allowHitSingleStone;
+        }
+
+        public static IReadOnlyList<int> GetEntryCellsForPlayer(RulesetConfig rules, PlayerId player)
+        {
+            if (rules == null) throw new ArgumentNullException(nameof(rules));
+
+            var homeCells = BoardPathRules.GetHomeCells(rules, Opponent(player));
+            var ordered = new int[homeCells.Count];
+            for (int i = 0; i < homeCells.Count; i++)
+                ordered[i] = homeCells[homeCells.Count - 1 - i];
+            return ordered;
+        }
+
+        private static int? TryGetEntryCell(RulesetConfig rules, PlayerId player, int dieValue)
+        {
+            var entryCells = GetEntryCellsForPlayer(rules, player);
+            if (dieValue <= 0 || dieValue > entryCells.Count)
+                return null;
+
+            return entryCells[dieValue - 1];
+        }
+
+        private static PlayerId Opponent(PlayerId player)
+        {
+            return player == PlayerId.A ? PlayerId.B : PlayerId.A;
+        }
+
+        private static void TryHitSingleStone(GameState s, PlayerId opponent, int toCell)
+        {
+            int opponentCount = s.GetStonesAt(opponent, toCell);
+            if (opponentCount != 1)
+                return;
+
+            if (!s.RemoveStoneFromCell(opponent, toCell))
+                return;
+
+            s.AddToBar(opponent, 1);
         }
 
         private static void LogMoveClassification(

@@ -422,8 +422,8 @@ namespace Diceforge.View
             hud?.SetBagStatus(_runner.CurrentBagRemaining, _runner.CurrentBagTotal);
             hud?.SetLastMove(lastMove);
             hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "-" : "-");
-            hud?.SetPlayerStatsA($"A: Off {state.BorneOffA}");
-            hud?.SetPlayerStatsB($"B: Off {state.BorneOffB}");
+            hud?.SetPlayerStatsA($"A: Off {state.BorneOffA} | Bar {state.BarA}");
+            hud?.SetPlayerStatsB($"B: Off {state.BorneOffB} | Bar {state.BarB}");
             hud?.SetHeadMovesInfo(_runner.HeadMovesUsed, _runner.HeadMovesLimit);
             hud?.SetStatus(BuildStatusText());
             RefreshTurnUIAndInput();
@@ -621,6 +621,12 @@ namespace Diceforge.View
                 string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
                 text = $"{player} {fromText}→{toText} (Pip {pipText})";
             }
+            else if (move.Kind == MoveKind.EnterFromBar)
+            {
+                string toText = record.ToCell.HasValue ? record.ToCell.Value.ToString() : "-";
+                string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
+                text = $"{player} Bar→{toText} (Pip {pipText})";
+            }
             else
             {
                 string fromText = record.FromCell.HasValue ? record.FromCell.Value.ToString() : "-";
@@ -667,7 +673,11 @@ namespace Diceforge.View
 
             var cells = new HashSet<int>();
             foreach (var move in legal)
-                cells.Add(move.FromCell);
+            {
+                int? selectableCell = GetSelectableCellForMove(move);
+                if (selectableCell.HasValue)
+                    cells.Add(selectableCell.Value);
+            }
 
             boardView.SetHighlightedCells(cells);
         }
@@ -676,6 +686,23 @@ namespace Diceforge.View
         {
             if (_runner?.State == null) return false;
             return _runner.HasLegalMoveForSelectedDie();
+        }
+
+
+        private int? GetSelectableCellForMove(Move move)
+        {
+            if (_runner?.State == null)
+                return null;
+
+            if (move.Kind == MoveKind.EnterFromBar)
+            {
+                var entryCells = MoveGenerator.GetEntryCellsForPlayer(_runner.State.Rules, _runner.State.CurrentPlayer);
+                if (move.PipUsed <= 0 || move.PipUsed > entryCells.Count)
+                    return null;
+                return entryCells[move.PipUsed - 1];
+            }
+
+            return move.FromCell;
         }
 
         private Move? SelectMoveForCell(int cellIndex)
@@ -700,7 +727,10 @@ namespace Diceforge.View
             int bestPip = int.MaxValue;
             foreach (var move in legal)
             {
-                if (move.FromCell != cellIndex) continue;
+                int? selectableCell = GetSelectableCellForMove(move);
+                if (!selectableCell.HasValue || selectableCell.Value != cellIndex)
+                    continue;
+
                 if (move.PipUsed < bestPip)
                 {
                     best = move;
