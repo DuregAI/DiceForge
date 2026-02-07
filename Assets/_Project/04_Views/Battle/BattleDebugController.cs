@@ -45,6 +45,12 @@ namespace Diceforge.View
         private GameModePreset _externalPreset;
         private Coroutine _autoStartRoutine;
 
+        [SerializeField] private PlayerId localPlayer = PlayerId.A;
+
+        public event System.Action<MatchResult> OnMatchEnded;
+        public PlayerId LocalPlayer => localPlayer;
+        public bool IsMatchEnded => _runner != null && _runner.MatchEnded;
+
         private void Awake()
         {
             if (boardView == null)
@@ -100,10 +106,10 @@ namespace Diceforge.View
 
             _elapsed = 0f;
 
-            if (_runner?.State == null || _runner.State.IsFinished)
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
-            if (_runner?.State == null || _runner.State.IsFinished || IsHumanTurn())
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn())
                 return;
 
             ExecuteAutoTurn();
@@ -220,7 +226,7 @@ namespace Diceforge.View
 
         private void TickOnce()
         {
-            if (_runner?.State == null || _runner.State.IsFinished)
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
             if (!_runner.HasAnyLegalMove())
@@ -235,7 +241,7 @@ namespace Diceforge.View
 
         private void ExecuteAutoTurn()
         {
-            if (_runner?.State == null || _runner.State.IsFinished || IsHumanTurn())
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn())
                 return;
 
             int startingTurn = _runner.State.TurnIndex;
@@ -243,6 +249,7 @@ namespace Diceforge.View
 
             while (_runner?.State != null
                    && !_runner.State.IsFinished
+                   && !_runner.MatchEnded
                    && !IsHumanTurn()
                    && _runner.State.TurnIndex == startingTurn
                    && safety++ < 64)
@@ -312,11 +319,17 @@ namespace Diceforge.View
             boardView.SetLastMove(info);
         }
 
-        private void HandleMatchEnded(GameState state)
+        private void HandleMatchEnded(MatchResult result)
         {
+            var state = _runner?.State;
+            if (state == null)
+                return;
+
             boardView?.HandleMatchEnded(state);
             if (verboseLog)
-                Debug.Log($"[Diceforge] Match end. Winner: {state.Winner}  Turns: {state.TurnIndex}");
+                Debug.Log($"[Diceforge] Match end. Winner: {result.Winner}  Turns: {state.TurnIndex}");
+
+            OnMatchEnded?.Invoke(result);
             UpdateUI();
         }
 
@@ -332,7 +345,7 @@ namespace Diceforge.View
 
         private void HandleMoveClicked()
         {
-            if (!IsHumanTurn() || _runner?.State == null)
+            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished)
                 return;
 
             EnsureHumanTurnReady();
@@ -343,7 +356,7 @@ namespace Diceforge.View
 
         private void HandleCellClicked(int cellIndex)
         {
-            if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished)
+            if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
             EnsureHumanTurnReady();
@@ -375,7 +388,7 @@ namespace Diceforge.View
 
         private void HandleDieSelected(int index)
         {
-            if (!IsHumanTurn() || _runner?.State == null)
+            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished)
                 return;
 
             if (!_runner.SelectDieIndex(index))
@@ -397,7 +410,7 @@ namespace Diceforge.View
 
         private void ApplyHumanMove(Move move)
         {
-            if (_runner == null || _runner.State == null || _runner.State.IsFinished)
+            if (_runner == null || _runner.State == null || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
             bool applied = _runner.TryApplyHumanMove(move);
@@ -472,7 +485,7 @@ namespace Diceforge.View
 
         private void EnsureHumanTurnReady()
         {
-            if (_runner?.State == null || _runner.State.IsFinished || !IsHumanTurn())
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || !IsHumanTurn())
                 return;
 
             _runner.EnsureSelectedDie();
@@ -588,7 +601,7 @@ namespace Diceforge.View
             if (_runner?.State == null)
                 return "Status: -";
 
-            if (_runner.State.IsFinished)
+            if (_runner.State.IsFinished || _runner.MatchEnded)
                 return $"Status: Finished ({_runner.State.Winner})";
 
             if (IsHumanTurn())
@@ -648,7 +661,7 @@ namespace Diceforge.View
                 return;
             }
 
-            if (!IsHumanTurn() || _runner.State.IsFinished)
+            if (!IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded)
             {
                 boardView.SetHighlightedCells(null);
                 return;

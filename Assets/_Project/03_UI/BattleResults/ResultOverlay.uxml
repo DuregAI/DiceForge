@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="ResultOverlay.uss" />
+    <ui:VisualElement name="resultOverlayRoot" class="result-overlay-root" style="display: none;">
+        <ui:VisualElement name="resultPanel" class="result-overlay-panel">
+            <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
+            <ui:Button name="restartButton" text="Restart" class="result-overlay-button" />
+            <ui:Button name="backToMenuButton" text="Back to Menu" class="result-overlay-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
