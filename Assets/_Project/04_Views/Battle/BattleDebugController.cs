@@ -272,8 +272,8 @@ namespace Diceforge.View
         {
             boardView?.HandleMatchStarted(state, _runner.Log);
             UpdateUI();
-            if (verboseLog)
-                Debug.Log("[Diceforge] Match start: " + state.DebugSnapshot());
+            /*if (verboseLog)
+                Debug.Log("[Diceforge] Match start: " + state.DebugSnapshot());*/
         }
 
         private void HandleTurnStarted(GameState state)

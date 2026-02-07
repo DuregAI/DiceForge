@@ -8,6 +8,7 @@ namespace Diceforge.Core
         public static string Snapshot(GameState state)
         {
             var sb = new StringBuilder();
+            return sb.ToString();
             sb.Append($"T{state.TurnIndex} P:{state.CurrentPlayer}  ");
             sb.Append($"Off A:{state.BorneOffA}  Off B:{state.BorneOffB}  ");
             sb.Append($"Bar A:{state.BarA}  Bar B:{state.BarB}  ");

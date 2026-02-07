@@ -166,7 +166,7 @@ namespace Diceforge.Core
             CurrentOutcome = outcome;
         }
 
-        public string DebugSnapshot() => GameStateDebug.Snapshot(this);
+        //public string DebugSnapshot() => GameStateDebug.Snapshot(this);
 
         public static int Mod(int x, int m)
         {

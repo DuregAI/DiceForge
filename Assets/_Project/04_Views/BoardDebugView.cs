@@ -185,8 +185,8 @@ namespace Diceforge.View
 #if UNITY_EDITOR
             //EnsureLabelStyles();
             DrawCellIndices(boardSize);
-            Handles.color = Color.white;
-            Handles.Label(transform.position + Vector3.up * 1.5f, BuildInfoText());
+           /* Handles.color = Color.white;
+            Handles.Label(transform.position + Vector3.up * 1.5f, BuildInfoText());*/
 #endif
         }
 
@@ -227,11 +227,11 @@ namespace Diceforge.View
             Gizmos.DrawWireSphere(center, playerRadius * 1.7f);
 
 #if UNITY_EDITOR
-            if (!string.IsNullOrEmpty(label))
+            /*if (!string.IsNullOrEmpty(label))
             {
                 Handles.color = color;
                 Handles.Label(center + Vector3.up * (labelHeight + 0.25f), label, _homeLabelStyle);
-            }
+            }*/
 #endif
         }
 
@@ -494,7 +494,7 @@ namespace Diceforge.View
             return record.ToCell;
         }
 
-        private string BuildInfoText()
+        /*private string BuildInfoText()
         {
             string lastMoveText = _lastRecord?.Move?.ToString() ?? "None";
             string off = $"A:{_state.BorneOffA}  B:{_state.BorneOffB}";
@@ -509,6 +509,6 @@ namespace Diceforge.View
                 : string.Join(",", _state.CurrentOutcome.Dice);
 
             return $"Diceforge Debug\n{status}\nDice: {diceText}\nOff: {off}\nBar: {bar}\nLast Move: {lastMoveText}\nEnd: {endReason}";
-        }
+        }*/
     }
 }
