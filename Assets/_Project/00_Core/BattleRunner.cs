@@ -260,6 +260,27 @@ namespace Diceforge.Core
             return MoveGenerator.GenerateLegalMoves(State, dieValue, _headMovesUsed, _maxHeadMovesThisTurn).Count > 0;
         }
 
+        public bool RerollCurrentTurnOutcome()
+        {
+            if (State == null || _matchEnded || State.IsFinished)
+                return false;
+
+            var bag = GetCurrentBag();
+            _currentOutcome = bag != null
+                ? bag.Draw()
+                : new DiceOutcomeResult("Empty", Array.Empty<int>());
+            State.SetCurrentOutcome(_currentOutcome);
+
+            _remainingDice.Clear();
+            _remainingDice.AddRange(_currentOutcome.Dice);
+            _usedDice.Clear();
+
+            _selectedDieIndex = _remainingDice.Count > 0 ? 0 : (int?)null;
+            _headMovesUsed = 0;
+            _maxHeadMovesThisTurn = CalculateHeadMoveLimit(State.CurrentPlayer, _currentOutcome);
+            return true;
+        }
+
         public bool EndTurnIfNoMoves()
         {
             if (State == null || _matchEnded || State.IsFinished)
