@@ -7,6 +7,7 @@ namespace Diceforge.Progression
         public const string Shards = "SHARDS";
 
         public const string BasicChest = "CHEST_BASIC";
+        public const string ItemConsumableReroll = "CONSUMABLE_REROLL";
 
         public const string UpgWinGold = "UPG_WIN_GOLD";
         public const string UpgLossGold = "UPG_LOSS_GOLD";

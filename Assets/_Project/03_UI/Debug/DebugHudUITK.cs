@@ -29,6 +29,7 @@ namespace Diceforge.View
         private Button _moveButton;
         private Button _enterButton;
         private Button _placeButton;
+        private Button _rerollButton;
         private Toggle _humanAToggle;
         private Toggle _humanBToggle;
         private Slider _speedSlider;
@@ -42,6 +43,7 @@ namespace Diceforge.View
         public event Action OnMove;
         public event Action OnEnter;
         public event Action OnPlace;
+        public event Action OnReroll;
         public event Action<bool> OnToggleAutoRun;
         public event Action<float> OnSpeedChanged;
         public event Action<bool> OnHumanAChanged;
@@ -174,6 +176,16 @@ namespace Diceforge.View
             _placeButton?.SetEnabled(enabled);
         }
 
+        public void SetRerollState(int count, bool enabled, bool visible)
+        {
+            if (_rerollButton == null)
+                return;
+
+            _rerollButton.text = $"Reroll ({Mathf.Max(0, count)})";
+            _rerollButton.SetEnabled(enabled);
+            _rerollButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
         public void SetDiceButtons(IReadOnlyList<int> remainingDice, int? selectedIndex, bool enabled)
         {
             if (_diceButtonsRow == null)
@@ -244,6 +256,7 @@ namespace Diceforge.View
             _moveButton = GetElement<Button>("moveButton");
             _enterButton = GetElement<Button>("enterButton");
             _placeButton = GetElement<Button>("placeButton");
+            _rerollButton = GetElement<Button>("rerollButton");
             _humanAToggle = GetElement<Toggle>("humanAToggle");
             _humanBToggle = GetElement<Toggle>("humanBToggle");
             _speedSlider = GetElement<Slider>("speedSlider");
@@ -265,6 +278,8 @@ namespace Diceforge.View
                 _enterButton.clicked += HandleEnterClicked;
             if (_placeButton != null)
                 _placeButton.clicked += HandlePlaceClicked;
+            if (_rerollButton != null)
+                _rerollButton.clicked += HandleRerollClicked;
             if (_speedSlider != null)
             {
                 _speedSlider.RegisterValueChangedCallback(HandleSpeedChanged);
@@ -290,6 +305,8 @@ namespace Diceforge.View
                 _enterButton.clicked -= HandleEnterClicked;
             if (_placeButton != null)
                 _placeButton.clicked -= HandlePlaceClicked;
+            if (_rerollButton != null)
+                _rerollButton.clicked -= HandleRerollClicked;
             if (_speedSlider != null)
                 _speedSlider.UnregisterValueChangedCallback(HandleSpeedChanged);
             if (_humanAToggle != null)
@@ -321,6 +338,11 @@ namespace Diceforge.View
         private void HandlePlaceClicked()
         {
             OnPlace?.Invoke();
+        }
+
+        private void HandleRerollClicked()
+        {
+            OnReroll?.Invoke();
         }
 
         private void HandleAutoRunChanged(ChangeEvent<bool> evt)
