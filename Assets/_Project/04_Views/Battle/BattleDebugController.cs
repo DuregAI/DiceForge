@@ -47,6 +47,9 @@ namespace Diceforge.View
         private Coroutine _autoStartRoutine;
         private bool _rerollUsedThisTurn;
 
+        [Header("Debug")]
+        [SerializeField] private bool logRerollInventory;
+
         [SerializeField] private PlayerId localPlayer = PlayerId.A;
 
         public event System.Action<MatchResult> OnMatchEnded;
@@ -74,6 +77,18 @@ namespace Diceforge.View
             ProfileService.ProfileChanged += HandleProfileChanged;
         }
 
+        private void OnEnable()
+        {
+            ProfileService.ProfileChanged += HandleProfileChanged;
+            RefreshRerollUI();
+            LogRerollCount("OnEnable");
+        }
+
+        private void OnDisable()
+        {
+            ProfileService.ProfileChanged -= HandleProfileChanged;
+        }
+
         private void OnDestroy()
         {
             if (_runner == null) return;
@@ -95,6 +110,7 @@ namespace Diceforge.View
             _autoStartRoutine = StartCoroutine(DeferredInitialize());
 
             SyncHudState();
+            LogRerollCount("Start");
         }
 
         private void Update()
@@ -284,7 +300,9 @@ namespace Diceforge.View
         {
             _elapsed = 0f;
             _rerollUsedThisTurn = false;
+            LogRerollCount("TurnStarted");
             UpdateUI();
+            RefreshRerollUI();
         }
 
         private void HandleMoveApplied(MoveRecord record)
@@ -336,6 +354,7 @@ namespace Diceforge.View
 
             OnMatchEnded?.Invoke(result);
             UpdateUI();
+            RefreshRerollUI();
         }
 
         private bool IsHumanTurn()
@@ -426,6 +445,7 @@ namespace Diceforge.View
             _waitingForFromCell = false;
             _lastHumanInputFeedback = string.Empty;
             UpdateUI();
+            RefreshRerollUI();
         }
 
         private void ApplyHumanMove(Move move)
@@ -470,7 +490,7 @@ namespace Diceforge.View
                 hud?.SetMoveEnabled(false);
                 hud?.SetEnterEnabled(false);
                 hud?.SetPlaceEnabled(false);
-                hud?.SetRerollState(0, false, false);
+                RefreshRerollUI();
                 hud?.SetDiceButtons(null, null, false);
                 _waitingForFromCell = false;
                 boardView?.SetCellSelectionEnabled(false);
@@ -493,9 +513,7 @@ namespace Diceforge.View
             hud?.SetMoveEnabled(canMove);
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
-            int rerollCount = ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll);
-            bool canUseReroll = humanTurn && !_runner.MatchEnded && !state.IsFinished && rerollCount > 0 && !_rerollUsedThisTurn;
-            hud?.SetRerollState(rerollCount, canUseReroll, humanTurn);
+            RefreshRerollUI();
             hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, humanTurn);
 
             if (humanTurn)
@@ -578,6 +596,29 @@ namespace Diceforge.View
         private void HandleProfileChanged()
         {
             UpdateUI();
+            RefreshRerollUI();
+        }
+
+        private void RefreshRerollUI()
+        {
+            if (hud == null)
+                return;
+
+            int rerollCount = ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll);
+            bool humanTurn = _runner?.State != null && IsHumanTurn() && !_runner.State.IsFinished;
+            bool matchNotEnded = _runner?.State != null && !_runner.MatchEnded && !_runner.State.IsFinished;
+            bool visible = matchNotEnded && humanTurn;
+            bool enabled = matchNotEnded && humanTurn && rerollCount > 0 && !_rerollUsedThisTurn;
+            hud.SetRerollState(rerollCount, enabled, visible);
+        }
+
+        private void LogRerollCount(string stage)
+        {
+            if (!logRerollInventory)
+                return;
+
+            int rerollCount = ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll);
+            Debug.Log($"[Diceforge] Reroll inventory ({stage}): {rerollCount}", this);
         }
 
         private bool CanUseReroll()
