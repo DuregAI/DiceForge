@@ -11,6 +11,8 @@ namespace Diceforge.Progression
         public List<ProfileAmount> currencies = new();
         public List<ProfileAmount> inventory = new();
         public List<ChestInstance> chestQueue = new();
+        public Dictionary<string, int> upgrades = new();
+        public List<ProfileAmount> upgradeLevels = new();
 
         [Serializable]
         public sealed class HeroProgress

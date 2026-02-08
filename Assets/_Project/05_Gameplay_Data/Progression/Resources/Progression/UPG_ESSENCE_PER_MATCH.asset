@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbeda8ca821c4e86b5dd7b82ded72a77, type: 3}
+  m_Name: UPG_ESSENCE_PER_MATCH
+  m_EditorClassIdentifier: 
+  upgradeId: UPG_ESSENCE_PER_MATCH
+  displayName: Essence Gain
+  description: Adds ESSENCE reward for every match.
+  maxLevel: 3
+  effectType: 2
+  priceByLevel:
+  - 80
+  - 160
+  - 280
+  valueByLevel:
+  - 1
+  - 2
+  - 3
+  requiresModeInfo: 0

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
+        <ui:VisualElement class="upgrade-shop-window">
+            <ui:Label text="UPGRADES" class="panel-title" />
+            <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins" />
+            <ui:ScrollView name="upgradeList" class="upgrade-list" />
+            <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

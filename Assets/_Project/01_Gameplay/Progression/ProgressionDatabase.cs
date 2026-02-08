@@ -8,5 +8,6 @@ namespace Diceforge.Progression
         public CurrencyCatalog currencyCatalog;
         public ItemCatalog itemCatalog;
         public ChestCatalog chestCatalog;
+        public UpgradeCatalog upgradeCatalog;
     }
 }

@@ -34,6 +34,7 @@ public class MainMenuController : MonoBehaviour
     private VisualElement currentPanel;
     private bool isSettingsOpen;
     private WalletPanelController walletPanelController;
+    private UpgradeShopController upgradeShopController;
 
     private void Awake()
     {
@@ -61,6 +62,7 @@ public class MainMenuController : MonoBehaviour
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
+        RegisterPanel("UpgradeShopPanel");
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -77,6 +79,8 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", () => SelectModeAndLoad(tutorialPreset));
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+        RegisterButton("btnUpgrades", OpenUpgradeShop);
+        RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
 
         walletPanelController = GetComponent<WalletPanelController>();
         if (walletPanelController == null)
@@ -84,11 +88,16 @@ public class MainMenuController : MonoBehaviour
 
         ProfileService.Load();
 
+        upgradeShopController = GetComponent<UpgradeShopController>();
+        if (upgradeShopController == null)
+            upgradeShopController = gameObject.AddComponent<UpgradeShopController>();
+
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
         UpdateSettingsButtonState(isSettingsOpen);
         walletPanelController.Initialize(root);
+        upgradeShopController.Initialize(root);
     }
 
     public void ShowPanel(string panelName)
@@ -242,6 +251,18 @@ public class MainMenuController : MonoBehaviour
         var logPayload = $"{buildInfo} | {DateTime.Now:O} | {Application.platform} | dummy log";
         GUIUtility.systemCopyBuffer = logPayload;
         Debug.Log("[MainMenu] Log copied");
+    }
+
+    private void OpenUpgradeShop()
+    {
+        ShowPanel("UpgradeShopPanel");
+        upgradeShopController?.Show();
+    }
+
+    private void CloseUpgradeShop()
+    {
+        upgradeShopController?.Hide();
+        ShowPanel("MenuPanel");
     }
 
     private void SelectModeAndLoad(GameModePreset preset)

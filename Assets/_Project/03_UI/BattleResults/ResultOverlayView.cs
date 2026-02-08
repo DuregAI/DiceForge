@@ -68,7 +68,8 @@ namespace Diceforge.View
             if (_resultLabel != null)
                 _resultLabel.text = won ? "Victory" : "Defeat";
 
-            var rewards = RewardService.CalculateMatchRewards(result, string.Empty);
+            var modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
+            var rewards = RewardService.CalculateMatchRewards(result, modeId);
             ProfileService.ApplyReward(rewards);
 
             if (_rewardBreakdownLabel != null)

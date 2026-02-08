@@ -15,3 +15,4 @@ MonoBehaviour:
   currencyCatalog: {fileID: 11400000, guid: b3b0a7a91f4b4cf6b4e3e2a3618372e2, type: 2}
   itemCatalog: {fileID: 11400000, guid: c8908e7653ee4a6e9cc8a2c4c5be1452, type: 2}
   chestCatalog: {fileID: 11400000, guid: 47e3f7f2199e4e299ff2aed49401221b, type: 2}
+  upgradeCatalog: {fileID: 11400000, guid: fe0753f3fd484c21b29ba7be60141f33, type: 2}

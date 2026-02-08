@@ -10,6 +10,7 @@ namespace Diceforge.Progression
         private const string FileName = "player_profile.json";
         private static readonly Dictionary<string, int> CurrencyMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> InventoryMap = new(StringComparer.Ordinal);
+        private static readonly Dictionary<string, int> UpgradeMap = new(StringComparer.Ordinal);
 
         private static PlayerProfile _profile;
 
@@ -50,6 +51,8 @@ namespace Diceforge.Progression
 
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
+            _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
+            _profile.upgradeLevels = ToList(UpgradeMap);
 
             var json = JsonUtility.ToJson(_profile, true);
             File.WriteAllText(GetPath(), json);
@@ -178,6 +181,29 @@ namespace Diceforge.Progression
             return true;
         }
 
+
+        public static int GetUpgradeLevel(string id) => GetAmount(UpgradeMap, id);
+
+        internal static void SetUpgradeLevel(string id, int level)
+        {
+            if (string.IsNullOrEmpty(id))
+                return;
+
+            UpgradeMap[id] = Mathf.Max(0, level);
+            SaveAndNotify();
+        }
+
+        public static int IncrementUpgradeLevel(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return 0;
+
+            var nextLevel = GetUpgradeLevel(id) + 1;
+            UpgradeMap[id] = nextLevel;
+            SaveAndNotify();
+            return nextLevel;
+        }
+
         public static void ResetProfile()
         {
             _profile = CreateDefault();
@@ -207,6 +233,7 @@ namespace Diceforge.Progression
         {
             CurrencyMap.Clear();
             InventoryMap.Clear();
+            UpgradeMap.Clear();
 
             if (_profile == null)
                 _profile = CreateDefault();
@@ -236,8 +263,32 @@ namespace Diceforge.Progression
                 }
             }
 
+            if (_profile.upgrades != null)
+            {
+                foreach (var pair in _profile.upgrades)
+                {
+                    if (string.IsNullOrEmpty(pair.Key))
+                        continue;
+
+                    UpgradeMap[pair.Key] = Mathf.Max(0, pair.Value);
+                }
+            }
+
+            if (_profile.upgradeLevels != null)
+            {
+                foreach (var level in _profile.upgradeLevels)
+                {
+                    if (level == null || string.IsNullOrEmpty(level.id))
+                        continue;
+
+                    UpgradeMap[level.id] = Mathf.Max(0, level.amount);
+                }
+            }
+
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
+            _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
+            _profile.upgradeLevels = ToList(UpgradeMap);
             _profile.chestQueue ??= new List<ChestInstance>();
         }
 
