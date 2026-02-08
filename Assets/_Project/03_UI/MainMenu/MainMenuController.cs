@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Diceforge.Progression;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -32,6 +33,7 @@ public class MainMenuController : MonoBehaviour
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
     private bool isSettingsOpen;
+    private WalletPanelController walletPanelController;
 
     private void Awake()
     {
@@ -76,10 +78,17 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnTutorial", () => SelectModeAndLoad(tutorialPreset));
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
 
+        walletPanelController = GetComponent<WalletPanelController>();
+        if (walletPanelController == null)
+            walletPanelController = gameObject.AddComponent<WalletPanelController>();
+
+        ProfileService.Load();
+
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
         UpdateSettingsButtonState(isSettingsOpen);
+        walletPanelController.Initialize(root);
     }
 
     public void ShowPanel(string panelName)

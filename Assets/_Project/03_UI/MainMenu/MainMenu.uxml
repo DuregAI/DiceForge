@@ -36,6 +36,17 @@
                 <ui:Button name="btnCopyLog" class="copy-log-button icon-button df-interactive" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="WalletPanel" class="wallet-panel">
+            <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label" />
+            <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label" />
+            <ui:Label name="walletShards" text="Shards: 0" class="wallet-label" />
+            <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label" />
+            <ui:Label name="walletChests" text="Chests: 0" class="wallet-label" />
+            <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive" />
+            <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive" />
+            <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive" />
+            <ui:Label name="walletChestResult" text="" class="wallet-result" />
+        </ui:VisualElement>
         <ui:VisualElement name="Corners" enabled="true" style="top: auto; bottom: 0; right: 0; left: auto; align-self: stretch; border-left-width: 0; background-size: 10% 10%; background-position-x: right 0; width: 329px; height: 293px;">
             <ui:VisualElement name="CornerBR" style="background-size: 129% 206%;">
                 <ui:Button name="btnSettings" text="" class="icon-button state-settings df-interactive" style="background-size: 124% 260px; width: 158px; height: 222px;"/>
