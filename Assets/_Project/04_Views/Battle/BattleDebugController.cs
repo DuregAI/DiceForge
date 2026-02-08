@@ -74,6 +74,7 @@ namespace Diceforge.View
                 hud = GetComponentInChildren<DebugHudUITK>(true);
 
             RegisterHudCallbacks();
+            ProfileService.ProfileChanged += HandleProfileChanged;
         }
 
         private void OnEnable()
