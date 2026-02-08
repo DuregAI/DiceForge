@@ -30,3 +30,10 @@
     margin-top: 8px;
     min-height: 42px;
 }
+
+.result-overlay-rewards {
+    font-size: 20px;
+    color: rgb(220, 220, 220);
+    margin-bottom: 12px;
+    unity-text-align: middle-center;
+}

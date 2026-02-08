@@ -3,6 +3,9 @@
     <ui:VisualElement name="resultOverlayRoot" class="result-overlay-root" style="display: none;">
         <ui:VisualElement name="resultPanel" class="result-overlay-panel">
             <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
+            <ui:Label name="rewardBreakdownLabel" text="+30 SOFT_GOLD
++3 ESSENCE
++10 XP" class="result-overlay-rewards" />
             <ui:Button name="restartButton" text="Restart" class="result-overlay-button" />
             <ui:Button name="backToMenuButton" text="Back to Menu" class="result-overlay-button" />
         </ui:VisualElement>
