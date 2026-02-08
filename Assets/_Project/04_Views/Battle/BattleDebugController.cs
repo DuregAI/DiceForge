@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Diceforge.Core;
+using Diceforge.Progression;
 using Diceforge.Presets;
 using UnityEngine;
 
@@ -44,6 +45,7 @@ namespace Diceforge.View
         private bool _hasExternalPreset;
         private GameModePreset _externalPreset;
         private Coroutine _autoStartRoutine;
+        private bool _rerollUsedThisTurn;
 
         [SerializeField] private PlayerId localPlayer = PlayerId.A;
 
@@ -69,6 +71,7 @@ namespace Diceforge.View
                 hud = GetComponentInChildren<DebugHudUITK>(true);
 
             RegisterHudCallbacks();
+            ProfileService.ProfileChanged += HandleProfileChanged;
         }
 
         private void OnDestroy()
@@ -84,6 +87,7 @@ namespace Diceforge.View
                 boardView.OnCellClicked -= HandleCellClicked;
 
             UnregisterHudCallbacks();
+            ProfileService.ProfileChanged -= HandleProfileChanged;
         }
 
         private void Start()
@@ -279,6 +283,7 @@ namespace Diceforge.View
         private void HandleTurnStarted(GameState state)
         {
             _elapsed = 0f;
+            _rerollUsedThisTurn = false;
             UpdateUI();
         }
 
@@ -408,6 +413,21 @@ namespace Diceforge.View
         {
         }
 
+        private void HandleRerollClicked()
+        {
+            if (!CanUseReroll())
+                return;
+
+            if (!ProfileService.RemoveItem(ProgressionIds.ItemConsumableReroll, 1))
+                return;
+
+            _rerollUsedThisTurn = true;
+            _runner.RerollCurrentTurnOutcome();
+            _waitingForFromCell = false;
+            _lastHumanInputFeedback = string.Empty;
+            UpdateUI();
+        }
+
         private void ApplyHumanMove(Move move)
         {
             if (_runner == null || _runner.State == null || _runner.State.IsFinished || _runner.MatchEnded)
@@ -450,6 +470,7 @@ namespace Diceforge.View
                 hud?.SetMoveEnabled(false);
                 hud?.SetEnterEnabled(false);
                 hud?.SetPlaceEnabled(false);
+                hud?.SetRerollState(0, false, false);
                 hud?.SetDiceButtons(null, null, false);
                 _waitingForFromCell = false;
                 boardView?.SetCellSelectionEnabled(false);
@@ -472,6 +493,9 @@ namespace Diceforge.View
             hud?.SetMoveEnabled(canMove);
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
+            int rerollCount = ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll);
+            bool canUseReroll = humanTurn && !_runner.MatchEnded && !state.IsFinished && rerollCount > 0 && !_rerollUsedThisTurn;
+            hud?.SetRerollState(rerollCount, canUseReroll, humanTurn);
             hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, humanTurn);
 
             if (humanTurn)
@@ -501,6 +525,7 @@ namespace Diceforge.View
             hud.OnMove += HandleMoveClicked;
             hud.OnEnter += HandleEnterClicked;
             hud.OnPlace += HandlePlaceClicked;
+            hud.OnReroll += HandleRerollClicked;
             hud.OnToggleAutoRun += HandleAutoRunChanged;
             hud.OnSpeedChanged += HandleSpeedChanged;
             hud.OnHumanAChanged += HandleHumanAChanged;
@@ -518,6 +543,7 @@ namespace Diceforge.View
             hud.OnMove -= HandleMoveClicked;
             hud.OnEnter -= HandleEnterClicked;
             hud.OnPlace -= HandlePlaceClicked;
+            hud.OnReroll -= HandleRerollClicked;
             hud.OnToggleAutoRun -= HandleAutoRunChanged;
             hud.OnSpeedChanged -= HandleSpeedChanged;
             hud.OnHumanAChanged -= HandleHumanAChanged;
@@ -547,6 +573,26 @@ namespace Diceforge.View
         {
             controlModeB = isHuman ? ControlMode.Human : ControlMode.Bot;
             UpdateUI();
+        }
+
+        private void HandleProfileChanged()
+        {
+            UpdateUI();
+        }
+
+        private bool CanUseReroll()
+        {
+            if (_runner?.State == null)
+                return false;
+
+            var state = _runner.State;
+            if (state.IsFinished || _runner.MatchEnded)
+                return false;
+
+            if (!IsHumanTurn() || _rerollUsedThisTurn)
+                return false;
+
+            return ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll) > 0;
         }
 
         private void SyncHudState()

@@ -42,6 +42,7 @@
                 <ui:Button name="moveButton" text="Move" />
                 <ui:Button name="enterButton" text="Enter" />
                 <ui:Button name="placeButton" text="Place" />
+                <ui:Button name="rerollButton" text="Reroll (0)" />
             </ui:VisualElement>
             <ui:VisualElement name="diceButtonsRow" class="hud-row dice-row" />
         </ui:VisualElement>
