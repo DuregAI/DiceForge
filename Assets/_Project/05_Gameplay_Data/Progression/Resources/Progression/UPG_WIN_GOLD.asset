@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbeda8ca821c4e86b5dd7b82ded72a77, type: 3}
+  m_Name: UPG_WIN_GOLD
+  m_EditorClassIdentifier: 
+  upgradeId: UPG_WIN_GOLD
+  displayName: Win Gold Boost
+  description: Adds flat SOFT_GOLD reward on wins.
+  maxLevel: 3
+  effectType: 0
+  priceByLevel:
+  - 60
+  - 120
+  - 200
+  valueByLevel:
+  - 5
+  - 10
+  - 15
+  requiresModeInfo: 0

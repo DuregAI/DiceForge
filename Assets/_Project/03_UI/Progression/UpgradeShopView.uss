@@ -1,0 +1,7 @@
+.upgrade-shop-window {
+    align-items: stretch;
+}
+
+.upgrade-list {
+    flex-grow: 1;
+}

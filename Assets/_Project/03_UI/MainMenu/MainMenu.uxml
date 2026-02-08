@@ -8,6 +8,7 @@
                     <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button df-interactive" style="padding-top: 11px;"/>
                     <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                    <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -36,6 +37,16 @@
                 <ui:Button name="btnCopyLog" class="copy-log-button icon-button df-interactive" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
             </ui:VisualElement>
         </ui:VisualElement>
+
+        <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
+            <ui:VisualElement class="upgrade-shop-window">
+                <ui:Label text="UPGRADES" class="panel-title" />
+                <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins" />
+                <ui:ScrollView name="upgradeList" class="upgrade-list" />
+                <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
         <ui:VisualElement name="WalletPanel" class="wallet-panel">
             <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label" />
             <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label" />

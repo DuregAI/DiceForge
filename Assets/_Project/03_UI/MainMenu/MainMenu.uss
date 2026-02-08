@@ -291,3 +291,62 @@
     font-size: 13px;
     white-space: normal;
 }
+
+.upgrade-shop-window {
+    width: 700px;
+    max-height: 820px;
+    background-color: rgba(22, 18, 12, 0.95);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgb(200, 162, 84);
+    border-right-color: rgb(200, 162, 84);
+    border-top-color: rgb(200, 162, 84);
+    border-bottom-color: rgb(200, 162, 84);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 16px;
+    align-items: stretch;
+}
+
+.upgrade-shop-coins {
+    color: rgb(255, 230, 160);
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.upgrade-list {
+    flex-grow: 1;
+}
+
+.upgrade-row {
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.upgrade-name {
+    color: white;
+    font-size: 18px;
+}
+
+.upgrade-description {
+    color: rgb(210, 210, 210);
+    font-size: 14px;
+}
+
+.upgrade-meta {
+    color: rgb(255, 230, 160);
+    font-size: 14px;
+}
+
+.upgrade-buy-button {
+    margin-top: 4px;
+}
