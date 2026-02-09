@@ -51,16 +51,16 @@ public sealed class PlayerInfoController : MonoBehaviour
         _renameApplyButton = root.Q<Button>("btnRenameApply");
         _renameCancelButton = root.Q<Button>("btnRenameCancel");
 
-        _closeInfoButton?.clicked += CloseInfo;
-        _infoAvatarButton?.clicked += OpenRenameConfirmation;
-        _infoNameButton?.clicked += OpenRenameConfirmation;
-        _infoRenameButton?.clicked += OpenRenameConfirmation;
+        _closeInfoButton.clicked += CloseInfo;
+        _infoAvatarButton.clicked += OpenRenameConfirmation;
+        _infoNameButton.clicked += OpenRenameConfirmation;
+        _infoRenameButton.clicked += OpenRenameConfirmation;
 
-        _confirmYesButton?.clicked += HandleRenameConfirmYes;
-        _confirmCancelButton?.clicked += CloseRenameConfirmation;
+        _confirmYesButton.clicked += HandleRenameConfirmYes;
+        _confirmCancelButton.clicked += CloseRenameConfirmation;
 
-        _renameApplyButton?.clicked += ApplyRename;
-        _renameCancelButton?.clicked += CloseRenameModal;
+        _renameApplyButton.clicked += ApplyRename;
+        _renameCancelButton.clicked += CloseRenameModal;
 
         ProfileService.ProfileChanged -= Refresh;
         ProfileService.ProfileChanged += Refresh;
@@ -76,16 +76,16 @@ public sealed class PlayerInfoController : MonoBehaviour
         ProfileService.ProfileChanged -= Refresh;
         ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
 
-        _closeInfoButton?.clicked -= CloseInfo;
-        _infoAvatarButton?.clicked -= OpenRenameConfirmation;
-        _infoNameButton?.clicked -= OpenRenameConfirmation;
-        _infoRenameButton?.clicked -= OpenRenameConfirmation;
+        _closeInfoButton.clicked -= CloseInfo;
+        _infoAvatarButton.clicked -= OpenRenameConfirmation;
+        _infoNameButton.clicked -= OpenRenameConfirmation;
+        _infoRenameButton.clicked -= OpenRenameConfirmation;
 
-        _confirmYesButton?.clicked -= HandleRenameConfirmYes;
-        _confirmCancelButton?.clicked -= CloseRenameConfirmation;
+        _confirmYesButton.clicked -= HandleRenameConfirmYes;
+        _confirmCancelButton.clicked -= CloseRenameConfirmation;
 
-        _renameApplyButton?.clicked -= ApplyRename;
-        _renameCancelButton?.clicked -= CloseRenameModal;
+        _renameApplyButton.clicked -= ApplyRename;
+        _renameCancelButton.clicked -= CloseRenameModal;
     }
 
     public void Open()
