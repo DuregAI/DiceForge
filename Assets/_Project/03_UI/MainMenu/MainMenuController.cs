@@ -125,6 +125,11 @@ public class MainMenuController : MonoBehaviour
         if (walletPanelController != null)
             walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
 
+        if (applyPlayerNameButton != null)
+            applyPlayerNameButton.clicked -= ApplyPlayerName;
+        if (playerNameField != null)
+            playerNameField.UnregisterCallback<FocusOutEvent>(OnPlayerNameFocusOut);
+
         ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
     }
 
@@ -283,8 +288,10 @@ public class MainMenuController : MonoBehaviour
 
         playerNameField.value = ProfileService.Current.playerName;
 
+        applyPlayerNameButton?.clicked -= ApplyPlayerName;
         applyPlayerNameButton?.clicked += ApplyPlayerName;
-        playerNameField.RegisterCallback<FocusOutEvent>(_ => ApplyPlayerName());
+        playerNameField.UnregisterCallback<FocusOutEvent>(OnPlayerNameFocusOut);
+        playerNameField.RegisterCallback<FocusOutEvent>(OnPlayerNameFocusOut);
 
         ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
         ProfileService.OnPlayerNameChanged += HandlePlayerNameChanged;
@@ -312,6 +319,11 @@ public class MainMenuController : MonoBehaviour
         {
             playerNameField.SetValueWithoutNotify(profileName);
         }
+    }
+
+    private void OnPlayerNameFocusOut(FocusOutEvent _)
+    {
+        ApplyPlayerName();
     }
 
     private void CopyLogToClipboard()

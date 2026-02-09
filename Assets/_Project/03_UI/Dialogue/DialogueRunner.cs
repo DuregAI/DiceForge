@@ -44,6 +44,7 @@ namespace Diceforge.UI.Dialogue
 
             _view.NextClicked -= Advance;
             _view.SkipClicked -= Finish;
+            _view.Dispose();
         }
 
         public bool StartDialogue(DialogueSequence sequence, Action onFinished = null)
