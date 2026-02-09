@@ -288,8 +288,8 @@ public class MainMenuController : MonoBehaviour
 
         playerNameField.value = ProfileService.Current.playerName;
 
-        applyPlayerNameButton?.clicked -= ApplyPlayerName;
-        applyPlayerNameButton?.clicked += ApplyPlayerName;
+        applyPlayerNameButton.clicked -= ApplyPlayerName;
+        applyPlayerNameButton.clicked += ApplyPlayerName;
         playerNameField.UnregisterCallback<FocusOutEvent>(OnPlayerNameFocusOut);
         playerNameField.RegisterCallback<FocusOutEvent>(OnPlayerNameFocusOut);
 
