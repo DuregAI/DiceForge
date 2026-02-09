@@ -1,0 +1,55 @@
+.df-surface {
+    background-color: var(--df-color-surface);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: var(--df-color-border);
+    border-right-color: var(--df-color-border);
+    border-top-color: var(--df-color-border);
+    border-bottom-color: var(--df-color-border);
+    border-radius: var(--df-radius-m);
+    padding: var(--df-space-12);
+}
+
+.df-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--df-space-8);
+}
+
+.df-label {
+    color: var(--df-color-text);
+    font-size: var(--df-font-size-s);
+}
+
+.df-input {
+    flex-grow: 1;
+    min-height: 36px;
+}
+
+.df-input .unity-base-text-field__input {
+    color: var(--df-color-text);
+    font-size: var(--df-font-size-s);
+}
+
+.df-button {
+    min-height: 36px;
+    color: var(--df-color-text);
+    background-color: var(--df-color-surface-2);
+    border-radius: var(--df-radius-s);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: var(--df-color-border);
+    border-right-color: var(--df-color-border);
+    border-top-color: var(--df-color-border);
+    border-bottom-color: var(--df-color-border);
+    padding-left: var(--df-space-12);
+    padding-right: var(--df-space-12);
+}
+
+.df-player-identity-block {
+    gap: var(--df-space-8);
+}

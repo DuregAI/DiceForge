@@ -6,7 +6,9 @@ namespace Diceforge.Progression
     [Serializable]
     public sealed class PlayerProfile
     {
-        public int version = 1;
+        public string version = "0.0.4";
+        public string playerGuid = string.Empty;
+        public string playerName = string.Empty;
         public HeroProgress hero = new();
         public List<ProfileAmount> currencies = new();
         public List<ProfileAmount> inventory = new();
