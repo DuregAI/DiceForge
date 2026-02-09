@@ -10,7 +10,6 @@
     border-color: rgba(255, 255, 255, 0.08);
     color: rgb(235, 235, 235);
     flex-direction: column;
-    gap: 10px;
 }
 
 .hud-header {
@@ -35,28 +34,23 @@
     border-radius: 6px;
     padding: 8px;
     flex-direction: column;
-    gap: 6px;
 }
 
 .hud-info {
     flex-direction: row;
-    gap: 12px;
 }
 
 .hud-column {
     flex-direction: column;
-    gap: 4px;
     flex-grow: 1;
 }
 
 .hud-controls {
     flex-direction: column;
-    gap: 8px;
 }
 
 .hud-row {
     flex-direction: row;
-    gap: 6px;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -73,7 +67,6 @@
 
 .dice-row {
     flex-wrap: wrap;
-    gap: 4px;
 }
 
 .dice-button {

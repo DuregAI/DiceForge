@@ -18,7 +18,6 @@
     border-top-color: rgba(255, 255, 255, 0.18);
     border-bottom-color: rgba(255, 255, 255, 0.18);
     flex-direction: column;
-    gap: 16px;
 }
 
 .chest-open-title {
@@ -29,7 +28,6 @@
 .chest-header-row {
     flex-direction: row;
     align-items: center;
-    gap: 16px;
 }
 
 .chest-icon {
@@ -81,7 +79,6 @@
 .chest-reward-row {
     flex-direction: row;
     align-items: center;
-    gap: 10px;
     margin-bottom: 6px;
 }
 
@@ -106,5 +103,4 @@
 .chest-actions-row {
     flex-direction: row;
     justify-content: flex-end;
-    gap: 12px;
 }
