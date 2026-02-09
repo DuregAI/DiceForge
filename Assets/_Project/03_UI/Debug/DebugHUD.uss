@@ -72,7 +72,7 @@
 .dice-button {
     min-width: 32px;
     min-height: 26px;
-    unity-font-style: bold;
+    -unity-font-style: bold;
 }
 
 .dice-button--selected {

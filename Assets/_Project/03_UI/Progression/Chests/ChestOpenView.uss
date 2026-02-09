@@ -21,7 +21,7 @@
 }
 
 .chest-open-title {
-    unity-text-align: middle-center;
+    -unity-text-align: middle-center;
     font-size: 44px;
 }
 
@@ -35,7 +35,7 @@
     height: 96px;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.08);
-    unity-background-scale-mode: scale-to-fit;
+    -unity-background-scale-mode: scale-to-fit;
     justify-content: center;
     align-items: center;
 }

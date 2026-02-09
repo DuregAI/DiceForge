@@ -11,15 +11,13 @@
 }
 
 .df-dialogue-window {
-    width: min(960px, 100%);
+    width: 960px;
     min-height: 260px;
-    gap: var(--df-space-12);
 }
 
 .df-dialogue-header {
     flex-direction: row;
     align-items: center;
-    gap: var(--df-space-12);
 }
 
 .df-dialogue-portrait {
@@ -43,5 +41,4 @@
 .df-dialogue-actions {
     flex-direction: row;
     justify-content: flex-end;
-    gap: var(--df-space-8);
 }

@@ -30,7 +30,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border-width: 0;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 8px rgba(120, 255, 190, 0.18);
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 8px rgba(120, 255, 190, 0.18);
     transition-property: scale, box-shadow;
     transition-duration: 0.14s;
     transition-timing-function: ease-out;
@@ -38,22 +38,22 @@
 
 .icon-button:hover {
     scale: 1.04;
-    box-shadow: 0 0 18px rgba(120, 255, 190, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 0 18px rgba(120, 255, 190, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .icon-button:active {
     scale: 0.94;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
 }
 
 .menu-button:hover {
     scale: 1.04;
-    box-shadow: 0 0 18px rgba(120, 255, 190, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 0 18px rgba(120, 255, 190, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .menu-button:active {
     scale: 0.94;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), 0 0 6px rgba(120, 255, 190, 0.2);
 }
 
 .state-settings {
@@ -97,7 +97,7 @@
 .panel-title {
     -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
     font-size: 32px;
-    unity-font-style: bold;
+    -unity-font-style: bold;
 }
 
 .settings-window {
@@ -106,7 +106,6 @@
     height: 800px;
     max-height: 920px;
     padding: 32px 36px;
-    gap: 20px;
     flex-direction: column;
     align-items: stretch;
     background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-2018858640&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#settings_bg");
@@ -117,12 +116,11 @@
 
 .settings-label {
     font-size: 14px;
-    unity-font-style: bold;
+    -unity-font-style: bold;
 }
 
 .settings-block {
     flex-direction: column;
-    gap: 6px;
 }
 
 .settings-slider {
@@ -163,13 +161,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
 }
 
 .about-text {
     flex-direction: row;
     align-items: center;
-    gap: 8px;
     flex-grow: 1;
 }
 
@@ -270,7 +266,6 @@
     padding: 12px;
     background-color: rgba(0, 0, 0, 0.55);
     border-radius: 8px;
-    gap: 6px;
 }
 
 .wallet-label {
