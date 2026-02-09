@@ -8,6 +8,7 @@ namespace Diceforge.Progression
     {
         public string id;
         public string displayName;
+        public Sprite icon;
         public List<FixedRewardEntry> fixedRewards = new();
     }
 }

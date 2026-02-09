@@ -35,6 +35,7 @@ public class MainMenuController : MonoBehaviour
     private bool isSettingsOpen;
     private WalletPanelController walletPanelController;
     private UpgradeShopController upgradeShopController;
+    private ChestOpenController chestOpenController;
 
     private void Awake()
     {
@@ -63,6 +64,7 @@ public class MainMenuController : MonoBehaviour
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
         RegisterPanel("UpgradeShopPanel");
+        RegisterPanel("ChestOpenPanel");
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -81,6 +83,7 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
+        RegisterButton("btnChests", OpenChestScreen);
 
         walletPanelController = GetComponent<WalletPanelController>();
         if (walletPanelController == null)
@@ -97,7 +100,25 @@ public class MainMenuController : MonoBehaviour
         InitializeCopyLogTooltip();
         UpdateSettingsButtonState(isSettingsOpen);
         walletPanelController.Initialize(root);
+        walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
+        walletPanelController.OpenChestScreenRequested += OpenChestScreen;
         upgradeShopController.Initialize(root);
+
+        chestOpenController = GetComponent<ChestOpenController>();
+        if (chestOpenController == null)
+            chestOpenController = gameObject.AddComponent<ChestOpenController>();
+
+        chestOpenController.Initialize(root);
+        chestOpenController.CloseRequested -= CloseChestScreen;
+        chestOpenController.CloseRequested += CloseChestScreen;
+    }
+
+    private void OnDestroy()
+    {
+        if (chestOpenController != null)
+            chestOpenController.CloseRequested -= CloseChestScreen;
+        if (walletPanelController != null)
+            walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
     }
 
     public void ShowPanel(string panelName)
@@ -262,6 +283,18 @@ public class MainMenuController : MonoBehaviour
     private void CloseUpgradeShop()
     {
         upgradeShopController?.Hide();
+        ShowPanel("MenuPanel");
+    }
+
+    private void OpenChestScreen()
+    {
+        ShowPanel("ChestOpenPanel");
+        chestOpenController?.Show();
+    }
+
+    private void CloseChestScreen()
+    {
+        chestOpenController?.Hide();
         ShowPanel("MenuPanel");
     }
 

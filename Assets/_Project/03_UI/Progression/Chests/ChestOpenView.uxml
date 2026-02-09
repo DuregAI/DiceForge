@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="ChestOpenView.uss" />
+    <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
+        <ui:VisualElement class="chest-open-window">
+            <ui:Label name="chestOpenTitle" text="Chest" class="panel-title chest-open-title" />
+            <ui:VisualElement class="chest-header-row">
+                <ui:VisualElement name="chestIcon" class="chest-icon" />
+                <ui:Label name="chestInfoLabel" text="No chests available" class="chest-info-label" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="chestRewardsContainer" class="chest-rewards-container reward-hidden">
+                <ui:Label text="Rewards" class="chest-reward-title" />
+                <ui:ScrollView name="chestRewardsList" class="chest-rewards-list" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="chest-actions-row">
+                <ui:Button name="btnOpenChestScreen" text="Open" class="wallet-button df-interactive" />
+                <ui:Button name="btnCloseChestScreen" text="OK" class="wallet-button df-interactive" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
