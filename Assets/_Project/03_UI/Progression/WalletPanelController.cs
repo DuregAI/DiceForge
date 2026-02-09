@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Diceforge.Progression;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.UIElements;
 
 public sealed class WalletPanelController : MonoBehaviour
 {
+    public event Action OpenChestScreenRequested;
     private bool _initialized;
     private Label _coinsLabel;
     private Label _essenceLabel;
@@ -72,21 +74,7 @@ public sealed class WalletPanelController : MonoBehaviour
 
     private void HandleOpenChestClicked()
     {
-        var queue = ProfileService.Current.chestQueue;
-        if (queue == null || queue.Count == 0)
-        {
-            if (_chestResultLabel != null)
-                _chestResultLabel.text = "No chests";
-            Refresh();
-            return;
-        }
-
-        var opened = ChestService.OpenChest(queue[0].instanceId);
-        if (_chestResultLabel != null)
-            _chestResultLabel.text = BuildRewardText(opened);
-
-        Refresh();
-        _initialized = true;
+        OpenChestScreenRequested?.Invoke();
     }
 
     private void Refresh()

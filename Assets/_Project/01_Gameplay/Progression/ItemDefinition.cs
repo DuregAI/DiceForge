@@ -7,6 +7,7 @@ namespace Diceforge.Progression
     {
         public string id;
         public string displayName;
+        public Sprite icon;
         public ItemType itemType = ItemType.Unknown;
     }
 }

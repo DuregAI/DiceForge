@@ -1,0 +1,110 @@
+.chest-open-overlay {
+    justify-content: center;
+    align-items: center;
+}
+
+.chest-open-window {
+    width: 720px;
+    min-height: 520px;
+    padding: 28px;
+    border-radius: 18px;
+    background-color: rgba(16, 18, 24, 0.92);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chest-open-title {
+    unity-text-align: middle-center;
+    font-size: 44px;
+}
+
+.chest-header-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.chest-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.08);
+    unity-background-scale-mode: scale-to-fit;
+    justify-content: center;
+    align-items: center;
+}
+
+.chest-info-label {
+    font-size: 28px;
+    color: rgb(243, 227, 176);
+    flex-grow: 1;
+    white-space: normal;
+}
+
+.chest-rewards-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 14px;
+    transition-property: opacity, scale;
+    transition-duration: 0.18s;
+    transition-timing-function: ease-out;
+}
+
+.reward-hidden {
+    opacity: 0;
+    scale: 0.96;
+}
+
+.reward-visible {
+    opacity: 1;
+    scale: 1;
+}
+
+.chest-reward-title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.chest-rewards-list {
+    flex-grow: 1;
+}
+
+.chest-reward-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.chest-reward-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    unity-background-scale-mode: scale-to-fit;
+}
+
+.chest-reward-amount {
+    width: 130px;
+    color: rgb(190, 255, 188);
+}
+
+.chest-reward-name {
+    flex-grow: 1;
+    white-space: normal;
+}
+
+.chest-actions-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 12px;
+}

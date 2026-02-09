@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
+    <Style src="../Progression/Chests/ChestOpenView.uss"/>
     <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -9,6 +10,7 @@
                     <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                    <ui:Button name="btnChests" text="Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -44,6 +46,26 @@
                 <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins" />
                 <ui:ScrollView name="upgradeList" class="upgrade-list" />
                 <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+
+
+        <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
+            <ui:VisualElement class="chest-open-window">
+                <ui:Label name="chestOpenTitle" text="Chest" class="panel-title chest-open-title"/>
+                <ui:VisualElement class="chest-header-row">
+                    <ui:VisualElement name="chestIcon" class="chest-icon"/>
+                    <ui:Label name="chestInfoLabel" text="No chests available" class="chest-info-label"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="chestRewardsContainer" class="chest-rewards-container reward-hidden">
+                    <ui:Label text="Rewards" class="chest-reward-title"/>
+                    <ui:ScrollView name="chestRewardsList" class="chest-rewards-list"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="chest-actions-row">
+                    <ui:Button name="btnOpenChestScreen" text="Open" class="wallet-button df-interactive"/>
+                    <ui:Button name="btnCloseChestScreen" text="Close" class="wallet-button df-interactive"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 
