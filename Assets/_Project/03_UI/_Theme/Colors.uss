@@ -1,0 +1,9 @@
+:root {
+    --df-color-text: rgb(246, 235, 176);
+    --df-color-text-secondary: rgb(210, 210, 210);
+    --df-color-surface: rgba(22, 18, 12, 0.92);
+    --df-color-surface-2: rgba(45, 37, 26, 0.9);
+    --df-color-border: rgb(200, 162, 84);
+    --df-color-accent: rgb(255, 230, 160);
+    --df-color-overlay: rgba(0, 0, 0, 0.58);
+}

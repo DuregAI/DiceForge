@@ -8,6 +8,7 @@ namespace Diceforge.Progression
     public static class ProfileService
     {
         private const string FileName = "player_profile.json";
+        private const string DefaultDisplayName = "Player";
         private static readonly Dictionary<string, int> CurrencyMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> InventoryMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> UpgradeMap = new(StringComparer.Ordinal);
@@ -15,6 +16,7 @@ namespace Diceforge.Progression
         private static PlayerProfile _profile;
 
         public static event Action ProfileChanged;
+        public static event Action<string> OnPlayerNameChanged;
 
         public static PlayerProfile Current => _profile ??= CreateDefault();
 
@@ -39,7 +41,14 @@ namespace Diceforge.Progression
             }
 
             RebuildCache();
+            var guidGenerated = EnsurePlayerGuid();
+            if (guidGenerated)
+            {
+                Save();
+            }
+
             NotifyChanged();
+            NotifyPlayerNameChanged();
         }
 
         public static void Save()
@@ -49,6 +58,7 @@ namespace Diceforge.Progression
                 _profile = CreateDefault();
             }
 
+            _profile.version = "0.0.4";
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
             _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
@@ -56,6 +66,26 @@ namespace Diceforge.Progression
 
             var json = JsonUtility.ToJson(_profile, true);
             File.WriteAllText(GetPath(), json);
+        }
+
+        public static string GetDisplayName()
+        {
+            var playerName = Current.playerName;
+            return string.IsNullOrWhiteSpace(playerName) ? DefaultDisplayName : playerName.Trim();
+        }
+
+        public static void SetPlayerName(string playerName)
+        {
+            var normalizedName = string.IsNullOrWhiteSpace(playerName) ? string.Empty : playerName.Trim();
+            if (string.Equals(Current.playerName, normalizedName, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            Current.playerName = normalizedName;
+            Save();
+            NotifyChanged();
+            NotifyPlayerNameChanged();
         }
 
         public static int GetCurrency(string id) => GetAmount(CurrencyMap, id);
@@ -209,6 +239,7 @@ namespace Diceforge.Progression
             _profile = CreateDefault();
             RebuildCache();
             SaveAndNotify();
+            NotifyPlayerNameChanged();
         }
 
         public static void AddTestCurrency()
@@ -216,6 +247,18 @@ namespace Diceforge.Progression
             AddCurrency(ProgressionIds.SoftGold, 100);
             AddCurrency(ProgressionIds.Essence, 20);
             AddCurrency(ProgressionIds.Shards, 5);
+        }
+
+        private static bool EnsurePlayerGuid()
+        {
+            if (!string.IsNullOrWhiteSpace(Current.playerGuid))
+            {
+                Current.playerGuid = Current.playerGuid.Trim();
+                return false;
+            }
+
+            Current.playerGuid = Guid.NewGuid().ToString();
+            return true;
         }
 
         private static void SaveAndNotify()
@@ -227,6 +270,11 @@ namespace Diceforge.Progression
         private static void NotifyChanged()
         {
             ProfileChanged?.Invoke();
+        }
+
+        private static void NotifyPlayerNameChanged()
+        {
+            OnPlayerNameChanged?.Invoke(GetDisplayName());
         }
 
         private static void RebuildCache()
@@ -285,6 +333,9 @@ namespace Diceforge.Progression
                 }
             }
 
+            _profile.version = "0.0.4";
+            _profile.playerGuid = string.IsNullOrWhiteSpace(_profile.playerGuid) ? string.Empty : _profile.playerGuid.Trim();
+            _profile.playerName = string.IsNullOrWhiteSpace(_profile.playerName) ? string.Empty : _profile.playerName.Trim();
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
             _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
@@ -295,6 +346,9 @@ namespace Diceforge.Progression
         private static PlayerProfile CreateDefault()
         {
             var profile = new PlayerProfile();
+            profile.version = "0.0.4";
+            profile.playerGuid = Guid.NewGuid().ToString();
+            profile.playerName = string.Empty;
             profile.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 0));
             profile.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 0));
             profile.currencies.Add(new ProfileAmount(ProgressionIds.Shards, 0));

@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/03_UI/Dialogue/DialogueView.uss"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Colors.uss"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Typography.uss"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss"/>
+    <ui:VisualElement name="DialoguePanel" class="df-dialogue-overlay">
+        <ui:VisualElement class="df-dialogue-window df-surface">
+            <ui:VisualElement class="df-dialogue-header">
+                <ui:VisualElement name="DialoguePortrait" class="df-dialogue-portrait"/>
+                <ui:Label name="DialogueSpeaker" text="Narrator" class="df-dialogue-speaker df-label"/>
+            </ui:VisualElement>
+            <ui:Label name="DialogueText" text="..." class="df-dialogue-text df-label"/>
+            <ui:VisualElement class="df-dialogue-actions">
+                <ui:Button name="DialogueNext" text="Next" class="df-button df-interactive"/>
+                <ui:Button name="DialogueSkip" text="Skip" class="df-button df-interactive"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

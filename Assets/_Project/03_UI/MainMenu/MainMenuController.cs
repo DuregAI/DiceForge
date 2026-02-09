@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Diceforge.Progression;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -36,6 +36,7 @@ public class MainMenuController : MonoBehaviour
     private WalletPanelController walletPanelController;
     private UpgradeShopController upgradeShopController;
     private ChestOpenController chestOpenController;
+    private PlayerPanelController playerPanelController;
 
     private void Awake()
     {
@@ -74,9 +75,7 @@ public class MainMenuController : MonoBehaviour
         }
 
         RegisterButton("btnSettings", ToggleSettingsPanel);
-
         RegisterButton("btnCopyLog", CopyLogToClipboard);
-
         RegisterButton("btnLong", () => SelectModeAndLoad(longPreset));
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", () => SelectModeAndLoad(tutorialPreset));
@@ -85,29 +84,27 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
 
-        walletPanelController = GetComponent<WalletPanelController>();
-        if (walletPanelController == null)
-            walletPanelController = gameObject.AddComponent<WalletPanelController>();
+        walletPanelController = GetComponent<WalletPanelController>() ?? gameObject.AddComponent<WalletPanelController>();
+        playerPanelController = GetComponent<PlayerPanelController>() ?? gameObject.AddComponent<PlayerPanelController>();
 
         ProfileService.Load();
 
-        upgradeShopController = GetComponent<UpgradeShopController>();
-        if (upgradeShopController == null)
-            upgradeShopController = gameObject.AddComponent<UpgradeShopController>();
+        upgradeShopController = GetComponent<UpgradeShopController>() ?? gameObject.AddComponent<UpgradeShopController>();
 
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
         UpdateSettingsButtonState(isSettingsOpen);
+
+        playerPanelController.Initialize(root);
+
         walletPanelController.Initialize(root);
         walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
         walletPanelController.OpenChestScreenRequested += OpenChestScreen;
+
         upgradeShopController.Initialize(root);
 
-        chestOpenController = GetComponent<ChestOpenController>();
-        if (chestOpenController == null)
-            chestOpenController = gameObject.AddComponent<ChestOpenController>();
-
+        chestOpenController = GetComponent<ChestOpenController>() ?? gameObject.AddComponent<ChestOpenController>();
         chestOpenController.Initialize(root);
         chestOpenController.CloseRequested -= CloseChestScreen;
         chestOpenController.CloseRequested += CloseChestScreen;
@@ -232,14 +229,8 @@ public class MainMenuController : MonoBehaviour
         }
 
         copyLogTooltip.style.display = DisplayStyle.None;
-        copyLogButton.RegisterCallback<MouseEnterEvent>(_ =>
-        {
-            copyLogTooltip.style.display = DisplayStyle.Flex;
-        });
-        copyLogButton.RegisterCallback<MouseLeaveEvent>(_ =>
-        {
-            copyLogTooltip.style.display = DisplayStyle.None;
-        });
+        copyLogButton.RegisterCallback<MouseEnterEvent>(_ => copyLogTooltip.style.display = DisplayStyle.Flex);
+        copyLogButton.RegisterCallback<MouseLeaveEvent>(_ => copyLogTooltip.style.display = DisplayStyle.None);
     }
 
     private void InitializeAudioSliders()
@@ -250,19 +241,13 @@ public class MainMenuController : MonoBehaviour
         if (musicSlider != null)
         {
             musicSlider.value = musicVolume;
-            musicSlider.RegisterValueChangedCallback(evt =>
-            {
-                PlayerPrefs.SetFloat(MusicVolumeKey, evt.newValue);
-            });
+            musicSlider.RegisterValueChangedCallback(evt => PlayerPrefs.SetFloat(MusicVolumeKey, evt.newValue));
         }
 
         if (sfxSlider != null)
         {
             sfxSlider.value = sfxVolume;
-            sfxSlider.RegisterValueChangedCallback(evt =>
-            {
-                PlayerPrefs.SetFloat(SfxVolumeKey, evt.newValue);
-            });
+            sfxSlider.RegisterValueChangedCallback(evt => PlayerPrefs.SetFloat(SfxVolumeKey, evt.newValue));
         }
     }
 

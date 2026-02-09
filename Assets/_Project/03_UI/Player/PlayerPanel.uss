@@ -1,0 +1,94 @@
+.left-sidebar {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 280px;
+    gap: var(--df-space-12);
+}
+
+.player-panel {
+    align-items: center;
+    gap: var(--df-space-8);
+}
+
+.player-avatar-button {
+    width: 88px;
+    height: 88px;
+    border-radius: 999px;
+    background-color: var(--df-color-surface-2);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: var(--df-color-border);
+    border-right-color: var(--df-color-border);
+    border-top-color: var(--df-color-border);
+    border-bottom-color: var(--df-color-border);
+    background-image: none;
+}
+
+.player-avatar-large {
+    width: 132px;
+    height: 132px;
+}
+
+.player-panel-name,
+.player-info-name {
+    font-size: var(--df-font-size-m);
+    unity-font-style: bold;
+}
+
+.player-panel-meta-row {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--df-space-8);
+}
+
+.player-modal-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--df-color-overlay);
+    display: none;
+}
+
+.player-modal-window {
+    min-width: 380px;
+    max-width: 520px;
+    align-items: center;
+    gap: var(--df-space-12);
+}
+
+.player-modal-dialog {
+    min-width: 340px;
+}
+
+.player-modal-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: var(--df-space-8);
+}
+
+.player-info-name-button {
+    background-color: transparent;
+    border-width: 0;
+    color: var(--df-color-text);
+    font-size: var(--df-font-size-s);
+}
+
+.player-info-level,
+.player-info-xp,
+.player-panel-level {
+    color: var(--df-color-text-secondary);
+}
+
+.player-confirm-text {
+    white-space: normal;
+}

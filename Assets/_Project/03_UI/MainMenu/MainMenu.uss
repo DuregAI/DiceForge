@@ -266,9 +266,6 @@
 }
 
 .wallet-panel {
-    position: absolute;
-    left: 24px;
-    top: 24px;
     min-width: 260px;
     padding: 12px;
     background-color: rgba(0, 0, 0, 0.55);

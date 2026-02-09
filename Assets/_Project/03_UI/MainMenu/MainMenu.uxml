@@ -1,6 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
     <Style src="../Progression/Chests/ChestOpenView.uss"/>
+    <Style src="../_Theme/Colors.uss"/>
+    <Style src="../_Theme/Typography.uss"/>
+    <Style src="../_Theme/Spacing.uss"/>
+    <Style src="../_Theme/Components.uss"/>
+    <Style src="../Player/PlayerPanel.uss"/>
     <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -25,6 +30,7 @@
                     <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider df-interactive"/>
                 </ui:VisualElement>
+
                 <ui:VisualElement name="AboutBlock" picking-mode="Ignore" class="settings-about-row" style="padding-top: 70px;">
                     <ui:VisualElement class="about-text" style="-unity-font-style: normal; color: rgb(246, 235, 176); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; text-shadow: 4px 4px 0 rgb(0, 0, 0);">
                         <ui:Label name="lblAboutVersion" text="Version 0.0.0"/>
@@ -69,16 +75,62 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <ui:VisualElement name="WalletPanel" class="wallet-panel">
-            <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label" />
-            <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label" />
-            <ui:Label name="walletShards" text="Shards: 0" class="wallet-label" />
-            <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label" />
-            <ui:Label name="walletChests" text="Chests: 0" class="wallet-label" />
-            <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive" />
-            <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive" />
-            <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive" />
-            <ui:Label name="walletChestResult" text="" class="wallet-result" />
+        <ui:VisualElement name="LeftSidebar" class="left-sidebar">
+            <ui:VisualElement name="PlayerPanel" class="player-panel df-surface">
+                <ui:Button name="btnPlayerAvatar" text="" class="player-avatar-button df-interactive"/>
+                <ui:Label name="playerPanelName" text="Player" class="player-panel-name df-label"/>
+                <ui:VisualElement class="player-panel-meta-row">
+                    <ui:Label name="playerPanelLevel" text="Lv 1" class="player-panel-level df-label"/>
+                    <ui:Button name="btnPlayerRename" text="Rename" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="WalletPanel" class="wallet-panel">
+                <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label" />
+                <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label" />
+                <ui:Label name="walletShards" text="Shards: 0" class="wallet-label" />
+                <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label" />
+                <ui:Label name="walletChests" text="Chests: 0" class="wallet-label" />
+                <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive" />
+                <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive" />
+                <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive" />
+                <ui:Label name="walletChestResult" text="" class="wallet-result" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="PlayerInfoModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window df-surface">
+                <ui:Button name="btnPlayerInfoAvatar" text="" class="player-avatar-button player-avatar-large df-interactive"/>
+                <ui:Button name="btnPlayerInfoName" text="Player" class="player-info-name-button df-interactive"/>
+                <ui:Label name="playerInfoName" text="Player" class="player-info-name df-label"/>
+                <ui:Label name="playerInfoLevel" text="Lv 1" class="player-info-level df-label"/>
+                <ui:Label name="playerInfoXp" text="XP 0" class="player-info-xp df-label"/>
+                <ui:VisualElement class="player-modal-actions">
+                    <ui:Button name="btnPlayerInfoRename" text="Rename" class="df-button df-interactive"/>
+                    <ui:Button name="btnClosePlayerInfo" text="Close" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="RenameConfirmModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
+                <ui:Label text="Do you want to change your name?" class="player-confirm-text df-label"/>
+                <ui:VisualElement class="player-modal-actions">
+                    <ui:Button name="btnRenameConfirmYes" text="Yes" class="df-button df-interactive"/>
+                    <ui:Button name="btnRenameConfirmCancel" text="Cancel" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="RenamePlayerModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
+                <ui:Label text="Enter your new name" class="df-label"/>
+                <ui:TextField name="txtRenamePlayer" class="df-input"/>
+                <ui:VisualElement class="player-modal-actions">
+                    <ui:Button name="btnRenameApply" text="Apply" class="df-button df-interactive"/>
+                    <ui:Button name="btnRenameCancel" text="Cancel" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Corners" enabled="true" style="top: auto; bottom: 0; right: 0; left: auto; align-self: stretch; border-left-width: 0; background-size: 10% 10%; background-position-x: right 0; width: 329px; height: 293px;">
             <ui:VisualElement name="CornerBR" style="background-size: 129% 206%;">
