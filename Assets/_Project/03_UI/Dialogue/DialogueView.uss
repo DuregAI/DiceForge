@@ -1,0 +1,47 @@
+.df-dialogue-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--df-space-16);
+    background-color: var(--df-color-overlay);
+}
+
+.df-dialogue-window {
+    width: min(960px, 100%);
+    min-height: 260px;
+    gap: var(--df-space-12);
+}
+
+.df-dialogue-header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--df-space-12);
+}
+
+.df-dialogue-portrait {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--df-radius-m);
+    background-color: var(--df-color-surface-2);
+    background-size: cover;
+    background-position: center;
+}
+
+.df-dialogue-speaker {
+    font-size: var(--df-font-size-l);
+}
+
+.df-dialogue-text {
+    white-space: normal;
+    font-size: var(--df-font-size-m);
+}
+
+.df-dialogue-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: var(--df-space-8);
+}

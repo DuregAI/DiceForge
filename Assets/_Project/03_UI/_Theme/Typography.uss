@@ -1,0 +1,5 @@
+:root {
+    --df-font-size-s: 14px;
+    --df-font-size-m: 20px;
+    --df-font-size-l: 28px;
+}

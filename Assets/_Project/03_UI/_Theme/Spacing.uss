@@ -1,0 +1,9 @@
+:root {
+    --df-space-4: 4px;
+    --df-space-8: 8px;
+    --df-space-12: 12px;
+    --df-space-16: 16px;
+    --df-space-24: 24px;
+    --df-radius-s: 6px;
+    --df-radius-m: 10px;
+}

@@ -29,6 +29,8 @@ public class MainMenuController : MonoBehaviour
     private Slider sfxSlider;
     private Button settingsButton;
     private Button copyLogButton;
+    private TextField playerNameField;
+    private Button applyPlayerNameButton;
     private VisualElement copyLogTooltip;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
@@ -60,6 +62,8 @@ public class MainMenuController : MonoBehaviour
         settingsButton = root.Q<Button>("btnSettings");
         copyLogButton = root.Q<Button>("btnCopyLog");
         copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
+        playerNameField = root.Q<TextField>("txtPlayerName");
+        applyPlayerNameButton = root.Q<Button>("btnApplyPlayerName");
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
@@ -98,6 +102,7 @@ public class MainMenuController : MonoBehaviour
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
+        InitializePlayerIdentity();
         UpdateSettingsButtonState(isSettingsOpen);
         walletPanelController.Initialize(root);
         walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
@@ -119,6 +124,8 @@ public class MainMenuController : MonoBehaviour
             chestOpenController.CloseRequested -= CloseChestScreen;
         if (walletPanelController != null)
             walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
+
+        ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
     }
 
     public void ShowPanel(string panelName)
@@ -263,6 +270,47 @@ public class MainMenuController : MonoBehaviour
             {
                 PlayerPrefs.SetFloat(SfxVolumeKey, evt.newValue);
             });
+        }
+    }
+
+
+    private void InitializePlayerIdentity()
+    {
+        if (playerNameField == null)
+        {
+            return;
+        }
+
+        playerNameField.value = ProfileService.Current.playerName;
+
+        applyPlayerNameButton?.clicked += ApplyPlayerName;
+        playerNameField.RegisterCallback<FocusOutEvent>(_ => ApplyPlayerName());
+
+        ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
+        ProfileService.OnPlayerNameChanged += HandlePlayerNameChanged;
+    }
+
+    private void ApplyPlayerName()
+    {
+        if (playerNameField == null)
+        {
+            return;
+        }
+
+        ProfileService.SetPlayerName(playerNameField.value);
+    }
+
+    private void HandlePlayerNameChanged(string _)
+    {
+        if (playerNameField == null)
+        {
+            return;
+        }
+
+        var profileName = ProfileService.Current.playerName;
+        if (playerNameField.value != profileName)
+        {
+            playerNameField.SetValueWithoutNotify(profileName);
         }
     }
 

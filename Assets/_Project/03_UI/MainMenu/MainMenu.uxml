@@ -1,6 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
     <Style src="../Progression/Chests/ChestOpenView.uss"/>
+    <Style src="../_Theme/Colors.uss"/>
+    <Style src="../_Theme/Typography.uss"/>
+    <Style src="../_Theme/Spacing.uss"/>
+    <Style src="../_Theme/Components.uss"/>
     <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -24,6 +28,13 @@
                 <ui:VisualElement name="SFXBlock" picking-mode="Ignore" class="settings-block" style="padding-top: 30px;">
                     <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider df-interactive"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="PlayerIdentityBlock" class="df-surface df-player-identity-block">
+                    <ui:Label text="Name" class="df-label"/>
+                    <ui:VisualElement class="df-row">
+                        <ui:TextField name="txtPlayerName" class="df-input"/>
+                        <ui:Button name="btnApplyPlayerName" text="Apply" class="df-button df-interactive"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="AboutBlock" picking-mode="Ignore" class="settings-about-row" style="padding-top: 70px;">
                     <ui:VisualElement class="about-text" style="-unity-font-style: normal; color: rgb(246, 235, 176); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; text-shadow: 4px 4px 0 rgb(0, 0, 0);">
