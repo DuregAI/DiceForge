@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/03_UI/Tutorial/TutorialStepsView.uss?fileID=7433441132597879392&amp;guid=af7961b28aed4c0e9e22c2e31835dd6d&amp;type=3#TutorialStepsView"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Colors.uss?fileID=7433441132597879392&amp;guid=adbf249822804c06897bf8be4219bd5e&amp;type=3#Colors"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Typography.uss?fileID=7433441132597879392&amp;guid=d79744cf0e424d25b9b480810a4e8f24&amp;type=3#Typography"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss?fileID=7433441132597879392&amp;guid=6f87a6afb6b647fb9ace9bdf3d801eb2&amp;type=3#Spacing"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
+
+    <ui:VisualElement class="tutorial-steps-root">
+        <ui:VisualElement class="tutorial-steps-panel df-surface">
+            <ui:Label text="Tutorial" class="tutorial-steps-title df-label"/>
+            <ui:Label text="" class="tutorial-steps-text df-label"/>
+            <ui:Label text="Step 1/7" class="tutorial-steps-progress df-label"/>
+            <ui:Toggle text="Double Dice Mode" class="tutorial-steps-double-toggle"/>
+            <ui:VisualElement class="tutorial-steps-actions">
+                <ui:Button text="Skip" class="df-button df-interactive tutorial-steps-skip"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

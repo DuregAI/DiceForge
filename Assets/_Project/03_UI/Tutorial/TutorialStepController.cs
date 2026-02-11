@@ -6,19 +6,35 @@ using UnityEngine.UIElements;
 public sealed class TutorialStepController : MonoBehaviour
 {
     [SerializeField] private BattleDebugController battleController;
+    [SerializeField] private VisualTreeAsset tutorialStepsLayout;
 
-    private VisualElement _panel;
-    private Label _stepLabel;
-    private Button _skipButton;
+    private TutorialStepsView _view;
     private int _stepIndex;
+    private int _movesMade;
+    private bool _doubleDiceModeEnabled;
+    private bool _waitingDoubleRoll;
     private bool _isActive;
+    private readonly System.Collections.Generic.HashSet<string> _countedMoves = new();
 
-    private static readonly string[] StepTexts =
+    private readonly struct TutorialStep
     {
-        "Roll the dice to begin.",
-        "Now make your first move.",
-        "Use a reroll to change your fate.",
-        "Nice! Training complete."
+        public TutorialStep(string text)
+        {
+            Text = text;
+        }
+
+        public string Text { get; }
+    }
+
+    private static readonly TutorialStep[] Steps =
+    {
+        new("Roll a single die to begin your training."),
+        new("Move one stone once to learn basic movement."),
+        new("Use one reroll to change your outcome."),
+        new("Keep going: make a total of 4 valid moves."),
+        new("Enable Double Dice Mode, then start your next roll."),
+        new("Bring everyone home to finish the tactical objective."),
+        new("ChiefWombat: Great job, {playerName}! The squad is ready.")
     };
 
     private void Start()
@@ -37,8 +53,9 @@ public sealed class TutorialStepController : MonoBehaviour
             return;
         }
 
-        BuildHintPanel();
+        BuildView();
         SubscribeBattleEvents();
+        ResetCounters();
         SetStep(0);
         battleController.NotifyTutorialRollIfReady();
     }
@@ -46,8 +63,36 @@ public sealed class TutorialStepController : MonoBehaviour
     private void OnDestroy()
     {
         UnsubscribeBattleEvents();
-        if (_skipButton != null)
-            _skipButton.clicked -= HandleSkipClicked;
+
+        if (_view != null)
+        {
+            _view.SkipClicked -= HandleSkipClicked;
+            _view.DoubleDiceModeChanged -= HandleDoubleDiceModeChanged;
+            _view.Dispose();
+            _view = null;
+        }
+    }
+
+    private void BuildView()
+    {
+        UIDocument doc = battleController.Hud != null ? battleController.Hud.Document : null;
+        var root = doc != null ? doc.rootVisualElement : null;
+        if (root == null)
+            return;
+
+        if (tutorialStepsLayout == null)
+            tutorialStepsLayout = Resources.Load<VisualTreeAsset>("Tutorial/TutorialStepsView");
+
+        if (tutorialStepsLayout == null)
+        {
+            Debug.LogWarning("[Tutorial] TutorialStepsView layout is not assigned.");
+            return;
+        }
+
+        _view = new TutorialStepsView(root, tutorialStepsLayout);
+        _view.SkipClicked += HandleSkipClicked;
+        _view.DoubleDiceModeChanged += HandleDoubleDiceModeChanged;
+        _view.SetVisible(true);
     }
 
     private void SubscribeBattleEvents()
@@ -58,6 +103,7 @@ public sealed class TutorialStepController : MonoBehaviour
         battleController.OnHumanTurnStarted += HandleHumanTurnStarted;
         battleController.OnHumanMoveApplied += HandleHumanMoveApplied;
         battleController.OnHumanRerollUsed += HandleHumanRerollUsed;
+        battleController.OnMatchEnded += HandleMatchEnded;
     }
 
     private void UnsubscribeBattleEvents()
@@ -68,79 +114,96 @@ public sealed class TutorialStepController : MonoBehaviour
         battleController.OnHumanTurnStarted -= HandleHumanTurnStarted;
         battleController.OnHumanMoveApplied -= HandleHumanMoveApplied;
         battleController.OnHumanRerollUsed -= HandleHumanRerollUsed;
+        battleController.OnMatchEnded -= HandleMatchEnded;
     }
 
-    private void BuildHintPanel()
+    private void ResetCounters()
     {
-        UIDocument doc = battleController.Hud != null ? battleController.Hud.Document : null;
-        var root = doc != null ? doc.rootVisualElement : null;
-        if (root == null)
-            return;
-
-        _panel = new VisualElement();
-        _panel.style.position = Position.Absolute;
-        _panel.style.left = 0;
-        _panel.style.right = 0;
-        _panel.style.bottom = 16;
-        _panel.style.alignItems = Align.Center;
-        _panel.style.justifyContent = Justify.Center;
-
-        var card = new VisualElement();
-        card.style.backgroundColor = new Color(0.1f, 0.11f, 0.17f, 0.92f);
-        card.style.borderTopLeftRadius = 10;
-        card.style.borderTopRightRadius = 10;
-        card.style.borderBottomLeftRadius = 10;
-        card.style.borderBottomRightRadius = 10;
-        card.style.paddingTop = 10;
-        card.style.paddingBottom = 10;
-        card.style.paddingLeft = 14;
-        card.style.paddingRight = 14;
-        card.style.minWidth = 340;
-        card.style.maxWidth = 560;
-        card.style.alignItems = Align.Center;
-
-        var title = new Label("Tutorial");
-        title.style.unityFontStyleAndWeight = FontStyle.Bold;
-        title.style.color = Color.white;
-        title.style.marginBottom = 6;
-
-        _stepLabel = new Label(string.Empty);
-        _stepLabel.style.color = Color.white;
-        _stepLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
-        _stepLabel.style.whiteSpace = WhiteSpace.Normal;
-        _stepLabel.style.marginBottom = 8;
-
-        _skipButton = new Button(HandleSkipClicked)
-        {
-            text = "Skip tutorial"
-        };
-
-        card.Add(title);
-        card.Add(_stepLabel);
-        card.Add(_skipButton);
-        _panel.Add(card);
-        root.Add(_panel);
+        _movesMade = 0;
+        _countedMoves.Clear();
+        _doubleDiceModeEnabled = false;
+        _waitingDoubleRoll = false;
     }
 
     private void HandleHumanTurnStarted()
     {
-        if (_stepIndex == 0)
+        if (!_isActive)
+            return;
+
+        if (_stepIndex == 0 && battleController.CurrentRollDiceCount <= 1)
+        {
             AdvanceStep();
+            return;
+        }
+
+        if (_stepIndex == 4 && _waitingDoubleRoll)
+        {
+            AdvanceStep();
+            return;
+        }
+
+        TryCompleteHomeObjective();
     }
 
     private void HandleHumanMoveApplied(MoveRecord record)
     {
+        if (!_isActive || record.ApplyResult == ApplyResult.Illegal || !record.Move.HasValue)
+            return;
+
+        var moveKey = $"{record.TurnIndex}:{record.FromCell}:{record.ToCell}:{record.PipUsed}:{record.PlayerId}";
+        if (!_countedMoves.Add(moveKey))
+            return;
+
+        _movesMade = Mathf.Max(_movesMade + 1, 0);
+
         if (_stepIndex == 1)
+        {
             AdvanceStep();
+            return;
+        }
+
+        if (_stepIndex == 3 && _movesMade >= 4)
+        {
+            AdvanceStep();
+            return;
+        }
+
+        TryCompleteHomeObjective();
     }
 
     private void HandleHumanRerollUsed()
     {
-        if (_stepIndex != 2)
+        if (!_isActive || _stepIndex != 2)
+            return;
+
+        AdvanceStep();
+    }
+
+    private void HandleMatchEnded(MatchResult _)
+    {
+        if (!_isActive)
+            return;
+
+        TryCompleteHomeObjective();
+    }
+
+    private void TryCompleteHomeObjective()
+    {
+        if (_stepIndex != 5)
+            return;
+
+        int target = Mathf.Max(1, battleController.TotalStonesPerPlayer);
+        if (battleController.LocalPlayerBorneOffCount < target)
             return;
 
         AdvanceStep();
         FinishTutorial();
+    }
+
+    private void HandleDoubleDiceModeChanged(bool enabled)
+    {
+        _doubleDiceModeEnabled = enabled;
+        _waitingDoubleRoll = _stepIndex == 4 && _doubleDiceModeEnabled;
     }
 
     private void HandleSkipClicked()
@@ -153,19 +216,36 @@ public sealed class TutorialStepController : MonoBehaviour
 
     private void SetStep(int stepIndex)
     {
-        _stepIndex = Mathf.Clamp(stepIndex, 0, StepTexts.Length - 1);
-        if (_stepLabel != null)
-            _stepLabel.text = StepTexts[_stepIndex];
+        _stepIndex = Mathf.Clamp(stepIndex, 0, Steps.Length - 1);
+        if (_view == null)
+            return;
+
+        string text = Steps[_stepIndex].Text.Replace("{playerName}", Diceforge.Progression.ProfileService.GetDisplayName());
+        _view.SetStepText(text);
+        _view.SetProgress(_stepIndex + 1, Steps.Length);
+
+        bool showDoubleToggle = _stepIndex == 4;
+        _view.SetDoubleDiceToggleVisible(showDoubleToggle);
+        if (!showDoubleToggle)
+        {
+            _doubleDiceModeEnabled = false;
+            _waitingDoubleRoll = false;
+            _view.SetDoubleDiceToggleValue(false);
+        }
     }
 
     private void AdvanceStep()
     {
-        int next = Mathf.Min(_stepIndex + 1, StepTexts.Length - 1);
+        int next = Mathf.Min(_stepIndex + 1, Steps.Length - 1);
+        if (next == _stepIndex)
+            return;
+
         SetStep(next);
     }
 
     private void FinishTutorial()
     {
+        _isActive = false;
         TutorialFlow.CompleteTutorialAndExit();
     }
 }

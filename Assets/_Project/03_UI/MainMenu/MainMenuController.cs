@@ -38,6 +38,7 @@ public class MainMenuController : MonoBehaviour
     private WalletPanelController walletPanelController;
     private UpgradeShopController upgradeShopController;
     private ChestOpenController chestOpenController;
+    private ChestShopController chestShopController;
     private PlayerPanelController playerPanelController;
     private VisualElement tutorialReplayConfirmModal;
     private Label tutorialReplayConfirmText;
@@ -77,6 +78,7 @@ public class MainMenuController : MonoBehaviour
         RegisterPanel("SettingsPanel");
         RegisterPanel("UpgradeShopPanel");
         RegisterPanel("ChestOpenPanel");
+        RegisterPanel("ChestShopPanel");
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -94,6 +96,8 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
+        RegisterButton("btnChestShop", OpenChestShop);
+        RegisterButton("btnCloseChestShop", CloseChestShop);
 
         walletPanelController = GetComponent<WalletPanelController>() ?? gameObject.AddComponent<WalletPanelController>();
         playerPanelController = GetComponent<PlayerPanelController>() ?? gameObject.AddComponent<PlayerPanelController>();
@@ -121,6 +125,9 @@ public class MainMenuController : MonoBehaviour
         chestOpenController.Initialize(root);
         chestOpenController.CloseRequested -= CloseChestScreen;
         chestOpenController.CloseRequested += CloseChestScreen;
+
+        chestShopController = GetComponent<ChestShopController>() ?? gameObject.AddComponent<ChestShopController>();
+        chestShopController.Initialize(root);
     }
 
     private void OnDestroy()
@@ -303,6 +310,18 @@ public class MainMenuController : MonoBehaviour
     private void CloseChestScreen()
     {
         chestOpenController?.Hide();
+        ShowPanel("MenuPanel");
+    }
+
+    private void OpenChestShop()
+    {
+        ShowPanel("ChestShopPanel");
+        chestShopController?.Show();
+    }
+
+    private void CloseChestShop()
+    {
+        chestShopController?.Hide();
         ShowPanel("MenuPanel");
     }
 
