@@ -15,7 +15,6 @@
 .df-row {
     flex-direction: row;
     align-items: center;
-    gap: var(--df-space-8);
 }
 
 .df-label {
@@ -51,5 +50,4 @@
 }
 
 .df-player-identity-block {
-    gap: var(--df-space-8);
 }
