@@ -8,9 +8,12 @@ public sealed class TutorialStepsView
     private readonly Label _stepText;
     private readonly Label _progressText;
     private readonly Toggle _doubleDiceToggle;
-    private readonly Button _skipButton;
+    private readonly Button _skipStepButton;
+    private readonly Button _skipTutorialButton;
+    private readonly VisualElement _highlightRing;
 
-    public event Action SkipClicked;
+    public event Action SkipStepClicked;
+    public event Action SkipTutorialClicked;
     public event Action<bool> DoubleDiceModeChanged;
 
     public TutorialStepsView(VisualElement parent, VisualTreeAsset layout)
@@ -24,21 +27,30 @@ public sealed class TutorialStepsView
         _stepText = _root.Q<Label>(className: "tutorial-steps-text");
         _progressText = _root.Q<Label>(className: "tutorial-steps-progress");
         _doubleDiceToggle = _root.Q<Toggle>(className: "tutorial-steps-double-toggle");
-        _skipButton = _root.Q<Button>(className: "tutorial-steps-skip");
+        _skipStepButton = _root.Q<Button>(className: "tutorial-steps-skip-step");
+        _skipTutorialButton = _root.Q<Button>(className: "tutorial-steps-skip-tutorial");
+        _highlightRing = _root.Q<VisualElement>(className: "tutorial-steps-highlight-ring");
 
-        if (_skipButton != null)
-            _skipButton.clicked += HandleSkipClicked;
+        if (_skipStepButton != null)
+            _skipStepButton.clicked += HandleSkipStepClicked;
+
+        if (_skipTutorialButton != null)
+            _skipTutorialButton.clicked += HandleSkipTutorialClicked;
 
         if (_doubleDiceToggle != null)
             _doubleDiceToggle.RegisterValueChangedCallback(HandleDoubleToggleChanged);
 
         SetDoubleDiceToggleVisible(false);
+        SetHighlightVisible(false);
     }
 
     public void Dispose()
     {
-        if (_skipButton != null)
-            _skipButton.clicked -= HandleSkipClicked;
+        if (_skipStepButton != null)
+            _skipStepButton.clicked -= HandleSkipStepClicked;
+
+        if (_skipTutorialButton != null)
+            _skipTutorialButton.clicked -= HandleSkipTutorialClicked;
 
         if (_doubleDiceToggle != null)
             _doubleDiceToggle.UnregisterValueChangedCallback(HandleDoubleToggleChanged);
@@ -68,6 +80,12 @@ public sealed class TutorialStepsView
         _progressText.text = $"Step {Mathf.Clamp(currentStep, 1, totalSteps)}/{Mathf.Max(1, totalSteps)}";
     }
 
+    public void SetSkipStepEnabled(bool enabled)
+    {
+        if (_skipStepButton != null)
+            _skipStepButton.SetEnabled(enabled);
+    }
+
     public void SetDoubleDiceToggleVisible(bool visible)
     {
         if (_doubleDiceToggle == null)
@@ -81,9 +99,23 @@ public sealed class TutorialStepsView
         _doubleDiceToggle?.SetValueWithoutNotify(value);
     }
 
-    private void HandleSkipClicked()
+    public void SetHighlightVisible(bool visible)
     {
-        SkipClicked?.Invoke();
+        if (_highlightRing == null)
+            return;
+
+        _highlightRing.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        _highlightRing.style.opacity = visible ? 1f : 0f;
+    }
+
+    private void HandleSkipStepClicked()
+    {
+        SkipStepClicked?.Invoke();
+    }
+
+    private void HandleSkipTutorialClicked()
+    {
+        SkipTutorialClicked?.Invoke();
     }
 
     private void HandleDoubleToggleChanged(ChangeEvent<bool> evt)

@@ -14,6 +14,7 @@ public sealed class TutorialStepController : MonoBehaviour
     private bool _doubleDiceModeEnabled;
     private bool _waitingDoubleRoll;
     private bool _isActive;
+    private bool _battleEventsSubscribed;
     private readonly System.Collections.Generic.HashSet<string> _countedMoves = new();
 
     private readonly struct TutorialStep
@@ -54,10 +55,9 @@ public sealed class TutorialStepController : MonoBehaviour
         }
 
         BuildView();
-        SubscribeBattleEvents();
-        ResetCounters();
+        ResetTutorialState();
         SetStep(0);
-        battleController.NotifyTutorialRollIfReady();
+        SubscribeBattleEvents();
     }
 
     private void OnDestroy()
@@ -66,7 +66,8 @@ public sealed class TutorialStepController : MonoBehaviour
 
         if (_view != null)
         {
-            _view.SkipClicked -= HandleSkipClicked;
+            _view.SkipStepClicked -= HandleSkipStepClicked;
+            _view.SkipTutorialClicked -= HandleSkipTutorialClicked;
             _view.DoubleDiceModeChanged -= HandleDoubleDiceModeChanged;
             _view.Dispose();
             _view = null;
@@ -90,39 +91,52 @@ public sealed class TutorialStepController : MonoBehaviour
         }
 
         _view = new TutorialStepsView(root, tutorialStepsLayout);
-        _view.SkipClicked += HandleSkipClicked;
+        _view.SkipStepClicked += HandleSkipStepClicked;
+        _view.SkipTutorialClicked += HandleSkipTutorialClicked;
         _view.DoubleDiceModeChanged += HandleDoubleDiceModeChanged;
         _view.SetVisible(true);
     }
 
     private void SubscribeBattleEvents()
     {
-        if (battleController == null)
+        if (battleController == null || _battleEventsSubscribed)
             return;
+
+        UnsubscribeBattleEvents();
 
         battleController.OnHumanTurnStarted += HandleHumanTurnStarted;
         battleController.OnHumanMoveApplied += HandleHumanMoveApplied;
         battleController.OnHumanRerollUsed += HandleHumanRerollUsed;
         battleController.OnMatchEnded += HandleMatchEnded;
+        _battleEventsSubscribed = true;
     }
 
     private void UnsubscribeBattleEvents()
     {
-        if (battleController == null)
+        if (battleController == null || !_battleEventsSubscribed)
             return;
 
         battleController.OnHumanTurnStarted -= HandleHumanTurnStarted;
         battleController.OnHumanMoveApplied -= HandleHumanMoveApplied;
         battleController.OnHumanRerollUsed -= HandleHumanRerollUsed;
         battleController.OnMatchEnded -= HandleMatchEnded;
+        _battleEventsSubscribed = false;
     }
 
-    private void ResetCounters()
+    private void ResetTutorialState()
     {
+        _stepIndex = 0;
         _movesMade = 0;
         _countedMoves.Clear();
         _doubleDiceModeEnabled = false;
         _waitingDoubleRoll = false;
+
+        if (_view == null)
+            return;
+
+        _view.SetDoubleDiceToggleValue(false);
+        _view.SetDoubleDiceToggleVisible(false);
+        _view.SetHighlightVisible(false);
     }
 
     private void HandleHumanTurnStarted()
@@ -206,7 +220,18 @@ public sealed class TutorialStepController : MonoBehaviour
         _waitingDoubleRoll = _stepIndex == 4 && _doubleDiceModeEnabled;
     }
 
-    private void HandleSkipClicked()
+    private void HandleSkipStepClicked()
+    {
+        if (!_isActive)
+            return;
+
+        if (_stepIndex >= Steps.Length - 1)
+            return;
+
+        AdvanceStep();
+    }
+
+    private void HandleSkipTutorialClicked()
     {
         if (!_isActive)
             return;
@@ -223,9 +248,11 @@ public sealed class TutorialStepController : MonoBehaviour
         string text = Steps[_stepIndex].Text.Replace("{playerName}", Diceforge.Progression.ProfileService.GetDisplayName());
         _view.SetStepText(text);
         _view.SetProgress(_stepIndex + 1, Steps.Length);
+        _view.SetSkipStepEnabled(_stepIndex < Steps.Length - 1);
 
         bool showDoubleToggle = _stepIndex == 4;
         _view.SetDoubleDiceToggleVisible(showDoubleToggle);
+        _view.SetHighlightVisible(false);
         if (!showDoubleToggle)
         {
             _doubleDiceModeEnabled = false;

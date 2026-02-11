@@ -10,31 +10,50 @@
     pointer-events: none;
 }
 
+.tutorial-steps-highlight-ring {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border-radius: 999px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: var(--df-color-accent);
+    border-right-color: var(--df-color-accent);
+    border-top-color: var(--df-color-accent);
+    border-bottom-color: var(--df-color-accent);
+    opacity: 0;
+    display: none;
+}
+
 .tutorial-steps-panel {
     min-width: 380px;
     max-width: 520px;
     align-items: stretch;
     pointer-events: auto;
+    padding-top: var(--df-space-16);
+    padding-bottom: var(--df-space-16);
 }
 
 .tutorial-steps-title {
     font-size: var(--df-font-size-m);
     unity-font-style: bold;
-    unity-text-align: middle-center;
+    unity-text-align: middle-left;
     margin-bottom: var(--df-space-8);
 }
 
 .tutorial-steps-text {
     min-height: 54px;
     white-space: normal;
-    unity-text-align: upper-center;
-    margin-bottom: var(--df-space-8);
+    unity-text-align: upper-left;
+    margin-bottom: var(--df-space-12);
     color: var(--df-color-text-secondary);
 }
 
 .tutorial-steps-progress {
-    unity-text-align: middle-center;
-    margin-bottom: var(--df-space-12);
+    unity-text-align: middle-left;
+    flex-grow: 1;
 }
 
 .tutorial-steps-double-toggle {
@@ -43,10 +62,22 @@
 }
 
 .tutorial-steps-actions {
+    width: 100%;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.tutorial-steps-skip {
+.tutorial-steps-actions-buttons {
+    flex-direction: row;
+    align-items: center;
+}
+
+.tutorial-steps-skip-step {
+    min-width: 120px;
+    margin-right: var(--df-space-8);
+}
+
+.tutorial-steps-skip-tutorial {
     min-width: 120px;
 }
