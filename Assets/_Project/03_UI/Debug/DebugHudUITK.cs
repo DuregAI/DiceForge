@@ -9,6 +9,7 @@ namespace Diceforge.View
     public sealed class DebugHudUITK : MonoBehaviour
     {
         [SerializeField] private UIDocument document;
+        public UIDocument Document => document;
 
         private VisualElement _root;
         private Label _turnLabel;

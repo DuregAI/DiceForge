@@ -53,8 +53,12 @@ namespace Diceforge.View
         [SerializeField] private PlayerId localPlayer = PlayerId.A;
 
         public event System.Action<MatchResult> OnMatchEnded;
+        public event System.Action OnHumanTurnStarted;
+        public event System.Action<MoveRecord> OnHumanMoveApplied;
+        public event System.Action OnHumanRerollUsed;
         public PlayerId LocalPlayer => localPlayer;
         public bool IsMatchEnded => _runner != null && _runner.MatchEnded;
+        public DebugHudUITK Hud => hud;
 
         private void Awake()
         {
@@ -301,6 +305,8 @@ namespace Diceforge.View
             _elapsed = 0f;
             _rerollUsedThisTurn = false;
             LogRerollCount("TurnStarted");
+            if (IsHumanTurn())
+                OnHumanTurnStarted?.Invoke();
             UpdateUI();
             RefreshRerollUI();
         }
@@ -309,6 +315,9 @@ namespace Diceforge.View
         {
             boardView?.HandleMoveApplied(record);
             PushLastMoveDebugInfo(record);
+
+            if (record.PlayerId == localPlayer && record.ApplyResult != ApplyResult.Illegal && record.Move.HasValue)
+                OnHumanMoveApplied?.Invoke(record);
             UpdateUI();
             if (!verboseLog) return;
 
@@ -442,6 +451,7 @@ namespace Diceforge.View
 
             _rerollUsedThisTurn = true;
             _runner.RerollCurrentTurnOutcome();
+            OnHumanRerollUsed?.Invoke();
             _waitingForFromCell = false;
             _lastHumanInputFeedback = string.Empty;
             UpdateUI();
@@ -567,6 +577,16 @@ namespace Diceforge.View
             hud.OnHumanAChanged -= HandleHumanAChanged;
             hud.OnHumanBChanged -= HandleHumanBChanged;
             hud.OnDieSelected -= HandleDieSelected;
+        }
+
+
+        public void NotifyTutorialRollIfReady()
+        {
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
+                return;
+
+            if (IsHumanTurn() && _runner.CurrentOutcome.Dice != null && _runner.CurrentOutcome.Dice.Length > 0)
+                OnHumanTurnStarted?.Invoke();
         }
 
         private void HandleAutoRunChanged(bool autoRun)

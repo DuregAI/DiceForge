@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 1869959126}
   - component: {fileID: 1869959125}
   - component: {fileID: 1869959127}
+  - component: {fileID: 1869959128}
   m_Layer: 5
   m_Name: UI_DebugHUD
   m_TagString: Untagged
@@ -780,6 +781,19 @@ MonoBehaviour:
   m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DebugHudUITK
   document: {fileID: 1869959125}
+--- !u!114 &1869959128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869959124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5931ced2ca425da3c6f1318445d255, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialStepController
+  battleController: {fileID: 783023280}
 --- !u!1 &1969959124
 GameObject:
   m_ObjectHideFlags: 0

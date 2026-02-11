@@ -310,7 +310,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (!TutorialFlow.RequiresReplayConfirmation())
         {
-            TutorialFlow.EnterTutorial();
+            TutorialFlow.EnterTutorial(tutorialPreset);
             return;
         }
 
@@ -345,7 +345,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (tutorialReplayConfirmModal == null)
         {
-            TutorialFlow.EnterTutorial();
+            TutorialFlow.EnterTutorial(tutorialPreset);
             return;
         }
 
@@ -363,7 +363,7 @@ public class MainMenuController : MonoBehaviour
     private void ConfirmTutorialReplay()
     {
         CloseTutorialReplayConfirmation();
-        TutorialFlow.EnterTutorial();
+        TutorialFlow.EnterTutorial(tutorialPreset);
     }
 
     private void SelectModeAndLoad(GameModePreset preset)
