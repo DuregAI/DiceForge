@@ -6,13 +6,17 @@
     <Style src="../_Theme/Components.uss"/>
 
     <ui:VisualElement class="tutorial-steps-root">
+        <ui:VisualElement class="tutorial-steps-highlight-ring"/>
         <ui:VisualElement class="tutorial-steps-panel df-surface">
             <ui:Label text="Tutorial" class="tutorial-steps-title df-label"/>
             <ui:Label text="" class="tutorial-steps-text df-label"/>
-            <ui:Label text="Step 1/7" class="tutorial-steps-progress df-label"/>
             <ui:Toggle text="Double Dice Mode" class="tutorial-steps-double-toggle"/>
             <ui:VisualElement class="tutorial-steps-actions">
-                <ui:Button text="Skip" class="df-button df-interactive tutorial-steps-skip"/>
+                <ui:Label text="Step 1/7" class="tutorial-steps-progress df-label"/>
+                <ui:VisualElement class="tutorial-steps-actions-buttons">
+                    <ui:Button text="Skip Step" class="df-button df-interactive tutorial-steps-skip-step"/>
+                    <ui:Button text="Skip Tutorial" class="df-button df-interactive tutorial-steps-skip-tutorial"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
