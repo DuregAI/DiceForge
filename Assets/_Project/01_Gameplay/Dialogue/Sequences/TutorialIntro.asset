@@ -14,27 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speakerId: Narrator
-    text: Somewhere in the Gumleaf Valley… trouble is rolling in like a storm.
+    text: "Somewhere in the Gumleaf Valley\u2026 trouble is rolling in like a storm."
     portrait: {fileID: 0}
   - speakerId: Scout
     text: Hey, {playerName}! Wake up! We've got an emergency!
     portrait: {fileID: 0}
   - speakerId: Scout
-    text: A pack of tiny critters got trapped near the old stone road. The river's rising!
+    text: A pack of tiny critters got trapped near the old stone road. The river's
+      rising!
     portrait: {fileID: 0}
   - speakerId: ChiefWombat
     text: This is the Wombat Rescue Squad. We don't leave anyone behind.
     portrait: {fileID: 0}
   - speakerId: ChiefWombat
-    text: 'Your mission: guide our rescue wagon by rolling the dice. Every roll is a move.'
+    text: 'Your mission: guide our rescue wagon by rolling the dice. Every roll is
+      a move.'
     portrait: {fileID: 0}
   - speakerId: ChiefWombat
-    text: Sometimes luck bites back… but we've got tricks. You'll learn them fast.
+    text: "Sometimes luck bites back\u2026 but we've got tricks. You'll learn them
+      fast."
     portrait: {fileID: 0}
   - speakerId: Scout
     text: First, let's do a short training run. One rescue. Quick and clean.
-    portrait: {fileID: 0}
+    portrait: {fileID: 476578011, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
   - speakerId: Narrator
-    text: 'Tutorial begins: Roll the dice to move. Save the critters. Become a legend (or at
-      least… a decent wombat).'
-    portrait: {fileID: 0}
+    text: "Tutorial begins: Roll the dice to move. Save the critters. Become a legend
+      (or at least\u2026 a decent wombat)."
+    portrait: {fileID: 1655902702, guid: 3015448196896044dac53ecc6f91afa3, type: 3}

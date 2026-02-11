@@ -19,4 +19,7 @@ MonoBehaviour:
     dice: 01000000
   - label: FirstJump
     weight: 1
-    dice: 05000000
+    dice: 02000000
+  - label: FirstDouble
+    weight: 1
+    dice: 01000000010000000100000001000000

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b5f9d6f9e14a4383962e3cc2bf6674, type: 3}
   m_Name: TutorialBotDiceBag
   m_EditorClassIdentifier: 
-  drawMode: 1
+  drawMode: 0
   outcomes:
   - label: OnlyMeat
-    weight: 1
+    weight: 8
     dice: 01000000
