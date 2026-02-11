@@ -96,6 +96,6 @@ public sealed class TutorialSceneController : MonoBehaviour
 
     private static void HandleTutorialDialogueFinished()
     {
-        TutorialFlow.CompleteTutorialAndExit();
+        TutorialFlow.StartTrainingBattle();
     }
 }
