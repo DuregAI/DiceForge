@@ -16,6 +16,7 @@
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnChests" text="Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                    <ui:Button name="btnChestShop" text="Buy Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -56,6 +57,29 @@
         </ui:VisualElement>
 
 
+
+        <ui:VisualElement name="ChestShopPanel" class="settings-overlay">
+            <ui:VisualElement class="chest-shop-window df-surface">
+                <ui:Label text="Chest Shop" class="chest-shop-title df-label"/>
+                <ui:VisualElement class="chest-shop-row">
+                    <ui:Label text="Small Chest" class="df-label"/>
+                    <ui:Label text="50 Gold" class="df-label"/>
+                    <ui:Button name="btnBuySmallChest" text="Buy" class="df-button df-interactive"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="chest-shop-row">
+                    <ui:Label text="Medium Chest" class="df-label"/>
+                    <ui:Label text="120 Gold" class="df-label"/>
+                    <ui:Button name="btnBuyMediumChest" text="Buy" class="df-button df-interactive"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="chest-shop-row">
+                    <ui:Label text="Essence Chest" class="df-label"/>
+                    <ui:Label text="10 Essence" class="df-label"/>
+                    <ui:Button name="btnBuyEssenceChest" text="Buy" class="df-button df-interactive"/>
+                </ui:VisualElement>
+                <ui:Label name="chestShopStatus" text="" class="chest-shop-status df-label"/>
+                <ui:Button name="btnCloseChestShop" text="Close" class="df-button df-interactive chest-shop-close"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
 
         <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
             <ui:VisualElement class="chest-open-window">

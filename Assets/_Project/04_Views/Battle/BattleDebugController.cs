@@ -59,6 +59,9 @@ namespace Diceforge.View
         public PlayerId LocalPlayer => localPlayer;
         public bool IsMatchEnded => _runner != null && _runner.MatchEnded;
         public DebugHudUITK Hud => hud;
+        public int CurrentRollDiceCount => _runner?.CurrentOutcome.Dice?.Length ?? 0;
+        public int TotalStonesPerPlayer => _runner?.State?.Rules.totalStonesPerPlayer ?? _rules?.totalStonesPerPlayer ?? 0;
+        public int LocalPlayerBorneOffCount => _runner?.State?.GetBorneOff(localPlayer) ?? 0;
 
         private void Awake()
         {

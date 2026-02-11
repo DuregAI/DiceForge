@@ -342,3 +342,33 @@
 .upgrade-buy-button {
     margin-top: 4px;
 }
+
+.chest-shop-window {
+    min-width: 460px;
+    max-width: 620px;
+    align-items: stretch;
+}
+
+.chest-shop-title {
+    font-size: var(--df-font-size-l);
+    unity-font-style: bold;
+    unity-text-align: middle-center;
+    margin-bottom: var(--df-space-12);
+}
+
+.chest-shop-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--df-space-8);
+}
+
+.chest-shop-status {
+    color: var(--df-color-accent);
+    min-height: 24px;
+    margin-top: var(--df-space-8);
+}
+
+.chest-shop-close {
+    align-self: flex-end;
+}
