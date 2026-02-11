@@ -341,6 +341,7 @@ MonoBehaviour:
   tutorialDocument: {fileID: 1000000002}
   dialogueRunner: {fileID: 1000000003}
   tutorialIntroSequence: {fileID: 11400000, guid: 708c385a39ab44e394d85ecdd88b5750, type: 2}
+  tutorialPortraitLibrary: {fileID: 11400000, guid: 1a8442e9f2804ac685bd8080281da68e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

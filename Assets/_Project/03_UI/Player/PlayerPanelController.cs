@@ -1,15 +1,23 @@
+using Diceforge.Dialogue;
 using Diceforge.Progression;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public sealed class PlayerPanelController : MonoBehaviour
 {
+    [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
+
     private bool _initialized;
     private Label _playerNameLabel;
     private Label _playerLevelLabel;
     private Button _avatarButton;
     private Button _renameButton;
     private PlayerInfoController _playerInfoController;
+
+    public void SetPortraitLibrary(TutorialPortraitLibrary portraitLibrary)
+    {
+        tutorialPortraitLibrary = portraitLibrary;
+    }
 
     public void Initialize(VisualElement root)
     {
@@ -71,6 +79,12 @@ public sealed class PlayerPanelController : MonoBehaviour
 
         if (_playerLevelLabel != null)
             _playerLevelLabel.text = $"Lv {GetPlayerLevel()}";
+
+        if (_avatarButton != null)
+        {
+            var avatar = tutorialPortraitLibrary?.DefaultPlayerAvatar;
+            _avatarButton.style.backgroundImage = avatar == null ? StyleKeyword.None : new StyleBackground(avatar);
+        }
     }
 
     private static int GetPlayerLevel()

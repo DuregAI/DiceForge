@@ -575,6 +575,7 @@ MonoBehaviour:
   shortPreset: {fileID: 11400000, guid: 75f279eaea7d4427a94909726fd3866a, type: 2}
   tutorialPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
   experimentalPreset: {fileID: 11400000, guid: dbe1a0feca0b4e428a7a863dcb03824a, type: 2}
+  tutorialPortraitLibrary: {fileID: 11400000, guid: 1a8442e9f2804ac685bd8080281da68e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

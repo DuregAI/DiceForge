@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Dialogue;
 using Diceforge.Progression;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameModePreset shortPreset;
     [SerializeField] private GameModePreset tutorialPreset;
     [SerializeField] private GameModePreset experimentalPreset;
+    [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
 
     private UIDocument document;
     private VisualElement root;
@@ -106,6 +108,7 @@ public class MainMenuController : MonoBehaviour
         InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
 
+        playerPanelController.SetPortraitLibrary(tutorialPortraitLibrary);
         playerPanelController.Initialize(root);
 
         walletPanelController.Initialize(root);
