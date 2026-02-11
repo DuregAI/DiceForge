@@ -3,9 +3,17 @@ guid: c1a00e043b344a42857e9ce5b74ede75
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - chiefWombatNeutral: {fileID: -1562247919, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - chiefWombatPoint: {fileID: 1561313585, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - chiefWombatThumbsUp: {fileID: -1024548414, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - chiefWombatWorried: {fileID: -285989804, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - scoutWave: {fileID: 105980180, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - scoutMap: {fileID: 476578011, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - critterSad: {fileID: 1484319326, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  - critterHappy: {fileID: 1655902702, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
   executionOrder: 0
-  icon: {fileID: 0}
+  icon: {instanceID: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
