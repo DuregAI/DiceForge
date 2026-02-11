@@ -47,6 +47,11 @@ namespace Diceforge.UI.Dialogue
             _view.Dispose();
         }
 
+        public bool Play(DialogueSequence sequence, Action onFinished = null)
+        {
+            return StartDialogue(sequence, onFinished);
+        }
+
         public bool StartDialogue(DialogueSequence sequence, Action onFinished = null)
         {
             if (_isRunning || _view == null || sequence == null || sequence.lines == null || sequence.lines.Count == 0)

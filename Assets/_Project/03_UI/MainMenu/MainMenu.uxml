@@ -112,6 +112,16 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
+        <ui:VisualElement name="TutorialReplayConfirmModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
+                <ui:Label name="TutorialReplayConfirmText" text="Tutorial already completed. Replay?" class="player-confirm-text df-label"/>
+                <ui:VisualElement class="player-modal-actions">
+                    <ui:Button name="btnTutorialReplayYes" text="Yes" class="df-button df-interactive"/>
+                    <ui:Button name="btnTutorialReplayCancel" text="Cancel" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
         <ui:VisualElement name="RenameConfirmModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
                 <ui:Label text="Do you want to change your name?" class="player-confirm-text df-label"/>

@@ -88,6 +88,22 @@ namespace Diceforge.Progression
             NotifyPlayerNameChanged();
         }
 
+        public static bool IsTutorialCompleted()
+        {
+            return Current.tutorialCompleted;
+        }
+
+        public static void SetTutorialCompleted(bool value)
+        {
+            if (Current.tutorialCompleted == value)
+            {
+                return;
+            }
+
+            Current.tutorialCompleted = value;
+            SaveAndNotify();
+        }
+
         public static int GetCurrency(string id) => GetAmount(CurrencyMap, id);
 
         public static void AddCurrency(string id, int amount)
@@ -349,6 +365,7 @@ namespace Diceforge.Progression
             profile.version = "0.0.4";
             profile.playerGuid = Guid.NewGuid().ToString();
             profile.playerName = string.Empty;
+            profile.tutorialCompleted = false;
             profile.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 0));
             profile.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 0));
             profile.currencies.Add(new ProfileAmount(ProgressionIds.Shards, 0));

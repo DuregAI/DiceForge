@@ -9,6 +9,7 @@ namespace Diceforge.Progression
         public string version = "0.0.4";
         public string playerGuid = string.Empty;
         public string playerName = string.Empty;
+        public bool tutorialCompleted;
         public HeroProgress hero = new();
         public List<ProfileAmount> currencies = new();
         public List<ProfileAmount> inventory = new();

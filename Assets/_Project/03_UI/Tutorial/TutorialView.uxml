@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="TutorialView.uss"/>
+    <Style src="../_Theme/Colors.uss"/>
+    <Style src="../_Theme/Typography.uss"/>
+    <Style src="../_Theme/Spacing.uss"/>
+    <Style src="../_Theme/Components.uss"/>
+    <Style src="../Dialogue/DialogueView.uss"/>
+    <ui:VisualElement name="TutorialRoot" class="tutorial-root">
+        <ui:VisualElement class="tutorial-header-row">
+            <ui:Label text="Tutorial" class="tutorial-title df-label"/>
+            <ui:Button name="TutorialExitButton" text="Skip / Exit" class="df-button df-interactive"/>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="DialoguePanel" class="df-dialogue-overlay">
+            <ui:VisualElement class="df-dialogue-window df-surface">
+                <ui:VisualElement class="df-dialogue-header">
+                    <ui:VisualElement name="DialoguePortrait" class="df-dialogue-portrait"/>
+                    <ui:Label name="DialogueSpeaker" text="Narrator" class="df-dialogue-speaker df-label"/>
+                </ui:VisualElement>
+                <ui:Label name="DialogueText" text="..." class="df-dialogue-text df-label"/>
+                <ui:VisualElement class="df-dialogue-actions">
+                    <ui:Button name="DialogueNext" text="Next" class="df-button df-interactive"/>
+                    <ui:Button name="DialogueSkip" text="Skip" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
