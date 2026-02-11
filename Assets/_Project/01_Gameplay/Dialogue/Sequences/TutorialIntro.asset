@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4abb2ebdd944bfcb760030fd00315a7, type: 3}
+  m_Name: TutorialIntro
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerId: Narrator
+    text: Somewhere in the Gumleaf Valley… trouble is rolling in like a storm.
+    portrait: {fileID: 0}
+  - speakerId: Scout
+    text: Hey, {playerName}! Wake up! We've got an emergency!
+    portrait: {fileID: 0}
+  - speakerId: Scout
+    text: A pack of tiny critters got trapped near the old stone road. The river's rising!
+    portrait: {fileID: 0}
+  - speakerId: ChiefWombat
+    text: This is the Wombat Rescue Squad. We don't leave anyone behind.
+    portrait: {fileID: 0}
+  - speakerId: ChiefWombat
+    text: 'Your mission: guide our rescue wagon by rolling the dice. Every roll is a move.'
+    portrait: {fileID: 0}
+  - speakerId: ChiefWombat
+    text: Sometimes luck bites back… but we've got tricks. You'll learn them fast.
+    portrait: {fileID: 0}
+  - speakerId: Scout
+    text: First, let's do a short training run. One rescue. Quick and clean.
+    portrait: {fileID: 0}
+  - speakerId: Narrator
+    text: 'Tutorial begins: Roll the dice to move. Save the critters. Become a legend (or at
+      least… a decent wombat).'
+    portrait: {fileID: 0}

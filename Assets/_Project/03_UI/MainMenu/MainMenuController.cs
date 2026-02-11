@@ -37,6 +37,10 @@ public class MainMenuController : MonoBehaviour
     private UpgradeShopController upgradeShopController;
     private ChestOpenController chestOpenController;
     private PlayerPanelController playerPanelController;
+    private VisualElement tutorialReplayConfirmModal;
+    private Label tutorialReplayConfirmText;
+    private Button tutorialReplayConfirmYesButton;
+    private Button tutorialReplayConfirmCancelButton;
 
     private void Awake()
     {
@@ -62,6 +66,11 @@ public class MainMenuController : MonoBehaviour
         copyLogButton = root.Q<Button>("btnCopyLog");
         copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
 
+        tutorialReplayConfirmModal = root.Q<VisualElement>("TutorialReplayConfirmModal");
+        tutorialReplayConfirmText = root.Q<Label>("TutorialReplayConfirmText");
+        tutorialReplayConfirmYesButton = root.Q<Button>("btnTutorialReplayYes");
+        tutorialReplayConfirmCancelButton = root.Q<Button>("btnTutorialReplayCancel");
+
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
         RegisterPanel("UpgradeShopPanel");
@@ -78,7 +87,7 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnCopyLog", CopyLogToClipboard);
         RegisterButton("btnLong", () => SelectModeAndLoad(longPreset));
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
-        RegisterButton("btnTutorial", () => SelectModeAndLoad(tutorialPreset));
+        RegisterButton("btnTutorial", HandleTutorialSelected);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
@@ -94,6 +103,7 @@ public class MainMenuController : MonoBehaviour
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
+        InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
 
         playerPanelController.Initialize(root);
@@ -116,6 +126,16 @@ public class MainMenuController : MonoBehaviour
             chestOpenController.CloseRequested -= CloseChestScreen;
         if (walletPanelController != null)
             walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
+
+        if (tutorialReplayConfirmYesButton != null)
+        {
+            tutorialReplayConfirmYesButton.clicked -= ConfirmTutorialReplay;
+        }
+
+        if (tutorialReplayConfirmCancelButton != null)
+        {
+            tutorialReplayConfirmCancelButton.clicked -= CloseTutorialReplayConfirmation;
+        }
     }
 
     public void ShowPanel(string panelName)
@@ -281,6 +301,66 @@ public class MainMenuController : MonoBehaviour
     {
         chestOpenController?.Hide();
         ShowPanel("MenuPanel");
+    }
+
+    private void HandleTutorialSelected()
+    {
+        if (!TutorialFlow.RequiresReplayConfirmation())
+        {
+            TutorialFlow.EnterTutorial();
+            return;
+        }
+
+        OpenTutorialReplayConfirmation();
+    }
+
+    private void InitializeTutorialReplayConfirmation()
+    {
+        if (tutorialReplayConfirmModal == null)
+        {
+            return;
+        }
+
+        tutorialReplayConfirmModal.style.display = DisplayStyle.None;
+        if (tutorialReplayConfirmText != null)
+        {
+            tutorialReplayConfirmText.text = TutorialFlow.ReplayConfirmationText;
+        }
+
+        if (tutorialReplayConfirmYesButton != null)
+        {
+            tutorialReplayConfirmYesButton.clicked += ConfirmTutorialReplay;
+        }
+
+        if (tutorialReplayConfirmCancelButton != null)
+        {
+            tutorialReplayConfirmCancelButton.clicked += CloseTutorialReplayConfirmation;
+        }
+    }
+
+    private void OpenTutorialReplayConfirmation()
+    {
+        if (tutorialReplayConfirmModal == null)
+        {
+            TutorialFlow.EnterTutorial();
+            return;
+        }
+
+        tutorialReplayConfirmModal.style.display = DisplayStyle.Flex;
+    }
+
+    private void CloseTutorialReplayConfirmation()
+    {
+        if (tutorialReplayConfirmModal != null)
+        {
+            tutorialReplayConfirmModal.style.display = DisplayStyle.None;
+        }
+    }
+
+    private void ConfirmTutorialReplay()
+    {
+        CloseTutorialReplayConfirmation();
+        TutorialFlow.EnterTutorial();
     }
 
     private void SelectModeAndLoad(GameModePreset preset)
