@@ -1,12 +1,10 @@
 .tutorial-steps-root {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     justify-content: flex-end;
     align-items: center;
-    padding-bottom: var(--df-space-24);
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    display: flex;
+    flex-grow: 1;
 }
 
 .tutorial-steps-highlight-ring {
@@ -32,6 +30,11 @@
     align-items: stretch;
     padding-top: var(--df-space-16);
     padding-bottom: var(--df-space-16);
+    background-color: rgba(0,0,0,0.35);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
 }
 
 .tutorial-steps-title {

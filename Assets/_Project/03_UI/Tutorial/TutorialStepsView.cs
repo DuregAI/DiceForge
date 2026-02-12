@@ -38,6 +38,7 @@ public sealed class TutorialStepsView
         _parent.Add(_overlay);
 
         _root = layout.CloneTree();
+        _root.style.flexGrow = 1;
         _overlay.Add(_root);
 
         _stepText = _root.Q<Label>(className: "tutorial-steps-text");
