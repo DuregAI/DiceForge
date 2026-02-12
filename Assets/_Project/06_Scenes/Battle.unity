@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: 
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 856bdf1bf35e11140b91048856f8f589, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BoardDebugView
   ringRadius: 6
   cellRadius: 0.5
@@ -418,6 +418,8 @@ MonoBehaviour:
   stoneHeight: 0.2
   stoneSpreadRadius: 0.18
   stoneRingSpacing: 0.08
+  barOffsetX: 0.65
+  barStackSpacing: 0.24
   cellColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.8}
   playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
   playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
@@ -491,7 +493,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7cd26a8a9bd1514d8d2372ca94e42be, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleDebugController
   rulesetPreset: {fileID: 11400000, guid: 8a043cfbf96d47438a1b77af213157f1, type: 2}
   autoStart: 1
@@ -503,6 +505,8 @@ MonoBehaviour:
   controlModeA: 1
   controlModeB: 0
   hud: {fileID: 1869959127}
+  logRerollInventory: 0
+  localPlayer: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +534,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
   priority: 0
@@ -579,7 +583,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9046d00e529404987f91209ca66381a, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
   fallbackPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
   matchController: {fileID: 0}
@@ -711,6 +715,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1364700806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364700808}
+  - component: {fileID: 1364700807}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1364700807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364700806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5931ced2ca425da3c6f1318445d255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialStepController
+  battleController: {fileID: 783023280}
+  tutorialStepsLayout: {fileID: 9197481963319205126, guid: 7831757d80f446c49c26fe017441cd74, type: 3}
+--- !u!4 &1364700808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364700806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869959124
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +772,6 @@ GameObject:
   - component: {fileID: 1869959126}
   - component: {fileID: 1869959125}
   - component: {fileID: 1869959127}
-  - component: {fileID: 1869959128}
   m_Layer: 5
   m_Name: UI_DebugHUD
   m_TagString: Untagged
@@ -740,7 +789,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 19f53bedf0e2a1d4f8b33baddac488ed, type: 2}
   m_ParentUI: {fileID: 0}
@@ -778,22 +827,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86981a383812d5b4f984de01e0e78891, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DebugHudUITK
   document: {fileID: 1869959125}
---- !u!114 &1869959128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869959124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b5931ced2ca425da3c6f1318445d255, type: 3}
-  m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::TutorialStepController
-  battleController: {fileID: 783023280}
 --- !u!1 &1969959124
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +858,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 19f53bedf0e2a1d4f8b33baddac488ed, type: 2}
   m_ParentUI: {fileID: 0}
@@ -860,7 +896,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fcf00b3fdb24c6a93cbf90ec7470c1d, type: 3}
-  m_Name: ""
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.ResultOverlayView
   document: {fileID: 1969959125}
   battleController: {fileID: 783023280}
@@ -877,3 +913,4 @@ SceneRoots:
   - {fileID: 1869959126}
   - {fileID: 1969959126}
   - {fileID: 985011913}
+  - {fileID: 1364700808}

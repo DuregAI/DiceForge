@@ -81,8 +81,8 @@ public sealed class TutorialStepController : MonoBehaviour
         if (root == null)
             return;
 
-        if (tutorialStepsLayout == null)
-            tutorialStepsLayout = Resources.Load<VisualTreeAsset>("Tutorial/TutorialStepsView");
+/*        if (tutorialStepsLayout == null)
+            tutorialStepsLayout = Resources.Load<VisualTreeAsset>("Tutorial/TutorialStepsView");*/
 
         if (tutorialStepsLayout == null)
         {

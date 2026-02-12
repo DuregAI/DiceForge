@@ -3,7 +3,9 @@ guid: 7b5931ced2ca425da3c6f1318445d255
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - battleController: {instanceID: 0}
+  - tutorialStepsLayout: {fileID: 9197481963319205126, guid: 7831757d80f446c49c26fe017441cd74, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

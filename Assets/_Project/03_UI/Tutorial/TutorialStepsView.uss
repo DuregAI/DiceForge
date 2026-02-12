@@ -7,7 +7,6 @@
     justify-content: flex-end;
     align-items: center;
     padding-bottom: var(--df-space-24);
-    pointer-events: none;
 }
 
 .tutorial-steps-highlight-ring {
@@ -31,28 +30,27 @@
     min-width: 380px;
     max-width: 520px;
     align-items: stretch;
-    pointer-events: auto;
     padding-top: var(--df-space-16);
     padding-bottom: var(--df-space-16);
 }
 
 .tutorial-steps-title {
     font-size: var(--df-font-size-m);
-    unity-font-style: bold;
-    unity-text-align: middle-left;
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
     margin-bottom: var(--df-space-8);
 }
 
 .tutorial-steps-text {
     min-height: 54px;
     white-space: normal;
-    unity-text-align: upper-left;
+    -unity-text-align: upper-left;
     margin-bottom: var(--df-space-12);
     color: var(--df-color-text-secondary);
 }
 
 .tutorial-steps-progress {
-    unity-text-align: middle-left;
+    -unity-text-align: middle-left;
     flex-grow: 1;
 }
 
