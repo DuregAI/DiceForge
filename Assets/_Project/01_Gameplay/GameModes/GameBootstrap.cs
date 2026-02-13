@@ -1,3 +1,4 @@
+using Diceforge.Audio;
 using Diceforge.Core;
 using Diceforge.Match;
 using Diceforge.View;
@@ -56,6 +57,7 @@ public class GameBootstrap : MonoBehaviour
         {
             Debug.Log("[GameBootstrap] BattleDebugController found; bootstrapping battle debug mode.");
             battleController.StartFromPreset(selectedPreset);
+            EnsureGameplayMusicStarted();
             return;
         }
 
@@ -78,6 +80,17 @@ public class GameBootstrap : MonoBehaviour
         }
 
         matchController.Initialize(matchConfig);
+
+        EnsureGameplayMusicStarted();
+    }
+
+    private void EnsureGameplayMusicStarted()
+    {
+        var audioManager = AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+
+        audioManager?.EnsureGameplayMusic();
     }
 
     private static string ResolveBagName(DiceBagDefinition primary)

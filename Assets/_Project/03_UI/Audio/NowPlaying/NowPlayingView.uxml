@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="NowPlayingView.uss" />
+    <ui:VisualElement name="NowPlayingRoot" class="nowplaying-root vote-neutral">
+        <ui:Label name="TrackNameLabel" text="Now playing: --" class="nowplaying-track" />
+        <ui:VisualElement class="nowplaying-buttons">
+            <ui:Button name="LikeButton" text="👍" class="vote-button" />
+            <ui:Button name="DislikeButton" text="👎" class="vote-button" />
+            <ui:Button name="ClearButton" text="✖" class="vote-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
