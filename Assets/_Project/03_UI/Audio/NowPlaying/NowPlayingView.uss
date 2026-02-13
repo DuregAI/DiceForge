@@ -1,0 +1,43 @@
+.nowplaying-root {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    min-width: 260px;
+    max-width: 320px;
+    padding: 10px;
+    background-color: rgba(18, 18, 18, 0.78);
+    border-radius: 8px;
+    align-items: stretch;
+}
+
+.nowplaying-track {
+    color: rgb(245, 245, 245);
+    font-size: 14px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+.nowplaying-buttons {
+    flex-direction: row;
+}
+
+.vote-button {
+    width: 42px;
+    height: 30px;
+    margin-right: 6px;
+}
+
+.vote-button:last-child {
+    margin-right: 0;
+}
+
+.nowplaying-root.vote-like #LikeButton,
+.nowplaying-root.vote-dislike #DislikeButton,
+.nowplaying-root.vote-neutral #ClearButton {
+    background-color: rgba(82, 160, 88, 0.9);
+    color: white;
+}
+
+.nowplaying-root.vote-dislike #DislikeButton {
+    background-color: rgba(196, 82, 82, 0.9);
+}
