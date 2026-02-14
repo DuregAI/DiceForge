@@ -12,14 +12,14 @@ namespace Diceforge.UI.MainMenu
 
         [Header("UI Click SFX")]
         [SerializeField] private AudioSource sfxSource;
-        [SerializeField] private AudioClip uiClickClip;
+        [SerializeField] private AudioClip defaultClickClip;
         [SerializeField] private string clickableClass = "df-interactive";
 
         private readonly HashSet<Button> boundButtons = new();
         private VisualElement currentRoot;
         private bool isRootCallbackRegistered;
         private bool warnedMissingSfxSource;
-        private bool warnedMissingUiClickClip;
+        private bool warnedMissingDefaultClickClip;
 
         private void Reset()
         {
@@ -59,15 +59,39 @@ namespace Diceforge.UI.MainMenu
                 RegisterRootGeometryCallback();
             }
 
-            var buttons = root.Query<Button>(className: clickableClass).ToList();
-            foreach (var btn in buttons)
+            var queriedButtons = root.Query<Button>(className: clickableClass).ToList();
+            if (queriedButtons.Count == 0)
             {
-                btn.clicked -= PlayClick;
-                btn.clicked += PlayClick;
-                boundButtons.Add(btn);
+                UnbindAllButtons();
+                return false;
             }
 
-            return buttons.Count > 0;
+            var activeButtons = new HashSet<Button>(queriedButtons);
+            var staleButtons = new List<Button>();
+            foreach (var boundButton in boundButtons)
+            {
+                if (boundButton == null || !activeButtons.Contains(boundButton))
+                    staleButtons.Add(boundButton);
+            }
+
+            foreach (var staleButton in staleButtons)
+            {
+                if (staleButton != null)
+                    staleButton.clicked -= PlayClick;
+
+                boundButtons.Remove(staleButton);
+            }
+
+            foreach (var button in queriedButtons)
+            {
+                if (button == null || boundButtons.Contains(button))
+                    continue;
+
+                button.clicked += PlayClick;
+                boundButtons.Add(button);
+            }
+
+            return true;
         }
 
         private void OnRootGeometryChanged(GeometryChangedEvent evt)
@@ -98,12 +122,12 @@ namespace Diceforge.UI.MainMenu
             if (boundButtons.Count == 0)
                 return;
 
-            foreach (var btn in boundButtons)
+            foreach (var button in boundButtons)
             {
-                if (btn == null)
+                if (button == null)
                     continue;
 
-                btn.clicked -= PlayClick;
+                button.clicked -= PlayClick;
             }
 
             boundButtons.Clear();
@@ -122,19 +146,19 @@ namespace Diceforge.UI.MainMenu
                 return;
             }
 
-            if (uiClickClip == null)
+            if (defaultClickClip == null)
             {
-                if (!warnedMissingUiClickClip)
+                if (!warnedMissingDefaultClickClip)
                 {
-                    Debug.LogWarning("[MenuAudioBinder] uiClickClip is null. UI click SFX cannot be played.", this);
-                    warnedMissingUiClickClip = true;
+                    Debug.LogWarning("[MenuAudioBinder] defaultClickClip is null. UI click SFX cannot be played.", this);
+                    warnedMissingDefaultClickClip = true;
                 }
 
                 return;
             }
 
             float volume = AudioManager.Instance != null ? AudioManager.Instance.SfxVolume : 1f;
-            sfxSource.PlayOneShot(uiClickClip, Mathf.Clamp01(volume));
+            sfxSource.PlayOneShot(defaultClickClip, Mathf.Clamp01(volume));
         }
     }
 }
