@@ -11,15 +11,12 @@ namespace Diceforge.UI.MainMenu
         [SerializeField] private UIDocument uiDocument;
 
         [Header("UI Click SFX")]
-        [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioClip defaultClickClip;
         [SerializeField] private string clickableClass = "df-interactive";
 
         private readonly HashSet<Button> boundButtons = new();
         private VisualElement currentRoot;
         private bool isRootCallbackRegistered;
-        private bool warnedMissingSfxSource;
-        private bool warnedMissingDefaultClickClip;
 
         private void Reset()
         {
@@ -135,30 +132,8 @@ namespace Diceforge.UI.MainMenu
 
         public void PlayClick()
         {
-            if (sfxSource == null)
-            {
-                if (!warnedMissingSfxSource)
-                {
-                    Debug.LogWarning("[MenuAudioBinder] sfxSource is null. UI click SFX cannot be played.", this);
-                    warnedMissingSfxSource = true;
-                }
-
-                return;
-            }
-
-            if (defaultClickClip == null)
-            {
-                if (!warnedMissingDefaultClickClip)
-                {
-                    Debug.LogWarning("[MenuAudioBinder] defaultClickClip is null. UI click SFX cannot be played.", this);
-                    warnedMissingDefaultClickClip = true;
-                }
-
-                return;
-            }
-
-            float volume = AudioManager.Instance != null ? AudioManager.Instance.SfxVolume : 1f;
-            sfxSource.PlayOneShot(defaultClickClip, Mathf.Clamp01(volume));
+            AudioManager audioManager = AudioManager.Instance ?? FindAnyObjectByType<AudioManager>();
+            audioManager?.PlayUiClick(defaultClickClip);
         }
     }
 }

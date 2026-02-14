@@ -10,6 +10,7 @@ namespace Diceforge.Audio
         [SerializeField] private MusicLibrary musicLibrary;
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private AudioClip defaultUiClickClip;
         [SerializeField] private bool dontDestroyOnLoad = true;
 
         private PlayerMusicPrefsStorage _storage;
@@ -18,6 +19,8 @@ namespace Diceforge.Audio
         private PlayerMusicPrefs _prefs;
         private string _currentTrackId;
         private bool _missingLibraryWarned;
+        private bool _missingSfxSourceWarned;
+        private bool _missingUiClickClipWarned;
         private readonly List<string> _trackHistory = new();
         private int _historyIndex = -1;
         private const int MaxHistorySize = 20;
@@ -194,6 +197,24 @@ namespace Diceforge.Audio
             OnVolumesChanged?.Invoke(_prefs.musicVolume, _prefs.sfxVolume);
         }
 
+        public void PlayUiClick(AudioClip clipOverride = null)
+        {
+            AudioClip clip = clipOverride != null ? clipOverride : defaultUiClickClip;
+            if (clip == null)
+            {
+                WarnMissingUiClickClipOnce();
+                return;
+            }
+
+            if (sfxSource == null)
+            {
+                WarnMissingSfxSourceOnce();
+                return;
+            }
+
+            sfxSource.PlayOneShot(clip, Mathf.Clamp01(SfxVolume));
+        }
+
         private IEnumerator PlaybackWatcher()
         {
             var wait = new WaitForSeconds(0.2f);
@@ -271,6 +292,24 @@ namespace Diceforge.Audio
 
             _missingLibraryWarned = true;
             Debug.LogWarning(message, this);
+        }
+
+        private void WarnMissingSfxSourceOnce()
+        {
+            if (_missingSfxSourceWarned)
+                return;
+
+            _missingSfxSourceWarned = true;
+            Debug.LogWarning("[AudioManager] sfxSource is null. UI click SFX cannot be played.", this);
+        }
+
+        private void WarnMissingUiClickClipOnce()
+        {
+            if (_missingUiClickClipWarned)
+                return;
+
+            _missingUiClickClipWarned = true;
+            Debug.LogWarning("[AudioManager] defaultUiClickClip is null and no override clip was provided.", this);
         }
 
         private void ApplyVolumes()
