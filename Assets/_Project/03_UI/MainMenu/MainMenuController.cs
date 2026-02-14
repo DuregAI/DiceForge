@@ -11,9 +11,6 @@ public class MainMenuController : MonoBehaviour
 {
     private const string VisibleClass = "is-visible";
     private const float TransitionSeconds = 0.2f;
-    private const string MusicVolumeKey = "audio.musicVolume";
-    private const string SfxVolumeKey = "audio.sfxVolume";
-    private const float DefaultVolume = 1f;
     private const string SettingsStateClass = "state-settings";
     private const string BackStateClass = "state-back";
 
@@ -45,6 +42,7 @@ public class MainMenuController : MonoBehaviour
     private Label tutorialReplayConfirmText;
     private Button tutorialReplayConfirmYesButton;
     private Button tutorialReplayConfirmCancelButton;
+    private AudioManager audioManager;
 
     private void Awake()
     {
@@ -133,11 +131,18 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        var audioManager = AudioManager.Instance != null
+        audioManager = AudioManager.Instance != null
             ? AudioManager.Instance
             : FindAnyObjectByType<AudioManager>();
 
+        RefreshAudioSlidersFromManager();
+
         audioManager?.EnsureMusicForContext(MusicContext.Menu);
+        if (audioManager != null)
+        {
+            audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
+            audioManager.OnVolumesChanged += HandleAudioVolumesChanged;
+        }
     }
 
     private void OnDestroy()
@@ -156,6 +161,15 @@ public class MainMenuController : MonoBehaviour
         {
             tutorialReplayConfirmCancelButton.clicked -= CloseTutorialReplayConfirmation;
         }
+
+        if (audioManager != null)
+            audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
+
+        if (musicSlider != null)
+            musicSlider.UnregisterValueChangedCallback(OnMusicSliderChanged);
+
+        if (sfxSlider != null)
+            sfxSlider.UnregisterValueChangedCallback(OnSfxSliderChanged);
     }
 
     public void ShowPanel(string panelName)
@@ -275,20 +289,60 @@ public class MainMenuController : MonoBehaviour
 
     private void InitializeAudioSliders()
     {
-        var musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, DefaultVolume);
-        var sfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, DefaultVolume);
-
         if (musicSlider != null)
         {
-            musicSlider.value = musicVolume;
-            musicSlider.RegisterValueChangedCallback(evt => PlayerPrefs.SetFloat(MusicVolumeKey, evt.newValue));
+            musicSlider.RegisterValueChangedCallback(OnMusicSliderChanged);
         }
 
         if (sfxSlider != null)
         {
-            sfxSlider.value = sfxVolume;
-            sfxSlider.RegisterValueChangedCallback(evt => PlayerPrefs.SetFloat(SfxVolumeKey, evt.newValue));
+            sfxSlider.RegisterValueChangedCallback(OnSfxSliderChanged);
         }
+
+        RefreshAudioSlidersFromManager();
+    }
+
+    private void OnMusicSliderChanged(ChangeEvent<float> evt)
+    {
+        audioManager ??= AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+
+        audioManager?.SetMusicVolume(evt.newValue);
+    }
+
+    private void OnSfxSliderChanged(ChangeEvent<float> evt)
+    {
+        audioManager ??= AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+
+        audioManager?.SetSfxVolume(evt.newValue);
+    }
+
+    private void HandleAudioVolumesChanged(float musicVolume, float sfxVolume)
+    {
+        if (musicSlider != null)
+            musicSlider.SetValueWithoutNotify(musicVolume);
+
+        if (sfxSlider != null)
+            sfxSlider.SetValueWithoutNotify(sfxVolume);
+    }
+
+    private void RefreshAudioSlidersFromManager()
+    {
+        audioManager ??= AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+
+        if (audioManager == null)
+            return;
+
+        if (musicSlider != null)
+            musicSlider.SetValueWithoutNotify(audioManager.MusicVolume);
+
+        if (sfxSlider != null)
+            sfxSlider.SetValueWithoutNotify(audioManager.SfxVolume);
     }
 
     private void CopyLogToClipboard()
