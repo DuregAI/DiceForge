@@ -9,6 +9,7 @@ namespace Diceforge.UI.Audio
         [SerializeField] private UIDocument uiDocument;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private bool startPanelOpen;
+        [SerializeField] private bool autoOpenOnTrackChange = true;
 
         private VisualElement _root;
         private VisualElement _panel;
@@ -130,6 +131,9 @@ namespace Diceforge.UI.Audio
 
         private void HandleTrackChanged(string trackId, string displayName)
         {
+            if (autoOpenOnTrackChange)
+                EnsurePanelOpen();
+
             if (_trackNameLabel != null)
                 _trackNameLabel.text = $"Now playing: {displayName}";
 
@@ -168,6 +172,9 @@ namespace Diceforge.UI.Audio
                     ? "Now playing: --"
                     : $"Now playing: {displayName}";
             }
+
+            if (autoOpenOnTrackChange && !string.IsNullOrWhiteSpace(currentTrackId))
+                EnsurePanelOpen();
 
             ApplyVoteState(audioManager.GetVote(currentTrackId));
             RefreshLikesCount();
@@ -215,6 +222,18 @@ namespace Diceforge.UI.Audio
 
             if (_panelToggleButton != null)
                 _panelToggleButton.text = _isPanelOpen ? "▶" : "◀";
+        }
+
+        private void EnsurePanelOpen()
+        {
+            if (_panel == null)
+                return;
+
+            if (_isPanelOpen || _panel.ClassListContains("is-open"))
+                return;
+
+            _isPanelOpen = true;
+            UpdatePanelState();
         }
     }
 }
