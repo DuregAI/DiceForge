@@ -27,7 +27,7 @@
     margin-right: 6px;
 }
 
-.vote-button:last-child {
+.vote-button:last-child { /* unsopported tag?? */
     margin-right: 0;
 }
 
