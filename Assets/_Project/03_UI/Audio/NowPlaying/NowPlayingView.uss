@@ -1,24 +1,66 @@
-.nowplaying-root {
+.nowplaying-panel {
     position: absolute;
     right: 12px;
-    bottom: 12px;
-    min-width: 260px;
+    top: 12px;
+    width: 280px;
     max-width: 320px;
     padding: 10px;
-    background-color: rgba(18, 18, 18, 0.78);
+    background-color: rgba(18, 18, 18, 0.82);
     border-radius: 8px;
-    align-items: stretch;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-color: rgba(255, 255, 255, 0.14);
+    border-right-color: rgba(255, 255, 255, 0.14);
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+    border-left-color: rgba(255, 255, 255, 0.14);
+    transition-property: translate;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.nowplaying-panel.is-open {
+    translate: 0 0;
+}
+
+.nowplaying-panel.is-closed {
+    translate: 248px 0;
+}
+
+.header-row,
+.controls-row,
+.vote-row,
+.stats-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.header-row,
+.controls-row,
+.vote-row {
+    margin-bottom: 8px;
 }
 
 .nowplaying-track {
     color: rgb(245, 245, 245);
     font-size: 14px;
     -unity-font-style: bold;
-    margin-bottom: 6px;
+    flex-grow: 1;
 }
 
-.nowplaying-buttons {
-    flex-direction: row;
+.panel-toggle-button {
+    width: 34px;
+    height: 30px;
+}
+
+.control-button {
+    width: 126px;
+    height: 30px;
+    margin-right: 8px;
+}
+.next-button {
+    margin-right: 0;
 }
 
 .vote-button {
@@ -27,17 +69,45 @@
     margin-right: 6px;
 }
 
-.vote-button:last-child { /* unsopported tag?? */
+.clear-button {
     margin-right: 0;
 }
 
-.nowplaying-root.vote-like #LikeButton,
-.nowplaying-root.vote-dislike #DislikeButton,
-.nowplaying-root.vote-neutral #ClearButton {
-    background-color: rgba(82, 160, 88, 0.9);
-    color: white;
+.likes-count-label {
+    color: rgb(225, 225, 225);
+    font-size: 12px;
 }
 
-.nowplaying-root.vote-dislike #DislikeButton {
+.nowplaying-panel.vote-like #LikeButton,
+.nowplaying-panel.vote-dislike #DislikeButton,
+.nowplaying-panel.vote-neutral #ClearButton {
+    color: white;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.nowplaying-panel.vote-like #LikeButton {
+    background-color: rgba(82, 160, 88, 0.9);
+    border-top-color: rgb(114, 214, 121);
+    border-right-color: rgb(114, 214, 121);
+    border-bottom-color: rgb(114, 214, 121);
+    border-left-color: rgb(114, 214, 121);
+}
+
+.nowplaying-panel.vote-dislike #DislikeButton {
     background-color: rgba(196, 82, 82, 0.9);
+    border-top-color: rgb(236, 110, 110);
+    border-right-color: rgb(236, 110, 110);
+    border-bottom-color: rgb(236, 110, 110);
+    border-left-color: rgb(236, 110, 110);
+}
+
+.nowplaying-panel.vote-neutral #ClearButton {
+    background-color: rgba(80, 80, 80, 0.9);
+    border-top-color: rgb(170, 170, 170);
+    border-right-color: rgb(170, 170, 170);
+    border-bottom-color: rgb(170, 170, 170);
+    border-left-color: rgb(170, 170, 170);
 }

@@ -17,94 +17,112 @@ MonoBehaviour:
     displayName: Baba Dou Dou Remix
     clip: {fileID: 8300000, guid: e6ff42fa9aa9acb45b099ec4f5a4d9e9, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags:
     - some tag
   - id: 2
     displayName: Baba Dou Dou Remix
     clip: {fileID: 8300000, guid: 391ebddc09ab2594583b77763d2571b7, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags:
     - some tag 2
   - id: 3
     displayName: Bla Bla Carnival
     clip: {fileID: 8300000, guid: e1a95c77862af5d4095f2dc02788e787, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []
   - id: 4
     displayName: Bla Bla Carnival Remix
     clip: {fileID: 8300000, guid: fc4399d14807c284f9c9f5dedfe46137, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags: []
   - id: 5
     displayName: Bla Bla Rocket
     clip: {fileID: 8300000, guid: ef3fa979356f15441af67dd2afe71018, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags: []
   - id: 6
     displayName: Bla Bla Rocket Remix
     clip: {fileID: 8300000, guid: 792089e5937e8e044ad52d1003cdd8c4, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []
   - id: 7
     displayName: Blibba Blop Boom
     clip: {fileID: 8300000, guid: da6d0bd5d6e5c62408a5d8e2e09c4500, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags: []
   - id: 8
     displayName: Bla Bla Rocket Remix
     clip: {fileID: 8300000, guid: 376333e8a6a49fd4cb7bb4f4ca8305cd, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags: []
   - id: 9
     displayName: c_e_d_brain_tease
     clip: {fileID: 8300000, guid: b98318c08190f8e4bb5d3329644b30b8, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []
   - id: 10
     displayName: c_e_d_brain_teaseRemix
     clip: {fileID: 8300000, guid: 3d450d9da86554b4f82b10b2f22e2f1a, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags: []
   - id: 11
     displayName: "\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5"
     clip: {fileID: 8300000, guid: 59ae7e5ec37ea4b419af83670bbf3b06, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags: []
   - id: 12
     displayName: "\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5 Remix"
     clip: {fileID: 8300000, guid: 5f3f1c4b1a7234e4997a41640ddb164b, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []
   - id: 13
     displayName: "\u0416\u0451\u043B\u0442\u0430\u044F \u041A\u043D\u043E\u043F\u043A\u0430"
     clip: {fileID: 8300000, guid: fe79b878c93d6f54ba094eaeb54db979, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags: []
   - id: 14
     displayName: "\u0416\u0451\u043B\u0442\u0430\u044F \u041A\u043D\u043E\u043F\u043A\u0430
       Remix"
     clip: {fileID: 8300000, guid: c9d1bccc1d65ee641959bce259488cb1, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags: []
   - id: 15
     displayName: "trk_\u0436\u0451\u043B\u0442\u044B\u0439_\u0441\u0432\u0435\u0442"
     clip: {fileID: 8300000, guid: be09d59027340024e8de11301318c704, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []
   - id: 16
     displayName: "\u0416\u0451\u043B\u0442\u044B\u0439_\u0441\u0432\u0435\u0442 Remix"
     clip: {fileID: 8300000, guid: 0d834833e99aeae49bd6d54e7a6e90f0, type: 3}
     enabled: 1
+    allowedContexts: 1
     tags: []
   - id: 17
     displayName: "\u041A\u0440\u0438\u0432\u043E \u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435
       \u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C"
     clip: {fileID: 8300000, guid: b166234c3a61138468208940f4b98c6c, type: 3}
     enabled: 1
+    allowedContexts: 2
     tags: []
   - id: 18
     displayName: "\u041A\u0440\u0438\u0432\u043E \u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435
       \u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C Remix"
     clip: {fileID: 8300000, guid: ec76199d1a8fa3f47b13647ed58036c0, type: 3}
     enabled: 1
+    allowedContexts: 4
     tags: []

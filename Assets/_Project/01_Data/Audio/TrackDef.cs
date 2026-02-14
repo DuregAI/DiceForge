@@ -17,6 +17,9 @@ namespace Diceforge.Audio
         [Tooltip("Can be disabled without breaking saved votes")]
         public bool enabled = true;
 
+        [Tooltip("Music contexts where this track is allowed. None means all contexts for backward compatibility.")]
+        public MusicContext allowedContexts = MusicContext.All;
+
         public string[] tags;
     }
 }

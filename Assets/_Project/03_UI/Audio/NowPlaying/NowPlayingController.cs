@@ -8,12 +8,19 @@ namespace Diceforge.UI.Audio
     {
         [SerializeField] private UIDocument uiDocument;
         [SerializeField] private AudioManager audioManager;
+        [SerializeField] private bool startPanelOpen;
 
         private VisualElement _root;
+        private VisualElement _panel;
         private Label _trackNameLabel;
+        private Label _likesCountLabel;
+        private Button _panelToggleButton;
+        private Button _prevButton;
+        private Button _nextButton;
         private Button _likeButton;
         private Button _dislikeButton;
         private Button _clearButton;
+        private bool _isPanelOpen;
 
         private void OnEnable()
         {
@@ -28,9 +35,24 @@ namespace Diceforge.UI.Audio
                 return;
 
             _trackNameLabel = _root.Q<Label>("TrackNameLabel");
+            _panel = _root.Q<VisualElement>("NowPlayingPanel");
+            _likesCountLabel = _root.Q<Label>("LikesCountLabel");
+            _panelToggleButton = _root.Q<Button>("PanelToggleButton");
+            _prevButton = _root.Q<Button>("PrevButton");
+            _nextButton = _root.Q<Button>("NextButton");
             _likeButton = _root.Q<Button>("LikeButton");
             _dislikeButton = _root.Q<Button>("DislikeButton");
             _clearButton = _root.Q<Button>("ClearButton");
+
+            _isPanelOpen = startPanelOpen;
+            UpdatePanelState();
+
+            if (_panelToggleButton != null)
+                _panelToggleButton.clicked += HandleTogglePanelClicked;
+            if (_prevButton != null)
+                _prevButton.clicked += HandlePrevClicked;
+            if (_nextButton != null)
+                _nextButton.clicked += HandleNextClicked;
 
             if (_likeButton != null)
                 _likeButton.clicked += HandleLikeClicked;
@@ -41,12 +63,19 @@ namespace Diceforge.UI.Audio
 
             audioManager.OnTrackChanged += HandleTrackChanged;
             audioManager.OnVoteChanged += HandleVoteChanged;
+            audioManager.OnStatsChanged += HandleStatsChanged;
 
             RefreshFromCurrentState();
         }
 
         private void OnDisable()
         {
+            if (_panelToggleButton != null)
+                _panelToggleButton.clicked -= HandleTogglePanelClicked;
+            if (_prevButton != null)
+                _prevButton.clicked -= HandlePrevClicked;
+            if (_nextButton != null)
+                _nextButton.clicked -= HandleNextClicked;
             if (_likeButton != null)
                 _likeButton.clicked -= HandleLikeClicked;
             if (_dislikeButton != null)
@@ -58,7 +87,24 @@ namespace Diceforge.UI.Audio
             {
                 audioManager.OnTrackChanged -= HandleTrackChanged;
                 audioManager.OnVoteChanged -= HandleVoteChanged;
+                audioManager.OnStatsChanged -= HandleStatsChanged;
             }
+        }
+
+        private void HandleTogglePanelClicked()
+        {
+            _isPanelOpen = !_isPanelOpen;
+            UpdatePanelState();
+        }
+
+        private void HandlePrevClicked()
+        {
+            audioManager?.TryPlayPrev();
+        }
+
+        private void HandleNextClicked()
+        {
+            audioManager?.TryPlayNext();
         }
 
         private void HandleLikeClicked()
@@ -89,6 +135,7 @@ namespace Diceforge.UI.Audio
 
             TrackVote vote = audioManager != null ? audioManager.GetVote(trackId) : TrackVote.Neutral;
             ApplyVoteState(vote);
+            RefreshLikesCount();
         }
 
         private void HandleVoteChanged(string trackId, TrackVote vote)
@@ -98,6 +145,13 @@ namespace Diceforge.UI.Audio
 
             if (trackId == audioManager.CurrentTrackId)
                 ApplyVoteState(vote);
+
+            RefreshLikesCount();
+        }
+
+        private void HandleStatsChanged()
+        {
+            RefreshLikesCount();
         }
 
         private void RefreshFromCurrentState()
@@ -116,29 +170,51 @@ namespace Diceforge.UI.Audio
             }
 
             ApplyVoteState(audioManager.GetVote(currentTrackId));
+            RefreshLikesCount();
         }
 
         private void ApplyVoteState(TrackVote vote)
         {
-            if (_root == null)
+            if (_panel == null)
                 return;
 
-            _root.RemoveFromClassList("vote-like");
-            _root.RemoveFromClassList("vote-dislike");
-            _root.RemoveFromClassList("vote-neutral");
+            _panel.RemoveFromClassList("vote-like");
+            _panel.RemoveFromClassList("vote-dislike");
+            _panel.RemoveFromClassList("vote-neutral");
 
             switch (vote)
             {
                 case TrackVote.Like:
-                    _root.AddToClassList("vote-like");
+                    _panel.AddToClassList("vote-like");
                     break;
                 case TrackVote.Dislike:
-                    _root.AddToClassList("vote-dislike");
+                    _panel.AddToClassList("vote-dislike");
                     break;
                 default:
-                    _root.AddToClassList("vote-neutral");
+                    _panel.AddToClassList("vote-neutral");
                     break;
             }
+        }
+
+        private void RefreshLikesCount()
+        {
+            if (_likesCountLabel == null)
+                return;
+
+            int likesCount = audioManager != null ? audioManager.GetTotalLikedTracksCount() : 0;
+            _likesCountLabel.text = $"Likes: {likesCount}";
+        }
+
+        private void UpdatePanelState()
+        {
+            if (_panel == null)
+                return;
+
+            _panel.EnableInClassList("is-open", _isPanelOpen);
+            _panel.EnableInClassList("is-closed", !_isPanelOpen);
+
+            if (_panelToggleButton != null)
+                _panelToggleButton.text = _isPanelOpen ? "▶" : "◀";
         }
     }
 }
