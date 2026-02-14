@@ -32,6 +32,8 @@ namespace Diceforge.Audio
 
         public string CurrentTrackId => _currentTrackId;
         public MusicContext ActiveContext => _activeContext;
+        public float MusicVolume => _prefs != null ? Mathf.Clamp01(_prefs.musicVolume) : 1f;
+        public float SfxVolume => _prefs != null ? Mathf.Clamp01(_prefs.sfxVolume) : 1f;
 
         public string CurrentTrackDisplayName => musicLibrary != null
             ? musicLibrary.GetDisplayName(_currentTrackId)
