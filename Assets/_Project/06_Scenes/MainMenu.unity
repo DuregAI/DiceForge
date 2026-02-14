@@ -567,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.Audio.NowPlayingController
   uiDocument: {fileID: 485800849}
   audioManager: {fileID: 148167646}
+  startPanelOpen: 1
 --- !u!114 &485800849
 MonoBehaviour:
   m_ObjectHideFlags: 0

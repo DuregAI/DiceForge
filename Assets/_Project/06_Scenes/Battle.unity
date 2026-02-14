@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.Audio.NowPlayingController
   uiDocument: {fileID: 72724915}
   audioManager: {fileID: 0}
+  startPanelOpen: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
