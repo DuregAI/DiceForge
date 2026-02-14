@@ -1,21 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <Style src="NowPlayingView.uss" />
-    <ui:VisualElement name="NowPlayingPanel" class="nowplaying-panel is-closed vote-neutral">
+    <Style src="project://database/Assets/_Project/03_UI/Audio/NowPlaying/NowPlayingView.uss?fileID=7433441132597879392&amp;guid=d444f4b622dfa9c4d91b3c1faec5ba88&amp;type=3#NowPlayingView"/>
+    <ui:VisualElement name="NowPlayingPanel" class="nowplaying-panel is-closed vote-neutral" style="width: 320px;">
         <ui:VisualElement class="header-row">
-            <ui:Label name="TrackNameLabel" text="Now playing: --" class="nowplaying-track" />
-            <ui:Button name="PanelToggleButton" text="◀" class="panel-toggle-button" />
+            <ui:Button name="PanelToggleButton" text="◀" class="panel-toggle-button"/>
+            <ui:Label name="TrackNameLabel" text="Now playing: --" class="nowplaying-track"/>
         </ui:VisualElement>
         <ui:VisualElement class="controls-row">
-            <ui:Button name="PrevButton" text="Prev" class="control-button" />
-            <ui:Button name="NextButton" text="Next" class="control-button next-button" />
+            <ui:Button name="PrevButton" text="Prev" class="control-button"/>
+            <ui:Button name="NextButton" text="Next" class="control-button next-button"/>
         </ui:VisualElement>
         <ui:VisualElement class="vote-row">
-            <ui:Button name="LikeButton" text="👍" class="vote-button" />
-            <ui:Button name="DislikeButton" text="👎" class="vote-button" />
-            <ui:Button name="ClearButton" text="✖" class="vote-button clear-button" />
+            <ui:Button name="LikeButton" text="👍" class="vote-button"/>
+            <ui:Button name="DislikeButton" text="👎" class="vote-button"/>
+            <ui:Button name="ClearButton" text="✖" class="vote-button clear-button"/>
         </ui:VisualElement>
         <ui:VisualElement class="stats-row">
-            <ui:Label name="LikesCountLabel" text="Likes: 0" class="likes-count-label" />
+            <ui:Label name="LikesCountLabel" text="Likes: 0" class="likes-count-label"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
