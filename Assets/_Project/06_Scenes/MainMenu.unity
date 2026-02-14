@@ -363,6 +363,7 @@ MonoBehaviour:
   musicLibrary: {fileID: 11400000, guid: a4527db9b7233e0478ed9b16090ec75f, type: 2}
   musicSource: {fileID: 148167642}
   sfxSource: {fileID: 148167645}
+  defaultUiClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
   dontDestroyOnLoad: 1
 --- !u!114 &148167647
 MonoBehaviour:
@@ -377,7 +378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.MainMenu.MenuAudioBinder
   uiDocument: {fileID: 1000000002}
-  sfxSource: {fileID: 148167645}
   defaultClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
   clickableClass: df-interactive
 --- !u!1 &345960766
