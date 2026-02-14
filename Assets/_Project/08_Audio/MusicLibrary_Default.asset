@@ -14,343 +14,348 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.Audio.MusicLibrary
   tracks:
   - id: trk_bla_bla_carnival
-    displayName: "Bla Bla Carnival"
+    displayName: Bla Bla Carnival
     clip: {fileID: 8300000, guid: e1a95c77862af5d4095f2dc02788e787, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_bla_bla_carnival_remix
-    displayName: "Bla Bla Carnival (Remix)"
+    displayName: Bla Bla Carnival (Remix)
     clip: {fileID: 8300000, guid: fc4399d14807c284f9c9f5dedfe46137, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_bla_bla_rocket
-    displayName: "Bla Bla Rocket"
+    displayName: Bla Bla Rocket
     clip: {fileID: 8300000, guid: ef3fa979356f15441af67dd2afe71018, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_bla_bla_rocket_remix
-    displayName: "Bla Bla Rocket (Remix)"
+    displayName: Bla Bla Rocket (Remix)
     clip: {fileID: 8300000, guid: 792089e5937e8e044ad52d1003cdd8c4, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_blibba_blop_boom
-    displayName: "Blibba Blop Boom"
+    displayName: Blibba Blop Boom
     clip: {fileID: 8300000, guid: da6d0bd5d6e5c62408a5d8e2e09c4500, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_blibba_blop_boom_remix
-    displayName: "Blibba Blop Boom (Remix)"
+    displayName: Blibba Blop Boom (Remix)
     clip: {fileID: 8300000, guid: 376333e8a6a49fd4cb7bb4f4ca8305cd, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_c_e_d_brain_tease
-    displayName: "C–E–D Brain Tease"
+    displayName: "C\u2013E\u2013D Brain Tease"
     clip: {fileID: 8300000, guid: b98318c08190f8e4bb5d3329644b30b8, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_c_e_d_brain_tease_remix
-    displayName: "C–E–D Brain Tease (Remix)"
+    displayName: "C\u2013E\u2013D Brain Tease (Remix)"
     clip: {fileID: 8300000, guid: 3d450d9da86554b4f82b10b2f22e2f1a, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_carnival_of_wrong_mouths
-    displayName: "Carnival Of Wrong Mouths"
+    displayName: Carnival Of Wrong Mouths
     clip: {fileID: 8300000, guid: e0638cb22c7dc8544b059275dd891d12, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_carnival_of_wrong_mouths_remix
-    displayName: "Carnival Of Wrong Mouths (Remix)"
+    displayName: Carnival Of Wrong Mouths (Remix)
     clip: {fileID: 8300000, guid: 82b7b81e433e369409e8b29165fe5fe9, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_clockwork_cauldron
-    displayName: "Clockwork Cauldron"
+    displayName: Clockwork Cauldron
     clip: {fileID: 8300000, guid: 545f663d39e57124e8dc323164d6b82a, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_curious_forest_clicks
-    displayName: "Curious Forest Clicks"
+    displayName: Curious Forest Clicks
     clip: {fileID: 8300000, guid: bf5a2023deaa92d4fbf1efdc69a605ea, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_curious_forest_clicks_remix
-    displayName: "Curious Forest Clicks (Remix)"
+    displayName: Curious Forest Clicks (Remix)
     clip: {fileID: 8300000, guid: b3a7cda58305e3141a224e36c5c3d29d, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_deep_sector_drift
-    displayName: "Deep Sector Drift"
+    displayName: Deep Sector Drift
     clip: {fileID: 8300000, guid: 5be2e3a34b2a46345b8e06d6e4f4f6f1, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_deep_sector_drift_remix
-    displayName: "Deep Sector Drift (Remix)"
+    displayName: Deep Sector Drift (Remix)
     clip: {fileID: 8300000, guid: d90e9ec657e626749807d79013d7ea49, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_dry_moon_jokes
-    displayName: "Dry Moon Jokes"
+    displayName: Dry Moon Jokes
     clip: {fileID: 8300000, guid: 3e979a251939d1741bced80c298089e8, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_dry_moon_jokes_remix
-    displayName: "Dry Moon Jokes (Remix)"
+    displayName: Dry Moon Jokes (Remix)
     clip: {fileID: 8300000, guid: 0f8be1950293efe4785d4b0f7b3ea644, type: 3}
     enabled: 1
-    allowedContexts: 7
+    allowedContexts: -1
     tags: []
   - id: trk_glibba_glubba_gobfunk
-    displayName: "Glibba Glubba Gobfunk"
+    displayName: Glibba Glubba Gobfunk
     clip: {fileID: 8300000, guid: 8bb3b8b4d5233064b9f1cd5f45a69d51, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_glibba_glubba_gobfunk_remix
-    displayName: "Glibba Glubba Gobfunk (Remix)"
+    displayName: Glibba Glubba Gobfunk (Remix)
     clip: {fileID: 8300000, guid: 0ef0d133737fc1d4582f091cd65911bb, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobbel_snork_tinka_talk
-    displayName: "Gobbel Snork Tinka Talk"
+    displayName: Gobbel Snork Tinka Talk
     clip: {fileID: 8300000, guid: 0c6387d3c55f27e49966aa0230ef4ccc, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobbel_snork_tinka_talk_remix
-    displayName: "Gobbel Snork Tinka Talk (Remix)"
+    displayName: Gobbel Snork Tinka Talk (Remix)
     clip: {fileID: 8300000, guid: 640d0cad672b1b1439e983cd744f78e6, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobblebip_bop
-    displayName: "Gobblebip Bop"
+    displayName: Gobblebip Bop
     clip: {fileID: 8300000, guid: 0893b263ea254ca488cacabd47915699, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobblebip_bop_remix
-    displayName: "Gobblebip Bop (Remix)"
+    displayName: Gobblebip Bop (Remix)
     clip: {fileID: 8300000, guid: 2331672229a43d145bbb11a9248f0b41, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobelin_groovin
-    displayName: "Gobelin Groovin"
+    displayName: Gobelin Groovin
     clip: {fileID: 8300000, guid: 8e3f024d2456ba149959401a4c4ddad7, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_gobelin_groovin_remix
-    displayName: "Gobelin Groovin (Remix)"
+    displayName: Gobelin Groovin (Remix)
     clip: {fileID: 8300000, guid: 1500c2614bb38514cbe071d219eb8c46, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_goblin_happy_hour
-    displayName: "Goblin Happy Hour"
+    displayName: Goblin Happy Hour
     clip: {fileID: 8300000, guid: 192d68055a3f1ad4b8f2d0b0a7d3362f, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_goblin_happy_hour_remix2
-    displayName: "Goblin Happy Hour (Remix 2)"
+    displayName: Goblin Happy Hour (Remix 2)
     clip: {fileID: 8300000, guid: 723f65e2199688249a460df02b7705cd, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_goblinos_trasteando
-    displayName: "Goblinos Trasteando"
+    displayName: Goblinos Trasteando
     clip: {fileID: 8300000, guid: 80259c517fc20d84b95dcfb8ab8a41df, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_goblinos_trasteando_remix
-    displayName: "Goblinos Trasteando (Remix)"
+    displayName: Goblinos Trasteando (Remix)
     clip: {fileID: 8300000, guid: ea0e3b74bba289e41a85ed249809b04a, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_grotesque_gumbo_loop
-    displayName: "Grotesque Gumbo Loop"
+    displayName: Grotesque Gumbo Loop
     clip: {fileID: 8300000, guid: 70a8d488501ee6c4ea953139eec20826, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_grummi_gnogi_swingi
-    displayName: "Grummi Gnogi Swingi"
+    displayName: Grummi Gnogi Swingi
     clip: {fileID: 8300000, guid: 6985286e9b4d9814fb67c496496060b0, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_grummi_gnogi_swingi_remix
-    displayName: "Grummi Gnogi Swingi (Remix)"
+    displayName: Grummi Gnogi Swingi (Remix)
     clip: {fileID: 8300000, guid: 9d72cec6604d0c2458b49187e0c7f0ce, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_one_word_at_a_time
-    displayName: "One Word At A Time"
+    displayName: One Word At A Time
     clip: {fileID: 8300000, guid: 041a1698c9ecf76468850124265ab4e4, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_one_word_at_a_time_remix
-    displayName: "One Word At A Time (Remix)"
+    displayName: One Word At A Time (Remix)
     clip: {fileID: 8300000, guid: 27cab67484f6cff408e3dbc87e444f7d, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_puzzle_garden_shuffle
-    displayName: "Puzzle Garden Shuffle"
+    displayName: Puzzle Garden Shuffle
     clip: {fileID: 8300000, guid: f92c33b5d56e49b4287c0cdc17a3e71d, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_puzzle_garden_shuffle_remix
-    displayName: "Puzzle Garden Shuffle (Remix)"
+    displayName: Puzzle Garden Shuffle (Remix)
     clip: {fileID: 8300000, guid: 373b2143cf67fea4695ba1194f0e4fb0, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_rust_on_the_stars
-    displayName: "Rust On The Stars"
+    displayName: Rust On The Stars
     clip: {fileID: 8300000, guid: 25f32981d0dbd8d40bb4edf2115730c0, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_rust_on_the_stars_remix
-    displayName: "Rust On The Stars (Remix)"
+    displayName: Rust On The Stars (Remix)
     clip: {fileID: 8300000, guid: 73bf8d05216f687438fc10ca5fd1436f, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_skybound_tales
-    displayName: "Skybound Tales"
+    displayName: Skybound Tales
     clip: {fileID: 8300000, guid: 903ab191bd825a046a1fa3c1ad559e90, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_soft_circuits_warm_curiosity
-    displayName: "Soft Circuits Warm Curiosity"
+    displayName: Soft Circuits Warm Curiosity
     clip: {fileID: 8300000, guid: 2eb4120a6ab17c94d99604331fab69d1, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_soft_circuits_warm_curiosity_remix
-    displayName: "Soft Circuits Warm Curiosity (Remix)"
+    displayName: Soft Circuits Warm Curiosity (Remix)
     clip: {fileID: 8300000, guid: 5d8ce2d92c897004d92aaf605079a848, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_soft_puzzle_loop
-    displayName: "Soft Puzzle Loop"
+    displayName: Soft Puzzle Loop
     clip: {fileID: 8300000, guid: 1c62f716f4597644fa43ed0657a78d68, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_soft_puzzle_loop_remix
-    displayName: "Soft Puzzle Loop (Remix)"
+    displayName: Soft Puzzle Loop (Remix)
     clip: {fileID: 8300000, guid: e288460e986306c438fd344001d111ef, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_wombat_workshop_loop
-    displayName: "Wombat Workshop Loop"
+    displayName: Wombat Workshop Loop
     clip: {fileID: 8300000, guid: b68a56b31ae37ae469e25029dd99f2c8, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_wombat_workshop_loop_remix
-    displayName: "Wombat Workshop Loop (Remix)"
+    displayName: Wombat Workshop Loop (Remix)
     clip: {fileID: 8300000, guid: e24cf65295f7d4e468a82d7893953b98, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_жёлтая_кнопка
-    displayName: "жёлтая кнопка"
+  - id: "trk_\u0436\u0451\u043B\u0442\u0430\u044F_\u043A\u043D\u043E\u043F\u043A\u0430"
+    displayName: "\u0436\u0451\u043B\u0442\u0430\u044F \u043A\u043D\u043E\u043F\u043A\u0430"
     clip: {fileID: 8300000, guid: fe79b878c93d6f54ba094eaeb54db979, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_жёлтая_кнопка_remix
-    displayName: "жёлтая кнопка (Remix)"
+  - id: "trk_\u0436\u0451\u043B\u0442\u0430\u044F_\u043A\u043D\u043E\u043F\u043A\u0430_remix"
+    displayName: "\u0436\u0451\u043B\u0442\u0430\u044F \u043A\u043D\u043E\u043F\u043A\u0430
+      (Remix)"
     clip: {fileID: 8300000, guid: c9d1bccc1d65ee641959bce259488cb1, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_жёлтый_свет
-    displayName: "жёлтый свет"
+  - id: "trk_\u0436\u0451\u043B\u0442\u044B\u0439_\u0441\u0432\u0435\u0442"
+    displayName: "\u0436\u0451\u043B\u0442\u044B\u0439 \u0441\u0432\u0435\u0442"
     clip: {fileID: 8300000, guid: be09d59027340024e8de11301318c704, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_жёлтый_свет_remix
-    displayName: "жёлтый свет (Remix)"
+  - id: "trk_\u0436\u0451\u043B\u0442\u044B\u0439_\u0441\u0432\u0435\u0442_remix"
+    displayName: "\u0436\u0451\u043B\u0442\u044B\u0439 \u0441\u0432\u0435\u0442 (Remix)"
     clip: {fileID: 8300000, guid: 0d834833e99aeae49bd6d54e7a6e90f0, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_криво_гоблинское_бормотынь
-    displayName: "криво гоблинское бормотынь"
+  - id: "trk_\u043A\u0440\u0438\u0432\u043E_\u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435_\u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C"
+    displayName: "\u043A\u0440\u0438\u0432\u043E \u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435
+      \u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C"
     clip: {fileID: 8300000, guid: b166234c3a61138468208940f4b98c6c, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_криво_гоблинское_бормотынь_remix
-    displayName: "криво гоблинское бормотынь (Remix)"
+  - id: "trk_\u043A\u0440\u0438\u0432\u043E_\u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435_\u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C_remix"
+    displayName: "\u043A\u0440\u0438\u0432\u043E \u0433\u043E\u0431\u043B\u0438\u043D\u0441\u043A\u043E\u0435
+      \u0431\u043E\u0440\u043C\u043E\u0442\u044B\u043D\u044C (Remix)"
     clip: {fileID: 8300000, guid: ec76199d1a8fa3f47b13647ed58036c0, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_песня_пыхтелка_шахтёров
-    displayName: "песня пыхтелка шахтёров"
+  - id: "trk_\u043F\u0435\u0441\u043D\u044F_\u043F\u044B\u0445\u0442\u0435\u043B\u043A\u0430_\u0448\u0430\u0445\u0442\u0451\u0440\u043E\u0432"
+    displayName: "\u043F\u0435\u0441\u043D\u044F \u043F\u044B\u0445\u0442\u0435\u043B\u043A\u0430
+      \u0448\u0430\u0445\u0442\u0451\u0440\u043E\u0432"
     clip: {fileID: 8300000, guid: f0385641b61a9ea4383221eabf21906c, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_песня_пыхтелка_шахтёров_remix
-    displayName: "песня пыхтелка шахтёров (Remix)"
+  - id: "trk_\u043F\u0435\u0441\u043D\u044F_\u043F\u044B\u0445\u0442\u0435\u043B\u043A\u0430_\u0448\u0430\u0445\u0442\u0451\u0440\u043E\u0432_remix"
+    displayName: "\u043F\u0435\u0441\u043D\u044F \u043F\u044B\u0445\u0442\u0435\u043B\u043A\u0430
+      \u0448\u0430\u0445\u0442\u0451\u0440\u043E\u0432 (Remix)"
     clip: {fileID: 8300000, guid: dc0792e54675b0347a27a80ef415cc72, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_꾸물꾸물 쿵짝쿵
-    displayName: "꾸물꾸물 쿵짝쿵"
+  - id: "trk_\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5"
+    displayName: "\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5"
     clip: {fileID: 8300000, guid: 59ae7e5ec37ea4b419af83670bbf3b06, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
-  - id: trk_꾸물꾸물 쿵짝쿵_remix
-    displayName: "꾸물꾸물 쿵짝쿵 (Remix)"
+  - id: "trk_\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5_remix"
+    displayName: "\uAFB8\uBB3C\uAFB8\uBB3C \uCFF5\uC9DD\uCFF5 (Remix)"
     clip: {fileID: 8300000, guid: 5f3f1c4b1a7234e4997a41640ddb164b, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_baba_dou_dou
-    displayName: "Baba Dou Dou"
+    displayName: Baba Dou Dou
     clip: {fileID: 8300000, guid: e6ff42fa9aa9acb45b099ec4f5a4d9e9, type: 3}
     enabled: 1
     allowedContexts: 7
     tags: []
   - id: trk_baba_dou_dou_remix
-    displayName: "Baba Dou Dou (Remix)"
+    displayName: Baba Dou Dou (Remix)
     clip: {fileID: 8300000, guid: 391ebddc09ab2594583b77763d2571b7, type: 3}
     enabled: 1
     allowedContexts: 7

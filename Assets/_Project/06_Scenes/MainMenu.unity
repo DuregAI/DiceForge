@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 148167643}
   - component: {fileID: 148167642}
   - component: {fileID: 148167645}
-  - component: {fileID: 148167644}
+  - component: {fileID: 148167647}
   - component: {fileID: 148167646}
   m_Layer: 0
   m_Name: AudioMenu
@@ -251,25 +251,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &148167644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148167641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e354a7088f4d1e4bb60b79ac8aecce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.MainMenu.MenuAudioBinder
-  musicSource: {fileID: 148167642}
-  uiDocument: {fileID: 1000000002}
-  musicSliderName: sliderMusicVolume
-  sfxSliderName: sliderSfxVolume
-  sfxSource: {fileID: 148167645}
-  uiClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
-  clickableClass: df-interactive
 --- !u!82 &148167645
 AudioSource:
   m_ObjectHideFlags: 0
@@ -383,6 +364,22 @@ MonoBehaviour:
   musicSource: {fileID: 148167642}
   sfxSource: {fileID: 148167645}
   dontDestroyOnLoad: 1
+--- !u!114 &148167647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148167641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e354a7088f4d1e4bb60b79ac8aecce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.MainMenu.MenuAudioBinder
+  uiDocument: {fileID: 485800849}
+  sfxSource: {fileID: 148167645}
+  uiClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
+  clickableClass: df-interactive
 --- !u!1 &345960766
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00dea655c1290a4e97f775105353897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.Audio.NowPlayingController
-  uiDocument: {fileID: 485800849}
+  uiDocument: {fileID: 1000000002}
   audioManager: {fileID: 148167646}
   startPanelOpen: 1
   autoOpenOnTrackChange: 1
