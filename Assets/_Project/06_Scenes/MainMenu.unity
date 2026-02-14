@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e354a7088f4d1e4bb60b79ac8aecce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.UI.MainMenu.MenuAudioBinder
-  uiDocument: {fileID: 485800849}
+  uiDocument: {fileID: 1000000002}
   sfxSource: {fileID: 148167645}
   defaultClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
   clickableClass: df-interactive
