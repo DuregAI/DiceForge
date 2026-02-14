@@ -57,6 +57,19 @@ namespace Diceforge.Audio
             votes.Remove(trackId);
         }
 
+        public int CountVotes(TrackVote vote)
+        {
+            EnsureMap();
+            int count = 0;
+            foreach (var pair in votes)
+            {
+                if (pair.Value == vote)
+                    count++;
+            }
+
+            return count;
+        }
+
         public void OnBeforeSerialize()
         {
             EnsureMap();

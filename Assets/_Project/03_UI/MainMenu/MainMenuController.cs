@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Audio;
 using Diceforge.Dialogue;
 using Diceforge.Progression;
 using UnityEngine;
@@ -128,6 +129,15 @@ public class MainMenuController : MonoBehaviour
 
         chestShopController = GetComponent<ChestShopController>() ?? gameObject.AddComponent<ChestShopController>();
         chestShopController.Initialize(root);
+    }
+
+    private void Start()
+    {
+        var audioManager = AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+
+        audioManager?.EnsureMusicForContext(MusicContext.Menu);
     }
 
     private void OnDestroy()

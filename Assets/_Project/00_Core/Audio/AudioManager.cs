@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Diceforge.Audio
@@ -17,14 +18,20 @@ namespace Diceforge.Audio
         private PlayerMusicPrefs _prefs;
         private string _currentTrackId;
         private bool _missingLibraryWarned;
+        private readonly List<string> _trackHistory = new();
+        private int _historyIndex = -1;
+        private const int MaxHistorySize = 20;
+        private MusicContext _activeContext = MusicContext.Gameplay;
 
         public static AudioManager Instance { get; private set; }
 
         public event Action<string, string> OnTrackChanged;
         public event Action<string, TrackVote> OnVoteChanged;
         public event Action<float, float> OnVolumesChanged;
+        public event Action OnStatsChanged;
 
         public string CurrentTrackId => _currentTrackId;
+        public MusicContext ActiveContext => _activeContext;
 
         public string CurrentTrackDisplayName => musicLibrary != null
             ? musicLibrary.GetDisplayName(_currentTrackId)
@@ -76,10 +83,22 @@ namespace Diceforge.Audio
 
         public void EnsureGameplayMusic()
         {
-            if (musicSource != null && musicSource.isPlaying && musicSource.clip != null)
-                return;
+            EnsureMusicForContext(MusicContext.Gameplay);
+        }
 
-            TryPlayNext();
+        public bool EnsureMusicForContext(MusicContext context)
+        {
+            _activeContext = context;
+
+            if (musicSource != null && musicSource.isPlaying && musicSource.clip != null &&
+                !string.IsNullOrWhiteSpace(_currentTrackId) &&
+                musicLibrary != null &&
+                musicLibrary.IsTrackAllowedInContext(_currentTrackId, _activeContext))
+            {
+                return true;
+            }
+
+            return TryPlayNext(false);
         }
 
         public void StopMusic()
@@ -104,6 +123,43 @@ namespace Diceforge.Audio
 
             _storage.Save(_prefs);
             OnVoteChanged?.Invoke(trackId, _prefs.GetVote(trackId));
+            OnStatsChanged?.Invoke();
+        }
+
+        public int GetTotalLikedTracksCount()
+        {
+            return _prefs != null ? _prefs.CountVotes(TrackVote.Like) : 0;
+        }
+
+        public bool TryPlayNext(bool userInitiated = true)
+        {
+            if (TryPlayFromHistoryOffset(1, userInitiated))
+                return true;
+
+            if (musicLibrary == null)
+            {
+                WarnMissingLibraryOnce("[AudioManager] MusicLibrary is not assigned.");
+                return false;
+            }
+
+            var enabledTracks = musicLibrary.GetTracksForContext(_activeContext);
+            if (enabledTracks == null || enabledTracks.Count == 0)
+            {
+                WarnMissingLibraryOnce($"[AudioManager] MusicLibrary has no enabled tracks for context {_activeContext}.");
+                return false;
+            }
+
+            TrackDef next = _selector.PickNextTrack(enabledTracks, _prefs, _currentTrackId);
+            if (next == null)
+                return false;
+
+            PlayTrack(next, true);
+            return true;
+        }
+
+        public bool TryPlayPrev()
+        {
+            return TryPlayFromHistoryOffset(-1, true);
         }
 
         public void SetMusicVolume(float v)
@@ -142,46 +198,68 @@ namespace Diceforge.Audio
             while (true)
             {
                 if (musicSource != null && musicSource.clip != null && !musicSource.isPlaying)
-                    TryPlayNext();
+                    TryPlayNext(false);
 
                 yield return wait;
             }
         }
 
-        private void TryPlayNext()
+        private bool TryPlayFromHistoryOffset(int offset, bool userInitiated)
         {
-            if (musicLibrary == null)
-            {
-                WarnMissingLibraryOnce("[AudioManager] MusicLibrary is not assigned.");
-                return;
-            }
+            if (!userInitiated)
+                return false;
 
-            var enabledTracks = musicLibrary.GetEnabledTracks();
-            if (enabledTracks == null || enabledTracks.Count == 0)
-            {
-                WarnMissingLibraryOnce("[AudioManager] MusicLibrary has no enabled tracks with clips.");
-                return;
-            }
+            int targetIndex = _historyIndex + offset;
+            if (targetIndex < 0 || targetIndex >= _trackHistory.Count)
+                return false;
 
-            TrackDef next = _selector.PickNextTrack(enabledTracks, _prefs, _currentTrackId);
-            if (next == null)
-                return;
+            string targetTrackId = _trackHistory[targetIndex];
+            if (string.IsNullOrWhiteSpace(targetTrackId) || musicLibrary == null)
+                return false;
 
-            PlayTrack(next);
+            if (!musicLibrary.TryGetById(targetTrackId, out TrackDef targetTrack) || targetTrack == null)
+                return false;
+
+            _historyIndex = targetIndex;
+            PlayTrack(targetTrack, false);
+            return true;
         }
 
-        private void PlayTrack(TrackDef def)
+        private void PlayTrack(TrackDef def, bool recordHistory)
         {
             if (def == null || musicSource == null)
+            {
                 return;
+            }
 
             musicSource.clip = def.clip;
             musicSource.loop = false;
             musicSource.Play();
 
             _currentTrackId = def.id;
+            if (recordHistory)
+                RegisterTrackInHistory(def.id);
+
             _missingLibraryWarned = false;
             OnTrackChanged?.Invoke(def.id, musicLibrary.GetDisplayName(def.id));
+        }
+
+        private void RegisterTrackInHistory(string trackId)
+        {
+            if (string.IsNullOrWhiteSpace(trackId))
+                return;
+
+            if (_historyIndex >= 0 && _historyIndex < _trackHistory.Count && _trackHistory[_historyIndex] == trackId)
+                return;
+
+            if (_historyIndex < _trackHistory.Count - 1)
+                _trackHistory.RemoveRange(_historyIndex + 1, _trackHistory.Count - (_historyIndex + 1));
+
+            _trackHistory.Add(trackId);
+            if (_trackHistory.Count > MaxHistorySize)
+                _trackHistory.RemoveAt(0);
+
+            _historyIndex = _trackHistory.Count - 1;
         }
 
         private void WarnMissingLibraryOnce(string message)

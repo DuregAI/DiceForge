@@ -29,6 +29,11 @@ namespace Diceforge.Audio
 
         public IReadOnlyList<TrackDef> GetEnabledTracks()
         {
+            return GetTracksForContext(MusicContext.All);
+        }
+
+        public IReadOnlyList<TrackDef> GetTracksForContext(MusicContext context)
+        {
             var result = new List<TrackDef>();
             for (int i = 0; i < tracks.Count; i++)
             {
@@ -39,10 +44,21 @@ namespace Diceforge.Audio
                 if (!track.enabled || track.clip == null)
                     continue;
 
+                if (!IsAllowedInContext(track, context))
+                    continue;
+
                 result.Add(track);
             }
 
             return result;
+        }
+
+        public bool IsTrackAllowedInContext(string trackId, MusicContext context)
+        {
+            if (!TryGetById(trackId, out TrackDef def) || def == null)
+                return false;
+
+            return IsAllowedInContext(def, context);
         }
 
         public string GetDisplayName(string id)
@@ -84,5 +100,17 @@ namespace Diceforge.Audio
             }
         }
 #endif
+
+        private static bool IsAllowedInContext(TrackDef track, MusicContext context)
+        {
+            if (track == null)
+                return false;
+
+            MusicContext allowedContexts = track.allowedContexts;
+            if (allowedContexts == MusicContext.None)
+                allowedContexts = MusicContext.All;
+
+            return (allowedContexts & context) != 0;
+        }
     }
 }

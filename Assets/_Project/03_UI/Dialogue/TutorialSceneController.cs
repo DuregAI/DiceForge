@@ -1,4 +1,5 @@
 using Diceforge.Dialogue;
+using Diceforge.Audio;
 using Diceforge.UI.Dialogue;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -35,6 +36,11 @@ public sealed class TutorialSceneController : MonoBehaviour
 
     private void Start()
     {
+        var audioManager = AudioManager.Instance != null
+            ? AudioManager.Instance
+            : FindAnyObjectByType<AudioManager>();
+        audioManager?.EnsureMusicForContext(MusicContext.Tutorial);
+
         if (dialogueRunner == null)
         {
             Debug.LogWarning("[Tutorial] DialogueRunner is missing.");

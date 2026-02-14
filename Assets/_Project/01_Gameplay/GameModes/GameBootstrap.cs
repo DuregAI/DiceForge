@@ -90,7 +90,7 @@ public class GameBootstrap : MonoBehaviour
             ? AudioManager.Instance
             : FindAnyObjectByType<AudioManager>();
 
-        audioManager?.EnsureGameplayMusic();
+        audioManager?.EnsureMusicForContext(MusicContext.Gameplay);
     }
 
     private static string ResolveBagName(DiceBagDefinition primary)
