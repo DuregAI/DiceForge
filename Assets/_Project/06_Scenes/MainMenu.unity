@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.Map.MapFlowOrchestrator
   mapController: {fileID: 1000000004}
-  devModeConfig: {fileID: 0}
+  devModeConfig: {fileID: 11400000, guid: 8fddeba931466a84b94abf671ffd745a, type: 2}
   battlePresets:
   - {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
   - {fileID: 11400000, guid: 75f279eaea7d4427a94909726fd3866a, type: 2}

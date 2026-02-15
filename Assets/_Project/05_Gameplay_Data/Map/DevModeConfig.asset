@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ff30d8191060b468512da13af23234, type: 3}
   m_Name: DevModeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.Map.DevModeConfigSO
-  devModeEnabled: 1
+  devModeEnabled: 0

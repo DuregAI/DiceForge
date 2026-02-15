@@ -17,7 +17,7 @@ MonoBehaviour:
   nodes:
   - id: C1_01
     type: 0
-    positionNormalized: {x: 0.15, y: 0.75}
+    positionNormalized: {x: 150, y: 750}
     nextIds:
     - C1_02
     battlePresetId: long
@@ -26,7 +26,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_02
     type: 0
-    positionNormalized: {x: 0.35, y: 0.75}
+    positionNormalized: {x: 350, y: 750}
     nextIds:
     - C1_03
     battlePresetId: long
@@ -35,7 +35,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_03
     type: 1
-    positionNormalized: {x: 0.55, y: 0.75}
+    positionNormalized: {x: 550, y: 750}
     nextIds:
     - C1_04
     battlePresetId: 
