@@ -19,6 +19,7 @@ public sealed class MapController : MonoBehaviour
     private MapDefinitionSO _currentMap;
     private MapRunState _currentState;
     private Action<string> _onNodeSelected;
+    private bool _pendingLayoutRebuild;
 
     public event Action BackRequested;
     public event Action ContinueRequested;
@@ -60,7 +61,39 @@ public sealed class MapController : MonoBehaviour
     {
         _mapRoot = root.Q<VisualElement>("MapRoot");
         if (_mapRoot != null)
+        {
+            _nodesLayer = _mapRoot.Q<VisualElement>("NodesLayer");
+            _titleLabel = _mapRoot.Q<Label>("MapTitle");
+            _continueButton = _mapRoot.Q<Button>("MapContinueButton");
+            _backButton = _mapRoot.Q<Button>("MapBackButton");
+            _resetRunButton = _mapRoot.Q<Button>("MapResetRunButton");
+            _unlockAllButton = _mapRoot.Q<Button>("MapUnlockAllButton");
+
+            if (_backButton != null)
+            {
+                _backButton.clicked -= HandleBack;
+                _backButton.clicked += HandleBack;
+            }
+
+            if (_continueButton != null)
+            {
+                _continueButton.clicked -= HandleContinueRequested;
+                _continueButton.clicked += HandleContinueRequested;
+            }
+
+            if (_resetRunButton != null)
+            {
+                _resetRunButton.clicked -= HandleResetRun;
+                _resetRunButton.clicked += HandleResetRun;
+            }
+
+            if (_unlockAllButton != null)
+            {
+                _unlockAllButton.clicked -= HandleUnlockAll;
+                _unlockAllButton.clicked += HandleUnlockAll;
+            }
             return;
+        }
 
         _mapRoot = new VisualElement { name = "MapRoot" };
         _mapRoot.AddToClassList("map-root");
@@ -95,11 +128,42 @@ public sealed class MapController : MonoBehaviour
             _mapRoot.styleSheets.Add(style);
     }
 
+    private void HandleBack() => BackRequested?.Invoke();
+    private void HandleContinueRequested() => ContinueRequested?.Invoke();
+    private void HandleResetRun() => ResetRunRequested?.Invoke();
+    private void HandleUnlockAll() => UnlockAllRequested?.Invoke();
+
     private void BuildNodes(bool devMode)
     {
+        if (_nodesLayer == null)
+        {
+            DevLog(devMode, "NodesLayer was not found. Check UXML name=\"NodesLayer\".");
+            return;
+        }
+
         _nodesLayer.Clear();
         if (_currentMap == null || _currentState == null)
             return;
+
+        float layerWidth = _nodesLayer.resolvedStyle.width;
+        float layerHeight = _nodesLayer.resolvedStyle.height;
+        DevLog(devMode, $"BuildNodes: NodesLayer != null: {_nodesLayer != null}, size: {layerWidth}x{layerHeight}");
+
+        if ((layerWidth <= 0f || layerHeight <= 0f) && !_pendingLayoutRebuild)
+        {
+            _pendingLayoutRebuild = true;
+            _mapRoot?.schedule.Execute(() =>
+            {
+                _pendingLayoutRebuild = false;
+                BuildNodes(devMode);
+            }).ExecuteLater(0);
+
+            DevLog(devMode, "NodesLayer has invalid size at build time. Scheduled one-frame delayed rebuild.");
+            return;
+        }
+
+        int instantiatedCount = 0;
+        int sampled = 0;
 
         foreach (var node in _currentMap.nodes)
         {
@@ -126,7 +190,19 @@ public sealed class MapController : MonoBehaviour
             nodeContainer.style.left = Length.Percent(node.positionNormalized.x * 100f);
             nodeContainer.style.top = Length.Percent((1f - node.positionNormalized.y) * 100f);
             _nodesLayer.Add(nodeContainer);
+
+            instantiatedCount++;
+            if (sampled < 2)
+            {
+                float px = node.positionNormalized.x * layerWidth;
+                float py = (1f - node.positionNormalized.y) * layerHeight;
+                DevLog(devMode,
+                    $"Node[{sampled}] id={node.id}, normalized=({node.positionNormalized.x:F3},{node.positionNormalized.y:F3}), pixel=({px:F1},{py:F1}), style.left={nodeContainer.style.left}, style.top={nodeContainer.style.top}");
+                sampled++;
+            }
         }
+
+        DevLog(devMode, $"BuildNodes instantiated {instantiatedCount} nodes.");
 
         if (!string.IsNullOrEmpty(_currentState.currentNodeId) && _nodesById.ContainsKey(_currentState.currentNodeId))
         {
@@ -138,6 +214,14 @@ public sealed class MapController : MonoBehaviour
         {
             _continueButton.SetEnabled(false);
         }
+    }
+
+    private static void DevLog(bool devMode, string message)
+    {
+        if (!devMode)
+            return;
+
+        Debug.Log($"[MapController][Dev] {message}");
     }
 
     private void HandleContinue()
