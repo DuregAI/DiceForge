@@ -8,6 +8,9 @@ public sealed class MapController : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDocument;
 
+    [Header("Map UI")]
+    [SerializeField] private StyleSheet mapViewStyle;
+
     private VisualElement _mapRoot;
     private VisualElement _nodesLayer;
     private Label _titleLabel;
@@ -35,7 +38,7 @@ public sealed class MapController : MonoBehaviour
         if (root == null)
             return;
 
-        EnsureView(root);
+        EnsureView(root, devMode);
 
         _currentMap = map;
         _currentState = state;
@@ -57,11 +60,12 @@ public sealed class MapController : MonoBehaviour
             _mapRoot.style.display = DisplayStyle.None;
     }
 
-    private void EnsureView(VisualElement root)
+    private void EnsureView(VisualElement root, bool devMode)
     {
         _mapRoot = root.Q<VisualElement>("MapRoot");
         if (_mapRoot != null)
         {
+            AttachMapStyleSheet(devMode);
             _nodesLayer = _mapRoot.Q<VisualElement>("NodesLayer");
             _titleLabel = _mapRoot.Q<Label>("MapTitle");
             _continueButton = _mapRoot.Q<Button>("MapContinueButton");
@@ -123,9 +127,16 @@ public sealed class MapController : MonoBehaviour
         _mapRoot.Add(bottomBar);
         root.Add(_mapRoot);
 
-        var style = Resources.Load<StyleSheet>("Map/MapView");
-        if (style != null)
-            _mapRoot.styleSheets.Add(style);
+        AttachMapStyleSheet(devMode);
+    }
+
+    private void AttachMapStyleSheet(bool devMode)
+    {
+        DevLog(devMode, $"mapViewStyle assigned: {mapViewStyle != null}");
+        if (_mapRoot == null || mapViewStyle == null || _mapRoot.styleSheets.Contains(mapViewStyle))
+            return;
+
+        _mapRoot.styleSheets.Add(mapViewStyle);
     }
 
     private void HandleBack() => BackRequested?.Invoke();

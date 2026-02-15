@@ -733,6 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapController
   uiDocument: {fileID: 1000000002}
+  mapViewStyle: {fileID: 7433441132597879392, guid: b60515550a4165f4d8d2a09ed29206bf, type: 3}
 --- !u!114 &1000000005
 MonoBehaviour:
   m_ObjectHideFlags: 0
