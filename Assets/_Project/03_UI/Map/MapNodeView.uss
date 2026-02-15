@@ -1,0 +1,7 @@
+.map-node { width: 96px; height: 56px; align-items: center; }
+.node-button { min-width: 84px; }
+.node-id { font-size: 10px; color: #fff; }
+.locked .node-button { opacity: .45; }
+.available .node-button { border-top-color: #5fd0ff; }
+.completed .node-button { border-top-color: #6cff83; }
+.current .node-button { border-top-color: #ffd056; }

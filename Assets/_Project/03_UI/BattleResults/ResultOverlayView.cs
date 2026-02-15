@@ -1,5 +1,6 @@
 using System.Text;
 using Diceforge.Core;
+using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,15 +66,25 @@ namespace Diceforge.View
                 return;
 
             bool won = battleController != null && battleController.LocalPlayer == result.Winner;
+            if (MapFlowRuntime.IsMapBattleActive)
+                MapFlowRuntime.ReportBattleResult(won);
             if (_resultLabel != null)
                 _resultLabel.text = won ? "Victory" : "Defeat";
 
-            var modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
-            var rewards = RewardService.CalculateMatchRewards(result, modeId);
-            ProfileService.ApplyReward(rewards);
+            if (MapFlowRuntime.IsMapBattleActive)
+            {
+                if (_rewardBreakdownLabel != null)
+                    _rewardBreakdownLabel.text = string.Empty;
+            }
+            else
+            {
+                var modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
+                var rewards = RewardService.CalculateMatchRewards(result, modeId);
+                ProfileService.ApplyReward(rewards);
 
-            if (_rewardBreakdownLabel != null)
-                _rewardBreakdownLabel.text = BuildRewardBreakdown(rewards);
+                if (_rewardBreakdownLabel != null)
+                    _rewardBreakdownLabel.text = BuildRewardBreakdown(rewards);
+            }
 
             if (_overlayRoot != null)
                 _overlayRoot.style.display = DisplayStyle.Flex;
@@ -89,7 +100,12 @@ namespace Diceforge.View
 
         private void HandleBackToMenuClicked()
         {
-            SceneManager.LoadScene("MainMenu");
+            if (MapFlowRuntime.IsMapBattleActive)
+                MapFlowRuntime.RequestReturnToMap();
+
+            var currentSceneName = SceneManager.GetActiveScene().name;
+            if (!string.Equals(currentSceneName, "MainMenu", System.StringComparison.Ordinal))
+                SceneManager.LoadScene("MainMenu");
         }
 
         private void HideOverlay()

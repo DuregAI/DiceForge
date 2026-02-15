@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="MapView.uss" />
+    <ui:VisualElement name="MapRoot" class="map-root">
+        <ui:VisualElement name="MapBackground" class="map-background" />
+        <ui:VisualElement name="MapTopBar" class="map-top-bar">
+            <ui:Button name="MapBackButton" text="Back" />
+            <ui:Label name="MapTitle" text="Chapter" />
+            <ui:VisualElement name="MapCurrencySlot" class="map-currency-slot" />
+        </ui:VisualElement>
+        <ui:VisualElement name="NodesLayer" class="map-nodes-layer" />
+        <ui:VisualElement name="MapBottomBar" class="map-bottom-bar">
+            <ui:Button name="MapContinueButton" text="Continue" />
+            <ui:Button name="MapResetRunButton" text="Reset Run" />
+            <ui:Button name="MapUnlockAllButton" text="Unlock All" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

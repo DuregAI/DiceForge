@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2f45be77044ef5a3f20ec2fbe58d95, type: 3}
+  m_Name: Chapter1_MapDefinition
+  m_EditorClassIdentifier: 
+  chapterId: Chapter1
+  startNodeId: C1_01
+  nodes:
+  - id: C1_01
+    type: 0
+    positionNormalized: {x: 0.08, y: 0.2}
+    nextIds: [C1_02]
+    battlePresetId: short
+    rewardPresetId: battle_small
+    chestId: 
+    storyLineId: 
+  - id: C1_02
+    type: 0
+    positionNormalized: {x: 0.18, y: 0.32}
+    nextIds: [C1_03]
+    battlePresetId: long
+    rewardPresetId: battle_small
+    chestId: 
+    storyLineId: 
+  - id: C1_03
+    type: 1
+    positionNormalized: {x: 0.28, y: 0.22}
+    nextIds: [C1_04]
+    battlePresetId: 
+    rewardPresetId: chest_basic
+    chestId: CHEST_BASIC
+    storyLineId: 
+  - id: C1_04
+    type: 0
+    positionNormalized: {x: 0.38, y: 0.36}
+    nextIds: [C1_05]
+    battlePresetId: short
+    rewardPresetId: battle_medium
+    chestId: 
+    storyLineId: 
+  - id: C1_05
+    type: 2
+    positionNormalized: {x: 0.49, y: 0.24}
+    nextIds: [C1_06]
+    battlePresetId: 
+    rewardPresetId: shop_visit
+    chestId: 
+    storyLineId: 
+  - id: C1_06
+    type: 0
+    positionNormalized: {x: 0.6, y: 0.38}
+    nextIds: [C1_07]
+    battlePresetId: long
+    rewardPresetId: battle_medium
+    chestId: 
+    storyLineId: 
+  - id: C1_07
+    type: 0
+    positionNormalized: {x: 0.7, y: 0.25}
+    nextIds: [C1_08]
+    battlePresetId: short
+    rewardPresetId: battle_medium
+    chestId: 
+    storyLineId: 
+  - id: C1_08
+    type: 1
+    positionNormalized: {x: 0.78, y: 0.42}
+    nextIds: [C1_09]
+    battlePresetId: 
+    rewardPresetId: chest_basic
+    chestId: CHEST_BASIC
+    storyLineId: 
+  - id: C1_09
+    type: 0
+    positionNormalized: {x: 0.86, y: 0.28}
+    nextIds: [C1_10]
+    battlePresetId: long
+    rewardPresetId: battle_large
+    chestId: 
+    storyLineId: 
+  - id: C1_10
+    type: 0
+    positionNormalized: {x: 0.94, y: 0.4}
+    nextIds: []
+    battlePresetId: long
+    rewardPresetId: battle_boss
+    chestId: 
+    storyLineId: 
