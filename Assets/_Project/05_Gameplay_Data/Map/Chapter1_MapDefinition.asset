@@ -44,7 +44,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_04
     type: 0
-    positionNormalized: {x: 0.75, y: 0.75}
+    positionNormalized: {x: 3.49, y: 4.49}
     nextIds:
     - C1_05
     battlePresetId: long

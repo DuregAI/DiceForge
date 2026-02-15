@@ -6,7 +6,7 @@
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss?fileID=7433441132597879392&amp;guid=6f87a6afb6b647fb9ace9bdf3d801eb2&amp;type=3#Spacing"/>
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
-    <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
+    <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;); position: absolute;">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
@@ -20,7 +20,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 0;">
+        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 1;">
             <ui:VisualElement name="SettingsWindow" enabled="true" class="settings-window" style="padding-bottom: 124px; padding-top: 34px; padding-right: 164px; padding-left: 180px; justify-content: space-evenly; -unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); font-size: 30px; height: 843px; max-width: 828px; width: 828px; opacity: 1;">
                 <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 12px;"/>
                 <ui:VisualElement name="MusicBlock" enabled="true" class="settings-block" style="-unity-text-outline-width: 2px; text-shadow: 5px 5px 0 rgb(3, 3, 3); padding-top: 52px;">

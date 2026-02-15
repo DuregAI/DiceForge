@@ -1,17 +1,17 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <Style src="MapView.uss" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/_Project/03_UI/Map/MapView.uss?fileID=7433441132597879392&amp;guid=b60515550a4165f4d8d2a09ed29206bf&amp;type=3#MapView"/>
     <ui:VisualElement name="MapRoot" class="map-root">
-        <ui:VisualElement name="MapBackground" class="map-background" />
-        <ui:VisualElement name="MapTopBar" class="map-top-bar">
-            <ui:Button name="MapBackButton" text="Back" />
-            <ui:Label name="MapTitle" text="Chapter" />
-            <ui:VisualElement name="MapCurrencySlot" class="map-currency-slot" />
+        <ui:VisualElement name="MapBackground" class="map-background"/>
+        <ui:VisualElement name="MapTopBar" class="map-top-bar" style="position: absolute; height: 70px;">
+            <ui:Button name="MapBackButton" text="Back"/>
+            <ui:Label name="MapTitle" text="Chapter"/>
+            <ui:VisualElement name="MapCurrencySlot" class="map-currency-slot"/>
         </ui:VisualElement>
-        <ui:VisualElement name="NodesLayer" class="map-nodes-layer" />
-        <ui:VisualElement name="MapBottomBar" class="map-bottom-bar">
-            <ui:Button name="MapContinueButton" text="Continue" />
-            <ui:Button name="MapResetRunButton" text="Reset Run" />
-            <ui:Button name="MapUnlockAllButton" text="Unlock All" />
+        <ui:VisualElement name="NodesLayer" class="map-nodes-layer" style="position: absolute; bottom: 70px; top: 70px; left: 0; right: 0;"/>
+        <ui:VisualElement name="MapBottomBar" class="map-bottom-bar" style="height: 70px; bottom: 0; top: auto; position: absolute;">
+            <ui:Button name="MapContinueButton" text="Continue"/>
+            <ui:Button name="MapResetRunButton" text="Reset Run"/>
+            <ui:Button name="MapUnlockAllButton" text="Unlock All"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

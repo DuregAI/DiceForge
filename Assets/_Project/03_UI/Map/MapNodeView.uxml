@@ -1,8 +1,8 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <Style src="MapNodeView.uss" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/_Project/03_UI/Map/MapNodeView.uss?fileID=7433441132597879392&amp;guid=cb28992a76af50b439ac6bfcfa479abc&amp;type=3#MapNodeView"/>
     <ui:VisualElement name="MapNodeRoot" class="map-node">
-        <ui:Button name="NodeButton" text="Node" class="node-button" />
-        <ui:VisualElement name="NodeIconContainer" class="node-icon-container" />
-        <ui:Label name="NodeIdLabel" text="C1_01" class="node-id" />
+        <ui:Button name="NodeButton" text="Node" class="node-button" style="border-top-left-radius: 19px; border-top-right-radius: 19px; border-bottom-right-radius: 19px; border-bottom-left-radius: 19px;"/>
+        <ui:VisualElement name="NodeIconContainer" class="node-icon-container"/>
+        <ui:Label name="NodeIdLabel" text="C1_01" class="node-id"/>
     </ui:VisualElement>
 </ui:UXML>
