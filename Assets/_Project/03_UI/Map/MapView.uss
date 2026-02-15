@@ -1,0 +1,8 @@
+.map-root { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.map-background { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(20,30,40,.85); }
+.map-top-bar, .map-bottom-bar { flex-direction: row; justify-content: space-between; padding: 12px; z-index: 1; }
+.map-nodes-layer { flex-grow: 1; position: relative; }
+.map-node.locked { opacity: .35; }
+.map-node.available { opacity: 1; }
+.map-node.completed { opacity: .7; }
+.map-node.current { scale: 1.1; }

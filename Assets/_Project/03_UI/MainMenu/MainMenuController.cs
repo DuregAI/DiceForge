@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Diceforge.Audio;
 using Diceforge.Dialogue;
+using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,10 @@ public class MainMenuController : MonoBehaviour
     private Button tutorialReplayConfirmYesButton;
     private Button tutorialReplayConfirmCancelButton;
     private AudioManager audioManager;
+    private MapFlowOrchestrator mapFlowOrchestrator;
+
+    [Header("Map")]
+    [SerializeField] private string defaultChapterId = "Chapter1";
 
     private void Awake()
     {
@@ -88,7 +93,7 @@ public class MainMenuController : MonoBehaviour
 
         RegisterButton("btnSettings", ToggleSettingsPanel);
         RegisterButton("btnCopyLog", CopyLogToClipboard);
-        RegisterButton("btnLong", () => SelectModeAndLoad(longPreset));
+        RegisterButton("btnLong", OpenMapChapter);
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
@@ -127,6 +132,25 @@ public class MainMenuController : MonoBehaviour
 
         chestShopController = GetComponent<ChestShopController>() ?? gameObject.AddComponent<ChestShopController>();
         chestShopController.Initialize(root);
+
+        mapFlowOrchestrator = GetComponent<MapFlowOrchestrator>() ?? gameObject.AddComponent<MapFlowOrchestrator>();
+        var mapController = GetComponent<MapController>() ?? gameObject.AddComponent<MapController>();
+        mapController.ResetRunRequested -= HandleMapResetRequested;
+        mapController.ResetRunRequested += HandleMapResetRequested;
+        mapController.UnlockAllRequested -= HandleMapUnlockAllRequested;
+        mapController.UnlockAllRequested += HandleMapUnlockAllRequested;
+        mapController.BackRequested -= HandleMapBackRequested;
+        mapController.BackRequested += HandleMapBackRequested;
+
+        var shortButton = root.Q<Button>("btnShort");
+        var experimentalButton = root.Q<Button>("btnExperimental");
+        if (mapFlowOrchestrator != null && !mapFlowOrchestrator.IsDevMode)
+        {
+            if (shortButton != null)
+                shortButton.style.display = DisplayStyle.None;
+            if (experimentalButton != null)
+                experimentalButton.style.display = DisplayStyle.None;
+        }
     }
 
     private void Start()
@@ -143,6 +167,9 @@ public class MainMenuController : MonoBehaviour
             audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
             audioManager.OnVolumesChanged += HandleAudioVolumesChanged;
         }
+
+        if (Diceforge.Map.MapFlowRuntime.HasPendingBattleResult || Diceforge.Map.MapFlowRuntime.ConsumeReturnToMapRequest())
+            OpenMapChapter();
     }
 
     private void OnDestroy()
@@ -461,5 +488,27 @@ public class MainMenuController : MonoBehaviour
         }
 
         SceneManager.LoadScene("Battle");
+    }
+
+    private void OpenMapChapter()
+    {
+        ShowPanel("MenuPanel");
+        mapFlowOrchestrator?.StartChapter(defaultChapterId);
+    }
+
+    private void HandleMapResetRequested()
+    {
+        mapFlowOrchestrator?.ResetRun();
+    }
+
+    private void HandleMapUnlockAllRequested()
+    {
+        mapFlowOrchestrator?.UnlockAll();
+    }
+
+    private void HandleMapBackRequested()
+    {
+        var mapController = GetComponent<MapController>();
+        mapController?.Hide();
     }
 }
