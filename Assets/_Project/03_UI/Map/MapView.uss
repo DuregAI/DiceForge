@@ -1,34 +1,224 @@
-.map-root { flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; height: 100%; display: flex; flex-direction: column; }
-.map-background { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(20,30,40,.85); }
-.map-top-bar, .map-bottom-bar { flex-direction: row; justify-content: space-between; padding: 12px; }
-.map-nodes-layer { flex-grow: 1; position: relative; min-height: 1px;overflow: visible;}
+.map-root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.map-background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.map-top-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 68px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(16, 22, 30, 0.82);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.map-title {
+    color: rgba(245, 248, 255, 0.96);
+    -unity-font-style: bold;
+    font-size: 24px;
+    unity-text-align: middle-right;
+}
+
+.map-top-button {
+    min-width: 108px;
+    height: 42px;
+    border-radius: 10px;
+}
+
+.map-currency-slot {
+    width: 120px;
+}
+
+.map-nodes-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 68px;
+    bottom: 96px;
+    min-height: 200px;
+    overflow: visible;
+}
+
+.map-edges-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.map-edge {
+    position: absolute;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.25);
+    transform-origin: 0 50%;
+    border-radius: 2px;
+}
+
+.map-edge.active {
+    background-color: rgba(158, 214, 255, 0.6);
+}
 
 .map-node {
-    width: 92px;
-    height: 92px;
-    margin-left: -46px;
-    margin-top: -46px;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    margin-top: -40px;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,255,0,0.35);
+}
+
+.node-shadow {
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    width: 68px;
+    height: 68px;
+    border-radius: 34px;
+    background-color: rgba(0, 0, 0, 0.33);
 }
 
 .node-button {
-    border-radius: 36px;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
     border-top-width: 2px;
     border-bottom-width: 2px;
     border-left-width: 2px;
     border-right-width: 2px;
-    border-top-color: rgba(255,255,255,.9);
-    border-bottom-color: rgba(255,255,255,.9);
-    border-left-color: rgba(255,255,255,.9);
-    border-right-color: rgba(255,255,255,.9);
-    background-color: rgba(55,80,110,.92);
-    color: rgba(255,255,255,.95);
-    width: 100%; height: 100%;
+    border-top-color: rgba(255, 255, 255, 0.62);
+    border-bottom-color: rgba(255, 255, 255, 0.62);
+    border-left-color: rgba(255, 255, 255, 0.62);
+    border-right-color: rgba(255, 255, 255, 0.62);
+    background-color: rgba(54, 72, 94, 0.95);
+    color: rgba(247, 250, 255, 0.98);
+    -unity-font-style: bold;
+    font-size: 30px;
+    unity-text-align: middle-center;
 }
 
-.map-node.locked { opacity: .35; }
-.map-node.available { opacity: 1; }
-.map-node.completed { opacity: .75; }
-.map-node.current { scale: 1.1; }
+.node-button:hover {
+    background-color: rgba(70, 94, 122, 0.98);
+}
+
+.node-button:active {
+    background-color: rgba(40, 58, 78, 0.98);
+}
+
+.node-id {
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    translate: -50% 0;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.node-check {
+    position: absolute;
+    right: -4px;
+    top: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: rgba(20, 30, 44, 0.95);
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-color: rgba(170, 255, 198, 0.88);
+    border-bottom-color: rgba(170, 255, 198, 0.88);
+    border-left-color: rgba(170, 255, 198, 0.88);
+    border-right-color: rgba(170, 255, 198, 0.88);
+    color: rgba(170, 255, 198, 1);
+    font-size: 14px;
+    unity-text-align: middle-center;
+    display: none;
+}
+
+.map-node.locked {
+    opacity: 0.35;
+}
+
+.map-node.available {
+    opacity: 1;
+}
+
+.map-node.current {
+    opacity: 1;
+    scale: 1.08;
+}
+
+.map-node.current .node-button {
+    border-top-color: rgba(151, 221, 255, 0.95);
+    border-bottom-color: rgba(151, 221, 255, 0.95);
+    border-left-color: rgba(151, 221, 255, 0.95);
+    border-right-color: rgba(151, 221, 255, 0.95);
+    background-color: rgba(72, 96, 124, 0.98);
+}
+
+.map-node.current .node-shadow {
+    background-color: rgba(90, 175, 230, 0.38);
+}
+
+.map-node.completed {
+    opacity: 0.72;
+}
+
+.map-node.completed .node-check {
+    display: flex;
+}
+
+.map-bottom-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 96px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    column-gap: 12px;
+    background-color: rgba(16, 22, 30, 0.82);
+    border-top-width: 1px;
+    border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.map-continue-button {
+    min-width: 220px;
+    height: 56px;
+    border-radius: 14px;
+    font-size: 20px;
+    -unity-font-style: bold;
+}
+
+.map-dev-button {
+    min-width: 110px;
+    height: 36px;
+    border-radius: 9px;
+    font-size: 12px;
+    opacity: 0.7;
+}

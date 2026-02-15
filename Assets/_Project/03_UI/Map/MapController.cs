@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Audio;
 using Diceforge.Map;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,6 +14,7 @@ public sealed class MapController : MonoBehaviour
 
     private VisualElement _mapRoot;
     private VisualElement _nodesLayer;
+    private VisualElement _edgesLayer;
     private Label _titleLabel;
     private Button _continueButton;
     private Button _backButton;
@@ -67,11 +69,19 @@ public sealed class MapController : MonoBehaviour
         {
             AttachMapStyleSheet(devMode);
             _nodesLayer = _mapRoot.Q<VisualElement>("NodesLayer");
+            _edgesLayer = _mapRoot.Q<VisualElement>("MapEdgesLayer");
             _titleLabel = _mapRoot.Q<Label>("MapTitle");
             _continueButton = _mapRoot.Q<Button>("MapContinueButton");
             _backButton = _mapRoot.Q<Button>("MapBackButton");
             _resetRunButton = _mapRoot.Q<Button>("MapResetRunButton");
             _unlockAllButton = _mapRoot.Q<Button>("MapUnlockAllButton");
+
+            if (_nodesLayer != null && _edgesLayer == null)
+            {
+                _edgesLayer = new VisualElement { name = "MapEdgesLayer" };
+                _edgesLayer.AddToClassList("map-edges-layer");
+                _nodesLayer.Insert(0, _edgesLayer);
+            }
 
             if (_backButton != null)
             {
@@ -102,26 +112,48 @@ public sealed class MapController : MonoBehaviour
         _mapRoot = new VisualElement { name = "MapRoot" };
         _mapRoot.AddToClassList("map-root");
 
+        var mapBackground = new VisualElement { name = "MapBackground" };
+        mapBackground.AddToClassList("map-background");
+
         var topBar = new VisualElement { name = "MapTopBar" };
         topBar.AddToClassList("map-top-bar");
         _backButton = new Button(() => BackRequested?.Invoke()) { name = "MapBackButton", text = "Back" };
+        _backButton.AddToClassList("map-top-button");
+
         _titleLabel = new Label("Chapter") { name = "MapTitle" };
+        _titleLabel.AddToClassList("map-title");
+
+        var currencySlot = new VisualElement { name = "MapCurrencySlot" };
+        currencySlot.AddToClassList("map-currency-slot");
+
         topBar.Add(_backButton);
         topBar.Add(_titleLabel);
+        topBar.Add(currencySlot);
 
         _nodesLayer = new VisualElement { name = "NodesLayer" };
         _nodesLayer.AddToClassList("map-nodes-layer");
 
+        _edgesLayer = new VisualElement { name = "MapEdgesLayer" };
+        _edgesLayer.AddToClassList("map-edges-layer");
+        _nodesLayer.Add(_edgesLayer);
+
         var bottomBar = new VisualElement { name = "MapBottomBar" };
         bottomBar.AddToClassList("map-bottom-bar");
-        _continueButton = new Button(() => ContinueRequested?.Invoke()) { name = "MapContinueButton", text = "Continue" };
-        _resetRunButton = new Button(() => ResetRunRequested?.Invoke()) { name = "MapResetRunButton", text = "Reset Run" };
-        _unlockAllButton = new Button(() => UnlockAllRequested?.Invoke()) { name = "MapUnlockAllButton", text = "Unlock All" };
 
-        bottomBar.Add(_continueButton);
+        _resetRunButton = new Button(() => ResetRunRequested?.Invoke()) { name = "MapResetRunButton", text = "Reset Run" };
+        _resetRunButton.AddToClassList("map-dev-button");
+
+        _continueButton = new Button(() => ContinueRequested?.Invoke()) { name = "MapContinueButton", text = "Continue" };
+        _continueButton.AddToClassList("map-continue-button");
+
+        _unlockAllButton = new Button(() => UnlockAllRequested?.Invoke()) { name = "MapUnlockAllButton", text = "Unlock All" };
+        _unlockAllButton.AddToClassList("map-dev-button");
+
         bottomBar.Add(_resetRunButton);
+        bottomBar.Add(_continueButton);
         bottomBar.Add(_unlockAllButton);
 
+        _mapRoot.Add(mapBackground);
         _mapRoot.Add(topBar);
         _mapRoot.Add(_nodesLayer);
         _mapRoot.Add(bottomBar);
@@ -153,6 +185,10 @@ public sealed class MapController : MonoBehaviour
         }
 
         _nodesLayer.Clear();
+        _edgesLayer = new VisualElement { name = "MapEdgesLayer" };
+        _edgesLayer.AddToClassList("map-edges-layer");
+        _nodesLayer.Add(_edgesLayer);
+
         if (_currentMap == null || _currentState == null)
             return;
 
@@ -173,21 +209,41 @@ public sealed class MapController : MonoBehaviour
             return;
         }
 
-        int instantiatedCount = 0;
-        int sampled = 0;
-
         foreach (var node in _currentMap.nodes)
         {
             if (node == null || string.IsNullOrWhiteSpace(node.id))
                 continue;
 
             _nodesById[node.id] = node;
+        }
+
+        BuildEdges(layerWidth, layerHeight);
+
+        int instantiatedCount = 0;
+
+        foreach (var node in _currentMap.nodes)
+        {
+            if (node == null || string.IsNullOrWhiteSpace(node.id))
+                continue;
+
             var nodeContainer = new VisualElement { name = $"Node_{node.id}" };
             nodeContainer.AddToClassList("map-node");
 
-            var button = new Button(() => _onNodeSelected?.Invoke(node.id)) { name = "NodeButton", text = node.type.ToString() };
+            var shadow = new VisualElement { name = "NodeShadow" };
+            shadow.AddToClassList("node-shadow");
+            nodeContainer.Add(shadow);
+
+            var button = new Button(() => HandleNodeClicked(node.id))
+            {
+                name = "NodeButton",
+                text = GetNodeGlyph(node.type)
+            };
             button.AddToClassList("node-button");
             nodeContainer.Add(button);
+
+            var checkLabel = new Label("✓") { name = "NodeCheck" };
+            checkLabel.AddToClassList("node-check");
+            nodeContainer.Add(checkLabel);
 
             if (devMode)
             {
@@ -197,20 +253,11 @@ public sealed class MapController : MonoBehaviour
             }
 
             ApplyNodeStateClasses(nodeContainer, button, node.id);
-            nodeContainer.style.position = Position.Absolute;
             nodeContainer.style.left = Length.Percent(node.positionNormalized.x * 100f);
             nodeContainer.style.top = Length.Percent((1f - node.positionNormalized.y) * 100f);
             _nodesLayer.Add(nodeContainer);
 
             instantiatedCount++;
-            if (sampled < 2)
-            {
-                float px = node.positionNormalized.x * layerWidth;
-                float py = (1f - node.positionNormalized.y) * layerHeight;
-                DevLog(devMode,
-                    $"Node[{sampled}] id={node.id}, normalized=({node.positionNormalized.x:F3},{node.positionNormalized.y:F3}), pixel=({px:F1},{py:F1}), style.left={nodeContainer.style.left}, style.top={nodeContainer.style.top}");
-                sampled++;
-            }
         }
 
         DevLog(devMode, $"BuildNodes instantiated {instantiatedCount} nodes.");
@@ -225,6 +272,71 @@ public sealed class MapController : MonoBehaviour
         {
             _continueButton.SetEnabled(false);
         }
+    }
+
+    private void BuildEdges(float layerWidth, float layerHeight)
+    {
+        if (_edgesLayer == null || _currentMap == null || layerWidth <= 0f || layerHeight <= 0f)
+            return;
+
+        foreach (var node in _currentMap.nodes)
+        {
+            if (node == null || string.IsNullOrWhiteSpace(node.id) || node.nextIds == null)
+                continue;
+
+            float fromX = node.positionNormalized.x * layerWidth;
+            float fromY = (1f - node.positionNormalized.y) * layerHeight;
+
+            foreach (var nextId in node.nextIds)
+            {
+                if (string.IsNullOrWhiteSpace(nextId) || !_nodesById.TryGetValue(nextId, out var nextNode) || nextNode == null)
+                    continue;
+
+                float toX = nextNode.positionNormalized.x * layerWidth;
+                float toY = (1f - nextNode.positionNormalized.y) * layerHeight;
+
+                float dx = toX - fromX;
+                float dy = toY - fromY;
+                float distance = Mathf.Sqrt((dx * dx) + (dy * dy));
+                if (distance <= 1f)
+                    continue;
+
+                float angle = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+                var edge = new VisualElement { name = $"Edge_{node.id}_{nextId}" };
+                edge.AddToClassList("map-edge");
+
+                bool isActivePath = _currentState.IsCompleted(node.id) || node.id == _currentState.currentNodeId;
+                if (isActivePath)
+                    edge.AddToClassList("active");
+
+                edge.style.left = fromX;
+                edge.style.top = fromY - 1.5f;
+                edge.style.width = distance;
+                edge.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                _edgesLayer.Add(edge);
+            }
+        }
+    }
+
+    private void HandleNodeClicked(string nodeId)
+    {
+        if (_currentState == null || !_currentState.IsUnlocked(nodeId))
+            return;
+
+        AudioManager.Instance?.PlayUiClick();
+        _onNodeSelected?.Invoke(nodeId);
+    }
+
+    private static string GetNodeGlyph(MapNodeType type)
+    {
+        return type switch
+        {
+            MapNodeType.Battle => "⚔",
+            MapNodeType.Chest => "🎁",
+            MapNodeType.Shop => "⚙",
+            MapNodeType.Story => "⋯",
+            _ => type.ToString()
+        };
     }
 
     private static void DevLog(bool devMode, string message)
