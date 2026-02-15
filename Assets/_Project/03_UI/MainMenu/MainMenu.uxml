@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
-    <Style src="../Progression/Chests/ChestOpenView.uss"/>
-    <Style src="../_Theme/Colors.uss"/>
-    <Style src="../_Theme/Typography.uss"/>
-    <Style src="../_Theme/Spacing.uss"/>
-    <Style src="../_Theme/Components.uss"/>
-    <Style src="../Player/PlayerPanel.uss"/>
+    <Style src="project://database/Assets/_Project/03_UI/Progression/Chests/ChestOpenView.uss?fileID=7433441132597879392&amp;guid=6dfe7a5b29234a0692fb749fd9c436ed&amp;type=3#ChestOpenView"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Colors.uss?fileID=7433441132597879392&amp;guid=adbf249822804c06897bf8be4219bd5e&amp;type=3#Colors"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Typography.uss?fileID=7433441132597879392&amp;guid=d79744cf0e424d25b9b480810a4e8f24&amp;type=3#Typography"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss?fileID=7433441132597879392&amp;guid=6f87a6afb6b647fb9ace9bdf3d801eb2&amp;type=3#Spacing"/>
+    <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
+    <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
     <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;);">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -20,7 +20,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 1;">
+        <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 0;">
             <ui:VisualElement name="SettingsWindow" enabled="true" class="settings-window" style="padding-bottom: 124px; padding-top: 34px; padding-right: 164px; padding-left: 180px; justify-content: space-evenly; -unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); font-size: 30px; height: 843px; max-width: 828px; width: 828px; opacity: 1;">
                 <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 12px;"/>
                 <ui:VisualElement name="MusicBlock" enabled="true" class="settings-block" style="-unity-text-outline-width: 2px; text-shadow: 5px 5px 0 rgb(3, 3, 3); padding-top: 52px;">
@@ -31,7 +31,6 @@
                     <ui:Label text="SFX Volume" name="SFXTittle" class="settings-label" style="font-size: 32px; color: rgb(246, 235, 176); -unity-text-outline-width: 2px; text-shadow: 5px 5px 5px rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0);"/>
                     <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="1" class="settings-slider df-interactive"/>
                 </ui:VisualElement>
-
                 <ui:VisualElement name="AboutBlock" picking-mode="Ignore" class="settings-about-row" style="padding-top: 70px;">
                     <ui:VisualElement class="about-text" style="-unity-font-style: normal; color: rgb(246, 235, 176); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 2px; text-shadow: 4px 4px 0 rgb(0, 0, 0);">
                         <ui:Label name="lblAboutVersion" text="Version 0.0.0"/>
@@ -46,18 +45,14 @@
                 <ui:Button name="btnCopyLog" class="copy-log-button icon-button df-interactive" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
             <ui:VisualElement class="upgrade-shop-window">
-                <ui:Label text="UPGRADES" class="panel-title" />
-                <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins" />
-                <ui:ScrollView name="upgradeList" class="upgrade-list" />
-                <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive" />
+                <ui:Label text="UPGRADES" class="panel-title"/>
+                <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins"/>
+                <ui:ScrollView name="upgradeList" class="upgrade-list"/>
+                <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
-
-
         <ui:VisualElement name="ChestShopPanel" class="settings-overlay">
             <ui:VisualElement class="chest-shop-window df-surface">
                 <ui:Label text="Chest Shop" class="chest-shop-title df-label"/>
@@ -80,7 +75,6 @@
                 <ui:Button name="btnCloseChestShop" text="Close" class="df-button df-interactive chest-shop-close"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
             <ui:VisualElement class="chest-open-window">
                 <ui:Label name="chestOpenTitle" text="Chest" class="panel-title chest-open-title"/>
@@ -98,7 +92,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="LeftSidebar" class="left-sidebar">
             <ui:VisualElement name="PlayerPanel" class="player-panel df-surface">
                 <ui:Button name="btnPlayerAvatar" text="" class="player-avatar-button df-interactive"/>
@@ -108,20 +101,18 @@
                     <ui:Button name="btnPlayerRename" text="Rename" class="df-button df-interactive"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
             <ui:VisualElement name="WalletPanel" class="wallet-panel">
-                <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label" />
-                <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label" />
-                <ui:Label name="walletShards" text="Shards: 0" class="wallet-label" />
-                <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label" />
-                <ui:Label name="walletChests" text="Chests: 0" class="wallet-label" />
-                <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive" />
-                <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive" />
-                <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive" />
-                <ui:Label name="walletChestResult" text="" class="wallet-result" />
+                <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label"/>
+                <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label"/>
+                <ui:Label name="walletShards" text="Shards: 0" class="wallet-label"/>
+                <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label"/>
+                <ui:Label name="walletChests" text="Chests: 0" class="wallet-label"/>
+                <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive"/>
+                <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive"/>
+                <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive"/>
+                <ui:Label name="walletChestResult" text="" class="wallet-result"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="PlayerInfoModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window df-surface">
                 <ui:Button name="btnPlayerInfoAvatar" text="" class="player-avatar-button player-avatar-large df-interactive"/>
@@ -135,7 +126,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="TutorialReplayConfirmModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
                 <ui:Label name="TutorialReplayConfirmText" text="Tutorial already completed. Replay?" class="player-confirm-text df-label"/>
@@ -145,7 +135,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="RenameConfirmModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
                 <ui:Label text="Do you want to change your name?" class="player-confirm-text df-label"/>
@@ -155,7 +144,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement name="RenamePlayerModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
                 <ui:Label text="Enter your new name" class="df-label"/>
