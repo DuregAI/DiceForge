@@ -27,7 +27,8 @@ public sealed class TutorialStepsView
         _parent = parent;
         _overlay = new VisualElement
         {
-            pickingMode = PickingMode.Ignore
+            pickingMode = PickingMode.Ignore,
+            name = "_overlay"
         };
         _overlay.style.position = Position.Absolute;
         _overlay.style.left = 0;
@@ -39,6 +40,7 @@ public sealed class TutorialStepsView
 
         _root = layout.CloneTree();
         _root.style.flexGrow = 1;
+        _root.pickingMode = PickingMode.Ignore;
         _overlay.Add(_root);
 
         _stepText = _root.Q<Label>(className: "tutorial-steps-text");
