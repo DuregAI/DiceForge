@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: COSMETIC_AVATAR_01
   displayName: Avatar 01
+  icon: {fileID: -1349615273, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
   itemType: 1

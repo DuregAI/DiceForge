@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: SOFT_GOLD
   displayName: Soft Gold
+  icon: {fileID: -21477623, guid: f33f9627bb2eb5b499e34d24a5eec65e, type: 3}
