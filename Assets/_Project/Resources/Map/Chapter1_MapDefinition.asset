@@ -17,7 +17,7 @@ MonoBehaviour:
   nodes:
   - id: C1_01
     type: 0
-    positionNormalized: {x: 0, y: 0}
+    positionNormalized: {x: 0.22, y: 0.25}
     nextIds:
     - C1_02
     battlePresetId: long
@@ -25,8 +25,8 @@ MonoBehaviour:
     chestId: 
     storyLineId: 
   - id: C1_02
-    type: 0
-    positionNormalized: {x: 0, y: 0}
+    type: 1
+    positionNormalized: {x: 0.3, y: 0.33}
     nextIds:
     - C1_03
     battlePresetId: long
@@ -35,7 +35,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_03
     type: 1
-    positionNormalized: {x: 1, y: 1}
+    positionNormalized: {x: 0.36, y: 0.37}
     nextIds:
     - C1_04
     battlePresetId: 
@@ -44,7 +44,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_04
     type: 0
-    positionNormalized: {x: 2, y: 2}
+    positionNormalized: {x: 0.436, y: 0.432}
     nextIds:
     - C1_05
     battlePresetId: long
@@ -53,7 +53,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_05
     type: 2
-    positionNormalized: {x: 100, y: 100}
+    positionNormalized: {x: 0.508, y: 0.469}
     nextIds:
     - C1_06
     battlePresetId: 
@@ -62,7 +62,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_06
     type: 0
-    positionNormalized: {x: 0.569, y: 0.403}
+    positionNormalized: {x: 0.58, y: 0.52}
     nextIds:
     - C1_07
     battlePresetId: long
@@ -71,7 +71,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_07
     type: 0
-    positionNormalized: {x: 0.632, y: 0.436}
+    positionNormalized: {x: 0.688, y: 0.588}
     nextIds:
     - C1_08
     battlePresetId: long
@@ -80,7 +80,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_08
     type: 1
-    positionNormalized: {x: 0.73, y: 0.528}
+    positionNormalized: {x: 0.759, y: 0.601}
     nextIds:
     - C1_09
     battlePresetId: 
@@ -89,18 +89,9 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_09
     type: 0
-    positionNormalized: {x: 0.791, y: 0.571}
-    nextIds:
-    - C1_10
-    battlePresetId: long
-    rewardPresetId: battle_large
-    chestId: 
-    storyLineId: 
-  - id: C1_10
-    type: 0
-    positionNormalized: {x: 0.898, y: 0.725}
+    positionNormalized: {x: 0.882, y: 0.772}
     nextIds: []
     battlePresetId: long
-    rewardPresetId: battle_boss
+    rewardPresetId: battle_large
     chestId: 
     storyLineId: 

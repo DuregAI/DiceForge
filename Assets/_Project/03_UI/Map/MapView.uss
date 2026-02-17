@@ -15,6 +15,7 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.28);
     -unity-background-scale-mode: scale-and-crop;
+    flex-shrink: 1;
 }
 
 .map-top-bar {
@@ -91,20 +92,10 @@
     justify-content: flex-start;
 }
 
-/* .node-shadow {
-    position: absolute;
-    left: 0px;
-    top: 10px;
-    width: 98px;
-    height: 106px;
-    border-radius: 64px;
-    background-color: rgba(0, 0, 0, 0.5);
-} */
-
 .node-button {
     width: 128px;
     height: 128px;
-    border-width: 0px;
+    border-width: 0;
     background-color: rgba(0, 0, 0, 0);
     -unity-background-scale-mode: scale-to-fit;
     -unity-font-size: 1px;
@@ -190,13 +181,11 @@
     opacity: 0.7;
 }
 
-    /* Не даём UI Toolkit "глушить" disabled кнопку */
 .node-button:disabled {
     opacity: 1;
-    color: rgba(255,255,255,0); /* оставляем текст невидимым */
+    color: rgba(255, 255, 255, 0);
 }
 
-/* На всякий: убираем эффект tint у disabled */
 .node-button:disabled .unity-text-element {
     opacity: 1;
 }

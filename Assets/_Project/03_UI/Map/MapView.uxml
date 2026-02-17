@@ -1,18 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
     <Style src="project://database/Assets/_Project/03_UI/Map/MapView.uss?fileID=7433441132597879392&amp;guid=b60515550a4165f4d8d2a09ed29206bf&amp;type=3#MapView"/>
     <ui:VisualElement name="MapRoot" class="map-root">
-        <ui:VisualElement name="MapBackgroundImage" class="map-background-image"/>
-
+        <ui:VisualElement name="MapBackgroundImage" class="map-background-image" style="top: 0; width: 1920px; height: 1080px; -unity-background-scale-mode: stretch-to-fill;"/>
         <ui:VisualElement name="MapTopBar" class="map-top-bar">
             <ui:Button name="MapBackButton" text="Back" class="map-top-button"/>
             <ui:Label name="MapTitle" text="Chapter" class="map-title"/>
             <ui:VisualElement name="MapCurrencySlot" class="map-currency-slot"/>
         </ui:VisualElement>
-
         <ui:VisualElement name="NodesLayer" class="map-nodes-layer">
             <ui:VisualElement name="MapEdgesLayer" class="map-edges-layer"/>
         </ui:VisualElement>
-
         <ui:VisualElement name="MapBottomBar" class="map-bottom-bar">
             <ui:Button name="MapResetRunButton" text="Reset Run" class="map-dev-button"/>
             <ui:Button name="MapContinueButton" text="Continue" class="map-continue-button"/>

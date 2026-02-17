@@ -237,9 +237,9 @@ public sealed class MapController : MonoBehaviour
             var nodeContainer = new VisualElement { name = $"Node_{node.id}" };
             nodeContainer.AddToClassList("map-node");
 
-            var shadow = new VisualElement { name = "NodeShadow" };
+/*            var shadow = new VisualElement { name = "NodeShadow" };
             shadow.AddToClassList("node-shadow");
-            nodeContainer.Add(shadow);
+            nodeContainer.Add(shadow);*/
 
             var button = new Button(() => HandleNodeClicked(node.id))
             {
@@ -263,6 +263,7 @@ public sealed class MapController : MonoBehaviour
             ApplyNodeStateClasses(nodeContainer, button, node.id);
             nodeContainer.style.left = Length.Percent(node.positionNormalized.x * 100f);
             nodeContainer.style.top = Length.Percent((1f - node.positionNormalized.y) * 100f);
+
             _nodesLayer.Add(nodeContainer);
 
             instantiatedCount++;
