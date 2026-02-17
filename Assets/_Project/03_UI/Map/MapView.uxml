@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
     <Style src="project://database/Assets/_Project/03_UI/Map/MapView.uss?fileID=7433441132597879392&amp;guid=b60515550a4165f4d8d2a09ed29206bf&amp;type=3#MapView"/>
     <ui:VisualElement name="MapRoot" class="map-root">
-        <ui:VisualElement name="MapBackground" class="map-background"/>
+        <ui:VisualElement name="MapBackgroundImage" class="map-background-image"/>
 
         <ui:VisualElement name="MapTopBar" class="map-top-bar">
             <ui:Button name="MapBackButton" text="Back" class="map-top-button"/>

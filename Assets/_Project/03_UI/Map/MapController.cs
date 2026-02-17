@@ -11,8 +11,13 @@ public sealed class MapController : MonoBehaviour
 
     [Header("Map UI")]
     [SerializeField] private StyleSheet mapViewStyle;
+    [SerializeField] private Texture2D mapBackgroundTexture;
+    [SerializeField] private Texture2D iconDisabled;
+    [SerializeField] private Texture2D iconOpen;
+    [SerializeField] private Texture2D iconPassed;
 
     private VisualElement _mapRoot;
+    private VisualElement _background;
     private VisualElement _nodesLayer;
     private VisualElement _edgesLayer;
     private Label _titleLabel;
@@ -50,6 +55,7 @@ public sealed class MapController : MonoBehaviour
         _titleLabel.text = map.chapterId;
         _mapRoot.style.display = DisplayStyle.Flex;
         _mapRoot.BringToFront();
+        ApplyMapBackground();
         _resetRunButton.style.display = devMode ? DisplayStyle.Flex : DisplayStyle.None;
         _unlockAllButton.style.display = devMode ? DisplayStyle.Flex : DisplayStyle.None;
 
@@ -68,6 +74,7 @@ public sealed class MapController : MonoBehaviour
         if (_mapRoot != null)
         {
             AttachMapStyleSheet(devMode);
+            _background = _mapRoot.Q<VisualElement>("MapBackgroundImage");
             _nodesLayer = _mapRoot.Q<VisualElement>("NodesLayer");
             _edgesLayer = _mapRoot.Q<VisualElement>("MapEdgesLayer");
             _titleLabel = _mapRoot.Q<Label>("MapTitle");
@@ -112,8 +119,8 @@ public sealed class MapController : MonoBehaviour
         _mapRoot = new VisualElement { name = "MapRoot" };
         _mapRoot.AddToClassList("map-root");
 
-        var mapBackground = new VisualElement { name = "MapBackground" };
-        mapBackground.AddToClassList("map-background");
+        _background = new VisualElement { name = "MapBackgroundImage" };
+        _background.AddToClassList("map-background-image");
 
         var topBar = new VisualElement { name = "MapTopBar" };
         topBar.AddToClassList("map-top-bar");
@@ -153,7 +160,7 @@ public sealed class MapController : MonoBehaviour
         bottomBar.Add(_continueButton);
         bottomBar.Add(_unlockAllButton);
 
-        _mapRoot.Add(mapBackground);
+        _mapRoot.Add(_background);
         _mapRoot.Add(topBar);
         _mapRoot.Add(_nodesLayer);
         _mapRoot.Add(bottomBar);
@@ -220,6 +227,7 @@ public sealed class MapController : MonoBehaviour
         BuildEdges(layerWidth, layerHeight);
 
         int instantiatedCount = 0;
+        int nodeIndex = 0;
 
         foreach (var node in _currentMap.nodes)
         {
@@ -236,14 +244,14 @@ public sealed class MapController : MonoBehaviour
             var button = new Button(() => HandleNodeClicked(node.id))
             {
                 name = "NodeButton",
-                text = GetNodeGlyph(node.type)
+                text = string.Empty
             };
             button.AddToClassList("node-button");
             nodeContainer.Add(button);
 
-            var checkLabel = new Label("✓") { name = "NodeCheck" };
-            checkLabel.AddToClassList("node-check");
-            nodeContainer.Add(checkLabel);
+            var levelLabel = new Label(GetNodeLevelLabel(node.id, nodeIndex + 1)) { name = "LevelLabel" };
+            levelLabel.AddToClassList("map-node-label");
+            nodeContainer.Add(levelLabel);
 
             if (devMode)
             {
@@ -258,6 +266,7 @@ public sealed class MapController : MonoBehaviour
             _nodesLayer.Add(nodeContainer);
 
             instantiatedCount++;
+            nodeIndex++;
         }
 
         DevLog(devMode, $"BuildNodes instantiated {instantiatedCount} nodes.");
@@ -327,16 +336,20 @@ public sealed class MapController : MonoBehaviour
         _onNodeSelected?.Invoke(nodeId);
     }
 
-    private static string GetNodeGlyph(MapNodeType type)
+    private static string GetNodeLevelLabel(string nodeId, int fallbackNumber)
     {
-        return type switch
+        if (!string.IsNullOrWhiteSpace(nodeId))
         {
-            MapNodeType.Battle => "⚔",
-            MapNodeType.Chest => "🎁",
-            MapNodeType.Shop => "⚙",
-            MapNodeType.Story => "⋯",
-            _ => type.ToString()
-        };
+            int separatorIndex = nodeId.LastIndexOf('_');
+            if (separatorIndex >= 0 && separatorIndex < nodeId.Length - 1)
+            {
+                string trailing = nodeId.Substring(separatorIndex + 1);
+                if (int.TryParse(trailing, out int parsed))
+                    return parsed.ToString();
+            }
+        }
+
+        return fallbackNumber.ToString();
     }
 
     private static void DevLog(bool devMode, string message)
@@ -365,6 +378,7 @@ public sealed class MapController : MonoBehaviour
         if (_currentState.IsCompleted(id))
         {
             container.AddToClassList("completed");
+            ApplyNodeIcon(button, iconPassed);
             button.SetEnabled(false);
             return;
         }
@@ -373,17 +387,42 @@ public sealed class MapController : MonoBehaviour
         if (id == _currentState.currentNodeId && unlocked)
         {
             container.AddToClassList("current");
+            ApplyNodeIcon(button, iconOpen);
             button.SetEnabled(true);
         }
         else if (unlocked)
         {
             container.AddToClassList("available");
+            ApplyNodeIcon(button, iconOpen);
             button.SetEnabled(true);
         }
         else
         {
             container.AddToClassList("locked");
+            ApplyNodeIcon(button, iconDisabled);
             button.SetEnabled(false);
         }
+    }
+
+    private void ApplyMapBackground()
+    {
+        if (_background == null)
+            return;
+
+        _background.style.backgroundImage = mapBackgroundTexture != null
+            ? new StyleBackground(mapBackgroundTexture)
+            : StyleKeyword.Null;
+        _background.style.unityBackgroundScaleMode = ScaleMode.ScaleAndCrop;
+    }
+
+    private static void ApplyNodeIcon(Button button, Texture2D icon)
+    {
+        if (button == null)
+            return;
+
+        button.style.backgroundImage = icon != null
+            ? new StyleBackground(icon)
+            : StyleKeyword.Null;
+        button.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
     }
 }
