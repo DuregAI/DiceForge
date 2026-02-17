@@ -1,31 +1,7 @@
 fileFormatVersion: 2
-guid: 3015448196896044dac53ecc6f91afa3
+guid: a32c57da3a2a13247990e6fda2bc63ed
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -1562247919
-    second: ChiefWombat_Neutral
-  - first:
-      213: 1561313585
-    second: ChiefWombat_Point
-  - first:
-      213: -1024548414
-    second: ChiefWombat_ThumbsUp
-  - first:
-      213: -285989804
-    second: ChiefWombat_Worried
-  - first:
-      213: 105980180
-    second: Scout_Wave
-  - first:
-      213: 476578011
-    second: Scout_Map
-  - first:
-      213: 1484319326
-    second: Critter_Sad
-  - first:
-      213: 1655902702
-    second: Critter_Happy
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,8 +37,8 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -96,8 +72,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -109,8 +85,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -122,8 +98,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -135,8 +111,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -147,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChiefWombat_Neutral
+      name: Level_Open
       rect:
         serializedVersion: 2
-        x: 1
-        y: 219
-        width: 147
-        height: 176
+        x: 0
+        y: 16
+        width: 312
+        height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +138,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aabec0a8e29fc81489e7c2f3cb8a468e
-      internalID: 2031283720
+      spriteID: 2334ba5e94805b14cab3b2e2c3ef5668
+      internalID: 1467759091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChiefWombat_Point
+      name: Level_Disabled
       rect:
         serializedVersion: 2
-        x: 163
-        y: 220
-        width: 166
-        height: 178
+        x: 325
+        y: 11
+        width: 312
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b91dd90c52c8d064ea1b386cbe247ef6
-      internalID: -1408437753
+      spriteID: 8e69dcd1188b4bb41ae162953640dd92
+      internalID: -852922905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChiefWombat_ThumbsUp
+      name: Level_Passed
       rect:
         serializedVersion: 2
-        x: 341
-        y: 219
-        width: 158
-        height: 177
+        x: 648
+        y: 2
+        width: 332
+        height: 250
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,118 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf5637481f647ad4b8dd586514bbbefb
-      internalID: 1019773611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChiefWombat_Worryed
-      rect:
-        serializedVersion: 2
-        x: 507
-        y: 219
-        width: 155
-        height: 177
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36196b4f7d605ce4d9339923c762b731
-      internalID: 1884212181
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Scout_Wave
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 6
-        width: 152
-        height: 176
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7eef6ca9643a0d5498135da45e339c0a
-      internalID: -1718321419
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Scout_Map
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 7
-        width: 144
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5c63db174d66dc44b46c9eea3d32827
-      internalID: 1755310438
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Critter_Sad
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 7
-        width: 134
-        height: 126
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 539b8229f7429cb4c8fd81dbee4e8ff7
-      internalID: -553465380
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Critter_Happy
-      rect:
-        serializedVersion: 2
-        x: 524
-        y: 7
-        width: 143
-        height: 139
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9df6f2f5f7c4b754881b52795a532520
-      internalID: -1349615273
+      spriteID: 25e55adb3d4ec6c44819acc42dd94d53
+      internalID: 315556479
       vertices: []
       indices: 
       edges: []
@@ -326,7 +192,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1bed9690cc5cee44590d82bd94de354b
+    spriteID: d3988ee6f2e8bfc48a8fa656ebec92a2
     internalID: 0
     vertices: []
     indices: 
@@ -338,17 +204,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Avatars_10: 717401540
-      Avatars_7: -1741071805
-      Avatars_9: 14345373
-      ChiefWombat_Neutral: 2031283720
-      ChiefWombat_Point: -1408437753
-      ChiefWombat_ThumbsUp: 1019773611
-      ChiefWombat_Worryed: 1884212181
-      Critter_Happy: -1349615273
-      Critter_Sad: -553465380
-      Scout_Map: 1755310438
-      Scout_Wave: -1718321419
+      Level_Disabled: -852922905
+      Level_Open: 1467759091
+      Level_Passed: 315556479
+      level_icons_3: -60213812
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
