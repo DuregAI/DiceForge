@@ -12,9 +12,9 @@ public sealed class MapController : MonoBehaviour
     [Header("Map UI")]
     [SerializeField] private StyleSheet mapViewStyle;
     [SerializeField] private Texture2D mapBackgroundTexture;
-    [SerializeField] private Texture2D iconDisabled;
-    [SerializeField] private Texture2D iconOpen;
-    [SerializeField] private Texture2D iconPassed;
+    [SerializeField] private Sprite iconDisabled;
+    [SerializeField] private Sprite iconOpen;
+    [SerializeField] private Sprite iconPassed;
 
     private VisualElement _mapRoot;
     private VisualElement _background;
@@ -249,16 +249,16 @@ public sealed class MapController : MonoBehaviour
             button.AddToClassList("node-button");
             nodeContainer.Add(button);
 
-            var levelLabel = new Label(GetNodeLevelLabel(node.id, nodeIndex + 1)) { name = "LevelLabel" };
+            /*var levelLabel = new Label(GetNodeLevelLabel(node.id, nodeIndex + 1)) { name = "LevelLabel" };
             levelLabel.AddToClassList("map-node-label");
-            nodeContainer.Add(levelLabel);
+            nodeContainer.Add(levelLabel);*/
 
-            if (devMode)
+           /* if (devMode)
             {
                 var idLabel = new Label(node.id);
                 idLabel.AddToClassList("node-id");
                 nodeContainer.Add(idLabel);
-            }
+            }*/
 
             ApplyNodeStateClasses(nodeContainer, button, node.id);
             nodeContainer.style.left = Length.Percent(node.positionNormalized.x * 100f);
@@ -415,7 +415,7 @@ public sealed class MapController : MonoBehaviour
         _background.style.unityBackgroundScaleMode = ScaleMode.ScaleAndCrop;
     }
 
-    private static void ApplyNodeIcon(Button button, Texture2D icon)
+    private static void ApplyNodeIcon(Button button, Sprite icon)
     {
         if (button == null)
             return;

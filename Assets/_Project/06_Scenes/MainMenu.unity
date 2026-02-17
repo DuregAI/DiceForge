@@ -679,6 +679,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapController
   uiDocument: {fileID: 1000000002}
   mapViewStyle: {fileID: 7433441132597879392, guid: b60515550a4165f4d8d2a09ed29206bf, type: 3}
+  mapBackgroundTexture: {fileID: 2800000, guid: 7069dfbe27a533c40947205dc7404d90, type: 3}
+  iconDisabled: {fileID: -852922905, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
+  iconOpen: {fileID: 1467759091, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
+  iconPassed: {fileID: 315556479, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
 --- !u!114 &1000000005
 MonoBehaviour:
   m_ObjectHideFlags: 0

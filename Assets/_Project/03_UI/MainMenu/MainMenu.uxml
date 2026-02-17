@@ -94,7 +94,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="LeftSidebar" class="left-sidebar">
             <ui:VisualElement name="PlayerPanel" class="player-panel df-surface">
-                <ui:Button name="btnPlayerAvatar" text="" class="player-avatar-button df-interactive"/>
+                <ui:Button name="btnPlayerAvatar" text="" icon-image="project://database/Assets/_Project/07_Art/Character/Tutorial/Avatars.png?fileID=1755310438&amp;guid=3015448196896044dac53ecc6f91afa3&amp;type=3#Scout_Map" class="player-avatar-button df-interactive"/>
                 <ui:Label name="playerPanelName" text="Player" class="player-panel-name df-label"/>
                 <ui:VisualElement class="player-panel-meta-row">
                     <ui:Label name="playerPanelLevel" text="Lv 1" class="player-panel-level df-label"/>

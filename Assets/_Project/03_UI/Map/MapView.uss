@@ -37,7 +37,7 @@
     color: rgba(245, 248, 255, 0.96);
     -unity-font-style: bold;
     font-size: 24px;
-    unity-text-align: middle-right;
+    -unity-text-align: middle-right;
 }
 
 .map-top-button {
@@ -91,33 +91,24 @@
     justify-content: flex-start;
 }
 
-.node-shadow {
+/* .node-shadow {
     position: absolute;
-    left: 9px;
-    top: 8px;
-    width: 88px;
-    height: 88px;
-    border-radius: 44px;
-    background-color: rgba(0, 0, 0, 0.24);
-}
+    left: 0px;
+    top: 10px;
+    width: 98px;
+    height: 106px;
+    border-radius: 64px;
+    background-color: rgba(0, 0, 0, 0.5);
+} */
 
 .node-button {
-    width: 96px;
-    height: 96px;
-    border-radius: 48px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-color: rgba(255, 255, 255, 0.45);
-    border-bottom-color: rgba(255, 255, 255, 0.45);
-    border-left-color: rgba(255, 255, 255, 0.45);
-    border-right-color: rgba(255, 255, 255, 0.45);
-    background-color: rgba(0, 0, 0, 0.02);
+    width: 128px;
+    height: 128px;
+    border-width: 0px;
+    background-color: rgba(0, 0, 0, 0);
     -unity-background-scale-mode: scale-to-fit;
-    color: rgba(255, 255, 255, 0);
-    font-size: 1px;
-    unity-text-align: middle-center;
+    -unity-font-size: 1px;
+    -unity-text-align: middle-center;
 }
 
 .map-node-label {
@@ -125,14 +116,14 @@
     width: 96px;
     color: rgba(246, 249, 255, 0.94);
     -unity-font-style: bold;
-    font-size: 16px;
+    font-size: 32px;
     unity-text-align: upper-center;
     -unity-text-outline-color: rgba(0, 0, 0, 0.85);
     -unity-text-outline-width: 1px;
 }
 
 .map-node.locked {
-    opacity: 0.54;
+    opacity: 1;
 }
 
 .map-node.available {
@@ -141,7 +132,7 @@
 
 .map-node.current {
     opacity: 1;
-    scale: 1.1;
+    scale: 1.2;
 }
 
 .map-node.current .node-button {
@@ -156,7 +147,7 @@
 }
 
 .map-node.completed {
-    opacity: 0.82;
+    opacity: 1;
 }
 
 .map-node.completed .node-button {
@@ -197,4 +188,15 @@
     border-radius: 9px;
     font-size: 12px;
     opacity: 0.7;
+}
+
+    /* Не даём UI Toolkit "глушить" disabled кнопку */
+.node-button:disabled {
+    opacity: 1;
+    color: rgba(255,255,255,0); /* оставляем текст невидимым */
+}
+
+/* На всякий: убираем эффект tint у disabled */
+.node-button:disabled .unity-text-element {
+    opacity: 1;
 }

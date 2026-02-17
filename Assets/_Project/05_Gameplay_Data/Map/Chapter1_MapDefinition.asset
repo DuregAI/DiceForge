@@ -17,7 +17,7 @@ MonoBehaviour:
   nodes:
   - id: C1_01
     type: 0
-    positionNormalized: {x: 0.176, y: 0.103}
+    positionNormalized: {x: 0, y: 0}
     nextIds:
     - C1_02
     battlePresetId: long
@@ -26,7 +26,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_02
     type: 0
-    positionNormalized: {x: 0.298, y: 0.202}
+    positionNormalized: {x: 0, y: 0}
     nextIds:
     - C1_03
     battlePresetId: long
@@ -35,7 +35,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_03
     type: 1
-    positionNormalized: {x: 0.381, y: 0.260}
+    positionNormalized: {x: 1, y: 1}
     nextIds:
     - C1_04
     battlePresetId: 
@@ -44,7 +44,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_04
     type: 0
-    positionNormalized: {x: 0.442, y: 0.312}
+    positionNormalized: {x: 2, y: 2}
     nextIds:
     - C1_05
     battlePresetId: long
@@ -53,7 +53,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_05
     type: 2
-    positionNormalized: {x: 0.505, y: 0.366}
+    positionNormalized: {x: 100, y: 100}
     nextIds:
     - C1_06
     battlePresetId: 
@@ -80,7 +80,7 @@ MonoBehaviour:
     storyLineId: 
   - id: C1_08
     type: 1
-    positionNormalized: {x: 0.730, y: 0.528}
+    positionNormalized: {x: 0.73, y: 0.528}
     nextIds:
     - C1_09
     battlePresetId: 
