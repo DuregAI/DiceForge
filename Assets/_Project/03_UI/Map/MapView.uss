@@ -100,6 +100,16 @@
     -unity-background-scale-mode: scale-to-fit;
     -unity-font-size: 1px;
     -unity-text-align: middle-center;
+/*     cursor: link; */
+    transition-property: transform, opacity;
+    transition-duration: 0.08s;
+}
+
+/* hover только дл€ доступных/текущих (не дл€ locked) */
+.map-node.available .node-button:hover,
+.map-node.current .node-button:hover {
+    scale: 1.06;
+    opacity: 1;
 }
 
 .map-node-label {
@@ -117,8 +127,13 @@
     opacity: 1;
 }
 
+/* .map-node.locked .node-button {
+    cursor: default;
+} */
+
 .map-node.available {
     opacity: 1;
+    scale: 1.06;
 }
 
 .map-node.current {
@@ -188,4 +203,99 @@
 
 .node-button:disabled .unity-text-element {
     opacity: 1;
+}
+/* =========================
+   MAP POLISH OVERRIDES (v0.0.6)
+   Paste at the END of MapView.uss
+   ========================= */
+
+/* Ќе даЄм контейнеру гасить иконки/текст через opacity */
+.map-node,
+.map-node.locked,
+.map-node.available,
+.map-node.completed,
+.map-node.current {
+    opacity: 1;
+}
+
+/*  урсор-рука на кликабельных */
+.map-node.available .node-button,
+.map-node.current .node-button {
+    cursor: pointer;
+}
+.map-node.locked .node-button,
+.map-node.completed .node-button {
+    cursor: default;
+}
+
+/* Hover / Press (ѕ ) */
+.map-node.available .node-button:hover,
+.map-node.current .node-button:hover {
+    scale: 1.06;
+}
+
+.map-node.available .node-button:active,
+.map-node.current .node-button:active {
+    scale: 0.97;
+}
+
+/* Locked Ч без эффектов */
+.map-node.locked .node-button:hover,
+.map-node.locked .node-button:active {
+    scale: 1;
+}
+
+/* ”бираем "кружочность": превращаем shadow в м€гкое п€тно (без рамки) */
+.node-shadow {
+    left: 20px;
+    top: 70px;
+    width: 66px;
+    height: 18px;
+    border-radius: 999px;
+    background-color: rgba(0,0,0,0.22);
+}
+
+/* —вечение по состо€ни€м (через tint п€тна) */
+.map-node.available .node-shadow {
+    background-color: rgba(255, 220, 120, 0.20);
+}
+
+.map-node.current .node-shadow {
+    background-color: rgba(255, 240, 170, 0.30);
+}
+
+.map-node.completed .node-shadow {
+    background-color: rgba(170, 255, 185, 0.20);
+}
+
+.map-node.locked .node-shadow {
+    background-color: rgba(0,0,0,0.16);
+}
+
+/* „уть €снее рамка на current, на locked Ч более тиха€ */
+.map-node.current .node-button {
+    border-top-color: rgba(255, 246, 214, 0.95);
+    border-bottom-color: rgba(255, 246, 214, 0.95);
+    border-left-color: rgba(255, 246, 214, 0.95);
+    border-right-color: rgba(255, 246, 214, 0.95);
+}
+
+.map-node.locked .node-button {
+    border-top-color: rgba(255, 255, 255, 0.22);
+    border-bottom-color: rgba(255, 255, 255, 0.22);
+    border-left-color: rgba(255, 255, 255, 0.22);
+    border-right-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Completed Ч зелЄна€ рамка + не гасим */
+.map-node.completed .node-button {
+    border-top-color: rgba(163, 235, 166, 0.88);
+    border-bottom-color: rgba(163, 235, 166, 0.88);
+    border-left-color: rgba(163, 235, 166, 0.88);
+    border-right-color: rgba(163, 235, 166, 0.88);
+}
+
+/* Current Ч чуть больше, но без дичайшего зума */
+.map-node.current {
+    scale: 1.12;
 }
