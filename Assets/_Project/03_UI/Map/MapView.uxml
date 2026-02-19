@@ -3,17 +3,17 @@
     <ui:VisualElement name="MapRoot" class="map-root">
         <ui:VisualElement name="MapBackgroundImage" class="map-background-image" style="top: 0; width: 1920px; height: 1080px; -unity-background-scale-mode: stretch-to-fill;"/>
         <ui:VisualElement name="MapTopBar" class="map-top-bar">
-            <ui:Button name="MapBackButton" text="Back" class="map-top-button"/>
-            <ui:Label name="MapTitle" text="Chapter" class="map-title"/>
+            <ui:Button name="MapBackButton" text="Back" class="menu-wood-button menu-small-button"/>
+            <ui:Label name="MapTitle" text="Chapter 1" class="menu-title"/>
             <ui:VisualElement name="MapCurrencySlot" class="map-currency-slot"/>
         </ui:VisualElement>
         <ui:VisualElement name="NodesLayer" class="map-nodes-layer">
             <ui:VisualElement name="MapEdgesLayer" class="map-edges-layer"/>
         </ui:VisualElement>
         <ui:VisualElement name="MapBottomBar" class="map-bottom-bar">
-            <ui:Button name="MapResetRunButton" text="Reset Run" class="map-dev-button"/>
-            <ui:Button name="MapContinueButton" text="Continue" class="map-continue-button"/>
-            <ui:Button name="MapUnlockAllButton" text="Unlock All" class="map-dev-button"/>
+            <ui:Button name="MapResetRunButton" text="Reset Run" class="menu-wood-button menu-small-button"/>
+            <ui:Button name="MapContinueButton" text="Continue" class="menu-wood-button map-continue-button"/>
+            <ui:Button name="MapUnlockAllButton" text="Unlock All" class="menu-wood-button menu-small-button"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
