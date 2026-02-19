@@ -139,12 +139,57 @@
     color: rgba(255, 255, 255, 0);
 }
 
-.map-node.current {
-    scale: 1.12;
-}
-
 .map-node-hover .node-button {
     -unity-background-image-tint-color: rgba(255, 245, 180, 1);
+}
+
+
+.node-ring {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 78px;
+    height: 78px;
+    border-radius: 39px;
+    background-color: rgba(138, 209, 255, 0.52);
+    -unity-background-image-tint-color: rgba(138, 209, 255, 0.52);
+    opacity: 0;
+    pointer-events: none;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+
+.node-sparkle {
+    position: absolute;
+    left: 44px;
+    top: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    background-color: rgba(255, 247, 210, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+
+.map-node.current .node-ring {
+    opacity: 0.34;
+}
+
+.map-node-hover .node-ring {
+    opacity: 0.56;
+}
+
+.map-node-hover .node-sparkle {
+    opacity: 0.8;
+}
+
+.map-node.locked .node-ring,
+.map-node.completed .node-ring,
+.map-node.locked .node-sparkle,
+.map-node.completed .node-sparkle {
+    opacity: 0;
 }
 
 .map-bottom-bar {
@@ -166,13 +211,13 @@
     height: 86px;
     font-size: 36px;
 }
-/* Курсор-рука только для интерактивных нод */
+/* ГЉГіГ°Г±Г®Г°-Г°ГіГЄГ  ГІГ®Г«ГјГЄГ® Г¤Г«Гї ГЁГ­ГІГҐГ°Г ГЄГІГЁГўГ­Г»Гµ Г­Г®Г¤ */
 .map-node.available .node-button:hover,
 .map-node.current .node-button:hover {
     cursor: pointer;
 }
 
-/* Для locked/completed — обычный */
+/* Г„Г«Гї locked/completed вЂ” Г®ГЎГ»Г·Г­Г»Г© */
 .map-node.locked .node-button,
 .map-node.completed .node-button {
     cursor: default;
