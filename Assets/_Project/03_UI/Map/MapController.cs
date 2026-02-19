@@ -463,15 +463,14 @@ public sealed class MapController : MonoBehaviour
                 return;
 
             button.style.scale = new StyleScale(new Scale(Vector3.one * 1.08f));
-            button.style.cursor = new StyleCursor(MouseCursor.Link);
             nodeContainer.AddToClassList("map-node-hover");
         });
 
         button.RegisterCallback<PointerLeaveEvent>(_ =>
         {
             button.style.scale = new StyleScale(new Scale(Vector3.one));
-            button.style.cursor = StyleKeyword.Null;
             nodeContainer.RemoveFromClassList("map-node-hover");
         });
     }
+
 }

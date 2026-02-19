@@ -166,3 +166,14 @@
     height: 86px;
     font-size: 36px;
 }
+/*  урсор-рука только дл€ интерактивных нод */
+.map-node.available .node-button:hover,
+.map-node.current .node-button:hover {
+    cursor: pointer;
+}
+
+/* ƒл€ locked/completed Ч обычный */
+.map-node.locked .node-button,
+.map-node.completed .node-button {
+    cursor: default;
+}

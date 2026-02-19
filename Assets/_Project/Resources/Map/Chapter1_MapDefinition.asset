@@ -17,7 +17,7 @@ MonoBehaviour:
   nodes:
   - id: C1_01
     type: 0
-    positionNormalized: {x: 0.231, y: 0.24}
+    positionNormalized: {x: 0.231, y: 0.23}
     nextIds:
     - C1_02
     battlePresetId: long
