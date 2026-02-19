@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
     <Style src="project://database/Assets/_Project/03_UI/Map/MapView.uss?fileID=7433441132597879392&amp;guid=b60515550a4165f4d8d2a09ed29206bf&amp;type=3#MapView"/>
     <ui:VisualElement name="MapRoot" class="map-root">
         <ui:VisualElement name="MapBackgroundImage" class="map-background-image" style="top: 0; width: 1920px; height: 1080px; -unity-background-scale-mode: stretch-to-fill;"/>

@@ -8,6 +8,15 @@ using UnityEngine.UIElements;
 
 public sealed class MapController : MonoBehaviour
 {
+    private const float CurrentPulseMinScale = 1.10f;
+    private const float CurrentPulseMaxScale = 1.16f;
+    private const float HoverScaleBump = 1.03f;
+    private const float PulseSpeed = 2.35f;
+    private const float CurrentRingMinOpacity = 0.22f;
+    private const float CurrentRingMaxOpacity = 0.40f;
+    private const float HoverRingOpacity = 0.56f;
+    private const float HoverSparkleOpacity = 0.8f;
+
     [SerializeField] private UIDocument uiDocument;
 
     [Header("Map UI")]
@@ -27,10 +36,20 @@ public sealed class MapController : MonoBehaviour
     private Button _resetRunButton;
     private Button _unlockAllButton;
     private readonly Dictionary<string, MapNodeDefinition> _nodesById = new();
+    private readonly Dictionary<string, VisualElement> _nodeContainersById = new();
+    private readonly Dictionary<string, Button> _nodeButtonsById = new();
+    private readonly Dictionary<string, VisualElement> _nodeRingsById = new();
+    private readonly Dictionary<string, VisualElement> _nodeSparklesById = new();
     private MapDefinitionSO _currentMap;
     private MapRunState _currentState;
     private Action<string> _onNodeSelected;
     private bool _pendingLayoutRebuild;
+    private IVisualElementScheduledItem _fxTicker;
+    private bool _isMapVisible;
+    private float _fxTime;
+    private string _hoveredNodeId;
+    private string _fxActiveCurrentId;
+    private string _fxActiveHoverId;
 
     public event Action BackRequested;
     public event Action ContinueRequested;
@@ -61,10 +80,17 @@ public sealed class MapController : MonoBehaviour
         _unlockAllButton.style.display = devMode ? DisplayStyle.Flex : DisplayStyle.None;
 
         BuildNodes(devMode);
+        StartFxTicker();
     }
 
     public void Hide()
     {
+        _isMapVisible = false;
+        _hoveredNodeId = null;
+        _fxActiveCurrentId = null;
+        _fxActiveHoverId = null;
+        StopFxTicker();
+
         if (_mapRoot != null)
             _mapRoot.style.display = DisplayStyle.None;
     }
@@ -197,6 +223,11 @@ public sealed class MapController : MonoBehaviour
         }
 
         _nodesLayer.Clear();
+        _nodeContainersById.Clear();
+        _nodeButtonsById.Clear();
+        _nodeRingsById.Clear();
+        _nodeSparklesById.Clear();
+
         _edgesLayer = new VisualElement { name = "MapEdgesLayer" };
         _edgesLayer.AddToClassList("map-edges-layer");
         _nodesLayer.Add(_edgesLayer);
@@ -241,6 +272,7 @@ public sealed class MapController : MonoBehaviour
 
             var nodeContainer = new VisualElement { name = $"Node_{node.id}" };
             nodeContainer.AddToClassList("map-node");
+            CreateNodeFxLayers(node.id, nodeContainer);
 
 /*            var shadow = new VisualElement { name = "NodeShadow" };
             shadow.AddToClassList("node-shadow");
@@ -252,7 +284,7 @@ public sealed class MapController : MonoBehaviour
                 text = string.Empty
             };
             button.AddToClassList("node-button");
-            RegisterNodeHover(nodeContainer, button);
+            RegisterNodeHover(node.id, nodeContainer, button);
             nodeContainer.Add(button);
 
             /*var levelLabel = new Label(GetNodeLevelLabel(node.id, nodeIndex + 1)) { name = "LevelLabel" };
@@ -271,6 +303,8 @@ public sealed class MapController : MonoBehaviour
             nodeContainer.style.top = Length.Percent((1f - node.positionNormalized.y) * 100f);
 
             _nodesLayer.Add(nodeContainer);
+            _nodeContainersById[node.id] = nodeContainer;
+            _nodeButtonsById[node.id] = button;
 
             instantiatedCount++;
             nodeIndex++;
@@ -387,6 +421,7 @@ public sealed class MapController : MonoBehaviour
             container.AddToClassList("completed");
             ApplyNodeIcon(button, iconPassed);
             button.SetEnabled(false);
+            ClearNodeFx(container, id);
             return;
         }
 
@@ -408,6 +443,7 @@ public sealed class MapController : MonoBehaviour
             container.AddToClassList("locked");
             ApplyNodeIcon(button, iconDisabled);
             button.SetEnabled(false);
+            ClearNodeFx(container, id);
         }
     }
 
@@ -455,22 +491,148 @@ public sealed class MapController : MonoBehaviour
         return builder.ToString();
     }
 
-    private static void RegisterNodeHover(VisualElement nodeContainer, Button button)
+    private void RegisterNodeHover(string nodeId, VisualElement nodeContainer, Button button)
     {
         button.RegisterCallback<PointerEnterEvent>(_ =>
         {
-            if (!button.enabledInHierarchy)
+            if (!button.enabledInHierarchy || !IsNodeFxEligible(nodeId))
                 return;
 
-            button.style.scale = new StyleScale(new Scale(Vector3.one * 1.08f));
             nodeContainer.AddToClassList("map-node-hover");
+            _hoveredNodeId = nodeId;
         });
 
         button.RegisterCallback<PointerLeaveEvent>(_ =>
         {
-            button.style.scale = new StyleScale(new Scale(Vector3.one));
             nodeContainer.RemoveFromClassList("map-node-hover");
+
+            if (_hoveredNodeId == nodeId)
+                _hoveredNodeId = null;
         });
+    }
+
+    private void CreateNodeFxLayers(string nodeId, VisualElement nodeContainer)
+    {
+        var ring = new VisualElement { name = "NodeRing" };
+        ring.AddToClassList("node-ring");
+        nodeContainer.Add(ring);
+
+        var sparkle = new VisualElement { name = "NodeSparkle" };
+        sparkle.AddToClassList("node-sparkle");
+        nodeContainer.Add(sparkle);
+
+        _nodeRingsById[nodeId] = ring;
+        _nodeSparklesById[nodeId] = sparkle;
+    }
+
+    private void StartFxTicker()
+    {
+        if (_mapRoot == null)
+            return;
+
+        _isMapVisible = true;
+        _fxTime = 0f;
+        _fxActiveCurrentId = null;
+        _fxActiveHoverId = null;
+
+        if (_fxTicker == null)
+            _fxTicker = _mapRoot.schedule.Execute(TickFx).Every(16);
+        else
+            _fxTicker.Resume();
+    }
+
+    private void StopFxTicker()
+    {
+        _fxTicker?.Pause();
+        ResetFxVisuals();
+    }
+
+    private void TickFx()
+    {
+        if (!_isMapVisible || _currentState == null)
+            return;
+
+        _fxTime += Time.unscaledDeltaTime;
+
+        string currentNodeId = _currentState.currentNodeId;
+        string hoveredNodeId = _hoveredNodeId;
+
+        if (_fxActiveCurrentId != null && _fxActiveCurrentId != currentNodeId && _nodeContainersById.TryGetValue(_fxActiveCurrentId, out var prevCurrentContainer))
+            ClearNodeFx(prevCurrentContainer, _fxActiveCurrentId);
+
+        if (_fxActiveHoverId != null && _fxActiveHoverId != hoveredNodeId && _fxActiveHoverId != currentNodeId && _nodeContainersById.TryGetValue(_fxActiveHoverId, out var prevHoveredContainer))
+            ClearNodeFx(prevHoveredContainer, _fxActiveHoverId);
+
+        if (!string.IsNullOrEmpty(currentNodeId) && _nodeContainersById.TryGetValue(currentNodeId, out var currentContainer) && IsNodeFxEligible(currentNodeId))
+        {
+            float pulseNormalized = (Mathf.Sin(_fxTime * PulseSpeed) + 1f) * 0.5f;
+            float pulseScale = Mathf.Lerp(CurrentPulseMinScale, CurrentPulseMaxScale, pulseNormalized);
+            float ringOpacity = Mathf.Lerp(CurrentRingMinOpacity, CurrentRingMaxOpacity, pulseNormalized);
+
+            if (hoveredNodeId == currentNodeId)
+            {
+                pulseScale += HoverScaleBump;
+                ringOpacity = Mathf.Max(ringOpacity, HoverRingOpacity);
+            }
+
+            currentContainer.style.scale = new StyleScale(new Scale(Vector3.one * pulseScale));
+            SetNodeFxOpacity(currentNodeId, ringOpacity, hoveredNodeId == currentNodeId ? HoverSparkleOpacity : 0f);
+            _fxActiveCurrentId = currentNodeId;
+        }
+        else if (!string.IsNullOrEmpty(currentNodeId) && _nodeContainersById.TryGetValue(currentNodeId, out var inactiveCurrentContainer))
+        {
+            ClearNodeFx(inactiveCurrentContainer, currentNodeId);
+            _fxActiveCurrentId = null;
+        }
+
+        if (!string.IsNullOrEmpty(hoveredNodeId) && hoveredNodeId != currentNodeId && _nodeContainersById.TryGetValue(hoveredNodeId, out var hoveredContainer) && IsNodeFxEligible(hoveredNodeId))
+        {
+            hoveredContainer.style.scale = new StyleScale(new Scale(Vector3.one * (1f + HoverScaleBump)));
+            SetNodeFxOpacity(hoveredNodeId, HoverRingOpacity, HoverSparkleOpacity);
+            _fxActiveHoverId = hoveredNodeId;
+        }
+        else if (!string.IsNullOrEmpty(hoveredNodeId) && hoveredNodeId != currentNodeId && _nodeContainersById.TryGetValue(hoveredNodeId, out var invalidHoverContainer))
+        {
+            ClearNodeFx(invalidHoverContainer, hoveredNodeId);
+            _fxActiveHoverId = null;
+        }
+
+        if (hoveredNodeId == currentNodeId)
+            _fxActiveHoverId = null;
+    }
+
+    private bool IsNodeFxEligible(string nodeId)
+    {
+        if (string.IsNullOrEmpty(nodeId) || _currentState == null)
+            return false;
+
+        return _currentState.IsUnlocked(nodeId) && !_currentState.IsCompleted(nodeId);
+    }
+
+    private void ResetFxVisuals()
+    {
+        foreach (var pair in _nodeContainersById)
+            ClearNodeFx(pair.Value, pair.Key);
+    }
+
+    private void ClearNodeFx(VisualElement nodeContainer, string nodeId)
+    {
+        if (nodeContainer != null)
+        {
+            nodeContainer.style.scale = new StyleScale(new Scale(Vector3.one));
+            nodeContainer.RemoveFromClassList("map-node-hover");
+        }
+
+        SetNodeFxOpacity(nodeId, 0f, 0f);
+    }
+
+    private void SetNodeFxOpacity(string nodeId, float ringOpacity, float sparkleOpacity)
+    {
+        if (_nodeRingsById.TryGetValue(nodeId, out var ring))
+            ring.style.opacity = ringOpacity;
+
+        if (_nodeSparklesById.TryGetValue(nodeId, out var sparkle))
+            sparkle.style.opacity = sparkleOpacity;
     }
 
 }
