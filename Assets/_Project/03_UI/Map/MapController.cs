@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Diceforge.Audio;
 using Diceforge.Map;
 using UnityEngine;
@@ -52,7 +53,7 @@ public sealed class MapController : MonoBehaviour
         _onNodeSelected = onNodeSelected;
         _nodesById.Clear();
 
-        _titleLabel.text = map.chapterId;
+        _titleLabel.text = FormatChapterTitle(map.chapterId);
         _mapRoot.style.display = DisplayStyle.Flex;
         _mapRoot.BringToFront();
         ApplyMapBackground();
@@ -125,10 +126,11 @@ public sealed class MapController : MonoBehaviour
         var topBar = new VisualElement { name = "MapTopBar" };
         topBar.AddToClassList("map-top-bar");
         _backButton = new Button(() => BackRequested?.Invoke()) { name = "MapBackButton", text = "Back" };
-        _backButton.AddToClassList("map-top-button");
+        _backButton.AddToClassList("menu-wood-button");
+        _backButton.AddToClassList("menu-small-button");
 
-        _titleLabel = new Label("Chapter") { name = "MapTitle" };
-        _titleLabel.AddToClassList("map-title");
+        _titleLabel = new Label("Chapter 1") { name = "MapTitle" };
+        _titleLabel.AddToClassList("menu-title");
 
         var currencySlot = new VisualElement { name = "MapCurrencySlot" };
         currencySlot.AddToClassList("map-currency-slot");
@@ -148,13 +150,16 @@ public sealed class MapController : MonoBehaviour
         bottomBar.AddToClassList("map-bottom-bar");
 
         _resetRunButton = new Button(() => ResetRunRequested?.Invoke()) { name = "MapResetRunButton", text = "Reset Run" };
-        _resetRunButton.AddToClassList("map-dev-button");
+        _resetRunButton.AddToClassList("menu-wood-button");
+        _resetRunButton.AddToClassList("menu-small-button");
 
         _continueButton = new Button(() => ContinueRequested?.Invoke()) { name = "MapContinueButton", text = "Continue" };
+        _continueButton.AddToClassList("menu-wood-button");
         _continueButton.AddToClassList("map-continue-button");
 
         _unlockAllButton = new Button(() => UnlockAllRequested?.Invoke()) { name = "MapUnlockAllButton", text = "Unlock All" };
-        _unlockAllButton.AddToClassList("map-dev-button");
+        _unlockAllButton.AddToClassList("menu-wood-button");
+        _unlockAllButton.AddToClassList("menu-small-button");
 
         bottomBar.Add(_resetRunButton);
         bottomBar.Add(_continueButton);
@@ -247,6 +252,7 @@ public sealed class MapController : MonoBehaviour
                 text = string.Empty
             };
             button.AddToClassList("node-button");
+            RegisterNodeHover(nodeContainer, button);
             nodeContainer.Add(button);
 
             /*var levelLabel = new Label(GetNodeLevelLabel(node.id, nodeIndex + 1)) { name = "LevelLabel" };
@@ -425,5 +431,47 @@ public sealed class MapController : MonoBehaviour
             ? new StyleBackground(icon)
             : StyleKeyword.Null;
         button.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+    }
+
+    private static string FormatChapterTitle(string chapterId)
+    {
+        if (string.IsNullOrWhiteSpace(chapterId))
+            return "Chapter 1";
+
+        var normalized = chapterId.Trim();
+        if (normalized.Contains(' '))
+            return normalized;
+
+        var builder = new StringBuilder(normalized.Length + 1);
+        for (int i = 0; i < normalized.Length; i++)
+        {
+            char character = normalized[i];
+            if (i > 0 && char.IsDigit(character) && !char.IsWhiteSpace(normalized[i - 1]))
+                builder.Append(' ');
+
+            builder.Append(character);
+        }
+
+        return builder.ToString();
+    }
+
+    private static void RegisterNodeHover(VisualElement nodeContainer, Button button)
+    {
+        button.RegisterCallback<PointerEnterEvent>(_ =>
+        {
+            if (!button.enabledInHierarchy)
+                return;
+
+            button.style.scale = new StyleScale(new Scale(Vector3.one * 1.08f));
+            button.style.cursor = new StyleCursor(MouseCursor.Link);
+            nodeContainer.AddToClassList("map-node-hover");
+        });
+
+        button.RegisterCallback<PointerLeaveEvent>(_ =>
+        {
+            button.style.scale = new StyleScale(new Scale(Vector3.one));
+            button.style.cursor = StyleKeyword.Null;
+            nodeContainer.RemoveFromClassList("map-node-hover");
+        });
     }
 }

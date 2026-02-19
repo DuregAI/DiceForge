@@ -13,7 +13,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.28);
+    background-color: rgba(0, 0, 0, 0.2);
     -unity-background-scale-mode: scale-and-crop;
     flex-shrink: 1;
 }
@@ -23,40 +23,72 @@
     left: 0;
     right: 0;
     top: 0;
-    height: 68px;
+    height: 88px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: rgba(16, 22, 30, 0.82);
-    border-bottom-width: 1px;
-    border-bottom-color: rgba(255, 255, 255, 0.14);
-}
-
-.map-title {
-    color: rgba(245, 248, 255, 0.96);
-    -unity-font-style: bold;
-    font-size: 24px;
-    -unity-text-align: middle-right;
-}
-
-.map-top-button {
-    min-width: 108px;
-    height: 42px;
-    border-radius: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .map-currency-slot {
-    width: 120px;
+    width: 180px;
+}
+
+.menu-title {
+    color: rgb(255, 230, 160);
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&guid=3cf501bc73dc1144aa7910d77ab93b5f&type=3#LuckiestGuy-Regular");
+    -unity-font-style: bold;
+    font-size: 64px;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(68, 68, 68);
+    text-shadow: 5px 5px 0 rgb(40, 25, 10);
+    -unity-text-align: middle-center;
+}
+
+.menu-wood-button {
+    min-width: 220px;
+    height: 80px;
+    padding: 0;
+    background-color: transparent;
+    border-width: 0;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=1479138588&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#button");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&guid=3cf501bc73dc1144aa7910d77ab93b5f&type=3#LuckiestGuy-Regular");
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: rgb(243, 227, 176);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(68, 68, 68);
+    text-shadow: 5px 5px 0 rgb(40, 25, 10);
+    -unity-text-align: middle-center;
+    transition-property: scale;
+    transition-duration: 0.14s;
+    transition-timing-function: ease-out;
+}
+
+.menu-wood-button:hover {
+    scale: 1.04;
+}
+
+.menu-wood-button:active {
+    scale: 0.94;
+}
+
+.menu-small-button {
+    min-width: 170px;
+    height: 64px;
+    font-size: 24px;
 }
 
 .map-nodes-layer {
     position: absolute;
     left: 0;
     right: 0;
-    top: 68px;
-    bottom: 96px;
+    top: 88px;
+    bottom: 112px;
     min-height: 200px;
     flex-grow: 1;
     overflow: visible;
@@ -100,100 +132,6 @@
     -unity-background-scale-mode: scale-to-fit;
     -unity-font-size: 1px;
     -unity-text-align: middle-center;
-/*     cursor: link; */
-    transition-property: transform, opacity;
-    transition-duration: 0.08s;
-}
-
-/* hover только дл€ доступных/текущих (не дл€ locked) */
-.map-node.available .node-button:hover,
-.map-node.current .node-button:hover {
-    scale: 1.06;
-    opacity: 1;
-}
-
-.map-node-label {
-    margin-top: 4px;
-    width: 96px;
-    color: rgba(246, 249, 255, 0.94);
-    -unity-font-style: bold;
-    font-size: 32px;
-    unity-text-align: upper-center;
-    -unity-text-outline-color: rgba(0, 0, 0, 0.85);
-    -unity-text-outline-width: 1px;
-}
-
-.map-node.locked {
-    opacity: 1;
-}
-
-/* .map-node.locked .node-button {
-    cursor: default;
-} */
-
-.map-node.available {
-    opacity: 1;
-    scale: 1.06;
-}
-
-.map-node.current {
-    opacity: 1;
-    scale: 1.2;
-}
-
-.map-node.current .node-button {
-    border-top-color: rgba(216, 245, 255, 0.98);
-    border-bottom-color: rgba(216, 245, 255, 0.98);
-    border-left-color: rgba(216, 245, 255, 0.98);
-    border-right-color: rgba(216, 245, 255, 0.98);
-}
-
-.map-node.current .node-shadow {
-    background-color: rgba(119, 209, 255, 0.48);
-}
-
-.map-node.completed {
-    opacity: 1;
-}
-
-.map-node.completed .node-button {
-    border-top-color: rgba(163, 235, 166, 0.88);
-    border-bottom-color: rgba(163, 235, 166, 0.88);
-    border-left-color: rgba(163, 235, 166, 0.88);
-    border-right-color: rgba(163, 235, 166, 0.88);
-}
-
-.map-bottom-bar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 96px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-left: 24px;
-    padding-right: 24px;
-    column-gap: 12px;
-    background-color: rgba(16, 22, 30, 0.82);
-    border-top-width: 1px;
-    border-top-color: rgba(255, 255, 255, 0.14);
-}
-
-.map-continue-button {
-    min-width: 220px;
-    height: 56px;
-    border-radius: 14px;
-    font-size: 20px;
-    -unity-font-style: bold;
-}
-
-.map-dev-button {
-    min-width: 110px;
-    height: 36px;
-    border-radius: 9px;
-    font-size: 12px;
-    opacity: 0.7;
 }
 
 .node-button:disabled {
@@ -201,101 +139,30 @@
     color: rgba(255, 255, 255, 0);
 }
 
-.node-button:disabled .unity-text-element {
-    opacity: 1;
-}
-/* =========================
-   MAP POLISH OVERRIDES (v0.0.6)
-   Paste at the END of MapView.uss
-   ========================= */
-
-/* Ќе даЄм контейнеру гасить иконки/текст через opacity */
-.map-node,
-.map-node.locked,
-.map-node.available,
-.map-node.completed,
-.map-node.current {
-    opacity: 1;
-}
-
-/*  урсор-рука на кликабельных */
-.map-node.available .node-button,
-.map-node.current .node-button {
-    cursor: pointer;
-}
-.map-node.locked .node-button,
-.map-node.completed .node-button {
-    cursor: default;
-}
-
-/* Hover / Press (ѕ ) */
-.map-node.available .node-button:hover,
-.map-node.current .node-button:hover {
-    scale: 1.06;
-}
-
-.map-node.available .node-button:active,
-.map-node.current .node-button:active {
-    scale: 0.97;
-}
-
-/* Locked Ч без эффектов */
-.map-node.locked .node-button:hover,
-.map-node.locked .node-button:active {
-    scale: 1;
-}
-
-/* ”бираем "кружочность": превращаем shadow в м€гкое п€тно (без рамки) */
-.node-shadow {
-    left: 20px;
-    top: 70px;
-    width: 66px;
-    height: 18px;
-    border-radius: 999px;
-    background-color: rgba(0,0,0,0.22);
-}
-
-/* —вечение по состо€ни€м (через tint п€тна) */
-.map-node.available .node-shadow {
-    background-color: rgba(255, 220, 120, 0.20);
-}
-
-.map-node.current .node-shadow {
-    background-color: rgba(255, 240, 170, 0.30);
-}
-
-.map-node.completed .node-shadow {
-    background-color: rgba(170, 255, 185, 0.20);
-}
-
-.map-node.locked .node-shadow {
-    background-color: rgba(0,0,0,0.16);
-}
-
-/* „уть €снее рамка на current, на locked Ч более тиха€ */
-.map-node.current .node-button {
-    border-top-color: rgba(255, 246, 214, 0.95);
-    border-bottom-color: rgba(255, 246, 214, 0.95);
-    border-left-color: rgba(255, 246, 214, 0.95);
-    border-right-color: rgba(255, 246, 214, 0.95);
-}
-
-.map-node.locked .node-button {
-    border-top-color: rgba(255, 255, 255, 0.22);
-    border-bottom-color: rgba(255, 255, 255, 0.22);
-    border-left-color: rgba(255, 255, 255, 0.22);
-    border-right-color: rgba(255, 255, 255, 0.22);
-}
-
-/* Completed Ч зелЄна€ рамка + не гасим */
-.map-node.completed .node-button {
-    border-top-color: rgba(163, 235, 166, 0.88);
-    border-bottom-color: rgba(163, 235, 166, 0.88);
-    border-left-color: rgba(163, 235, 166, 0.88);
-    border-right-color: rgba(163, 235, 166, 0.88);
-}
-
-/* Current Ч чуть больше, но без дичайшего зума */
 .map-node.current {
     scale: 1.12;
+}
+
+.map-node-hover .node-button {
+    -unity-background-image-tint-color: rgba(255, 245, 180, 1);
+}
+
+.map-bottom-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 112px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    column-gap: 16px;
+}
+
+.map-continue-button {
+    min-width: 260px;
+    height: 86px;
+    font-size: 36px;
 }
