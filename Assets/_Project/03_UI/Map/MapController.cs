@@ -25,6 +25,7 @@ public sealed class MapController : MonoBehaviour
     [SerializeField] private Sprite iconDisabled;
     [SerializeField] private Sprite iconOpen;
     [SerializeField] private Sprite iconPassed;
+    [SerializeField] private MapNodeVfxController nodeVfx;
 
     private VisualElement _mapRoot;
     private VisualElement _background;
@@ -81,6 +82,7 @@ public sealed class MapController : MonoBehaviour
 
         BuildNodes(devMode);
         StartFxTicker();
+        nodeVfx?.SetVisible(true);
     }
 
     public void Hide()
@@ -90,6 +92,7 @@ public sealed class MapController : MonoBehaviour
         _fxActiveCurrentId = null;
         _fxActiveHoverId = null;
         StopFxTicker();
+        nodeVfx?.SetVisible(false);
 
         if (_mapRoot != null)
             _mapRoot.style.display = DisplayStyle.None;
@@ -599,6 +602,17 @@ public sealed class MapController : MonoBehaviour
 
         if (hoveredNodeId == currentNodeId)
             _fxActiveHoverId = null;
+
+        Button currentButton = null;
+        if (!string.IsNullOrEmpty(currentNodeId) && IsNodeFxEligible(currentNodeId))
+            _nodeButtonsById.TryGetValue(currentNodeId, out currentButton);
+
+        Button hoverButton = null;
+        if (!string.IsNullOrEmpty(hoveredNodeId) && hoveredNodeId != currentNodeId && IsNodeFxEligible(hoveredNodeId))
+            _nodeButtonsById.TryGetValue(hoveredNodeId, out hoverButton);
+
+        nodeVfx?.SetCurrentTarget(currentButton);
+        nodeVfx?.SetHoverTarget(hoverButton);
     }
 
     private bool IsNodeFxEligible(string nodeId)
