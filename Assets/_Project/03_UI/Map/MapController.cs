@@ -8,10 +8,10 @@ using UnityEngine.UIElements;
 
 public sealed class MapController : MonoBehaviour
 {
-    private const float CurrentPulseMinScale = 1.10f;
-    private const float CurrentPulseMaxScale = 1.16f;
-    private const float HoverScaleBump = 1.03f;
-    private const float PulseSpeed = 2.35f;
+    private const float CurrentPulseMinScale = 1.1f;
+    private const float CurrentPulseMaxScale = 1.23f;
+    private const float HoverScaleBump = 0.13f;
+    private const float PulseSpeed = 13.0f;
     private const float CurrentRingMinOpacity = 0.22f;
     private const float CurrentRingMaxOpacity = 0.40f;
     private const float HoverRingOpacity = 0.56f;

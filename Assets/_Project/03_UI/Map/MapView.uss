@@ -146,12 +146,12 @@
 
 .node-ring {
     position: absolute;
-    left: 14px;
-    top: 14px;
-    width: 78px;
-    height: 78px;
-    border-radius: 39px;
-    background-color: rgba(138, 209, 255, 0.52);
+    width: 100px;
+    height: 100px;
+    left: 1px;
+    top: 10px;
+    border-radius: 42px;
+    background-color: rgba(138, 209, 255, 0.42);
     -unity-background-image-tint-color: rgba(138, 209, 255, 0.52);
     opacity: 0;
     pointer-events: none;
