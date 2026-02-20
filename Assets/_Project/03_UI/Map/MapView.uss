@@ -129,9 +129,6 @@
     height: 128px;
     border-width: 0;
     background-color: rgba(0, 0, 0, 0);
-    -unity-background-scale-mode: scale-to-fit;
-    -unity-font-size: 1px;
-    -unity-text-align: middle-center;
 }
 
 .node-button:disabled {
@@ -154,7 +151,6 @@
     background-color: rgba(138, 209, 255, 0.42);
     -unity-background-image-tint-color: rgba(138, 209, 255, 0.52);
     opacity: 0;
-    pointer-events: none;
     transition-property: opacity;
     transition-duration: 0.12s;
 }
@@ -168,7 +164,6 @@
     border-radius: 9px;
     background-color: rgba(255, 247, 210, 0.92);
     opacity: 0;
-    pointer-events: none;
     transition-property: opacity;
     transition-duration: 0.12s;
 }
@@ -203,22 +198,11 @@
     justify-content: center;
     padding-left: 24px;
     padding-right: 24px;
-    column-gap: 16px;
+    -unity-slice-top: 16;
 }
 
 .map-continue-button {
     min-width: 260px;
     height: 86px;
     font-size: 36px;
-}
-/* Êóðñîð-ðóêà òîëüêî äëÿ èíòåðàêòèâíûõ íîä */
-.map-node.available .node-button:hover,
-.map-node.current .node-button:hover {
-    cursor: pointer;
-}
-
-/* Äëÿ locked/completed — îáû÷íûé */
-.map-node.locked .node-button,
-.map-node.completed .node-button {
-    cursor: default;
 }
