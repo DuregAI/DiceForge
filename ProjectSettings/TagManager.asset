@@ -41,6 +41,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BoardGround
+    uniqueID: 939385203
+    locked: 0
+  - name: BoardTiles
+    uniqueID: 2129777035
+    locked: 0
+  - name: BoardDeco
+    uniqueID: 2639913047
+    locked: 0
+  - name: BoardOverlay
+    uniqueID: 2126574129
+    locked: 0
+  - name: Actors
+    uniqueID: 1089868833
+    locked: 0
+  - name: Foreground
+    uniqueID: 657995871
+    locked: 0
+  - name: FX
+    uniqueID: 355386043
+    locked: 0
   - name: Order
     uniqueID: 3794083575
     locked: 0
