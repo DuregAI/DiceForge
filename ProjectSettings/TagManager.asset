@@ -44,6 +44,9 @@ TagManager:
   - name: BoardGround
     uniqueID: 939385203
     locked: 0
+  - name: BoardTileShadow
+    uniqueID: 1312487121
+    locked: 0
   - name: BoardTiles
     uniqueID: 2129777035
     locked: 0
