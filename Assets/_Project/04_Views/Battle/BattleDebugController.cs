@@ -27,6 +27,7 @@ namespace Diceforge.View
 
         [Header("View")]
         [SerializeField] private BoardDebugView boardView;
+        [SerializeField] private BattleBoardViewController boardViewController;
 
         [Header("Control Modes")]
         [SerializeField] private ControlMode controlModeA = ControlMode.Human;
@@ -196,6 +197,7 @@ namespace Diceforge.View
             var bagA = BuildBagConfig(_rules.diceBagA);
             var bagB = BuildBagConfig(_rules.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
+            boardViewController?.Bind(_runner);
             _isInitialized = true;
         }
 
@@ -212,6 +214,7 @@ namespace Diceforge.View
             var bagA = BuildBagConfig(preset.diceBagA);
             var bagB = BuildBagConfig(preset.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed, preset.setupPreset != null ? SetupConfig.FromPreset(preset.setupPreset) : null);
+            boardViewController?.Bind(_runner);
             _isInitialized = true;
         }
 
@@ -246,6 +249,7 @@ namespace Diceforge.View
             bool wasRunning = _isRunning;
             _elapsed = 0f;
             _runner.Reset();
+            boardViewController?.Bind(_runner);
             _isRunning = wasRunning;
             SyncHudState();
             UpdateUI();
