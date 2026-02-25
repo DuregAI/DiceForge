@@ -12,4 +12,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a511ddccac14ca29362ffc8713dd445, type: 3}
   m_Name: BoardLayout
   m_EditorClassIdentifier: 
-  cells: []
+  cells:
+  - cellId: 0
+    gridPos: {x: -4, y: -1, z: 0}
+    worldPos: {x: -1.5, y: -1, z: 0}
+    isStart: 1
+    isEnd: 0
+  - cellId: 1
+    gridPos: {x: -3, y: -1, z: 0}
+    worldPos: {x: -1, y: -0.75, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 2
+    gridPos: {x: -2, y: -1, z: 0}
+    worldPos: {x: -0.5, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 3
+    gridPos: {x: -2, y: 0, z: 0}
+    worldPos: {x: -1, y: -0.25, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 4
+    gridPos: {x: -2, y: 1, z: 0}
+    worldPos: {x: -1.5, y: 0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 5
+    gridPos: {x: -2, y: 2, z: 0}
+    worldPos: {x: -2, y: 0.25, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 6
+    gridPos: {x: -1, y: 2, z: 0}
+    worldPos: {x: -1.5, y: 0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 7
+    gridPos: {x: 0, y: 2, z: 0}
+    worldPos: {x: -1, y: 0.75, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 8
+    gridPos: {x: 0, y: 1, z: 0}
+    worldPos: {x: -0.5, y: 0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 9
+    gridPos: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0.25, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 10
+    gridPos: {x: 1, y: 0, z: 0}
+    worldPos: {x: 0.5, y: 0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 11
+    gridPos: {x: 2, y: 0, z: 0}
+    worldPos: {x: 1, y: 0.75, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 12
+    gridPos: {x: 3, y: 0, z: 0}
+    worldPos: {x: 1.5, y: 1, z: 0}
+    isStart: 0
+    isEnd: 1

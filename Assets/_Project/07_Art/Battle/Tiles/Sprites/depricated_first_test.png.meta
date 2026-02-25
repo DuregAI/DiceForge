@@ -106,11 +106,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: first_test_0
+      name: finish_tile
       rect:
         serializedVersion: 2
         x: 804
@@ -132,7 +145,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: first_test_3
+      name: start_tile
       rect:
         serializedVersion: 2
         x: 434
@@ -391,7 +404,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      first_test_0: 1599765789
+      finish_tile: 1599765789
       first_test_1: 1864335234
       first_test_10: 630651885
       first_test_11: 1612649459
@@ -402,13 +415,13 @@ TextureImporter:
       first_test_16: 1744699435
       first_test_17: -1765797359
       first_test_2: -2034330302
-      first_test_3: 896319109
       first_test_4: 389973680
       first_test_5: -185023038
       first_test_6: 1561632642
       first_test_7: -955650571
       first_test_8: 60671502
       first_test_9: 1851821851
+      start_tile: 896319109
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
