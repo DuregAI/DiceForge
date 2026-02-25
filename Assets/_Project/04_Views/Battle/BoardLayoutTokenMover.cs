@@ -19,6 +19,7 @@ namespace Diceforge.View
         [SerializeField] private int currentCellId;
 
         private Coroutine _moveRoutine;
+        private Coroutine _moveStepsRoutine;
 
         public int CurrentCellId => currentCellId;
 
@@ -27,12 +28,17 @@ namespace Diceforge.View
             SnapTo(0);
         }
 
+        private void OnDisable()
+        {
+            CancelAllMovement();
+        }
+
         public void SnapTo(int cellId)
         {
             if (!TryGetCellWorldPosition(cellId, out Vector3 targetPosition, out int resolvedCellId))
                 return;
 
-            StopMoveRoutine();
+            CancelAllMovement();
 
             if (tokenRoot == null)
                 return;
@@ -60,6 +66,20 @@ namespace Diceforge.View
             }
 
             _moveRoutine = StartCoroutine(MoveRoutine(targetPosition, resolvedCellId, duration));
+        }
+
+        public void MoveSteps(int steps)
+        {
+            if (steps == 0)
+                return;
+
+            if (_moveRoutine != null || _moveStepsRoutine != null)
+                return;
+
+            if (!TryGetCellIdBounds(out int minCellId, out int maxCellId))
+                return;
+
+            _moveStepsRoutine = StartCoroutine(MoveStepsRoutine(steps, minCellId, maxCellId));
         }
 
         public void Step(int delta)
@@ -102,6 +122,26 @@ namespace Diceforge.View
             _moveRoutine = null;
         }
 
+        private IEnumerator MoveStepsRoutine(int steps, int minCellId, int maxCellId)
+        {
+            int direction = steps > 0 ? 1 : -1;
+            int stepCount = Mathf.Abs(steps);
+
+            for (int i = 0; i < stepCount; i++)
+            {
+                int nextCellId = Mathf.Clamp(currentCellId + direction, minCellId, maxCellId);
+                if (nextCellId == currentCellId)
+                    break;
+
+                MoveTo(nextCellId);
+
+                while (_moveRoutine != null)
+                    yield return null;
+            }
+
+            _moveStepsRoutine = null;
+        }
+
         private bool TryGetCellWorldPosition(int requestedCellId, out Vector3 worldPosition, out int resolvedCellId)
         {
             worldPosition = default;
@@ -119,8 +159,9 @@ namespace Diceforge.View
                 return false;
             }
 
-            int minCellId = layout.cells[0].cellId;
-            int maxCellId = layout.cells[layout.cells.Count - 1].cellId;
+            if (!TryGetCellIdBounds(out int minCellId, out int maxCellId))
+                return false;
+
             int clampedCellId = Mathf.Clamp(requestedCellId, minCellId, maxCellId);
 
             for (int i = 0; i < layout.cells.Count; i++)
@@ -138,6 +179,28 @@ namespace Diceforge.View
             return false;
         }
 
+        private bool TryGetCellIdBounds(out int minCellId, out int maxCellId)
+        {
+            minCellId = 0;
+            maxCellId = 0;
+
+            if (layout == null)
+            {
+                Debug.LogWarning("BoardLayoutTokenMover is missing BoardLayout reference.", this);
+                return false;
+            }
+
+            if (layout.cells == null || layout.cells.Count == 0)
+            {
+                Debug.LogWarning("BoardLayoutTokenMover layout has no cells.", this);
+                return false;
+            }
+
+            minCellId = layout.cells[0].cellId;
+            maxCellId = layout.cells[layout.cells.Count - 1].cellId;
+            return true;
+        }
+
         private void StopMoveRoutine()
         {
             if (_moveRoutine == null)
@@ -145,6 +208,21 @@ namespace Diceforge.View
 
             StopCoroutine(_moveRoutine);
             _moveRoutine = null;
+        }
+
+        public void CancelAllMovement()
+        {
+            if (_moveRoutine != null)
+            {
+                StopCoroutine(_moveRoutine);
+                _moveRoutine = null;
+            }
+
+            if (_moveStepsRoutine != null)
+            {
+                StopCoroutine(_moveStepsRoutine);
+                _moveStepsRoutine = null;
+            }
         }
     }
 }
