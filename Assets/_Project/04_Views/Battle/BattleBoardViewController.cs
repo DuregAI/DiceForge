@@ -1,4 +1,5 @@
 using Diceforge.Core;
+using Diceforge.MapSystem;
 using UnityEngine;
 
 namespace Diceforge.View
@@ -11,6 +12,21 @@ namespace Diceforge.View
         [SerializeField] private bool useLayoutMode = true;
 
         private BattleRunner _runner;
+
+        public void SetMovers(BoardLayoutTokenMover a, BoardLayoutTokenMover b)
+        {
+            moverA = a;
+            moverB = b;
+
+            if (_runner?.Rules != null)
+                SnapToStartCells();
+        }
+
+        public void SetVisualMode(BoardVisualMode mode)
+        {
+            animateSteps = true;
+            useLayoutMode = mode == BoardVisualMode.Tilemap;
+        }
 
         public void Bind(BattleRunner runner)
         {

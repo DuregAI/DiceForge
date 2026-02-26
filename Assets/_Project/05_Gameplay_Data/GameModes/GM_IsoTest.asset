@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c660931a2f4a67afe674a6986e2908, type: 3}
+  m_Name: GM_IsoTest
+  m_EditorClassIdentifier: 
+  modeId: iso_test
+  displayName: Iso Test
+  rulesetPreset: {fileID: 11400000, guid: c4f57b836fbc4693887857be89ac2a0a, type: 2}
+  diceBagA: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
+  diceBagB: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
+  setupPreset: {fileID: 11400000, guid: d7956821b35d4ebf94a3c7f6eb316b25, type: 2}

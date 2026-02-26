@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d25db7621dd4ddfb79b02add3b43b89, type: 3}
+  m_Name: Theme_IsoTest
+  m_EditorClassIdentifier: 
+  tilemapPrefab: {fileID: 100100000, guid: eca13383343746b4beec4f7d32f81144, type: 3}
+  positionTilemapName: TM_Tiles
+  backgroundPrefab: {fileID: 0}
+  decorationsPrefab: {fileID: 0}
+  unitPrefab: {fileID: 100100000, guid: 6771507c7038717468c9f25a1f85ef1e, type: 3}
+  teamAColor: {r: 0.2, g: 0.6, b: 1, a: 1}
+  teamBColor: {r: 1, g: 0.4, b: 0.2, a: 1}
+  postProcessProfile: {fileID: 0}
+  deprecated: 0
