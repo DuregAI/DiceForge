@@ -1,6 +1,7 @@
 using System.Collections;
 using Diceforge.Map;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Diceforge.View
 {
@@ -9,6 +10,7 @@ namespace Diceforge.View
         [Header("References")]
         [SerializeField] private BoardLayout layout;
         [SerializeField] private Transform tokenRoot;
+        [SerializeField] private Tilemap positionTilemap;
 
         [Header("Movement")]
         [SerializeField] private float heightOffset = 0.05f;
@@ -22,6 +24,22 @@ namespace Diceforge.View
         private Coroutine _moveStepsRoutine;
 
         public int CurrentCellId => currentCellId;
+
+        public void SetLayout(BoardLayout boardLayout)
+        {
+            layout = boardLayout;
+        }
+
+        public void SetPositionTilemap(Tilemap tilemap)
+        {
+            positionTilemap = tilemap;
+        }
+
+        private void Awake()
+        {
+            if (tokenRoot == null)
+                tokenRoot = transform;
+        }
 
         private void Start()
         {
@@ -142,6 +160,14 @@ namespace Diceforge.View
             _moveStepsRoutine = null;
         }
 
+        private Vector3 ResolveWorldPosition(CellData cell)
+        {
+            if (positionTilemap != null)
+                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset;
+
+            return cell.worldPos + Vector3.up * heightOffset;
+        }
+
         private bool TryGetCellWorldPosition(int requestedCellId, out Vector3 worldPosition, out int resolvedCellId)
         {
             worldPosition = default;
@@ -170,7 +196,7 @@ namespace Diceforge.View
                 if (cell.cellId != clampedCellId)
                     continue;
 
-                worldPosition = cell.worldPos + Vector3.up * heightOffset;
+                worldPosition = ResolveWorldPosition(cell);
                 resolvedCellId = cell.cellId;
                 return true;
             }

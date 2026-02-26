@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Diceforge.Core;
 using Diceforge.Progression;
 using Diceforge.Presets;
+using Diceforge.MapSystem;
 using UnityEngine;
 
 namespace Diceforge.View
@@ -68,6 +69,9 @@ namespace Diceforge.View
         {
             if (boardView == null)
                 boardView = GetComponent<BoardDebugView>();
+
+            if (boardViewController == null)
+                boardViewController = GetComponent<BattleBoardViewController>();
 
             _runner = new BattleRunner();
             _runner.OnMatchStarted += HandleMatchStarted;
@@ -179,9 +183,32 @@ namespace Diceforge.View
                 yield break;
             }
 
-            InitializeMatchFromRuleset(rulesetPreset);
+            BattleMapConfig selectedMap = BattleMapSelectionService.SelectedMap;
+            if (selectedMap != null && selectedMap.gameModePreset != null)
+            {
+                InitializeMatchFromPreset(selectedMap.gameModePreset);
+            }
+            else
+            {
+                InitializeMatchFromRuleset(rulesetPreset);
+            }
+
             if (autoStart && !_isRunning)
                 StartMatch();
+        }
+
+        private void ApplySelectedMapBoardSizeOverride(RulesetConfig rules)
+        {
+            BattleMapConfig selectedMap = BattleMapSelectionService.SelectedMap;
+            if (selectedMap?.boardLayout?.cells == null)
+                return;
+
+            int boardSize = selectedMap.boardLayout.cells.Count;
+            rules.boardSize = boardSize;
+
+            Debug.Assert(
+                rules.boardSize == selectedMap.boardLayout.cells.Count,
+                "Board size mismatch between layout and rules.");
         }
 
         private void InitializeMatchFromRuleset(RulesetPreset preset)
@@ -194,6 +221,7 @@ namespace Diceforge.View
             }
 
             _rules = RulesetConfig.FromPreset(preset);
+            ApplySelectedMapBoardSizeOverride(_rules);
             var bagA = BuildBagConfig(_rules.diceBagA);
             var bagB = BuildBagConfig(_rules.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
@@ -211,6 +239,7 @@ namespace Diceforge.View
             }
 
             _rules = RulesetConfig.FromPreset(preset.rulesetPreset);
+            ApplySelectedMapBoardSizeOverride(_rules);
             var bagA = BuildBagConfig(preset.diceBagA);
             var bagB = BuildBagConfig(preset.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed, preset.setupPreset != null ? SetupConfig.FromPreset(preset.setupPreset) : null);
