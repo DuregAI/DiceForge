@@ -372,3 +372,22 @@
 .chest-shop-close {
     align-self: flex-end;
 }
+
+.new-start-group {
+    margin-top: 20px;
+}
+
+.new-start-header {
+    color: rgb(249, 240, 172);
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(40, 25, 10);
+    unity-text-align: middle-center;
+    margin-bottom: 8px;
+    font-size: 28px;
+}
+
+.new-start-button {
+    height: 84px;
+    font-size: 34px;
+}
