@@ -17,5 +17,5 @@ MonoBehaviour:
   gameModePreset: {fileID: 11400000, guid: c4a54d743c274014883c17aedb6b23a6, type: 2}
   boardLayout: {fileID: 11400000, guid: 6eefb2d1bae143d6bcad283c9cc9dd4b, type: 2}
   mapTheme: {fileID: 11400000, guid: d2a12c002879495dbe94bb7a6f12eccd, type: 2}
-  visualMode: 0
+  visualMode: 1
   deprecated: 0

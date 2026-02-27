@@ -50,10 +50,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
       propertyPath: m_Name
-      value: Meshy_AI_Animation_Walking_withSkin
+      value: unit_prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 41e8e203be385e34fb5d525cdbd26d56, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6612368140132358592}
   m_SourcePrefab: {fileID: 100100000, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+--- !u!95 &3298563036799960807 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+  m_PrefabInstance: {fileID: 8983639138732522358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8101172961102235175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+  m_PrefabInstance: {fileID: 8983639138732522358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6612368140132358592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101172961102235175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0875bb99d02844449d88e4265e95295b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.UnitAnimationController
+  animator: {fileID: 3298563036799960807}
+  isMovingBoolParam: IsMoving
+  speedFloatParam: Speed
+  verboseLog: 1
+  walkStateName: Walk
+  idleStateName: Idle

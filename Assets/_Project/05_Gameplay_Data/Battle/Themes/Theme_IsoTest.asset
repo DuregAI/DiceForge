@@ -16,7 +16,7 @@ MonoBehaviour:
   positionTilemapName: TM_Tiles
   backgroundPrefab: {fileID: 1068388755505221198, guid: 033bd798fce2c084887d0abaa51fc735, type: 3}
   decorationsPrefab: {fileID: 343229648803061613, guid: 070a957a8c94b8c4f8009a081137cb1e, type: 3}
-  unitPrefab: {fileID: 919132149155446097, guid: 09d7d9c153317214abfcb28de57bbb83, type: 3}
+  unitPrefab: {fileID: 8101172961102235175, guid: 6771507c7038717468c9f25a1f85ef1e, type: 3}
   teamAColor: {r: 1, g: 1, b: 1, a: 1}
   teamBColor: {r: 1, g: 0, b: 0.24241209, a: 1}
   postProcessProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
