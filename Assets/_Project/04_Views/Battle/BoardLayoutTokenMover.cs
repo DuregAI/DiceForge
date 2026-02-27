@@ -110,7 +110,7 @@ namespace Diceforge.View
 
             int minCellId = layout.cells[0].cellId;
             int maxCellId = layout.cells[layout.cells.Count - 1].cellId;
-            int nextCellId = Mathf.Clamp(currentCellId + delta, minCellId, maxCellId);
+            int nextCellId = WrapCellId(currentCellId + delta, minCellId, maxCellId);
             MoveTo(nextCellId);
         }
 
@@ -147,10 +147,7 @@ namespace Diceforge.View
 
             for (int i = 0; i < stepCount; i++)
             {
-                int nextCellId = Mathf.Clamp(currentCellId + direction, minCellId, maxCellId);
-                if (nextCellId == currentCellId)
-                    break;
-
+                int nextCellId = WrapCellId(currentCellId + direction, minCellId, maxCellId);
                 MoveTo(nextCellId);
 
                 while (_moveRoutine != null)
@@ -203,6 +200,20 @@ namespace Diceforge.View
 
             Debug.LogWarning($"BoardLayoutTokenMover could not find cellId {clampedCellId} in layout '{layout.name}'.", this);
             return false;
+        }
+
+
+        private static int WrapCellId(int requestedCellId, int minCellId, int maxCellId)
+        {
+            int range = maxCellId - minCellId + 1;
+            if (range <= 0)
+                return minCellId;
+
+            int normalized = (requestedCellId - minCellId) % range;
+            if (normalized < 0)
+                normalized += range;
+
+            return minCellId + normalized;
         }
 
         private bool TryGetCellIdBounds(out int minCellId, out int maxCellId)

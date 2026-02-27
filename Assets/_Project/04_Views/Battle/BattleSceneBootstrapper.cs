@@ -1,3 +1,5 @@
+using Diceforge.Battle;
+using Diceforge.Core;
 using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
@@ -19,7 +21,10 @@ namespace Diceforge.View
 
         private void Awake()
         {
-            BattleMapConfig map = BattleMapSelectionService.SelectedMap ?? defaultMapConfig;
+            BattleStartRequest request = BattleLauncher.ConsumePendingRequest();
+            GameModePreset requestedPreset = request != null ? request.presetOverride : null;
+
+            BattleMapConfig map = request?.mapConfigOverride ?? BattleMapSelectionService.SelectedMap ?? defaultMapConfig;
             if (map == null)
             {
                 Debug.LogError("[BattleSceneBootstrapper] Missing selected/default BattleMapConfig.", this);
@@ -33,6 +38,44 @@ namespace Diceforge.View
                 enabled = false;
                 return;
             }
+
+            BattleMapSelectionService.SelectedMap = map;
+
+            GameModePreset activePreset = requestedPreset ?? map.gameModePreset;
+            if (activePreset == null)
+            {
+                Debug.LogError("[BattleSceneBootstrapper] Missing GameModePreset on request/map.", this);
+                enabled = false;
+                return;
+            }
+
+            RulesetConfig activeRules = activePreset.rulesetPreset != null
+                ? RulesetConfig.FromPreset(activePreset.rulesetPreset)
+                : null;
+
+            if (activeRules == null)
+            {
+                Debug.LogError($"[BattleSceneBootstrapper] Missing RulesetPreset on '{activePreset.name}'.", activePreset);
+                enabled = false;
+                return;
+            }
+
+            int cellsCount = map.boardLayout != null && map.boardLayout.cells != null ? map.boardLayout.cells.Count : 0;
+            if (cellsCount <= 0)
+            {
+                Debug.LogError("[BattleSceneBootstrapper] Board layout has no cells.", map);
+                enabled = false;
+                return;
+            }
+
+            int startA = Mathf.Clamp(activeRules.startCellA, 0, cellsCount - 1);
+            int startB = Mathf.Clamp(activeRules.startCellB, 0, cellsCount - 1);
+
+            Debug.Log(
+                $"[BattleSceneBootstrapper] NewStart={request != null} preset={activePreset.name} modeId={activePreset.modeId} " +
+                $"rulesetId={activePreset.rulesetPreset.rulesetId} setupId={(activePreset.setupPreset != null ? activePreset.setupPreset.setupId : "<none>")} " +
+                $"cells={cellsCount} startA={startA} startB={startB} mapId={map.mapId}",
+                this);
 
             if (boardViewController == null)
                 boardViewController = FindAnyObjectByType<BattleBoardViewController>();
@@ -48,11 +91,24 @@ namespace Diceforge.View
             BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap);
             BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap);
 
+            moverA?.SnapTo(startA);
+            moverB?.SnapTo(startB);
+
             ApplyTeamColor(moverA != null ? moverA.gameObject : null, map.mapTheme.teamAColor);
             ApplyTeamColor(moverB != null ? moverB.gameObject : null, map.mapTheme.teamBColor);
 
             boardViewController?.SetMovers(moverA, moverB);
             boardViewController?.SetVisualMode(map.visualMode);
+
+            BattleDebugController battleDebugController = FindAnyObjectByType<BattleDebugController>();
+            if (battleDebugController != null)
+            {
+                battleDebugController.StartFromPreset(activePreset);
+            }
+            else
+            {
+                Debug.LogWarning("[BattleSceneBootstrapper] BattleDebugController not found. Preset bootstrap was skipped.", this);
+            }
 
             if (deprecatedRingRoot != null && map.visualMode == BoardVisualMode.Tilemap)
                 deprecatedRingRoot.SetActive(false);

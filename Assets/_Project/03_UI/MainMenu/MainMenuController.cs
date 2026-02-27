@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Diceforge.Audio;
+using Diceforge.Battle;
 using Diceforge.Dialogue;
 using Diceforge.Map;
 using Diceforge.Progression;
@@ -97,6 +98,10 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+        RegisterButton("btnNewTutorial", () => StartNewBattle(tutorialPreset));
+        RegisterButton("btnNewShort", () => StartNewBattle(shortPreset));
+        RegisterButton("btnNewLong", () => StartNewBattle(longPreset));
+        RegisterButton("btnNewExperimental", () => StartNewBattle(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
@@ -488,6 +493,18 @@ public class MainMenuController : MonoBehaviour
         }
 
         SceneManager.LoadScene("Battle");
+    }
+
+    private void StartNewBattle(GameModePreset preset)
+    {
+        if (preset == null)
+        {
+            Debug.LogError("[MainMenu] New start failed: preset is not assigned.");
+            return;
+        }
+
+        Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId})");
+        BattleLauncher.Start(new BattleStartRequest(preset));
     }
 
     private void OpenMapChapter()
