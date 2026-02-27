@@ -111,6 +111,13 @@ namespace Diceforge.View
 
             boardViewController?.SetMovers(moverA, moverB);
             boardViewController?.SetVisualMode(map.visualMode);
+            boardViewController?.ConfigureTokensView(
+                map.boardLayout,
+                positionTilemap,
+                unitsRoot,
+                map.mapTheme.unitPrefab,
+                map.mapTheme.teamAColor,
+                map.mapTheme.teamBColor);
 
             BattleDebugController battleDebugController = FindAnyObjectByType<BattleDebugController>();
             if (battleDebugController != null)

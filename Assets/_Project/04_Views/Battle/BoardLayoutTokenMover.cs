@@ -19,11 +19,17 @@ namespace Diceforge.View
 
         [Header("Runtime")]
         [SerializeField] private int currentCellId;
+        [SerializeField] private Vector3 visualOffset;
 
         private Coroutine _moveRoutine;
         private Coroutine _moveStepsRoutine;
 
         public int CurrentCellId => currentCellId;
+
+        public void SetVisualOffset(Vector3 offset)
+        {
+            visualOffset = offset;
+        }
 
         public void SetLayout(BoardLayout boardLayout)
         {
@@ -160,9 +166,9 @@ namespace Diceforge.View
         private Vector3 ResolveWorldPosition(CellData cell)
         {
             if (positionTilemap != null)
-                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset;
+                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset + visualOffset;
 
-            return cell.worldPos + Vector3.up * heightOffset;
+            return cell.worldPos + Vector3.up * heightOffset + visualOffset;
         }
 
         private bool TryGetCellWorldPosition(int requestedCellId, out Vector3 worldPosition, out int resolvedCellId)

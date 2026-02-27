@@ -1,6 +1,8 @@
 using Diceforge.Core;
+using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Diceforge.View
 {
@@ -10,6 +12,7 @@ namespace Diceforge.View
         [SerializeField] private BoardLayoutTokenMover moverB;
         [SerializeField] private bool animateSteps = true;
         [SerializeField] private bool useLayoutMode = true;
+        [SerializeField] private StonesTokensView stonesTokensView;
 
         private BattleRunner _runner;
 
@@ -20,6 +23,20 @@ namespace Diceforge.View
 
             if (_runner?.Rules != null)
                 SnapToStartCells();
+        }
+
+        public void ConfigureTokensView(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject unitPrefab, Color teamAColor, Color teamBColor)
+        {
+            if (stonesTokensView == null)
+                stonesTokensView = GetComponent<StonesTokensView>() ?? gameObject.AddComponent<StonesTokensView>();
+
+            stonesTokensView.Configure(layout, positionTilemap, unitsRoot, unitPrefab, teamAColor, teamBColor);
+
+            if (_runner?.State != null)
+            {
+                stonesTokensView.BuildTokensFromMatchState(_runner.State);
+                SetSingleMoverVisibility(!stonesTokensView.HasActiveTokens());
+            }
         }
 
         public void SetVisualMode(BoardVisualMode mode)
@@ -43,8 +60,11 @@ namespace Diceforge.View
             _runner.OnMoveApplied += HandleMoveApplied;
             _runner.OnMatchEnded += HandleMatchEnded;
 
-            if (_runner.Rules != null)
+            if (_runner.State != null)
+            {
+                BuildTokensIfAvailable(_runner.State);
                 SnapToStartCells();
+            }
         }
 
         private void OnDisable()
@@ -59,11 +79,21 @@ namespace Diceforge.View
 
         private void HandleMatchStarted(GameState state)
         {
+            BuildTokensIfAvailable(state);
             SnapToStartCells();
         }
 
         private void HandleMoveApplied(MoveRecord record)
         {
+            if (_runner?.State == null)
+                return;
+
+            if (stonesTokensView != null)
+            {
+                stonesTokensView.HandleMoveApplied(record, _runner.State, animateSteps, useLayoutMode);
+                return;
+            }
+
             BoardLayoutTokenMover mover = GetMover(record.PlayerId);
             if (mover == null || !record.ToCell.HasValue)
                 return;
@@ -134,8 +164,29 @@ namespace Diceforge.View
             if (_runner?.Rules == null)
                 return;
 
+            if (stonesTokensView != null)
+                return;
+
             moverA?.SnapTo(_runner.Rules.startCellA);
             moverB?.SnapTo(_runner.Rules.startCellB);
+        }
+
+        private void BuildTokensIfAvailable(GameState state)
+        {
+            if (stonesTokensView == null)
+                return;
+
+            stonesTokensView.BuildTokensFromMatchState(state);
+            SetSingleMoverVisibility(!stonesTokensView.HasActiveTokens());
+        }
+
+        private void SetSingleMoverVisibility(bool visible)
+        {
+            if (moverA != null)
+                moverA.gameObject.SetActive(visible);
+
+            if (moverB != null)
+                moverB.gameObject.SetActive(visible);
         }
 
         private void UnbindRunner()
