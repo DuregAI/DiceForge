@@ -97,6 +97,8 @@ namespace Diceforge.View
                 return;
             }
 
+            VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
+
             BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap);
             BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap);
 
@@ -162,6 +164,30 @@ namespace Diceforge.View
             }
 
             return null;
+        }
+
+        private static void VerifyUnitPrefabAnimator(GameObject unitPrefab)
+        {
+            if (unitPrefab == null)
+            {
+                Debug.LogWarning("[BattleSceneBootstrapper] Unit prefab is null. Cannot verify Animator.");
+                return;
+            }
+
+            Animator animator = unitPrefab.GetComponentInChildren<Animator>(true);
+            if (animator == null)
+            {
+                Debug.LogWarning($"[BattleSceneBootstrapper] Unit prefab '{unitPrefab.name}' has no Animator. Movement animation will be skipped.");
+                return;
+            }
+
+            if (animator.runtimeAnimatorController == null)
+            {
+                Debug.LogWarning($"[BattleSceneBootstrapper] Animator on unit prefab '{unitPrefab.name}' has no RuntimeAnimatorController.");
+                return;
+            }
+
+            Debug.Log($"[BattleSceneBootstrapper] Verified unit Animator on prefab '{unitPrefab.name}' controller='{animator.runtimeAnimatorController.name}'.");
         }
 
         private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap)
