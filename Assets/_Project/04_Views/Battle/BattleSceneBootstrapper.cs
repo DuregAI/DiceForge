@@ -71,11 +71,20 @@ namespace Diceforge.View
             int startA = Mathf.Clamp(activeRules.startCellA, 0, cellsCount - 1);
             int startB = Mathf.Clamp(activeRules.startCellB, 0, cellsCount - 1);
 
+            int setupPlacements = activePreset.setupPreset != null && activePreset.setupPreset.unitPlacements != null
+                ? activePreset.setupPreset.unitPlacements.Count
+                : 0;
+
             Debug.Log(
                 $"[BattleSceneBootstrapper] NewStart={request != null} preset={activePreset.name} modeId={activePreset.modeId} " +
                 $"rulesetId={activePreset.rulesetPreset.rulesetId} setupId={(activePreset.setupPreset != null ? activePreset.setupPreset.setupId : "<none>")} " +
-                $"cells={cellsCount} startA={startA} startB={startB} mapId={map.mapId}",
+                $"cells={cellsCount} startA={startA} startB={startB} mapId={map.mapId} setupPlacements={setupPlacements}",
                 this);
+
+            if (setupPlacements > 2)
+            {
+                Debug.Log($"[BattleSceneBootstrapper] Setup has {setupPlacements} placement entries. Scene still spawns one mover per side by design.", this);
+            }
 
             if (boardViewController == null)
                 boardViewController = FindAnyObjectByType<BattleBoardViewController>();
@@ -93,6 +102,9 @@ namespace Diceforge.View
 
             moverA?.SnapTo(startA);
             moverB?.SnapTo(startB);
+
+            Debug.Log($"[BattleSceneBootstrapper] MoverA snappedCell={(moverA != null ? moverA.CurrentCellId : -1)}", this);
+            Debug.Log($"[BattleSceneBootstrapper] MoverB snappedCell={(moverB != null ? moverB.CurrentCellId : -1)}", this);
 
             ApplyTeamColor(moverA != null ? moverA.gameObject : null, map.mapTheme.teamAColor);
             ApplyTeamColor(moverB != null ? moverB.gameObject : null, map.mapTheme.teamBColor);

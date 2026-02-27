@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a511ddccac14ca29362ffc8713dd445, type: 3}
+  m_Name: BoardLayout_Loop24_Long_Test
+  m_EditorClassIdentifier: 
+  cells:
+  - cellId: 0
+    gridPos: {x: -4, y: -1, z: 0}
+    worldPos: {x: -4, y: -0.5, z: 0}
+    isStart: 1
+    isEnd: 0
+  - cellId: 1
+    gridPos: {x: -3, y: -1, z: 0}
+    worldPos: {x: -3, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 2
+    gridPos: {x: -2, y: -1, z: 0}
+    worldPos: {x: -2, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 3
+    gridPos: {x: -1, y: -1, z: 0}
+    worldPos: {x: -1, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 4
+    gridPos: {x: 0, y: -1, z: 0}
+    worldPos: {x: 0, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 5
+    gridPos: {x: 1, y: -1, z: 0}
+    worldPos: {x: 1, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 6
+    gridPos: {x: 2, y: -1, z: 0}
+    worldPos: {x: 2, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 7
+    gridPos: {x: 3, y: -1, z: 0}
+    worldPos: {x: 3, y: -0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 8
+    gridPos: {x: 3, y: 0, z: 0}
+    worldPos: {x: 3, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 9
+    gridPos: {x: 3, y: 1, z: 0}
+    worldPos: {x: 3, y: 0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 10
+    gridPos: {x: 3, y: 2, z: 0}
+    worldPos: {x: 3, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 11
+    gridPos: {x: 2, y: 2, z: 0}
+    worldPos: {x: 2, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 12
+    gridPos: {x: 1, y: 2, z: 0}
+    worldPos: {x: 1, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 13
+    gridPos: {x: 0, y: 2, z: 0}
+    worldPos: {x: 0, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 14
+    gridPos: {x: -1, y: 2, z: 0}
+    worldPos: {x: -1, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 15
+    gridPos: {x: -2, y: 2, z: 0}
+    worldPos: {x: -2, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 16
+    gridPos: {x: -3, y: 2, z: 0}
+    worldPos: {x: -3, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 17
+    gridPos: {x: -4, y: 2, z: 0}
+    worldPos: {x: -4, y: 1.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 18
+    gridPos: {x: -4, y: 1, z: 0}
+    worldPos: {x: -4, y: 0.5, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 19
+    gridPos: {x: -4, y: 0, z: 0}
+    worldPos: {x: -4, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 20
+    gridPos: {x: -3, y: 0, z: 0}
+    worldPos: {x: -3, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 21
+    gridPos: {x: -2, y: 0, z: 0}
+    worldPos: {x: -2, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 22
+    gridPos: {x: -1, y: 0, z: 0}
+    worldPos: {x: -1, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 0
+  - cellId: 23
+    gridPos: {x: 0, y: 0, z: 0}
+    worldPos: {x: 0, y: 0.0, z: 0}
+    isStart: 0
+    isEnd: 1

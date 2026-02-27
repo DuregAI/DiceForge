@@ -21,6 +21,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameModePreset shortPreset;
     [SerializeField] private GameModePreset tutorialPreset;
     [SerializeField] private GameModePreset experimentalPreset;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newLongStartMapOverride;
     [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
 
     private UIDocument document;
@@ -100,7 +101,7 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnNewTutorial", () => StartNewBattle(tutorialPreset));
         RegisterButton("btnNewShort", () => StartNewBattle(shortPreset));
-        RegisterButton("btnNewLong", () => StartNewBattle(longPreset));
+        RegisterButton("btnNewLong", () => StartNewBattle(longPreset, newLongStartMapOverride));
         RegisterButton("btnNewExperimental", () => StartNewBattle(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
@@ -495,7 +496,7 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
-    private void StartNewBattle(GameModePreset preset)
+    private void StartNewBattle(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride = null)
     {
         if (preset == null)
         {
@@ -503,8 +504,9 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
-        Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId})");
-        BattleLauncher.Start(new BattleStartRequest(preset));
+        string mapName = mapOverride != null ? mapOverride.name : "<default>";
+        Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId}) mapOverride={mapName}");
+        BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
     }
 
     private void OpenMapChapter()
