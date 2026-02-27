@@ -17,6 +17,13 @@
                     <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnChests" text="Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnChestShop" text="Buy Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                    <ui:VisualElement name="NewStartGroup" class="new-start-group">
+                        <ui:Label text="New Start (Test)" name="lblNewStartGroup" class="new-start-label"/>
+                        <ui:Button name="btnNewTutorial" text="Start (New) Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                        <ui:Button name="btnNewShort" text="Start (New) Short" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                        <ui:Button name="btnNewLong" text="Start (New) Long" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                        <ui:Button name="btnNewExperimental" text="Start (New) Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

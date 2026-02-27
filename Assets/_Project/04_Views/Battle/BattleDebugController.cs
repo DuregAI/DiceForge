@@ -183,6 +183,17 @@ namespace Diceforge.View
                 yield break;
             }
 
+            GameModePreset selectedPreset = GameModeSelection.SelectedPreset;
+            if (selectedPreset != null)
+            {
+                Debug.Log($"[BattleDebugController] Initializing from selected preset: {selectedPreset.displayName} ({selectedPreset.modeId})");
+                InitializeMatchFromPreset(selectedPreset);
+                if (autoStart && !_isRunning)
+                    StartMatch();
+
+                yield break;
+            }
+
             BattleMapConfig selectedMap = BattleMapSelectionService.SelectedMap;
             if (selectedMap != null && selectedMap.gameModePreset != null)
             {

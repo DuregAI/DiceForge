@@ -1,5 +1,6 @@
 using Diceforge.Map;
 using Diceforge.MapSystem;
+using Diceforge.BattleStart;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
@@ -19,12 +20,27 @@ namespace Diceforge.View
 
         private void Awake()
         {
-            BattleMapConfig map = BattleMapSelectionService.SelectedMap ?? defaultMapConfig;
+            BattleStartRequest startRequest = BattleStartSession.Consume();
+            BattleMapConfig map = ResolveMapConfig(startRequest);
             if (map == null)
             {
                 Debug.LogError("[BattleSceneBootstrapper] Missing selected/default BattleMapConfig.", this);
                 enabled = false;
                 return;
+            }
+
+            if (startRequest != null)
+            {
+                if (startRequest.Preset == null)
+                {
+                    Debug.LogError("[BattleSceneBootstrapper] New start request is missing GameModePreset.", this);
+                    enabled = false;
+                    return;
+                }
+
+                GameModeSelection.SetSelected(startRequest.Preset);
+                BattleMapSelectionService.SelectedMap = map;
+                LogRequest(startRequest, map);
             }
 
             if (!map.TryValidate(out string validationError))
@@ -56,6 +72,26 @@ namespace Diceforge.View
 
             if (deprecatedRingRoot != null && map.visualMode == BoardVisualMode.Tilemap)
                 deprecatedRingRoot.SetActive(false);
+        }
+
+        private BattleMapConfig ResolveMapConfig(BattleStartRequest startRequest)
+        {
+            if (startRequest?.MapConfig != null)
+                return startRequest.MapConfig;
+
+            return BattleMapSelectionService.SelectedMap ?? defaultMapConfig;
+        }
+
+        private static void LogRequest(BattleStartRequest request, BattleMapConfig map)
+        {
+            int cellsCount = map?.boardLayout?.cells?.Count ?? 0;
+            int startA = request.Preset?.rulesetPreset != null ? request.Preset.rulesetPreset.startCellA : -1;
+            int startB = request.Preset?.rulesetPreset != null ? request.Preset.rulesetPreset.startCellB : -1;
+            string presetName = request.Preset != null ? request.Preset.displayName : "null";
+            string modeId = request.Preset != null ? request.Preset.modeId : "null";
+            string mapId = map != null ? map.mapId : "null";
+
+            Debug.Log($"[BattleSceneBootstrapper] New start request: preset={presetName} (modeId={modeId}), cells={cellsCount}, startA={startA}, startB={startB}, mapId={mapId}, mapConfig={map?.name}");
         }
 
         private Tilemap InstantiateThemeAndResolvePositionTilemap(BattleMapConfig map)

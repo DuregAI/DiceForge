@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Diceforge.Audio;
+using Diceforge.BattleStart;
 using Diceforge.Dialogue;
 using Diceforge.Map;
+using Diceforge.MapSystem;
 using Diceforge.Progression;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -48,6 +50,9 @@ public class MainMenuController : MonoBehaviour
 
     [Header("Map")]
     [SerializeField] private string defaultChapterId = "Chapter1";
+
+    [Header("New Start (Test)")]
+    [SerializeField] private BattleMapConfig newStartMapConfig;
 
     private void Awake()
     {
@@ -97,6 +102,10 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+        RegisterButton("btnNewTutorial", () => StartNewPipelineBattle(tutorialPreset));
+        RegisterButton("btnNewShort", () => StartNewPipelineBattle(shortPreset));
+        RegisterButton("btnNewLong", () => StartNewPipelineBattle(longPreset));
+        RegisterButton("btnNewExperimental", () => StartNewPipelineBattle(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
@@ -144,12 +153,18 @@ public class MainMenuController : MonoBehaviour
 
         var shortButton = root.Q<Button>("btnShort");
         var experimentalButton = root.Q<Button>("btnExperimental");
+        var newShortButton = root.Q<Button>("btnNewShort");
+        var newExperimentalButton = root.Q<Button>("btnNewExperimental");
         if (mapFlowOrchestrator != null && !mapFlowOrchestrator.IsDevMode)
         {
             if (shortButton != null)
                 shortButton.style.display = DisplayStyle.None;
             if (experimentalButton != null)
                 experimentalButton.style.display = DisplayStyle.None;
+            if (newShortButton != null)
+                newShortButton.style.display = DisplayStyle.None;
+            if (newExperimentalButton != null)
+                newExperimentalButton.style.display = DisplayStyle.None;
         }
     }
 
@@ -488,6 +503,26 @@ public class MainMenuController : MonoBehaviour
         }
 
         SceneManager.LoadScene("Battle");
+    }
+
+
+    private void StartNewPipelineBattle(GameModePreset preset)
+    {
+        if (preset == null)
+        {
+            Debug.LogError("[MainMenu] New start button pressed but preset is not assigned.");
+            return;
+        }
+
+        if (newStartMapConfig == null)
+        {
+            Debug.LogError("[MainMenu] New start button pressed but New Start Map Config is not assigned.");
+            return;
+        }
+
+        var request = new BattleStartRequest(preset, newStartMapConfig);
+        Debug.Log($"[MainMenu] New start requested -> preset={preset.displayName} ({preset.modeId}), map={newStartMapConfig.displayName} ({newStartMapConfig.mapId})");
+        BattleLauncher.Start(request);
     }
 
     private void OpenMapChapter()
