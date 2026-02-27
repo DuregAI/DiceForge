@@ -65,6 +65,29 @@ namespace Diceforge.View
         public int TotalStonesPerPlayer => _runner?.State?.Rules.totalStonesPerPlayer ?? _rules?.totalStonesPerPlayer ?? 0;
         public int LocalPlayerBorneOffCount => _runner?.State?.GetBorneOff(localPlayer) ?? 0;
 
+        private void EnsureRunnerInitialized()
+        {
+            if (_runner != null)
+                return;
+
+            _runner = new BattleRunner();
+            _runner.OnMatchStarted += HandleMatchStarted;
+            _runner.OnTurnStarted += HandleTurnStarted;
+            _runner.OnMoveApplied += HandleMoveApplied;
+            _runner.OnMatchEnded += HandleMatchEnded;
+
+            Debug.LogWarning("[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.", this);
+        }
+
+        private void EnsureBoardViewControllerResolved()
+        {
+            if (boardViewController == null)
+                boardViewController = GetComponent<BattleBoardViewController>();
+
+            if (boardViewController == null)
+                boardViewController = FindAnyObjectByType<BattleBoardViewController>();
+        }
+
         private void Awake()
         {
             if (boardView == null)
@@ -73,11 +96,7 @@ namespace Diceforge.View
             if (boardViewController == null)
                 boardViewController = GetComponent<BattleBoardViewController>();
 
-            _runner = new BattleRunner();
-            _runner.OnMatchStarted += HandleMatchStarted;
-            _runner.OnTurnStarted += HandleTurnStarted;
-            _runner.OnMoveApplied += HandleMoveApplied;
-            _runner.OnMatchEnded += HandleMatchEnded;
+            EnsureRunnerInitialized();
 
             if (boardView != null)
                 boardView.OnCellClicked += HandleCellClicked;
@@ -103,12 +122,13 @@ namespace Diceforge.View
 
         private void OnDestroy()
         {
-            if (_runner == null) return;
-
-            _runner.OnMatchStarted -= HandleMatchStarted;
-            _runner.OnTurnStarted -= HandleTurnStarted;
-            _runner.OnMoveApplied -= HandleMoveApplied;
-            _runner.OnMatchEnded -= HandleMatchEnded;
+            if (_runner != null)
+            {
+                _runner.OnMatchStarted -= HandleMatchStarted;
+                _runner.OnTurnStarted -= HandleTurnStarted;
+                _runner.OnMoveApplied -= HandleMoveApplied;
+                _runner.OnMatchEnded -= HandleMatchEnded;
+            }
 
             if (boardView != null)
                 boardView.OnCellClicked -= HandleCellClicked;
@@ -149,6 +169,8 @@ namespace Diceforge.View
 
         public void StartFromPreset(GameModePreset preset)
         {
+            EnsureRunnerInitialized();
+            EnsureBoardViewControllerResolved();
             if (preset == null)
             {
                 Debug.LogWarning("[Diceforge] Null GameModePreset provided. Aborting external start.");
@@ -213,6 +235,8 @@ namespace Diceforge.View
 
         private void InitializeMatchFromRuleset(RulesetPreset preset)
         {
+            EnsureRunnerInitialized();
+            EnsureBoardViewControllerResolved();
             if (preset == null)
             {
                 Debug.LogError("[Diceforge] Missing RulesetPreset. Aborting match bootstrap.");
@@ -231,6 +255,8 @@ namespace Diceforge.View
 
         private void InitializeMatchFromPreset(GameModePreset preset)
         {
+            EnsureRunnerInitialized();
+            EnsureBoardViewControllerResolved();
             if (preset.rulesetPreset == null)
             {
                 Debug.LogError("[Diceforge] Missing RulesetPreset on GameModePreset. Aborting match bootstrap.");
