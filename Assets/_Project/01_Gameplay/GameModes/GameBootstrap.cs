@@ -2,8 +2,10 @@ using Diceforge.Audio;
 using Diceforge.Core;
 using Diceforge.Match;
 using Diceforge.View;
+using System;
 using UnityEngine;
 
+[Obsolete("Not used any more", true)]   
 public class GameBootstrap : MonoBehaviour
 {
     [SerializeField] private GameModePreset fallbackPreset;

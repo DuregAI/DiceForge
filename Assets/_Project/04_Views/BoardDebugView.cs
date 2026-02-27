@@ -2,6 +2,8 @@ using Diceforge.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -21,6 +23,7 @@ namespace Diceforge.View
         public bool hasMovedStoneCell;
     }
 
+    [Obsolete("Not used any more?")]
     public sealed class BoardDebugView : MonoBehaviour
     {
         [Header("Layout")]
