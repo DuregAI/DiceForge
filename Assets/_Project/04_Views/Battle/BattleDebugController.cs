@@ -172,16 +172,10 @@ namespace Diceforge.View
             EnsureRunnerInitialized();
             EnsureBoardViewControllerResolved();
             if (preset == null)
-            {
-                Debug.LogWarning("[Diceforge] Null GameModePreset provided. Aborting external start.");
-                return;
-            }
+                throw new System.InvalidOperationException("[BattleDebugController] StartFromPreset failed: preset is null.");
 
             if (_isInitialized && _isRunning)
-            {
-                Debug.LogWarning("[Diceforge] Match already running. External preset ignored.");
-                return;
-            }
+                throw new System.InvalidOperationException($"[BattleDebugController] StartFromPreset failed: match already running. preset='{preset.name}' modeId='{preset.modeId}'.");
 
             _hasExternalPreset = true;
             _externalPreset = preset;
@@ -205,25 +199,20 @@ namespace Diceforge.View
                 yield break;
             }
 
-            BattleMapConfig selectedMap = BattleMapSelectionService.SelectedMap;
-            if (selectedMap != null && selectedMap.gameModePreset != null)
-            {
-                InitializeMatchFromPreset(selectedMap.gameModePreset);
-            }
-            else
-            {
-                InitializeMatchFromRuleset(rulesetPreset);
-            }
-
-            if (autoStart && !_isRunning)
-                StartMatch();
+            throw new System.InvalidOperationException("[BattleDebugController] Strict battle pipeline requires StartFromPreset(...) before DeferredInitialize. Ensure battle entry uses BattleLauncher + BattleSceneBootstrapper.");
         }
 
         private void ApplySelectedMapBoardSizeOverride(RulesetConfig rules)
         {
             BattleMapConfig selectedMap = BattleMapSelectionService.SelectedMap;
-            if (selectedMap?.boardLayout?.cells == null)
-                return;
+            if (selectedMap == null)
+                throw new System.InvalidOperationException("[BattleDebugController] Strict pipeline failure: BattleMapSelectionService.SelectedMap is null.");
+
+            if (selectedMap.boardLayout == null || selectedMap.boardLayout.cells == null)
+                throw new System.InvalidOperationException($"[BattleDebugController] Strict pipeline failure: selected map '{selectedMap.name}' mapId='{selectedMap.mapId}' has no boardLayout cells.");
+
+            if (selectedMap.boardLayout.cells.Count == 0)
+                throw new System.InvalidOperationException($"[BattleDebugController] Strict pipeline failure: selected map '{selectedMap.name}' mapId='{selectedMap.mapId}' has zero cells.");
 
             int boardSize = selectedMap.boardLayout.cells.Count;
             rules.boardSize = boardSize;
@@ -238,18 +227,17 @@ namespace Diceforge.View
             EnsureRunnerInitialized();
             EnsureBoardViewControllerResolved();
             if (preset == null)
-            {
-                Debug.LogError("[Diceforge] Missing RulesetPreset. Aborting match bootstrap.");
-                enabled = false;
-                return;
-            }
+                throw new System.InvalidOperationException("[BattleDebugController] InitializeMatchFromRuleset failed: RulesetPreset is null.");
+
+            if (boardViewController == null)
+                throw new System.InvalidOperationException("[BattleDebugController] InitializeMatchFromRuleset failed: BattleBoardViewController reference is missing.");
 
             _rules = RulesetConfig.FromPreset(preset);
             ApplySelectedMapBoardSizeOverride(_rules);
             var bagA = BuildBagConfig(_rules.diceBagA);
             var bagB = BuildBagConfig(_rules.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed);
-            boardViewController?.Bind(_runner);
+            boardViewController.Bind(_runner);
             _isInitialized = true;
         }
 
@@ -257,19 +245,24 @@ namespace Diceforge.View
         {
             EnsureRunnerInitialized();
             EnsureBoardViewControllerResolved();
+            if (preset == null)
+                throw new System.InvalidOperationException("[BattleDebugController] InitializeMatchFromPreset failed: GameModePreset is null.");
+
             if (preset.rulesetPreset == null)
-            {
-                Debug.LogError("[Diceforge] Missing RulesetPreset on GameModePreset. Aborting match bootstrap.");
-                enabled = false;
-                return;
-            }
+                throw new System.InvalidOperationException($"[BattleDebugController] InitializeMatchFromPreset failed: RulesetPreset missing on preset '{preset.name}' modeId='{preset.modeId}'.");
+
+            if (preset.setupPreset == null)
+                throw new System.InvalidOperationException($"[BattleDebugController] InitializeMatchFromPreset failed: SetupPreset missing on preset '{preset.name}' modeId='{preset.modeId}'.");
+
+            if (boardViewController == null)
+                throw new System.InvalidOperationException("[BattleDebugController] InitializeMatchFromPreset failed: BattleBoardViewController reference is missing.");
 
             _rules = RulesetConfig.FromPreset(preset.rulesetPreset);
             ApplySelectedMapBoardSizeOverride(_rules);
             var bagA = BuildBagConfig(preset.diceBagA);
             var bagB = BuildBagConfig(preset.diceBagB);
-            _runner.Init(_rules, bagA, bagB, _rules.randomSeed, preset.setupPreset != null ? SetupConfig.FromPreset(preset.setupPreset) : null);
-            boardViewController?.Bind(_runner);
+            _runner.Init(_rules, bagA, bagB, _rules.randomSeed, SetupConfig.FromPreset(preset.setupPreset));
+            boardViewController.Bind(_runner);
             _isInitialized = true;
         }
 

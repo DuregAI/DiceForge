@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Battle;
+using Diceforge.MapSystem;
 using Diceforge.Progression;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Diceforge.Map
 {
@@ -63,6 +64,7 @@ namespace Diceforge.Map
         [SerializeField] private MapController mapController;
         [SerializeField] private DevModeConfigSO devModeConfig;
         [SerializeField] private List<GameModePreset> battlePresets = new();
+        [SerializeField] private List<BattleMapConfig> battleMaps = new();
 
         private MapDefinitionSO _map;
         private MapRunState _state;
@@ -188,18 +190,18 @@ namespace Diceforge.Map
         private void LaunchBattle(MapNodeDefinition node)
         {
             var preset = battlePresets.Find(x => x != null && x.modeId == node.battlePresetId);
-            if (preset == null && battlePresets.Count > 0)
-                preset = battlePresets[0];
-
             if (preset == null)
-            {
-                Debug.LogError("[MapFlow] No battle preset configured for map battle node.");
-                return;
-            }
+                throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: preset not configured for node '{node.id}' battlePresetId='{node.battlePresetId}'.");
 
-            GameModeSelection.SetSelected(preset);
+            var map = battleMaps.Find(x => x != null && x.gameModePreset == preset);
+            if (map == null)
+                throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: map not configured for preset '{preset.name}' modeId='{preset.modeId}'.");
+
+            if (!map.TryValidate(out string validationError))
+                throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: map '{map.name}' mapId='{map.mapId}' invalid: {validationError}.");
+
             MapFlowRuntime.StartNodeBattle(_map.chapterId, node.id);
-            SceneManager.LoadScene("Battle");
+            BattleLauncher.Start(new BattleStartRequest(preset, map));
         }
 
         private RewardBundle HandleChestReward(MapNodeDefinition node)

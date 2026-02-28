@@ -6,7 +6,6 @@ using Diceforge.Dialogue;
 using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
@@ -25,6 +24,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Diceforge.MapSystem.BattleMapConfig newShortStartMapOverride;
     [SerializeField] private Diceforge.MapSystem.BattleMapConfig newLongStartMapOverride;
     [SerializeField] private Diceforge.MapSystem.BattleMapConfig newExperimentalStartMapOverride;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig legacyShortMapOverride;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig legacyExperimentalMapOverride;
     [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
 
     private UIDocument document;
@@ -99,9 +100,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnSettings", ToggleSettingsPanel);
         RegisterButton("btnCopyLog", CopyLogToClipboard);
         RegisterButton("btnLong", OpenMapChapter);
-        RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
+        RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset, legacyShortMapOverride));
         RegisterButton("btnTutorial", HandleTutorialSelected);
-        RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+        RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset, legacyExperimentalMapOverride));
         RegisterButton("btnNewTutorial", () => StartNewBattle(tutorialPreset, newTutorialStartMapOverride));
         RegisterButton("btnNewShort", () => StartNewBattle(shortPreset, newShortStartMapOverride));
         RegisterButton("btnNewLong", () => StartNewBattle(longPreset, newLongStartMapOverride));
@@ -429,7 +430,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (!TutorialFlow.RequiresReplayConfirmation())
         {
-            TutorialFlow.EnterTutorial(tutorialPreset);
+            TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
             return;
         }
 
@@ -464,7 +465,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (tutorialReplayConfirmModal == null)
         {
-            TutorialFlow.EnterTutorial(tutorialPreset);
+            TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
             return;
         }
 
@@ -482,30 +483,25 @@ public class MainMenuController : MonoBehaviour
     private void ConfirmTutorialReplay()
     {
         CloseTutorialReplayConfirmation();
-        TutorialFlow.EnterTutorial(tutorialPreset);
+        TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
     }
 
-    private void SelectModeAndLoad(GameModePreset preset)
+    private void SelectModeAndLoad(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)
     {
         if (preset == null)
-        {
-            Debug.LogWarning("[MainMenu] Game mode preset is not assigned.");
-        }
-        else
-        {
-            GameModeSelection.SetSelected(preset);
-        }
+            throw new System.InvalidOperationException("[MainMenu] Legacy start failed: preset is not assigned.");
 
-        SceneManager.LoadScene("Battle");
+        if (mapOverride == null)
+            throw new System.InvalidOperationException($"[MainMenu] Legacy start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
+
+        Debug.Log($"[MainMenu] Starting LEGACY button through BattleLauncher preset={preset.name} map={mapOverride.name}");
+        BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
     }
 
     private void StartNewBattle(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)
     {
         if (preset == null)
-        {
-            Debug.LogError("[MainMenu] New start failed: preset is not assigned.");
-            return;
-        }
+            throw new System.InvalidOperationException("[MainMenu] New start failed: preset is not assigned.");
 
         if (mapOverride == null)
         {
