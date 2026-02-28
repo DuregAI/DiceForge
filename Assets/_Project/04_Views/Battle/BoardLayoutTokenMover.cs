@@ -16,14 +16,24 @@ namespace Diceforge.View
         [SerializeField] private float heightOffset = 0.05f;
         [SerializeField] private float moveDuration = 0.25f;
         [SerializeField] private bool rotateAlongPath = true;
+        [SerializeField] private bool logMovementState;
 
         [Header("Runtime")]
         [SerializeField] private int currentCellId;
+        [SerializeField] private Vector3 visualOffset;
 
         private Coroutine _moveRoutine;
         private Coroutine _moveStepsRoutine;
+        private UnitAnimationController _animationController;
+        private int _movementVisualsRefCount;
+        private bool _suppressStopAtMoveEnd;
 
         public int CurrentCellId => currentCellId;
+
+        public void SetVisualOffset(Vector3 offset)
+        {
+            visualOffset = offset;
+        }
 
         public void SetLayout(BoardLayout boardLayout)
         {
@@ -39,6 +49,10 @@ namespace Diceforge.View
         {
             if (tokenRoot == null)
                 tokenRoot = transform;
+
+            _animationController = GetComponent<UnitAnimationController>() ?? GetComponentInChildren<UnitAnimationController>(true);
+            if (_animationController == null)
+                _animationController = gameObject.AddComponent<UnitAnimationController>();
         }
 
         private void Start()
@@ -49,6 +63,8 @@ namespace Diceforge.View
         private void OnDisable()
         {
             CancelAllMovement();
+            _movementVisualsRefCount = 0;
+            _animationController?.SetMoving(false);
         }
 
         public void SnapTo(int cellId)
@@ -83,6 +99,9 @@ namespace Diceforge.View
                 return;
             }
 
+            if (!_suppressStopAtMoveEnd)
+                BeginMovementVisuals();
+
             _moveRoutine = StartCoroutine(MoveRoutine(targetPosition, resolvedCellId, duration));
         }
 
@@ -110,7 +129,7 @@ namespace Diceforge.View
 
             int minCellId = layout.cells[0].cellId;
             int maxCellId = layout.cells[layout.cells.Count - 1].cellId;
-            int nextCellId = Mathf.Clamp(currentCellId + delta, minCellId, maxCellId);
+            int nextCellId = WrapCellId(currentCellId + delta, minCellId, maxCellId);
             MoveTo(nextCellId);
         }
 
@@ -138,6 +157,9 @@ namespace Diceforge.View
             tokenRoot.position = targetPosition;
             currentCellId = targetCellId;
             _moveRoutine = null;
+
+            if (!_suppressStopAtMoveEnd)
+                EndMovementVisuals();
         }
 
         private IEnumerator MoveStepsRoutine(int steps, int minCellId, int maxCellId)
@@ -145,27 +167,29 @@ namespace Diceforge.View
             int direction = steps > 0 ? 1 : -1;
             int stepCount = Mathf.Abs(steps);
 
+            BeginMovementVisuals();
+            _suppressStopAtMoveEnd = true;
+
             for (int i = 0; i < stepCount; i++)
             {
-                int nextCellId = Mathf.Clamp(currentCellId + direction, minCellId, maxCellId);
-                if (nextCellId == currentCellId)
-                    break;
-
+                int nextCellId = WrapCellId(currentCellId + direction, minCellId, maxCellId);
                 MoveTo(nextCellId);
 
                 while (_moveRoutine != null)
                     yield return null;
             }
 
+            _suppressStopAtMoveEnd = false;
+            EndMovementVisuals();
             _moveStepsRoutine = null;
         }
 
         private Vector3 ResolveWorldPosition(CellData cell)
         {
             if (positionTilemap != null)
-                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset;
+                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset + visualOffset;
 
-            return cell.worldPos + Vector3.up * heightOffset;
+            return cell.worldPos + Vector3.up * heightOffset + visualOffset;
         }
 
         private bool TryGetCellWorldPosition(int requestedCellId, out Vector3 worldPosition, out int resolvedCellId)
@@ -205,6 +229,20 @@ namespace Diceforge.View
             return false;
         }
 
+
+        private static int WrapCellId(int requestedCellId, int minCellId, int maxCellId)
+        {
+            int range = maxCellId - minCellId + 1;
+            if (range <= 0)
+                return minCellId;
+
+            int normalized = (requestedCellId - minCellId) % range;
+            if (normalized < 0)
+                normalized += range;
+
+            return minCellId + normalized;
+        }
+
         private bool TryGetCellIdBounds(out int minCellId, out int maxCellId)
         {
             minCellId = 0;
@@ -234,6 +272,8 @@ namespace Diceforge.View
 
             StopCoroutine(_moveRoutine);
             _moveRoutine = null;
+            if (!_suppressStopAtMoveEnd)
+                EndMovementVisuals();
         }
 
         public void CancelAllMovement()
@@ -248,6 +288,32 @@ namespace Diceforge.View
             {
                 StopCoroutine(_moveStepsRoutine);
                 _moveStepsRoutine = null;
+            }
+
+            _suppressStopAtMoveEnd = false;
+            _movementVisualsRefCount = 0;
+            _animationController?.SetMoving(false);
+        }
+
+        private void BeginMovementVisuals()
+        {
+            _movementVisualsRefCount++;
+            if (_movementVisualsRefCount == 1)
+            {
+                _animationController?.SetMoving(true);
+                if (logMovementState)
+                    Debug.Log($"[BoardLayoutTokenMover] {name} movement start.", this);
+            }
+        }
+
+        private void EndMovementVisuals()
+        {
+            _movementVisualsRefCount = Mathf.Max(0, _movementVisualsRefCount - 1);
+            if (_movementVisualsRefCount == 0)
+            {
+                _animationController?.SetMoving(false);
+                if (logMovementState)
+                    Debug.Log($"[BoardLayoutTokenMover] {name} movement end.", this);
             }
         }
     }

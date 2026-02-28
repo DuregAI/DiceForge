@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Diceforge.Audio;
+using Diceforge.Battle;
 using Diceforge.Dialogue;
 using Diceforge.Map;
 using Diceforge.Progression;
@@ -20,6 +21,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameModePreset shortPreset;
     [SerializeField] private GameModePreset tutorialPreset;
     [SerializeField] private GameModePreset experimentalPreset;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newTutorialStartMapOverride;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newShortStartMapOverride;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newLongStartMapOverride;
+    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newExperimentalStartMapOverride;
     [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
 
     private UIDocument document;
@@ -97,6 +102,10 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
+        RegisterButton("btnNewTutorial", () => StartNewBattle(tutorialPreset, newTutorialStartMapOverride));
+        RegisterButton("btnNewShort", () => StartNewBattle(shortPreset, newShortStartMapOverride));
+        RegisterButton("btnNewLong", () => StartNewBattle(longPreset, newLongStartMapOverride));
+        RegisterButton("btnNewExperimental", () => StartNewBattle(experimentalPreset, newExperimentalStartMapOverride));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
@@ -488,6 +497,23 @@ public class MainMenuController : MonoBehaviour
         }
 
         SceneManager.LoadScene("Battle");
+    }
+
+    private void StartNewBattle(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)
+    {
+        if (preset == null)
+        {
+            Debug.LogError("[MainMenu] New start failed: preset is not assigned.");
+            return;
+        }
+
+        if (mapOverride == null)
+        {
+            throw new System.InvalidOperationException($"[MainMenu] New start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
+        }
+
+        Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId}) mapOverride={mapOverride.name}");
+        BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
     }
 
     private void OpenMapChapter()
