@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d25db7621dd4ddfb79b02add3b43b89, type: 3}
-  m_Name: Theme_Loop24_Long_Test
+  m_Name: MapTheme24
   m_EditorClassIdentifier: 
   tilemapPrefab: {fileID: 1068388755505221198, guid: 419a11cd6e7a4ea4b999479581139278, type: 3}
   positionTilemapName: TM_Tiles
@@ -20,4 +20,3 @@ MonoBehaviour:
   teamAColor: {r: 1, g: 1, b: 1, a: 1}
   teamBColor: {r: 1, g: 0, b: 0.24241209, a: 1}
   postProcessProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
-  deprecated: 0

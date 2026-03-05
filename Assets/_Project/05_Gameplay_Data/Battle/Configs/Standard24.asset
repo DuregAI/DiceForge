@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b0ce1aca18a4587844b12584fc1e254, type: 3}
-  m_Name: BMC_Loop24_Long_Test
+  m_Name: Standard24
   m_EditorClassIdentifier: 
   mapId: Loop24_Long_Test
   displayName: Loop 24 (Long Test)

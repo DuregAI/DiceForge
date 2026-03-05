@@ -193,10 +193,7 @@ namespace Diceforge.Map
             if (preset == null)
                 throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: preset not configured for node '{node.id}' battlePresetId='{node.battlePresetId}'.");
 
-            var map = battleMaps.Find(x => x != null && x.gameModePreset == preset);
-            if (map == null)
-                throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: map not configured for preset '{preset.name}' modeId='{preset.modeId}'.");
-
+            var map = preset.mapConfig;
             if (!map.TryValidate(out string validationError))
                 throw new InvalidOperationException($"[MapFlow] LaunchBattle failed: map '{map.name}' mapId='{map.mapId}' invalid: {validationError}.");
 

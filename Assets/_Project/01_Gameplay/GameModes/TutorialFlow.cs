@@ -18,10 +18,10 @@ public static class TutorialFlow
         return ProfileService.IsTutorialCompleted();
     }
 
-    public static void EnterTutorial(GameModePreset tutorialPreset, BattleMapConfig tutorialMapConfig)
+    public static void EnterTutorial(GameModePreset tutorialPreset)
     {
         _tutorialPreset = tutorialPreset;
-        _tutorialMapConfig = tutorialMapConfig;
+        _tutorialMapConfig = tutorialPreset.mapConfig;
         IsTrainingBattleActive = false;
         SceneManager.LoadScene(TutorialSceneName);
     }

@@ -38,12 +38,6 @@ namespace Diceforge.View
             if (!map.TryValidate(out string validationError))
                 throw BuildBootstrapException($"map validation failed: {validationError}", activePreset, map);
 
-            if (map.gameModePreset == null)
-                throw BuildBootstrapException("map has no GameModePreset", activePreset, map);
-
-            if (map.gameModePreset != activePreset)
-                throw BuildBootstrapException($"request preset '{activePreset.name}' does not match map preset '{map.gameModePreset.name}'", activePreset, map);
-
             if (activePreset.rulesetPreset == null)
                 throw BuildBootstrapException("preset has no RulesetPreset", activePreset, map);
 
@@ -106,8 +100,8 @@ namespace Diceforge.View
 
             VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
 
-            BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap);
-            BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap);
+            BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap, activePreset);
+            BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap, activePreset);
 
             moverA.SnapTo(startA);
             moverB.SnapTo(startB);
@@ -164,9 +158,6 @@ namespace Diceforge.View
             if (tilemapInstance == null)
                 return null;
 
-            if (string.IsNullOrWhiteSpace(theme.positionTilemapName))
-                throw BuildBootstrapException("map theme has empty positionTilemapName", map.gameModePreset, map);
-
             string tilemapName = theme.positionTilemapName;
 
             Tilemap[] tilemaps = tilemapInstance.GetComponentsInChildren<Tilemap>(true);
@@ -194,22 +185,22 @@ namespace Diceforge.View
             Debug.Log($"[BattleSceneBootstrapper] Verified unit Animator on prefab '{unitPrefab.name}' controller='{animator.runtimeAnimatorController.name}'.");
         }
 
-        private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap)
+        private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap, GameModePreset gameModePreset)
         {
             if (unitsRoot == null)
-                throw BuildBootstrapException("unitsRoot reference is missing", map != null ? map.gameModePreset : null, map);
+                throw BuildBootstrapException("unitsRoot reference is missing", map != null ? gameModePreset : null, map);
 
             if (map == null)
                 throw BuildBootstrapException("map is null while spawning unit", null, null);
 
             if (map.mapTheme == null)
-                throw BuildBootstrapException("map theme is null while spawning unit", map.gameModePreset, map);
+                throw BuildBootstrapException("map theme is null while spawning unit", gameModePreset, map);
 
             if (map.mapTheme.unitPrefab == null)
-                throw BuildBootstrapException("map unitPrefab is null while spawning unit", map.gameModePreset, map);
+                throw BuildBootstrapException("map unitPrefab is null while spawning unit", gameModePreset, map);
 
             if (positionTilemap == null)
-                throw BuildBootstrapException("position tilemap is null while spawning unit", map.gameModePreset, map);
+                throw BuildBootstrapException("position tilemap is null while spawning unit", gameModePreset, map);
 
             GameObject unit = Instantiate(map.mapTheme.unitPrefab, unitsRoot);
             unit.name = unitName;

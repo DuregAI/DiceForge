@@ -10,20 +10,13 @@
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
-                    <ui:Button name="btnLong" text="Long" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
+                    <ui:Button name="btnLong" text="STORY" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
                     <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button df-interactive" style="padding-top: 11px;"/>
                     <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnChests" text="Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnChestShop" text="Buy Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="NewStartButtonsColumn" class="df-theme new-start-group">
-                    <ui:Label name="lblNewStartHeader" text="New Start (Test)" class="new-start-header"/>
-                    <ui:Button name="btnNewTutorial" text="Start (New) Tutorial" class="menu-button main-menu-button new-start-button df-interactive"/>
-                    <ui:Button name="btnNewShort" text="Start (New) Short" class="menu-button main-menu-button new-start-button df-interactive"/>
-                    <ui:Button name="btnNewLong" text="Start (New) Long" class="menu-button main-menu-button new-start-button df-interactive"/>
-                    <ui:Button name="btnNewExperimental" text="Start (New) Experimental" class="menu-button main-menu-button new-start-button df-interactive"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -14,6 +14,5 @@ namespace Diceforge.MapSystem
         public Color teamAColor = Color.white;
         public Color teamBColor = Color.red;
         public VolumeProfile postProcessProfile;
-        public bool deprecated;
     }
 }

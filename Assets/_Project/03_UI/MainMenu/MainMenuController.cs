@@ -20,12 +20,6 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameModePreset shortPreset;
     [SerializeField] private GameModePreset tutorialPreset;
     [SerializeField] private GameModePreset experimentalPreset;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newTutorialStartMapOverride;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newShortStartMapOverride;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newLongStartMapOverride;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig newExperimentalStartMapOverride;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig legacyShortMapOverride;
-    [SerializeField] private Diceforge.MapSystem.BattleMapConfig legacyExperimentalMapOverride;
     [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
 
     private UIDocument document;
@@ -100,13 +94,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnSettings", ToggleSettingsPanel);
         RegisterButton("btnCopyLog", CopyLogToClipboard);
         RegisterButton("btnLong", OpenMapChapter);
-        RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset, legacyShortMapOverride));
+        RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
-        RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset, legacyExperimentalMapOverride));
-        RegisterButton("btnNewTutorial", () => StartNewBattle(tutorialPreset, newTutorialStartMapOverride));
-        RegisterButton("btnNewShort", () => StartNewBattle(shortPreset, newShortStartMapOverride));
-        RegisterButton("btnNewLong", () => StartNewBattle(longPreset, newLongStartMapOverride));
-        RegisterButton("btnNewExperimental", () => StartNewBattle(experimentalPreset, newExperimentalStartMapOverride));
+        RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
         RegisterButton("btnChests", OpenChestScreen);
@@ -430,7 +420,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (!TutorialFlow.RequiresReplayConfirmation())
         {
-            TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
+            TutorialFlow.EnterTutorial(tutorialPreset);
             return;
         }
 
@@ -465,7 +455,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (tutorialReplayConfirmModal == null)
         {
-            TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
+            TutorialFlow.EnterTutorial(tutorialPreset);
             return;
         }
 
@@ -483,19 +473,19 @@ public class MainMenuController : MonoBehaviour
     private void ConfirmTutorialReplay()
     {
         CloseTutorialReplayConfirmation();
-        TutorialFlow.EnterTutorial(tutorialPreset, newTutorialStartMapOverride);
+        TutorialFlow.EnterTutorial(tutorialPreset);
     }
 
-    private void SelectModeAndLoad(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)
+    private void SelectModeAndLoad(GameModePreset preset)
     {
         if (preset == null)
             throw new System.InvalidOperationException("[MainMenu] Legacy start failed: preset is not assigned.");
 
-        if (mapOverride == null)
+        if (preset.mapConfig == null)
             throw new System.InvalidOperationException($"[MainMenu] Legacy start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
 
-        Debug.Log($"[MainMenu] Starting LEGACY button through BattleLauncher preset={preset.name} map={mapOverride.name}");
-        BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
+        Debug.Log($"[MainMenu] Starting LEGACY button through BattleLauncher preset={preset.name} map={preset.mapConfig.name}");
+        BattleLauncher.Start(new BattleStartRequest(preset, preset.mapConfig));
     }
 
     private void StartNewBattle(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)

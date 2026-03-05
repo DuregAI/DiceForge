@@ -664,7 +664,7 @@ MonoBehaviour:
   tutorialPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
   experimentalPreset: {fileID: 11400000, guid: dbe1a0feca0b4e428a7a863dcb03824a, type: 2}
   newTutorialStartMapOverride: {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
-  newShortStartMapOverride: {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
+  newShortStartMapOverride: {fileID: 11400000, guid: 9e0b54564f6d414ba1ecdc3cf4f066da, type: 2}
   newLongStartMapOverride: {fileID: 11400000, guid: 9e0b54564f6d414ba1ecdc3cf4f066da, type: 2}
   newExperimentalStartMapOverride: {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
   legacyShortMapOverride: {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
@@ -711,6 +711,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6cb1d5028e244b089b31a8f8f07bf127, type: 2}
   battleMaps:
   - {fileID: 11400000, guid: 9e0b54564f6d414ba1ecdc3cf4f066da, type: 2}
+  - {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
