@@ -10,7 +10,7 @@
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
-                    <ui:Button name="btnLong" text="CAMPAIGN" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
+                    <ui:Button name="btnLong" text="STORY" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
                     <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button df-interactive" style="padding-top: 11px;"/>
                     <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>

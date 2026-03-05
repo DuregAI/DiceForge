@@ -18,3 +18,4 @@ MonoBehaviour:
   diceBagA: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
   diceBagB: {fileID: 11400000, guid: 1bfeb2f533030fd41bbf56cc24a6ea01, type: 2}
   setupPreset: {fileID: 11400000, guid: e7370ccba21f4054ac8ef3928036dd18, type: 2}
+  mapConfig: {fileID: 11400000, guid: 9e0b54564f6d414ba1ecdc3cf4f066da, type: 2}

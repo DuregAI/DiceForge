@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0ce1aca18a4587844b12584fc1e254, type: 3}
+  m_Name: Standard24
+  m_EditorClassIdentifier: 
+  mapId: Loop24_Long_Test
+  displayName: Loop 24 (Long Test)
+  gameModePreset: {fileID: 11400000, guid: c4a54d743c274014883c17aedb6b23a6, type: 2}
+  boardLayout: {fileID: 11400000, guid: 6eefb2d1bae143d6bcad283c9cc9dd4b, type: 2}
+  mapTheme: {fileID: 11400000, guid: d2a12c002879495dbe94bb7a6f12eccd, type: 2}
+  visualMode: 0
+  deprecated: 0

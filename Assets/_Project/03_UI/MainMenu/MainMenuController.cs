@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Diceforge.Audio;
+using Diceforge.Battle;
 using Diceforge.Dialogue;
 using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
@@ -479,15 +479,27 @@ public class MainMenuController : MonoBehaviour
     private void SelectModeAndLoad(GameModePreset preset)
     {
         if (preset == null)
+            throw new System.InvalidOperationException("[MainMenu] Legacy start failed: preset is not assigned.");
+
+        if (preset.mapConfig == null)
+            throw new System.InvalidOperationException($"[MainMenu] Legacy start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
+
+        Debug.Log($"[MainMenu] Starting LEGACY button through BattleLauncher preset={preset.name} map={preset.mapConfig.name}");
+        BattleLauncher.Start(new BattleStartRequest(preset, preset.mapConfig));
+    }
+
+    private void StartNewBattle(GameModePreset preset, Diceforge.MapSystem.BattleMapConfig mapOverride)
+    {
+        if (preset == null)
+            throw new System.InvalidOperationException("[MainMenu] New start failed: preset is not assigned.");
+
+        if (mapOverride == null)
         {
-            Debug.LogWarning("[MainMenu] Game mode preset is not assigned.");
-        }
-        else
-        {
-            GameModeSelection.SetSelected(preset);
+            throw new System.InvalidOperationException($"[MainMenu] New start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
         }
 
-        SceneManager.LoadScene("Battle");
+        Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId}) mapOverride={mapOverride.name}");
+        BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
     }
 
     private void OpenMapChapter()

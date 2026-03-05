@@ -8,6 +8,12 @@ MonoImporter:
   - shortPreset: {instanceID: 0}
   - tutorialPreset: {instanceID: 0}
   - experimentalPreset: {instanceID: 0}
+  - newTutorialStartMapOverride: {instanceID: 0}
+  - newShortStartMapOverride: {instanceID: 0}
+  - newLongStartMapOverride: {instanceID: 0}
+  - newExperimentalStartMapOverride: {instanceID: 0}
+  - legacyShortMapOverride: {instanceID: 0}
+  - legacyExperimentalMapOverride: {instanceID: 0}
   - tutorialPortraitLibrary: {fileID: 11400000, guid: 1a8442e9f2804ac685bd8080281da68e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}

@@ -1,4 +1,5 @@
 using Diceforge.Core;
+using Diceforge.MapSystem;
 using Diceforge.Presets;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class GameModePreset : ScriptableObject
     public DiceBagDefinition diceBagA;
     public DiceBagDefinition diceBagB;
     public SetupPreset setupPreset;
+    public BattleMapConfig mapConfig;
 
     private void OnValidate()
     {

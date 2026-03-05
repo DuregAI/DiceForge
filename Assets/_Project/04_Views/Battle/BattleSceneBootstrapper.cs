@@ -1,3 +1,6 @@
+using System;
+using Diceforge.Battle;
+using Diceforge.Core;
 using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
@@ -9,7 +12,6 @@ namespace Diceforge.View
     [DefaultExecutionOrder(-500)]
     public sealed class BattleSceneBootstrapper : MonoBehaviour
     {
-        [SerializeField] private BattleMapConfig defaultMapConfig;
         [SerializeField] private Transform backgroundRoot;
         [SerializeField] private Transform tilemapRoot;
         [SerializeField] private Transform decorationsRoot;
@@ -19,43 +21,124 @@ namespace Diceforge.View
 
         private void Awake()
         {
-            BattleMapConfig map = BattleMapSelectionService.SelectedMap ?? defaultMapConfig;
+            BattleStartRequest request = BattleLauncher.ConsumePendingRequest();
+            if (request == null)
+                throw BuildBootstrapException("missing BattleStartRequest. All battle entries must use BattleLauncher.Start(BattleStartRequest)", null, null);
+
+            const bool isNewPipeline = true;
+            BattleMapConfig map = request.mapConfigOverride;
+            GameModePreset activePreset = request.presetOverride;
+
+            if (activePreset == null)
+                throw BuildBootstrapException("request preset is null", null, map);
+
             if (map == null)
-            {
-                Debug.LogError("[BattleSceneBootstrapper] Missing selected/default BattleMapConfig.", this);
-                enabled = false;
-                return;
-            }
+                throw BuildBootstrapException("request map is null", activePreset, null);
 
             if (!map.TryValidate(out string validationError))
+                throw BuildBootstrapException($"map validation failed: {validationError}", activePreset, map);
+
+            if (activePreset.rulesetPreset == null)
+                throw BuildBootstrapException("preset has no RulesetPreset", activePreset, map);
+
+            if (activePreset.setupPreset == null)
+                throw BuildBootstrapException("preset has no SetupPreset", activePreset, map);
+
+            if (map.mapTheme == null)
+                throw BuildBootstrapException("map has no MapTheme", activePreset, map);
+
+            if (map.mapTheme.tilemapPrefab == null)
+                throw BuildBootstrapException("map theme has no tilemapPrefab", activePreset, map);
+
+            if (map.mapTheme.unitPrefab == null)
+                throw BuildBootstrapException("map theme has no unitPrefab", activePreset, map);
+
+            if (map.boardLayout == null || map.boardLayout.cells == null || map.boardLayout.cells.Count == 0)
+                throw BuildBootstrapException("map boardLayout has no cells", activePreset, map);
+
+            BattleMapSelectionService.SelectedMap = map;
+
+            RulesetConfig activeRules = RulesetConfig.FromPreset(activePreset.rulesetPreset);
+            int cellsCount = map.boardLayout.cells.Count;
+
+            if (activeRules.startCellA < 0 || activeRules.startCellA >= cellsCount)
+                throw BuildBootstrapException($"startCellA={activeRules.startCellA} outside [0..{cellsCount - 1}]", activePreset, map);
+
+            if (activeRules.startCellB < 0 || activeRules.startCellB >= cellsCount)
+                throw BuildBootstrapException($"startCellB={activeRules.startCellB} outside [0..{cellsCount - 1}]", activePreset, map);
+
+            int startA = activeRules.startCellA;
+            int startB = activeRules.startCellB;
+
+            int setupPlacements = activePreset.setupPreset != null && activePreset.setupPreset.unitPlacements != null
+                ? activePreset.setupPreset.unitPlacements.Count
+                : 0;
+
+            Debug.Log(
+                $"[BattleSceneBootstrapper] NewStart={isNewPipeline} preset={activePreset.name} modeId={activePreset.modeId} " +
+                $"rulesetId={activePreset.rulesetPreset.rulesetId} setupId={(activePreset.setupPreset != null ? activePreset.setupPreset.setupId : "<none>")} " +
+                $"cells={cellsCount} startA={startA} startB={startB} mapId={map.mapId} setupPlacements={setupPlacements}",
+                this);
+
+            if (setupPlacements > 2)
             {
-                Debug.LogError($"[BattleSceneBootstrapper] Invalid map '{map.name}': {validationError}", map);
-                enabled = false;
-                return;
+                Debug.Log($"[BattleSceneBootstrapper] Setup has {setupPlacements} placement entries. Scene still spawns one mover per side by design.", this);
             }
 
             if (boardViewController == null)
-                boardViewController = FindAnyObjectByType<BattleBoardViewController>();
+                throw BuildBootstrapException("BattleBoardViewController reference is missing", activePreset, map);
+
+            if (unitsRoot == null)
+                throw BuildBootstrapException("unitsRoot reference is missing", activePreset, map);
+
+            if (tilemapRoot == null)
+                throw BuildBootstrapException("tilemapRoot reference is missing", activePreset, map);
 
             Tilemap positionTilemap = InstantiateThemeAndResolvePositionTilemap(map);
             if (positionTilemap == null)
-            {
-                Debug.LogError("[BattleSceneBootstrapper] Position Tilemap was not found. Aborting bootstrap.", this);
-                enabled = false;
-                return;
-            }
+                throw BuildBootstrapException($"position tilemap '{map.mapTheme.positionTilemapName}' was not found in tilemap prefab", activePreset, map);
 
-            BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap);
-            BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap);
+            VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
+
+            BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap, activePreset);
+            BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap, activePreset);
+
+            moverA.SnapTo(startA);
+            moverB.SnapTo(startB);
+
+            Debug.Log($"[BattleSceneBootstrapper] MoverA snappedCell={(moverA != null ? moverA.CurrentCellId : -1)}", this);
+            Debug.Log($"[BattleSceneBootstrapper] MoverB snappedCell={(moverB != null ? moverB.CurrentCellId : -1)}", this);
 
             ApplyTeamColor(moverA != null ? moverA.gameObject : null, map.mapTheme.teamAColor);
             ApplyTeamColor(moverB != null ? moverB.gameObject : null, map.mapTheme.teamBColor);
 
-            boardViewController?.SetMovers(moverA, moverB);
-            boardViewController?.SetVisualMode(map.visualMode);
+            boardViewController.SetMovers(moverA, moverB);
+            boardViewController.SetVisualMode(map.visualMode);
+            boardViewController.ConfigureTokensView(
+                map.boardLayout,
+                positionTilemap,
+                unitsRoot,
+                map.mapTheme.unitPrefab,
+                map.mapTheme.teamAColor,
+                map.mapTheme.teamBColor);
+
+            BattleDebugController battleDebugController = FindAnyObjectByType<BattleDebugController>();
+            if (battleDebugController == null)
+                throw BuildBootstrapException("BattleDebugController not found in scene", activePreset, map);
+
+            battleDebugController.StartFromPreset(activePreset);
 
             if (deprecatedRingRoot != null && map.visualMode == BoardVisualMode.Tilemap)
                 deprecatedRingRoot.SetActive(false);
+        }
+
+        private static InvalidOperationException BuildBootstrapException(string reason, GameModePreset preset, BattleMapConfig map)
+        {
+            string presetName = preset != null ? preset.name : "<none>";
+            string modeId = preset != null ? preset.modeId : "<none>";
+            string mapName = map != null ? map.name : "<none>";
+            string mapId = map != null ? map.mapId : "<none>";
+            return new InvalidOperationException($"[BattleSceneBootstrapper] Strict bootstrap failure: {reason}. preset={presetName} modeId={modeId} map={mapName} mapId={mapId}");
         }
 
         private Tilemap InstantiateThemeAndResolvePositionTilemap(BattleMapConfig map)
@@ -75,9 +158,7 @@ namespace Diceforge.View
             if (tilemapInstance == null)
                 return null;
 
-            string tilemapName = string.IsNullOrWhiteSpace(theme.positionTilemapName)
-                ? "TM_Tiles"
-                : theme.positionTilemapName;
+            string tilemapName = theme.positionTilemapName;
 
             Tilemap[] tilemaps = tilemapInstance.GetComponentsInChildren<Tilemap>(true);
             for (int i = 0; i < tilemaps.Length; i++)
@@ -89,10 +170,37 @@ namespace Diceforge.View
             return null;
         }
 
-        private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap)
+        private static void VerifyUnitPrefabAnimator(GameObject unitPrefab)
         {
-            if (unitsRoot == null || map?.mapTheme?.unitPrefab == null)
-                return null;
+            if (unitPrefab == null)
+                throw new InvalidOperationException("[BattleSceneBootstrapper] Strict bootstrap failure: unit prefab is null.");
+
+            Animator animator = unitPrefab.GetComponentInChildren<Animator>(true);
+            if (animator == null)
+                throw new InvalidOperationException($"[BattleSceneBootstrapper] Strict bootstrap failure: unit prefab '{unitPrefab.name}' has no Animator component.");
+
+            if (animator.runtimeAnimatorController == null)
+                throw new InvalidOperationException($"[BattleSceneBootstrapper] Strict bootstrap failure: Animator on unit prefab '{unitPrefab.name}' has no RuntimeAnimatorController.");
+
+            Debug.Log($"[BattleSceneBootstrapper] Verified unit Animator on prefab '{unitPrefab.name}' controller='{animator.runtimeAnimatorController.name}'.");
+        }
+
+        private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap, GameModePreset gameModePreset)
+        {
+            if (unitsRoot == null)
+                throw BuildBootstrapException("unitsRoot reference is missing", map != null ? gameModePreset : null, map);
+
+            if (map == null)
+                throw BuildBootstrapException("map is null while spawning unit", null, null);
+
+            if (map.mapTheme == null)
+                throw BuildBootstrapException("map theme is null while spawning unit", gameModePreset, map);
+
+            if (map.mapTheme.unitPrefab == null)
+                throw BuildBootstrapException("map unitPrefab is null while spawning unit", gameModePreset, map);
+
+            if (positionTilemap == null)
+                throw BuildBootstrapException("position tilemap is null while spawning unit", gameModePreset, map);
 
             GameObject unit = Instantiate(map.mapTheme.unitPrefab, unitsRoot);
             unit.name = unitName;
