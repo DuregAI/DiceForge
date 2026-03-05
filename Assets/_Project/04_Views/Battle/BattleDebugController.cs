@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Diceforge.Core;
 using Diceforge.Progression;
 using Diceforge.Presets;
+using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Diceforge.View
 {
@@ -165,6 +167,13 @@ namespace Diceforge.View
                 return;
 
             ExecuteAutoTurn();
+        }
+        public void ConfigureBoardSelection(BoardLayout layout, Tilemap positionTilemap)
+        {
+            if (boardView == null)
+                boardView = GetComponent<BoardDebugView>();
+
+            boardView?.ConfigureSelectionSpace(layout, positionTilemap);
         }
 
         public void StartFromPreset(GameModePreset preset)
@@ -369,7 +378,6 @@ namespace Diceforge.View
         private void HandleMoveApplied(MoveRecord record)
         {
             boardView?.HandleMoveApplied(record);
-            PushLastMoveDebugInfo(record);
 
             if (record.PlayerId == localPlayer && record.ApplyResult != ApplyResult.Illegal && record.Move.HasValue)
                 OnHumanMoveApplied?.Invoke(record);
@@ -381,30 +389,6 @@ namespace Diceforge.View
             Debug.Log($"[Diceforge] {record.PlayerId} -> {moveText}  Outcome={record.Outcome}  Pip={pipText}  T{record.TurnIndex}");
         }
 
-        private void PushLastMoveDebugInfo(MoveRecord record)
-        {
-            if (boardView == null || _runner?.State == null)
-                return;
-
-            if (!record.FromCell.HasValue)
-                return;
-
-            int fallbackTo = record.ToCell ?? record.FromCell.Value;
-            var info = new LastMoveDebugInfo
-            {
-                fromCell = record.FromCell.Value,
-                toCell = fallbackTo,
-                die1 = record.PipUsed ?? 0,
-                die2 = 0,
-                hasDice = record.PipUsed.HasValue,
-                valid = record.ApplyResult != ApplyResult.Illegal,
-                player = record.PlayerId,
-                movedStoneCellAfter = fallbackTo,
-                hasMovedStoneCell = record.ApplyResult != ApplyResult.Illegal && record.Move.HasValue
-            };
-
-            boardView.SetLastMove(info);
-        }
 
         private void HandleMatchEnded(MatchResult result)
         {
@@ -917,3 +901,5 @@ namespace Diceforge.View
         }
     }
 }
+
+

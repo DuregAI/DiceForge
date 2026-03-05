@@ -4,7 +4,6 @@ using Diceforge.Core;
 using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 namespace Diceforge.View
@@ -80,11 +79,6 @@ namespace Diceforge.View
                 $"cells={cellsCount} startA={startA} startB={startB} mapId={map.mapId} setupPlacements={setupPlacements}",
                 this);
 
-            if (setupPlacements > 2)
-            {
-                Debug.Log($"[BattleSceneBootstrapper] Setup has {setupPlacements} placement entries. Scene still spawns one mover per side by design.", this);
-            }
-
             if (boardViewController == null)
                 throw BuildBootstrapException("BattleBoardViewController reference is missing", activePreset, map);
 
@@ -100,19 +94,8 @@ namespace Diceforge.View
 
             VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
 
-            BoardLayoutTokenMover moverA = SpawnUnit("Unit_A", map, positionTilemap, activePreset);
-            BoardLayoutTokenMover moverB = SpawnUnit("Unit_B", map, positionTilemap, activePreset);
-
-            moverA.SnapTo(startA);
-            moverB.SnapTo(startB);
-
-            Debug.Log($"[BattleSceneBootstrapper] MoverA snappedCell={(moverA != null ? moverA.CurrentCellId : -1)}", this);
-            Debug.Log($"[BattleSceneBootstrapper] MoverB snappedCell={(moverB != null ? moverB.CurrentCellId : -1)}", this);
-
-            ApplyTeamColor(moverA != null ? moverA.gameObject : null, map.mapTheme.teamAColor);
-            ApplyTeamColor(moverB != null ? moverB.gameObject : null, map.mapTheme.teamBColor);
-
-            boardViewController.SetMovers(moverA, moverB);
+            // Legacy single-mover visuals are disabled; token view is the only runtime stone visual path.
+            boardViewController.SetMovers(null, null);
             boardViewController.SetVisualMode(map.visualMode);
             boardViewController.ConfigureTokensView(
                 map.boardLayout,
@@ -126,6 +109,7 @@ namespace Diceforge.View
             if (battleDebugController == null)
                 throw BuildBootstrapException("BattleDebugController not found in scene", activePreset, map);
 
+            battleDebugController.ConfigureBoardSelection(map.boardLayout, positionTilemap);
             battleDebugController.StartFromPreset(activePreset);
 
             if (deprecatedRingRoot != null && map.visualMode == BoardVisualMode.Tilemap)
@@ -185,74 +169,7 @@ namespace Diceforge.View
             Debug.Log($"[BattleSceneBootstrapper] Verified unit Animator on prefab '{unitPrefab.name}' controller='{animator.runtimeAnimatorController.name}'.");
         }
 
-        private BoardLayoutTokenMover SpawnUnit(string unitName, BattleMapConfig map, Tilemap positionTilemap, GameModePreset gameModePreset)
-        {
-            if (unitsRoot == null)
-                throw BuildBootstrapException("unitsRoot reference is missing", map != null ? gameModePreset : null, map);
 
-            if (map == null)
-                throw BuildBootstrapException("map is null while spawning unit", null, null);
-
-            if (map.mapTheme == null)
-                throw BuildBootstrapException("map theme is null while spawning unit", gameModePreset, map);
-
-            if (map.mapTheme.unitPrefab == null)
-                throw BuildBootstrapException("map unitPrefab is null while spawning unit", gameModePreset, map);
-
-            if (positionTilemap == null)
-                throw BuildBootstrapException("position tilemap is null while spawning unit", gameModePreset, map);
-
-            GameObject unit = Instantiate(map.mapTheme.unitPrefab, unitsRoot);
-            unit.name = unitName;
-
-            BoardLayoutTokenMover mover = unit.GetComponent<BoardLayoutTokenMover>();
-            if (mover == null)
-                mover = unit.AddComponent<BoardLayoutTokenMover>();
-
-            mover.SetLayout(map.boardLayout);
-            mover.SetPositionTilemap(positionTilemap);
-
-            SortingGroup sortingGroup = unit.GetComponent<SortingGroup>();
-            if (sortingGroup == null)
-                sortingGroup = unit.AddComponent<SortingGroup>();
-
-            sortingGroup.sortAtRoot = true;
-            sortingGroup.sortingOrder = 0;
-            sortingGroup.sortingLayerName = "Default";
-
-            Animator animator = unit.GetComponentInChildren<Animator>(true);
-            if (animator != null)
-                animator.applyRootMotion = false;
-
-            return mover;
-        }
-
-        private static void ApplyTeamColor(GameObject unitRoot, Color teamColor)
-        {
-            if (unitRoot == null)
-                return;
-
-            Renderer[] renderers = unitRoot.GetComponentsInChildren<Renderer>(true);
-            MaterialPropertyBlock block = new MaterialPropertyBlock();
-
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                Renderer renderer = renderers[i];
-                renderer.GetPropertyBlock(block);
-
-                Material shared = renderer.sharedMaterial;
-                if (shared != null && shared.HasProperty("_BaseColor"))
-                    block.SetColor("_BaseColor", teamColor);
-                else if (shared != null && shared.HasProperty("_Color"))
-                    block.SetColor("_Color", teamColor);
-                else
-                {
-                    block.SetColor("_BaseColor", teamColor);
-                    block.SetColor("_Color", teamColor);
-                }
-
-                renderer.SetPropertyBlock(block);
-            }
-        }
     }
 }
+

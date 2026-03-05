@@ -36,6 +36,11 @@ namespace Diceforge.View
         private Color _teamBColor;
         private bool _configured;
 
+        [Header("Bar Placement")]
+        [SerializeField] private float barSideOffsetX = 0.28f;
+        [SerializeField] private float barStackStepY = 0.045f;
+        [SerializeField] private float barStackStepZ = 0.03f;
+
         public void Configure(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject unitPrefab, Color teamAColor, Color teamBColor)
         {
             _layout = layout;
@@ -73,6 +78,14 @@ namespace Diceforge.View
             token.activeOnBoard = true;
             token.currentCellId = cellId;
             token.mover.SetVisualOffset(Vector3.zero);
+
+            if (cellId < 0)
+            {
+                Vector3 barCenter = CalculateBarCenterWorld();
+                token.mover.SnapToWorld(CalculateBarStoneWorldPosition(token.player, barCenter, 0), -1);
+                return;
+            }
+
             token.mover.SnapTo(cellId);
         }
 
@@ -105,8 +118,9 @@ namespace Diceforge.View
 
         private void ReconcileFromState(GameState state, bool animateMovedToken, bool defaultAnimate, MoveRecord? movedRecord)
         {
-            List<TokenPlacement> placementsA = BuildPlacements(state, PlayerId.A);
-            List<TokenPlacement> placementsB = BuildPlacements(state, PlayerId.B);
+            Vector3 barCenterWorld = CalculateBarCenterWorld();
+            List<TokenPlacement> placementsA = BuildPlacements(state, PlayerId.A, barCenterWorld);
+            List<TokenPlacement> placementsB = BuildPlacements(state, PlayerId.B, barCenterWorld);
 
             bool movedApplied = false;
             if (animateMovedToken && movedRecord.HasValue)
@@ -136,6 +150,18 @@ namespace Diceforge.View
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (!list[i].activeOnBoard || list[i].currentCellId != from)
+                        continue;
+
+                    movedToken = list[i];
+                    break;
+                }
+            }
+
+            if (movedToken == null && record.Move.HasValue && record.Move.Value.Kind == MoveKind.EnterFromBar)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (!list[i].activeOnBoard || list[i].currentCellId >= 0)
                         continue;
 
                     movedToken = list[i];
@@ -206,7 +232,10 @@ namespace Diceforge.View
                 if (isMovedToken && animate)
                     continue;
 
-                token.mover.SnapTo(placement.cellId);
+                if (placement.useWorldPosition)
+                    token.mover.SnapToWorld(placement.worldPosition, placement.cellId);
+                else
+                    token.mover.SnapTo(placement.cellId);
             }
 
             for (int i = 0; i < tokens.Count; i++)
@@ -219,7 +248,7 @@ namespace Diceforge.View
             }
         }
 
-        private List<TokenPlacement> BuildPlacements(GameState state, PlayerId player)
+        private List<TokenPlacement> BuildPlacements(GameState state, PlayerId player, Vector3 barCenterWorld)
         {
             List<TokenBinding> tokens = player == PlayerId.A ? _tokensA : _tokensB;
             ReadOnlySpan<int> counts = player == PlayerId.A ? state.StonesAByCell : state.StonesBByCell;
@@ -238,14 +267,72 @@ namespace Diceforge.View
                     {
                         token = tokens[tokenCursor],
                         cellId = cell,
-                        offset = CalculateFormationOffset(i, count)
+                        offset = CalculateFormationOffset(i, count),
+                        useWorldPosition = false,
+                        worldPosition = Vector3.zero
                     });
 
                     tokenCursor++;
                 }
             }
 
+            int barCount = state.GetBarCount(player);
+            for (int i = 0; i < barCount; i++)
+            {
+                if (tokenCursor >= tokens.Count)
+                    break;
+
+                placements.Add(new TokenPlacement
+                {
+                    token = tokens[tokenCursor],
+                    cellId = -1,
+                    offset = Vector3.zero,
+                    useWorldPosition = true,
+                    worldPosition = CalculateBarStoneWorldPosition(player, barCenterWorld, i)
+                });
+
+                tokenCursor++;
+            }
+
             return placements;
+        }
+
+        private Vector3 CalculateBarCenterWorld()
+        {
+            if (_layout == null || _layout.cells == null || _layout.cells.Count == 0)
+            {
+                if (_unitsRoot != null)
+                    return _unitsRoot.position;
+                return transform.position;
+            }
+
+            Vector3 sum = Vector3.zero;
+            int count = 0;
+            for (int i = 0; i < _layout.cells.Count; i++)
+            {
+                CellData cell = _layout.cells[i];
+                Vector3 world = _positionTilemap != null
+                    ? _positionTilemap.GetCellCenterWorld(cell.gridPos)
+                    : cell.worldPos;
+
+                sum += world;
+                count++;
+            }
+
+            if (count == 0)
+            {
+                if (_unitsRoot != null)
+                    return _unitsRoot.position;
+                return transform.position;
+            }
+
+            return sum / count;
+        }
+
+        private Vector3 CalculateBarStoneWorldPosition(PlayerId player, Vector3 centerWorld, int stackIndex)
+        {
+            float side = player == PlayerId.A ? -1f : 1f;
+            return centerWorld + new Vector3(side * barSideOffsetX, stackIndex * barStackStepY, stackIndex * barStackStepZ);
         }
 
         private void EnsurePool(PlayerId player, int requiredCount)
@@ -366,7 +453,7 @@ namespace Diceforge.View
                     continue;
 
                 int cell = tokens[i].currentCellId;
-                if (cell >= 0 && cell < boardSize)
+                if (cell == -1 || (cell >= 0 && cell < boardSize))
                     continue;
 
                 Debug.LogWarning($"[StonesTokensView] {player} stone '{tokens[i].stoneId}' resolved invalid cell {cell}.", this);
@@ -378,6 +465,9 @@ namespace Diceforge.View
             public TokenBinding token;
             public int cellId;
             public Vector3 offset;
+            public bool useWorldPosition;
+            public Vector3 worldPosition;
         }
     }
 }
+

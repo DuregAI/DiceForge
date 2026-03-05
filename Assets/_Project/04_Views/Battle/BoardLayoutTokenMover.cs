@@ -57,7 +57,9 @@ namespace Diceforge.View
 
         private void Start()
         {
-            SnapTo(0);
+            // Keep the cell resolved during initial token reconciliation.
+            // Snapping to 0 here collapses all freshly spawned tokens to one point on match start.
+            SnapTo(currentCellId);
         }
 
         private void OnDisable()
@@ -78,6 +80,17 @@ namespace Diceforge.View
                 return;
 
             tokenRoot.position = targetPosition;
+            currentCellId = resolvedCellId;
+        }
+
+        public void SnapToWorld(Vector3 worldPosition, int resolvedCellId = -1)
+        {
+            CancelAllMovement();
+
+            if (tokenRoot == null)
+                return;
+
+            tokenRoot.position = worldPosition + Vector3.up * heightOffset + visualOffset;
             currentCellId = resolvedCellId;
         }
 
@@ -318,3 +331,4 @@ namespace Diceforge.View
         }
     }
 }
+

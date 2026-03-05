@@ -486,28 +486,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BoardDebugView
   ringRadius: 6
   cellRadius: 0.5
-  playerRadius: 0.4
-  stoneHeight: 0.2
-  stoneSpreadRadius: 0.18
-  stoneRingSpacing: 0.08
-  barOffsetX: 0.65
-  barStackSpacing: 0.24
-  cellColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.8}
-  playerAColor: {r: 0.2, g: 0.6, b: 1, a: 0.9}
-  playerBColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
-  lastMoveColor: {r: 1, g: 0.9, b: 0.3, a: 0.9}
-  invalidMoveColor: {r: 1, g: 0.3, b: 0.3, a: 0.95}
-  homeMarkerColorA: {r: 0.2, g: 0.8, b: 1, a: 1}
-  homeMarkerColorB: {r: 1, g: 0.4, b: 0.2, a: 1}
-  lastMovedStoneHighlightColor: {r: 1, g: 0.95, b: 0.4, a: 1}
-  legalMoveColor: {r: 0.3, g: 1, b: 0.6, a: 0.9}
-  showCellIndices: 1
-  showHomeMarkers: 1
-  showLastMoveArrow: 1
-  showLastMovedStoneHighlight: 1
-  labelHeight: 0.35
-  stonePrefabA: {fileID: 4651965059315984526, guid: 870de3ebfc85c5b428d66977832719ae, type: 3}
-  stonePrefabB: {fileID: 2776706138654497508, guid: bbd2ab4c2db4ec8479cf94ea5a37545f, type: 3}
 --- !u!4 &426479108
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,7 +1022,7 @@ MonoBehaviour:
   decorationsRoot: {fileID: 2100000031}
   unitsRoot: {fileID: 2100000041}
   boardViewController: {fileID: 783023281}
-  deprecatedRingRoot: {fileID: 426479106}
+  deprecatedRingRoot: {fileID: 0}
 --- !u!1 &2100000010
 GameObject:
   m_ObjectHideFlags: 0
