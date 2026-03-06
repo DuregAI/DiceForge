@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setupId: experimental
   displayName: Experimantal
-  boardSize: 30
+  boardSize: 24
   unitPlacements: []

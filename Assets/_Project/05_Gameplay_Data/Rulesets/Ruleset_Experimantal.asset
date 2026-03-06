@@ -19,7 +19,7 @@ MonoBehaviour:
   allowReroll: 0
   actionsPerTurn: 1
   gameMode: 0
-  boardSize: 30
+  boardSize: 24
   homeSize: 6
   totalStonesPerPlayer: 20
   dieMin: 1
