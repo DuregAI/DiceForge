@@ -11,8 +11,6 @@ namespace Diceforge.View
     public sealed class BoardDebugView : MonoBehaviour
     {
         private const string PlayerATokenNamePrefix = "StoneA_";
-        private const string LegacyPlayerATokenNamePrefix = "Unit_A";
-
         [Header("Input")]
         [SerializeField] private float tokenClickRadiusPixels = 120f;
         [SerializeField] private float cellClickRadiusPixels = 110f;
@@ -24,6 +22,7 @@ namespace Diceforge.View
         private Camera _camera;
         private BoardLayout _selectionLayout;
         private Tilemap _selectionTilemap;
+        private string _lastClickedPlayerATokenName;
 
         public event Action<int> OnCellClicked;
 
@@ -83,8 +82,16 @@ namespace Diceforge.View
                 return;
 
             Vector2 position = mouse.position.ReadValue();
-            if (!TryPickPlayerATokenCell(position, out int cellIndex)
-                && !TryPickCell(position, out cellIndex))
+            int cellIndex;
+            if (TryPickPlayerATokenCell(position, out cellIndex, out string tokenName))
+            {
+                _lastClickedPlayerATokenName = tokenName;
+            }
+            else if (TryPickCell(position, out cellIndex))
+            {
+                _lastClickedPlayerATokenName = null;
+            }
+            else
             {
                 return;
             }
@@ -93,9 +100,17 @@ namespace Diceforge.View
             OnCellClicked?.Invoke(cellIndex);
         }
 
-        private bool TryPickPlayerATokenCell(Vector2 screenPosition, out int cellIndex)
+        public string ConsumeLastClickedPlayerATokenName()
+        {
+            string tokenName = _lastClickedPlayerATokenName;
+            _lastClickedPlayerATokenName = null;
+            return tokenName;
+        }
+
+        private bool TryPickPlayerATokenCell(Vector2 screenPosition, out int cellIndex, out string tokenName)
         {
             cellIndex = -1;
+            tokenName = null;
 
             BoardLayoutTokenMover[] movers = FindObjectsByType<BoardLayoutTokenMover>(FindObjectsSortMode.None);
             if (movers == null || movers.Length == 0)
@@ -105,6 +120,7 @@ namespace Diceforge.View
             float radiusSqr = radius * radius;
             float bestSqr = float.MaxValue;
             int bestCell = -1;
+            string bestTokenName = null;
 
             for (int i = 0; i < movers.Length; i++)
             {
@@ -129,12 +145,14 @@ namespace Diceforge.View
 
                 bestSqr = sqr;
                 bestCell = mover.CurrentCellId;
+                bestTokenName = mover.gameObject.name;
             }
 
             if (bestCell < 0)
                 return false;
 
             cellIndex = bestCell;
+            tokenName = bestTokenName;
             return true;
         }
 
@@ -143,8 +161,7 @@ namespace Diceforge.View
             if (string.IsNullOrEmpty(objectName))
                 return false;
 
-            return objectName.StartsWith(PlayerATokenNamePrefix, StringComparison.Ordinal)
-                || objectName.StartsWith(LegacyPlayerATokenNamePrefix, StringComparison.Ordinal);
+            return objectName.StartsWith(PlayerATokenNamePrefix, StringComparison.Ordinal);
         }
 
         private bool TryPickCell(Vector2 screenPosition, out int cellIndex)
@@ -250,5 +267,3 @@ namespace Diceforge.View
         }
     }
 }
-
-

@@ -1,4 +1,3 @@
-using Diceforge.Core;
 using Diceforge.Map;
 using UnityEngine;
 
@@ -16,7 +15,6 @@ namespace Diceforge.MapSystem
 
         [Header("Visual")]
         public MapTheme mapTheme;
-        public BoardVisualMode visualMode;
 
         public bool TryValidate(out string error)
         {
@@ -39,6 +37,7 @@ namespace Diceforge.MapSystem
                 error = "MapTheme is missing.";
                 return false;
             }
+
             return true;
         }
     }

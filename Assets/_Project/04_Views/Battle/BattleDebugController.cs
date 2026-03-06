@@ -50,6 +50,8 @@ namespace Diceforge.View
         private GameModePreset _externalPreset;
         private Coroutine _autoStartRoutine;
         private bool _rerollUsedThisTurn;
+        private bool _wasBoardAnimating;
+        private string _pendingAnimatedTokenName;
 
         [Header("Debug")]
         [SerializeField] private bool logRerollInventory;
@@ -149,6 +151,14 @@ namespace Diceforge.View
 
         private void Update()
         {
+            bool isBoardAnimating = IsBoardAnimating();
+            if (isBoardAnimating != _wasBoardAnimating)
+            {
+                _wasBoardAnimating = isBoardAnimating;
+                if (_runner?.State != null)
+                    UpdateUI();
+            }
+
             if (stepMode || !runContinuously || !_isInitialized)
                 return;
 
@@ -163,7 +173,7 @@ namespace Diceforge.View
             if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
-            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn())
+            if (_runner.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn() || isBoardAnimating)
                 return;
 
             ExecuteAutoTurn();
@@ -305,6 +315,7 @@ namespace Diceforge.View
         {
             bool wasRunning = _isRunning;
             _elapsed = 0f;
+            _pendingAnimatedTokenName = null;
             _runner.Reset();
             boardViewController?.Bind(_runner);
             _isRunning = wasRunning;
@@ -314,7 +325,7 @@ namespace Diceforge.View
 
         private void TickOnce()
         {
-            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
                 return;
 
             if (!_runner.HasAnyLegalMove())
@@ -329,31 +340,17 @@ namespace Diceforge.View
 
         private void ExecuteAutoTurn()
         {
-            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn())
+            if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn() || IsBoardAnimating())
                 return;
 
-            int startingTurn = _runner.State.TurnIndex;
-            int safety = 0;
-
-            while (_runner?.State != null
-                   && !_runner.State.IsFinished
-                   && !_runner.MatchEnded
-                   && !IsHumanTurn()
-                   && _runner.State.TurnIndex == startingTurn
-                   && safety++ < 64)
+            if (!_runner.HasAnyLegalMove())
             {
-                if (!_runner.HasAnyLegalMove())
-                {
-                    _runner.EndTurnIfNoMoves();
-                    continue;
-                }
-
-                if (!_runner.Tick())
-                    break;
+                _runner.EndTurnIfNoMoves();
+                UpdateUI();
+                return;
             }
 
-            if (safety >= 64 && verboseLog)
-                Debug.LogWarning("[Diceforge] Auto turn safety guard reached.");
+            _runner.Tick();
         }
 
         private void HandleMatchStarted(GameState state)
@@ -368,6 +365,7 @@ namespace Diceforge.View
         {
             _elapsed = 0f;
             _rerollUsedThisTurn = false;
+            _pendingAnimatedTokenName = null;
             LogRerollCount("TurnStarted");
             if (IsHumanTurn())
                 OnHumanTurnStarted?.Invoke();
@@ -415,9 +413,15 @@ namespace Diceforge.View
             return controlModeB == ControlMode.Human;
         }
 
+        private bool IsBoardAnimating()
+        {
+            EnsureBoardViewControllerResolved();
+            return boardViewController != null && boardViewController.IsAnimating;
+        }
+
         private void HandleMoveClicked()
         {
-            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished)
+            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished || IsBoardAnimating())
                 return;
 
             EnsureHumanTurnReady();
@@ -428,7 +432,7 @@ namespace Diceforge.View
 
         private void HandleCellClicked(int cellIndex)
         {
-            if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded)
+            if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
                 return;
 
             EnsureHumanTurnReady();
@@ -436,6 +440,8 @@ namespace Diceforge.View
             var move = SelectMoveForCell(cellIndex);
             if (!move.HasValue)
             {
+                _pendingAnimatedTokenName = null;
+
                 if (_runner.SelectedDieIndex.HasValue && _runner.RemainingDice.Count > _runner.SelectedDieIndex.Value)
                 {
                     int die = _runner.RemainingDice[_runner.SelectedDieIndex.Value];
@@ -452,6 +458,7 @@ namespace Diceforge.View
                 return;
             }
 
+            _pendingAnimatedTokenName = boardView?.ConsumeLastClickedPlayerATokenName();
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             _lastHumanInputFeedback = string.Empty;
@@ -460,7 +467,7 @@ namespace Diceforge.View
 
         private void HandleDieSelected(int index)
         {
-            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished)
+            if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished || IsBoardAnimating())
                 return;
 
             if (!_runner.SelectDieIndex(index))
@@ -482,7 +489,7 @@ namespace Diceforge.View
 
         private void HandleRerollClicked()
         {
-            if (!CanUseReroll())
+            if (IsBoardAnimating() || !CanUseReroll())
                 return;
 
             if (!ProfileService.RemoveItem(ProgressionIds.ItemConsumableReroll, 1))
@@ -499,8 +506,12 @@ namespace Diceforge.View
 
         private void ApplyHumanMove(Move move)
         {
-            if (_runner == null || _runner.State == null || _runner.State.IsFinished || _runner.MatchEnded)
+            if (_runner == null || _runner.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
                 return;
+
+            EnsureBoardViewControllerResolved();
+            boardViewController?.SetPendingAnimatedTokenName(_pendingAnimatedTokenName);
+            _pendingAnimatedTokenName = null;
 
             bool applied = _runner.TryApplyHumanMove(move);
             if (!applied && verboseLog)
@@ -549,23 +560,25 @@ namespace Diceforge.View
 
             var state = _runner.State;
             bool humanTurn = IsHumanTurn() && !state.IsFinished;
-            if (humanTurn)
+            bool boardAnimating = IsBoardAnimating();
+            bool allowInteraction = humanTurn && !boardAnimating;
+            if (allowInteraction)
             {
                 EnsureHumanTurnReady();
                 if (_runner.EndTurnIfNoMoves())
                     return;
             }
 
-            bool canMove = humanTurn && HasLegalMove();
+            bool canMove = allowInteraction && HasLegalMove();
 
-            hud?.SetHumanControlsEnabled(humanTurn);
+            hud?.SetHumanControlsEnabled(allowInteraction);
             hud?.SetMoveEnabled(canMove);
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
             RefreshRerollUI();
-            hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, humanTurn);
+            hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, allowInteraction);
 
-            if (humanTurn)
+            if (allowInteraction)
                 _waitingForFromCell = canMove;
             else if (_waitingForFromCell)
                 _waitingForFromCell = false;
@@ -667,7 +680,7 @@ namespace Diceforge.View
             bool humanTurn = _runner?.State != null && IsHumanTurn() && !_runner.State.IsFinished;
             bool matchNotEnded = _runner?.State != null && !_runner.MatchEnded && !_runner.State.IsFinished;
             bool visible = matchNotEnded && humanTurn;
-            bool enabled = matchNotEnded && humanTurn && rerollCount > 0 && !_rerollUsedThisTurn;
+            bool enabled = matchNotEnded && humanTurn && !IsBoardAnimating() && rerollCount > 0 && !_rerollUsedThisTurn;
             hud.SetRerollState(rerollCount, enabled, visible);
         }
 
@@ -750,6 +763,9 @@ namespace Diceforge.View
             if (_runner.State.IsFinished || _runner.MatchEnded)
                 return $"Status: Finished ({_runner.State.Winner})";
 
+            if (IsBoardAnimating())
+                return "Status: Animating move";
+
             if (IsHumanTurn())
             {
                 if (!string.IsNullOrWhiteSpace(_lastHumanInputFeedback))
@@ -778,13 +794,13 @@ namespace Diceforge.View
                 string fromText = record.FromCell.HasValue ? record.FromCell.Value.ToString() : "-";
                 string toText = record.ToCell.HasValue ? record.ToCell.Value.ToString() : "-";
                 string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
-                text = $"{player} {fromText}→{toText} (Pip {pipText})";
+                text = $"{player} {fromText}в†’{toText} (Pip {pipText})";
             }
             else if (move.Kind == MoveKind.EnterFromBar)
             {
                 string toText = record.ToCell.HasValue ? record.ToCell.Value.ToString() : "-";
                 string pipText = record.PipUsed.HasValue ? record.PipUsed.Value.ToString() : "-";
-                text = $"{player} Bar→{toText} (Pip {pipText})";
+                text = $"{player} Barв†’{toText} (Pip {pipText})";
             }
             else
             {
@@ -807,7 +823,7 @@ namespace Diceforge.View
                 return;
             }
 
-            if (!IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded)
+            if (!IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
             {
                 boardView.SetHighlightedCells(null);
                 return;
@@ -901,5 +917,3 @@ namespace Diceforge.View
         }
     }
 }
-
-

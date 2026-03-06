@@ -16,7 +16,6 @@ namespace Diceforge.View
         [SerializeField] private Transform decorationsRoot;
         [SerializeField] private Transform unitsRoot;
         [SerializeField] private BattleBoardViewController boardViewController;
-        [SerializeField] private GameObject deprecatedRingRoot;
 
         private void Awake()
         {
@@ -96,7 +95,6 @@ namespace Diceforge.View
 
             // Legacy single-mover visuals are disabled; token view is the only runtime stone visual path.
             boardViewController.SetMovers(null, null);
-            boardViewController.SetVisualMode(map.visualMode);
             boardViewController.ConfigureTokensView(
                 map.boardLayout,
                 positionTilemap,
@@ -111,9 +109,6 @@ namespace Diceforge.View
 
             battleDebugController.ConfigureBoardSelection(map.boardLayout, positionTilemap);
             battleDebugController.StartFromPreset(activePreset);
-
-            if (deprecatedRingRoot != null && map.visualMode == BoardVisualMode.Tilemap)
-                deprecatedRingRoot.SetActive(false);
         }
 
         private static InvalidOperationException BuildBootstrapException(string reason, GameModePreset preset, BattleMapConfig map)
@@ -168,8 +163,5 @@ namespace Diceforge.View
 
             Debug.Log($"[BattleSceneBootstrapper] Verified unit Animator on prefab '{unitPrefab.name}' controller='{animator.runtimeAnimatorController.name}'.");
         }
-
-
     }
 }
-

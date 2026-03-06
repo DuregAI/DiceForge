@@ -14,8 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapId: iso_test
   displayName: Iso Test
-  gameModePreset: {fileID: 11400000, guid: 6cb1d5028e244b089b31a8f8f07bf127, type: 2}
   boardLayout: {fileID: 11400000, guid: 9e532c412fe247d18e5d90325eb7d2fd, type: 2}
   mapTheme: {fileID: 11400000, guid: d0065d3f82ef4f4ba3858d66929cb721, type: 2}
-  visualMode: 0
-  deprecated: 1

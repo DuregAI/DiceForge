@@ -29,6 +29,7 @@ namespace Diceforge.View
         private bool _suppressStopAtMoveEnd;
 
         public int CurrentCellId => currentCellId;
+        public bool IsAnimating => _moveRoutine != null || _moveStepsRoutine != null;
 
         public void SetVisualOffset(Vector3 offset)
         {

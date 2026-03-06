@@ -1,6 +1,5 @@
 using Diceforge.Core;
 using Diceforge.Map;
-using Diceforge.MapSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,10 +10,26 @@ namespace Diceforge.View
         [SerializeField] private BoardLayoutTokenMover moverA;
         [SerializeField] private BoardLayoutTokenMover moverB;
         [SerializeField] private bool animateSteps = true;
-        [SerializeField] private bool useLayoutMode = true;
         [SerializeField] private StonesTokensView stonesTokensView;
 
         private BattleRunner _runner;
+        private string _pendingAnimatedTokenName;
+
+        public bool IsAnimating
+        {
+            get
+            {
+                if (stonesTokensView != null)
+                    return stonesTokensView.IsAnimating;
+
+                return (moverA != null && moverA.IsAnimating) || (moverB != null && moverB.IsAnimating);
+            }
+        }
+
+        public void SetPendingAnimatedTokenName(string tokenRootName)
+        {
+            _pendingAnimatedTokenName = tokenRootName;
+        }
 
         public void SetMovers(BoardLayoutTokenMover a, BoardLayoutTokenMover b)
         {
@@ -37,12 +52,6 @@ namespace Diceforge.View
                 stonesTokensView.BuildTokensFromMatchState(_runner.State);
                 SetSingleMoverVisibility(!stonesTokensView.HasActiveTokens());
             }
-        }
-
-        public void SetVisualMode(BoardVisualMode mode)
-        {
-            animateSteps = true;
-            useLayoutMode = mode == BoardVisualMode.Tilemap;
         }
 
         public void Bind(BattleRunner runner)
@@ -88,9 +97,12 @@ namespace Diceforge.View
             if (_runner?.State == null)
                 return;
 
+            string preferredTokenName = _pendingAnimatedTokenName;
+            _pendingAnimatedTokenName = null;
+
             if (stonesTokensView != null)
             {
-                stonesTokensView.HandleMoveApplied(record, _runner.State, animateSteps, useLayoutMode);
+                stonesTokensView.HandleMoveApplied(record, _runner.State, animateSteps, preferredTokenName);
                 return;
             }
 
@@ -108,7 +120,7 @@ namespace Diceforge.View
                     return;
                 }
 
-                if (useLayoutMode && record.PipUsed.HasValue && TryResolveSignedSteps(record.FromCell.Value, toCell, record.PipUsed.Value, out int steps))
+                if (record.PipUsed.HasValue && TryResolveSignedSteps(record.FromCell.Value, toCell, record.PipUsed.Value, out int steps))
                 {
                     mover.MoveSteps(steps);
                     return;
@@ -118,7 +130,7 @@ namespace Diceforge.View
                 return;
             }
 
-            if (animateSteps && useLayoutMode)
+            if (animateSteps)
                 mover.MoveTo(toCell);
             else
                 mover.SnapTo(toCell);
@@ -130,28 +142,8 @@ namespace Diceforge.View
 
         private bool TryResolveSignedSteps(int fromCell, int toCell, int pipUsed, out int steps)
         {
-            steps = 0;
-
             int boardSize = _runner?.Rules?.boardSize ?? 0;
-            if (boardSize <= 0)
-                return false;
-
-            int forward = (toCell - fromCell + boardSize) % boardSize;
-            int backward = -((fromCell - toCell + boardSize) % boardSize);
-
-            if (forward == pipUsed)
-            {
-                steps = pipUsed;
-                return true;
-            }
-
-            if (-backward == pipUsed)
-            {
-                steps = backward;
-                return true;
-            }
-
-            return false;
+            return BoardMoveAnimationResolver.TryResolveSignedSteps(boardSize, fromCell, toCell, pipUsed, out steps);
         }
 
         private BoardLayoutTokenMover GetMover(PlayerId playerId)

@@ -26,8 +26,6 @@ namespace Diceforge.View
 
         private readonly List<TokenBinding> _tokensA = new();
         private readonly List<TokenBinding> _tokensB = new();
-        private readonly Dictionary<string, TokenBinding> _tokensById = new();
-
         private BoardLayout _layout;
         private Tilemap _positionTilemap;
         private Transform _unitsRoot;
@@ -67,34 +65,6 @@ namespace Diceforge.View
             ReconcileFromState(matchState, animateMovedToken: false, defaultAnimate: false, movedRecord: null);
         }
 
-        public void UpdateTokenPosition(string stoneId, int cellId)
-        {
-            if (!_tokensById.TryGetValue(stoneId, out TokenBinding token))
-                return;
-
-            if (!token.activeOnBoard)
-                token.root.SetActive(true);
-
-            token.activeOnBoard = true;
-            token.currentCellId = cellId;
-            token.mover.SetVisualOffset(Vector3.zero);
-
-            if (cellId < 0)
-            {
-                Vector3 barCenter = CalculateBarCenterWorld();
-                token.mover.SnapToWorld(CalculateBarStoneWorldPosition(token.player, barCenter, 0), -1);
-                return;
-            }
-
-            token.mover.SnapTo(cellId);
-        }
-
-        public void ClearAll()
-        {
-            SetActive(_tokensA, false);
-            SetActive(_tokensB, false);
-        }
-
         public bool HasActiveTokens()
         {
             for (int i = 0; i < _tokensA.Count; i++)
@@ -108,105 +78,250 @@ namespace Diceforge.View
             return false;
         }
 
-        public void HandleMoveApplied(MoveRecord record, GameState state, bool defaultAnimate, bool useLayoutMode)
+        public bool IsAnimating
+        {
+            get
+            {
+                return HasAnimatingToken(_tokensA) || HasAnimatingToken(_tokensB);
+            }
+        }
+
+        public void HandleMoveApplied(MoveRecord record, GameState state, bool animate, string preferredMovedTokenName = null)
         {
             if (state == null)
                 return;
 
-            ReconcileFromState(state, animateMovedToken: true, defaultAnimate: defaultAnimate && useLayoutMode, movedRecord: record);
+            ReconcileFromState(state, animateMovedToken: true, defaultAnimate: animate, movedRecord: record, preferredMovedTokenName: preferredMovedTokenName);
         }
 
-        private void ReconcileFromState(GameState state, bool animateMovedToken, bool defaultAnimate, MoveRecord? movedRecord)
+        private void ReconcileFromState(GameState state, bool animateMovedToken, bool defaultAnimate, MoveRecord? movedRecord, string preferredMovedTokenName = null)
         {
             Vector3 barCenterWorld = CalculateBarCenterWorld();
             List<TokenPlacement> placementsA = BuildPlacements(state, PlayerId.A, barCenterWorld);
             List<TokenPlacement> placementsB = BuildPlacements(state, PlayerId.B, barCenterWorld);
 
-            bool movedApplied = false;
+            TokenBinding preferredMovedToken = null;
             if (animateMovedToken && movedRecord.HasValue)
             {
-                movedApplied = TryAnimateMovedToken(movedRecord.Value, placementsA, placementsB, defaultAnimate);
+                List<TokenBinding> movedTokens = movedRecord.Value.PlayerId == PlayerId.A ? _tokensA : _tokensB;
+                preferredMovedToken = ResolvePreferredMovedToken(movedRecord.Value, movedTokens, preferredMovedTokenName);
+
+                if (preferredMovedToken != null && movedRecord.Value.ToCell.HasValue)
+                {
+                    List<TokenPlacement> movedPlacements = movedRecord.Value.PlayerId == PlayerId.A ? placementsA : placementsB;
+                    PromotePreferredMovedToken(movedPlacements, preferredMovedToken, movedRecord.Value.ToCell.Value);
+                }
             }
 
-            ApplyPlacements(_tokensA, placementsA, movedApplied ? movedRecord : null, defaultAnimate);
-            ApplyPlacements(_tokensB, placementsB, movedApplied ? movedRecord : null, defaultAnimate);
+            TokenBinding animatedToken = null;
+            if (animateMovedToken && movedRecord.HasValue)
+                animatedToken = TryAnimateMovedToken(movedRecord.Value, state, placementsA, placementsB, defaultAnimate, preferredMovedToken);
+
+            ApplyPlacements(_tokensA, placementsA, animatedToken, defaultAnimate);
+            ApplyPlacements(_tokensB, placementsB, animatedToken, defaultAnimate);
 
             ValidateCells(_tokensA, state.Rules.boardSize, PlayerId.A);
             ValidateCells(_tokensB, state.Rules.boardSize, PlayerId.B);
         }
 
-        private bool TryAnimateMovedToken(MoveRecord record, List<TokenPlacement> placementsA, List<TokenPlacement> placementsB, bool animate)
+        private TokenBinding TryAnimateMovedToken(MoveRecord record, GameState state, List<TokenPlacement> placementsA, List<TokenPlacement> placementsB, bool animate, TokenBinding preferredMovedToken)
         {
             if (!record.ToCell.HasValue)
-                return false;
+                return null;
 
             List<TokenBinding> list = record.PlayerId == PlayerId.A ? _tokensA : _tokensB;
             List<TokenPlacement> placements = record.PlayerId == PlayerId.A ? placementsA : placementsB;
-            TokenBinding movedToken = null;
-
-            if (record.FromCell.HasValue)
-            {
-                int from = record.FromCell.Value;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (!list[i].activeOnBoard || list[i].currentCellId != from)
-                        continue;
-
-                    movedToken = list[i];
-                    break;
-                }
-            }
-
-            if (movedToken == null && record.Move.HasValue && record.Move.Value.Kind == MoveKind.EnterFromBar)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (!list[i].activeOnBoard || list[i].currentCellId >= 0)
-                        continue;
-
-                    movedToken = list[i];
-                    break;
-                }
-            }
-
-            if (movedToken == null)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (!list[i].activeOnBoard)
-                        continue;
-
-                    movedToken = list[i];
-                    break;
-                }
-            }
-
-            if (movedToken == null)
-                return false;
-
             int toCell = record.ToCell.Value;
+            TokenBinding movedToken = preferredMovedToken ?? ResolveMovedToken(record, list, placements, toCell);
+            if (movedToken == null)
+                return null;
+
+            if (!TryFindPlacement(placements, movedToken, out TokenPlacement movedPlacement))
+                return null;
+
+            movedToken.currentCellId = toCell;
+            movedToken.activeOnBoard = true;
+            movedToken.root.SetActive(true);
+            movedToken.mover.SetVisualOffset(movedPlacement.offset);
+
+            if (!animate)
+            {
+                movedToken.mover.SnapTo(toCell);
+                return movedToken;
+            }
+
+            bool isBarEntry = record.Move.HasValue && record.Move.Value.Kind == MoveKind.EnterFromBar;
+            if (isBarEntry)
+            {
+                movedToken.mover.MoveTo(toCell);
+                return movedToken;
+            }
+
+            if (record.FromCell.HasValue
+                && record.PipUsed.HasValue
+                && BoardMoveAnimationResolver.TryResolveSignedSteps(state.Rules.boardSize, record.FromCell.Value, toCell, record.PipUsed.Value, out int steps))
+            {
+                movedToken.mover.MoveSteps(steps);
+                return movedToken;
+            }
+
+            movedToken.mover.MoveTo(toCell);
+            return movedToken;
+        }
+
+        private static TokenBinding ResolvePreferredMovedToken(MoveRecord record, List<TokenBinding> tokens, string preferredTokenName)
+        {
+            if (!string.IsNullOrEmpty(preferredTokenName))
+            {
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    TokenBinding candidate = tokens[i];
+                    if (!IsMoveCandidate(record, candidate))
+                        continue;
+
+                    if (candidate.root != null && string.Equals(candidate.root.name, preferredTokenName, StringComparison.Ordinal))
+                        return candidate;
+                }
+            }
+
+            for (int i = tokens.Count - 1; i >= 0; i--)
+            {
+                TokenBinding candidate = tokens[i];
+                if (IsMoveCandidate(record, candidate))
+                    return candidate;
+            }
+
+            return null;
+        }
+
+        private static void PromotePreferredMovedToken(List<TokenPlacement> placements, TokenBinding preferredMovedToken, int toCell)
+        {
+            int preferredIndex = -1;
+            int fallbackDestinationIndex = -1;
+            int destinationIndex = -1;
+
             for (int i = 0; i < placements.Count; i++)
             {
-                if (placements[i].token != movedToken)
+                TokenPlacement placement = placements[i];
+                if (ReferenceEquals(placement.token, preferredMovedToken))
+                    preferredIndex = i;
+
+                if (placement.cellId != toCell)
                     continue;
 
-                movedToken.currentCellId = toCell;
-                movedToken.activeOnBoard = true;
-                movedToken.root.SetActive(true);
-                movedToken.mover.SetVisualOffset(placements[i].offset);
+                if (fallbackDestinationIndex < 0)
+                    fallbackDestinationIndex = i;
 
-                if (animate)
-                    movedToken.mover.MoveTo(toCell);
-                else
-                    movedToken.mover.SnapTo(toCell);
+                TokenBinding occupyingToken = placement.token;
+                if (occupyingToken == null || occupyingToken.currentCellId != toCell)
+                {
+                    destinationIndex = i;
+                    break;
+                }
+            }
 
-                return true;
+            if (destinationIndex < 0)
+                destinationIndex = fallbackDestinationIndex;
+
+            if (preferredIndex < 0 || destinationIndex < 0 || preferredIndex == destinationIndex)
+                return;
+
+            TokenPlacement preferredPlacement = placements[preferredIndex];
+            TokenPlacement destinationPlacement = placements[destinationIndex];
+            TokenBinding swappedToken = preferredPlacement.token;
+            preferredPlacement.token = destinationPlacement.token;
+            destinationPlacement.token = swappedToken;
+            placements[preferredIndex] = preferredPlacement;
+            placements[destinationIndex] = destinationPlacement;
+        }
+
+        private static TokenBinding ResolveMovedToken(MoveRecord record, List<TokenBinding> tokens, List<TokenPlacement> placements, int toCell)
+        {
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                TokenBinding candidate = tokens[i];
+                if (!IsMoveCandidate(record, candidate))
+                    continue;
+
+                if (HasPlacementAtCell(placements, candidate, toCell))
+                    return candidate;
+            }
+
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                TokenBinding candidate = tokens[i];
+                if (IsMoveCandidate(record, candidate))
+                    return candidate;
+            }
+
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if (IsActive(tokens[i]))
+                    return tokens[i];
+            }
+
+            return null;
+        }
+
+        private static bool IsActive(TokenBinding token)
+        {
+            return token != null && token.activeOnBoard;
+        }
+
+        private static bool HasAnimatingToken(List<TokenBinding> tokens)
+        {
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                BoardLayoutTokenMover mover = tokens[i].mover;
+                if (mover != null && mover.IsAnimating)
+                    return true;
             }
 
             return false;
         }
 
-        private void ApplyPlacements(List<TokenBinding> tokens, List<TokenPlacement> placements, MoveRecord? movedRecord, bool animate)
+        private static bool IsMoveCandidate(MoveRecord record, TokenBinding token)
+        {
+            if (!IsActive(token))
+                return false;
+
+            if (record.FromCell.HasValue)
+                return token.currentCellId == record.FromCell.Value;
+
+            return record.Move.HasValue
+                && record.Move.Value.Kind == MoveKind.EnterFromBar
+                && token.currentCellId < 0;
+        }
+
+        private static bool HasPlacementAtCell(List<TokenPlacement> placements, TokenBinding token, int cellId)
+        {
+            for (int i = 0; i < placements.Count; i++)
+            {
+                if (!ReferenceEquals(placements[i].token, token))
+                    continue;
+
+                return placements[i].cellId == cellId;
+            }
+
+            return false;
+        }
+
+        private static bool TryFindPlacement(List<TokenPlacement> placements, TokenBinding token, out TokenPlacement placement)
+        {
+            for (int i = 0; i < placements.Count; i++)
+            {
+                if (!ReferenceEquals(placements[i].token, token))
+                    continue;
+
+                placement = placements[i];
+                return true;
+            }
+
+            placement = default;
+            return false;
+        }
+
+        private void ApplyPlacements(List<TokenBinding> tokens, List<TokenPlacement> placements, TokenBinding animatedToken, bool animate)
         {
             HashSet<TokenBinding> used = new();
 
@@ -223,13 +338,7 @@ namespace Diceforge.View
                 token.currentCellId = placement.cellId;
                 token.mover.SetVisualOffset(placement.offset);
 
-                bool isMovedToken = movedRecord.HasValue
-                    && movedRecord.Value.PlayerId == token.player
-                    && movedRecord.Value.ToCell.HasValue
-                    && placement.cellId == movedRecord.Value.ToCell.Value
-                    && movedRecord.Value.FromCell.HasValue;
-
-                if (isMovedToken && animate)
+                if (animate && ReferenceEquals(token, animatedToken))
                     continue;
 
                 if (placement.useWorldPosition)
@@ -373,7 +482,6 @@ namespace Diceforge.View
 
                 instance.SetActive(false);
                 tokens.Add(token);
-                _tokensById[token.stoneId] = token;
             }
         }
 
@@ -436,15 +544,6 @@ namespace Diceforge.View
                 animator.applyRootMotion = false;
         }
 
-        private static void SetActive(List<TokenBinding> tokens, bool active)
-        {
-            for (int i = 0; i < tokens.Count; i++)
-            {
-                tokens[i].activeOnBoard = active;
-                tokens[i].root.SetActive(active);
-            }
-        }
-
         private void ValidateCells(List<TokenBinding> tokens, int boardSize, PlayerId player)
         {
             for (int i = 0; i < tokens.Count; i++)
@@ -470,4 +569,3 @@ namespace Diceforge.View
         }
     }
 }
-

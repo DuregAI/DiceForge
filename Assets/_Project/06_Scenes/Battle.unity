@@ -574,7 +574,6 @@ MonoBehaviour:
   moverA: {fileID: 0}
   moverB: {fileID: 0}
   animateSteps: 1
-  useLayoutMode: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1021,6 @@ MonoBehaviour:
   decorationsRoot: {fileID: 2100000031}
   unitsRoot: {fileID: 2100000041}
   boardViewController: {fileID: 783023281}
-  deprecatedRingRoot: {fileID: 0}
 --- !u!1 &2100000010
 GameObject:
   m_ObjectHideFlags: 0
