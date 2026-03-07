@@ -88,12 +88,6 @@ namespace Diceforge.Map
         public void StartChapter(string chapterId)
         {
             _map = MapDefinitionSO.LoadChapter(chapterId);
-            if (_map == null)
-            {
-                Debug.LogError($"[MapFlow] Map chapter not found: {chapterId}");
-                return;
-            }
-
             _state = MapProgressService.Load(_map);
             RefreshMap();
             ProcessPendingBattleResultIfAny();
