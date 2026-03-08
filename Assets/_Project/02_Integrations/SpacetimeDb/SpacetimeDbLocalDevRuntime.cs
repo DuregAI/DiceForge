@@ -34,6 +34,7 @@ namespace Diceforge.Integrations.SpacetimeDb
         private DbConnection _connection;
         private SpacetimeDbAnalyticsSink _analyticsSink;
         private SpacetimeDbLikeSink _likeSink;
+        private SpacetimeDbFeedbackSink _feedbackSink;
 
         public static SpacetimeDbLocalDevRuntime EnsureCreated()
         {
@@ -58,6 +59,11 @@ namespace Diceforge.Integrations.SpacetimeDb
         public static void SubmitMusicTrackLike(string trackId)
         {
             EnsureCreated().SubmitMusicTrackLikeInternal(trackId);
+        }
+
+        public static void SubmitFeedback(string category, string message, string buildVersion, string sceneName)
+        {
+            EnsureCreated().SubmitFeedbackInternal(category, message, buildVersion, sceneName);
         }
 
         internal static void ResetStaticState()
@@ -98,6 +104,9 @@ namespace Diceforge.Integrations.SpacetimeDb
                 if (_likeSink != null)
                     _connection.Reducers.OnSubmitLike -= _likeSink.HandleSubmitLike;
 
+                if (_feedbackSink != null)
+                    _connection.Reducers.OnSubmitFeedback -= _feedbackSink.HandleSubmitFeedback;
+
                 _connection.OnUnhandledReducerError -= HandleUnhandledReducerError;
 
                 if (_connection.IsActive)
@@ -128,9 +137,11 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             _analyticsSink = new SpacetimeDbAnalyticsSink(_connection);
             _likeSink = new SpacetimeDbLikeSink(_connection);
+            _feedbackSink = new SpacetimeDbFeedbackSink(_connection);
 
             _connection.Reducers.OnSubmitPerformanceSessionSummary += _analyticsSink.HandleSubmitPerformanceSessionSummary;
             _connection.Reducers.OnSubmitLike += _likeSink.HandleSubmitLike;
+            _connection.Reducers.OnSubmitFeedback += _feedbackSink.HandleSubmitFeedback;
             _connection.OnUnhandledReducerError += HandleUnhandledReducerError;
 
             ClientDiagnostics.RegisterSessionSummarySink(_analyticsSink);
@@ -148,6 +159,21 @@ namespace Diceforge.Integrations.SpacetimeDb
             _likeSink.SubmitMusicTrackLike(ClientDiagnostics.GetCurrentSessionId(), trackId);
         }
 
+        private void SubmitFeedbackInternal(string category, string message, string buildVersion, string sceneName)
+        {
+            InitializeIfNeeded();
+
+            if (_feedbackSink == null)
+                return;
+
+            _feedbackSink.SubmitFeedback(
+                ClientDiagnostics.GetCurrentSessionId(),
+                category,
+                message,
+                buildVersion,
+                sceneName);
+        }
+
         private void HandleConnect(DbConnection connection, Identity identity, string token)
         {
             Debug.Log($"[SpacetimeDb] Connected to '{DatabaseName}' identity={identity}.");
@@ -156,6 +182,9 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             if (_likeSink != null)
                 _likeSink.HandleConnected();
+
+            if (_feedbackSink != null)
+                _feedbackSink.HandleConnected();
         }
 
         private void HandleConnectError(Exception exception)

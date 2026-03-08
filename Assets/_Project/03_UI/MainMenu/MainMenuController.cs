@@ -4,9 +4,11 @@ using Diceforge.Audio;
 using Diceforge.Battle;
 using Diceforge.Dialogue;
 using Diceforge.Diagnostics;
+using Diceforge.Integrations.SpacetimeDb;
 using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
@@ -15,6 +17,8 @@ public class MainMenuController : MonoBehaviour
     private const float TransitionSeconds = 0.2f;
     private const string SettingsStateClass = "state-settings";
     private const string BackStateClass = "state-back";
+    private const string FeedbackDefaultStatus = "Tell us what happened.";
+    private static readonly List<string> FeedbackCategories = new() { "bug", "balance", "ui", "audio", "other" };
 
     [Header("Game Mode Presets")]
     [SerializeField] private GameModePreset longPreset;
@@ -31,6 +35,13 @@ public class MainMenuController : MonoBehaviour
     private Slider sfxSlider;
     private Button settingsButton;
     private Button copyLogButton;
+    private Button openFeedbackButton;
+    private VisualElement feedbackModal;
+    private DropdownField feedbackCategoryField;
+    private TextField feedbackMessageField;
+    private Label feedbackStatusLabel;
+    private Button feedbackSubmitButton;
+    private Button feedbackCancelButton;
     private VisualElement copyLogTooltip;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
@@ -73,6 +84,13 @@ public class MainMenuController : MonoBehaviour
         settingsButton = root.Q<Button>("btnSettings");
         copyLogButton = root.Q<Button>("btnCopyLog");
         copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
+        openFeedbackButton = root.Q<Button>("btnOpenFeedback");
+        feedbackModal = root.Q<VisualElement>("FeedbackModal");
+        feedbackCategoryField = root.Q<DropdownField>("feedbackCategoryField");
+        feedbackMessageField = root.Q<TextField>("feedbackMessageField");
+        feedbackStatusLabel = root.Q<Label>("feedbackStatusLabel");
+        feedbackSubmitButton = root.Q<Button>("btnFeedbackSubmit");
+        feedbackCancelButton = root.Q<Button>("btnFeedbackCancel");
 
         tutorialReplayConfirmModal = root.Q<VisualElement>("TutorialReplayConfirmModal");
         tutorialReplayConfirmText = root.Q<Label>("TutorialReplayConfirmText");
@@ -114,6 +132,7 @@ public class MainMenuController : MonoBehaviour
         InitializeAboutSection();
         InitializeAudioSliders();
         InitializeCopyLogTooltip();
+        InitializeFeedbackForm();
         InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
 
@@ -189,6 +208,15 @@ public class MainMenuController : MonoBehaviour
         {
             tutorialReplayConfirmCancelButton.clicked -= CloseTutorialReplayConfirmation;
         }
+
+        if (openFeedbackButton != null)
+            openFeedbackButton.clicked -= OpenFeedbackForm;
+
+        if (feedbackSubmitButton != null)
+            feedbackSubmitButton.clicked -= SubmitFeedback;
+
+        if (feedbackCancelButton != null)
+            feedbackCancelButton.clicked -= CloseFeedbackForm;
 
         if (audioManager != null)
             audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
@@ -313,6 +341,106 @@ public class MainMenuController : MonoBehaviour
         copyLogTooltip.style.display = DisplayStyle.None;
         copyLogButton.RegisterCallback<MouseEnterEvent>(_ => copyLogTooltip.style.display = DisplayStyle.Flex);
         copyLogButton.RegisterCallback<MouseLeaveEvent>(_ => copyLogTooltip.style.display = DisplayStyle.None);
+    }
+
+    private void InitializeFeedbackForm()
+    {
+        if (feedbackModal != null)
+            feedbackModal.style.display = DisplayStyle.None;
+
+        if (feedbackCategoryField != null)
+        {
+            feedbackCategoryField.choices = FeedbackCategories;
+            feedbackCategoryField.index = 0;
+        }
+
+        if (feedbackMessageField != null)
+        {
+            feedbackMessageField.multiline = true;
+            feedbackMessageField.maxLength = SpacetimeDbFeedbackSink.MaxMessageLength;
+            feedbackMessageField.SetValueWithoutNotify(string.Empty);
+        }
+
+        SetFeedbackStatus(FeedbackDefaultStatus, false);
+
+        if (openFeedbackButton != null)
+            openFeedbackButton.clicked += OpenFeedbackForm;
+
+        if (feedbackSubmitButton != null)
+            feedbackSubmitButton.clicked += SubmitFeedback;
+
+        if (feedbackCancelButton != null)
+            feedbackCancelButton.clicked += CloseFeedbackForm;
+    }
+
+    private void OpenFeedbackForm()
+    {
+        if (feedbackModal == null)
+            return;
+
+        if (feedbackCategoryField != null)
+            feedbackCategoryField.index = 0;
+
+        if (feedbackMessageField != null)
+            feedbackMessageField.SetValueWithoutNotify(string.Empty);
+
+        SetFeedbackStatus(FeedbackDefaultStatus, false);
+        feedbackModal.style.display = DisplayStyle.Flex;
+        feedbackMessageField?.Focus();
+    }
+
+    private void CloseFeedbackForm()
+    {
+        if (feedbackModal != null)
+            feedbackModal.style.display = DisplayStyle.None;
+    }
+
+    private void SubmitFeedback()
+    {
+        string category = feedbackCategoryField != null ? feedbackCategoryField.value : string.Empty;
+        string message = feedbackMessageField != null ? feedbackMessageField.value : string.Empty;
+        string trimmedMessage = string.IsNullOrWhiteSpace(message) ? string.Empty : message.Trim();
+
+        if (string.IsNullOrWhiteSpace(category))
+        {
+            SetFeedbackStatus("Choose a category.", true);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(trimmedMessage))
+        {
+            SetFeedbackStatus("Enter feedback before submitting.", true);
+            return;
+        }
+
+        if (trimmedMessage.Length > SpacetimeDbFeedbackSink.MaxMessageLength)
+        {
+            SetFeedbackStatus($"Feedback is limited to {SpacetimeDbFeedbackSink.MaxMessageLength} characters.", true);
+            return;
+        }
+
+        SpacetimeDbLocalDevRuntime.SubmitFeedback(
+            category,
+            trimmedMessage,
+            Application.version,
+            SceneManager.GetActiveScene().name);
+
+        if (feedbackMessageField != null)
+            feedbackMessageField.SetValueWithoutNotify(string.Empty);
+
+        SetFeedbackStatus("Feedback submitted.", false);
+        Debug.Log($"[MainMenu] Feedback submitted category={category}", this);
+    }
+
+    private void SetFeedbackStatus(string message, bool isError)
+    {
+        if (feedbackStatusLabel == null)
+            return;
+
+        feedbackStatusLabel.text = message ?? string.Empty;
+        feedbackStatusLabel.style.color = isError
+            ? new StyleColor(new Color(1f, 0.68f, 0.68f, 1f))
+            : new StyleColor(new Color(0.96f, 0.92f, 0.69f, 1f));
     }
 
     private void InitializeAudioSliders()

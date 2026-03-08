@@ -1,7 +1,20 @@
+.nowplaying-root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#SettingsWindow {
+    max-width: 88%;
+    max-height: 92%;
+}
+
 .nowplaying-panel {
     position: absolute;
     right: 12px;
-    top: 12px;
+    top: 60px;
     width: 280px;
     max-width: 320px;
     padding: 10px;
@@ -50,8 +63,9 @@
 }
 
 .panel-toggle-button {
-    width: 34px;
+    width: 52px;
     height: 30px;
+    margin-right: 8px;
 }
 
 .control-button {
@@ -59,12 +73,13 @@
     height: 30px;
     margin-right: 8px;
 }
+
 .next-button {
     margin-right: 0;
 }
 
 .vote-button {
-    width: 42px;
+    width: 76px;
     height: 30px;
     margin-right: 6px;
 }

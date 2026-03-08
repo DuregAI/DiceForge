@@ -8,7 +8,23 @@
     <ui:VisualElement name="TutorialRoot" class="tutorial-root">
         <ui:VisualElement class="tutorial-header-row">
             <ui:Label text="Tutorial" class="tutorial-title df-label"/>
-            <ui:Button name="TutorialExitButton" text="Skip / Exit" class="df-button df-interactive"/>
+            <ui:VisualElement class="tutorial-header-actions">
+                <ui:Button name="TutorialExitButton" text="Skip / Exit" class="df-button df-interactive"/>
+                <ui:Button name="TutorialSettingsButton" text="Settings" class="df-button df-interactive tutorial-settings-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="TutorialSettingsOverlay" class="tutorial-settings-overlay">
+            <ui:VisualElement class="tutorial-settings-window">
+                <ui:Label text="SETTINGS" class="tutorial-settings-title"/>
+                <ui:Label text="Music Volume" class="tutorial-settings-label"/>
+                <ui:Slider name="TutorialMusicSlider" low-value="0" high-value="1" value="1" class="tutorial-settings-slider"/>
+                <ui:Label text="SFX Volume" class="tutorial-settings-label tutorial-settings-label-spaced"/>
+                <ui:Slider name="TutorialSfxSlider" low-value="0" high-value="1" value="1" class="tutorial-settings-slider"/>
+                <ui:VisualElement class="tutorial-settings-actions">
+                    <ui:Button name="TutorialSettingsCloseButton" text="Close" class="tutorial-settings-action-button"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement name="DialoguePanel" class="df-dialogue-overlay">

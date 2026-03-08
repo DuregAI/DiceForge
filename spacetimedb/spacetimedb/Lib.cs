@@ -3,6 +3,8 @@ using SpacetimeDB;
 
 public static partial class Module
 {
+    private const int FeedbackMessageMaxLength = 1000;
+
     [SpacetimeDB.Table(Accessor = "performance_session_summary", Public = true)]
     public partial struct PerformanceSessionSummary
     {
@@ -34,6 +36,19 @@ public static partial class Module
         public string target_type;
         public string target_id;
         public long created_at_unix_ms_utc;
+    }
+
+    [SpacetimeDB.Table(Accessor = "feedback_entry", Public = true)]
+    public partial struct FeedbackEntry
+    {
+        [SpacetimeDB.PrimaryKey]
+        public string feedback_id;
+        public string session_id;
+        public string category;
+        public string message;
+        public long created_at_unix_ms_utc;
+        public string build_version;
+        public string scene_name;
     }
 
     [SpacetimeDB.Reducer]
@@ -135,6 +150,47 @@ public static partial class Module
             target_type = target_type,
             target_id = target_id,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
+        });
+    }
+
+    [SpacetimeDB.Reducer]
+    public static void submit_feedback(
+        ReducerContext ctx,
+        string feedback_id,
+        string session_id,
+        string category,
+        string message,
+        long created_at_unix_ms_utc,
+        string build_version,
+        string scene_name)
+    {
+        string trimmedCategory = category == null ? string.Empty : category.Trim();
+        string trimmedMessage = message == null ? string.Empty : message.Trim();
+
+        if (string.IsNullOrWhiteSpace(feedback_id))
+            throw new ArgumentException("feedback_id must not be empty.", nameof(feedback_id));
+
+        if (string.IsNullOrWhiteSpace(trimmedCategory))
+            throw new ArgumentException("category must not be empty.", nameof(category));
+
+        if (string.IsNullOrWhiteSpace(trimmedMessage))
+            throw new ArgumentException("message must not be empty.", nameof(message));
+
+        if (trimmedMessage.Length > FeedbackMessageMaxLength)
+            throw new ArgumentOutOfRangeException(nameof(message), $"message must not exceed {FeedbackMessageMaxLength} characters.");
+
+        if (created_at_unix_ms_utc <= 0)
+            throw new ArgumentOutOfRangeException(nameof(created_at_unix_ms_utc), "created_at_unix_ms_utc must be positive.");
+
+        ctx.Db.feedback_entry.Insert(new FeedbackEntry
+        {
+            feedback_id = feedback_id,
+            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id,
+            category = trimmedCategory,
+            message = trimmedMessage,
+            created_at_unix_ms_utc = created_at_unix_ms_utc,
+            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
+            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
         });
     }
 }

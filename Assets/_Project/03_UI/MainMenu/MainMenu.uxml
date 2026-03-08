@@ -43,6 +43,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:Button name="btnCopyLog" class="copy-log-button icon-button df-interactive" style="align-content: flex-end; height: 120px; width: 220px; align-self: flex-end; -unity-text-outline-width: 3px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 5px 0 0 rgba(0, 0, 0, 0);"/>
+                <ui:VisualElement name="FeedbackActionsRow" class="settings-feedback-row" style="left: 40%; bottom: 190px;">
+                    <ui:Button name="btnOpenFeedback" text="Feedback" class="df-button df-interactive settings-feedback-button"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
@@ -111,6 +114,20 @@
                 <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive"/>
                 <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive"/>
                 <ui:Label name="walletChestResult" text="" class="wallet-result"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="FeedbackModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window">
+                <ui:Label text="Send Feedback" class="panel-title df-label"/>
+                <ui:Label text="Category" class="df-label feedback-field-label"/>
+                <ui:DropdownField name="feedbackCategoryField" class="df-input feedback-dropdown"/>
+                <ui:Label text="Message" class="df-label feedback-field-label"/>
+                <ui:TextField name="feedbackMessageField" multiline="true" class="df-input feedback-message-field"/>
+                <ui:Label name="feedbackStatusLabel" text="" class="df-label feedback-status-label"/>
+                <ui:VisualElement class="player-modal-actions feedback-modal-actions">
+                    <ui:Button name="btnFeedbackSubmit" text="Submit" class="df-button df-interactive"/>
+                    <ui:Button name="btnFeedbackCancel" text="Cancel" class="df-button df-interactive"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="PlayerInfoModal" class="player-modal-overlay">
