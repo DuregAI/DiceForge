@@ -33,6 +33,7 @@ namespace Diceforge.Integrations.SpacetimeDb
         private bool _sinkRegistered;
         private DbConnection _connection;
         private SpacetimeDbAnalyticsSink _analyticsSink;
+        private SpacetimeDbLikeSink _likeSink;
 
         public static SpacetimeDbLocalDevRuntime EnsureCreated()
         {
@@ -52,6 +53,11 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             _instance = runtimeObject.AddComponent<SpacetimeDbLocalDevRuntime>();
             return _instance;
+        }
+
+        public static void SubmitMusicTrackLike(string trackId)
+        {
+            EnsureCreated().SubmitMusicTrackLikeInternal(trackId);
         }
 
         internal static void ResetStaticState()
@@ -89,6 +95,9 @@ namespace Diceforge.Integrations.SpacetimeDb
                 if (_analyticsSink != null)
                     _connection.Reducers.OnSubmitPerformanceSessionSummary -= _analyticsSink.HandleSubmitPerformanceSessionSummary;
 
+                if (_likeSink != null)
+                    _connection.Reducers.OnSubmitLike -= _likeSink.HandleSubmitLike;
+
                 _connection.OnUnhandledReducerError -= HandleUnhandledReducerError;
 
                 if (_connection.IsActive)
@@ -118,7 +127,10 @@ namespace Diceforge.Integrations.SpacetimeDb
                 .Build();
 
             _analyticsSink = new SpacetimeDbAnalyticsSink(_connection);
+            _likeSink = new SpacetimeDbLikeSink(_connection);
+
             _connection.Reducers.OnSubmitPerformanceSessionSummary += _analyticsSink.HandleSubmitPerformanceSessionSummary;
+            _connection.Reducers.OnSubmitLike += _likeSink.HandleSubmitLike;
             _connection.OnUnhandledReducerError += HandleUnhandledReducerError;
 
             ClientDiagnostics.RegisterSessionSummarySink(_analyticsSink);
@@ -126,11 +138,24 @@ namespace Diceforge.Integrations.SpacetimeDb
             _initialized = true;
         }
 
+        private void SubmitMusicTrackLikeInternal(string trackId)
+        {
+            InitializeIfNeeded();
+
+            if (string.IsNullOrWhiteSpace(trackId) || _likeSink == null)
+                return;
+
+            _likeSink.SubmitMusicTrackLike(ClientDiagnostics.GetCurrentSessionId(), trackId);
+        }
+
         private void HandleConnect(DbConnection connection, Identity identity, string token)
         {
             Debug.Log($"[SpacetimeDb] Connected to '{DatabaseName}' identity={identity}.");
             if (_analyticsSink != null)
                 _analyticsSink.HandleConnected();
+
+            if (_likeSink != null)
+                _likeSink.HandleConnected();
         }
 
         private void HandleConnectError(Exception exception)

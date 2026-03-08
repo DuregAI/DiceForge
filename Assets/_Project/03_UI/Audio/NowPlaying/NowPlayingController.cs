@@ -1,4 +1,5 @@
 using Diceforge.Audio;
+using Diceforge.Integrations.SpacetimeDb;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -111,8 +112,11 @@ namespace Diceforge.UI.Audio
         private void HandleLikeClicked()
         {
             string trackId = audioManager != null ? audioManager.CurrentTrackId : null;
-            if (!string.IsNullOrWhiteSpace(trackId))
-                audioManager.SetVote(trackId, TrackVote.Like);
+            if (string.IsNullOrWhiteSpace(trackId))
+                return;
+
+            audioManager.SetVote(trackId, TrackVote.Like);
+            SpacetimeDbLocalDevRuntime.SubmitMusicTrackLike(trackId);
         }
 
         private void HandleDislikeClicked()

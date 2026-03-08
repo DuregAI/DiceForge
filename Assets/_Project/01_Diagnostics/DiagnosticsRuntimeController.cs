@@ -19,6 +19,11 @@ namespace Diceforge.Diagnostics
             DiagnosticsRuntimeController.EnsureCreated().Configure(options);
         }
 
+        public static string GetCurrentSessionId()
+        {
+            return DiagnosticsRuntimeController.EnsureCreated().GetCurrentSessionId();
+        }
+
         public static void RegisterSessionSummarySink(IDiagnosticsSessionSummarySink sink)
         {
             DiagnosticsRuntimeController.EnsureCreated().RegisterSessionSummarySink(sink);
@@ -198,6 +203,12 @@ namespace Diceforge.Diagnostics
                 return;
 
             _sessionSummarySinks.Remove(sink);
+        }
+
+        public string GetCurrentSessionId()
+        {
+            InitializeIfNeeded();
+            return _sessionSnapshot != null ? _sessionSnapshot.SessionId : string.Empty;
         }
 
         public void RecordBattleStarted(BattleStartDiagnosticsContext context)

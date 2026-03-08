@@ -25,6 +25,17 @@ public static partial class Module
         public int battles_ended_count;
     }
 
+    [SpacetimeDB.Table(Accessor = "like_event", Public = true)]
+    public partial struct LikeEvent
+    {
+        [SpacetimeDB.PrimaryKey]
+        public string like_id;
+        public string session_id;
+        public string target_type;
+        public string target_id;
+        public long created_at_unix_ms_utc;
+    }
+
     [SpacetimeDB.Reducer]
     public static void submit_performance_session_summary(
         ReducerContext ctx,
@@ -93,6 +104,37 @@ public static partial class Module
             worst_spike_ms = worst_spike_ms,
             battles_started_count = battles_started_count,
             battles_ended_count = battles_ended_count,
+        });
+    }
+
+    [SpacetimeDB.Reducer]
+    public static void submit_like(
+        ReducerContext ctx,
+        string like_id,
+        string session_id,
+        string target_type,
+        string target_id,
+        long created_at_unix_ms_utc)
+    {
+        if (string.IsNullOrWhiteSpace(like_id))
+            throw new ArgumentException("like_id must not be empty.", nameof(like_id));
+
+        if (string.IsNullOrWhiteSpace(target_type))
+            throw new ArgumentException("target_type must not be empty.", nameof(target_type));
+
+        if (string.IsNullOrWhiteSpace(target_id))
+            throw new ArgumentException("target_id must not be empty.", nameof(target_id));
+
+        if (created_at_unix_ms_utc <= 0)
+            throw new ArgumentOutOfRangeException(nameof(created_at_unix_ms_utc), "created_at_unix_ms_utc must be positive.");
+
+        ctx.Db.like_event.Insert(new LikeEvent
+        {
+            like_id = like_id,
+            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id,
+            target_type = target_type,
+            target_id = target_id,
+            created_at_unix_ms_utc = created_at_unix_ms_utc,
         });
     }
 }

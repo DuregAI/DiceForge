@@ -27,6 +27,7 @@ namespace SpacetimeDB.Types
     {
         public RemoteTables(DbConnection conn)
         {
+            AddTable(LikeEvent = new(conn));
             AddTable(PerformanceSessionSummary = new(conn));
         }
     }
@@ -524,6 +525,7 @@ namespace SpacetimeDB.Types
 
         internal static string[] AllTablesSqlQueries() => new string[]
         {
+            new QueryBuilder().From.LikeEvent().ToSql(),
             new QueryBuilder().From.PerformanceSessionSummary().ToSql(),
         }
         ;
@@ -531,6 +533,7 @@ namespace SpacetimeDB.Types
 
     public sealed class From
     {
+        public global::SpacetimeDB.Table<LikeEvent, LikeEventCols, LikeEventIxCols> LikeEvent() => new("like_event", new LikeEventCols("like_event"), new LikeEventIxCols("like_event"));
         public global::SpacetimeDB.Table<PerformanceSessionSummary, PerformanceSessionSummaryCols, PerformanceSessionSummaryIxCols> PerformanceSessionSummary() => new("performance_session_summary", new PerformanceSessionSummaryCols("performance_session_summary"), new PerformanceSessionSummaryIxCols("performance_session_summary"));
     }
 
@@ -613,6 +616,7 @@ namespace SpacetimeDB.Types
             var eventContext = (ReducerEventContext)context;
             return reducer switch
             {
+                Reducer.SubmitLike args => Reducers.InvokeSubmitLike(eventContext, args),
                 Reducer.SubmitPerformanceSessionSummary args => Reducers.InvokeSubmitPerformanceSessionSummary(eventContext, args),
                 _ => throw new ArgumentOutOfRangeException("Reducer", $"Unknown reducer {reducer}")
             };
