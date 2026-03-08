@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Diceforge.Audio;
 using Diceforge.Battle;
 using Diceforge.Dialogue;
+using Diceforge.Diagnostics;
 using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
@@ -375,9 +376,9 @@ public class MainMenuController : MonoBehaviour
     private void CopyLogToClipboard()
     {
         var buildInfo = buildInfoLabel != null ? buildInfoLabel.text : "Build: unknown";
-        var logPayload = $"{buildInfo} | {DateTime.Now:O} | {Application.platform} | dummy log";
+        var logPayload = ClientDiagnostics.BuildSupportLog(buildInfo);
         GUIUtility.systemCopyBuffer = logPayload;
-        Debug.Log("[MainMenu] Log copied");
+        Debug.Log("[MainMenu] Log copied", this);
     }
 
     private void OpenUpgradeShop()
