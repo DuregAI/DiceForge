@@ -196,7 +196,6 @@
     bottom: 48px;
     width: 180px;
     height: 60px;
-    /*display: none;*/
     background-image: url("project://database/Assets/_Project/07_Art/UI/Settings/Atlas/settings_atlas.png?fileID=-215124535&guid=f33f9627bb2eb5b499e34d24a5eec65e&type=3#log_tooltip");
     background-size: contain;
     background-repeat: no-repeat;
@@ -384,10 +383,163 @@
     -unity-text-outline-color: rgb(40, 25, 10);
     unity-text-align: middle-center;
     margin-bottom: 8px;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .new-start-button {
     height: 84px;
     font-size: 34px;
 }
+
+.settings-feedback-row {
+    position: absolute;
+    left: 50%;
+    bottom: 36px;
+    width: 240px;
+    translate: -50% 0;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-feedback-button {
+    min-width: 220px;
+    min-height: 58px;
+    color: rgb(250, 238, 186);
+    font-size: 24px;
+    unity-font-style: bold;
+    background-color: rgba(24, 19, 14, 0.92);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(230, 186, 98, 0.92);
+    border-right-color: rgba(230, 186, 98, 0.92);
+    border-top-color: rgba(230, 186, 98, 0.92);
+    border-bottom-color: rgba(230, 186, 98, 0.92);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.feedback-modal-window {
+    width: 680px;
+    min-width: 680px;
+    max-width: 760px;
+    min-height: 520px;
+    padding: 18px 22px;
+    align-items: stretch;
+}
+
+.feedback-field-label {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    color: rgb(248, 238, 196);
+    font-size: 20px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.feedback-dropdown {
+    width: 100%;
+    min-height: 44px;
+    color: rgb(248, 238, 196);
+    background-color: rgba(24, 20, 15, 0.94);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(216, 177, 95, 0.95);
+    border-right-color: rgba(216, 177, 95, 0.95);
+    border-top-color: rgba(216, 177, 95, 0.95);
+    border-bottom-color: rgba(216, 177, 95, 0.95);
+}
+
+.feedback-dropdown .unity-base-field__input,
+.feedback-dropdown .unity-popup-field__input,
+.feedback-dropdown .unity-popup-field__text {
+    color: rgb(248, 238, 196);
+    background-color: rgba(24, 20, 15, 0.94);
+}
+
+.feedback-message-field {
+    width: 100%;
+    min-height: 220px;
+    flex-grow: 1;
+    background-color: rgba(24, 20, 15, 0.94);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(216, 177, 95, 0.95);
+    border-right-color: rgba(216, 177, 95, 0.95);
+    border-top-color: rgba(216, 177, 95, 0.95);
+    border-bottom-color: rgba(216, 177, 95, 0.95);
+}
+
+.feedback-message-field .unity-base-text-field__input {
+    color: rgb(248, 238, 196);
+    background-color: rgba(24, 20, 15, 0.94);
+    white-space: normal;
+    -unity-text-align: upper-left;
+    unity-text-align: upper-left;
+    font-size: 18px;
+}
+
+.feedback-status-label {
+    min-height: 46px;
+    margin-top: 12px;
+    white-space: normal;
+    color: rgb(246, 235, 176);
+    font-size: 18px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.feedback-modal-actions {
+    margin-top: 10px;
+}
+
+
+.feedback-modal-window .panel-title {
+    color: rgb(255, 238, 186);
+    font-size: 34px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-bottom: 8px;
+}
+
+.feedback-field-label {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    color: rgb(255, 246, 205);
+    font-size: 26px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+}
+
+.feedback-dropdown {
+    width: 100%;
+    flex-grow: 0;
+    min-height: 52px;
+    height: 52px;
+    max-height: 52px;
+}
+
+.feedback-dropdown .unity-base-field__input,
+.feedback-dropdown .unity-popup-field__input,
+.feedback-dropdown .unity-popup-field__text {
+    color: rgb(248, 238, 196);
+    background-color: rgba(24, 20, 15, 0.94);
+    min-height: 48px;
+    height: 48px;
+    font-size: 20px;
+    white-space: nowrap;
+    -unity-text-align: middle-left;
+    unity-text-align: middle-left;
+}
+
+.feedback-message-field .unity-base-text-field__input {
+    font-size: 20px;
+}
+

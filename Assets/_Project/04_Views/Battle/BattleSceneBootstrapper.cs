@@ -1,6 +1,7 @@
 using System;
 using Diceforge.Battle;
 using Diceforge.Core;
+using Diceforge.Diagnostics;
 using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
@@ -109,6 +110,15 @@ namespace Diceforge.View
 
             battleDebugController.ConfigureBoardSelection(map.boardLayout, positionTilemap);
             battleDebugController.StartFromPreset(activePreset);
+
+            // Publish battle start only after strict validation and match bootstrap succeed.
+            ClientDiagnostics.RecordBattleStarted(new BattleStartDiagnosticsContext(
+                activePreset.modeId,
+                activePreset.rulesetPreset.rulesetId,
+                activePreset.setupPreset.setupId,
+                map.mapId,
+                map.name,
+                cellsCount));
         }
 
         private static InvalidOperationException BuildBootstrapException(string reason, GameModePreset preset, BattleMapConfig map)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Diceforge.Core;
+using Diceforge.Diagnostics;
 using Diceforge.Progression;
 using Diceforge.Presets;
 using Diceforge.Map;
@@ -398,6 +399,10 @@ namespace Diceforge.View
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {result.Winner}  Turns: {state.TurnIndex}");
 
+            ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
+                result.Winner.ToString(),
+                result.Reason.ToString(),
+                state.TurnIndex));
             OnMatchEnded?.Invoke(result);
             UpdateUI();
             RefreshRerollUI();
