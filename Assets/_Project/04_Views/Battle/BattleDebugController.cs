@@ -7,6 +7,7 @@ using Diceforge.Presets;
 using Diceforge.Map;
 using Diceforge.MapSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 namespace Diceforge.View
@@ -159,6 +160,8 @@ namespace Diceforge.View
                 if (_runner?.State != null)
                     UpdateUI();
             }
+
+            HandleShortcutInput(isBoardAnimating);
 
             if (stepMode || !runContinuously || !_isInitialized)
                 return;
@@ -475,13 +478,7 @@ namespace Diceforge.View
             if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished || IsBoardAnimating())
                 return;
 
-            if (!_runner.SelectDieIndex(index))
-                return;
-
-            _waitingForFromCell = false;
-            boardView?.SetCellSelectionEnabled(false);
-            _lastHumanInputFeedback = string.Empty;
-            UpdateUI();
+            TrySelectDieIndex(index);
         }
 
         private void HandleEnterClicked()
@@ -598,6 +595,70 @@ namespace Diceforge.View
                 return;
 
             _runner.EnsureSelectedDie();
+        }
+
+        private void HandleShortcutInput(bool isBoardAnimating)
+        {
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
+                StepOnce();
+
+            if (!CanCycleSelectedDie(isBoardAnimating))
+                return;
+
+            Mouse mouse = Mouse.current;
+            if (mouse == null)
+                return;
+
+            int direction = 0;
+            float scrollY = mouse.scroll.ReadValue().y;
+            if (scrollY > 0.01f)
+                direction = -1;
+            else if (scrollY < -0.01f)
+                direction = 1;
+            else if (mouse.middleButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame)
+                direction = 1;
+
+            if (direction != 0)
+                CycleSelectedDie(direction);
+        }
+
+        private bool CanCycleSelectedDie(bool isBoardAnimating)
+        {
+            return _runner?.State != null
+                && IsHumanTurn()
+                && !_runner.State.IsFinished
+                && !_runner.MatchEnded
+                && !isBoardAnimating
+                && _runner.RemainingDice.Count > 1;
+        }
+
+        private void CycleSelectedDie(int direction)
+        {
+            EnsureHumanTurnReady();
+
+            int count = _runner != null ? _runner.RemainingDice.Count : 0;
+            if (count <= 1)
+                return;
+
+            int currentIndex = _runner.SelectedDieIndex ?? 0;
+            int nextIndex = (currentIndex + direction) % count;
+            if (nextIndex < 0)
+                nextIndex += count;
+
+            TrySelectDieIndex(nextIndex);
+        }
+
+        private bool TrySelectDieIndex(int index)
+        {
+            if (_runner == null || !_runner.SelectDieIndex(index))
+                return false;
+
+            _waitingForFromCell = false;
+            boardView?.SetCellSelectionEnabled(false);
+            _lastHumanInputFeedback = string.Empty;
+            UpdateUI();
+            return true;
         }
 
         private void RegisterHudCallbacks()
@@ -922,3 +983,4 @@ namespace Diceforge.View
         }
     }
 }
+

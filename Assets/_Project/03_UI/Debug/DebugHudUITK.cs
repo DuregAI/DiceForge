@@ -12,6 +12,7 @@ namespace Diceforge.View
         public UIDocument Document => document;
 
         private VisualElement _root;
+        private VisualElement _hudRoot;
         private Label _turnLabel;
         private Label _playerLabel;
         private Label _rolledDiceLabel;
@@ -62,6 +63,9 @@ namespace Diceforge.View
                 WarnMissingOnce("UIDocument/root");
                 return;
             }
+
+            // The document root spans the whole screen, so keep it transparent to hit testing.
+            _root.pickingMode = PickingMode.Ignore;
 
             CacheElements();
             RegisterCallbacks();
@@ -239,6 +243,10 @@ namespace Diceforge.View
 
         private void CacheElements()
         {
+            _hudRoot = _root.Q<VisualElement>(className: "hud-root");
+            if (_hudRoot != null)
+                _hudRoot.pickingMode = PickingMode.Position;
+
             _turnLabel = GetElement<Label>("turnLabel");
             _playerLabel = GetElement<Label>("playerLabel");
             _rolledDiceLabel = GetElement<Label>("rolledDiceLabel");
@@ -391,3 +399,4 @@ namespace Diceforge.View
         }
     }
 }
+

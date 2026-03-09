@@ -25,9 +25,11 @@ namespace Diceforge.UI.Audio
         [SerializeField] private bool autoOpenOnTrackChange = true;
 
         private VisualElement _root;
+        private VisualElement _nowPlayingRoot;
         private VisualElement _panel;
         private VisualElement _settingsPanel;
         private VisualElement _feedbackModal;
+        private VisualElement _corners;
         private VisualElement _copyLogTooltip;
         private Label _trackNameLabel;
         private Label _likesCountLabel;
@@ -65,10 +67,16 @@ namespace Diceforge.UI.Audio
             if (_root == null || audioManager == null)
                 return;
 
+            // The document root spans the whole screen, so let only visible UI panels receive pointer input.
+            _root.pickingMode = PickingMode.Ignore;
+
+
+            _nowPlayingRoot = _root.Q<VisualElement>("NowPlayingRoot");
             _trackNameLabel = _root.Q<Label>("TrackNameLabel");
             _panel = _root.Q<VisualElement>("NowPlayingPanel");
             _settingsPanel = _root.Q<VisualElement>("SettingsPanel");
             _feedbackModal = _root.Q<VisualElement>("FeedbackModal");
+            _corners = _root.Q<VisualElement>("Corners");
             _copyLogTooltip = _root.Q<VisualElement>("copyLogTooltip");
             _likesCountLabel = _root.Q<Label>("LikesCountLabel");
             _aboutVersionLabel = _root.Q<Label>("lblAboutVersion");
@@ -93,6 +101,8 @@ namespace Diceforge.UI.Audio
             _isPanelOpen = startPanelOpen;
             _isSettingsOpen = false;
             _isFeedbackOpen = false;
+
+            ConfigureHitTesting();
 
             UpdatePanelState();
             InitializeSettingsPanel();
@@ -331,6 +341,27 @@ namespace Diceforge.UI.Audio
                 _panelToggleButton.text = _isPanelOpen ? "Close" : "Open";
         }
 
+        private void ConfigureHitTesting()
+        {
+            if (_root != null)
+                _root.pickingMode = PickingMode.Ignore;
+
+            if (_nowPlayingRoot != null)
+                _nowPlayingRoot.pickingMode = PickingMode.Ignore;
+
+            if (_corners != null)
+                _corners.pickingMode = PickingMode.Ignore;
+
+            if (_panel != null)
+                _panel.pickingMode = PickingMode.Position;
+
+            if (_settingsPanel != null)
+                _settingsPanel.pickingMode = _isSettingsOpen ? PickingMode.Position : PickingMode.Ignore;
+
+            if (_feedbackModal != null)
+                _feedbackModal.pickingMode = _isFeedbackOpen ? PickingMode.Position : PickingMode.Ignore;
+        }
+
         private void InitializeSettingsPanel()
         {
             if (_settingsPanel == null)
@@ -338,6 +369,7 @@ namespace Diceforge.UI.Audio
 
             _settingsPanel.style.display = DisplayStyle.None;
             _settingsPanel.RemoveFromClassList(VisibleClass);
+            ConfigureHitTesting();
         }
 
         private void ToggleSettingsPanel()
@@ -356,6 +388,7 @@ namespace Diceforge.UI.Audio
             if (_isSettingsOpen)
             {
                 _settingsPanel.style.display = DisplayStyle.Flex;
+                ConfigureHitTesting();
                 _settingsPanel.RemoveFromClassList(VisibleClass);
                 _settingsPanel.schedule.Execute(() =>
                 {
@@ -455,6 +488,8 @@ namespace Diceforge.UI.Audio
             if (_feedbackModal != null)
                 _feedbackModal.style.display = DisplayStyle.None;
 
+            ConfigureHitTesting();
+
             if (_feedbackCategoryField != null)
             {
                 _feedbackCategoryField.choices = FeedbackCategories;
@@ -486,6 +521,7 @@ namespace Diceforge.UI.Audio
             _feedbackModal.style.display = DisplayStyle.Flex;
             _feedbackModal.BringToFront();
             _isFeedbackOpen = true;
+            ConfigureHitTesting();
             _feedbackMessageField?.Focus();
         }
 
@@ -495,6 +531,7 @@ namespace Diceforge.UI.Audio
                 _feedbackModal.style.display = DisplayStyle.None;
 
             _isFeedbackOpen = false;
+            ConfigureHitTesting();
         }
 
         private void SubmitFeedback()

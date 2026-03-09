@@ -13,6 +13,7 @@ namespace Diceforge.View
         [SerializeField] private UIDocument document;
         [SerializeField] private BattleDebugController battleController;
 
+        private VisualElement _root;
         private VisualElement _overlayRoot;
         private Label _resultLabel;
         private Label _rewardBreakdownLabel;
@@ -28,15 +29,21 @@ namespace Diceforge.View
             if (battleController == null)
                 battleController = FindAnyObjectByType<BattleDebugController>();
 
-            var root = document != null ? document.rootVisualElement : null;
-            if (root == null)
+            _root = document != null ? document.rootVisualElement : null;
+            if (_root == null)
                 return;
 
-            _overlayRoot = root.Q<VisualElement>("resultOverlayRoot");
-            _resultLabel = root.Q<Label>("resultLabel");
-            _rewardBreakdownLabel = root.Q<Label>("rewardBreakdownLabel");
-            _restartButton = root.Q<Button>("restartButton");
-            _backToMenuButton = root.Q<Button>("backToMenuButton");
+            // The document root spans the whole screen, so only the visible overlay should receive clicks.
+            _root.pickingMode = PickingMode.Ignore;
+
+            _overlayRoot = _root.Q<VisualElement>("resultOverlayRoot");
+            if (_overlayRoot != null)
+                _overlayRoot.pickingMode = PickingMode.Ignore;
+
+            _resultLabel = _root.Q<Label>("resultLabel");
+            _rewardBreakdownLabel = _root.Q<Label>("rewardBreakdownLabel");
+            _restartButton = _root.Q<Button>("restartButton");
+            _backToMenuButton = _root.Q<Button>("backToMenuButton");
 
             if (_restartButton != null)
                 _restartButton.clicked += HandleRestartClicked;
@@ -87,7 +94,10 @@ namespace Diceforge.View
             }
 
             if (_overlayRoot != null)
+            {
                 _overlayRoot.style.display = DisplayStyle.Flex;
+                _overlayRoot.pickingMode = PickingMode.Position;
+            }
 
             _isVisible = true;
         }
@@ -111,7 +121,10 @@ namespace Diceforge.View
         private void HideOverlay()
         {
             if (_overlayRoot != null)
+            {
                 _overlayRoot.style.display = DisplayStyle.None;
+                _overlayRoot.pickingMode = PickingMode.Ignore;
+            }
 
             _isVisible = false;
         }
