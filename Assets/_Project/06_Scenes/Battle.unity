@@ -484,8 +484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856bdf1bf35e11140b91048856f8f589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BoardDebugView
-  ringRadius: 6
-  cellRadius: 0.5
+  tokenClickRadiusPixels: 120
+  cellClickRadiusPixels: 110
 --- !u!4 &426479108
 Transform:
   m_ObjectHideFlags: 0
@@ -574,6 +574,7 @@ MonoBehaviour:
   moverA: {fileID: 0}
   moverB: {fileID: 0}
   animateSteps: 1
+  stonesTokensView: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,8 +653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9046d00e529404987f91209ca66381a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
-  fallbackPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
-  matchController: {fileID: 0}
 --- !u!4 &985011913
 Transform:
   m_ObjectHideFlags: 0
@@ -1015,7 +1014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99318d3bcfc4410cac00b798cb2a01a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.BattleSceneBootstrapper
-  defaultMapConfig: {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
   backgroundRoot: {fileID: 2100000011}
   tilemapRoot: {fileID: 2100000021}
   decorationsRoot: {fileID: 2100000031}
