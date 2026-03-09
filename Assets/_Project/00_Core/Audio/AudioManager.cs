@@ -37,6 +37,7 @@ namespace Diceforge.Audio
         public MusicContext ActiveContext => _activeContext;
         public float MusicVolume => _prefs != null ? Mathf.Clamp01(_prefs.musicVolume) : 1f;
         public float SfxVolume => _prefs != null ? Mathf.Clamp01(_prefs.sfxVolume) : 1f;
+        public long CurrentTrackElapsedMs => GetCurrentTrackElapsedMs();
 
         public string CurrentTrackDisplayName => musicLibrary != null
             ? musicLibrary.GetDisplayName(_currentTrackId)
@@ -283,6 +284,14 @@ namespace Diceforge.Audio
                 _trackHistory.RemoveAt(0);
 
             _historyIndex = _trackHistory.Count - 1;
+        }
+
+        private long GetCurrentTrackElapsedMs()
+        {
+            if (musicSource == null || musicSource.clip == null || string.IsNullOrWhiteSpace(_currentTrackId))
+                return 0L;
+
+            return Math.Max(0L, (long)(musicSource.time * 1000f));
         }
 
         private void WarnMissingLibraryOnce(string message)

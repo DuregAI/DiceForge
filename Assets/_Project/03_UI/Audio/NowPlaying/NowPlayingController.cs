@@ -205,11 +205,13 @@ namespace Diceforge.UI.Audio
 
         private void HandlePrevClicked()
         {
+            SubmitCurrentTrackSkip();
             audioManager?.TryPlayPrev();
         }
 
         private void HandleNextClicked()
         {
+            SubmitCurrentTrackSkip();
             audioManager?.TryPlayNext();
         }
 
@@ -226,8 +228,12 @@ namespace Diceforge.UI.Audio
         private void HandleDislikeClicked()
         {
             string trackId = audioManager != null ? audioManager.CurrentTrackId : null;
-            if (!string.IsNullOrWhiteSpace(trackId))
-                audioManager.SetVote(trackId, TrackVote.Dislike);
+            if (string.IsNullOrWhiteSpace(trackId))
+                return;
+
+            long trackElapsedMs = audioManager.CurrentTrackElapsedMs;
+            audioManager.SetVote(trackId, TrackVote.Dislike);
+            SpacetimeDbLocalDevRuntime.SubmitMusicTrackDislike(trackId, trackElapsedMs);
         }
 
         private void HandleClearClicked()
@@ -592,6 +598,18 @@ namespace Diceforge.UI.Audio
 
             _isPanelOpen = true;
             UpdatePanelState();
+        }
+
+        private void SubmitCurrentTrackSkip()
+        {
+            if (audioManager == null)
+                return;
+
+            string trackId = audioManager.CurrentTrackId;
+            if (string.IsNullOrWhiteSpace(trackId))
+                return;
+
+            SpacetimeDbLocalDevRuntime.SubmitMusicTrackSkip(trackId, audioManager.CurrentTrackElapsedMs);
         }
     }
 }

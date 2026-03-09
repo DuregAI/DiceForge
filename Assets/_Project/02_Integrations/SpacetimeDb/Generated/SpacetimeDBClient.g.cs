@@ -29,6 +29,8 @@ namespace SpacetimeDB.Types
         {
             AddTable(FeedbackEntry = new(conn));
             AddTable(LikeEvent = new(conn));
+            AddTable(MusicDislikeEvent = new(conn));
+            AddTable(MusicSkipEvent = new(conn));
             AddTable(PerformanceSessionSummary = new(conn));
         }
     }
@@ -528,6 +530,8 @@ namespace SpacetimeDB.Types
         {
             new QueryBuilder().From.FeedbackEntry().ToSql(),
             new QueryBuilder().From.LikeEvent().ToSql(),
+            new QueryBuilder().From.MusicDislikeEvent().ToSql(),
+            new QueryBuilder().From.MusicSkipEvent().ToSql(),
             new QueryBuilder().From.PerformanceSessionSummary().ToSql(),
         }
         ;
@@ -537,6 +541,8 @@ namespace SpacetimeDB.Types
     {
         public global::SpacetimeDB.Table<FeedbackEntry, FeedbackEntryCols, FeedbackEntryIxCols> FeedbackEntry() => new("feedback_entry", new FeedbackEntryCols("feedback_entry"), new FeedbackEntryIxCols("feedback_entry"));
         public global::SpacetimeDB.Table<LikeEvent, LikeEventCols, LikeEventIxCols> LikeEvent() => new("like_event", new LikeEventCols("like_event"), new LikeEventIxCols("like_event"));
+        public global::SpacetimeDB.Table<MusicDislikeEvent, MusicDislikeEventCols, MusicDislikeEventIxCols> MusicDislikeEvent() => new("music_dislike_event", new MusicDislikeEventCols("music_dislike_event"), new MusicDislikeEventIxCols("music_dislike_event"));
+        public global::SpacetimeDB.Table<MusicSkipEvent, MusicSkipEventCols, MusicSkipEventIxCols> MusicSkipEvent() => new("music_skip_event", new MusicSkipEventCols("music_skip_event"), new MusicSkipEventIxCols("music_skip_event"));
         public global::SpacetimeDB.Table<PerformanceSessionSummary, PerformanceSessionSummaryCols, PerformanceSessionSummaryIxCols> PerformanceSessionSummary() => new("performance_session_summary", new PerformanceSessionSummaryCols("performance_session_summary"), new PerformanceSessionSummaryIxCols("performance_session_summary"));
     }
 
@@ -621,6 +627,8 @@ namespace SpacetimeDB.Types
             {
                 Reducer.SubmitFeedback args => Reducers.InvokeSubmitFeedback(eventContext, args),
                 Reducer.SubmitLike args => Reducers.InvokeSubmitLike(eventContext, args),
+                Reducer.SubmitMusicDislike args => Reducers.InvokeSubmitMusicDislike(eventContext, args),
+                Reducer.SubmitMusicSkip args => Reducers.InvokeSubmitMusicSkip(eventContext, args),
                 Reducer.SubmitPerformanceSessionSummary args => Reducers.InvokeSubmitPerformanceSessionSummary(eventContext, args),
                 _ => throw new ArgumentOutOfRangeException("Reducer", $"Unknown reducer {reducer}")
             };

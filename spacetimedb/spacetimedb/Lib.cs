@@ -51,6 +51,32 @@ public static partial class Module
         public string scene_name;
     }
 
+    [SpacetimeDB.Table(Accessor = "music_dislike_event", Public = true)]
+    public partial struct MusicDislikeEvent
+    {
+        [SpacetimeDB.PrimaryKey]
+        public string event_id;
+        public string session_id;
+        public string track_id;
+        public long track_elapsed_ms;
+        public long created_at_unix_ms_utc;
+        public string build_version;
+        public string scene_name;
+    }
+
+    [SpacetimeDB.Table(Accessor = "music_skip_event", Public = true)]
+    public partial struct MusicSkipEvent
+    {
+        [SpacetimeDB.PrimaryKey]
+        public string event_id;
+        public string session_id;
+        public string track_id;
+        public long track_elapsed_ms;
+        public long created_at_unix_ms_utc;
+        public string build_version;
+        public string scene_name;
+    }
+
     [SpacetimeDB.Reducer]
     public static void submit_performance_session_summary(
         ReducerContext ctx,
@@ -188,6 +214,76 @@ public static partial class Module
             session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id,
             category = trimmedCategory,
             message = trimmedMessage,
+            created_at_unix_ms_utc = created_at_unix_ms_utc,
+            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
+            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
+        });
+    }
+
+    [SpacetimeDB.Reducer]
+    public static void submit_music_dislike(
+        ReducerContext ctx,
+        string event_id,
+        string session_id,
+        string track_id,
+        long track_elapsed_ms,
+        long created_at_unix_ms_utc,
+        string build_version,
+        string scene_name)
+    {
+        if (string.IsNullOrWhiteSpace(event_id))
+            throw new ArgumentException("event_id must not be empty.", nameof(event_id));
+
+        if (string.IsNullOrWhiteSpace(track_id))
+            throw new ArgumentException("track_id must not be empty.", nameof(track_id));
+
+        if (track_elapsed_ms < 0)
+            throw new ArgumentOutOfRangeException(nameof(track_elapsed_ms), "track_elapsed_ms must not be negative.");
+
+        if (created_at_unix_ms_utc <= 0)
+            throw new ArgumentOutOfRangeException(nameof(created_at_unix_ms_utc), "created_at_unix_ms_utc must be positive.");
+
+        ctx.Db.music_dislike_event.Insert(new MusicDislikeEvent
+        {
+            event_id = event_id,
+            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id.Trim(),
+            track_id = track_id.Trim(),
+            track_elapsed_ms = track_elapsed_ms,
+            created_at_unix_ms_utc = created_at_unix_ms_utc,
+            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
+            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
+        });
+    }
+
+    [SpacetimeDB.Reducer]
+    public static void submit_music_skip(
+        ReducerContext ctx,
+        string event_id,
+        string session_id,
+        string track_id,
+        long track_elapsed_ms,
+        long created_at_unix_ms_utc,
+        string build_version,
+        string scene_name)
+    {
+        if (string.IsNullOrWhiteSpace(event_id))
+            throw new ArgumentException("event_id must not be empty.", nameof(event_id));
+
+        if (string.IsNullOrWhiteSpace(track_id))
+            throw new ArgumentException("track_id must not be empty.", nameof(track_id));
+
+        if (track_elapsed_ms < 0)
+            throw new ArgumentOutOfRangeException(nameof(track_elapsed_ms), "track_elapsed_ms must not be negative.");
+
+        if (created_at_unix_ms_utc <= 0)
+            throw new ArgumentOutOfRangeException(nameof(created_at_unix_ms_utc), "created_at_unix_ms_utc must be positive.");
+
+        ctx.Db.music_skip_event.Insert(new MusicSkipEvent
+        {
+            event_id = event_id,
+            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id.Trim(),
+            track_id = track_id.Trim(),
+            track_elapsed_ms = track_elapsed_ms,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
             build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
             scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
