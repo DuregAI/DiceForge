@@ -66,6 +66,7 @@
 }
 
 .dice-row {
+    display: none;
     flex-wrap: wrap;
 }
 
@@ -79,3 +80,70 @@
     background-color: rgba(70, 190, 120, 0.9);
     color: white;
 }
+
+.center-dice-presentation {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    min-width: 360px;
+    max-width: 720px;
+    padding: 14px 18px;
+    translate: -50% -50%;
+    background-color: rgba(10, 14, 22, 0.42);
+    border-radius: 24px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.08);
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.center-dice-presentation--dimmed {
+    opacity: 0.5;
+}
+
+.center-dice-title {
+    color: rgba(236, 241, 248, 0.92);
+    font-size: 18px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.center-dice-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.center-dice-button {
+    min-width: 88px;
+    min-height: 88px;
+    padding: 10px;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.16);
+    background-color: rgba(244, 248, 252, 0.95);
+    color: rgb(28, 33, 42);
+    font-size: 34px;
+    -unity-font-style: bold;
+}
+
+.center-dice-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(106, 182, 255, 0.9);
+}
+
+.center-dice-button--selected {
+    background-color: rgba(109, 205, 151, 0.98);
+    border-color: rgba(41, 107, 69, 0.92);
+    color: rgb(16, 36, 24);
+}
+
+.center-dice-button:disabled {
+    opacity: 1;
+    color: rgba(28, 33, 42, 0.72);
+}
+
+

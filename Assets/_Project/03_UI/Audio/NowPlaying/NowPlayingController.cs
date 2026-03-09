@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Diceforge.Audio;
 using Diceforge.Diagnostics;
@@ -23,6 +24,8 @@ namespace Diceforge.UI.Audio
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private bool startPanelOpen;
         [SerializeField] private bool autoOpenOnTrackChange = true;
+        [SerializeField] private bool autoCloseOnTrackChange = true;
+        [SerializeField] private float autoCloseDelaySeconds = 4f;
 
         private VisualElement _root;
         private VisualElement _nowPlayingRoot;
@@ -54,6 +57,7 @@ namespace Diceforge.UI.Audio
         private bool _isPanelOpen;
         private bool _isSettingsOpen;
         private bool _isFeedbackOpen;
+        private Coroutine _panelAutoCloseRoutine;
 
         private void OnEnable()
         {
@@ -181,6 +185,8 @@ namespace Diceforge.UI.Audio
                 audioManager.OnStatsChanged -= HandleStatsChanged;
                 audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
             }
+
+            CancelPanelAutoClose();
         }
 
         private void Update()
@@ -199,6 +205,7 @@ namespace Diceforge.UI.Audio
 
         private void HandleTogglePanelClicked()
         {
+            CancelPanelAutoClose();
             _isPanelOpen = !_isPanelOpen;
             UpdatePanelState();
         }
@@ -246,7 +253,10 @@ namespace Diceforge.UI.Audio
         private void HandleTrackChanged(string trackId, string displayName)
         {
             if (autoOpenOnTrackChange)
+            {
                 EnsurePanelOpen();
+                SchedulePanelAutoClose();
+            }
 
             if (_trackNameLabel != null)
                 _trackNameLabel.text = $"Now playing: {displayName}";
@@ -297,7 +307,10 @@ namespace Diceforge.UI.Audio
             }
 
             if (autoOpenOnTrackChange && !string.IsNullOrWhiteSpace(currentTrackId))
+            {
                 EnsurePanelOpen();
+                SchedulePanelAutoClose();
+            }
 
             ApplyVoteState(audioManager.GetVote(currentTrackId));
             RefreshLikesCount();
@@ -380,6 +393,7 @@ namespace Diceforge.UI.Audio
 
         private void ToggleSettingsPanel()
         {
+            CancelPanelAutoClose();
             SetSettingsOpen(!_isSettingsOpen);
         }
 
@@ -514,6 +528,8 @@ namespace Diceforge.UI.Audio
 
         private void OpenFeedbackForm()
         {
+            CancelPanelAutoClose();
+
             if (_feedbackModal == null)
                 return;
 
@@ -600,6 +616,37 @@ namespace Diceforge.UI.Audio
             UpdatePanelState();
         }
 
+        private void SchedulePanelAutoClose()
+        {
+            CancelPanelAutoClose();
+
+            if (!autoCloseOnTrackChange || autoCloseDelaySeconds <= 0f)
+                return;
+
+            _panelAutoCloseRoutine = StartCoroutine(AutoClosePanelAfterDelay());
+        }
+
+        private void CancelPanelAutoClose()
+        {
+            if (_panelAutoCloseRoutine == null)
+                return;
+
+            StopCoroutine(_panelAutoCloseRoutine);
+            _panelAutoCloseRoutine = null;
+        }
+
+        private IEnumerator AutoClosePanelAfterDelay()
+        {
+            yield return new WaitForSecondsRealtime(autoCloseDelaySeconds);
+            _panelAutoCloseRoutine = null;
+
+            if (!_isPanelOpen || _isSettingsOpen || _isFeedbackOpen)
+                yield break;
+
+            _isPanelOpen = false;
+            UpdatePanelState();
+        }
+
         private void SubmitCurrentTrackSkip()
         {
             if (audioManager == null)
@@ -613,3 +660,5 @@ namespace Diceforge.UI.Audio
         }
     }
 }
+
+

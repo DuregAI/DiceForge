@@ -37,6 +37,8 @@ namespace Diceforge.View
         private Slider _speedSlider;
         private Label _speedValueLabel;
         private VisualElement _diceButtonsRow;
+        private VisualElement _centerDicePresentation;
+        private VisualElement _centerDiceRow;
 
         private readonly HashSet<string> _missingWarnings = new HashSet<string>();
 
@@ -124,7 +126,7 @@ namespace Diceforge.View
         {
             if (_headMovesLabel != null)
             {
-                string limitText = limit == int.MaxValue ? "∞" : limit.ToString();
+                string limitText = limit == int.MaxValue ? "inf" : limit.ToString();
                 _headMovesLabel.text = $"Head: {used}/{limitText}";
             }
         }
@@ -191,27 +193,29 @@ namespace Diceforge.View
             _rerollButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
-        public void SetDiceButtons(IReadOnlyList<int> remainingDice, int? selectedIndex, bool enabled)
+        public void SetDiceButtons(IReadOnlyList<int> remainingDice, int? selectedIndex, bool enabled, bool dimmed)
         {
-            if (_diceButtonsRow == null)
-                return;
+            _diceButtonsRow?.Clear();
+            _centerDiceRow?.Clear();
 
-            _diceButtonsRow.Clear();
-            if (remainingDice == null || remainingDice.Count == 0)
+            bool hasDice = remainingDice != null && remainingDice.Count > 0;
+
+            if (_centerDicePresentation != null)
+            {
+                _centerDicePresentation.style.display = hasDice ? DisplayStyle.Flex : DisplayStyle.None;
+                _centerDicePresentation.EnableInClassList("center-dice-presentation--dimmed", dimmed);
+            }
+
+            if (!hasDice)
                 return;
 
             for (int i = 0; i < remainingDice.Count; i++)
             {
                 int index = i;
-                var button = new Button(() => OnDieSelected?.Invoke(index))
-                {
-                    text = remainingDice[i].ToString()
-                };
-                button.SetEnabled(enabled);
-                button.AddToClassList("dice-button");
-                if (selectedIndex.HasValue && selectedIndex.Value == index)
-                    button.AddToClassList("dice-button--selected");
-                _diceButtonsRow.Add(button);
+                int dieValue = remainingDice[i];
+                bool isSelected = selectedIndex.HasValue && selectedIndex.Value == index;
+                Button dieButton = CreateDieButton(index, dieValue, enabled, isSelected);
+                _centerDiceRow?.Add(dieButton);
             }
         }
 
@@ -271,6 +275,20 @@ namespace Diceforge.View
             _speedSlider = GetElement<Slider>("speedSlider");
             _speedValueLabel = GetElement<Label>("speedValueLabel");
             _diceButtonsRow = GetElement<VisualElement>("diceButtonsRow");
+            _centerDicePresentation = GetElement<VisualElement>("centerDicePresentation");
+            _centerDiceRow = GetElement<VisualElement>("centerDiceRow");
+
+            if (_diceButtonsRow != null)
+                _diceButtonsRow.style.display = DisplayStyle.None;
+
+            if (_centerDicePresentation != null)
+            {
+                _centerDicePresentation.pickingMode = PickingMode.Position;
+                _centerDicePresentation.style.display = DisplayStyle.None;
+            }
+
+            if (_centerDiceRow != null)
+                _centerDiceRow.pickingMode = PickingMode.Position;
         }
 
         private void RegisterCallbacks()
@@ -381,6 +399,21 @@ namespace Diceforge.View
                 _speedValueLabel.text = $"Speed (s): {value:0.00}";
         }
 
+        private Button CreateDieButton(int index, int dieValue, bool enabled, bool isSelected)
+        {
+            var button = new Button(() => OnDieSelected?.Invoke(index))
+            {
+                text = dieValue.ToString()
+            };
+
+            button.SetEnabled(enabled);
+            button.AddToClassList("center-dice-button");
+            if (isSelected)
+                button.AddToClassList("center-dice-button--selected");
+
+            return button;
+        }
+
         private T GetElement<T>(string name) where T : VisualElement
         {
             if (_root == null)
@@ -399,4 +432,3 @@ namespace Diceforge.View
         }
     }
 }
-

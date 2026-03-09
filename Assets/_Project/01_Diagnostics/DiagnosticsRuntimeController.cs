@@ -145,8 +145,12 @@ namespace Diceforge.Diagnostics
             if (!_initialized || _shutdownRecorded)
                 return;
 
-            if (Keyboard.current != null && Keyboard.current.backquoteKey.wasPressedThisFrame)
-                _overlayVisible = !_overlayVisible;
+            if (Keyboard.current != null)
+            {
+                bool isCtrlPressed = Keyboard.current.leftCtrlKey.isPressed || Keyboard.current.rightCtrlKey.isPressed;
+                if (!isCtrlPressed && Keyboard.current.backquoteKey.wasPressedThisFrame)
+                    _overlayVisible = !_overlayVisible;
+            }
 
             _performanceSampler.Sample(Time.unscaledDeltaTime);
         }
@@ -533,3 +537,4 @@ namespace Diceforge.Diagnostics
         }
     }
 }
+

@@ -553,7 +553,7 @@ namespace Diceforge.View
                 hud?.SetEnterEnabled(false);
                 hud?.SetPlaceEnabled(false);
                 RefreshRerollUI();
-                hud?.SetDiceButtons(null, null, false);
+                hud?.SetDiceButtons(null, null, false, false);
                 _waitingForFromCell = false;
                 boardView?.SetCellSelectionEnabled(false);
                 boardView?.SetHighlightedCells(null);
@@ -578,7 +578,8 @@ namespace Diceforge.View
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
             RefreshRerollUI();
-            hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, allowInteraction);
+            bool dimDicePresentation = !humanTurn && !state.IsFinished && !_runner.MatchEnded;
+            hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, allowInteraction, dimDicePresentation);
 
             if (allowInteraction)
                 _waitingForFromCell = canMove;
@@ -983,4 +984,6 @@ namespace Diceforge.View
         }
     }
 }
+
+
 
