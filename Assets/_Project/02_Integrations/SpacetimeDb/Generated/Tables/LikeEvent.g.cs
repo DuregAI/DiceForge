@@ -41,6 +41,8 @@ namespace SpacetimeDB.Types
     {
         public global::SpacetimeDB.Col<LikeEvent, string> LikeId { get; }
         public global::SpacetimeDB.Col<LikeEvent, string> SessionId { get; }
+        public global::SpacetimeDB.Col<LikeEvent, string> PlayerGuid { get; }
+        public global::SpacetimeDB.Col<LikeEvent, string> PlayerName { get; }
         public global::SpacetimeDB.Col<LikeEvent, string> TargetType { get; }
         public global::SpacetimeDB.Col<LikeEvent, string> TargetId { get; }
         public global::SpacetimeDB.Col<LikeEvent, long> CreatedAtUnixMsUtc { get; }
@@ -49,6 +51,8 @@ namespace SpacetimeDB.Types
         {
             LikeId = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "like_id");
             SessionId = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "session_id");
+            PlayerGuid = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "player_guid");
+            PlayerName = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "player_name");
             TargetType = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "target_type");
             TargetId = new global::SpacetimeDB.Col<LikeEvent, string>(tableName, "target_id");
             CreatedAtUnixMsUtc = new global::SpacetimeDB.Col<LikeEvent, long>(tableName, "created_at_unix_ms_utc");

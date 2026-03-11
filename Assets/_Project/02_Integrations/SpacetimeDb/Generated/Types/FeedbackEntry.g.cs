@@ -17,6 +17,10 @@ namespace SpacetimeDB.Types
         public string FeedbackId;
         [DataMember(Name = "session_id")]
         public string SessionId;
+        [DataMember(Name = "player_guid")]
+        public string PlayerGuid;
+        [DataMember(Name = "player_name")]
+        public string PlayerName;
         [DataMember(Name = "category")]
         public string Category;
         [DataMember(Name = "message")]
@@ -31,6 +35,8 @@ namespace SpacetimeDB.Types
         public FeedbackEntry(
             string FeedbackId,
             string SessionId,
+            string PlayerGuid,
+            string PlayerName,
             string Category,
             string Message,
             long CreatedAtUnixMsUtc,
@@ -40,6 +46,8 @@ namespace SpacetimeDB.Types
         {
             this.FeedbackId = FeedbackId;
             this.SessionId = SessionId;
+            this.PlayerGuid = PlayerGuid;
+            this.PlayerName = PlayerName;
             this.Category = Category;
             this.Message = Message;
             this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -51,6 +59,8 @@ namespace SpacetimeDB.Types
         {
             this.FeedbackId = "";
             this.SessionId = "";
+            this.PlayerGuid = "";
+            this.PlayerName = "";
             this.Category = "";
             this.Message = "";
             this.BuildVersion = "";

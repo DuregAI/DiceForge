@@ -4,6 +4,7 @@ using SpacetimeDB;
 public static partial class Module
 {
     private const int FeedbackMessageMaxLength = 1000;
+    private const int PlayerNameMaxLength = 23;
 
     [SpacetimeDB.Table(Accessor = "performance_session_summary", Public = true)]
     public partial struct PerformanceSessionSummary
@@ -33,6 +34,8 @@ public static partial class Module
         [SpacetimeDB.PrimaryKey]
         public string like_id;
         public string session_id;
+        public string player_guid;
+        public string player_name;
         public string target_type;
         public string target_id;
         public long created_at_unix_ms_utc;
@@ -44,6 +47,8 @@ public static partial class Module
         [SpacetimeDB.PrimaryKey]
         public string feedback_id;
         public string session_id;
+        public string player_guid;
+        public string player_name;
         public string category;
         public string message;
         public long created_at_unix_ms_utc;
@@ -57,6 +62,8 @@ public static partial class Module
         [SpacetimeDB.PrimaryKey]
         public string event_id;
         public string session_id;
+        public string player_guid;
+        public string player_name;
         public string track_id;
         public long track_elapsed_ms;
         public long created_at_unix_ms_utc;
@@ -70,8 +77,24 @@ public static partial class Module
         [SpacetimeDB.PrimaryKey]
         public string event_id;
         public string session_id;
+        public string player_guid;
+        public string player_name;
         public string track_id;
         public long track_elapsed_ms;
+        public long created_at_unix_ms_utc;
+        public string build_version;
+        public string scene_name;
+    }
+
+    [SpacetimeDB.Table(Accessor = "player_name_change_event", Public = true)]
+    public partial struct PlayerNameChangeEvent
+    {
+        [SpacetimeDB.PrimaryKey]
+        public string event_id;
+        public string session_id;
+        public string player_guid;
+        public string previous_player_name;
+        public string new_player_name;
         public long created_at_unix_ms_utc;
         public string build_version;
         public string scene_name;
@@ -153,6 +176,8 @@ public static partial class Module
         ReducerContext ctx,
         string like_id,
         string session_id,
+        string player_guid,
+        string player_name,
         string target_type,
         string target_id,
         long created_at_unix_ms_utc)
@@ -172,7 +197,9 @@ public static partial class Module
         ctx.Db.like_event.Insert(new LikeEvent
         {
             like_id = like_id,
-            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id,
+            session_id = NormalizeOptional(session_id),
+            player_guid = NormalizeOptional(player_guid),
+            player_name = NormalizePlayerName(player_name),
             target_type = target_type,
             target_id = target_id,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
@@ -184,23 +211,19 @@ public static partial class Module
         ReducerContext ctx,
         string feedback_id,
         string session_id,
+        string player_guid,
+        string player_name,
         string category,
         string message,
         long created_at_unix_ms_utc,
         string build_version,
         string scene_name)
     {
-        string trimmedCategory = category == null ? string.Empty : category.Trim();
-        string trimmedMessage = message == null ? string.Empty : message.Trim();
+        string trimmedCategory = NormalizeRequired(category, nameof(category));
+        string trimmedMessage = NormalizeRequired(message, nameof(message));
 
         if (string.IsNullOrWhiteSpace(feedback_id))
             throw new ArgumentException("feedback_id must not be empty.", nameof(feedback_id));
-
-        if (string.IsNullOrWhiteSpace(trimmedCategory))
-            throw new ArgumentException("category must not be empty.", nameof(category));
-
-        if (string.IsNullOrWhiteSpace(trimmedMessage))
-            throw new ArgumentException("message must not be empty.", nameof(message));
 
         if (trimmedMessage.Length > FeedbackMessageMaxLength)
             throw new ArgumentOutOfRangeException(nameof(message), $"message must not exceed {FeedbackMessageMaxLength} characters.");
@@ -211,12 +234,14 @@ public static partial class Module
         ctx.Db.feedback_entry.Insert(new FeedbackEntry
         {
             feedback_id = feedback_id,
-            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id,
+            session_id = NormalizeOptional(session_id),
+            player_guid = NormalizeOptional(player_guid),
+            player_name = NormalizePlayerName(player_name),
             category = trimmedCategory,
             message = trimmedMessage,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
-            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
-            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
+            build_version = NormalizeOptional(build_version),
+            scene_name = NormalizeOptional(scene_name),
         });
     }
 
@@ -225,6 +250,8 @@ public static partial class Module
         ReducerContext ctx,
         string event_id,
         string session_id,
+        string player_guid,
+        string player_name,
         string track_id,
         long track_elapsed_ms,
         long created_at_unix_ms_utc,
@@ -246,12 +273,14 @@ public static partial class Module
         ctx.Db.music_dislike_event.Insert(new MusicDislikeEvent
         {
             event_id = event_id,
-            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id.Trim(),
+            session_id = NormalizeOptional(session_id),
+            player_guid = NormalizeOptional(player_guid),
+            player_name = NormalizePlayerName(player_name),
             track_id = track_id.Trim(),
             track_elapsed_ms = track_elapsed_ms,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
-            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
-            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
+            build_version = NormalizeOptional(build_version),
+            scene_name = NormalizeOptional(scene_name),
         });
     }
 
@@ -260,6 +289,8 @@ public static partial class Module
         ReducerContext ctx,
         string event_id,
         string session_id,
+        string player_guid,
+        string player_name,
         string track_id,
         long track_elapsed_ms,
         long created_at_unix_ms_utc,
@@ -281,12 +312,74 @@ public static partial class Module
         ctx.Db.music_skip_event.Insert(new MusicSkipEvent
         {
             event_id = event_id,
-            session_id = string.IsNullOrWhiteSpace(session_id) ? string.Empty : session_id.Trim(),
+            session_id = NormalizeOptional(session_id),
+            player_guid = NormalizeOptional(player_guid),
+            player_name = NormalizePlayerName(player_name),
             track_id = track_id.Trim(),
             track_elapsed_ms = track_elapsed_ms,
             created_at_unix_ms_utc = created_at_unix_ms_utc,
-            build_version = string.IsNullOrWhiteSpace(build_version) ? string.Empty : build_version.Trim(),
-            scene_name = string.IsNullOrWhiteSpace(scene_name) ? string.Empty : scene_name.Trim(),
+            build_version = NormalizeOptional(build_version),
+            scene_name = NormalizeOptional(scene_name),
         });
+    }
+
+    [SpacetimeDB.Reducer]
+    public static void submit_player_name_change(
+        ReducerContext ctx,
+        string event_id,
+        string session_id,
+        string player_guid,
+        string previous_player_name,
+        string new_player_name,
+        long created_at_unix_ms_utc,
+        string build_version,
+        string scene_name)
+    {
+        if (string.IsNullOrWhiteSpace(event_id))
+            throw new ArgumentException("event_id must not be empty.", nameof(event_id));
+
+        string normalizedPreviousPlayerName = NormalizePlayerName(previous_player_name);
+        string normalizedNewPlayerName = NormalizePlayerName(new_player_name);
+
+        if (string.IsNullOrWhiteSpace(normalizedNewPlayerName))
+            throw new ArgumentException("new_player_name must not be empty.", nameof(new_player_name));
+
+        if (created_at_unix_ms_utc <= 0)
+            throw new ArgumentOutOfRangeException(nameof(created_at_unix_ms_utc), "created_at_unix_ms_utc must be positive.");
+
+        ctx.Db.player_name_change_event.Insert(new PlayerNameChangeEvent
+        {
+            event_id = event_id,
+            session_id = NormalizeOptional(session_id),
+            player_guid = NormalizeOptional(player_guid),
+            previous_player_name = normalizedPreviousPlayerName,
+            new_player_name = normalizedNewPlayerName,
+            created_at_unix_ms_utc = created_at_unix_ms_utc,
+            build_version = NormalizeOptional(build_version),
+            scene_name = NormalizeOptional(scene_name),
+        });
+    }
+
+    private static string NormalizeOptional(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
+    }
+
+    private static string NormalizeRequired(string value, string paramName)
+    {
+        string normalized = NormalizeOptional(value);
+        if (string.IsNullOrWhiteSpace(normalized))
+            throw new ArgumentException($"{paramName} must not be empty.", paramName);
+
+        return normalized;
+    }
+
+    private static string NormalizePlayerName(string value)
+    {
+        string normalized = NormalizeOptional(value);
+        if (normalized.Length > PlayerNameMaxLength)
+            throw new ArgumentOutOfRangeException(nameof(value), $"player name must not exceed {PlayerNameMaxLength} characters.");
+
+        return normalized;
     }
 }

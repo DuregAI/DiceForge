@@ -12,12 +12,12 @@ namespace SpacetimeDB.Types
 {
     public sealed partial class RemoteReducers : RemoteBase
     {
-        public delegate void SubmitMusicDislikeHandler(ReducerEventContext ctx, string eventId, string sessionId, string trackId, long trackElapsedMs, long createdAtUnixMsUtc, string buildVersion, string sceneName);
+        public delegate void SubmitMusicDislikeHandler(ReducerEventContext ctx, string eventId, string sessionId, string playerGuid, string playerName, string trackId, long trackElapsedMs, long createdAtUnixMsUtc, string buildVersion, string sceneName);
         public event SubmitMusicDislikeHandler? OnSubmitMusicDislike;
 
-        public void SubmitMusicDislike(string eventId, string sessionId, string trackId, long trackElapsedMs, long createdAtUnixMsUtc, string buildVersion, string sceneName)
+        public void SubmitMusicDislike(string eventId, string sessionId, string playerGuid, string playerName, string trackId, long trackElapsedMs, long createdAtUnixMsUtc, string buildVersion, string sceneName)
         {
-            conn.InternalCallReducer(new Reducer.SubmitMusicDislike(eventId, sessionId, trackId, trackElapsedMs, createdAtUnixMsUtc, buildVersion, sceneName));
+            conn.InternalCallReducer(new Reducer.SubmitMusicDislike(eventId, sessionId, playerGuid, playerName, trackId, trackElapsedMs, createdAtUnixMsUtc, buildVersion, sceneName));
         }
 
         public bool InvokeSubmitMusicDislike(ReducerEventContext ctx, Reducer.SubmitMusicDislike args)
@@ -38,6 +38,8 @@ namespace SpacetimeDB.Types
                 ctx,
                 args.EventId,
                 args.SessionId,
+                args.PlayerGuid,
+                args.PlayerName,
                 args.TrackId,
                 args.TrackElapsedMs,
                 args.CreatedAtUnixMsUtc,
@@ -58,6 +60,10 @@ namespace SpacetimeDB.Types
             public string EventId;
             [DataMember(Name = "session_id")]
             public string SessionId;
+            [DataMember(Name = "player_guid")]
+            public string PlayerGuid;
+            [DataMember(Name = "player_name")]
+            public string PlayerName;
             [DataMember(Name = "track_id")]
             public string TrackId;
             [DataMember(Name = "track_elapsed_ms")]
@@ -72,6 +78,8 @@ namespace SpacetimeDB.Types
             public SubmitMusicDislike(
                 string EventId,
                 string SessionId,
+                string PlayerGuid,
+                string PlayerName,
                 string TrackId,
                 long TrackElapsedMs,
                 long CreatedAtUnixMsUtc,
@@ -81,6 +89,8 @@ namespace SpacetimeDB.Types
             {
                 this.EventId = EventId;
                 this.SessionId = SessionId;
+                this.PlayerGuid = PlayerGuid;
+                this.PlayerName = PlayerName;
                 this.TrackId = TrackId;
                 this.TrackElapsedMs = TrackElapsedMs;
                 this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -92,6 +102,8 @@ namespace SpacetimeDB.Types
             {
                 this.EventId = "";
                 this.SessionId = "";
+                this.PlayerGuid = "";
+                this.PlayerName = "";
                 this.TrackId = "";
                 this.BuildVersion = "";
                 this.SceneName = "";

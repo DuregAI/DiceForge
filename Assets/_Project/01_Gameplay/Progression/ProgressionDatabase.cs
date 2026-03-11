@@ -9,5 +9,6 @@ namespace Diceforge.Progression
         public ItemCatalog itemCatalog;
         public ChestCatalog chestCatalog;
         public UpgradeCatalog upgradeCatalog;
+        public UiProgressionConfig uiProgressionConfig;
     }
 }

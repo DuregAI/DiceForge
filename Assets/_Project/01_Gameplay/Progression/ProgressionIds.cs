@@ -7,6 +7,8 @@ namespace Diceforge.Progression
         public const string Shards = "SHARDS";
 
         public const string BasicChest = "CHEST_BASIC";
+        public const string MediumChest = "CHEST_MEDIUM";
+        public const string EssenceChest = "CHEST_ESSENCE";
         public const string ItemConsumableReroll = "CONSUMABLE_REROLL";
 
         public const string UpgWinGold = "UPG_WIN_GOLD";
@@ -19,3 +21,4 @@ namespace Diceforge.Progression
         public const string UpgShortModeBonus = "UPG_SHORT_MODE_BONUS";
     }
 }
+

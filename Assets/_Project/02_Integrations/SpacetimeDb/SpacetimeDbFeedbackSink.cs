@@ -17,7 +17,7 @@ namespace Diceforge.Integrations.SpacetimeDb
             _connection = connection;
         }
 
-        public void SubmitFeedback(string sessionId, string category, string message, string buildVersion, string sceneName)
+        public void SubmitFeedback(string sessionId, string playerGuid, string playerName, string category, string message, string buildVersion, string sceneName)
         {
             string trimmedCategory = Sanitize(category);
             string trimmedMessage = Sanitize(message);
@@ -36,6 +36,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             _pendingFeedback.Enqueue(new PendingFeedbackSubmission(
                 Guid.NewGuid().ToString("N"),
                 Sanitize(sessionId),
+                Sanitize(playerGuid),
+                Sanitize(playerName),
                 trimmedCategory,
                 trimmedMessage,
                 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
@@ -54,6 +56,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             ReducerEventContext ctx,
             string feedbackId,
             string sessionId,
+            string playerGuid,
+            string playerName,
             string category,
             string message,
             long createdAtUnixMsUtc,
@@ -61,7 +65,7 @@ namespace Diceforge.Integrations.SpacetimeDb
             string sceneName)
         {
             Debug.Log(
-                $"[SpacetimeDb] submit_feedback callback feedbackId={feedbackId} session={sessionId} category={category} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
+                $"[SpacetimeDb] submit_feedback callback feedbackId={feedbackId} session={sessionId} playerGuid={playerGuid} playerName={playerName} category={category} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
         }
 
         private void TrySubmitPendingFeedback()
@@ -78,11 +82,13 @@ namespace Diceforge.Integrations.SpacetimeDb
             {
                 PendingFeedbackSubmission pendingFeedback = _pendingFeedback.Dequeue();
                 Debug.Log(
-                    $"[SpacetimeDb] Submitting feedback_entry feedbackId={pendingFeedback.FeedbackId} session={pendingFeedback.SessionId} category={pendingFeedback.Category} scene={pendingFeedback.SceneName}");
+                    $"[SpacetimeDb] Submitting feedback_entry feedbackId={pendingFeedback.FeedbackId} session={pendingFeedback.SessionId} playerGuid={pendingFeedback.PlayerGuid} playerName={pendingFeedback.PlayerName} category={pendingFeedback.Category} scene={pendingFeedback.SceneName}");
 
                 _connection.Reducers.SubmitFeedback(
                     pendingFeedback.FeedbackId,
                     pendingFeedback.SessionId,
+                    pendingFeedback.PlayerGuid,
+                    pendingFeedback.PlayerName,
                     pendingFeedback.Category,
                     pendingFeedback.Message,
                     pendingFeedback.CreatedAtUnixMsUtc,
@@ -101,6 +107,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             public PendingFeedbackSubmission(
                 string feedbackId,
                 string sessionId,
+                string playerGuid,
+                string playerName,
                 string category,
                 string message,
                 long createdAtUnixMsUtc,
@@ -109,6 +117,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             {
                 FeedbackId = feedbackId;
                 SessionId = sessionId;
+                PlayerGuid = playerGuid;
+                PlayerName = playerName;
                 Category = category;
                 Message = message;
                 CreatedAtUnixMsUtc = createdAtUnixMsUtc;
@@ -118,6 +128,8 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             public string FeedbackId { get; }
             public string SessionId { get; }
+            public string PlayerGuid { get; }
+            public string PlayerName { get; }
             public string Category { get; }
             public string Message { get; }
             public long CreatedAtUnixMsUtc { get; }

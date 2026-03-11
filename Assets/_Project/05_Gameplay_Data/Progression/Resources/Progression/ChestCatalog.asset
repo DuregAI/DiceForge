@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chests:
   - {fileID: 11400000, guid: 28737423d1de4e60863971a0edad7dd4, type: 2}
+  - {fileID: 11400000, guid: f8b1ced1a75d4f46a6cb3f3ea7c11294, type: 2}
+  - {fileID: 11400000, guid: 050971ffdb1f4bde96339331bfb8078e, type: 2}
+

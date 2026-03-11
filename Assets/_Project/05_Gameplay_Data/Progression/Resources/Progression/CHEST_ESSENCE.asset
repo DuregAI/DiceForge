@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65a6655304a43ac9a2f00beb5483f46, type: 3}
+  m_Name: CHEST_ESSENCE
+  m_EditorClassIdentifier: 
+  id: CHEST_ESSENCE
+  displayName: Essence Chest
+  icon: {fileID: 512409149, guid: f33f9627bb2eb5b499e34d24a5eec65e, type: 3}
+  fixedRewards:
+  - id: SOFT_GOLD
+    amount: 60
+    isItem: 0
+  - id: ESSENCE
+    amount: 16
+    isItem: 0
+  - id: CONSUMABLE_REROLL
+    amount: 1
+    isItem: 1

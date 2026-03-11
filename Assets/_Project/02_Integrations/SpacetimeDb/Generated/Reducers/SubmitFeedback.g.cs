@@ -12,12 +12,12 @@ namespace SpacetimeDB.Types
 {
     public sealed partial class RemoteReducers : RemoteBase
     {
-        public delegate void SubmitFeedbackHandler(ReducerEventContext ctx, string feedbackId, string sessionId, string category, string message, long createdAtUnixMsUtc, string buildVersion, string sceneName);
+        public delegate void SubmitFeedbackHandler(ReducerEventContext ctx, string feedbackId, string sessionId, string playerGuid, string playerName, string category, string message, long createdAtUnixMsUtc, string buildVersion, string sceneName);
         public event SubmitFeedbackHandler? OnSubmitFeedback;
 
-        public void SubmitFeedback(string feedbackId, string sessionId, string category, string message, long createdAtUnixMsUtc, string buildVersion, string sceneName)
+        public void SubmitFeedback(string feedbackId, string sessionId, string playerGuid, string playerName, string category, string message, long createdAtUnixMsUtc, string buildVersion, string sceneName)
         {
-            conn.InternalCallReducer(new Reducer.SubmitFeedback(feedbackId, sessionId, category, message, createdAtUnixMsUtc, buildVersion, sceneName));
+            conn.InternalCallReducer(new Reducer.SubmitFeedback(feedbackId, sessionId, playerGuid, playerName, category, message, createdAtUnixMsUtc, buildVersion, sceneName));
         }
 
         public bool InvokeSubmitFeedback(ReducerEventContext ctx, Reducer.SubmitFeedback args)
@@ -38,6 +38,8 @@ namespace SpacetimeDB.Types
                 ctx,
                 args.FeedbackId,
                 args.SessionId,
+                args.PlayerGuid,
+                args.PlayerName,
                 args.Category,
                 args.Message,
                 args.CreatedAtUnixMsUtc,
@@ -58,6 +60,10 @@ namespace SpacetimeDB.Types
             public string FeedbackId;
             [DataMember(Name = "session_id")]
             public string SessionId;
+            [DataMember(Name = "player_guid")]
+            public string PlayerGuid;
+            [DataMember(Name = "player_name")]
+            public string PlayerName;
             [DataMember(Name = "category")]
             public string Category;
             [DataMember(Name = "message")]
@@ -72,6 +78,8 @@ namespace SpacetimeDB.Types
             public SubmitFeedback(
                 string FeedbackId,
                 string SessionId,
+                string PlayerGuid,
+                string PlayerName,
                 string Category,
                 string Message,
                 long CreatedAtUnixMsUtc,
@@ -81,6 +89,8 @@ namespace SpacetimeDB.Types
             {
                 this.FeedbackId = FeedbackId;
                 this.SessionId = SessionId;
+                this.PlayerGuid = PlayerGuid;
+                this.PlayerName = PlayerName;
                 this.Category = Category;
                 this.Message = Message;
                 this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -92,6 +102,8 @@ namespace SpacetimeDB.Types
             {
                 this.FeedbackId = "";
                 this.SessionId = "";
+                this.PlayerGuid = "";
+                this.PlayerName = "";
                 this.Category = "";
                 this.Message = "";
                 this.BuildVersion = "";

@@ -36,6 +36,7 @@ public class MainMenuController : MonoBehaviour
     private Button settingsButton;
     private Button copyLogButton;
     private Button openFeedbackButton;
+    private Button upgradesButton;
     private VisualElement feedbackModal;
     private DropdownField feedbackCategoryField;
     private TextField feedbackMessageField;
@@ -57,6 +58,7 @@ public class MainMenuController : MonoBehaviour
     private Button tutorialReplayConfirmCancelButton;
     private AudioManager audioManager;
     private MapFlowOrchestrator mapFlowOrchestrator;
+    private bool areDevActionsVisible;
 
     [Header("Map")]
     [SerializeField] private string defaultChapterId = "Chapter1";
@@ -85,6 +87,7 @@ public class MainMenuController : MonoBehaviour
         copyLogButton = root.Q<Button>("btnCopyLog");
         copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
         openFeedbackButton = root.Q<Button>("btnOpenFeedback");
+        upgradesButton = root.Q<Button>("btnUpgrades");
         feedbackModal = root.Q<VisualElement>("FeedbackModal");
         feedbackCategoryField = root.Q<DropdownField>("feedbackCategoryField");
         feedbackMessageField = root.Q<TextField>("feedbackMessageField");
@@ -118,9 +121,8 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
-        RegisterButton("btnChests", OpenChestScreen);
-        RegisterButton("btnChestShop", OpenChestShop);
         RegisterButton("btnCloseChestShop", CloseChestShop);
+        root.RegisterCallback<KeyDownEvent>(HandleRootKeyDown, TrickleDown.TrickleDown);
 
         walletPanelController = GetComponent<WalletPanelController>() ?? gameObject.AddComponent<WalletPanelController>();
         playerPanelController = GetComponent<PlayerPanelController>() ?? gameObject.AddComponent<PlayerPanelController>();
@@ -140,8 +142,12 @@ public class MainMenuController : MonoBehaviour
         playerPanelController.Initialize(root);
 
         walletPanelController.Initialize(root);
+        walletPanelController.SetDevActionsVisible(false);
+        areDevActionsVisible = false;
         walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
         walletPanelController.OpenChestScreenRequested += OpenChestScreen;
+        walletPanelController.OpenChestShopRequested -= OpenChestShop;
+        walletPanelController.OpenChestShopRequested += OpenChestShop;
 
         upgradeShopController.Initialize(root);
 
@@ -152,6 +158,9 @@ public class MainMenuController : MonoBehaviour
 
         chestShopController = GetComponent<ChestShopController>() ?? gameObject.AddComponent<ChestShopController>();
         chestShopController.Initialize(root);
+
+        ProfileService.ProfileChanged -= RefreshProgressiveUi;
+        ProfileService.ProfileChanged += RefreshProgressiveUi;
 
         mapFlowOrchestrator = GetComponent<MapFlowOrchestrator>() ?? gameObject.AddComponent<MapFlowOrchestrator>();
         var mapController = GetComponent<MapController>() ?? gameObject.AddComponent<MapController>();
@@ -171,6 +180,8 @@ public class MainMenuController : MonoBehaviour
             if (experimentalButton != null)
                 experimentalButton.style.display = DisplayStyle.None;
         }
+
+        RefreshProgressiveUi();
     }
 
     private void Start()
@@ -194,10 +205,15 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        ProfileService.ProfileChanged -= RefreshProgressiveUi;
+
         if (chestOpenController != null)
             chestOpenController.CloseRequested -= CloseChestScreen;
         if (walletPanelController != null)
+        {
             walletPanelController.OpenChestScreenRequested -= OpenChestScreen;
+            walletPanelController.OpenChestShopRequested -= OpenChestShop;
+        }
 
         if (tutorialReplayConfirmYesButton != null)
         {
@@ -226,6 +242,9 @@ public class MainMenuController : MonoBehaviour
 
         if (sfxSlider != null)
             sfxSlider.UnregisterValueChangedCallback(OnSfxSliderChanged);
+
+        if (root != null)
+            root.UnregisterCallback<KeyDownEvent>(HandleRootKeyDown, TrickleDown.TrickleDown);
     }
 
     public void ShowPanel(string panelName)
@@ -310,6 +329,30 @@ public class MainMenuController : MonoBehaviour
         }
 
         button.clicked += () => action?.Invoke();
+    }
+
+    private void HandleRootKeyDown(KeyDownEvent evt)
+    {
+        if (evt == null)
+            return;
+
+        bool isDevToggle = (evt.ctrlKey || evt.commandKey) && !evt.altKey && evt.keyCode == KeyCode.D;
+        if (!isDevToggle)
+            return;
+
+        areDevActionsVisible = !areDevActionsVisible;
+        walletPanelController?.SetDevActionsVisible(areDevActionsVisible);
+        evt.StopPropagation();
+    }
+
+    private void RefreshProgressiveUi()
+    {
+        bool upgradesUnlocked = UiProgressionService.IsUpgradesUnlocked();
+        if (upgradesButton != null)
+            upgradesButton.style.display = upgradesUnlocked ? DisplayStyle.Flex : DisplayStyle.None;
+
+        if (!upgradesUnlocked && currentPanel != null && currentPanel.name == "UpgradeShopPanel")
+            CloseUpgradeShop();
     }
 
     private void UpdateSettingsButtonState(bool settingsOpen)
@@ -511,6 +554,9 @@ public class MainMenuController : MonoBehaviour
 
     private void OpenUpgradeShop()
     {
+        if (!UiProgressionService.IsUpgradesUnlocked())
+            return;
+
         ShowPanel("UpgradeShopPanel");
         upgradeShopController?.Show();
     }
@@ -523,6 +569,9 @@ public class MainMenuController : MonoBehaviour
 
     private void OpenChestScreen()
     {
+        if (!UiProgressionService.IsChestSectionUnlocked())
+            return;
+
         ShowPanel("ChestOpenPanel");
         chestOpenController?.Show();
     }
@@ -535,6 +584,9 @@ public class MainMenuController : MonoBehaviour
 
     private void OpenChestShop()
     {
+        if (!UiProgressionService.IsChestSectionUnlocked())
+            return;
+
         ShowPanel("ChestShopPanel");
         chestShopController?.Show();
     }

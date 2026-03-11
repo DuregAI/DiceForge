@@ -32,6 +32,7 @@ namespace SpacetimeDB.Types
             AddTable(MusicDislikeEvent = new(conn));
             AddTable(MusicSkipEvent = new(conn));
             AddTable(PerformanceSessionSummary = new(conn));
+            AddTable(PlayerNameChangeEvent = new(conn));
         }
     }
 
@@ -533,6 +534,7 @@ namespace SpacetimeDB.Types
             new QueryBuilder().From.MusicDislikeEvent().ToSql(),
             new QueryBuilder().From.MusicSkipEvent().ToSql(),
             new QueryBuilder().From.PerformanceSessionSummary().ToSql(),
+            new QueryBuilder().From.PlayerNameChangeEvent().ToSql(),
         }
         ;
     }
@@ -544,6 +546,7 @@ namespace SpacetimeDB.Types
         public global::SpacetimeDB.Table<MusicDislikeEvent, MusicDislikeEventCols, MusicDislikeEventIxCols> MusicDislikeEvent() => new("music_dislike_event", new MusicDislikeEventCols("music_dislike_event"), new MusicDislikeEventIxCols("music_dislike_event"));
         public global::SpacetimeDB.Table<MusicSkipEvent, MusicSkipEventCols, MusicSkipEventIxCols> MusicSkipEvent() => new("music_skip_event", new MusicSkipEventCols("music_skip_event"), new MusicSkipEventIxCols("music_skip_event"));
         public global::SpacetimeDB.Table<PerformanceSessionSummary, PerformanceSessionSummaryCols, PerformanceSessionSummaryIxCols> PerformanceSessionSummary() => new("performance_session_summary", new PerformanceSessionSummaryCols("performance_session_summary"), new PerformanceSessionSummaryIxCols("performance_session_summary"));
+        public global::SpacetimeDB.Table<PlayerNameChangeEvent, PlayerNameChangeEventCols, PlayerNameChangeEventIxCols> PlayerNameChangeEvent() => new("player_name_change_event", new PlayerNameChangeEventCols("player_name_change_event"), new PlayerNameChangeEventIxCols("player_name_change_event"));
     }
 
     public sealed class TypedSubscriptionBuilder
@@ -630,6 +633,7 @@ namespace SpacetimeDB.Types
                 Reducer.SubmitMusicDislike args => Reducers.InvokeSubmitMusicDislike(eventContext, args),
                 Reducer.SubmitMusicSkip args => Reducers.InvokeSubmitMusicSkip(eventContext, args),
                 Reducer.SubmitPerformanceSessionSummary args => Reducers.InvokeSubmitPerformanceSessionSummary(eventContext, args),
+                Reducer.SubmitPlayerNameChange args => Reducers.InvokeSubmitPlayerNameChange(eventContext, args),
                 _ => throw new ArgumentOutOfRangeException("Reducer", $"Unknown reducer {reducer}")
             };
         }

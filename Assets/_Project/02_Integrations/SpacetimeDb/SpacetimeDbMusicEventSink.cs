@@ -16,18 +16,18 @@ namespace Diceforge.Integrations.SpacetimeDb
             _connection = connection;
         }
 
-        public void SubmitMusicDislike(string sessionId, string trackId, long trackElapsedMs, string buildVersion, string sceneName)
+        public void SubmitMusicDislike(string sessionId, string playerGuid, string playerName, string trackId, long trackElapsedMs, string buildVersion, string sceneName)
         {
-            if (!TryCreatePendingSubmission(sessionId, trackId, trackElapsedMs, buildVersion, sceneName, out PendingMusicEventSubmission pendingSubmission))
+            if (!TryCreatePendingSubmission(sessionId, playerGuid, playerName, trackId, trackElapsedMs, buildVersion, sceneName, out PendingMusicEventSubmission pendingSubmission))
                 return;
 
             _pendingMusicDislikes.Enqueue(pendingSubmission);
             TrySubmitPendingMusicEvents();
         }
 
-        public void SubmitMusicSkip(string sessionId, string trackId, long trackElapsedMs, string buildVersion, string sceneName)
+        public void SubmitMusicSkip(string sessionId, string playerGuid, string playerName, string trackId, long trackElapsedMs, string buildVersion, string sceneName)
         {
-            if (!TryCreatePendingSubmission(sessionId, trackId, trackElapsedMs, buildVersion, sceneName, out PendingMusicEventSubmission pendingSubmission))
+            if (!TryCreatePendingSubmission(sessionId, playerGuid, playerName, trackId, trackElapsedMs, buildVersion, sceneName, out PendingMusicEventSubmission pendingSubmission))
                 return;
 
             _pendingMusicSkips.Enqueue(pendingSubmission);
@@ -43,6 +43,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             ReducerEventContext ctx,
             string eventId,
             string sessionId,
+            string playerGuid,
+            string playerName,
             string trackId,
             long trackElapsedMs,
             long createdAtUnixMsUtc,
@@ -50,13 +52,15 @@ namespace Diceforge.Integrations.SpacetimeDb
             string sceneName)
         {
             Debug.Log(
-                $"[SpacetimeDb] submit_music_dislike callback eventId={eventId} session={sessionId} trackId={trackId} elapsedMs={trackElapsedMs} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
+                $"[SpacetimeDb] submit_music_dislike callback eventId={eventId} session={sessionId} playerGuid={playerGuid} playerName={playerName} trackId={trackId} elapsedMs={trackElapsedMs} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
         }
 
         public void HandleSubmitMusicSkip(
             ReducerEventContext ctx,
             string eventId,
             string sessionId,
+            string playerGuid,
+            string playerName,
             string trackId,
             long trackElapsedMs,
             long createdAtUnixMsUtc,
@@ -64,7 +68,7 @@ namespace Diceforge.Integrations.SpacetimeDb
             string sceneName)
         {
             Debug.Log(
-                $"[SpacetimeDb] submit_music_skip callback eventId={eventId} session={sessionId} trackId={trackId} elapsedMs={trackElapsedMs} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
+                $"[SpacetimeDb] submit_music_skip callback eventId={eventId} session={sessionId} playerGuid={playerGuid} playerName={playerName} trackId={trackId} elapsedMs={trackElapsedMs} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
         }
 
         private void TrySubmitPendingMusicEvents()
@@ -81,11 +85,13 @@ namespace Diceforge.Integrations.SpacetimeDb
             {
                 PendingMusicEventSubmission pendingSubmission = _pendingMusicDislikes.Dequeue();
                 Debug.Log(
-                    $"[SpacetimeDb] Submitting music_dislike_event eventId={pendingSubmission.EventId} session={pendingSubmission.SessionId} trackId={pendingSubmission.TrackId} elapsedMs={pendingSubmission.TrackElapsedMs} scene={pendingSubmission.SceneName}");
+                    $"[SpacetimeDb] Submitting music_dislike_event eventId={pendingSubmission.EventId} session={pendingSubmission.SessionId} playerGuid={pendingSubmission.PlayerGuid} playerName={pendingSubmission.PlayerName} trackId={pendingSubmission.TrackId} elapsedMs={pendingSubmission.TrackElapsedMs} scene={pendingSubmission.SceneName}");
 
                 _connection.Reducers.SubmitMusicDislike(
                     pendingSubmission.EventId,
                     pendingSubmission.SessionId,
+                    pendingSubmission.PlayerGuid,
+                    pendingSubmission.PlayerName,
                     pendingSubmission.TrackId,
                     pendingSubmission.TrackElapsedMs,
                     pendingSubmission.CreatedAtUnixMsUtc,
@@ -97,11 +103,13 @@ namespace Diceforge.Integrations.SpacetimeDb
             {
                 PendingMusicEventSubmission pendingSubmission = _pendingMusicSkips.Dequeue();
                 Debug.Log(
-                    $"[SpacetimeDb] Submitting music_skip_event eventId={pendingSubmission.EventId} session={pendingSubmission.SessionId} trackId={pendingSubmission.TrackId} elapsedMs={pendingSubmission.TrackElapsedMs} scene={pendingSubmission.SceneName}");
+                    $"[SpacetimeDb] Submitting music_skip_event eventId={pendingSubmission.EventId} session={pendingSubmission.SessionId} playerGuid={pendingSubmission.PlayerGuid} playerName={pendingSubmission.PlayerName} trackId={pendingSubmission.TrackId} elapsedMs={pendingSubmission.TrackElapsedMs} scene={pendingSubmission.SceneName}");
 
                 _connection.Reducers.SubmitMusicSkip(
                     pendingSubmission.EventId,
                     pendingSubmission.SessionId,
+                    pendingSubmission.PlayerGuid,
+                    pendingSubmission.PlayerName,
                     pendingSubmission.TrackId,
                     pendingSubmission.TrackElapsedMs,
                     pendingSubmission.CreatedAtUnixMsUtc,
@@ -112,6 +120,8 @@ namespace Diceforge.Integrations.SpacetimeDb
 
         private static bool TryCreatePendingSubmission(
             string sessionId,
+            string playerGuid,
+            string playerName,
             string trackId,
             long trackElapsedMs,
             string buildVersion,
@@ -128,6 +138,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             pendingSubmission = new PendingMusicEventSubmission(
                 Guid.NewGuid().ToString("N"),
                 Sanitize(sessionId),
+                Sanitize(playerGuid),
+                Sanitize(playerName),
                 sanitizedTrackId,
                 Math.Max(0L, trackElapsedMs),
                 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
@@ -147,6 +159,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             public PendingMusicEventSubmission(
                 string eventId,
                 string sessionId,
+                string playerGuid,
+                string playerName,
                 string trackId,
                 long trackElapsedMs,
                 long createdAtUnixMsUtc,
@@ -155,6 +169,8 @@ namespace Diceforge.Integrations.SpacetimeDb
             {
                 EventId = eventId;
                 SessionId = sessionId;
+                PlayerGuid = playerGuid;
+                PlayerName = playerName;
                 TrackId = trackId;
                 TrackElapsedMs = trackElapsedMs;
                 CreatedAtUnixMsUtc = createdAtUnixMsUtc;
@@ -164,6 +180,8 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             public string EventId { get; }
             public string SessionId { get; }
+            public string PlayerGuid { get; }
+            public string PlayerName { get; }
             public string TrackId { get; }
             public long TrackElapsedMs { get; }
             public long CreatedAtUnixMsUtc { get; }

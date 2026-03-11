@@ -1,5 +1,6 @@
 using System;
 using Diceforge.Diagnostics;
+using Diceforge.Progression;
 using SpacetimeDB;
 using SpacetimeDB.Types;
 using UnityEngine;
@@ -37,6 +38,7 @@ namespace Diceforge.Integrations.SpacetimeDb
         private SpacetimeDbLikeSink _likeSink;
         private SpacetimeDbFeedbackSink _feedbackSink;
         private SpacetimeDbMusicEventSink _musicEventSink;
+        private SpacetimeDbPlayerNameChangeSink _playerNameChangeSink;
 
         public static SpacetimeDbLocalDevRuntime EnsureCreated()
         {
@@ -76,6 +78,11 @@ namespace Diceforge.Integrations.SpacetimeDb
         public static void SubmitFeedback(string category, string message, string buildVersion, string sceneName)
         {
             EnsureCreated().SubmitFeedbackInternal(category, message, buildVersion, sceneName);
+        }
+
+        public static void SubmitPlayerNameChange(string previousPlayerName, string newPlayerName)
+        {
+            EnsureCreated().SubmitPlayerNameChangeInternal(previousPlayerName, newPlayerName);
         }
 
         internal static void ResetStaticState()
@@ -125,6 +132,9 @@ namespace Diceforge.Integrations.SpacetimeDb
                     _connection.Reducers.OnSubmitMusicSkip -= _musicEventSink.HandleSubmitMusicSkip;
                 }
 
+                if (_playerNameChangeSink != null)
+                    _connection.Reducers.OnSubmitPlayerNameChange -= _playerNameChangeSink.HandleSubmitPlayerNameChange;
+
                 _connection.OnUnhandledReducerError -= HandleUnhandledReducerError;
 
                 if (_connection.IsActive)
@@ -157,12 +167,14 @@ namespace Diceforge.Integrations.SpacetimeDb
             _likeSink = new SpacetimeDbLikeSink(_connection);
             _feedbackSink = new SpacetimeDbFeedbackSink(_connection);
             _musicEventSink = new SpacetimeDbMusicEventSink(_connection);
+            _playerNameChangeSink = new SpacetimeDbPlayerNameChangeSink(_connection);
 
             _connection.Reducers.OnSubmitPerformanceSessionSummary += _analyticsSink.HandleSubmitPerformanceSessionSummary;
             _connection.Reducers.OnSubmitLike += _likeSink.HandleSubmitLike;
             _connection.Reducers.OnSubmitFeedback += _feedbackSink.HandleSubmitFeedback;
             _connection.Reducers.OnSubmitMusicDislike += _musicEventSink.HandleSubmitMusicDislike;
             _connection.Reducers.OnSubmitMusicSkip += _musicEventSink.HandleSubmitMusicSkip;
+            _connection.Reducers.OnSubmitPlayerNameChange += _playerNameChangeSink.HandleSubmitPlayerNameChange;
             _connection.OnUnhandledReducerError += HandleUnhandledReducerError;
 
             ClientDiagnostics.RegisterSessionSummarySink(_analyticsSink);
@@ -177,7 +189,11 @@ namespace Diceforge.Integrations.SpacetimeDb
             if (string.IsNullOrWhiteSpace(trackId) || _likeSink == null)
                 return;
 
-            _likeSink.SubmitMusicTrackLike(ClientDiagnostics.GetCurrentSessionId(), trackId);
+            _likeSink.SubmitMusicTrackLike(
+                ClientDiagnostics.GetCurrentSessionId(),
+                GetCurrentPlayerGuid(),
+                GetCurrentPlayerName(),
+                trackId);
         }
 
         private void SubmitMusicTrackDislikeInternal(string trackId, long trackElapsedMs)
@@ -189,6 +205,8 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             _musicEventSink.SubmitMusicDislike(
                 ClientDiagnostics.GetCurrentSessionId(),
+                GetCurrentPlayerGuid(),
+                GetCurrentPlayerName(),
                 trackId,
                 trackElapsedMs,
                 Application.version,
@@ -204,6 +222,8 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             _musicEventSink.SubmitMusicSkip(
                 ClientDiagnostics.GetCurrentSessionId(),
+                GetCurrentPlayerGuid(),
+                GetCurrentPlayerName(),
                 trackId,
                 trackElapsedMs,
                 Application.version,
@@ -219,10 +239,28 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             _feedbackSink.SubmitFeedback(
                 ClientDiagnostics.GetCurrentSessionId(),
+                GetCurrentPlayerGuid(),
+                GetCurrentPlayerName(),
                 category,
                 message,
                 buildVersion,
                 sceneName);
+        }
+
+        private void SubmitPlayerNameChangeInternal(string previousPlayerName, string newPlayerName)
+        {
+            InitializeIfNeeded();
+
+            if (_playerNameChangeSink == null)
+                return;
+
+            _playerNameChangeSink.SubmitPlayerNameChange(
+                ClientDiagnostics.GetCurrentSessionId(),
+                GetCurrentPlayerGuid(),
+                previousPlayerName,
+                newPlayerName,
+                Application.version,
+                SceneManager.GetActiveScene().name);
         }
 
         private void HandleConnect(DbConnection connection, Identity identity, string token)
@@ -239,6 +277,9 @@ namespace Diceforge.Integrations.SpacetimeDb
 
             if (_musicEventSink != null)
                 _musicEventSink.HandleConnected();
+
+            if (_playerNameChangeSink != null)
+                _playerNameChangeSink.HandleConnected();
         }
 
         private void HandleConnectError(Exception exception)
@@ -255,6 +296,17 @@ namespace Diceforge.Integrations.SpacetimeDb
         private void HandleUnhandledReducerError(ReducerEventContext context, Exception exception)
         {
             Debug.LogWarning($"[SpacetimeDb] Reducer error: {exception.Message}", this);
+        }
+
+        private static string GetCurrentPlayerGuid()
+        {
+            string playerGuid = ProfileService.Current.playerGuid;
+            return string.IsNullOrWhiteSpace(playerGuid) ? string.Empty : playerGuid.Trim();
+        }
+
+        private static string GetCurrentPlayerName()
+        {
+            return ProfileService.GetDisplayName();
         }
     }
 }
