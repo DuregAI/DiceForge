@@ -261,111 +261,1016 @@
 }
 
 .wallet-panel {
-    min-width: 260px;
-    padding: 12px;
-    background-color: rgba(0, 0, 0, 0.55);
-    border-radius: 8px;
+    min-width: 0;
+    padding: 2px 0 2px 0;
+    background-color: transparent;
+    border-radius: 0;
 }
 
-.wallet-label {
-    color: rgb(240, 240, 220);
-    font-size: 16px;
+.wallet-section,
+.wallet-actions {
+    padding: 12px 14px;
+    background-color: rgba(30, 22, 15, 0.18);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(236, 206, 144, 0.08);
+    border-right-color: rgba(236, 206, 144, 0.08);
+    border-top-color: rgba(255, 239, 202, 0.05);
+    border-bottom-color: rgba(55, 36, 19, 0.12);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
-.wallet-button {
-    min-height: 34px;
-    font-size: 14px;
+.wallet-section-xp,
+.wallet-section-chest,
+.wallet-actions {
+    margin-top: 16px;
 }
 
-.wallet-result {
-    color: rgb(190, 255, 190);
-    font-size: 13px;
-    white-space: normal;
-}
-
-.upgrade-shop-window {
-    width: 700px;
-    max-height: 820px;
-    background-color: rgba(22, 18, 12, 0.95);
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-top-width: 3px;
-    border-bottom-width: 3px;
-    border-left-color: rgb(200, 162, 84);
-    border-right-color: rgb(200, 162, 84);
-    border-top-color: rgb(200, 162, 84);
-    border-bottom-color: rgb(200, 162, 84);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    padding: 16px;
+.wallet-actions {
+    flex-direction: column;
     align-items: stretch;
 }
 
-.upgrade-shop-coins {
-    color: rgb(255, 230, 160);
-    font-size: 26px;
+.wallet-actions-title {
+    margin-bottom: 10px;
+    color: rgba(230, 213, 176, 0.82);
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    text-shadow: 0 1px 0 rgba(56, 37, 16, 0.55);
+}
+
+.wallet-row {
+    min-height: 54px;
     margin-bottom: 8px;
+    padding-left: 2px;
+    padding-right: 2px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wallet-row-tight,
+.wallet-row-feature-head {
+    min-height: 50px;
+    margin-bottom: 0;
+}
+
+.wallet-row-leading {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.wallet-row-icon {
+    width: 46px;
+    height: 46px;
+    margin-right: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-shrink: 0;
+}
+
+.wallet-row-icon-coins {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_coin.png?fileID=2800000&guid=6d4625b4184e42769e07d113ccb1e721&type=3#lp_icon_coin");
+}
+
+.wallet-row-icon-essence {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_essence.png?fileID=2800000&guid=a2d67885be1a4a79a6539fba5f84cc42&type=3#lp_icon_essence");
+}
+
+.wallet-row-icon-shards {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_shard.png?fileID=2800000&guid=d1d4a0d6eeac4c3da5b80a47253d5329&type=3#lp_icon_shard");
+}
+
+.wallet-row-icon-xp {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_xp.png?fileID=2800000&guid=f4fd677d98df4021a6f56fca634abb21&type=3#lp_icon_xp");
+}
+
+.wallet-row-icon-chest {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/chest_shop_small.png?fileID=2800000&guid=cdd6ef72edd746478b260f70bc05ba62&type=3#chest_shop_small");
+}
+
+.wallet-row-title,
+.wallet-row-inline-value,
+.wallet-row-value,
+.wallet-row-progress,
+.wallet-chest-badge {
+    color: rgb(247, 236, 204);
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(56, 37, 16, 0.85);
+}
+
+.wallet-row-title {
+    font-size: 22px;
+}
+
+.wallet-row-inline-value {
+    display: none;
+}
+
+.wallet-row-value,
+.wallet-row-progress {
+    min-width: 94px;
+    font-size: 27px;
+    -unity-text-align: middle-right;
+}
+
+.wallet-xp-bar {
+    margin-top: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.wallet-xp-bar-track {
+    height: 30px;
+    padding: 4px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_progress_frame_9s.png?fileID=2800000&guid=a8c4c9982d8549788db0a9ccb7442ab1&type=3#lp_progress_frame_9s");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -unity-slice-left: 18;
+    -unity-slice-right: 18;
+    -unity-slice-top: 14;
+    -unity-slice-bottom: 14;
+}
+
+.wallet-xp-fill {
+    height: 100%;
+    width: 0;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_progress_fill.png?fileID=2800000&guid=9f6d5e6d234b4b8e9ab2c4f1383fa321&type=3#lp_progress_fill");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -unity-slice-left: 18;
+    -unity-slice-right: 18;
+    -unity-slice-top: 14;
+    -unity-slice-bottom: 14;
+}
+
+.wallet-feature-card {
+    padding: 12px 14px 14px 14px;
+    background-color: rgba(22, 17, 12, 0.30);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(236, 206, 144, 0.08);
+    border-right-color: rgba(236, 206, 144, 0.08);
+    border-top-color: rgba(255, 239, 202, 0.05);
+    border-bottom-color: rgba(55, 36, 19, 0.12);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+.wallet-feature-card-chest {
+    padding: 10px 10px 12px 10px;
+}
+
+.wallet-chest-button {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: 138px;
+    min-height: 138px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.02);
+    background-image: none;
+    border-width: 0;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    flex-shrink: 0;
+    transition-property: scale, opacity;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.wallet-chest-button:hover {
+    scale: 1.015;
+}
+
+.wallet-chest-button:active {
+    scale: 0.985;
+}
+
+.wallet-chest-button:disabled {
+    opacity: 0.8;
+}
+
+.wallet-chest-badge {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    min-width: 48px;
+    height: 48px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 9px;
+    color: rgb(255, 247, 220);
+    font-size: 24px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-color: rgba(90, 61, 26, 0.96);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(230, 196, 108, 0.92);
+    border-right-color: rgba(230, 196, 108, 0.92);
+    border-top-color: rgba(230, 196, 108, 0.92);
+    border-bottom-color: rgba(230, 196, 108, 0.92);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.wallet-chest-art {
+    width: 192px;
+    min-width: 192px;
+    height: 143px;
+    min-height: 143px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_chest_cluster.png?fileID=2800000&guid=c153be46d5a54d0e8a12ea8bdb5cfb52&type=3#lp_chest_cluster");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-shrink: 0;
+}
+
+.left-sidebar-button {
+    height: 58px;
+    padding-left: 22px;
+    padding-right: 22px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_primary_9s.png?fileID=2800000&guid=b49f1657c9d54876a326fc5c5ad72fd1&type=3#lp_button_primary_9s");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-width: 0;
+    -unity-slice-left: 28;
+    -unity-slice-right: 28;
+    -unity-slice-top: 24;
+    -unity-slice-bottom: 24;
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
+    font-size: 22px;
+    color: rgb(247, 236, 204);
+    -unity-text-align: middle-center;
+    text-shadow: 0 3px 0 rgba(63, 41, 19, 0.85);
+    transition-property: scale, opacity;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.left-sidebar-button:hover {
+    scale: 1.02;
+}
+
+.left-sidebar-button:active {
+    scale: 0.98;
+}
+
+.left-sidebar-button:disabled {
+    opacity: 0.55;
+}
+
+.left-sidebar-button-compact {
+    width: 126px;
+    height: 52px;
+    font-size: 19px;
+}
+
+.left-sidebar-button-utility {
+    height: 52px;
+    font-size: 19px;
+    opacity: 0.92;
+}
+
+.left-sidebar-button-secondary {
+    margin-top: 0;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_secondary_9s.png?fileID=2800000&guid=45ea0e62c4804e5e87712a9655ad8b30&type=3#lp_button_secondary_9s");
+    color: rgb(193, 235, 132);
+}
+
+
+.left-sidebar-button-reset {
+    margin-top: 8px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_secondary_9s.png?fileID=2800000&guid=45ea0e62c4804e5e87712a9655ad8b30&type=3#lp_button_secondary_9s");
+    color: rgba(242, 231, 202, 0.92);
+}
+
+.wallet-result {
+    display: none;
+    margin-top: 10px;
+    color: rgb(196, 237, 142);
+    font-size: 13px;
+    white-space: normal;
+}
+.upgrade-shop-window {
+    position: relative;
+    width: 940px;
+    min-width: 940px;
+    max-width: 940px;
+    min-height: 760px;
+    max-height: 860px;
+    padding: 18px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_frame_9s.png?fileID=2800000&guid=d2458c1f2e9544f4b1f987e5a4019c11&type=3#lp_frame_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 48;
+    -unity-slice-right: 48;
+    -unity-slice-top: 48;
+    -unity-slice-bottom: 48;
+}
+
+.upgrade-shop-content {
+    flex-grow: 1;
+    padding: 26px 28px 24px 28px;
+    background-color: rgba(61, 45, 30, 0.96);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png?fileID=2800000&guid=7c92fe0db47d4cccb6511a4620e5d483&type=3#lp_bg_tile");
+    background-repeat: repeat;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.upgrade-shop-header {
+    margin-bottom: 14px;
+}
+
+.upgrade-shop-title {
+    color: rgb(249, 239, 197);
+    font-size: 40px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    text-shadow: 0 3px 0 rgba(55, 34, 15, 0.82);
+}
+
+.upgrade-shop-subtitle {
+    margin-top: 6px;
+    color: rgb(223, 211, 180);
+    font-size: 18px;
+    white-space: normal;
+}
+
+.upgrade-shop-toolbar {
+    margin-bottom: 14px;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.upgrade-shop-currency-pill {
+    min-width: 188px;
+    height: 54px;
+    padding-left: 14px;
+    padding-right: 18px;
+    flex-direction: row;
+    align-items: center;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_header_plaque_9s.png?fileID=2800000&guid=5e82c84c7a9f4b3ab94b764bc8a9d321&type=3#lp_header_plaque_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+}
+
+.upgrade-shop-currency-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_coin.png?fileID=2800000&guid=6d4625b4184e42769e07d113ccb1e721&type=3#lp_icon_coin");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.upgrade-shop-coins {
+    color: rgb(255, 231, 161);
+    font-size: 28px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.72);
 }
 
 .upgrade-list {
     flex-grow: 1;
+    margin-bottom: 14px;
 }
 
-.upgrade-row {
-    margin-bottom: 8px;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.08);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+.upgrade-list .unity-scroll-view__content-container {
+    padding-right: 8px;
 }
 
-.upgrade-name {
-    color: white;
-    font-size: 18px;
-}
-
-.upgrade-description {
-    color: rgb(210, 210, 210);
-    font-size: 14px;
-}
-
-.upgrade-meta {
-    color: rgb(255, 230, 160);
-    font-size: 14px;
-}
-
-.upgrade-buy-button {
-    margin-top: 4px;
-}
-
-.chest-shop-window {
-    min-width: 460px;
-    max-width: 620px;
-    align-items: stretch;
-}
-
-.chest-shop-title {
-    font-size: var(--df-font-size-l);
-    unity-font-style: bold;
-    unity-text-align: middle-center;
-    margin-bottom: var(--df-space-12);
-}
-
-.chest-shop-row {
+.upgrade-card {
+    min-height: 162px;
+    margin-bottom: 14px;
+    padding: 16px 18px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--df-space-8);
+    background-color: rgba(30, 22, 15, 0.76);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_header_plaque_9s.png?fileID=2800000&guid=5e82c84c7a9f4b3ab94b764bc8a9d321&type=3#lp_header_plaque_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(227, 189, 109, 0.82);
+    border-right-color: rgba(227, 189, 109, 0.82);
+    border-top-color: rgba(227, 189, 109, 0.82);
+    border-bottom-color: rgba(227, 189, 109, 0.82);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.upgrade-card--essence {
+    border-left-color: rgba(108, 231, 154, 0.86);
+    border-right-color: rgba(108, 231, 154, 0.86);
+    border-top-color: rgba(108, 231, 154, 0.86);
+    border-bottom-color: rgba(108, 231, 154, 0.86);
+}
+
+.upgrade-card--shards,
+.upgrade-card--xp {
+    border-left-color: rgba(123, 196, 255, 0.86);
+    border-right-color: rgba(123, 196, 255, 0.86);
+    border-top-color: rgba(123, 196, 255, 0.86);
+    border-bottom-color: rgba(123, 196, 255, 0.86);
+}
+
+.upgrade-card--chest {
+    border-left-color: rgba(245, 210, 113, 0.9);
+    border-right-color: rgba(245, 210, 113, 0.9);
+    border-top-color: rgba(245, 210, 113, 0.9);
+    border-bottom-color: rgba(245, 210, 113, 0.9);
+}
+
+.upgrade-card-left {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.upgrade-card-icon-wrap {
+    position: relative;
+    width: 116px;
+    height: 116px;
+    margin-right: 18px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.upgrade-card-icon-halo {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    bottom: 8px;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.upgrade-card-icon-halo--gold-win,
+.upgrade-card-icon-halo--gold-loss,
+.upgrade-card-icon-halo--gold-long,
+.upgrade-card-icon-halo--gold-short {
+    background-color: rgba(255, 201, 84, 0.20);
+}
+
+.upgrade-card-icon-halo--essence {
+    background-color: rgba(101, 255, 158, 0.22);
+}
+
+.upgrade-card-icon-halo--shards,
+.upgrade-card-icon-halo--xp {
+    background-color: rgba(109, 196, 255, 0.22);
+}
+
+.upgrade-card-icon-halo--chest {
+    background-color: rgba(255, 223, 128, 0.18);
+}
+
+.upgrade-card-icon {
+    width: 86px;
+    height: 86px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.upgrade-card-icon--gold-win,
+.upgrade-card-icon--gold-loss,
+.upgrade-card-icon--gold-long,
+.upgrade-card-icon--gold-short {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_coin.png?fileID=2800000&guid=6d4625b4184e42769e07d113ccb1e721&type=3#lp_icon_coin");
+}
+
+.upgrade-card-icon--essence {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_essence.png?fileID=2800000&guid=a2d67885be1a4a79a6539fba5f84cc42&type=3#lp_icon_essence");
+}
+
+.upgrade-card-icon--shards {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_shard.png?fileID=2800000&guid=d1d4a0d6eeac4c3da5b80a47253d5329&type=3#lp_icon_shard");
+}
+
+.upgrade-card-icon--xp {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_xp.png?fileID=2800000&guid=f4fd677d98df4021a6f56fca634abb21&type=3#lp_icon_xp");
+}
+
+.upgrade-card-icon--chest {
+    width: 94px;
+    height: 62px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/chest_shop_small.png?fileID=2800000&guid=cdd6ef72edd746478b260f70bc05ba62&type=3#chest_shop_small");
+}
+
+.upgrade-card-mode-badge {
+    position: absolute;
+    right: -2px;
+    top: -4px;
+    min-width: 54px;
+    height: 28px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    color: rgb(255, 244, 210);
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-color: rgba(61, 42, 22, 0.95);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(229, 196, 108, 0.9);
+    border-right-color: rgba(229, 196, 108, 0.9);
+    border-top-color: rgba(229, 196, 108, 0.9);
+    border-bottom-color: rgba(229, 196, 108, 0.9);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.upgrade-card-copy {
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.upgrade-card-title {
+    color: rgb(249, 239, 197);
+    font-size: 28px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.78);
+}
+
+.upgrade-card-description {
+    margin-top: 6px;
+    color: rgb(222, 210, 182);
+    font-size: 17px;
+    white-space: normal;
+}
+
+.upgrade-card-chip-row {
+    margin-top: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.upgrade-card-chip {
+    margin-right: 10px;
+    margin-bottom: 6px;
+    min-height: 34px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 7px;
+    color: rgb(247, 236, 204);
+    font-size: 16px;
+    -unity-font-style: bold;
+    background-color: rgba(22, 18, 13, 0.52);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(227, 189, 109, 0.46);
+    border-right-color: rgba(227, 189, 109, 0.46);
+    border-top-color: rgba(227, 189, 109, 0.46);
+    border-bottom-color: rgba(227, 189, 109, 0.46);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.upgrade-card-chip-value {
+    color: rgb(201, 237, 155);
+}
+
+.upgrade-card-right {
+    width: 176px;
+    margin-left: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.upgrade-card-price {
+    margin-bottom: 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.upgrade-card-price-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_coin.png?fileID=2800000&guid=6d4625b4184e42769e07d113ccb1e721&type=3#lp_icon_coin");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.upgrade-card-price-label {
+    color: rgb(255, 231, 161);
+    font-size: 24px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.72);
+}
+
+.upgrade-card-price-label.is-max {
+    color: rgb(201, 237, 155);
+}
+
+.upgrade-card-buy-button {
+    height: 56px;
+    min-width: 156px;
+    padding-left: 18px;
+    padding-right: 18px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_primary_9s.png?fileID=2800000&guid=b49f1657c9d54876a326fc5c5ad72fd1&type=3#lp_button_primary_9s");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-width: 0;
+    -unity-slice-left: 28;
+    -unity-slice-right: 28;
+    -unity-slice-top: 24;
+    -unity-slice-bottom: 24;
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
+    font-size: 22px;
+    color: rgb(247, 236, 204);
+    -unity-text-align: middle-center;
+    text-shadow: 0 3px 0 rgba(63, 41, 19, 0.85);
+    transition-property: scale, opacity;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.upgrade-card-buy-button:hover {
+    scale: 1.03;
+}
+
+.upgrade-card-buy-button:active {
+    scale: 0.98;
+}
+
+.upgrade-card-buy-button:disabled {
+    opacity: 0.55;
+}
+
+.upgrade-shop-footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.upgrade-shop-footer-copy {
+    flex-grow: 1;
+    min-height: 44px;
+    margin-right: 16px;
+    color: rgb(220, 208, 178);
+    font-size: 17px;
+    white-space: normal;
+    -unity-text-align: middle-left;
+    text-shadow: 0 2px 0 rgba(38, 28, 12, 0.6);
+}
+
+.upgrade-shop-close {
+    align-self: flex-end;
+}
+
+.chest-shop-window {
+    position: relative;
+    width: 820px;
+    min-width: 820px;
+    max-width: 820px;
+    padding: 18px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_frame_9s.png?fileID=2800000&guid=d2458c1f2e9544f4b1f987e5a4019c11&type=3#lp_frame_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 48;
+    -unity-slice-right: 48;
+    -unity-slice-top: 48;
+    -unity-slice-bottom: 48;
+}
+
+.chest-shop-content {
+    position: relative;
+    padding: 28px;
+    background-color: rgba(61, 45, 30, 0.96);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png?fileID=2800000&guid=7c92fe0db47d4cccb6511a4620e5d483&type=3#lp_bg_tile");
+    background-repeat: repeat;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+}
+
+.chest-shop-fx {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.34;
+    background-color: rgba(255, 255, 255, 0.006);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.chest-shop-header {
+    margin-bottom: 18px;
+}
+
+.chest-shop-title {
+    color: rgb(249, 239, 197);
+    font-size: 38px;
+    -unity-font-style: bold;
+    unity-text-align: middle-left;
+    text-shadow: 0 3px 0 rgba(55, 34, 15, 0.82);
+}
+
+.chest-shop-subtitle {
+    margin-top: 6px;
+    color: rgb(221, 208, 176);
+    font-size: 18px;
+    white-space: normal;
+}
+
+.chest-shop-list {
+    flex-direction: column;
+}
+
+.chest-shop-card {
+    min-height: 150px;
+    margin-bottom: 14px;
+    padding: 16px 18px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(30, 22, 15, 0.76);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_header_plaque_9s.png?fileID=2800000&guid=5e82c84c7a9f4b3ab94b764bc8a9d321&type=3#lp_header_plaque_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(227, 189, 109, 0.82);
+    border-right-color: rgba(227, 189, 109, 0.82);
+    border-top-color: rgba(227, 189, 109, 0.82);
+    border-bottom-color: rgba(227, 189, 109, 0.82);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.chest-shop-card-medium {
+    border-left-color: rgba(123, 196, 255, 0.86);
+    border-right-color: rgba(123, 196, 255, 0.86);
+    border-top-color: rgba(123, 196, 255, 0.86);
+    border-bottom-color: rgba(123, 196, 255, 0.86);
+}
+
+.chest-shop-card-essence {
+    border-left-color: rgba(108, 231, 154, 0.86);
+    border-right-color: rgba(108, 231, 154, 0.86);
+    border-top-color: rgba(108, 231, 154, 0.86);
+    border-bottom-color: rgba(108, 231, 154, 0.86);
+}
+
+.chest-shop-card-left {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.chest-shop-card-icon-wrap {
+    position: relative;
+    width: 190px;
+    height: 118px;
+    margin-right: 18px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chest-shop-card-halo {
+    position: absolute;
+    left: 34px;
+    right: 34px;
+    top: 10px;
+    bottom: 10px;
+    border-radius: 999px;
+}
+
+.chest-shop-card-halo-small {
+    background-color: rgba(255, 201, 84, 0.20);
+}
+
+.chest-shop-card-halo-medium {
+    background-color: rgba(109, 196, 255, 0.22);
+}
+
+.chest-shop-card-halo-essence {
+    background-color: rgba(101, 255, 158, 0.22);
+}
+
+.chest-shop-card-icon {
+    width: 176px;
+    height: 132px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.chest-shop-card-icon-small {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/chest_shop_small.png?fileID=2800000&guid=cdd6ef72edd746478b260f70bc05ba62&type=3#chest_shop_small");
+}
+
+.chest-shop-card-icon-medium {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/chest_shop_medium.png?fileID=2800000&guid=e2279169170a4b3d92548a3efa260182&type=3#chest_shop_medium");
+}
+
+.chest-shop-card-icon-essence {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/chest_shop_essence.png?fileID=2800000&guid=008d05c026ee4fdeb399c91a0c8825da&type=3#chest_shop_essence");
+}
+
+.chest-shop-card-copy {
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.chest-shop-card-title {
+    color: rgb(249, 239, 197);
+    font-size: 28px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.78);
+}
+
+.chest-shop-card-subtitle {
+    margin-top: 6px;
+    color: rgb(222, 210, 182);
+    font-size: 17px;
+    white-space: normal;
+}
+
+.chest-shop-card-right {
+    width: 172px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chest-shop-price {
+    margin-bottom: 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.chest-shop-price-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.chest-shop-price-icon-gold {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_coin.png?fileID=2800000&guid=6d4625b4184e42769e07d113ccb1e721&type=3#lp_icon_coin");
+}
+
+.chest-shop-price-icon-essence {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_icon_essence.png?fileID=2800000&guid=a2d67885be1a4a79a6539fba5f84cc42&type=3#lp_icon_essence");
+}
+
+.chest-shop-price-label {
+    color: rgb(255, 231, 161);
+    font-size: 24px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.72);
+}
+
+.chest-shop-card-medium .chest-shop-price-label {
+    color: rgb(203, 233, 255);
+}
+
+.chest-shop-card-essence .chest-shop-price-label {
+    color: rgb(177, 245, 176);
+}
+
+.chest-shop-buy-button {
+    height: 56px;
+    min-width: 156px;
+    padding-left: 18px;
+    padding-right: 18px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_primary_9s.png?fileID=2800000&guid=b49f1657c9d54876a326fc5c5ad72fd1&type=3#lp_button_primary_9s");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-width: 0;
+    -unity-slice-left: 28;
+    -unity-slice-right: 28;
+    -unity-slice-top: 24;
+    -unity-slice-bottom: 24;
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
+    font-size: 22px;
+    color: rgb(247, 236, 204);
+    -unity-text-align: middle-center;
+    text-shadow: 0 3px 0 rgba(63, 41, 19, 0.85);
+    transition-property: scale, opacity;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.chest-shop-buy-button:hover {
+    scale: 1.03;
+}
+
+.chest-shop-buy-button:active {
+    scale: 0.98;
+}
+
+.chest-shop-buy-button:disabled {
+    opacity: 0.55;
+}
+
+.chest-shop-buy-button-secondary {
+    width: 176px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_secondary_9s.png?fileID=2800000&guid=45ea0e62c4804e5e87712a9655ad8b30&type=3#lp_button_secondary_9s");
+}
+
+.chest-shop-footer {
+    margin-top: 6px;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
 }
 
 .chest-shop-status {
-    color: var(--df-color-accent);
-    min-height: 24px;
-    margin-top: var(--df-space-8);
+    flex-grow: 1;
+    min-height: 44px;
+    margin-right: 16px;
+    color: rgb(199, 242, 156);
+    font-size: 18px;
+    white-space: normal;
+    -unity-text-align: middle-left;
+    text-shadow: 0 2px 0 rgba(38, 28, 12, 0.6);
 }
 
 .chest-shop-close {
@@ -498,7 +1403,6 @@
     margin-top: 10px;
 }
 
-
 .feedback-modal-window .panel-title {
     color: rgb(255, 238, 186);
     font-size: 34px;
@@ -542,4 +1446,15 @@
 .feedback-message-field .unity-base-text-field__input {
     font-size: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
 

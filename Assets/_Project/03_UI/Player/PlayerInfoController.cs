@@ -1,9 +1,13 @@
+using System;
 using Diceforge.Progression;
+using Diceforge.Integrations.SpacetimeDb;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public sealed class PlayerInfoController : MonoBehaviour
 {
+    public const int MaxPlayerNameLength = 23;
+
     private bool _initialized;
 
     private VisualElement _playerInfoModal;
@@ -50,6 +54,9 @@ public sealed class PlayerInfoController : MonoBehaviour
         _renameField = root.Q<TextField>("txtRenamePlayer");
         _renameApplyButton = root.Q<Button>("btnRenameApply");
         _renameCancelButton = root.Q<Button>("btnRenameCancel");
+
+        if (_renameField != null)
+            _renameField.maxLength = MaxPlayerNameLength;
 
         _closeInfoButton.clicked += CloseInfo;
         _infoAvatarButton.clicked += OpenRenameConfirmation;
@@ -100,6 +107,14 @@ public sealed class PlayerInfoController : MonoBehaviour
         SetVisible(_renameConfirmModal, true);
     }
 
+    public static string ClampPlayerName(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        return value.Length <= MaxPlayerNameLength ? value : value.Substring(0, MaxPlayerNameLength);
+    }
+
     private void CloseInfo()
     {
         SetVisible(_playerInfoModal, false);
@@ -121,9 +136,20 @@ public sealed class PlayerInfoController : MonoBehaviour
     private void OpenRenameModal()
     {
         if (_renameField != null)
-            _renameField.value = ProfileService.Current.playerName;
+        {
+            _renameField.SetValueWithoutNotify(ClampPlayerName(ProfileService.Current.playerName));
+        }
 
         SetVisible(_renameModal, true);
+
+        if (_renameField != null)
+        {
+            _renameField.schedule.Execute(() =>
+            {
+                _renameField.Focus();
+                _renameField.SelectAll();
+            }).ExecuteLater(1);
+        }
     }
 
     private void CloseRenameModal()
@@ -133,8 +159,14 @@ public sealed class PlayerInfoController : MonoBehaviour
 
     private void ApplyRename()
     {
-        var newName = _renameField != null ? _renameField.value : string.Empty;
+        var previousDisplayName = ClampPlayerName(ProfileService.GetDisplayName());
+        var newName = ClampPlayerName(_renameField != null ? _renameField.value : string.Empty);
         ProfileService.SetPlayerName(newName);
+
+        var newDisplayName = ClampPlayerName(ProfileService.GetDisplayName());
+        if (!string.Equals(previousDisplayName, newDisplayName, StringComparison.Ordinal))
+            SpacetimeDbLocalDevRuntime.SubmitPlayerNameChange(previousDisplayName, newDisplayName);
+
         CloseRenameModal();
     }
 
@@ -148,14 +180,16 @@ public sealed class PlayerInfoController : MonoBehaviour
         var xp = Mathf.Max(0, ProfileService.Current.hero.xp);
         var level = (xp / 100) + 1;
         var levelFloorXp = (level - 1) * 100;
-        var nextLevelXp = level * 100;
+        var displayName = ClampPlayerName(ProfileService.GetDisplayName());
 
         if (_infoNameLabel != null)
-            _infoNameLabel.text = ProfileService.GetDisplayName();
+            _infoNameLabel.text = displayName;
+        if (_infoNameButton != null)
+            _infoNameButton.text = displayName;
         if (_infoLevelLabel != null)
             _infoLevelLabel.text = $"Lv {level}";
         if (_infoXpLabel != null)
-            _infoXpLabel.text = $"XP {xp} ({Mathf.Max(0, xp - levelFloorXp)}/100 to Lv {level + 1})";
+            _infoXpLabel.text = $"XP {xp} ({Mathf.Max(0, xp - levelFloorXp)}/{UiProgressionService.XpPerLevel} to Lv {level + 1})";
     }
 
     private void CloseAllModals()
@@ -171,3 +205,7 @@ public sealed class PlayerInfoController : MonoBehaviour
             element.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
+
+
+
+

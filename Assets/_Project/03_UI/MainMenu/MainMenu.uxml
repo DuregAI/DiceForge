@@ -15,8 +15,6 @@
                     <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
                     <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                     <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
-                    <ui:Button name="btnChests" text="Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
-                    <ui:Button name="btnChestShop" text="Buy Chests" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -50,70 +48,216 @@
         </ui:VisualElement>
         <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
             <ui:VisualElement class="upgrade-shop-window">
-                <ui:Label text="UPGRADES" class="panel-title"/>
-                <ui:Label name="upgradeShopCoins" text="Coins: 0" class="upgrade-shop-coins"/>
-                <ui:ScrollView name="upgradeList" class="upgrade-list"/>
-                <ui:Button name="btnCloseUpgrades" text="Close" class="wallet-button df-interactive"/>
+                <ui:VisualElement class="upgrade-shop-content">
+                    <ui:VisualElement class="upgrade-shop-header">
+                        <ui:Label text="Upgrades" class="upgrade-shop-title df-label"/>
+                        <ui:Label text="Invest coins into passive boosts and shape your next runs." class="upgrade-shop-subtitle df-label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="upgrade-shop-toolbar">
+                        <ui:VisualElement class="upgrade-shop-currency-pill">
+                            <ui:VisualElement class="upgrade-shop-currency-icon"/>
+                            <ui:Label name="upgradeShopCoins" text="0" class="upgrade-shop-coins df-label"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:ScrollView name="upgradeList" class="upgrade-list"/>
+                    <ui:VisualElement class="upgrade-shop-footer">
+                        <ui:Label text="Upgrade choices unlock stronger runs over time." class="upgrade-shop-footer-copy df-label"/>
+                        <ui:Button name="btnCloseUpgrades" text="Close" class="chest-shop-buy-button chest-shop-buy-button-secondary upgrade-shop-close df-interactive"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="ChestShopPanel" class="settings-overlay">
-            <ui:VisualElement class="chest-shop-window df-surface">
-                <ui:Label text="Chest Shop" class="chest-shop-title df-label"/>
-                <ui:VisualElement class="chest-shop-row">
-                    <ui:Label text="Small Chest" class="df-label"/>
-                    <ui:Label text="50 Gold" class="df-label"/>
-                    <ui:Button name="btnBuySmallChest" text="Buy" class="df-button df-interactive"/>
+            <ui:VisualElement name="chestShopWindow" class="chest-shop-window">
+                <ui:VisualElement class="chest-shop-content">
+                    <ui:VisualElement class="chest-shop-header">
+                        <ui:Label text="Chest Shop" class="chest-shop-title df-label"/>
+                        <ui:Label text="Choose a tier and stock your next run with treasure." class="chest-shop-subtitle df-label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="chest-shop-list">
+                        <ui:VisualElement class="chest-shop-card chest-shop-card-small">
+                            <ui:VisualElement class="chest-shop-card-left">
+                                <ui:VisualElement class="chest-shop-card-icon-wrap">
+                                    <ui:VisualElement class="chest-shop-card-halo chest-shop-card-halo-small"/>
+                                    <ui:VisualElement class="chest-shop-card-icon chest-shop-card-icon-small"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="chest-shop-card-copy">
+                                    <ui:Label text="Small Chest" class="chest-shop-card-title df-label"/>
+                                    <ui:Label text="Starter stash with steady gold and clean utility rewards." class="chest-shop-card-subtitle df-label"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="chest-shop-card-right">
+                                <ui:VisualElement class="chest-shop-price">
+                                    <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-gold"/>
+                                    <ui:Label text="50 Gold" class="chest-shop-price-label df-label"/>
+                                </ui:VisualElement>
+                                <ui:Button name="btnBuySmallChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="chest-shop-card chest-shop-card-medium">
+                            <ui:VisualElement class="chest-shop-card-left">
+                                <ui:VisualElement class="chest-shop-card-icon-wrap">
+                                    <ui:VisualElement class="chest-shop-card-halo chest-shop-card-halo-medium"/>
+                                    <ui:VisualElement class="chest-shop-card-icon chest-shop-card-icon-medium"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="chest-shop-card-copy">
+                                    <ui:Label text="Medium Chest" class="chest-shop-card-title df-label"/>
+                                    <ui:Label text="Bigger haul with a richer drop feel and stronger payout curve." class="chest-shop-card-subtitle df-label"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="chest-shop-card-right">
+                                <ui:VisualElement class="chest-shop-price">
+                                    <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-gold"/>
+                                    <ui:Label text="120 Gold" class="chest-shop-price-label df-label"/>
+                                </ui:VisualElement>
+                                <ui:Button name="btnBuyMediumChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="chest-shop-card chest-shop-card-essence">
+                            <ui:VisualElement class="chest-shop-card-left">
+                                <ui:VisualElement class="chest-shop-card-icon-wrap">
+                                    <ui:VisualElement class="chest-shop-card-halo chest-shop-card-halo-essence"/>
+                                    <ui:VisualElement class="chest-shop-card-icon chest-shop-card-icon-essence"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="chest-shop-card-copy">
+                                    <ui:Label text="Essence Chest" class="chest-shop-card-title df-label"/>
+                                    <ui:Label text="Arcane purchase paid in essence with brighter magical rewards." class="chest-shop-card-subtitle df-label"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="chest-shop-card-right">
+                                <ui:VisualElement class="chest-shop-price">
+                                    <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-essence"/>
+                                    <ui:Label text="10 Essence" class="chest-shop-price-label df-label"/>
+                                </ui:VisualElement>
+                                <ui:Button name="btnBuyEssenceChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="chest-shop-footer">
+                        <ui:Label name="chestShopStatus" text="" class="chest-shop-status df-label"/>
+                        <ui:Button name="btnCloseChestShop" text="Close" class="chest-shop-buy-button chest-shop-buy-button-secondary chest-shop-close df-interactive"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="chestShopFx" class="chest-shop-fx"/>
                 </ui:VisualElement>
-                <ui:VisualElement class="chest-shop-row">
-                    <ui:Label text="Medium Chest" class="df-label"/>
-                    <ui:Label text="120 Gold" class="df-label"/>
-                    <ui:Button name="btnBuyMediumChest" text="Buy" class="df-button df-interactive"/>
-                </ui:VisualElement>
-                <ui:VisualElement class="chest-shop-row">
-                    <ui:Label text="Essence Chest" class="df-label"/>
-                    <ui:Label text="10 Essence" class="df-label"/>
-                    <ui:Button name="btnBuyEssenceChest" text="Buy" class="df-button df-interactive"/>
-                </ui:VisualElement>
-                <ui:Label name="chestShopStatus" text="" class="chest-shop-status df-label"/>
-                <ui:Button name="btnCloseChestShop" text="Close" class="df-button df-interactive chest-shop-close"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
+                <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
             <ui:VisualElement class="chest-open-window">
-                <ui:Label name="chestOpenTitle" text="Chest" class="panel-title chest-open-title"/>
-                <ui:VisualElement class="chest-header-row">
-                    <ui:VisualElement name="chestIcon" class="chest-icon"/>
-                    <ui:Label name="chestInfoLabel" text="No chests available" class="chest-info-label"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="chestRewardsContainer" class="chest-rewards-container reward-hidden">
-                    <ui:Label text="Rewards" class="chest-reward-title"/>
-                    <ui:ScrollView name="chestRewardsList" class="chest-rewards-list"/>
-                </ui:VisualElement>
-                <ui:VisualElement class="chest-actions-row">
-                    <ui:Button name="btnOpenChestScreen" text="Open" class="wallet-button df-interactive"/>
-                    <ui:Button name="btnCloseChestScreen" text="Close" class="wallet-button df-interactive"/>
+                <ui:VisualElement class="chest-open-shell">
+                    <ui:VisualElement class="chest-open-header">
+                        <ui:Label name="chestOpenTitle" text="Treasure Chests" class="chest-open-title df-label"/>
+                        <ui:Label name="chestOpenSubtitle" text="Tap a chest to crack it open and collect the haul." class="chest-open-subtitle df-label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="chest-open-main">
+                        <ui:VisualElement class="chest-open-preview-panel">
+                            <ui:VisualElement class="chest-open-preview-card">
+                                <ui:VisualElement name="chestOpenFx" class="chest-open-fx"/>
+                                <ui:Button name="btnOpenChestScreen" text="" class="chest-open-preview-button df-interactive">
+                                    <ui:VisualElement name="chestPreviewHalo" class="chest-preview-halo chest-preview-halo--basic"/>
+                                    <ui:VisualElement name="chestPreviewIcon" class="chest-preview-icon chest-preview-icon--basic"/>
+                                    <ui:Label name="chestPreviewCount" text="x0" class="chest-preview-count df-label"/>
+                                </ui:Button>
+                            </ui:VisualElement>
+                            <ui:Label name="chestInfoLabel" text="No chests waiting" class="chest-info-label df-label"/>
+                            <ui:Label name="chestInfoHint" text="Collect chests from battles and the shop to stock this stash." class="chest-info-hint df-label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="chest-open-side">
+                            <ui:VisualElement class="chest-open-inventory-panel">
+                                <ui:VisualElement class="chest-open-section-header">
+                                    <ui:Label text="Your Stash" class="chest-open-section-title df-label"/>
+                                    <ui:Label name="chestQueueSummary" text="0 ready" class="chest-open-section-count df-label"/>
+                                </ui:VisualElement>
+                                <ui:ScrollView name="chestInventoryList" mode="Vertical" class="chest-inventory-list" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="chestRewardsContainer" class="chest-rewards-container reward-hidden">
+                                <ui:VisualElement class="chest-open-section-header">
+                                    <ui:Label text="Rewards" class="chest-reward-title df-label"/>
+                                    <ui:Label name="chestRewardBurstLabel" text="" class="chest-reward-burst df-label"/>
+                                </ui:VisualElement>
+                                <ui:ScrollView name="chestRewardsList" class="chest-rewards-list" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="chest-actions-row">
+                        <ui:Label name="chestOpenTip" text="Tap any chest card to open one instantly." class="chest-open-tip df-label"/>
+                        <ui:Button name="btnCloseChestScreen" text="Close" class="chest-shop-buy-button chest-shop-buy-button-secondary chest-open-close df-interactive"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="LeftSidebar" class="left-sidebar">
-            <ui:VisualElement name="PlayerPanel" class="player-panel df-surface">
-                <ui:Button name="btnPlayerAvatar" text="" icon-image="project://database/Assets/_Project/07_Art/Character/Tutorial/Avatars.png?fileID=1755310438&amp;guid=3015448196896044dac53ecc6f91afa3&amp;type=3#Scout_Map" class="player-avatar-button df-interactive"/>
-                <ui:Label name="playerPanelName" text="Player" class="player-panel-name df-label"/>
-                <ui:VisualElement class="player-panel-meta-row">
-                    <ui:Label name="playerPanelLevel" text="Lv 1" class="player-panel-level df-label"/>
-                    <ui:Button name="btnPlayerRename" text="Rename" class="df-button df-interactive"/>
+            <ui:VisualElement class="left-sidebar-frame">
+                <ui:VisualElement class="left-sidebar-content">
+                    <ui:VisualElement name="PlayerPanel" class="player-panel">
+                        <ui:VisualElement class="player-panel-top-row">
+                            <ui:VisualElement class="player-avatar-stack">
+                                <ui:VisualElement class="player-avatar-frame">
+                                    <ui:Button name="btnPlayerAvatar" text="" icon-image="project://database/Assets/_Project/07_Art/Character/Tutorial/Avatars.png?fileID=1755310438&amp;guid=3015448196896044dac53ecc6f91afa3&amp;type=3#Scout_Map" class="player-avatar-button df-interactive"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="player-level-badge">
+                                    <ui:Label name="playerPanelLevel" text="Lv 1" class="player-panel-level df-label"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Button name="btnPlayerRename" text="" class="player-name-plaque df-interactive">
+                            <ui:Label name="playerPanelName" text="Player" class="player-panel-name df-label"/>
+                        </ui:Button>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="WalletPanel" class="wallet-panel">
+                        <ui:VisualElement class="wallet-section wallet-section-resources">
+                            <ui:VisualElement class="wallet-row">
+                                <ui:VisualElement class="wallet-row-leading">
+                                    <ui:VisualElement class="wallet-row-icon wallet-row-icon-coins"/>
+                                    <ui:Label text="Coins" class="wallet-row-title"/>
+                                </ui:VisualElement>
+                                <ui:Label name="walletCoins" text="0" class="wallet-row-value"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="wallet-row">
+                                <ui:VisualElement class="wallet-row-leading">
+                                    <ui:VisualElement class="wallet-row-icon wallet-row-icon-essence"/>
+                                    <ui:Label text="Essence" class="wallet-row-title"/>
+                                </ui:VisualElement>
+                                <ui:Label name="walletEssence" text="0" class="wallet-row-value"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="wallet-row">
+                                <ui:VisualElement class="wallet-row-leading">
+                                    <ui:VisualElement class="wallet-row-icon wallet-row-icon-shards"/>
+                                    <ui:Label text="Shards" class="wallet-row-title"/>
+                                </ui:VisualElement>
+                                <ui:Label name="walletShards" text="0" class="wallet-row-value"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="wallet-section wallet-section-xp">
+                            <ui:VisualElement class="wallet-row wallet-row-tight">
+                                <ui:VisualElement class="wallet-row-leading">
+                                    <ui:VisualElement class="wallet-row-icon wallet-row-icon-xp"/>
+                                    <ui:Label text="Hero XP" class="wallet-row-title"/>
+                                </ui:VisualElement>
+                                <ui:Label name="walletXpProgress" text="0/100" class="wallet-row-progress"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="wallet-xp-bar">
+                                <ui:VisualElement class="wallet-xp-bar-track">
+                                    <ui:VisualElement name="walletXpFill" class="wallet-xp-fill"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="walletChestSection" class="wallet-section wallet-section-chest">
+                            <ui:VisualElement class="wallet-feature-card wallet-feature-card-chest">
+                                <ui:Button name="btnWalletOpenChest" text="" class="wallet-chest-button df-interactive">
+                                    <ui:VisualElement class="wallet-chest-art"/>
+                                    <ui:Label name="walletChests" text="+" class="wallet-chest-badge df-label"/>
+                                </ui:Button>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="walletDevActions" class="wallet-actions">
+                            <ui:Label text="Dev Actions" class="wallet-actions-title df-label"/>
+                            <ui:Button name="btnWalletAddXp" text="+50 XP" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive"/>
+                            <ui:Button name="btnWalletAddCoins" text="+100 coins" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
+                            <ui:Button name="btnWalletReset" text="Reset Profile" class="left-sidebar-button left-sidebar-button-reset left-sidebar-button-utility df-interactive"/>
+                        </ui:VisualElement>
+                        <ui:Label name="walletChestResult" text="" class="wallet-result"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="WalletPanel" class="wallet-panel">
-                <ui:Label name="walletCoins" text="Coins: 0" class="wallet-label"/>
-                <ui:Label name="walletEssence" text="Essence: 0" class="wallet-label"/>
-                <ui:Label name="walletShards" text="Shards: 0" class="wallet-label"/>
-                <ui:Label name="walletXp" text="Hero XP: 0" class="wallet-label"/>
-                <ui:Label name="walletChests" text="Chests: 0" class="wallet-label"/>
-                <ui:Button name="btnWalletOpenChest" text="Open 1 Chest" class="wallet-button df-interactive"/>
-                <ui:Button name="btnWalletAddCoins" text="+100 coins" class="wallet-button df-interactive"/>
-                <ui:Button name="btnWalletReset" text="Reset Profile" class="wallet-button df-interactive"/>
-                <ui:Label name="walletChestResult" text="" class="wallet-result"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="FeedbackModal" class="player-modal-overlay">
@@ -162,12 +306,12 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="RenamePlayerModal" class="player-modal-overlay">
-            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface">
-                <ui:Label text="Enter your new name" class="df-label"/>
-                <ui:TextField name="txtRenamePlayer" class="df-input"/>
-                <ui:VisualElement class="player-modal-actions">
-                    <ui:Button name="btnRenameApply" text="Apply" class="df-button df-interactive"/>
-                    <ui:Button name="btnRenameCancel" text="Cancel" class="df-button df-interactive"/>
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface rename-player-window">
+                <ui:Label text="Enter your new name" class="df-label rename-player-title"/>
+                <ui:TextField name="txtRenamePlayer" class="df-input rename-player-input"/>
+                <ui:VisualElement class="player-modal-actions rename-player-actions">
+                    <ui:Button name="btnRenameApply" text="Apply" class="df-button df-interactive rename-player-button"/>
+                    <ui:Button name="btnRenameCancel" text="Cancel" class="df-button df-interactive rename-player-button"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -178,3 +322,16 @@
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
+
+
+
+
+
+
+
+
+
+
+
+
+

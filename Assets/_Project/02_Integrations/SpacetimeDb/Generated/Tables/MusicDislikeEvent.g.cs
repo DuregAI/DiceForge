@@ -41,6 +41,8 @@ namespace SpacetimeDB.Types
     {
         public global::SpacetimeDB.Col<MusicDislikeEvent, string> EventId { get; }
         public global::SpacetimeDB.Col<MusicDislikeEvent, string> SessionId { get; }
+        public global::SpacetimeDB.Col<MusicDislikeEvent, string> PlayerGuid { get; }
+        public global::SpacetimeDB.Col<MusicDislikeEvent, string> PlayerName { get; }
         public global::SpacetimeDB.Col<MusicDislikeEvent, string> TrackId { get; }
         public global::SpacetimeDB.Col<MusicDislikeEvent, long> TrackElapsedMs { get; }
         public global::SpacetimeDB.Col<MusicDislikeEvent, long> CreatedAtUnixMsUtc { get; }
@@ -51,6 +53,8 @@ namespace SpacetimeDB.Types
         {
             EventId = new global::SpacetimeDB.Col<MusicDislikeEvent, string>(tableName, "event_id");
             SessionId = new global::SpacetimeDB.Col<MusicDislikeEvent, string>(tableName, "session_id");
+            PlayerGuid = new global::SpacetimeDB.Col<MusicDislikeEvent, string>(tableName, "player_guid");
+            PlayerName = new global::SpacetimeDB.Col<MusicDislikeEvent, string>(tableName, "player_name");
             TrackId = new global::SpacetimeDB.Col<MusicDislikeEvent, string>(tableName, "track_id");
             TrackElapsedMs = new global::SpacetimeDB.Col<MusicDislikeEvent, long>(tableName, "track_elapsed_ms");
             CreatedAtUnixMsUtc = new global::SpacetimeDB.Col<MusicDislikeEvent, long>(tableName, "created_at_unix_ms_utc");

@@ -75,21 +75,15 @@ public sealed class PlayerPanelController : MonoBehaviour
     private void Refresh()
     {
         if (_playerNameLabel != null)
-            _playerNameLabel.text = ProfileService.GetDisplayName();
+            _playerNameLabel.text = PlayerInfoController.ClampPlayerName(ProfileService.GetDisplayName());
 
         if (_playerLevelLabel != null)
-            _playerLevelLabel.text = $"Lv {GetPlayerLevel()}";
+            _playerLevelLabel.text = $"Lv {UiProgressionService.GetPlayerLevel()}";
 
         if (_avatarButton != null)
         {
             var avatar = tutorialPortraitLibrary?.DefaultPlayerAvatar;
             _avatarButton.style.backgroundImage = avatar == null ? StyleKeyword.None : new StyleBackground(avatar);
         }
-    }
-
-    private static int GetPlayerLevel()
-    {
-        var xp = Mathf.Max(0, ProfileService.Current.hero.xp);
-        return (xp / 100) + 1;
     }
 }

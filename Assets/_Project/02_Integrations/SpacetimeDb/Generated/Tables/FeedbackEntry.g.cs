@@ -41,6 +41,8 @@ namespace SpacetimeDB.Types
     {
         public global::SpacetimeDB.Col<FeedbackEntry, string> FeedbackId { get; }
         public global::SpacetimeDB.Col<FeedbackEntry, string> SessionId { get; }
+        public global::SpacetimeDB.Col<FeedbackEntry, string> PlayerGuid { get; }
+        public global::SpacetimeDB.Col<FeedbackEntry, string> PlayerName { get; }
         public global::SpacetimeDB.Col<FeedbackEntry, string> Category { get; }
         public global::SpacetimeDB.Col<FeedbackEntry, string> Message { get; }
         public global::SpacetimeDB.Col<FeedbackEntry, long> CreatedAtUnixMsUtc { get; }
@@ -51,6 +53,8 @@ namespace SpacetimeDB.Types
         {
             FeedbackId = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "feedback_id");
             SessionId = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "session_id");
+            PlayerGuid = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "player_guid");
+            PlayerName = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "player_name");
             Category = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "category");
             Message = new global::SpacetimeDB.Col<FeedbackEntry, string>(tableName, "message");
             CreatedAtUnixMsUtc = new global::SpacetimeDB.Col<FeedbackEntry, long>(tableName, "created_at_unix_ms_utc");

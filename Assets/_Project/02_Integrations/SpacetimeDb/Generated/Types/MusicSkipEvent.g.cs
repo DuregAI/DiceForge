@@ -17,6 +17,10 @@ namespace SpacetimeDB.Types
         public string EventId;
         [DataMember(Name = "session_id")]
         public string SessionId;
+        [DataMember(Name = "player_guid")]
+        public string PlayerGuid;
+        [DataMember(Name = "player_name")]
+        public string PlayerName;
         [DataMember(Name = "track_id")]
         public string TrackId;
         [DataMember(Name = "track_elapsed_ms")]
@@ -31,6 +35,8 @@ namespace SpacetimeDB.Types
         public MusicSkipEvent(
             string EventId,
             string SessionId,
+            string PlayerGuid,
+            string PlayerName,
             string TrackId,
             long TrackElapsedMs,
             long CreatedAtUnixMsUtc,
@@ -40,6 +46,8 @@ namespace SpacetimeDB.Types
         {
             this.EventId = EventId;
             this.SessionId = SessionId;
+            this.PlayerGuid = PlayerGuid;
+            this.PlayerName = PlayerName;
             this.TrackId = TrackId;
             this.TrackElapsedMs = TrackElapsedMs;
             this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -51,6 +59,8 @@ namespace SpacetimeDB.Types
         {
             this.EventId = "";
             this.SessionId = "";
+            this.PlayerGuid = "";
+            this.PlayerName = "";
             this.TrackId = "";
             this.BuildVersion = "";
             this.SceneName = "";

@@ -12,12 +12,12 @@ namespace SpacetimeDB.Types
 {
     public sealed partial class RemoteReducers : RemoteBase
     {
-        public delegate void SubmitLikeHandler(ReducerEventContext ctx, string likeId, string sessionId, string targetType, string targetId, long createdAtUnixMsUtc);
+        public delegate void SubmitLikeHandler(ReducerEventContext ctx, string likeId, string sessionId, string playerGuid, string playerName, string targetType, string targetId, long createdAtUnixMsUtc);
         public event SubmitLikeHandler? OnSubmitLike;
 
-        public void SubmitLike(string likeId, string sessionId, string targetType, string targetId, long createdAtUnixMsUtc)
+        public void SubmitLike(string likeId, string sessionId, string playerGuid, string playerName, string targetType, string targetId, long createdAtUnixMsUtc)
         {
-            conn.InternalCallReducer(new Reducer.SubmitLike(likeId, sessionId, targetType, targetId, createdAtUnixMsUtc));
+            conn.InternalCallReducer(new Reducer.SubmitLike(likeId, sessionId, playerGuid, playerName, targetType, targetId, createdAtUnixMsUtc));
         }
 
         public bool InvokeSubmitLike(ReducerEventContext ctx, Reducer.SubmitLike args)
@@ -38,6 +38,8 @@ namespace SpacetimeDB.Types
                 ctx,
                 args.LikeId,
                 args.SessionId,
+                args.PlayerGuid,
+                args.PlayerName,
                 args.TargetType,
                 args.TargetId,
                 args.CreatedAtUnixMsUtc
@@ -56,6 +58,10 @@ namespace SpacetimeDB.Types
             public string LikeId;
             [DataMember(Name = "session_id")]
             public string SessionId;
+            [DataMember(Name = "player_guid")]
+            public string PlayerGuid;
+            [DataMember(Name = "player_name")]
+            public string PlayerName;
             [DataMember(Name = "target_type")]
             public string TargetType;
             [DataMember(Name = "target_id")]
@@ -66,6 +72,8 @@ namespace SpacetimeDB.Types
             public SubmitLike(
                 string LikeId,
                 string SessionId,
+                string PlayerGuid,
+                string PlayerName,
                 string TargetType,
                 string TargetId,
                 long CreatedAtUnixMsUtc
@@ -73,6 +81,8 @@ namespace SpacetimeDB.Types
             {
                 this.LikeId = LikeId;
                 this.SessionId = SessionId;
+                this.PlayerGuid = PlayerGuid;
+                this.PlayerName = PlayerName;
                 this.TargetType = TargetType;
                 this.TargetId = TargetId;
                 this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -82,6 +92,8 @@ namespace SpacetimeDB.Types
             {
                 this.LikeId = "";
                 this.SessionId = "";
+                this.PlayerGuid = "";
+                this.PlayerName = "";
                 this.TargetType = "";
                 this.TargetId = "";
             }

@@ -17,6 +17,10 @@ namespace SpacetimeDB.Types
         public string LikeId;
         [DataMember(Name = "session_id")]
         public string SessionId;
+        [DataMember(Name = "player_guid")]
+        public string PlayerGuid;
+        [DataMember(Name = "player_name")]
+        public string PlayerName;
         [DataMember(Name = "target_type")]
         public string TargetType;
         [DataMember(Name = "target_id")]
@@ -27,6 +31,8 @@ namespace SpacetimeDB.Types
         public LikeEvent(
             string LikeId,
             string SessionId,
+            string PlayerGuid,
+            string PlayerName,
             string TargetType,
             string TargetId,
             long CreatedAtUnixMsUtc
@@ -34,6 +40,8 @@ namespace SpacetimeDB.Types
         {
             this.LikeId = LikeId;
             this.SessionId = SessionId;
+            this.PlayerGuid = PlayerGuid;
+            this.PlayerName = PlayerName;
             this.TargetType = TargetType;
             this.TargetId = TargetId;
             this.CreatedAtUnixMsUtc = CreatedAtUnixMsUtc;
@@ -43,6 +51,8 @@ namespace SpacetimeDB.Types
         {
             this.LikeId = "";
             this.SessionId = "";
+            this.PlayerGuid = "";
+            this.PlayerName = "";
             this.TargetType = "";
             this.TargetId = "";
         }
