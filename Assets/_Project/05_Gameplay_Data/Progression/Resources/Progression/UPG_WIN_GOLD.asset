@@ -17,10 +17,7 @@ MonoBehaviour:
   description: Adds flat SOFT_GOLD reward on wins.
   maxLevel: 3
   effectType: 0
-  priceByLevel:
-  - 60
-  - 120
-  - 200
+  priceByLevel: 3c00000078000000c8000000
   valueByLevel:
   - 5
   - 10
