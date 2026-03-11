@@ -16,11 +16,8 @@ MonoBehaviour:
   displayName: Essence Chest
   icon: {fileID: 512409149, guid: f33f9627bb2eb5b499e34d24a5eec65e, type: 3}
   fixedRewards:
-  - id: SOFT_GOLD
-    amount: 60
-    isItem: 0
-  - id: ESSENCE
-    amount: 16
+  - id: SHARDS
+    amount: 1
     isItem: 0
   - id: CONSUMABLE_REROLL
     amount: 1
