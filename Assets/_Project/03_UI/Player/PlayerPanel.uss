@@ -272,3 +272,216 @@
 
 
 
+.player-profile-window {
+    min-width: 400px;
+    max-width: 540px;
+    padding: 28px 28px 24px 28px;
+    justify-content: center;
+}
+
+.player-profile-actions {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.player-info-avatar-button {
+    margin-bottom: 10px;
+    transition-property: scale;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.player-info-avatar-button:hover {
+    scale: 1.03;
+}
+
+.player-info-avatar-button:active {
+    scale: 0.98;
+}
+
+.player-info-name {
+    width: 100%;
+    margin-bottom: 6px;
+    -unity-text-align: middle-center;
+}
+
+.player-info-level {
+    width: 100%;
+    margin-bottom: 4px;
+    -unity-text-align: middle-center;
+}
+
+.player-info-xp-centered {
+    width: 100%;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.avatar-selection-window {
+    min-width: 520px;
+    max-width: 680px;
+    padding: 24px 28px 24px 28px;
+    align-items: stretch;
+}
+
+.avatar-selection-title {
+    color: rgb(247, 236, 204);
+    font-size: 28px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.avatar-selection-status {
+    margin-top: 8px;
+    margin-bottom: 14px;
+    color: rgb(233, 211, 155);
+    font-size: 18px;
+    -unity-text-align: middle-center;
+}
+
+.avatar-selection-scroll {
+    width: 100%;
+    max-height: 440px;
+    margin-bottom: 18px;
+    padding: 8px;
+    background-color: rgba(80, 60, 38, 0.35);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(225, 198, 145, 0.22);
+    border-right-color: rgba(225, 198, 145, 0.22);
+    border-top-color: rgba(255, 239, 198, 0.18);
+    border-bottom-color: rgba(48, 31, 14, 0.24);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+.avatar-selection-scroll .unity-scroll-view__content-container {
+    align-items: stretch;
+}
+
+.avatar-selection-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.avatar-selection-actions {
+    justify-content: space-between;
+}
+
+.avatar-selection-tile {
+    width: 164px;
+    min-height: 238px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 14px 12px 12px 12px;
+    align-items: center;
+    background-color: rgba(89, 67, 44, 0.92);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(194, 161, 107, 0.55);
+    border-right-color: rgba(194, 161, 107, 0.55);
+    border-top-color: rgba(233, 214, 167, 0.52);
+    border-bottom-color: rgba(76, 47, 22, 0.75);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.avatar-selection-tile.is-selected {
+    background-color: rgba(102, 78, 49, 0.98);
+    border-left-color: rgb(239, 211, 131);
+    border-right-color: rgb(239, 211, 131);
+    border-top-color: rgb(255, 234, 173);
+    border-bottom-color: rgb(140, 95, 42);
+}
+
+.avatar-selection-tile.is-locked {
+    background-color: rgba(70, 55, 40, 0.88);
+}
+
+.avatar-selection-preview-button {
+    width: 112px;
+    height: 112px;
+    margin-bottom: 12px;
+    padding: 0;
+    background-color: transparent;
+    border-width: 0;
+}
+
+.avatar-selection-preview {
+    width: 112px;
+    height: 112px;
+    border-radius: 999px;
+    background-color: rgb(57, 40, 24);
+    background-size: cover;
+    background-position: center;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgba(225, 201, 149, 0.65);
+    border-right-color: rgba(225, 201, 149, 0.65);
+    border-top-color: rgba(255, 241, 205, 0.7);
+    border-bottom-color: rgba(72, 45, 18, 0.75);
+}
+
+.avatar-selection-tile.is-locked .avatar-selection-preview {
+    opacity: 0.58;
+}
+
+.avatar-selection-name {
+    min-height: 44px;
+    margin-bottom: 4px;
+    color: rgb(247, 236, 204);
+    font-size: 18px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.avatar-selection-state {
+    min-height: 22px;
+    margin-bottom: 12px;
+    color: rgb(201, 226, 172);
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.avatar-selection-state.is-selected {
+    color: rgb(255, 229, 133);
+}
+
+.avatar-selection-state.is-locked {
+    color: rgb(229, 177, 177);
+}
+
+.avatar-selection-action {
+    width: 100%;
+    min-height: 42px;
+    margin-top: auto;
+}
+
+.avatar-selection-action-shop {
+    opacity: 0.94;
+}
+
+.avatar-shop-placeholder-window {
+    min-width: 420px;
+    max-width: 520px;
+}
+
+.avatar-shop-placeholder-text {
+    margin-top: 8px;
+}

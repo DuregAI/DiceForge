@@ -7,7 +7,8 @@ namespace Diceforge.Core
         None = 0,
         Win = 1,
         Timeout = 2,
-        NoMoves = 3
+        NoMoves = 3,
+        Surrender = 4
     }
 
     public enum ApplyResult : byte

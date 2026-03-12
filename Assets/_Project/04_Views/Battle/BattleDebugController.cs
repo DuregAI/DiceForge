@@ -54,6 +54,7 @@ namespace Diceforge.View
         private bool _rerollUsedThisTurn;
         private bool _wasBoardAnimating;
         private string _pendingAnimatedTokenName;
+        private bool _hasBattleResultTriggered;
 
         [Header("Debug")]
         [SerializeField] private bool logRerollInventory;
@@ -65,7 +66,7 @@ namespace Diceforge.View
         public event System.Action<MoveRecord> OnHumanMoveApplied;
         public event System.Action OnHumanRerollUsed;
         public PlayerId LocalPlayer => localPlayer;
-        public bool IsMatchEnded => _runner != null && _runner.MatchEnded;
+        public bool IsMatchEnded => _hasBattleResultTriggered || (_runner != null && (_runner.MatchEnded || (_runner.State != null && _runner.State.IsFinished)));
         public DebugHudUITK Hud => hud;
         public int CurrentRollDiceCount => _runner?.CurrentOutcome.Dice?.Length ?? 0;
         public int TotalStonesPerPlayer => _runner?.State?.Rules.totalStonesPerPlayer ?? _rules?.totalStonesPerPlayer ?? 0;
@@ -320,6 +321,8 @@ namespace Diceforge.View
             bool wasRunning = _isRunning;
             _elapsed = 0f;
             _pendingAnimatedTokenName = null;
+            _hasBattleResultTriggered = false;
+            hud?.SetSurrenderDialogVisible(false);
             _runner.Reset();
             boardViewController?.Bind(_runner);
             _isRunning = wasRunning;
@@ -359,6 +362,10 @@ namespace Diceforge.View
 
         private void HandleMatchStarted(GameState state)
         {
+            _hasBattleResultTriggered = false;
+            _waitingForFromCell = false;
+            _pendingAnimatedTokenName = null;
+            hud?.SetSurrenderDialogVisible(false);
             boardView?.HandleMatchStarted(state, _runner.Log);
             UpdateUI();
             /*if (verboseLog)
@@ -394,21 +401,7 @@ namespace Diceforge.View
 
         private void HandleMatchEnded(MatchResult result)
         {
-            var state = _runner?.State;
-            if (state == null)
-                return;
-
-            boardView?.HandleMatchEnded(state);
-            if (verboseLog)
-                Debug.Log($"[Diceforge] Match end. Winner: {result.Winner}  Turns: {state.TurnIndex}");
-
-            ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
-                result.Winner.ToString(),
-                result.Reason.ToString(),
-                state.TurnIndex));
-            OnMatchEnded?.Invoke(result);
-            UpdateUI();
-            RefreshRerollUI();
+            FinalizeMatchResult(result);
         }
 
         private bool IsHumanTurn()
@@ -506,6 +499,45 @@ namespace Diceforge.View
             RefreshRerollUI();
         }
 
+        public void RequestSurrender()
+        {
+            if (!CanSurrender())
+                return;
+
+            hud?.SetSurrenderDialogVisible(true);
+        }
+
+        public void ConfirmSurrender()
+        {
+            if (!CanSurrender())
+            {
+                hud?.SetSurrenderDialogVisible(false);
+                return;
+            }
+
+            var state = _runner.State;
+            PlayerId winner = GetOpponent(localPlayer);
+
+            // The battle rules do not track HP directly, so analytics reports remaining stones as HP-equivalent state.
+            ClientDiagnostics.RecordBattleSurrender(new BattleSurrenderDiagnosticsContext(
+                BuildBattleAnalyticsId(),
+                state.TurnIndex,
+                GetRemainingStones(localPlayer),
+                GetRemainingStones(winner)));
+
+            if (IsDebugHudVisible())
+                Debug.Log("[Battle] Player surrendered", this);
+
+            hud?.SetSurrenderDialogVisible(false);
+            state.Finish(winner);
+            FinalizeMatchResult(new MatchResult(winner, MatchEndReason.Surrender));
+        }
+
+        private void HandleSurrenderCancelled()
+        {
+            hud?.SetSurrenderDialogVisible(false);
+        }
+
         private void ApplyHumanMove(Move move)
         {
             if (_runner == null || _runner.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
@@ -552,6 +584,8 @@ namespace Diceforge.View
                 hud?.SetMoveEnabled(false);
                 hud?.SetEnterEnabled(false);
                 hud?.SetPlaceEnabled(false);
+                hud?.SetSurrenderEnabled(false);
+                hud?.SetSurrenderDialogVisible(false);
                 RefreshRerollUI();
                 hud?.SetDiceButtons(null, null, false, false);
                 _waitingForFromCell = false;
@@ -577,6 +611,7 @@ namespace Diceforge.View
             hud?.SetMoveEnabled(canMove);
             hud?.SetEnterEnabled(false);
             hud?.SetPlaceEnabled(false);
+            hud?.SetSurrenderEnabled(CanSurrender());
             RefreshRerollUI();
             bool dimDicePresentation = !humanTurn && !state.IsFinished && !_runner.MatchEnded;
             hud?.SetDiceButtons(_runner.RemainingDice, _runner.SelectedDieIndex, allowInteraction, dimDicePresentation);
@@ -673,6 +708,9 @@ namespace Diceforge.View
             hud.OnEnter += HandleEnterClicked;
             hud.OnPlace += HandlePlaceClicked;
             hud.OnReroll += HandleRerollClicked;
+            hud.OnSurrenderRequest += RequestSurrender;
+            hud.OnSurrenderCancel += HandleSurrenderCancelled;
+            hud.OnSurrenderConfirm += ConfirmSurrender;
             hud.OnToggleAutoRun += HandleAutoRunChanged;
             hud.OnSpeedChanged += HandleSpeedChanged;
             hud.OnHumanAChanged += HandleHumanAChanged;
@@ -691,6 +729,9 @@ namespace Diceforge.View
             hud.OnEnter -= HandleEnterClicked;
             hud.OnPlace -= HandlePlaceClicked;
             hud.OnReroll -= HandleRerollClicked;
+            hud.OnSurrenderRequest -= RequestSurrender;
+            hud.OnSurrenderCancel -= HandleSurrenderCancelled;
+            hud.OnSurrenderConfirm -= ConfirmSurrender;
             hud.OnToggleAutoRun -= HandleAutoRunChanged;
             hud.OnSpeedChanged -= HandleSpeedChanged;
             hud.OnHumanAChanged -= HandleHumanAChanged;
@@ -773,6 +814,81 @@ namespace Diceforge.View
                 return false;
 
             return ProfileService.GetItemCount(ProgressionIds.ItemConsumableReroll) > 0;
+        }
+
+        private bool CanSurrender()
+        {
+            return _runner?.State != null
+                && !_runner.State.IsFinished
+                && !_runner.MatchEnded
+                && !_hasBattleResultTriggered;
+        }
+
+        private void FinalizeMatchResult(MatchResult result)
+        {
+            if (_hasBattleResultTriggered)
+                return;
+
+            var state = _runner?.State;
+            if (state == null)
+                return;
+
+            _hasBattleResultTriggered = true;
+            _isRunning = false;
+            _elapsed = 0f;
+            _waitingForFromCell = false;
+            _pendingAnimatedTokenName = null;
+
+            boardView?.SetCellSelectionEnabled(false);
+            boardView?.SetHighlightedCells(null);
+            hud?.SetSurrenderDialogVisible(false);
+            hud?.SetSurrenderEnabled(false);
+
+            boardView?.HandleMatchEnded(state);
+            if (verboseLog)
+                Debug.Log($"[Diceforge] Match end. Winner: {result.Winner}  Turns: {state.TurnIndex}");
+
+            ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
+                result.Winner.ToString(),
+                result.Reason.ToString(),
+                state.TurnIndex));
+            OnMatchEnded?.Invoke(result);
+            UpdateUI();
+            RefreshRerollUI();
+        }
+
+        private static PlayerId GetOpponent(PlayerId player)
+        {
+            return player == PlayerId.A ? PlayerId.B : PlayerId.A;
+        }
+
+        private int GetRemainingStones(PlayerId player)
+        {
+            var state = _runner?.State;
+            if (state == null)
+                return 0;
+
+            return Mathf.Max(0, state.Rules.totalStonesPerPlayer - state.GetBorneOff(player));
+        }
+
+        private string BuildBattleAnalyticsId()
+        {
+            string modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
+            string mapId = BattleMapSelectionService.SelectedMap != null ? BattleMapSelectionService.SelectedMap.mapId : string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(modeId) && !string.IsNullOrWhiteSpace(mapId))
+                return $"{modeId}:{mapId}";
+
+            return !string.IsNullOrWhiteSpace(modeId) ? modeId : mapId;
+        }
+
+        private bool IsDebugHudVisible()
+        {
+            if (hud == null)
+                return false;
+
+            var visibilityController = hud.GetComponent<DebugUiVisibilityController>();
+            return visibilityController != null && visibilityController.IsDebugUiVisible;
         }
 
         private void SyncHudState()

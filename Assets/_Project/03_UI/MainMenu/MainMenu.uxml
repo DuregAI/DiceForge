@@ -137,11 +137,15 @@
                         <ui:Label name="chestShopStatus" text="" class="chest-shop-status df-label"/>
                         <ui:Button name="btnCloseChestShop" text="Close" class="chest-shop-buy-button chest-shop-buy-button-secondary chest-shop-close df-interactive"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="chestShopFx" class="chest-shop-fx"/>
+                    <ui:VisualElement name="chestShopFx" class="chest-shop-fx">
+                        <ui:VisualElement name="chestShopFxGlow" class="chest-shop-fx-glow"/>
+                        <ui:VisualElement name="chestShopFxSweepPrimary" class="chest-shop-fx-sweep chest-shop-fx-sweep-primary"/>
+                        <ui:VisualElement name="chestShopFxSweepAccent" class="chest-shop-fx-sweep chest-shop-fx-sweep-accent"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-                <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
+        <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
             <ui:VisualElement class="chest-open-window">
                 <ui:VisualElement class="chest-open-shell">
                     <ui:VisualElement class="chest-open-header">
@@ -167,14 +171,14 @@
                                     <ui:Label text="Your Stash" class="chest-open-section-title df-label"/>
                                     <ui:Label name="chestQueueSummary" text="0 ready" class="chest-open-section-count df-label"/>
                                 </ui:VisualElement>
-                                <ui:ScrollView name="chestInventoryList" mode="Vertical" class="chest-inventory-list" />
+                                <ui:ScrollView name="chestInventoryList" mode="Vertical" class="chest-inventory-list"/>
                             </ui:VisualElement>
                             <ui:VisualElement name="chestRewardsContainer" class="chest-rewards-container reward-hidden">
                                 <ui:VisualElement class="chest-open-section-header">
                                     <ui:Label text="Rewards" class="chest-reward-title df-label"/>
                                     <ui:Label name="chestRewardBurstLabel" text="" class="chest-reward-burst df-label"/>
                                 </ui:VisualElement>
-                                <ui:ScrollView name="chestRewardsList" class="chest-rewards-list" />
+                                <ui:ScrollView name="chestRewardsList" class="chest-rewards-list"/>
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -192,7 +196,7 @@
                         <ui:VisualElement class="player-panel-top-row">
                             <ui:VisualElement class="player-avatar-stack">
                                 <ui:VisualElement class="player-avatar-frame">
-                                    <ui:Button name="btnPlayerAvatar" text="" icon-image="project://database/Assets/_Project/07_Art/Character/Tutorial/Avatars.png?fileID=1755310438&amp;guid=3015448196896044dac53ecc6f91afa3&amp;type=3#Scout_Map" class="player-avatar-button df-interactive"/>
+                                    <ui:Button name="btnPlayerAvatar" text="" class="player-avatar-button df-interactive"/>
                                 </ui:VisualElement>
                                 <ui:VisualElement class="player-level-badge">
                                     <ui:Label name="playerPanelLevel" text="Lv 1" class="player-panel-level df-label"/>
@@ -275,15 +279,36 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="PlayerInfoModal" class="player-modal-overlay">
-            <ui:VisualElement class="player-modal-window df-surface">
-                <ui:Button name="btnPlayerInfoAvatar" text="" class="player-avatar-button player-avatar-large df-interactive"/>
-                <ui:Button name="btnPlayerInfoName" text="Player" class="player-info-name-button df-interactive"/>
+            <ui:VisualElement class="player-modal-window player-profile-window df-surface">
+                <ui:Button name="btnPlayerInfoAvatar" text="" class="player-avatar-button player-avatar-large player-info-avatar-button df-interactive"/>
                 <ui:Label name="playerInfoName" text="Player" class="player-info-name df-label"/>
                 <ui:Label name="playerInfoLevel" text="Lv 1" class="player-info-level df-label"/>
-                <ui:Label name="playerInfoXp" text="XP 0" class="player-info-xp df-label"/>
-                <ui:VisualElement class="player-modal-actions">
+                <ui:Label name="playerInfoXp" text="XP 0" class="player-info-xp player-info-xp-centered df-label"/>
+                <ui:VisualElement class="player-modal-actions player-profile-actions">
                     <ui:Button name="btnPlayerInfoRename" text="Rename" class="df-button df-interactive"/>
                     <ui:Button name="btnClosePlayerInfo" text="Close" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="AvatarSelectionModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window avatar-selection-window df-surface">
+                <ui:Label text="Avatar Selection" class="avatar-selection-title df-label"/>
+                <ui:Label name="avatarSelectionStatus" text="Selected: Avatar" class="avatar-selection-status df-label"/>
+                <ui:ScrollView name="avatarSelectionScroll" mode="Vertical" class="avatar-selection-scroll">
+                    <ui:VisualElement name="avatarSelectionGrid" class="avatar-selection-grid"/>
+                </ui:ScrollView>
+                <ui:VisualElement class="player-modal-actions avatar-selection-actions">
+                    <ui:Button name="btnAvatarShop" text="Avatar Shop" class="df-button df-interactive"/>
+                    <ui:Button name="btnCloseAvatarSelection" text="Close" class="df-button df-interactive"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="AvatarShopPlaceholderModal" class="player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface avatar-shop-placeholder-window">
+                <ui:Label text="Avatar Shop" class="panel-title df-label"/>
+                <ui:Label name="avatarShopPlaceholderText" text="More avatars are coming soon. This entry point is ready for future cosmetic unlocks." class="player-confirm-text df-label avatar-shop-placeholder-text"/>
+                <ui:VisualElement class="player-modal-actions">
+                    <ui:Button name="btnCloseAvatarShopPlaceholder" text="Close" class="df-button df-interactive"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -322,16 +347,3 @@
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
-
-
-
-
-
-
-
-
-
-
-
-
-

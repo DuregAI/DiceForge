@@ -66,6 +66,8 @@ namespace Diceforge.View
         private bool _isDebugUiVisible;
         private bool _canShowDebugUi;
 
+        public bool IsDebugUiVisible => _canShowDebugUi && _isDebugUiVisible;
+
         private void Awake()
         {
             ResolveReferences();

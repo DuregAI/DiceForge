@@ -9,5 +9,8 @@ namespace Diceforge.Progression
         public string displayName;
         public Sprite icon;
         public ItemType itemType = ItemType.Unknown;
+        public CosmeticCategory cosmeticCategory = CosmeticCategory.None;
+        public CosmeticSourceType cosmeticSourceType = CosmeticSourceType.Default;
+        public int sortOrder;
     }
 }

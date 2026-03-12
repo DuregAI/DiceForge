@@ -14,14 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: CHEST_MEDIUM
   displayName: Medium Chest
-  icon: {fileID: 512409149, guid: f33f9627bb2eb5b499e34d24a5eec65e, type: 3}
+  icon: {fileID: 21300000, guid: e2279169170a4b3d92548a3efa260182, type: 3}
   fixedRewards:
-  - id: SOFT_GOLD
-    amount: 120
-    isItem: 0
   - id: ESSENCE
-    amount: 8
+    amount: 5
     isItem: 0
-  - id: CONSUMABLE_REROLL
-    amount: 2
-    isItem: 1

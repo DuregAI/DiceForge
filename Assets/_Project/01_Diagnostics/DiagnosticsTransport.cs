@@ -30,7 +30,7 @@ namespace Diceforge.Diagnostics
                 AnalyticsEventData item = batch[i];
                 sb.AppendLine();
                 sb.Append("  ");
-                sb.Append(item.EventType);
+                sb.Append(item.DisplayName);
                 sb.Append(" ts=");
                 sb.Append(item.TimestampUnixMsUtc);
                 sb.Append(" session=");

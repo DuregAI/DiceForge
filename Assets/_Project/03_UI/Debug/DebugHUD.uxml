@@ -50,6 +50,20 @@
         </ui:VisualElement>
     </ui:VisualElement>
 
+    <ui:VisualElement name="battleTopRightControls" class="battle-top-right-controls">
+        <ui:Button name="surrenderButton" text="Surrender" class="battle-secondary-button" />
+    </ui:VisualElement>
+
+    <ui:VisualElement name="surrenderDialog" class="battle-modal-overlay">
+        <ui:VisualElement name="surrenderDialogWindow" class="battle-modal-window">
+            <ui:Label text="Are you sure you want to surrender?&#10;This will count as a defeat." name="surrenderDialogMessage" class="battle-modal-message" />
+            <ui:VisualElement class="battle-modal-actions">
+                <ui:Button name="surrenderCancelButton" text="Cancel" class="battle-secondary-button" />
+                <ui:Button name="surrenderConfirmButton" text="Surrender" class="battle-danger-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+
     <ui:VisualElement name="centerDicePresentation" class="center-dice-presentation">
         <ui:Label text="Available Dice" class="center-dice-title" />
         <ui:VisualElement name="centerDiceRow" class="center-dice-row" />

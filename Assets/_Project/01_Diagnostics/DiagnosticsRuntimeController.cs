@@ -43,6 +43,11 @@ namespace Diceforge.Diagnostics
         {
             DiagnosticsRuntimeController.EnsureCreated().RecordBattleEnded(context);
         }
+
+        public static void RecordBattleSurrender(BattleSurrenderDiagnosticsContext context)
+        {
+            DiagnosticsRuntimeController.EnsureCreated().RecordBattleSurrender(context);
+        }
     }
 
     internal static class DiagnosticsRuntimeBootstrap
@@ -245,6 +250,15 @@ namespace Diceforge.Diagnostics
             _activeBattleContext = null;
         }
 
+        public void RecordBattleSurrender(BattleSurrenderDiagnosticsContext context)
+        {
+            InitializeIfNeeded();
+            if (_shutdownRecorded)
+                return;
+
+            EnqueueAndFlush(DiagnosticsEventType.BattleSurrender, context.ToPayload(), null, BattleSurrenderDiagnosticsContext.EventName);
+        }
+
         public string BuildSupportLog(string buildInfo)
         {
             InitializeIfNeeded();
@@ -365,13 +379,14 @@ namespace Diceforge.Diagnostics
             SubmitSessionSummary(summary);
         }
 
-        private void EnqueueAndFlush(DiagnosticsEventType eventType, Dictionary<string, string> payload, long? timestampUnixMsUtc = null)
+        private void EnqueueAndFlush(DiagnosticsEventType eventType, Dictionary<string, string> payload, long? timestampUnixMsUtc = null, string displayName = null)
         {
             var eventData = new AnalyticsEventData(
                 eventType,
                 timestampUnixMsUtc ?? GetUtcNowUnixMs(),
                 _sessionSnapshot != null ? _sessionSnapshot.SessionId : string.Empty,
-                payload);
+                payload,
+                displayName);
 
             AddRecentEventLine(eventData);
             _eventQueue.Enqueue(eventData);
@@ -383,7 +398,7 @@ namespace Diceforge.Diagnostics
             if (eventData == null)
                 return;
 
-            string line = $"{eventData.EventType} ts={eventData.TimestampUnixMsUtc} {BuildInlinePayload(eventData.Payload)}";
+            string line = $"{eventData.DisplayName} ts={eventData.TimestampUnixMsUtc} {BuildInlinePayload(eventData.Payload)}";
             while (_recentEventLines.Count >= MaxRecentEvents)
                 _recentEventLines.Dequeue();
 

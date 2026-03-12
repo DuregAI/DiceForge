@@ -81,6 +81,98 @@
     color: white;
 }
 
+.battle-top-right-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.battle-secondary-button,
+.battle-danger-button {
+    min-height: 36px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-width: 1px;
+    -unity-font-style: bold;
+}
+
+.battle-secondary-button {
+    background-color: rgba(28, 33, 43, 0.84);
+    border-left-color: rgba(182, 194, 214, 0.28);
+    border-right-color: rgba(182, 194, 214, 0.28);
+    border-top-color: rgba(182, 194, 214, 0.28);
+    border-bottom-color: rgba(182, 194, 214, 0.28);
+    color: rgb(226, 231, 239);
+}
+
+.battle-secondary-button:hover {
+    background-color: rgba(37, 44, 56, 0.94);
+}
+
+.battle-danger-button {
+    background-color: rgba(128, 37, 42, 0.92);
+    border-left-color: rgba(255, 183, 183, 0.26);
+    border-right-color: rgba(255, 183, 183, 0.26);
+    border-top-color: rgba(255, 183, 183, 0.26);
+    border-bottom-color: rgba(255, 183, 183, 0.26);
+    color: rgb(255, 236, 236);
+}
+
+.battle-danger-button:hover {
+    background-color: rgba(154, 45, 51, 0.98);
+}
+
+.battle-modal-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(6, 8, 12, 0.72);
+}
+
+.battle-modal-window {
+    width: 420px;
+    padding: 20px;
+    background-color: rgba(19, 24, 32, 0.98);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-width: 1px;
+    border-left-color: rgba(255, 255, 255, 0.1);
+    border-right-color: rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    flex-direction: column;
+}
+
+.battle-modal-message {
+    color: rgb(236, 240, 248);
+    font-size: 15px;
+    white-space: normal;
+    unity-text-align: upper-left;
+    margin-bottom: 16px;
+}
+
+.battle-modal-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.battle-modal-actions > Button {
+    margin-left: 10px;
+}
+
 .center-dice-presentation {
     position: absolute;
     left: 50%;
@@ -145,5 +237,3 @@
     opacity: 1;
     color: rgba(28, 33, 42, 0.72);
 }
-
-

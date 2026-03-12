@@ -20,7 +20,6 @@ public sealed class PlayerInfoController : MonoBehaviour
 
     private Button _closeInfoButton;
     private Button _infoAvatarButton;
-    private Button _infoNameButton;
     private Button _infoRenameButton;
 
     private Button _confirmYesButton;
@@ -29,6 +28,8 @@ public sealed class PlayerInfoController : MonoBehaviour
     private TextField _renameField;
     private Button _renameApplyButton;
     private Button _renameCancelButton;
+
+    private AvatarSelectionController _avatarSelectionController;
 
     public void Initialize(VisualElement root)
     {
@@ -45,7 +46,6 @@ public sealed class PlayerInfoController : MonoBehaviour
 
         _closeInfoButton = root.Q<Button>("btnClosePlayerInfo");
         _infoAvatarButton = root.Q<Button>("btnPlayerInfoAvatar");
-        _infoNameButton = root.Q<Button>("btnPlayerInfoName");
         _infoRenameButton = root.Q<Button>("btnPlayerInfoRename");
 
         _confirmYesButton = root.Q<Button>("btnRenameConfirmYes");
@@ -55,19 +55,28 @@ public sealed class PlayerInfoController : MonoBehaviour
         _renameApplyButton = root.Q<Button>("btnRenameApply");
         _renameCancelButton = root.Q<Button>("btnRenameCancel");
 
+        _avatarSelectionController = GetComponent<AvatarSelectionController>() ?? gameObject.AddComponent<AvatarSelectionController>();
+        _avatarSelectionController.Initialize(root);
+
         if (_renameField != null)
             _renameField.maxLength = MaxPlayerNameLength;
 
-        _closeInfoButton.clicked += CloseInfo;
-        _infoAvatarButton.clicked += OpenRenameConfirmation;
-        _infoNameButton.clicked += OpenRenameConfirmation;
-        _infoRenameButton.clicked += OpenRenameConfirmation;
+        if (_closeInfoButton != null)
+            _closeInfoButton.clicked += CloseInfo;
+        if (_infoAvatarButton != null)
+            _infoAvatarButton.clicked += OpenAvatarSelection;
+        if (_infoRenameButton != null)
+            _infoRenameButton.clicked += OpenRenameConfirmation;
 
-        _confirmYesButton.clicked += HandleRenameConfirmYes;
-        _confirmCancelButton.clicked += CloseRenameConfirmation;
+        if (_confirmYesButton != null)
+            _confirmYesButton.clicked += HandleRenameConfirmYes;
+        if (_confirmCancelButton != null)
+            _confirmCancelButton.clicked += CloseRenameConfirmation;
 
-        _renameApplyButton.clicked += ApplyRename;
-        _renameCancelButton.clicked += CloseRenameModal;
+        if (_renameApplyButton != null)
+            _renameApplyButton.clicked += ApplyRename;
+        if (_renameCancelButton != null)
+            _renameCancelButton.clicked += CloseRenameModal;
 
         ProfileService.ProfileChanged -= Refresh;
         ProfileService.ProfileChanged += Refresh;
@@ -83,16 +92,22 @@ public sealed class PlayerInfoController : MonoBehaviour
         ProfileService.ProfileChanged -= Refresh;
         ProfileService.OnPlayerNameChanged -= HandlePlayerNameChanged;
 
-        _closeInfoButton.clicked -= CloseInfo;
-        _infoAvatarButton.clicked -= OpenRenameConfirmation;
-        _infoNameButton.clicked -= OpenRenameConfirmation;
-        _infoRenameButton.clicked -= OpenRenameConfirmation;
+        if (_closeInfoButton != null)
+            _closeInfoButton.clicked -= CloseInfo;
+        if (_infoAvatarButton != null)
+            _infoAvatarButton.clicked -= OpenAvatarSelection;
+        if (_infoRenameButton != null)
+            _infoRenameButton.clicked -= OpenRenameConfirmation;
 
-        _confirmYesButton.clicked -= HandleRenameConfirmYes;
-        _confirmCancelButton.clicked -= CloseRenameConfirmation;
+        if (_confirmYesButton != null)
+            _confirmYesButton.clicked -= HandleRenameConfirmYes;
+        if (_confirmCancelButton != null)
+            _confirmCancelButton.clicked -= CloseRenameConfirmation;
 
-        _renameApplyButton.clicked -= ApplyRename;
-        _renameCancelButton.clicked -= CloseRenameModal;
+        if (_renameApplyButton != null)
+            _renameApplyButton.clicked -= ApplyRename;
+        if (_renameCancelButton != null)
+            _renameCancelButton.clicked -= CloseRenameModal;
     }
 
     public void Open()
@@ -104,6 +119,7 @@ public sealed class PlayerInfoController : MonoBehaviour
     public void OpenRenameConfirmation()
     {
         Open();
+        _avatarSelectionController?.CloseAll();
         SetVisible(_renameConfirmModal, true);
     }
 
@@ -115,11 +131,20 @@ public sealed class PlayerInfoController : MonoBehaviour
         return value.Length <= MaxPlayerNameLength ? value : value.Substring(0, MaxPlayerNameLength);
     }
 
+    private void OpenAvatarSelection()
+    {
+        Open();
+        SetVisible(_renameConfirmModal, false);
+        SetVisible(_renameModal, false);
+        _avatarSelectionController?.Open();
+    }
+
     private void CloseInfo()
     {
         SetVisible(_playerInfoModal, false);
         SetVisible(_renameConfirmModal, false);
         SetVisible(_renameModal, false);
+        _avatarSelectionController?.CloseAll();
     }
 
     private void CloseRenameConfirmation()
@@ -135,6 +160,8 @@ public sealed class PlayerInfoController : MonoBehaviour
 
     private void OpenRenameModal()
     {
+        _avatarSelectionController?.CloseAll();
+
         if (_renameField != null)
         {
             _renameField.SetValueWithoutNotify(ClampPlayerName(ProfileService.Current.playerName));
@@ -181,15 +208,16 @@ public sealed class PlayerInfoController : MonoBehaviour
         var level = (xp / 100) + 1;
         var levelFloorXp = (level - 1) * 100;
         var displayName = ClampPlayerName(ProfileService.GetDisplayName());
+        var avatar = AvatarService.GetSelectedAvatarSprite();
 
         if (_infoNameLabel != null)
             _infoNameLabel.text = displayName;
-        if (_infoNameButton != null)
-            _infoNameButton.text = displayName;
         if (_infoLevelLabel != null)
             _infoLevelLabel.text = $"Lv {level}";
         if (_infoXpLabel != null)
             _infoXpLabel.text = $"XP {xp} ({Mathf.Max(0, xp - levelFloorXp)}/{UiProgressionService.XpPerLevel} to Lv {level + 1})";
+        if (_infoAvatarButton != null)
+            _infoAvatarButton.style.backgroundImage = avatar == null ? StyleKeyword.None : new StyleBackground(avatar);
     }
 
     private void CloseAllModals()
@@ -197,6 +225,7 @@ public sealed class PlayerInfoController : MonoBehaviour
         SetVisible(_playerInfoModal, false);
         SetVisible(_renameConfirmModal, false);
         SetVisible(_renameModal, false);
+        _avatarSelectionController?.CloseAll();
     }
 
     private static void SetVisible(VisualElement element, bool visible)
@@ -205,7 +234,3 @@ public sealed class PlayerInfoController : MonoBehaviour
             element.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
-
-
-
-

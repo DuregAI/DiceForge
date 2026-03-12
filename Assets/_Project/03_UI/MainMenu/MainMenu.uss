@@ -415,7 +415,7 @@
 
 .wallet-feature-card {
     padding: 12px 14px 14px 14px;
-    background-color: rgba(22, 17, 12, 0.30);
+    background-color: rgba(22, 17, 12, 0.3);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
@@ -561,7 +561,6 @@
     color: rgb(193, 235, 132);
 }
 
-
 .left-sidebar-button-reset {
     margin-top: 8px;
     background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_secondary_9s.png?fileID=2800000&guid=45ea0e62c4804e5e87712a9655ad8b30&type=3#lp_button_secondary_9s");
@@ -575,6 +574,7 @@
     font-size: 13px;
     white-space: normal;
 }
+
 .upgrade-shop-window {
     position: relative;
     width: 940px;
@@ -755,7 +755,7 @@
 .upgrade-card-icon-halo--gold-loss,
 .upgrade-card-icon-halo--gold-long,
 .upgrade-card-icon-halo--gold-short {
-    background-color: rgba(255, 201, 84, 0.20);
+    background-color: rgba(255, 201, 84, 0.2);
 }
 
 .upgrade-card-icon-halo--essence {
@@ -1015,12 +1015,48 @@
     right: 0;
     top: 0;
     bottom: 0;
-    opacity: 0.34;
-    background-color: rgba(255, 255, 255, 0.006);
+    overflow: hidden;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.chest-shop-fx-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64%;
+    height: 72%;
+    translate: -50% -50%;
+    background-color: rgba(255, 245, 214, 0.16);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+    opacity: 0;
+}
+
+.chest-shop-fx-sweep {
+    position: absolute;
+    left: -360px;
+    top: 50%;
+    width: 220px;
+    height: 220%;
+    translate: 0 -50%;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+    opacity: 0;
+}
+
+.chest-shop-fx-sweep-primary {
+    background-color: rgba(255, 220, 82, 0.18);
+}
+
+.chest-shop-fx-sweep-accent {
+    background-color: rgba(97, 242, 209, 0.14);
 }
 
 .chest-shop-header {
@@ -1116,7 +1152,7 @@
 }
 
 .chest-shop-card-halo-small {
-    background-color: rgba(255, 201, 84, 0.20);
+    background-color: rgba(255, 201, 84, 0.2);
 }
 
 .chest-shop-card-halo-medium {
@@ -1446,15 +1482,5 @@
 .feedback-message-field .unity-base-text-field__input {
     font-size: 20px;
 }
-
-
-
-
-
-
-
-
-
-
 
 

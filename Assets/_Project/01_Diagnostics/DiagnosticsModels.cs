@@ -11,23 +11,26 @@ namespace Diceforge.Diagnostics
         SceneLoaded = 1,
         BattleStarted = 2,
         BattleEnded = 3,
-        SessionEnded = 4
+        SessionEnded = 4,
+        BattleSurrender = 5
     }
 
     public sealed class AnalyticsEventData
     {
-        public AnalyticsEventData(DiagnosticsEventType eventType, long timestampUnixMsUtc, string sessionId, Dictionary<string, string> payload)
+        public AnalyticsEventData(DiagnosticsEventType eventType, long timestampUnixMsUtc, string sessionId, Dictionary<string, string> payload, string displayName = null)
         {
             EventType = eventType;
             TimestampUnixMsUtc = timestampUnixMsUtc;
             SessionId = string.IsNullOrWhiteSpace(sessionId) ? string.Empty : sessionId;
             Payload = payload ?? new Dictionary<string, string>(0, StringComparer.Ordinal);
+            DisplayName = string.IsNullOrWhiteSpace(displayName) ? eventType.ToString() : displayName;
         }
 
         public DiagnosticsEventType EventType { get; }
         public long TimestampUnixMsUtc { get; }
         public string SessionId { get; }
         public Dictionary<string, string> Payload { get; }
+        public string DisplayName { get; }
     }
 
     public sealed class SessionDiagnosticsSnapshot
@@ -186,6 +189,34 @@ namespace Diceforge.Diagnostics
             DiagnosticsPayloadUtility.Add(payload, "winner", Winner);
             DiagnosticsPayloadUtility.Add(payload, "endReason", EndReason);
             DiagnosticsPayloadUtility.Add(payload, "turnIndex", TurnIndex);
+            return payload;
+        }
+    }
+
+    public readonly struct BattleSurrenderDiagnosticsContext
+    {
+        public const string EventName = "battle_surrender";
+
+        public BattleSurrenderDiagnosticsContext(string battleId, int turnNumber, int playerHp, int enemyHp)
+        {
+            BattleId = battleId ?? string.Empty;
+            TurnNumber = turnNumber;
+            PlayerHp = playerHp;
+            EnemyHp = enemyHp;
+        }
+
+        public string BattleId { get; }
+        public int TurnNumber { get; }
+        public int PlayerHp { get; }
+        public int EnemyHp { get; }
+
+        public Dictionary<string, string> ToPayload()
+        {
+            var payload = new Dictionary<string, string>(4, StringComparer.Ordinal);
+            DiagnosticsPayloadUtility.Add(payload, "battle_id", BattleId);
+            DiagnosticsPayloadUtility.Add(payload, "turn_number", TurnNumber);
+            DiagnosticsPayloadUtility.Add(payload, "player_hp", PlayerHp);
+            DiagnosticsPayloadUtility.Add(payload, "enemy_hp", EnemyHp);
             return payload;
         }
     }

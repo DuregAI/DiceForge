@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e03888613f340b8b899b5ad4eeafd2e, type: 3}
-  m_Name: ITEM_MATERIAL_DUST
+  m_Name: ITEM_COSMETIC_AVATAR_05
   m_EditorClassIdentifier: 
-  id: MATERIAL_DUST
-  displayName: Dust
-  icon: {fileID: 1751022810, guid: f33f9627bb2eb5b499e34d24a5eec65e, type: 3}
-  itemType: 2
-  cosmeticCategory: 0
-  cosmeticSourceType: 0
-  sortOrder: 0
+  id: COSMETIC_AVATAR_05
+  displayName: Sad Critter
+  icon: {fileID: -553465380, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  itemType: 1
+  cosmeticCategory: 1
+  cosmeticSourceType: 1
+  sortOrder: 50

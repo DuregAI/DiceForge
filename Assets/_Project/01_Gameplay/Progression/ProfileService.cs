@@ -9,6 +9,7 @@ namespace Diceforge.Progression
     {
         private const string FileName = "player_profile.json";
         private const string DefaultDisplayName = "Player";
+        private const string ProfileVersion = "0.0.5";
         private static readonly Dictionary<string, int> CurrencyMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> InventoryMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> UpgradeMap = new(StringComparer.Ordinal);
@@ -42,7 +43,8 @@ namespace Diceforge.Progression
 
             RebuildCache();
             var guidGenerated = EnsurePlayerGuid();
-            if (guidGenerated)
+            var avatarNormalized = EnsureSelectedAvatarId();
+            if (guidGenerated || avatarNormalized)
             {
                 Save();
             }
@@ -58,7 +60,7 @@ namespace Diceforge.Progression
                 _profile = CreateDefault();
             }
 
-            _profile.version = "0.0.4";
+            _profile.version = ProfileVersion;
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
             _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
@@ -86,6 +88,45 @@ namespace Diceforge.Progression
             Save();
             NotifyChanged();
             NotifyPlayerNameChanged();
+        }
+
+        public static string GetSelectedAvatarId()
+        {
+            return string.IsNullOrWhiteSpace(Current.selectedAvatarId)
+                ? string.Empty
+                : Current.selectedAvatarId.Trim();
+        }
+
+        public static bool SetSelectedAvatarId(string avatarId)
+        {
+            string normalizedAvatarId = string.IsNullOrWhiteSpace(avatarId) ? string.Empty : avatarId.Trim();
+            if (string.IsNullOrEmpty(normalizedAvatarId))
+            {
+                Debug.LogError("[ProfileService] Cannot assign an empty avatar id.");
+                return false;
+            }
+
+            ItemDefinition definition = AvatarService.GetAvatarDefinition(normalizedAvatarId);
+            if (definition == null)
+            {
+                Debug.LogError($"[ProfileService] Cannot assign avatar '{normalizedAvatarId}' because it is not configured.");
+                return false;
+            }
+
+            if (!AvatarService.IsAvatarUnlocked(definition))
+            {
+                Debug.LogWarning($"[ProfileService] Cannot assign locked avatar '{normalizedAvatarId}'.");
+                return false;
+            }
+
+            if (string.Equals(Current.selectedAvatarId, normalizedAvatarId, StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            Current.selectedAvatarId = normalizedAvatarId;
+            SaveAndNotify();
+            return true;
         }
 
         public static bool IsTutorialCompleted()
@@ -227,7 +268,6 @@ namespace Diceforge.Progression
             return true;
         }
 
-
         public static int GetUpgradeLevel(string id) => GetAmount(UpgradeMap, id);
 
         internal static void SetUpgradeLevel(string id, int level)
@@ -254,6 +294,7 @@ namespace Diceforge.Progression
         {
             _profile = CreateDefault();
             RebuildCache();
+            EnsureSelectedAvatarId();
             SaveAndNotify();
             NotifyPlayerNameChanged();
         }
@@ -275,6 +316,45 @@ namespace Diceforge.Progression
 
             Current.playerGuid = Guid.NewGuid().ToString();
             return true;
+        }
+
+        private static bool EnsureSelectedAvatarId()
+        {
+            string currentAvatarId = string.IsNullOrWhiteSpace(Current.selectedAvatarId)
+                ? string.Empty
+                : Current.selectedAvatarId.Trim();
+            string defaultAvatarId = AvatarService.GetDefaultAvatarId();
+
+            if (string.IsNullOrEmpty(defaultAvatarId))
+            {
+                Debug.LogError("[ProfileService] No default avatar is configured in the avatar catalog.");
+                Current.selectedAvatarId = string.Empty;
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(currentAvatarId))
+            {
+                Current.selectedAvatarId = defaultAvatarId;
+                return true;
+            }
+
+            ItemDefinition definition = AvatarService.GetAvatarDefinition(currentAvatarId);
+            if (definition == null)
+            {
+                Debug.LogError($"[ProfileService] Selected avatar '{currentAvatarId}' is missing from the avatar catalog. Falling back to '{defaultAvatarId}'.");
+                Current.selectedAvatarId = defaultAvatarId;
+                return true;
+            }
+
+            if (!AvatarService.IsAvatarUnlocked(definition))
+            {
+                Debug.LogWarning($"[ProfileService] Selected avatar '{currentAvatarId}' is locked. Falling back to '{defaultAvatarId}'.");
+                Current.selectedAvatarId = defaultAvatarId;
+                return true;
+            }
+
+            Current.selectedAvatarId = currentAvatarId;
+            return false;
         }
 
         private static void SaveAndNotify()
@@ -349,9 +429,10 @@ namespace Diceforge.Progression
                 }
             }
 
-            _profile.version = "0.0.4";
+            _profile.version = ProfileVersion;
             _profile.playerGuid = string.IsNullOrWhiteSpace(_profile.playerGuid) ? string.Empty : _profile.playerGuid.Trim();
             _profile.playerName = string.IsNullOrWhiteSpace(_profile.playerName) ? string.Empty : _profile.playerName.Trim();
+            _profile.selectedAvatarId = string.IsNullOrWhiteSpace(_profile.selectedAvatarId) ? string.Empty : _profile.selectedAvatarId.Trim();
             _profile.currencies = ToList(CurrencyMap);
             _profile.inventory = ToList(InventoryMap);
             _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
@@ -362,9 +443,10 @@ namespace Diceforge.Progression
         private static PlayerProfile CreateDefault()
         {
             var profile = new PlayerProfile();
-            profile.version = "0.0.4";
+            profile.version = ProfileVersion;
             profile.playerGuid = Guid.NewGuid().ToString();
             profile.playerName = string.Empty;
+            profile.selectedAvatarId = string.Empty;
             profile.tutorialCompleted = false;
             profile.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 0));
             profile.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 0));

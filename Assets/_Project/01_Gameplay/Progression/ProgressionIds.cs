@@ -10,6 +10,11 @@ namespace Diceforge.Progression
         public const string MediumChest = "CHEST_MEDIUM";
         public const string EssenceChest = "CHEST_ESSENCE";
         public const string ItemConsumableReroll = "CONSUMABLE_REROLL";
+        public const string CosmeticAvatar01 = "COSMETIC_AVATAR_01";
+        public const string CosmeticAvatar02 = "COSMETIC_AVATAR_02";
+        public const string CosmeticAvatar03 = "COSMETIC_AVATAR_03";
+        public const string CosmeticAvatar04 = "COSMETIC_AVATAR_04";
+        public const string CosmeticAvatar05 = "COSMETIC_AVATAR_05";
 
         public const string UpgWinGold = "UPG_WIN_GOLD";
         public const string UpgLossGold = "UPG_LOSS_GOLD";
@@ -21,4 +26,3 @@ namespace Diceforge.Progression
         public const string UpgShortModeBonus = "UPG_SHORT_MODE_BONUS";
     }
 }
-

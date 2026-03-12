@@ -82,7 +82,7 @@ public sealed class PlayerPanelController : MonoBehaviour
 
         if (_avatarButton != null)
         {
-            var avatar = tutorialPortraitLibrary?.DefaultPlayerAvatar;
+            var avatar = AvatarService.GetSelectedAvatarSprite();
             _avatarButton.style.backgroundImage = avatar == null ? StyleKeyword.None : new StyleBackground(avatar);
         }
     }

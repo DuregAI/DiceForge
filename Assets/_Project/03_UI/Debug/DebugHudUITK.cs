@@ -32,6 +32,9 @@ namespace Diceforge.View
         private Button _enterButton;
         private Button _placeButton;
         private Button _rerollButton;
+        private Button _surrenderButton;
+        private Button _surrenderCancelButton;
+        private Button _surrenderConfirmButton;
         private Toggle _humanAToggle;
         private Toggle _humanBToggle;
         private Slider _speedSlider;
@@ -39,6 +42,9 @@ namespace Diceforge.View
         private VisualElement _diceButtonsRow;
         private VisualElement _centerDicePresentation;
         private VisualElement _centerDiceRow;
+        private VisualElement _battleTopRightControls;
+        private VisualElement _surrenderDialog;
+        private VisualElement _surrenderDialogWindow;
 
         private readonly HashSet<string> _missingWarnings = new HashSet<string>();
 
@@ -48,6 +54,9 @@ namespace Diceforge.View
         public event Action OnEnter;
         public event Action OnPlace;
         public event Action OnReroll;
+        public event Action OnSurrenderRequest;
+        public event Action OnSurrenderCancel;
+        public event Action OnSurrenderConfirm;
         public event Action<bool> OnToggleAutoRun;
         public event Action<float> OnSpeedChanged;
         public event Action<bool> OnHumanAChanged;
@@ -66,7 +75,6 @@ namespace Diceforge.View
                 return;
             }
 
-            // The document root spans the whole screen, so keep it transparent to hit testing.
             _root.pickingMode = PickingMode.Ignore;
 
             CacheElements();
@@ -101,17 +109,13 @@ namespace Diceforge.View
 
             if (_remainingDiceLabel != null)
             {
-                string pips = remainingDice == null || remainingDice.Count == 0
-                    ? "-"
-                    : string.Join(", ", remainingDice);
+                string pips = remainingDice == null || remainingDice.Count == 0 ? "-" : string.Join(", ", remainingDice);
                 _remainingDiceLabel.text = $"Remaining: {pips}";
             }
 
             if (_usedDiceLabel != null)
             {
-                string used = usedDice == null || usedDice.Count == 0
-                    ? "-"
-                    : string.Join(", ", usedDice);
+                string used = usedDice == null || usedDice.Count == 0 ? "-" : string.Join(", ", usedDice);
                 _usedDiceLabel.text = $"Used: {used}";
             }
         }
@@ -193,6 +197,23 @@ namespace Diceforge.View
             _rerollButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
+        public void SetSurrenderEnabled(bool enabled)
+        {
+            _surrenderButton?.SetEnabled(enabled);
+        }
+
+        public void SetSurrenderDialogVisible(bool visible)
+        {
+            if (_surrenderDialog == null)
+                return;
+
+            _surrenderDialog.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            _surrenderDialog.pickingMode = visible ? PickingMode.Position : PickingMode.Ignore;
+
+            if (_surrenderDialogWindow != null)
+                _surrenderDialogWindow.pickingMode = visible ? PickingMode.Position : PickingMode.Ignore;
+        }
+
         public void SetDiceButtons(IReadOnlyList<int> remainingDice, int? selectedIndex, bool enabled, bool dimmed)
         {
             _diceButtonsRow?.Clear();
@@ -270,6 +291,9 @@ namespace Diceforge.View
             _enterButton = GetElement<Button>("enterButton");
             _placeButton = GetElement<Button>("placeButton");
             _rerollButton = GetElement<Button>("rerollButton");
+            _surrenderButton = GetElement<Button>("surrenderButton");
+            _surrenderCancelButton = GetElement<Button>("surrenderCancelButton");
+            _surrenderConfirmButton = GetElement<Button>("surrenderConfirmButton");
             _humanAToggle = GetElement<Toggle>("humanAToggle");
             _humanBToggle = GetElement<Toggle>("humanBToggle");
             _speedSlider = GetElement<Slider>("speedSlider");
@@ -277,6 +301,9 @@ namespace Diceforge.View
             _diceButtonsRow = GetElement<VisualElement>("diceButtonsRow");
             _centerDicePresentation = GetElement<VisualElement>("centerDicePresentation");
             _centerDiceRow = GetElement<VisualElement>("centerDiceRow");
+            _battleTopRightControls = GetElement<VisualElement>("battleTopRightControls");
+            _surrenderDialog = GetElement<VisualElement>("surrenderDialog");
+            _surrenderDialogWindow = GetElement<VisualElement>("surrenderDialogWindow");
 
             if (_diceButtonsRow != null)
                 _diceButtonsRow.style.display = DisplayStyle.None;
@@ -289,6 +316,11 @@ namespace Diceforge.View
 
             if (_centerDiceRow != null)
                 _centerDiceRow.pickingMode = PickingMode.Position;
+
+            if (_battleTopRightControls != null)
+                _battleTopRightControls.pickingMode = PickingMode.Position;
+
+            SetSurrenderDialogVisible(false);
         }
 
         private void RegisterCallbacks()
@@ -307,6 +339,12 @@ namespace Diceforge.View
                 _placeButton.clicked += HandlePlaceClicked;
             if (_rerollButton != null)
                 _rerollButton.clicked += HandleRerollClicked;
+            if (_surrenderButton != null)
+                _surrenderButton.clicked += HandleSurrenderClicked;
+            if (_surrenderCancelButton != null)
+                _surrenderCancelButton.clicked += HandleSurrenderCancelClicked;
+            if (_surrenderConfirmButton != null)
+                _surrenderConfirmButton.clicked += HandleSurrenderConfirmClicked;
             if (_speedSlider != null)
             {
                 _speedSlider.RegisterValueChangedCallback(HandleSpeedChanged);
@@ -334,6 +372,12 @@ namespace Diceforge.View
                 _placeButton.clicked -= HandlePlaceClicked;
             if (_rerollButton != null)
                 _rerollButton.clicked -= HandleRerollClicked;
+            if (_surrenderButton != null)
+                _surrenderButton.clicked -= HandleSurrenderClicked;
+            if (_surrenderCancelButton != null)
+                _surrenderCancelButton.clicked -= HandleSurrenderCancelClicked;
+            if (_surrenderConfirmButton != null)
+                _surrenderConfirmButton.clicked -= HandleSurrenderConfirmClicked;
             if (_speedSlider != null)
                 _speedSlider.UnregisterValueChangedCallback(HandleSpeedChanged);
             if (_humanAToggle != null)
@@ -370,6 +414,21 @@ namespace Diceforge.View
         private void HandleRerollClicked()
         {
             OnReroll?.Invoke();
+        }
+
+        private void HandleSurrenderClicked()
+        {
+            OnSurrenderRequest?.Invoke();
+        }
+
+        private void HandleSurrenderCancelClicked()
+        {
+            OnSurrenderCancel?.Invoke();
+        }
+
+        private void HandleSurrenderConfirmClicked()
+        {
+            OnSurrenderConfirm?.Invoke();
         }
 
         private void HandleAutoRunChanged(ChangeEvent<bool> evt)

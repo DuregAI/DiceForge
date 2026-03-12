@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: ITEM_COSMETIC_AVATAR_01
   m_EditorClassIdentifier: 
   id: COSMETIC_AVATAR_01
-  displayName: Avatar 01
-  icon: {fileID: -1349615273, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
+  displayName: Chief Wombat
+  icon: {fileID: 2031283720, guid: 3015448196896044dac53ecc6f91afa3, type: 3}
   itemType: 1
+  cosmeticCategory: 1
+  cosmeticSourceType: 0
+  sortOrder: 10
