@@ -124,10 +124,10 @@ namespace Diceforge.Map
                     CompleteNonBattleNode(node, HandleChestReward(node));
                     break;
                 case MapNodeType.Shop:
-                    CompleteNonBattleNode(node, BuildRewardBundle(node.rewardPresetId));
+                    CompleteNonBattleNode(node, BuildRewardBundle(node.reward, node.id));
                     break;
                 case MapNodeType.Story:
-                    CompleteNonBattleNode(node, BuildRewardBundle(node.rewardPresetId));
+                    CompleteNonBattleNode(node, BuildRewardBundle(node.reward, node.id));
                     break;
             }
         }
@@ -169,7 +169,7 @@ namespace Diceforge.Map
             LevelUpPresentationData levelUpData = null;
             if (MapFlowRuntime.LastBattleWon)
             {
-                var reward = BuildRewardBundle(node.rewardPresetId);
+                var reward = BuildRewardBundle(node.reward, node.id);
                 if (reward != null && !reward.IsEmpty)
                     levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Battle);
 
@@ -205,16 +205,7 @@ namespace Diceforge.Map
 
         private RewardBundle HandleChestReward(MapNodeDefinition node)
         {
-            if (!string.IsNullOrWhiteSpace(node.chestId))
-            {
-                var chest = ChestService.CreateChestInstance(node.chestId);
-                if (chest != null)
-                {
-                    return new RewardBundle { chests = new List<ChestInstance> { chest } };
-                }
-            }
-
-            return BuildRewardBundle(node.rewardPresetId);
+            return BuildRewardBundle(node.reward, node.id);
         }
 
         private void CompleteNonBattleNode(MapNodeDefinition node, RewardBundle reward)
@@ -249,37 +240,76 @@ namespace Diceforge.Map
                 _state.currentNodeId = node.nextIds[0];
         }
 
-        private static RewardBundle BuildRewardBundle(string rewardPresetId)
+        private static RewardBundle BuildRewardBundle(MapNodeRewardDefinition rewardDefinition, string nodeId)
         {
             var bundle = new RewardBundle();
-            switch (rewardPresetId)
+            if (rewardDefinition == null)
+                return bundle;
+
+            if (rewardDefinition.currencies != null)
             {
-                case "battle_small":
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 25));
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 2));
-                    break;
-                case "battle_medium":
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 45));
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 4));
-                    break;
-                case "battle_large":
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 70));
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 7));
-                    break;
-                case "battle_boss":
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 120));
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.Essence, 10));
-                    bundle.items.Add(new ProfileAmount(ProgressionIds.Shards, 10));
-                    break;
-                case "chest_basic":
-                    bundle.chests.Add(ChestService.CreateChestInstance(ProgressionIds.BasicChest));
-                    break;
-                case "shop_visit":
-                    bundle.currencies.Add(new ProfileAmount(ProgressionIds.SoftGold, 30));
-                    break;
+                foreach (var currency in rewardDefinition.currencies)
+                {
+                    ValidateProfileAmount(currency, nodeId, "currency");
+                    bundle.currencies.Add(new ProfileAmount(currency.id, currency.amount));
+                }
+            }
+
+            if (rewardDefinition.items != null)
+            {
+                foreach (var item in rewardDefinition.items)
+                {
+                    ValidateProfileAmount(item, nodeId, "item");
+                    bundle.items.Add(new ProfileAmount(item.id, item.amount));
+                }
+            }
+
+            if (rewardDefinition.xp < 0)
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': xp cannot be negative.");
+
+            bundle.xp = rewardDefinition.xp;
+
+            if (rewardDefinition.chests != null)
+            {
+                foreach (var chestReward in rewardDefinition.chests)
+                {
+                    ValidateChestReward(chestReward, nodeId);
+                    for (int i = 0; i < chestReward.amount; i++)
+                    {
+                        ChestInstance chest = ChestService.CreateChestInstance(chestReward.chestId);
+                        if (chest == null)
+                            throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': chest '{chestReward.chestId}' could not be created.");
+
+                        bundle.chests.Add(chest);
+                    }
+                }
             }
 
             return bundle;
+        }
+
+        private static void ValidateProfileAmount(ProfileAmount amount, string nodeId, string rewardType)
+        {
+            if (amount == null)
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': {rewardType} entry is null.");
+
+            if (string.IsNullOrWhiteSpace(amount.id))
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': {rewardType} id is empty.");
+
+            if (amount.amount <= 0)
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': {rewardType} '{amount.id}' amount must be > 0.");
+        }
+
+        private static void ValidateChestReward(MapChestRewardEntry chestReward, string nodeId)
+        {
+            if (chestReward == null)
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': chest reward entry is null.");
+
+            if (string.IsNullOrWhiteSpace(chestReward.chestId))
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': chest reward id is empty.");
+
+            if (chestReward.amount <= 0)
+                throw new InvalidOperationException($"[MapFlow] Reward config invalid for node '{nodeId}': chest '{chestReward.chestId}' amount must be > 0.");
         }
     }
 }

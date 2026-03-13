@@ -1,13 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="ResultOverlay.uss" />
     <ui:VisualElement name="resultOverlayRoot" class="result-overlay-root" style="display: none;">
+        <ui:Image name="resultFxBackLayer" class="result-overlay-fx result-overlay-fx-back" />
         <ui:VisualElement name="resultPanel" class="result-overlay-panel">
-            <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
-            <ui:Label name="rewardBreakdownLabel" text="+30 SOFT_GOLD
-+3 ESSENCE
-+10 XP" class="result-overlay-rewards" />
-            <ui:Button name="restartButton" text="Restart" class="result-overlay-button" />
-            <ui:Button name="backToMenuButton" text="Back to Menu" class="result-overlay-button" />
+            <ui:VisualElement name="resultPanelContent" class="result-overlay-content">
+                <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
+                <ui:Label name="resultSummaryLabel" text="Rewards" class="result-overlay-summary" />
+                <ui:VisualElement name="resultRewardsContainer" class="result-overlay-rewards-container">
+                    <ui:Label name="resultRewardsHeader" text="Rewards" class="result-overlay-rewards-header" />
+                    <ui:ScrollView name="resultRewardsList" class="result-overlay-rewards-list" />
+                </ui:VisualElement>
+                <ui:Button name="restartButton" text="Restart" class="result-overlay-button" />
+                <ui:Button name="backToMenuButton" text="Back to Menu" class="result-overlay-button" />
+            </ui:VisualElement>
         </ui:VisualElement>
+        <ui:Image name="resultFxFrontLayer" class="result-overlay-fx result-overlay-fx-front" />
     </ui:VisualElement>
 </ui:UXML>

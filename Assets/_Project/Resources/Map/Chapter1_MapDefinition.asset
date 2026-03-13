@@ -21,8 +21,15 @@ MonoBehaviour:
     nextIds:
     - C1_02
     battlePresetId: long
-    rewardPresetId: battle_small
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 25
+      - id: ESSENCE
+        amount: 2
+      items: []
+      xp: 100
+      chests: []
     storyLineId: 
   - id: C1_02
     type: 1
@@ -30,8 +37,15 @@ MonoBehaviour:
     nextIds:
     - C1_03
     battlePresetId: long
-    rewardPresetId: battle_small
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 25
+      - id: ESSENCE
+        amount: 2
+      items: []
+      xp: 50
+      chests: []
     storyLineId: 
   - id: C1_03
     type: 1
@@ -39,8 +53,13 @@ MonoBehaviour:
     nextIds:
     - C1_04
     battlePresetId: 
-    rewardPresetId: chest_basic
-    chestId: CHEST_BASIC
+    reward:
+      currencies: []
+      items: []
+      xp: 0
+      chests:
+      - chestId: CHEST_BASIC
+        amount: 1
     storyLineId: 
   - id: C1_04
     type: 0
@@ -48,8 +67,15 @@ MonoBehaviour:
     nextIds:
     - C1_05
     battlePresetId: long
-    rewardPresetId: battle_medium
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 45
+      - id: ESSENCE
+        amount: 4
+      items: []
+      xp: 0
+      chests: []
     storyLineId: 
   - id: C1_05
     type: 2
@@ -57,8 +83,13 @@ MonoBehaviour:
     nextIds:
     - C1_06
     battlePresetId: 
-    rewardPresetId: shop_visit
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 30
+      items: []
+      xp: 0
+      chests: []
     storyLineId: 
   - id: C1_06
     type: 0
@@ -66,8 +97,15 @@ MonoBehaviour:
     nextIds:
     - C1_07
     battlePresetId: long
-    rewardPresetId: battle_medium
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 45
+      - id: ESSENCE
+        amount: 4
+      items: []
+      xp: 0
+      chests: []
     storyLineId: 
   - id: C1_07
     type: 0
@@ -75,8 +113,15 @@ MonoBehaviour:
     nextIds:
     - C1_08
     battlePresetId: long
-    rewardPresetId: battle_large
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 70
+      - id: ESSENCE
+        amount: 7
+      items: []
+      xp: 0
+      chests: []
     storyLineId: 
   - id: C1_08
     type: 1
@@ -84,14 +129,26 @@ MonoBehaviour:
     nextIds:
     - C1_09
     battlePresetId: 
-    rewardPresetId: chest_basic
-    chestId: CHEST_BASIC
+    reward:
+      currencies: []
+      items: []
+      xp: 0
+      chests:
+      - chestId: CHEST_BASIC
+        amount: 1
     storyLineId: 
   - id: C1_09
     type: 0
     positionNormalized: {x: 0.863, y: 0.837}
     nextIds: []
     battlePresetId: long
-    rewardPresetId: battle_large
-    chestId: 
+    reward:
+      currencies:
+      - id: SOFT_GOLD
+        amount: 70
+      - id: ESSENCE
+        amount: 7
+      items: []
+      xp: 0
+      chests: []
     storyLineId: 
