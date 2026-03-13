@@ -33,7 +33,8 @@ public sealed class LevelUpWindowPresenter : MonoBehaviour
     private readonly Queue<PendingPresentation> _queue = new();
     private VisualElement _hostRoot;
     private LevelUpWindowView _view;
-    private RewardPopupEffectsBridge _effectsBridge;
+    private RewardPopupEffectsBridge _backEffectsBridge;
+    private RewardPopupEffectsBridge _frontEffectsBridge;
     private Coroutine _queueRoutine;
     private bool _continueRequested;
     private bool _initialized;
@@ -62,7 +63,17 @@ public sealed class LevelUpWindowPresenter : MonoBehaviour
 
         _view = new LevelUpWindowView(instance);
         _view.ContinueRequested += HandleContinueRequested;
-        _effectsBridge = GetComponent<RewardPopupEffectsBridge>() ?? gameObject.AddComponent<RewardPopupEffectsBridge>();
+        RewardPopupEffectsBridge[] effectBridges = GetComponents<RewardPopupEffectsBridge>();
+        if (effectBridges.Length > 0)
+            _backEffectsBridge = effectBridges[0];
+        else
+            _backEffectsBridge = gameObject.AddComponent<RewardPopupEffectsBridge>();
+
+        if (effectBridges.Length > 1)
+            _frontEffectsBridge = effectBridges[1];
+        else
+            _frontEffectsBridge = gameObject.AddComponent<RewardPopupEffectsBridge>();
+
         _view.Hide();
         _initialized = true;
     }
@@ -107,7 +118,8 @@ public sealed class LevelUpWindowPresenter : MonoBehaviour
 
         _view.ShowPrimaryContent();
         _view.StartLevelPulse();
-        _effectsBridge?.BeginPresentation(request.Data.EffectPresetId, _view.FxLayerImage, _view.LevelAnchorElement);
+        _backEffectsBridge?.BeginPresentation(request.Data.EffectPresetId, _view.FxBackLayerImage, _view.LevelAnchorElement);
+        _frontEffectsBridge?.BeginPresentation(request.Data.EffectPresetId, _view.FxFrontLayerImage, _view.LevelAnchorElement);
         yield return new WaitForSecondsRealtime(PrimaryDelaySeconds);
 
         _view.ShowUnlocks();
@@ -119,7 +131,8 @@ public sealed class LevelUpWindowPresenter : MonoBehaviour
             yield return null;
 
         PlayContinueAudio();
-        _effectsBridge?.StopActivePresentation();
+        _backEffectsBridge?.StopActivePresentation();
+        _frontEffectsBridge?.StopActivePresentation();
         _view.Hide();
         request.OnClosed?.Invoke();
     }
@@ -177,7 +190,8 @@ public sealed class LevelUpWindowPresenter : MonoBehaviour
         if (_queueRoutine != null)
             StopCoroutine(_queueRoutine);
 
-        _effectsBridge?.StopActivePresentation();
+        _backEffectsBridge?.StopActivePresentation();
+        _frontEffectsBridge?.StopActivePresentation();
 
         if (_view != null)
         {

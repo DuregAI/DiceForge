@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CUR_SOFT_GOLD
   m_EditorClassIdentifier: 
   id: SOFT_GOLD
-  displayName: Soft Gold
+  displayName: coins
   icon: {fileID: 21300000, guid: 6d4625b4184e42769e07d113ccb1e721, type: 3}

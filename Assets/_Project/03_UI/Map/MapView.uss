@@ -131,6 +131,13 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
+.map-node-chest .node-button,
+.map-node-shop .node-button {
+    width: 108px;
+    height: 108px;
+    margin-top: 10px;
+}
+
 .node-button:disabled {
     opacity: 1;
     color: rgba(255, 255, 255, 0);
@@ -138,6 +145,26 @@
 
 .map-node-hover .node-button {
     -unity-background-image-tint-color: rgba(255, 245, 180, 1);
+}
+
+.map-node-chest.available .node-button,
+.map-node-chest.current .node-button,
+.map-node-shop.available .node-button,
+.map-node-shop.current .node-button {
+    opacity: 1;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 1);
+}
+
+.map-node-chest.locked .node-button,
+.map-node-shop.locked .node-button {
+    opacity: 0.46;
+    -unity-background-image-tint-color: rgba(156, 170, 182, 0.92);
+}
+
+.map-node-chest.completed .node-button,
+.map-node-shop.completed .node-button {
+    opacity: 0.7;
+    -unity-background-image-tint-color: rgba(209, 228, 245, 0.9);
 }
 
 

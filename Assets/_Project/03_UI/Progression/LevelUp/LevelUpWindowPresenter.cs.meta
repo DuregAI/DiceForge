@@ -3,7 +3,9 @@ guid: b84f332f2c244b3fb4cc988d6571ff8a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - levelUpRevealClip: {fileID: 8300000, guid: 26363f2382e9d8146a319cc39d5e6d3c, type: 3}
+  - continueClip: {fileID: 8300000, guid: 30d5800faa495ff4282f51c6873cc00a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

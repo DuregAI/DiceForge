@@ -685,6 +685,8 @@ MonoBehaviour:
   iconDisabled: {fileID: -852922905, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
   iconOpen: {fileID: 1467759091, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
   iconPassed: {fileID: 315556479, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
+  chestNodeIcon: {fileID: 21300000, guid: c153be46d5a54d0e8a12ea8bdb5cfb52, type: 3}
+  shopNodeIcon: {fileID: 21300000, guid: 2ac5cb687a486e54f9c31c898e93233f, type: 3}
 --- !u!114 &1000000005
 MonoBehaviour:
   m_ObjectHideFlags: 0

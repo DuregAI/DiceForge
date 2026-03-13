@@ -51,11 +51,10 @@
 
 .level-up-fx-layer {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 900px;
-    height: 720px;
-    translate: -50% -50%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     opacity: 0;
     transition-property: opacity;
     transition-duration: 0.22s;
@@ -63,6 +62,22 @@
 }
 
 .level-up-overlay.is-panel-visible .level-up-fx-layer {
+    opacity: 1;
+}
+
+.level-up-fx-back-layer {
+    opacity: 0;
+}
+
+.level-up-fx-front-layer {
+    opacity: 0;
+}
+
+.level-up-overlay.is-panel-visible .level-up-fx-back-layer {
+    opacity: 0.88;
+}
+
+.level-up-overlay.is-panel-visible .level-up-fx-front-layer {
     opacity: 1;
 }
 

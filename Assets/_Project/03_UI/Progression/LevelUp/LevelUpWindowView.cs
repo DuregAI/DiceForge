@@ -8,7 +8,8 @@ public sealed class LevelUpWindowView
     private readonly VisualElement _overlay;
     private readonly VisualElement _panel;
     private readonly VisualElement _backdropGlow;
-    private readonly Image _fxLayer;
+    private readonly Image _fxBackLayer;
+    private readonly Image _fxFrontLayer;
     private readonly Label _titleLabel;
     private readonly Label _subtitleLabel;
     private readonly VisualElement _levelShell;
@@ -36,7 +37,8 @@ public sealed class LevelUpWindowView
 
         _panel = _overlay.Q<VisualElement>("levelUpPanel");
         _backdropGlow = _overlay.Q<VisualElement>("levelUpBackdropGlow");
-        _fxLayer = _overlay.Q<Image>("levelUpFxLayer");
+        _fxBackLayer = _overlay.Q<Image>("levelUpFxBackLayer");
+        _fxFrontLayer = _overlay.Q<Image>("levelUpFxFrontLayer");
         _titleLabel = _overlay.Q<Label>("levelUpTitle");
         _subtitleLabel = _overlay.Q<Label>("levelUpSubtitle");
         _levelShell = _overlay.Q<VisualElement>("levelUpLevelShell");
@@ -50,11 +52,8 @@ public sealed class LevelUpWindowView
         if (_continueButton != null)
             _continueButton.clicked += HandleContinueClicked;
 
-        if (_fxLayer != null)
-        {
-            _fxLayer.scaleMode = ScaleMode.StretchToFill;
-            _fxLayer.pickingMode = PickingMode.Ignore;
-        }
+        ConfigureFxLayer(_fxBackLayer);
+        ConfigureFxLayer(_fxFrontLayer);
 
         _overlay.style.display = DisplayStyle.None;
         _overlay.pickingMode = PickingMode.Ignore;
@@ -63,7 +62,8 @@ public sealed class LevelUpWindowView
     public event Action ContinueRequested;
 
     public VisualElement Root => _overlay;
-    public Image FxLayerImage => _fxLayer;
+    public Image FxBackLayerImage => _fxBackLayer;
+    public Image FxFrontLayerImage => _fxFrontLayer;
     public VisualElement LevelAnchorElement => _levelShell;
     public bool IsInteractionReady => _interactionReady;
 
@@ -175,8 +175,10 @@ public sealed class LevelUpWindowView
         _overlay.RemoveFromClassList("is-panel-visible");
         _overlay.RemoveFromClassList("is-open");
         _overlay.pickingMode = PickingMode.Ignore;
-        if (_fxLayer != null)
-            _fxLayer.image = null;
+        if (_fxBackLayer != null)
+            _fxBackLayer.image = null;
+        if (_fxFrontLayer != null)
+            _fxFrontLayer.image = null;
         _overlay.style.display = DisplayStyle.None;
     }
 
@@ -235,5 +237,14 @@ public sealed class LevelUpWindowView
     {
         if (_interactionReady)
             ContinueRequested?.Invoke();
+    }
+
+    private static void ConfigureFxLayer(Image fxLayer)
+    {
+        if (fxLayer == null)
+            return;
+
+        fxLayer.scaleMode = ScaleMode.StretchToFill;
+        fxLayer.pickingMode = PickingMode.Ignore;
     }
 }

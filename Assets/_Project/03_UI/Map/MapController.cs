@@ -8,6 +8,13 @@ using UnityEngine.UIElements;
 
 public sealed class MapController : MonoBehaviour
 {
+    private enum NodeVisualState
+    {
+        Locked,
+        Available,
+        Completed
+    }
+
     private const float CurrentPulseMinScale = 1.1f;
     private const float CurrentPulseMaxScale = 1.23f;
     private const float HoverScaleBump = 0.13f;
@@ -25,6 +32,8 @@ public sealed class MapController : MonoBehaviour
     [SerializeField] private Sprite iconDisabled;
     [SerializeField] private Sprite iconOpen;
     [SerializeField] private Sprite iconPassed;
+    [SerializeField] private Sprite chestNodeIcon;
+    [SerializeField] private Sprite shopNodeIcon;
 
     private VisualElement _mapRoot;
     private VisualElement _background;
@@ -71,6 +80,8 @@ public sealed class MapController : MonoBehaviour
         _currentState = state;
         _onNodeSelected = onNodeSelected;
         _nodesById.Clear();
+
+        ValidateNodeIcons();
 
         _titleLabel.text = FormatChapterTitle(map.chapterId);
         _mapRoot.style.display = DisplayStyle.Flex;
@@ -298,7 +309,7 @@ public sealed class MapController : MonoBehaviour
                 nodeContainer.Add(idLabel);
             }*/
 
-            ApplyNodeStateClasses(nodeContainer, button, node.id);
+            ApplyNodeStateClasses(nodeContainer, button, node);
             nodeContainer.style.left = Length.Percent(node.positionNormalized.x * 100f);
             nodeContainer.style.top = Length.Percent((1f - node.positionNormalized.y) * 100f);
 
@@ -409,17 +420,28 @@ public sealed class MapController : MonoBehaviour
         _onNodeSelected?.Invoke(_currentState.currentNodeId);
     }
 
-    private void ApplyNodeStateClasses(VisualElement container, Button button, string id)
+    private void ApplyNodeStateClasses(VisualElement container, Button button, MapNodeDefinition node)
     {
+        if (node == null)
+            return;
+
+        string id = node.id;
         container.RemoveFromClassList("locked");
         container.RemoveFromClassList("available");
         container.RemoveFromClassList("completed");
         container.RemoveFromClassList("current");
+        container.RemoveFromClassList("map-node-battle");
+        container.RemoveFromClassList("map-node-chest");
+        container.RemoveFromClassList("map-node-shop");
+        container.RemoveFromClassList("map-node-story");
+
+        AddTypeClass(container, node.type);
+        AddTypeClass(button, node.type);
 
         if (_currentState.IsCompleted(id))
         {
             container.AddToClassList("completed");
-            ApplyNodeIcon(button, iconPassed);
+            ApplyNodeIcon(button, node.type, NodeVisualState.Completed);
             button.SetEnabled(false);
             ClearNodeFx(container, id);
             return;
@@ -429,19 +451,19 @@ public sealed class MapController : MonoBehaviour
         if (id == _currentState.currentNodeId && unlocked)
         {
             container.AddToClassList("current");
-            ApplyNodeIcon(button, iconOpen);
+            ApplyNodeIcon(button, node.type, NodeVisualState.Available);
             button.SetEnabled(true);
         }
         else if (unlocked)
         {
             container.AddToClassList("available");
-            ApplyNodeIcon(button, iconOpen);
+            ApplyNodeIcon(button, node.type, NodeVisualState.Available);
             button.SetEnabled(true);
         }
         else
         {
             container.AddToClassList("locked");
-            ApplyNodeIcon(button, iconDisabled);
+            ApplyNodeIcon(button, node.type, NodeVisualState.Locked);
             button.SetEnabled(false);
             ClearNodeFx(container, id);
         }
@@ -458,15 +480,83 @@ public sealed class MapController : MonoBehaviour
         _background.style.unityBackgroundScaleMode = ScaleMode.ScaleAndCrop;
     }
 
-    private static void ApplyNodeIcon(Button button, Sprite icon)
+    private void ValidateNodeIcons()
+    {
+        if (iconDisabled == null || iconOpen == null || iconPassed == null)
+            throw new InvalidOperationException("[MapController] Battle map icons are not configured on MapController.");
+
+        if (_currentMap == null || _currentMap.nodes == null)
+            return;
+
+        bool requiresChestIcon = false;
+        bool requiresShopIcon = false;
+        for (int i = 0; i < _currentMap.nodes.Count; i++)
+        {
+            MapNodeDefinition node = _currentMap.nodes[i];
+            if (node == null)
+                continue;
+
+            requiresChestIcon |= node.type == MapNodeType.Chest;
+            requiresShopIcon |= node.type == MapNodeType.Shop;
+        }
+
+        if (requiresChestIcon && chestNodeIcon == null)
+            throw new InvalidOperationException("[MapController] Chest node icon is required but not configured on MapController.");
+
+        if (requiresShopIcon && shopNodeIcon == null)
+            throw new InvalidOperationException("[MapController] Shop node icon is required but not configured on MapController.");
+    }
+
+    private void ApplyNodeIcon(Button button, MapNodeType nodeType, NodeVisualState visualState)
     {
         if (button == null)
             return;
 
+        Sprite icon = ResolveNodeIcon(nodeType, visualState);
         button.style.backgroundImage = icon != null
             ? new StyleBackground(icon)
             : StyleKeyword.Null;
         button.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit;
+    }
+
+    private Sprite ResolveNodeIcon(MapNodeType nodeType, NodeVisualState visualState)
+    {
+        return nodeType switch
+        {
+            MapNodeType.Battle => visualState switch
+            {
+                NodeVisualState.Locked => iconDisabled,
+                NodeVisualState.Available => iconOpen,
+                NodeVisualState.Completed => iconPassed,
+                _ => iconOpen
+            },
+            MapNodeType.Chest => chestNodeIcon,
+            MapNodeType.Shop => shopNodeIcon,
+            MapNodeType.Story => iconOpen,
+            _ => iconOpen
+        };
+    }
+
+    private static void AddTypeClass(VisualElement element, MapNodeType nodeType)
+    {
+        if (element == null)
+            return;
+
+        switch (nodeType)
+        {
+            case MapNodeType.Battle:
+                element.AddToClassList("map-node-battle");
+                break;
+            case MapNodeType.Chest:
+                element.AddToClassList("map-node-chest");
+                break;
+            case MapNodeType.Shop:
+                element.AddToClassList("map-node-shop");
+                break;
+            case MapNodeType.Story:
+                element.AddToClassList("map-node-story");
+                break;
+        }
     }
 
     private static string FormatChapterTitle(string chapterId)

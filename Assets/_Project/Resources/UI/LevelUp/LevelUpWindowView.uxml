@@ -3,6 +3,7 @@
     <ui:VisualElement name="levelUpOverlay" class="level-up-overlay">
         <ui:VisualElement name="levelUpBackdrop" class="level-up-backdrop"/>
         <ui:VisualElement name="levelUpBackdropGlow" class="level-up-backdrop-glow"/>
+        <ui:Image name="levelUpFxBackLayer" class="level-up-fx-layer level-up-fx-back-layer"/>
         <ui:VisualElement name="levelUpPanel" class="level-up-panel">
             <ui:VisualElement class="level-up-shell">
                 <ui:VisualElement class="level-up-panel-glow"/>
@@ -27,6 +28,6 @@
                 <ui:Button name="levelUpContinueButton" text="Continue" class="level-up-continue-button df-interactive"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Image name="levelUpFxLayer" class="level-up-fx-layer"/>
+        <ui:Image name="levelUpFxFrontLayer" class="level-up-fx-layer level-up-fx-front-layer"/>
     </ui:VisualElement>
 </ui:UXML>
