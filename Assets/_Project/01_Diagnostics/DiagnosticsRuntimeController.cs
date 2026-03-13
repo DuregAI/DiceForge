@@ -48,6 +48,11 @@ namespace Diceforge.Diagnostics
         {
             DiagnosticsRuntimeController.EnsureCreated().RecordBattleSurrender(context);
         }
+
+        public static void RecordPlayerLevelUp(PlayerLevelUpDiagnosticsContext context)
+        {
+            DiagnosticsRuntimeController.EnsureCreated().RecordPlayerLevelUp(context);
+        }
     }
 
     internal static class DiagnosticsRuntimeBootstrap
@@ -257,6 +262,15 @@ namespace Diceforge.Diagnostics
                 return;
 
             EnqueueAndFlush(DiagnosticsEventType.BattleSurrender, context.ToPayload(), null, BattleSurrenderDiagnosticsContext.EventName);
+        }
+
+        public void RecordPlayerLevelUp(PlayerLevelUpDiagnosticsContext context)
+        {
+            InitializeIfNeeded();
+            if (_shutdownRecorded)
+                return;
+
+            EnqueueAndFlush(DiagnosticsEventType.PlayerLevelUp, context.ToPayload(), null, PlayerLevelUpDiagnosticsContext.EventName);
         }
 
         public string BuildSupportLog(string buildInfo)

@@ -51,6 +51,7 @@
     </ui:VisualElement>
 
     <ui:VisualElement name="battleTopRightControls" class="battle-top-right-controls">
+        <ui:Button name="winButton" text="Вин" class="battle-secondary-button" />
         <ui:Button name="surrenderButton" text="Surrender" class="battle-secondary-button" />
     </ui:VisualElement>
 

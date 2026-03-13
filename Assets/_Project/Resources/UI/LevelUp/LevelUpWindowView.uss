@@ -1,0 +1,370 @@
+.level-up-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.18s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-overlay.is-open {
+    opacity: 1;
+}
+
+.level-up-backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(5, 9, 14, 0.74);
+}
+
+.level-up-backdrop-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 780px;
+    height: 520px;
+    translate: -50% -50%;
+    opacity: 0.1;
+    background-color: rgba(96, 152, 224, 0.07);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+    transition-property: opacity, scale;
+    transition-duration: 0.24s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-overlay.is-panel-visible .level-up-backdrop-glow {
+    opacity: 0.18;
+    scale: 1.02;
+}
+
+.level-up-fx-layer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 900px;
+    height: 720px;
+    translate: -50% -50%;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.22s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-overlay.is-panel-visible .level-up-fx-layer {
+    opacity: 1;
+}
+
+.level-up-panel {
+    width: 760px;
+    min-width: 760px;
+    max-width: 760px;
+    min-height: 620px;
+    padding: 18px;
+    opacity: 0;
+    scale: 0.94;
+    translate: 0 20px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_frame_9s.png?fileID=2800000&guid=d2458c1f2e9544f4b1f987e5a4019c11&type=3#lp_frame_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 48;
+    -unity-slice-right: 48;
+    -unity-slice-top: 48;
+    -unity-slice-bottom: 48;
+    transition-property: opacity, scale, translate;
+    transition-duration: 0.24s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-overlay.is-panel-visible .level-up-panel {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+}
+
+.level-up-shell {
+    flex-grow: 1;
+    padding: 28px 34px 30px 34px;
+    align-items: center;
+    background-color: rgba(60, 45, 30, 0.96);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png?fileID=2800000&guid=7c92fe0db47d4cccb6511a4620e5d483&type=3#lp_bg_tile");
+    background-repeat: repeat;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: visible;
+}
+
+.level-up-panel-glow {
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    top: 26px;
+    bottom: 26px;
+    background-color: rgba(255, 224, 146, 0.06);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.level-up-title-plaque {
+    min-width: 316px;
+    height: 78px;
+    margin-top: 6px;
+    justify-content: center;
+    align-items: center;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_header_plaque_9s.png?fileID=2800000&guid=5e82c84c7a9f4b3ab94b764bc8a9d321&type=3#lp_header_plaque_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+}
+
+.level-up-title-plaque,
+.level-up-title,
+.level-up-subtitle,
+.level-up-badge-stack,
+.level-up-flavor,
+.level-up-unlock-section,
+.level-up-continue-button {
+    opacity: 0;
+    translate: 0 10px;
+    transition-property: opacity, translate;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-overlay.is-primary-visible .level-up-title-plaque,
+.level-up-overlay.is-primary-visible .level-up-title,
+.level-up-overlay.is-primary-visible .level-up-subtitle,
+.level-up-overlay.is-primary-visible .level-up-badge-stack,
+.level-up-overlay.is-primary-visible .level-up-flavor {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.level-up-overlay.is-unlocks-visible .level-up-unlock-section,
+.level-up-overlay.is-ready .level-up-continue-button {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.level-up-title {
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
+    color: rgb(255, 239, 197);
+    font-size: 42px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 2px;
+    text-shadow: 0 3px 0 rgba(55, 34, 15, 0.82);
+}
+
+.level-up-subtitle {
+    margin-top: 18px;
+    color: rgb(239, 226, 192);
+    font-size: 24px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.65);
+}
+
+.level-up-badge-stack {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.level-up-badge-halo {
+    position: absolute;
+    width: 248px;
+    height: 248px;
+    background-color: rgba(255, 209, 106, 0.13);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.level-up-badge-frame {
+    width: 232px;
+    height: 232px;
+    justify-content: center;
+    align-items: center;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_avatar_ring.png?fileID=2800000&guid=8013a43f761f4426bac3488ec5a4d522&type=3#lp_avatar_ring");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.level-up-level-shell {
+    width: 178px;
+    height: 178px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(46, 32, 19, 0.95);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(230, 191, 107, 0.56);
+    border-right-color: rgba(230, 191, 107, 0.56);
+    border-top-color: rgba(255, 233, 174, 0.52);
+    border-bottom-color: rgba(95, 62, 29, 0.72);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.level-up-level-glow {
+    position: absolute;
+    width: 144px;
+    height: 144px;
+    opacity: 0.32;
+    background-color: rgba(127, 196, 255, 0.16);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.level-up-level-value {
+    -unity-font: url("project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular%20SDF.asset?fileID=11400000&guid=d5895c83018429343b0fab6c7f6ebcd5&type=2#LuckiestGuy-Regular SDF");
+    color: rgb(255, 240, 197);
+    font-size: 112px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    text-shadow: 0 5px 0 rgba(55, 34, 15, 0.82);
+}
+
+.level-up-flavor {
+    max-width: 520px;
+    margin-top: 6px;
+    margin-bottom: 20px;
+    color: rgb(224, 212, 182);
+    font-size: 20px;
+    -unity-text-align: middle-center;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.55);
+    white-space: normal;
+}
+
+.level-up-unlock-section {
+    width: 100%;
+    max-width: 586px;
+    margin-bottom: 22px;
+    padding: 18px 20px 16px 20px;
+    align-items: stretch;
+    background-color: rgba(27, 20, 14, 0.76);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_header_plaque_9s.png?fileID=2800000&guid=5e82c84c7a9f4b3ab94b764bc8a9d321&type=3#lp_header_plaque_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(227, 189, 109, 0.74);
+    border-right-color: rgba(227, 189, 109, 0.74);
+    border-top-color: rgba(227, 189, 109, 0.74);
+    border-bottom-color: rgba(227, 189, 109, 0.74);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.level-up-unlock-title {
+    color: rgb(255, 233, 174);
+    font-size: 24px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 0 rgba(55, 34, 15, 0.72);
+}
+
+.level-up-unlock-list {
+    margin-top: 10px;
+    align-items: stretch;
+}
+
+.level-up-unlock-row {
+    min-height: 34px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.level-up-unlock-marker {
+    width: 10px;
+    height: 10px;
+    margin-right: 12px;
+    background-color: rgb(255, 216, 117);
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.level-up-unlock-label {
+    flex-grow: 1;
+    color: rgb(238, 227, 197);
+    font-size: 19px;
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.level-up-continue-button {
+    width: 264px;
+    height: 74px;
+    margin-top: auto;
+    justify-content: center;
+    align-items: center;
+    color: rgb(56, 34, 15);
+    font-size: 28px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_button_primary_9s.png?fileID=2800000&guid=b49f1657c9d54876a326fc5c5ad72fd1&type=3#lp_button_primary_9s");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-width: 0;
+    -unity-slice-left: 22;
+    -unity-slice-right: 22;
+    -unity-slice-top: 18;
+    -unity-slice-bottom: 18;
+    transition-property: scale, opacity;
+    transition-duration: 0.16s;
+    transition-timing-function: ease-out;
+}
+
+.level-up-continue-button:hover {
+    scale: 1.02;
+}
+
+.level-up-continue-button:active {
+    scale: 0.98;
+}
+
+.level-up-continue-button:disabled {
+    opacity: 0.55;
+}

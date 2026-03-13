@@ -195,19 +195,23 @@ namespace Diceforge.Progression
             return true;
         }
 
-        public static void AddXp(int amount)
+        public static LevelUpPresentationData AddXp(int amount, string sourceContext = LevelUpSourceContexts.Progression)
         {
             if (amount <= 0)
-                return;
+                return null;
 
+            int previousLevel = UiProgressionService.GetPlayerLevel();
             Current.hero.xp += amount;
             SaveAndNotify();
+            return LevelUpProgressionService.Build(previousLevel, UiProgressionService.GetPlayerLevel(), sourceContext);
         }
 
-        public static void ApplyReward(RewardBundle bundle)
+        public static LevelUpPresentationData ApplyReward(RewardBundle bundle, string sourceContext = LevelUpSourceContexts.Progression)
         {
             if (bundle == null || bundle.IsEmpty)
-                return;
+                return null;
+
+            int previousLevel = UiProgressionService.GetPlayerLevel();
 
             if (bundle.currencies != null)
             {
@@ -243,6 +247,7 @@ namespace Diceforge.Progression
             }
 
             SaveAndNotify();
+            return LevelUpProgressionService.Build(previousLevel, UiProgressionService.GetPlayerLevel(), sourceContext);
         }
 
         public static void AddChest(ChestInstance chest)

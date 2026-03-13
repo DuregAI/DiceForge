@@ -12,7 +12,8 @@ namespace Diceforge.Diagnostics
         BattleStarted = 2,
         BattleEnded = 3,
         SessionEnded = 4,
-        BattleSurrender = 5
+        BattleSurrender = 5,
+        PlayerLevelUp = 6
     }
 
     public sealed class AnalyticsEventData
@@ -217,6 +218,34 @@ namespace Diceforge.Diagnostics
             DiagnosticsPayloadUtility.Add(payload, "turn_number", TurnNumber);
             DiagnosticsPayloadUtility.Add(payload, "player_hp", PlayerHp);
             DiagnosticsPayloadUtility.Add(payload, "enemy_hp", EnemyHp);
+            return payload;
+        }
+    }
+    public readonly struct PlayerLevelUpDiagnosticsContext
+    {
+        public const string EventName = "player_level_up";
+
+        public PlayerLevelUpDiagnosticsContext(int previousLevel, int newLevel, IReadOnlyList<string> unlockIds, string sourceContext)
+        {
+            PreviousLevel = previousLevel;
+            NewLevel = newLevel;
+            UnlockIds = unlockIds ?? Array.Empty<string>();
+            SourceContext = string.IsNullOrWhiteSpace(sourceContext) ? string.Empty : sourceContext;
+        }
+
+        public int PreviousLevel { get; }
+        public int NewLevel { get; }
+        public IReadOnlyList<string> UnlockIds { get; }
+        public string SourceContext { get; }
+
+        public Dictionary<string, string> ToPayload()
+        {
+            var payload = new Dictionary<string, string>(5, StringComparer.Ordinal);
+            DiagnosticsPayloadUtility.Add(payload, "previous_level", PreviousLevel);
+            DiagnosticsPayloadUtility.Add(payload, "new_level", NewLevel);
+            DiagnosticsPayloadUtility.Add(payload, "unlock_count", UnlockIds != null ? UnlockIds.Count : 0);
+            DiagnosticsPayloadUtility.Add(payload, "unlock_ids", UnlockIds != null && UnlockIds.Count > 0 ? string.Join(",", UnlockIds) : string.Empty);
+            DiagnosticsPayloadUtility.Add(payload, "source_context", SourceContext);
             return payload;
         }
     }

@@ -6,11 +6,18 @@ using UnityEngine.UIElements;
 public sealed class WalletPanelController : MonoBehaviour
 {
     private const int DevXpAmount = 50;
+    private static readonly LevelUpUnlockInfo[] DebugMultiUnlocks =
+    {
+        new("chest_shop", "Chest Shop"),
+        new("upgrades", "Upgrades"),
+        new("milestone_rewards", "Milestone Rewards")
+    };
 
     public event Action OpenChestScreenRequested;
     public event Action OpenChestShopRequested;
 
     private bool _initialized;
+    private LevelUpWindowPresenter _levelUpPresenter;
     private Label _coinsLabel;
     private Label _essenceLabel;
     private Label _shardsLabel;
@@ -24,8 +31,16 @@ public sealed class WalletPanelController : MonoBehaviour
     private Button _addCoinsButton;
     private Button _resetProfileButton;
     private Button _openChestButton;
+    private Button _debugLevelUpButton;
+    private Button _debugLevelUpUnlockButton;
+    private Button _debugLevelUpMultiButton;
 
     public bool AreDevActionsVisible => _devActionsElement != null && _devActionsElement.style.display != DisplayStyle.None;
+
+    public void SetLevelUpPresenter(LevelUpWindowPresenter presenter)
+    {
+        _levelUpPresenter = presenter;
+    }
 
     public void Initialize(VisualElement root)
     {
@@ -46,6 +61,9 @@ public sealed class WalletPanelController : MonoBehaviour
         _addCoinsButton = root.Q<Button>("btnWalletAddCoins");
         _resetProfileButton = root.Q<Button>("btnWalletReset");
         _openChestButton = root.Q<Button>("btnWalletOpenChest");
+        _debugLevelUpButton = root.Q<Button>("btnWalletDebugLevelUp");
+        _debugLevelUpUnlockButton = root.Q<Button>("btnWalletDebugLevelUnlock");
+        _debugLevelUpMultiButton = root.Q<Button>("btnWalletDebugLevelMulti");
 
         if (_addXpButton != null)
             _addXpButton.clicked += HandleAddXpClicked;
@@ -55,6 +73,12 @@ public sealed class WalletPanelController : MonoBehaviour
             _resetProfileButton.clicked += HandleResetClicked;
         if (_openChestButton != null)
             _openChestButton.clicked += HandleOpenChestClicked;
+        if (_debugLevelUpButton != null)
+            _debugLevelUpButton.clicked += HandleDebugLevelUpClicked;
+        if (_debugLevelUpUnlockButton != null)
+            _debugLevelUpUnlockButton.clicked += HandleDebugLevelUpUnlockClicked;
+        if (_debugLevelUpMultiButton != null)
+            _debugLevelUpMultiButton.clicked += HandleDebugLevelUpMultiClicked;
 
         SetDevActionsVisible(false);
 
@@ -84,11 +108,18 @@ public sealed class WalletPanelController : MonoBehaviour
             _resetProfileButton.clicked -= HandleResetClicked;
         if (_openChestButton != null)
             _openChestButton.clicked -= HandleOpenChestClicked;
+        if (_debugLevelUpButton != null)
+            _debugLevelUpButton.clicked -= HandleDebugLevelUpClicked;
+        if (_debugLevelUpUnlockButton != null)
+            _debugLevelUpUnlockButton.clicked -= HandleDebugLevelUpUnlockClicked;
+        if (_debugLevelUpMultiButton != null)
+            _debugLevelUpMultiButton.clicked -= HandleDebugLevelUpMultiClicked;
     }
 
     private void HandleAddXpClicked()
     {
-        ProfileService.AddXp(DevXpAmount);
+        LevelUpPresentationData levelUpData = ProfileService.AddXp(DevXpAmount, LevelUpSourceContexts.Debug);
+        ShowLevelUp(levelUpData);
     }
 
     private void HandleAddCoinsClicked()
@@ -111,6 +142,41 @@ public sealed class WalletPanelController : MonoBehaviour
         }
 
         OpenChestShopRequested?.Invoke();
+    }
+
+    private void HandleDebugLevelUpClicked()
+    {
+        ShowLevelUp(LevelUpProgressionService.CreateDebugSample(
+            previousLevel: 2,
+            newLevel: 3,
+            unlocks: Array.Empty<LevelUpUnlockInfo>(),
+            flavorText: "Your forge burns brighter."));
+    }
+
+    private void HandleDebugLevelUpUnlockClicked()
+    {
+        ShowLevelUp(LevelUpProgressionService.CreateDebugSample(
+            previousLevel: 2,
+            newLevel: 3,
+            unlocks: new[] { new LevelUpUnlockInfo("chest_shop", "Chest Shop") },
+            flavorText: "A new path opens through the embers."));
+    }
+
+    private void HandleDebugLevelUpMultiClicked()
+    {
+        ShowLevelUp(LevelUpProgressionService.CreateDebugSample(
+            previousLevel: 3,
+            newLevel: 5,
+            unlocks: DebugMultiUnlocks,
+            flavorText: "The forge answers with a brighter chorus."));
+    }
+
+    private void ShowLevelUp(LevelUpPresentationData data)
+    {
+        if (data == null)
+            return;
+
+        _levelUpPresenter?.Show(data);
     }
 
     private void Refresh()

@@ -567,7 +567,7 @@ MonoBehaviour:
   startPanelOpen: 0
   autoOpenOnTrackChange: 1
   autoCloseOnTrackChange: 1
-  autoCloseDelaySeconds: 7
+  autoCloseDelaySeconds: 3
 --- !u!114 &485800849
 MonoBehaviour:
   m_ObjectHideFlags: 0

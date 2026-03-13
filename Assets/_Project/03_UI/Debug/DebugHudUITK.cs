@@ -32,6 +32,7 @@ namespace Diceforge.View
         private Button _enterButton;
         private Button _placeButton;
         private Button _rerollButton;
+        private Button _winButton;
         private Button _surrenderButton;
         private Button _surrenderCancelButton;
         private Button _surrenderConfirmButton;
@@ -54,6 +55,7 @@ namespace Diceforge.View
         public event Action OnEnter;
         public event Action OnPlace;
         public event Action OnReroll;
+        public event Action OnForceWinRequest;
         public event Action OnSurrenderRequest;
         public event Action OnSurrenderCancel;
         public event Action OnSurrenderConfirm;
@@ -199,6 +201,7 @@ namespace Diceforge.View
 
         public void SetSurrenderEnabled(bool enabled)
         {
+            _winButton?.SetEnabled(enabled);
             _surrenderButton?.SetEnabled(enabled);
         }
 
@@ -291,6 +294,7 @@ namespace Diceforge.View
             _enterButton = GetElement<Button>("enterButton");
             _placeButton = GetElement<Button>("placeButton");
             _rerollButton = GetElement<Button>("rerollButton");
+            _winButton = GetElement<Button>("winButton");
             _surrenderButton = GetElement<Button>("surrenderButton");
             _surrenderCancelButton = GetElement<Button>("surrenderCancelButton");
             _surrenderConfirmButton = GetElement<Button>("surrenderConfirmButton");
@@ -339,6 +343,8 @@ namespace Diceforge.View
                 _placeButton.clicked += HandlePlaceClicked;
             if (_rerollButton != null)
                 _rerollButton.clicked += HandleRerollClicked;
+            if (_winButton != null)
+                _winButton.clicked += HandleWinClicked;
             if (_surrenderButton != null)
                 _surrenderButton.clicked += HandleSurrenderClicked;
             if (_surrenderCancelButton != null)
@@ -372,6 +378,8 @@ namespace Diceforge.View
                 _placeButton.clicked -= HandlePlaceClicked;
             if (_rerollButton != null)
                 _rerollButton.clicked -= HandleRerollClicked;
+            if (_winButton != null)
+                _winButton.clicked -= HandleWinClicked;
             if (_surrenderButton != null)
                 _surrenderButton.clicked -= HandleSurrenderClicked;
             if (_surrenderCancelButton != null)
@@ -419,6 +427,11 @@ namespace Diceforge.View
         private void HandleSurrenderClicked()
         {
             OnSurrenderRequest?.Invoke();
+        }
+
+        private void HandleWinClicked()
+        {
+            OnForceWinRequest?.Invoke();
         }
 
         private void HandleSurrenderCancelClicked()

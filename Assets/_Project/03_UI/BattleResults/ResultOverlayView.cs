@@ -19,6 +19,7 @@ namespace Diceforge.View
         private Label _rewardBreakdownLabel;
         private Button _restartButton;
         private Button _backToMenuButton;
+        private LevelUpWindowPresenter _levelUpPresenter;
         private bool _isVisible;
 
         private void OnEnable()
@@ -32,6 +33,9 @@ namespace Diceforge.View
             _root = document != null ? document.rootVisualElement : null;
             if (_root == null)
                 return;
+
+            _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
+            _levelUpPresenter.Initialize(_root);
 
             // The document root spans the whole screen, so only the visible overlay should receive clicks.
             _root.pickingMode = PickingMode.Ignore;
@@ -87,10 +91,12 @@ namespace Diceforge.View
             {
                 var modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
                 var rewards = RewardService.CalculateMatchRewards(result, modeId);
-                ProfileService.ApplyReward(rewards);
+                LevelUpPresentationData levelUpData = ProfileService.ApplyReward(rewards, LevelUpSourceContexts.Battle);
 
                 if (_rewardBreakdownLabel != null)
                     _rewardBreakdownLabel.text = BuildRewardBreakdown(rewards);
+
+                _levelUpPresenter?.Show(levelUpData);
             }
 
             if (_overlayRoot != null)

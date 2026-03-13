@@ -68,8 +68,14 @@ namespace Diceforge.Map
 
         private MapDefinitionSO _map;
         private MapRunState _state;
+        private LevelUpWindowPresenter _levelUpPresenter;
 
         public bool IsDevMode => devModeConfig != null ? devModeConfig.devModeEnabled : Debug.isDebugBuild;
+
+        public void SetLevelUpPresenter(LevelUpWindowPresenter presenter)
+        {
+            _levelUpPresenter = presenter;
+        }
 
         private void Awake()
         {
@@ -160,11 +166,12 @@ namespace Diceforge.Map
                 return;
             }
 
+            LevelUpPresentationData levelUpData = null;
             if (MapFlowRuntime.LastBattleWon)
             {
                 var reward = BuildRewardBundle(node.rewardPresetId);
                 if (reward != null && !reward.IsEmpty)
-                    ProfileService.ApplyReward(reward);
+                    levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Battle);
 
                 CompleteNode(node);
             }
@@ -179,6 +186,7 @@ namespace Diceforge.Map
             MapFlowRuntime.ClearPendingResult();
             MapFlowRuntime.ConsumeReturnToMapRequest();
             RefreshMap();
+            ShowLevelUp(levelUpData);
         }
 
         private void LaunchBattle(MapNodeDefinition node)
@@ -211,12 +219,22 @@ namespace Diceforge.Map
 
         private void CompleteNonBattleNode(MapNodeDefinition node, RewardBundle reward)
         {
+            LevelUpPresentationData levelUpData = null;
             if (reward != null && !reward.IsEmpty)
-                ProfileService.ApplyReward(reward);
+                levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Progression);
 
             CompleteNode(node);
             MapProgressService.Save(_map.chapterId, _state);
             RefreshMap();
+            ShowLevelUp(levelUpData);
+        }
+
+        private void ShowLevelUp(LevelUpPresentationData data)
+        {
+            if (data == null)
+                return;
+
+            _levelUpPresenter?.Show(data);
         }
 
         private void CompleteNode(MapNodeDefinition node)

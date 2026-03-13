@@ -52,6 +52,7 @@ public class MainMenuController : MonoBehaviour
     private ChestOpenController chestOpenController;
     private ChestShopController chestShopController;
     private PlayerPanelController playerPanelController;
+    private LevelUpWindowPresenter levelUpWindowPresenter;
     private VisualElement tutorialReplayConfirmModal;
     private Label tutorialReplayConfirmText;
     private Button tutorialReplayConfirmYesButton;
@@ -126,6 +127,7 @@ public class MainMenuController : MonoBehaviour
 
         walletPanelController = GetComponent<WalletPanelController>() ?? gameObject.AddComponent<WalletPanelController>();
         playerPanelController = GetComponent<PlayerPanelController>() ?? gameObject.AddComponent<PlayerPanelController>();
+        levelUpWindowPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
 
         ProfileService.Load();
 
@@ -137,10 +139,12 @@ public class MainMenuController : MonoBehaviour
         InitializeFeedbackForm();
         InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
+        levelUpWindowPresenter.Initialize(root);
 
         playerPanelController.SetPortraitLibrary(tutorialPortraitLibrary);
         playerPanelController.Initialize(root);
 
+        walletPanelController.SetLevelUpPresenter(levelUpWindowPresenter);
         walletPanelController.Initialize(root);
         walletPanelController.SetDevActionsVisible(false);
         areDevActionsVisible = false;
@@ -163,6 +167,7 @@ public class MainMenuController : MonoBehaviour
         ProfileService.ProfileChanged += RefreshProgressiveUi;
 
         mapFlowOrchestrator = GetComponent<MapFlowOrchestrator>() ?? gameObject.AddComponent<MapFlowOrchestrator>();
+        mapFlowOrchestrator.SetLevelUpPresenter(levelUpWindowPresenter);
         var mapController = GetComponent<MapController>() ?? gameObject.AddComponent<MapController>();
         mapController.ResetRunRequested -= HandleMapResetRequested;
         mapController.ResetRunRequested += HandleMapResetRequested;

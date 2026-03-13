@@ -507,6 +507,17 @@ namespace Diceforge.View
             hud?.SetSurrenderDialogVisible(true);
         }
 
+        public void ForceDebugWin()
+        {
+            if (!CanSurrender())
+                return;
+
+            var state = _runner.State;
+            hud?.SetSurrenderDialogVisible(false);
+            state.Finish(localPlayer);
+            FinalizeMatchResult(new MatchResult(localPlayer, MatchEndReason.Win));
+        }
+
         public void ConfirmSurrender()
         {
             if (!CanSurrender())
@@ -708,6 +719,7 @@ namespace Diceforge.View
             hud.OnEnter += HandleEnterClicked;
             hud.OnPlace += HandlePlaceClicked;
             hud.OnReroll += HandleRerollClicked;
+            hud.OnForceWinRequest += ForceDebugWin;
             hud.OnSurrenderRequest += RequestSurrender;
             hud.OnSurrenderCancel += HandleSurrenderCancelled;
             hud.OnSurrenderConfirm += ConfirmSurrender;
@@ -729,6 +741,7 @@ namespace Diceforge.View
             hud.OnEnter -= HandleEnterClicked;
             hud.OnPlace -= HandlePlaceClicked;
             hud.OnReroll -= HandleRerollClicked;
+            hud.OnForceWinRequest -= ForceDebugWin;
             hud.OnSurrenderRequest -= RequestSurrender;
             hud.OnSurrenderCancel -= HandleSurrenderCancelled;
             hud.OnSurrenderConfirm -= ConfirmSurrender;

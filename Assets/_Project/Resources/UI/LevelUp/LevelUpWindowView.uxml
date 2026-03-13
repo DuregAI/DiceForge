@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/Resources/UI/LevelUp/LevelUpWindowView.uss"/>
+    <ui:VisualElement name="levelUpOverlay" class="level-up-overlay">
+        <ui:VisualElement name="levelUpBackdrop" class="level-up-backdrop"/>
+        <ui:VisualElement name="levelUpBackdropGlow" class="level-up-backdrop-glow"/>
+        <ui:VisualElement name="levelUpPanel" class="level-up-panel">
+            <ui:VisualElement class="level-up-shell">
+                <ui:VisualElement class="level-up-panel-glow"/>
+                <ui:VisualElement class="level-up-title-plaque">
+                    <ui:Label name="levelUpTitle" text="LEVEL UP" class="level-up-title"/>
+                </ui:VisualElement>
+                <ui:Label name="levelUpSubtitle" text="You reached Level 2" class="level-up-subtitle"/>
+                <ui:VisualElement class="level-up-badge-stack">
+                    <ui:VisualElement class="level-up-badge-halo"/>
+                    <ui:VisualElement class="level-up-badge-frame">
+                        <ui:VisualElement name="levelUpLevelShell" class="level-up-level-shell">
+                            <ui:VisualElement name="levelUpLevelGlow" class="level-up-level-glow"/>
+                            <ui:Label name="levelUpLevelValue" text="2" class="level-up-level-value"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="levelUpFlavor" text="Your forge burns brighter." class="level-up-flavor"/>
+                <ui:VisualElement name="levelUpUnlockSection" class="level-up-unlock-section">
+                    <ui:Label text="Unlocked" class="level-up-unlock-title"/>
+                    <ui:VisualElement name="levelUpUnlockList" class="level-up-unlock-list"/>
+                </ui:VisualElement>
+                <ui:Button name="levelUpContinueButton" text="Continue" class="level-up-continue-button df-interactive"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Image name="levelUpFxLayer" class="level-up-fx-layer"/>
+    </ui:VisualElement>
+</ui:UXML>
