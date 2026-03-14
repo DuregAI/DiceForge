@@ -53,6 +53,11 @@ namespace Diceforge.Diagnostics
         {
             DiagnosticsRuntimeController.EnsureCreated().RecordPlayerLevelUp(context);
         }
+
+        public static void RecordChestObtained(ChestObtainedDiagnosticsContext context)
+        {
+            DiagnosticsRuntimeController.EnsureCreated().RecordChestObtained(context);
+        }
     }
 
     internal static class DiagnosticsRuntimeBootstrap
@@ -271,6 +276,15 @@ namespace Diceforge.Diagnostics
                 return;
 
             EnqueueAndFlush(DiagnosticsEventType.PlayerLevelUp, context.ToPayload(), null, PlayerLevelUpDiagnosticsContext.EventName);
+        }
+
+        public void RecordChestObtained(ChestObtainedDiagnosticsContext context)
+        {
+            InitializeIfNeeded();
+            if (_shutdownRecorded)
+                return;
+
+            EnqueueAndFlush(DiagnosticsEventType.ChestObtained, context.ToPayload(), null, ChestObtainedDiagnosticsContext.EventName);
         }
 
         public string BuildSupportLog(string buildInfo)

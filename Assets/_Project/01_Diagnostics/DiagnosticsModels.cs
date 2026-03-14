@@ -13,7 +13,8 @@ namespace Diceforge.Diagnostics
         BattleEnded = 3,
         SessionEnded = 4,
         BattleSurrender = 5,
-        PlayerLevelUp = 6
+        PlayerLevelUp = 6,
+        ChestObtained = 7
     }
 
     public sealed class AnalyticsEventData
@@ -218,6 +219,49 @@ namespace Diceforge.Diagnostics
             DiagnosticsPayloadUtility.Add(payload, "turn_number", TurnNumber);
             DiagnosticsPayloadUtility.Add(payload, "player_hp", PlayerHp);
             DiagnosticsPayloadUtility.Add(payload, "enemy_hp", EnemyHp);
+            return payload;
+        }
+    }
+    public readonly struct ChestObtainedDiagnosticsContext
+    {
+        public const string EventName = "chest_obtained";
+
+        public ChestObtainedDiagnosticsContext(
+            IReadOnlyList<string> chestIds,
+            IReadOnlyList<string> chestTypes,
+            IReadOnlyList<string> chestTiers,
+            int chestCount,
+            string sourceContext,
+            int playerLevel,
+            bool afterLevelUp)
+        {
+            ChestIds = chestIds ?? Array.Empty<string>();
+            ChestTypes = chestTypes ?? Array.Empty<string>();
+            ChestTiers = chestTiers ?? Array.Empty<string>();
+            ChestCount = chestCount;
+            SourceContext = string.IsNullOrWhiteSpace(sourceContext) ? string.Empty : sourceContext;
+            PlayerLevel = playerLevel;
+            AfterLevelUp = afterLevelUp;
+        }
+
+        public IReadOnlyList<string> ChestIds { get; }
+        public IReadOnlyList<string> ChestTypes { get; }
+        public IReadOnlyList<string> ChestTiers { get; }
+        public int ChestCount { get; }
+        public string SourceContext { get; }
+        public int PlayerLevel { get; }
+        public bool AfterLevelUp { get; }
+
+        public Dictionary<string, string> ToPayload()
+        {
+            var payload = new Dictionary<string, string>(7, StringComparer.Ordinal);
+            DiagnosticsPayloadUtility.Add(payload, "chest_count", ChestCount);
+            DiagnosticsPayloadUtility.Add(payload, "chest_ids", ChestIds != null && ChestIds.Count > 0 ? string.Join(",", ChestIds) : string.Empty);
+            DiagnosticsPayloadUtility.Add(payload, "chest_types", ChestTypes != null && ChestTypes.Count > 0 ? string.Join(",", ChestTypes) : string.Empty);
+            DiagnosticsPayloadUtility.Add(payload, "chest_tiers", ChestTiers != null && ChestTiers.Count > 0 ? string.Join(",", ChestTiers) : string.Empty);
+            DiagnosticsPayloadUtility.Add(payload, "source_context", SourceContext);
+            DiagnosticsPayloadUtility.Add(payload, "player_level", PlayerLevel);
+            DiagnosticsPayloadUtility.Add(payload, "after_level_up", AfterLevelUp ? "true" : "false");
             return payload;
         }
     }

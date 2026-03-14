@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/Resources/UI/Chests/ChestRewardWindowView.uss"/>
+    <ui:VisualElement name="chestRewardOverlay" class="chest-reward-overlay">
+        <ui:VisualElement name="chestRewardBackdrop" class="chest-reward-backdrop"/>
+        <ui:VisualElement name="chestRewardBackdropGlow" class="chest-reward-backdrop-glow"/>
+        <ui:Image name="chestRewardFxBackLayer" class="chest-reward-fx-layer chest-reward-fx-back-layer"/>
+        <ui:VisualElement name="chestRewardPanel" class="chest-reward-panel">
+            <ui:VisualElement class="chest-reward-shell">
+                <ui:VisualElement class="chest-reward-panel-glow"/>
+                <ui:VisualElement class="chest-reward-title-plaque">
+                    <ui:Label name="chestRewardTitle" text="REWARD RECEIVED" class="chest-reward-title"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="chest-reward-badge-stack">
+                    <ui:VisualElement class="chest-reward-badge-halo"/>
+                    <ui:VisualElement class="chest-reward-badge-frame">
+                        <ui:VisualElement name="chestRewardChestShell" class="chest-reward-chest-shell">
+                            <ui:VisualElement name="chestRewardChestGlow" class="chest-reward-chest-glow"/>
+                            <ui:Image name="chestRewardChestIcon" class="chest-reward-chest-icon"/>
+                            <ui:Label name="chestRewardCountBadge" text="x2" class="chest-reward-count-badge"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="chestRewardName" text="Bronze Chest" class="chest-reward-name"/>
+                <ui:Label name="chestRewardRarity" text="Rare" class="chest-reward-rarity"/>
+                <ui:Label name="chestRewardFlavor" text="A battle-earned chest has been added to your stash." class="chest-reward-flavor"/>
+                <ui:VisualElement name="chestRewardDetailsSection" class="chest-reward-details-section">
+                    <ui:Label text="Stash Updated" class="chest-reward-details-title"/>
+                    <ui:VisualElement name="chestRewardDetailsList" class="chest-reward-details-list"/>
+                </ui:VisualElement>
+                <ui:Button name="chestRewardContinueButton" text="Continue" class="chest-reward-continue-button df-interactive"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Image name="chestRewardFxFrontLayer" class="chest-reward-fx-layer chest-reward-fx-front-layer"/>
+    </ui:VisualElement>
+</ui:UXML>

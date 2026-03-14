@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public sealed class LevelUpWindowView
 {
+    private readonly VisualElement _container;
     private readonly VisualElement _overlay;
     private readonly VisualElement _panel;
     private readonly VisualElement _backdropGlow;
@@ -29,6 +30,7 @@ public sealed class LevelUpWindowView
         if (root == null)
             throw new ArgumentNullException(nameof(root));
 
+        _container = root;
         _overlay = root.name == "levelUpOverlay"
             ? root
             : root.Q<VisualElement>("levelUpOverlay");
@@ -57,6 +59,7 @@ public sealed class LevelUpWindowView
 
         _overlay.style.display = DisplayStyle.None;
         _overlay.pickingMode = PickingMode.Ignore;
+        _container.pickingMode = PickingMode.Ignore;
     }
 
     public event Action ContinueRequested;
@@ -95,8 +98,10 @@ public sealed class LevelUpWindowView
     public void PrepareForShow()
     {
         _interactionReady = false;
+        _container.BringToFront();
         _overlay.style.display = DisplayStyle.Flex;
         _overlay.pickingMode = PickingMode.Position;
+        _overlay.BringToFront();
         _overlay.RemoveFromClassList("is-open");
         _overlay.RemoveFromClassList("is-panel-visible");
         _overlay.RemoveFromClassList("is-primary-visible");

@@ -208,14 +208,26 @@ namespace Diceforge.Progression
 
         public static LevelUpPresentationData ApplyReward(RewardBundle bundle, string sourceContext = LevelUpSourceContexts.Progression)
         {
-            if (bundle == null || bundle.IsEmpty)
-                return null;
+            return ApplyRewardDetailed(bundle, sourceContext).LevelUpData;
+        }
 
+        public static RewardApplicationResult ApplyRewardDetailed(RewardBundle bundle, string sourceContext = LevelUpSourceContexts.Progression)
+        {
             int previousLevel = UiProgressionService.GetPlayerLevel();
-
-            if (bundle.currencies != null)
+            RewardBundle resolvedBundle = bundle ?? new RewardBundle();
+            if (resolvedBundle.IsEmpty)
             {
-                foreach (var currency in bundle.currencies)
+                return new RewardApplicationResult(
+                    resolvedBundle,
+                    previousLevel,
+                    previousLevel,
+                    null,
+                    sourceContext);
+            }
+
+            if (resolvedBundle.currencies != null)
+            {
+                foreach (var currency in resolvedBundle.currencies)
                 {
                     if (currency == null)
                         continue;
@@ -223,9 +235,9 @@ namespace Diceforge.Progression
                 }
             }
 
-            if (bundle.items != null)
+            if (resolvedBundle.items != null)
             {
-                foreach (var item in bundle.items)
+                foreach (var item in resolvedBundle.items)
                 {
                     if (item == null)
                         continue;
@@ -233,12 +245,12 @@ namespace Diceforge.Progression
                 }
             }
 
-            if (bundle.xp > 0)
-                Current.hero.xp += bundle.xp;
+            if (resolvedBundle.xp > 0)
+                Current.hero.xp += resolvedBundle.xp;
 
-            if (bundle.chests != null)
+            if (resolvedBundle.chests != null)
             {
-                foreach (var chest in bundle.chests)
+                foreach (var chest in resolvedBundle.chests)
                 {
                     if (chest == null)
                         continue;
@@ -247,7 +259,14 @@ namespace Diceforge.Progression
             }
 
             SaveAndNotify();
-            return LevelUpProgressionService.Build(previousLevel, UiProgressionService.GetPlayerLevel(), sourceContext);
+            int newLevel = UiProgressionService.GetPlayerLevel();
+            LevelUpPresentationData levelUpData = LevelUpProgressionService.Build(previousLevel, newLevel, sourceContext);
+            return new RewardApplicationResult(
+                resolvedBundle,
+                previousLevel,
+                newLevel,
+                levelUpData,
+                sourceContext);
         }
 
         public static void AddChest(ChestInstance chest)

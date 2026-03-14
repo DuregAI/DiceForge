@@ -15,12 +15,14 @@ namespace Diceforge.Map
         public static bool HasPendingBattleResult { get; private set; }
         public static bool LastBattleWon { get; private set; }
         public static bool ReturnToMapRequested { get; private set; }
+        public static bool RewardsHandledInBattleFlow { get; private set; }
 
         public static void StartNodeBattle(string chapterId, string nodeId)
         {
             ChapterId = chapterId;
             SelectedNodeId = nodeId;
             HasPendingBattleResult = false;
+            RewardsHandledInBattleFlow = false;
         }
 
         public static void ReportBattleResult(bool won)
@@ -33,6 +35,11 @@ namespace Diceforge.Map
         public static void RequestReturnToMap()
         {
             ReturnToMapRequested = true;
+        }
+
+        public static void MarkRewardsHandledInBattleFlow()
+        {
+            RewardsHandledInBattleFlow = true;
         }
 
         public static bool ConsumeReturnToMapRequest()
@@ -56,11 +63,14 @@ namespace Diceforge.Map
             HasPendingBattleResult = false;
             LastBattleWon = false;
             ReturnToMapRequested = false;
+            RewardsHandledInBattleFlow = false;
         }
     }
 
     public sealed class MapFlowOrchestrator : MonoBehaviour
     {
+        private const string ProgressionDatabasePath = "Progression/ProgressionDatabase";
+
         [SerializeField] private MapController mapController;
         [SerializeField] private DevModeConfigSO devModeConfig;
         [SerializeField] private List<GameModePreset> battlePresets = new();
@@ -69,12 +79,19 @@ namespace Diceforge.Map
         private MapDefinitionSO _map;
         private MapRunState _state;
         private LevelUpWindowPresenter _levelUpPresenter;
+        private ChestRewardWindowPresenter _chestRewardPresenter;
+        private ProgressionDatabase _progressionDatabase;
 
         public bool IsDevMode => devModeConfig != null ? devModeConfig.devModeEnabled : Debug.isDebugBuild;
 
         public void SetLevelUpPresenter(LevelUpWindowPresenter presenter)
         {
             _levelUpPresenter = presenter;
+        }
+
+        public void SetChestRewardPresenter(ChestRewardWindowPresenter presenter)
+        {
+            _chestRewardPresenter = presenter;
         }
 
         private void Awake()
@@ -169,9 +186,12 @@ namespace Diceforge.Map
             LevelUpPresentationData levelUpData = null;
             if (MapFlowRuntime.LastBattleWon)
             {
-                var reward = BuildRewardBundle(node.reward, node.id);
-                if (reward != null && !reward.IsEmpty)
-                    levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Battle);
+                if (!MapFlowRuntime.RewardsHandledInBattleFlow)
+                {
+                    var reward = BuildRewardBundle(node.reward, node.id);
+                    if (reward != null && !reward.IsEmpty)
+                        levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Battle);
+                }
 
                 CompleteNode(node);
             }
@@ -214,10 +234,12 @@ namespace Diceforge.Map
             if (reward != null && !reward.IsEmpty)
                 levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Progression);
 
+            ChestRewardPresentationData chestRewardData = BuildChestPresentationData(reward, levelUpData != null);
+
             CompleteNode(node);
             MapProgressService.Save(_map.chapterId, _state);
             RefreshMap();
-            ShowLevelUp(levelUpData);
+            PresentProgressionRewards(levelUpData, chestRewardData);
         }
 
         private void ShowLevelUp(LevelUpPresentationData data)
@@ -226,6 +248,51 @@ namespace Diceforge.Map
                 return;
 
             _levelUpPresenter?.Show(data);
+        }
+
+        private void ShowChestReward(ChestRewardPresentationData data)
+        {
+            if (data == null || !data.HasEntries)
+                return;
+
+            _chestRewardPresenter?.Show(data);
+        }
+
+        private void PresentProgressionRewards(LevelUpPresentationData levelUpData, ChestRewardPresentationData chestRewardData)
+        {
+            if (levelUpData != null)
+            {
+                _levelUpPresenter?.Show(levelUpData, () => ShowChestReward(chestRewardData));
+                return;
+            }
+
+            ShowChestReward(chestRewardData);
+        }
+
+        private ChestRewardPresentationData BuildChestPresentationData(RewardBundle reward, bool afterLevelUp)
+        {
+            if (reward == null || reward.chests == null || reward.chests.Count == 0)
+                return null;
+
+            ProgressionDatabase database = GetProgressionDatabase();
+            if (database == null || database.chestCatalog == null)
+                throw new InvalidOperationException("[MapFlow] Missing ProgressionDatabase or ChestCatalog while preparing chest reward presentation.");
+
+            return ChestRewardPresentationData.CreateFromGrantedChests(
+                database.chestCatalog,
+                reward.chests,
+                LevelUpSourceContexts.Progression,
+                UiProgressionService.GetPlayerLevel(),
+                afterLevelUp);
+        }
+
+        private ProgressionDatabase GetProgressionDatabase()
+        {
+            _progressionDatabase ??= Resources.Load<ProgressionDatabase>(ProgressionDatabasePath);
+            if (_progressionDatabase == null)
+                throw new InvalidOperationException($"[MapFlow] Missing ProgressionDatabase at Resources path '{ProgressionDatabasePath}'.");
+
+            return _progressionDatabase;
         }
 
         private void CompleteNode(MapNodeDefinition node)
@@ -240,7 +307,7 @@ namespace Diceforge.Map
                 _state.currentNodeId = node.nextIds[0];
         }
 
-        private static RewardBundle BuildRewardBundle(MapNodeRewardDefinition rewardDefinition, string nodeId)
+        internal static RewardBundle BuildRewardBundle(MapNodeRewardDefinition rewardDefinition, string nodeId)
         {
             var bundle = new RewardBundle();
             if (rewardDefinition == null)

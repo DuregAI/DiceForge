@@ -259,6 +259,7 @@
                             <ui:Button name="btnWalletDebugLevelUp" text="Test Level Up" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
                             <ui:Button name="btnWalletDebugLevelUnlock" text="Test 1 Unlock" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
                             <ui:Button name="btnWalletDebugLevelMulti" text="Test Multi Unlock" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
+                            <ui:Button name="btnWalletDebugChestReward" text="Test Chest Reward" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
                             <ui:Button name="btnWalletAddCoins" text="+100 coins" class="left-sidebar-button left-sidebar-button-secondary left-sidebar-button-utility df-interactive" style="margin-top: 8px;"/>
                             <ui:Button name="btnWalletReset" text="Reset Profile" class="left-sidebar-button left-sidebar-button-reset left-sidebar-button-utility df-interactive"/>
                         </ui:VisualElement>

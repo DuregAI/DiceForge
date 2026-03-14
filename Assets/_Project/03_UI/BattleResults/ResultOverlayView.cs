@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using Diceforge.Core;
+using Diceforge.Diagnostics;
 using Diceforge.Map;
 using Diceforge.Progression;
 using UnityEngine;
@@ -10,6 +13,8 @@ namespace Diceforge.View
     public sealed class ResultOverlayView : MonoBehaviour
     {
         private const string DatabasePath = "Progression/ProgressionDatabase";
+        private const float RewardStageDelaySeconds = 0.45f;
+        private const float XpStageDelaySeconds = 0.9f;
 
         [SerializeField] private UIDocument document;
         [SerializeField] private BattleDebugController battleController;
@@ -22,14 +27,19 @@ namespace Diceforge.View
         private Image _fxFrontLayer;
         private Label _resultLabel;
         private Label _summaryLabel;
+        private VisualElement _xpStage;
+        private Label _xpValueLabel;
         private VisualElement _rewardsContainer;
         private ScrollView _rewardsList;
         private Button _restartButton;
         private Button _backToMenuButton;
         private LevelUpWindowPresenter _levelUpPresenter;
+        private ChestRewardWindowPresenter _chestRewardPresenter;
         private RewardPopupEffectsBridge _backEffectsBridge;
         private RewardPopupEffectsBridge _frontEffectsBridge;
+        private Coroutine _presentationRoutine;
         private bool _isVisible;
+        private bool _lastRestartVisibleState = true;
 
         private void OnEnable()
         {
@@ -45,6 +55,8 @@ namespace Diceforge.View
 
             _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
             _levelUpPresenter.Initialize(_root);
+            _chestRewardPresenter = GetComponent<ChestRewardWindowPresenter>() ?? gameObject.AddComponent<ChestRewardWindowPresenter>();
+            _chestRewardPresenter.Initialize(_root);
             RewardPopupEffectsBridge[] effectBridges = GetComponents<RewardPopupEffectsBridge>();
             if (effectBridges.Length > 0)
                 _backEffectsBridge = effectBridges[0];
@@ -64,6 +76,8 @@ namespace Diceforge.View
             _fxFrontLayer = _root.Q<Image>("resultFxFrontLayer");
             _resultLabel = _root.Q<Label>("resultLabel");
             _summaryLabel = _root.Q<Label>("resultSummaryLabel");
+            _xpStage = _root.Q<VisualElement>("resultXpStage");
+            _xpValueLabel = _root.Q<Label>("resultXpValueLabel");
             _rewardsContainer = _root.Q<VisualElement>("resultRewardsContainer");
             _rewardsList = _root.Q<ScrollView>("resultRewardsList");
             _restartButton = _root.Q<Button>("restartButton");
@@ -95,6 +109,7 @@ namespace Diceforge.View
             if (_backToMenuButton != null)
                 _backToMenuButton.clicked -= HandleBackToMenuClicked;
 
+            StopPresentationRoutine();
             _backEffectsBridge?.StopActivePresentation();
             _frontEffectsBridge?.StopActivePresentation();
         }
@@ -108,24 +123,8 @@ namespace Diceforge.View
             if (MapFlowRuntime.IsMapBattleActive)
                 MapFlowRuntime.ReportBattleResult(won);
 
-            if (_resultLabel != null)
-                _resultLabel.text = won ? "Victory" : "Defeat";
-
-            RewardBundle rewards = BuildRewardPreview(result, won);
-            bool hasRewards = rewards != null && !rewards.IsEmpty;
-
-            if (_summaryLabel != null)
-                _summaryLabel.text = won
-                    ? (hasRewards ? "Spoils gathered from this clash" : "The battle is won.")
-                    : (hasRewards ? "Defeat rewards secured" : "No rewards earned this time.");
-
-            PopulateRewards(rewards);
-
-            if (!MapFlowRuntime.IsMapBattleActive)
-            {
-                LevelUpPresentationData levelUpData = ProfileService.ApplyReward(rewards, LevelUpSourceContexts.Battle);
-                _levelUpPresenter?.Show(levelUpData);
-            }
+            PostBattleRewardOutcome outcome = PostBattleRewardResolver.Resolve(result, won);
+            PrepareOutcomeView(outcome);
 
             if (_overlayRoot != null)
             {
@@ -145,76 +144,85 @@ namespace Diceforge.View
             }
 
             _isVisible = true;
+            _presentationRoutine = StartCoroutine(RunPresentationSequence(outcome));
         }
 
-        private RewardBundle BuildRewardPreview(MatchResult result, bool won)
+        private void PrepareOutcomeView(PostBattleRewardOutcome outcome)
         {
-            if (MapFlowRuntime.IsMapBattleActive)
-            {
-                if (!won)
-                    return new RewardBundle();
+            if (_resultLabel != null)
+                _resultLabel.text = outcome.Won ? "Victory" : "Defeat";
 
-                MapDefinitionSO map = !string.IsNullOrWhiteSpace(MapFlowRuntime.ChapterId)
-                    ? MapDefinitionSO.LoadChapter(MapFlowRuntime.ChapterId)
-                    : null;
-                MapNodeDefinition node = map != null ? map.GetNode(MapFlowRuntime.SelectedNodeId) : null;
-                return BuildMapRewardBundle(node);
-            }
+            if (_xpValueLabel != null)
+                _xpValueLabel.text = $"+{outcome.ApplicationResult.XpGained} XP";
 
-            string modeId = MatchService.ActivePreset != null ? MatchService.ActivePreset.modeId : string.Empty;
-            return RewardService.CalculateMatchRewards(result, modeId);
+            PopulateRewardSummary(outcome.RewardBundle);
+            SetXpStageVisible(false);
+            SetNavigationButtonsReady(false, outcome);
+            UpdateSummaryText(BuildInitialSummary(outcome));
         }
 
-        private RewardBundle BuildMapRewardBundle(MapNodeDefinition node)
+        private IEnumerator RunPresentationSequence(PostBattleRewardOutcome outcome)
         {
-            var bundle = new RewardBundle();
-            if (node == null || node.reward == null)
-                return bundle;
+            yield return new WaitForSecondsRealtime(RewardStageDelaySeconds);
 
-            if (node.reward.currencies != null)
+            if (outcome.ApplicationResult.XpGained > 0)
             {
-                for (int i = 0; i < node.reward.currencies.Count; i++)
-                {
-                    ProfileAmount currency = node.reward.currencies[i];
-                    if (currency == null || string.IsNullOrWhiteSpace(currency.id) || currency.amount <= 0)
-                        continue;
+                SetXpStageVisible(true);
+                UpdateSummaryText(outcome.Won
+                    ? $"XP +{outcome.ApplicationResult.XpGained} fuels the forge."
+                    : $"XP +{outcome.ApplicationResult.XpGained} recovered from the clash.");
+                yield return new WaitForSecondsRealtime(XpStageDelaySeconds);
+            }
 
-                    bundle.currencies.Add(new ProfileAmount(currency.id, currency.amount));
+            if (outcome.ApplicationResult.LevelUpData != null)
+            {
+                bool levelUpClosed = false;
+                _backEffectsBridge?.StopActivePresentation();
+                _frontEffectsBridge?.StopActivePresentation();
+                _levelUpPresenter?.Show(outcome.ApplicationResult.LevelUpData, () => levelUpClosed = true);
+
+                while (!levelUpClosed)
+                    yield return null;
+
+                if (outcome.Won)
+                {
+                    _backEffectsBridge?.BeginPresentation("level_up_arcane", _fxBackLayer, _resultLabel);
+                    _frontEffectsBridge?.BeginPresentation("level_up_arcane", _fxFrontLayer, _resultLabel);
                 }
             }
 
-            if (node.reward.items != null)
+            if (outcome.ApplicationResult.HasChestRewards)
             {
-                for (int i = 0; i < node.reward.items.Count; i++)
+                ChestRewardPresentationData chestPresentation = BuildChestPresentationData(outcome.ApplicationResult);
+                if (chestPresentation != null)
                 {
-                    ProfileAmount item = node.reward.items[i];
-                    if (item == null || string.IsNullOrWhiteSpace(item.id) || item.amount <= 0)
-                        continue;
+                    bool chestClosed = false;
+                    _backEffectsBridge?.StopActivePresentation();
+                    _frontEffectsBridge?.StopActivePresentation();
+                    UpdateSummaryText(BuildChestSummary(chestPresentation.TotalChestCount));
+                    _chestRewardPresenter?.Show(chestPresentation, () => chestClosed = true);
 
-                    bundle.items.Add(new ProfileAmount(item.id, item.amount));
+                    while (!chestClosed)
+                        yield return null;
+                }
+
+                if (outcome.Won)
+                {
+                    _backEffectsBridge?.BeginPresentation("level_up_arcane", _fxBackLayer, _resultLabel);
+                    _frontEffectsBridge?.BeginPresentation("level_up_arcane", _fxFrontLayer, _resultLabel);
                 }
             }
 
-            bundle.xp = Mathf.Max(0, node.reward.xp);
-
-            if (node.reward.chests != null)
-            {
-                for (int i = 0; i < node.reward.chests.Count; i++)
-                {
-                    MapChestRewardEntry chestReward = node.reward.chests[i];
-                    if (chestReward == null || string.IsNullOrWhiteSpace(chestReward.chestId) || chestReward.amount <= 0)
-                        continue;
-
-                    for (int j = 0; j < chestReward.amount; j++)
-                        bundle.chests.Add(new ChestInstance($"preview-{node.id}-{i}-{j}", chestReward.chestId));
-                }
-            }
-
-            return bundle;
+            UpdateSummaryText(BuildFinalSummary(outcome));
+            SetNavigationButtonsReady(true, outcome);
+            _presentationRoutine = null;
         }
 
         private void HandleRestartClicked()
         {
+            if (_restartButton != null && !_restartButton.enabledSelf)
+                return;
+
             _backEffectsBridge?.StopActivePresentation();
             _frontEffectsBridge?.StopActivePresentation();
             battleController?.RestartMatch();
@@ -223,6 +231,9 @@ namespace Diceforge.View
 
         private void HandleBackToMenuClicked()
         {
+            if (_backToMenuButton != null && !_backToMenuButton.enabledSelf)
+                return;
+
             _backEffectsBridge?.StopActivePresentation();
             _frontEffectsBridge?.StopActivePresentation();
 
@@ -236,6 +247,8 @@ namespace Diceforge.View
 
         private void HideOverlay()
         {
+            StopPresentationRoutine();
+
             if (_overlayRoot != null)
             {
                 _overlayRoot.style.display = DisplayStyle.None;
@@ -250,9 +263,24 @@ namespace Diceforge.View
             if (_fxFrontLayer != null)
                 _fxFrontLayer.image = null;
 
+            SetXpStageVisible(false);
+            UpdateSummaryText(string.Empty);
+
+            if (_restartButton != null)
+                _restartButton.style.display = _lastRestartVisibleState ? DisplayStyle.Flex : DisplayStyle.None;
+
             _backEffectsBridge?.StopActivePresentation();
             _frontEffectsBridge?.StopActivePresentation();
             _isVisible = false;
+        }
+
+        private void StopPresentationRoutine()
+        {
+            if (_presentationRoutine == null)
+                return;
+
+            StopCoroutine(_presentationRoutine);
+            _presentationRoutine = null;
         }
 
         private static void ConfigureFxLayer(Image layer)
@@ -264,13 +292,71 @@ namespace Diceforge.View
             layer.pickingMode = PickingMode.Ignore;
         }
 
-        private void PopulateRewards(RewardBundle bundle)
+        private void SetNavigationButtonsReady(bool ready, PostBattleRewardOutcome outcome)
+        {
+            bool showRestart = !(outcome.IsMapBattle && outcome.Won);
+            _lastRestartVisibleState = showRestart;
+
+            if (_restartButton != null)
+            {
+                _restartButton.style.display = showRestart ? DisplayStyle.Flex : DisplayStyle.None;
+                _restartButton.SetEnabled(ready && showRestart);
+            }
+
+            if (_backToMenuButton != null)
+                _backToMenuButton.SetEnabled(ready);
+        }
+
+        private void SetXpStageVisible(bool visible)
+        {
+            if (_xpStage != null)
+                _xpStage.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private void UpdateSummaryText(string text)
+        {
+            if (_summaryLabel != null)
+                _summaryLabel.text = string.IsNullOrWhiteSpace(text) ? string.Empty : text;
+        }
+
+        private string BuildInitialSummary(PostBattleRewardOutcome outcome)
+        {
+            if (outcome.Won)
+                return outcome.HasRewardSummary ? "Spoils gathered from this clash" : "The battle is won.";
+
+            if (outcome.RewardBundle != null && !outcome.RewardBundle.IsEmpty)
+                return "Defeat rewards secured.";
+
+            return "No rewards earned this time.";
+        }
+
+        private string BuildFinalSummary(PostBattleRewardOutcome outcome)
+        {
+            if (outcome.ApplicationResult.LevelUpData != null)
+                return $"Level {outcome.ApplicationResult.LevelUpData.NewLevel} reached.";
+
+            if (outcome.ApplicationResult.HasChestRewards)
+                return BuildChestSummary(outcome.ApplicationResult.GrantedChests.Count);
+
+            if (outcome.ApplicationResult.XpGained > 0)
+                return $"XP +{outcome.ApplicationResult.XpGained} applied.";
+
+            return BuildInitialSummary(outcome);
+        }
+
+        private static string BuildChestSummary(int chestCount)
+        {
+            return chestCount == 1
+                ? "A chest was added to your stash."
+                : $"{chestCount} chests were added to your stash.";
+        }
+
+        private void PopulateRewardSummary(RewardBundle bundle)
         {
             if (_rewardsList == null)
                 return;
 
             _rewardsList.Clear();
-
             bool hasEntries = false;
 
             if (bundle != null && bundle.currencies != null)
@@ -285,7 +371,7 @@ namespace Diceforge.View
                     string name = definition != null && !string.IsNullOrWhiteSpace(definition.displayName)
                         ? definition.displayName
                         : currency.id;
-                    AddRewardRow(definition != null ? definition.icon : null, $"+{currency.amount}", name);
+                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"+{currency.amount}", name);
                     hasEntries = true;
                 }
             }
@@ -302,44 +388,18 @@ namespace Diceforge.View
                     string name = definition != null && !string.IsNullOrWhiteSpace(definition.displayName)
                         ? definition.displayName
                         : item.id;
-                    AddRewardRow(definition != null ? definition.icon : null, $"x{item.amount}", name);
-                    hasEntries = true;
-                }
-            }
-
-            if (bundle != null && bundle.xp > 0)
-            {
-                AddRewardRow(FindXpIcon(), $"+{bundle.xp}", "XP");
-                hasEntries = true;
-            }
-
-            if (bundle != null && bundle.chests != null)
-            {
-                for (int i = 0; i < bundle.chests.Count; i++)
-                {
-                    ChestInstance chest = bundle.chests[i];
-                    if (chest == null || string.IsNullOrWhiteSpace(chest.chestTypeId))
-                        continue;
-
-                    ChestDefinition definition = FindChest(chest.chestTypeId);
-                    string name = definition != null && !string.IsNullOrWhiteSpace(definition.displayName)
-                        ? definition.displayName
-                        : chest.chestTypeId;
-                    AddRewardRow(definition != null ? definition.icon : null, "x1", name);
+                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"x{item.amount}", name);
                     hasEntries = true;
                 }
             }
 
             if (_rewardsContainer != null)
-                _rewardsContainer.style.display = DisplayStyle.Flex;
-
-            if (!hasEntries)
-                AddRewardRow(null, "-", "No rewards");
+                _rewardsContainer.style.display = hasEntries ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
-        private void AddRewardRow(Sprite icon, string amount, string name)
+        private void AddRewardRow(ScrollView targetList, Sprite icon, string amount, string name)
         {
-            if (_rewardsList == null)
+            if (targetList == null)
                 return;
 
             var row = new VisualElement();
@@ -359,7 +419,26 @@ namespace Diceforge.View
             row.Add(iconElement);
             row.Add(amountLabel);
             row.Add(nameLabel);
-            _rewardsList.Add(row);
+            targetList.Add(row);
+        }
+
+        private ChestRewardPresentationData BuildChestPresentationData(RewardApplicationResult applicationResult)
+        {
+            if (applicationResult == null || !applicationResult.HasChestRewards)
+                return null;
+
+            ProgressionDatabase database = GetDatabase();
+            ChestRewardPresentationData presentationData = ChestRewardPresentationData.CreateFromGrantedChests(
+                database != null ? database.chestCatalog : null,
+                applicationResult.GrantedChests,
+                applicationResult.SourceContext,
+                applicationResult.NewLevel,
+                applicationResult.DidLevelUp);
+
+            if (presentationData == null)
+                Debug.LogError("[ResultOverlayView] Chest reward presentation was skipped because the granted chest payload could not be converted into presentation data.", this);
+
+            return presentationData;
         }
 
         private CurrencyDefinition FindCurrency(string currencyId)
@@ -378,22 +457,6 @@ namespace Diceforge.View
                 return null;
 
             return database.itemCatalog.items.Find(i => i != null && i.id == itemId);
-        }
-
-        private ChestDefinition FindChest(string chestId)
-        {
-            ProgressionDatabase database = GetDatabase();
-            if (database == null || database.chestCatalog == null || database.chestCatalog.chests == null)
-                return null;
-
-            return database.chestCatalog.chests.Find(c => c != null && c.id == chestId);
-        }
-
-        private Sprite FindXpIcon()
-        {
-            CurrencyDefinition essence = FindCurrency(ProgressionIds.Essence);
-            CurrencyDefinition gold = FindCurrency(ProgressionIds.SoftGold);
-            return gold != null ? gold.icon : essence != null ? essence.icon : null;
         }
 
         private ProgressionDatabase GetDatabase()

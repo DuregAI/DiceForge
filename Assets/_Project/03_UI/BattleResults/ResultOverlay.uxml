@@ -6,9 +6,17 @@
             <ui:VisualElement name="resultPanelContent" class="result-overlay-content">
                 <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
                 <ui:Label name="resultSummaryLabel" text="Rewards" class="result-overlay-summary" />
+                <ui:VisualElement name="resultXpStage" class="result-overlay-stage result-overlay-xp-stage">
+                    <ui:Label text="XP Gained" class="result-overlay-stage-header" />
+                    <ui:Label name="resultXpValueLabel" text="+0 XP" class="result-overlay-xp-value" />
+                </ui:VisualElement>
                 <ui:VisualElement name="resultRewardsContainer" class="result-overlay-rewards-container">
                     <ui:Label name="resultRewardsHeader" text="Rewards" class="result-overlay-rewards-header" />
                     <ui:ScrollView name="resultRewardsList" class="result-overlay-rewards-list" />
+                </ui:VisualElement>
+                <ui:VisualElement name="resultChestContainer" class="result-overlay-stage result-overlay-chest-container">
+                    <ui:Label name="resultChestHeader" text="Chest Reward" class="result-overlay-stage-header" />
+                    <ui:ScrollView name="resultChestList" class="result-overlay-chest-list" />
                 </ui:VisualElement>
                 <ui:Button name="restartButton" text="Restart" class="result-overlay-button" />
                 <ui:Button name="backToMenuButton" text="Back to Menu" class="result-overlay-button" />

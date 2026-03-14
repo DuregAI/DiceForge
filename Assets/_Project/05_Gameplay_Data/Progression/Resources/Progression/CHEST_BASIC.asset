@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CHEST_BASIC
   m_EditorClassIdentifier: 
   id: CHEST_BASIC
-  displayName: Basic Chest
+  displayName: Wooden chest
   icon: {fileID: 21300000, guid: cdd6ef72edd746478b260f70bc05ba62, type: 3}
   fixedRewards:
   - id: SOFT_GOLD

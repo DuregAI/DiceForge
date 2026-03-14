@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public sealed class WalletPanelController : MonoBehaviour
 {
+    private const string DatabasePath = "Progression/ProgressionDatabase";
     private const int DevXpAmount = 50;
     private static readonly LevelUpUnlockInfo[] DebugMultiUnlocks =
     {
@@ -18,6 +19,7 @@ public sealed class WalletPanelController : MonoBehaviour
 
     private bool _initialized;
     private LevelUpWindowPresenter _levelUpPresenter;
+    private ChestRewardWindowPresenter _chestRewardPresenter;
     private Label _coinsLabel;
     private Label _essenceLabel;
     private Label _shardsLabel;
@@ -34,12 +36,18 @@ public sealed class WalletPanelController : MonoBehaviour
     private Button _debugLevelUpButton;
     private Button _debugLevelUpUnlockButton;
     private Button _debugLevelUpMultiButton;
+    private Button _debugChestRewardButton;
 
     public bool AreDevActionsVisible => _devActionsElement != null && _devActionsElement.style.display != DisplayStyle.None;
 
     public void SetLevelUpPresenter(LevelUpWindowPresenter presenter)
     {
         _levelUpPresenter = presenter;
+    }
+
+    public void SetChestRewardPresenter(ChestRewardWindowPresenter presenter)
+    {
+        _chestRewardPresenter = presenter;
     }
 
     public void Initialize(VisualElement root)
@@ -64,6 +72,7 @@ public sealed class WalletPanelController : MonoBehaviour
         _debugLevelUpButton = root.Q<Button>("btnWalletDebugLevelUp");
         _debugLevelUpUnlockButton = root.Q<Button>("btnWalletDebugLevelUnlock");
         _debugLevelUpMultiButton = root.Q<Button>("btnWalletDebugLevelMulti");
+        _debugChestRewardButton = root.Q<Button>("btnWalletDebugChestReward");
 
         if (_addXpButton != null)
             _addXpButton.clicked += HandleAddXpClicked;
@@ -79,6 +88,8 @@ public sealed class WalletPanelController : MonoBehaviour
             _debugLevelUpUnlockButton.clicked += HandleDebugLevelUpUnlockClicked;
         if (_debugLevelUpMultiButton != null)
             _debugLevelUpMultiButton.clicked += HandleDebugLevelUpMultiClicked;
+        if (_debugChestRewardButton != null)
+            _debugChestRewardButton.clicked += HandleDebugChestRewardClicked;
 
         SetDevActionsVisible(false);
 
@@ -114,6 +125,8 @@ public sealed class WalletPanelController : MonoBehaviour
             _debugLevelUpUnlockButton.clicked -= HandleDebugLevelUpUnlockClicked;
         if (_debugLevelUpMultiButton != null)
             _debugLevelUpMultiButton.clicked -= HandleDebugLevelUpMultiClicked;
+        if (_debugChestRewardButton != null)
+            _debugChestRewardButton.clicked -= HandleDebugChestRewardClicked;
     }
 
     private void HandleAddXpClicked()
@@ -169,6 +182,28 @@ public sealed class WalletPanelController : MonoBehaviour
             newLevel: 5,
             unlocks: DebugMultiUnlocks,
             flavorText: "The forge answers with a brighter chorus."));
+    }
+
+    private void HandleDebugChestRewardClicked()
+    {
+        ProgressionDatabase database = Resources.Load<ProgressionDatabase>(DatabasePath);
+        ChestRewardPresentationData data = ChestRewardPresentationData.CreateFromGrantedChests(
+            database != null ? database.chestCatalog : null,
+            new[]
+            {
+                new ChestInstance("debug-chest-basic", ProgressionIds.BasicChest)
+            },
+            LevelUpSourceContexts.Debug,
+            UiProgressionService.GetPlayerLevel(),
+            afterLevelUp: false);
+
+        if (data == null)
+        {
+            Debug.LogError("[WalletPanelController] Failed to build debug chest reward presentation data.");
+            return;
+        }
+
+        _chestRewardPresenter?.Show(data);
     }
 
     private void ShowLevelUp(LevelUpPresentationData data)

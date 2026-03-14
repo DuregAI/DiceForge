@@ -53,6 +53,7 @@ public class MainMenuController : MonoBehaviour
     private ChestShopController chestShopController;
     private PlayerPanelController playerPanelController;
     private LevelUpWindowPresenter levelUpWindowPresenter;
+    private ChestRewardWindowPresenter chestRewardWindowPresenter;
     private VisualElement tutorialReplayConfirmModal;
     private Label tutorialReplayConfirmText;
     private Button tutorialReplayConfirmYesButton;
@@ -128,6 +129,7 @@ public class MainMenuController : MonoBehaviour
         walletPanelController = GetComponent<WalletPanelController>() ?? gameObject.AddComponent<WalletPanelController>();
         playerPanelController = GetComponent<PlayerPanelController>() ?? gameObject.AddComponent<PlayerPanelController>();
         levelUpWindowPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
+        chestRewardWindowPresenter = GetComponent<ChestRewardWindowPresenter>() ?? gameObject.AddComponent<ChestRewardWindowPresenter>();
 
         ProfileService.Load();
 
@@ -140,11 +142,13 @@ public class MainMenuController : MonoBehaviour
         InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
         levelUpWindowPresenter.Initialize(root);
+        chestRewardWindowPresenter.Initialize(root);
 
         playerPanelController.SetPortraitLibrary(tutorialPortraitLibrary);
         playerPanelController.Initialize(root);
 
         walletPanelController.SetLevelUpPresenter(levelUpWindowPresenter);
+        walletPanelController.SetChestRewardPresenter(chestRewardWindowPresenter);
         walletPanelController.Initialize(root);
         walletPanelController.SetDevActionsVisible(false);
         areDevActionsVisible = false;
@@ -168,6 +172,7 @@ public class MainMenuController : MonoBehaviour
 
         mapFlowOrchestrator = GetComponent<MapFlowOrchestrator>() ?? gameObject.AddComponent<MapFlowOrchestrator>();
         mapFlowOrchestrator.SetLevelUpPresenter(levelUpWindowPresenter);
+        mapFlowOrchestrator.SetChestRewardPresenter(chestRewardWindowPresenter);
         var mapController = GetComponent<MapController>() ?? gameObject.AddComponent<MapController>();
         mapController.ResetRunRequested -= HandleMapResetRequested;
         mapController.ResetRunRequested += HandleMapResetRequested;
