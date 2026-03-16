@@ -14,3 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestSectionUnlockLevel: 2
   upgradesUnlockLevel: 3
+  xpPerLevel: 75
+  winXp: 45
+  lossXp: 20
+  winSoftGold: 35
+  lossSoftGold: 18
+  winEssence: 4
+  lossEssence: 2
+  baseChestChanceOnWin: 0.35

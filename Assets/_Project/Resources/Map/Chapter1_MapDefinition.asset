@@ -24,11 +24,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 25
+        amount: 35
       - id: ESSENCE
-        amount: 2
+        amount: 3
       items: []
-      xp: 100
+      xp: 45
       chests: []
     storyLineId: 
   - id: C1_02
@@ -41,11 +41,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 25
+        amount: 40
       - id: ESSENCE
-        amount: 2
+        amount: 4
       items: []
-      xp: 50
+      xp: 45
       chests: []
     storyLineId: 
   - id: C1_03
@@ -57,11 +57,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 25
+        amount: 45
       - id: ESSENCE
-        amount: 2
+        amount: 4
       items: []
-      xp: 0
+      xp: 55
       chests: []
     storyLineId: 
   - id: C1_04
@@ -74,11 +74,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 45
+        amount: 55
       - id: ESSENCE
-        amount: 4
+        amount: 5
       items: []
-      xp: 0
+      xp: 60
       chests: []
     storyLineId: 
   - id: C1_05
@@ -90,11 +90,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 45
+        amount: 60
       - id: ESSENCE
-        amount: 4
+        amount: 6
       items: []
-      xp: 0
+      xp: 60
       chests: []
     storyLineId: 
   - id: C1_06
@@ -107,11 +107,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 45
+        amount: 60
       - id: ESSENCE
-        amount: 4
+        amount: 6
       items: []
-      xp: 0
+      xp: 30
       chests: []
     storyLineId: 
   - id: C1_07
@@ -124,11 +124,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 70
+        amount: 75
       - id: ESSENCE
-        amount: 7
+        amount: 8
       items: []
-      xp: 0
+      xp: 30
       chests: []
     storyLineId: 
   - id: C1_08
@@ -140,11 +140,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 70
+        amount: 75
       - id: ESSENCE
-        amount: 7
+        amount: 8
       items: []
-      xp: 0
+      xp: 20
       chests: []
     storyLineId: 
   - id: C1_09
@@ -155,11 +155,11 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 70
+        amount: 85
       - id: ESSENCE
-        amount: 7
+        amount: 9
       items: []
-      xp: 0
+      xp: 20
       chests: []
     storyLineId: 
   - id: C1_02_CHEST
@@ -185,7 +185,7 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 30
+        amount: 20
       items: []
       xp: 0
       chests: []
@@ -201,7 +201,7 @@ MonoBehaviour:
       items: []
       xp: 0
       chests:
-      - chestId: CHEST_BASIC
+      - chestId: CHEST_MEDIUM
         amount: 1
     storyLineId: 
   - id: C1_07_SHOP
@@ -213,7 +213,7 @@ MonoBehaviour:
     reward:
       currencies:
       - id: SOFT_GOLD
-        amount: 30
+        amount: 25
       items: []
       xp: 0
       chests: []

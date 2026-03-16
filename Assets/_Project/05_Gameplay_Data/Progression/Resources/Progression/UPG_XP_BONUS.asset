@@ -18,9 +18,9 @@ MonoBehaviour:
   maxLevel: 3
   effectType: 5
   priceByLevel:
-  - 70
-  - 140
-  - 250
+  - 130
+  - 240
+  - 380
   valueByLevel:
   - 0.1
   - 0.2

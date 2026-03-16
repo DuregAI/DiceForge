@@ -18,11 +18,11 @@ MonoBehaviour:
   maxLevel: 3
   effectType: 4
   priceByLevel:
-  - 100
-  - 200
-  - 400
+  - 140
+  - 260
+  - 420
   valueByLevel:
-  - 0.1
-  - 0.2
-  - 0.3
+  - 0.08
+  - 0.16
+  - 0.24
   requiresModeInfo: 0

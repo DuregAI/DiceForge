@@ -5,35 +5,30 @@ namespace Diceforge.Progression
 {
     public static class RewardService
     {
-        private const float BaseChestChanceOnWin = 0.25f;
-
-        private static readonly RewardBundle WinRewards = new()
-        {
-            xp = 10,
-            currencies =
-            {
-                new ProfileAmount(ProgressionIds.SoftGold, 30),
-                new ProfileAmount(ProgressionIds.Essence, 3)
-            }
-        };
-
-        private static readonly RewardBundle LossRewards = new()
-        {
-            xp = 4,
-            currencies =
-            {
-                new ProfileAmount(ProgressionIds.SoftGold, 10),
-                new ProfileAmount(ProgressionIds.Essence, 1)
-            }
-        };
-
         public static RewardBundle CalculateMatchRewards(MatchResult matchResult, string mode)
         {
             bool won = matchResult.Winner == PlayerId.A;
-            var bundle = CloneReward(won ? WinRewards : LossRewards);
+            RewardBundle bundle = BuildBaseReward(won);
 
             ApplyUpgradeBonuses(bundle, won, mode);
             TryAddWinChest(bundle, won);
+
+            return bundle;
+        }
+
+        private static RewardBundle BuildBaseReward(bool won)
+        {
+            var bundle = new RewardBundle
+            {
+                xp = won ? UiProgressionService.GetMatchWinXp() : UiProgressionService.GetMatchLossXp()
+            };
+
+            bundle.currencies.Add(new ProfileAmount(
+                ProgressionIds.SoftGold,
+                won ? UiProgressionService.GetMatchWinSoftGold() : UiProgressionService.GetMatchLossSoftGold()));
+            bundle.currencies.Add(new ProfileAmount(
+                ProgressionIds.Essence,
+                won ? UiProgressionService.GetMatchWinEssence() : UiProgressionService.GetMatchLossEssence()));
 
             return bundle;
         }
@@ -72,7 +67,7 @@ namespace Diceforge.Progression
             if (!won || bundle == null)
                 return;
 
-            var chance = Mathf.Clamp(BaseChestChanceOnWin + GetUpgradeValue(ProgressionIds.UpgChestChance), 0f, 0.9f);
+            float chance = Mathf.Clamp(UiProgressionService.GetBaseChestChanceOnWin() + GetUpgradeValue(ProgressionIds.UpgChestChance), 0f, 0.9f);
             if (Random.value > chance)
                 return;
 
@@ -117,32 +112,6 @@ namespace Diceforge.Progression
                 return;
 
             entry.amount = Mathf.RoundToInt(entry.amount * multiplier);
-        }
-
-        private static RewardBundle CloneReward(RewardBundle source)
-        {
-            var clone = new RewardBundle
-            {
-                xp = source.xp
-            };
-
-            if (source.currencies != null)
-            {
-                foreach (var currency in source.currencies)
-                {
-                    clone.currencies.Add(new ProfileAmount(currency.id, currency.amount));
-                }
-            }
-
-            if (source.items != null)
-            {
-                foreach (var item in source.items)
-                {
-                    clone.items.Add(new ProfileAmount(item.id, item.amount));
-                }
-            }
-
-            return clone;
         }
     }
 }

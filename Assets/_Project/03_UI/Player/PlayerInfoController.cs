@@ -205,8 +205,9 @@ public sealed class PlayerInfoController : MonoBehaviour
     private void Refresh()
     {
         var xp = Mathf.Max(0, ProfileService.Current.hero.xp);
-        var level = (xp / 100) + 1;
-        var levelFloorXp = (level - 1) * 100;
+        int xpPerLevel = UiProgressionService.GetXpPerLevel();
+        int level = UiProgressionService.GetLevelForXp(xp);
+        int levelFloorXp = UiProgressionService.GetLevelFloorXp(level);
         var displayName = ClampPlayerName(ProfileService.GetDisplayName());
         var avatar = AvatarService.GetSelectedAvatarSprite();
 
@@ -215,7 +216,7 @@ public sealed class PlayerInfoController : MonoBehaviour
         if (_infoLevelLabel != null)
             _infoLevelLabel.text = $"Lv {level}";
         if (_infoXpLabel != null)
-            _infoXpLabel.text = $"XP {xp} ({Mathf.Max(0, xp - levelFloorXp)}/{UiProgressionService.XpPerLevel} to Lv {level + 1})";
+            _infoXpLabel.text = $"XP {xp} ({Mathf.Max(0, xp - levelFloorXp)}/{xpPerLevel} to Lv {level + 1})";
         if (_infoAvatarButton != null)
             _infoAvatarButton.style.backgroundImage = avatar == null ? StyleKeyword.None : new StyleBackground(avatar);
     }

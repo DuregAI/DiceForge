@@ -9,6 +9,8 @@ namespace Diceforge.Progression
         public string id;
         public string displayName;
         public Sprite icon;
+        public string purchaseCurrencyId = ProgressionIds.SoftGold;
+        [Min(0)] public int purchasePrice;
         public List<FixedRewardEntry> fixedRewards = new();
     }
 }

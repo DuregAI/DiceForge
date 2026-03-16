@@ -16,6 +16,11 @@ namespace Diceforge.Progression
             return new ChestInstance(Guid.NewGuid().ToString("N"), chestTypeId);
         }
 
+        public static ChestDefinition GetChestDefinition(string chestTypeId)
+        {
+            return FindChestDefinition(chestTypeId);
+        }
+
         public static RewardBundle OpenChest(string chestInstanceId)
         {
             if (string.IsNullOrEmpty(chestInstanceId))

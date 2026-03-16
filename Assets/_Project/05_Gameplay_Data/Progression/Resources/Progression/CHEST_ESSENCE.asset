@@ -15,9 +15,14 @@ MonoBehaviour:
   id: CHEST_ESSENCE
   displayName: Essence Chest
   icon: {fileID: 21300000, guid: 008d05c026ee4fdeb399c91a0c8825da, type: 3}
+  purchaseCurrencyId: ESSENCE
+  purchasePrice: 12
   fixedRewards:
+  - id: SOFT_GOLD
+    amount: 30
+    isItem: 0
   - id: SHARDS
-    amount: 1
+    amount: 2
     isItem: 0
   - id: CONSUMABLE_REROLL
     amount: 1

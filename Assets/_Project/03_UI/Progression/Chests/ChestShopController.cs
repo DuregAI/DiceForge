@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 public sealed class ChestShopController : MonoBehaviour
 {
+    private const string DatabasePath = "Progression/ProgressionDatabase";
     private const int FxTickIntervalMs = 16;
     private const float FxSpeed = 1.05f;
     private const float PrimarySweepWidth = 248f;
@@ -23,6 +24,7 @@ public sealed class ChestShopController : MonoBehaviour
     private IVisualElementScheduledItem _fxTicker;
     private float _fxTime;
     private bool _isVisible;
+    private ProgressionDatabase _database;
 
     public void Initialize(VisualElement root)
     {
@@ -41,9 +43,9 @@ public sealed class ChestShopController : MonoBehaviour
         ConfigureFxElement(_fxAccentSweepElement, AccentSweepAngleDegrees);
         ResetFxVisuals();
 
-        RegisterBuyButton(root, "btnBuySmallChest", ProgressionIds.SoftGold, 50, ProgressionIds.BasicChest, "Small Chest purchased.");
-        RegisterBuyButton(root, "btnBuyMediumChest", ProgressionIds.SoftGold, 120, ProgressionIds.MediumChest, "Medium Chest purchased.");
-        RegisterBuyButton(root, "btnBuyEssenceChest", ProgressionIds.Essence, 10, ProgressionIds.EssenceChest, "Essence Chest purchased.");
+        RegisterChestOffer(root, "btnBuySmallChest", "lblSmallChestPrice", ProgressionIds.BasicChest, "Small Chest purchased.");
+        RegisterChestOffer(root, "btnBuyMediumChest", "lblMediumChestPrice", ProgressionIds.MediumChest, "Medium Chest purchased.");
+        RegisterChestOffer(root, "btnBuyEssenceChest", "lblEssenceChestPrice", ProgressionIds.EssenceChest, "Essence Chest purchased.");
     }
 
     public void Show()
@@ -66,13 +68,28 @@ public sealed class ChestShopController : MonoBehaviour
         _fxTicker?.Pause();
     }
 
-    private void RegisterBuyButton(VisualElement root, string buttonName, string currencyId, int cost, string chestId, string successText)
+    private void RegisterChestOffer(VisualElement root, string buttonName, string priceLabelName, string chestId, string successText)
     {
-        var button = root.Q<Button>(buttonName);
+        Button button = root.Q<Button>(buttonName);
         if (button == null)
-            return;
+            throw new System.InvalidOperationException($"[ChestShopController] Missing button '{buttonName}'.");
 
-        button.clicked += () => TryBuyChest(currencyId, cost, chestId, successText);
+        Label priceLabel = root.Q<Label>(priceLabelName);
+        if (priceLabel == null)
+            throw new System.InvalidOperationException($"[ChestShopController] Missing label '{priceLabelName}'.");
+
+        ChestDefinition definition = ChestService.GetChestDefinition(chestId);
+        if (definition == null)
+            throw new System.InvalidOperationException($"[ChestShopController] Missing chest definition '{chestId}'.");
+
+        if (string.IsNullOrWhiteSpace(definition.purchaseCurrencyId) || definition.purchasePrice <= 0)
+        {
+            throw new System.InvalidOperationException(
+                $"[ChestShopController] Chest '{chestId}' is missing a valid purchase config. purchaseCurrencyId='{definition.purchaseCurrencyId}', purchasePrice={definition.purchasePrice}.");
+        }
+
+        priceLabel.text = $"{definition.purchasePrice} {GetPriceCurrencyLabel(definition.purchaseCurrencyId)}";
+        button.clicked += () => TryBuyChest(definition.purchaseCurrencyId, definition.purchasePrice, definition.id, successText);
     }
 
     private void TryBuyChest(string currencyId, int cost, string chestId, string successText)
@@ -99,6 +116,30 @@ public sealed class ChestShopController : MonoBehaviour
     {
         if (_statusLabel != null)
             _statusLabel.text = message;
+    }
+
+    private string GetPriceCurrencyLabel(string currencyId)
+    {
+        if (string.IsNullOrWhiteSpace(currencyId))
+            return "Currency";
+
+        CurrencyDefinition definition = GetCurrencyDefinition(currencyId);
+        if (definition == null || string.IsNullOrWhiteSpace(definition.displayName))
+            return currencyId;
+
+        if (currencyId == ProgressionIds.SoftGold)
+            return "Gold";
+
+        return definition.displayName;
+    }
+
+    private CurrencyDefinition GetCurrencyDefinition(string currencyId)
+    {
+        _database ??= Resources.Load<ProgressionDatabase>(DatabasePath);
+        if (_database == null || _database.currencyCatalog == null || _database.currencyCatalog.currencies == null)
+            return null;
+
+        return _database.currencyCatalog.currencies.Find(currency => currency != null && currency.id == currencyId);
     }
 
     private void ConfigureFxElement(VisualElement element, float rotationDegrees)

@@ -89,7 +89,7 @@
                             <ui:VisualElement class="chest-shop-card-right">
                                 <ui:VisualElement class="chest-shop-price">
                                     <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-gold"/>
-                                    <ui:Label text="50 Gold" class="chest-shop-price-label df-label"/>
+                                    <ui:Label name="lblSmallChestPrice" text="80 Gold" class="chest-shop-price-label df-label"/>
                                 </ui:VisualElement>
                                 <ui:Button name="btnBuySmallChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
                             </ui:VisualElement>
@@ -108,7 +108,7 @@
                             <ui:VisualElement class="chest-shop-card-right">
                                 <ui:VisualElement class="chest-shop-price">
                                     <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-gold"/>
-                                    <ui:Label text="120 Gold" class="chest-shop-price-label df-label"/>
+                                    <ui:Label name="lblMediumChestPrice" text="180 Gold" class="chest-shop-price-label df-label"/>
                                 </ui:VisualElement>
                                 <ui:Button name="btnBuyMediumChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
                             </ui:VisualElement>
@@ -127,7 +127,7 @@
                             <ui:VisualElement class="chest-shop-card-right">
                                 <ui:VisualElement class="chest-shop-price">
                                     <ui:VisualElement class="chest-shop-price-icon chest-shop-price-icon-essence"/>
-                                    <ui:Label text="10 Essence" class="chest-shop-price-label df-label"/>
+                                    <ui:Label name="lblEssenceChestPrice" text="12 Essence" class="chest-shop-price-label df-label"/>
                                 </ui:VisualElement>
                                 <ui:Button name="btnBuyEssenceChest" text="Buy" class="chest-shop-buy-button chest-shop-buy-button-primary df-interactive"/>
                             </ui:VisualElement>

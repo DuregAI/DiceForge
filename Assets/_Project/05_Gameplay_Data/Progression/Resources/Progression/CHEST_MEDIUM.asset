@@ -15,7 +15,15 @@ MonoBehaviour:
   id: CHEST_MEDIUM
   displayName: Medium Chest
   icon: {fileID: 21300000, guid: e2279169170a4b3d92548a3efa260182, type: 3}
+  purchaseCurrencyId: SOFT_GOLD
+  purchasePrice: 180
   fixedRewards:
+  - id: SOFT_GOLD
+    amount: 110
+    isItem: 0
   - id: ESSENCE
-    amount: 5
+    amount: 10
+    isItem: 0
+  - id: SHARDS
+    amount: 3
     isItem: 0

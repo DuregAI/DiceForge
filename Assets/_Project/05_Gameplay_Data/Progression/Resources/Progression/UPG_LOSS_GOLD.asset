@@ -18,9 +18,9 @@ MonoBehaviour:
   maxLevel: 2
   effectType: 1
   priceByLevel:
-  - 40
-  - 90
+  - 100
+  - 190
   valueByLevel:
-  - 3
-  - 6
+  - 4
+  - 8
   requiresModeInfo: 0
