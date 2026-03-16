@@ -28,7 +28,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 3
       items: []
-      xp: 45
+      xp: 50
       chests: []
     storyLineId: 
   - id: C1_02
@@ -45,7 +45,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 4
       items: []
-      xp: 45
+      xp: 60
       chests: []
     storyLineId: 
   - id: C1_03
@@ -61,7 +61,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 4
       items: []
-      xp: 55
+      xp: 70
       chests: []
     storyLineId: 
   - id: C1_04
@@ -78,7 +78,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 5
       items: []
-      xp: 60
+      xp: 80
       chests: []
     storyLineId: 
   - id: C1_05
@@ -94,7 +94,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 6
       items: []
-      xp: 60
+      xp: 90
       chests: []
     storyLineId: 
   - id: C1_06
@@ -111,7 +111,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 6
       items: []
-      xp: 30
+      xp: 100
       chests: []
     storyLineId: 
   - id: C1_07
@@ -128,7 +128,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 8
       items: []
-      xp: 30
+      xp: 110
       chests: []
     storyLineId: 
   - id: C1_08
@@ -144,7 +144,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 8
       items: []
-      xp: 20
+      xp: 120
       chests: []
     storyLineId: 
   - id: C1_09
@@ -159,7 +159,7 @@ MonoBehaviour:
       - id: ESSENCE
         amount: 9
       items: []
-      xp: 20
+      xp: 130
       chests: []
     storyLineId: 
   - id: C1_02_CHEST

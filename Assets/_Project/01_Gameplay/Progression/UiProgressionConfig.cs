@@ -11,6 +11,7 @@ namespace Diceforge.Progression
 
         [Header("Level Pacing")]
         [Min(1)] public int xpPerLevel = 100;
+        [Min(0)] public int xpPerLevelIncrement = 0;
 
         [Header("Match Rewards")]
         [Min(0)] public int winXp = 10;

@@ -6,6 +6,7 @@ namespace Diceforge.Progression
     {
         private const string DatabasePath = "Progression/ProgressionDatabase";
         private const int DefaultXpPerLevel = 100;
+        private const int DefaultXpPerLevelIncrement = 0;
         private const int DefaultChestSectionUnlockLevel = 3;
         private const int DefaultUpgradesUnlockLevel = 4;
         private const int DefaultWinXp = 10;
@@ -18,7 +19,7 @@ namespace Diceforge.Progression
 
         private static ProgressionDatabase _database;
 
-        public static int XpPerLevel => GetXpPerLevel();
+        public static int XpPerLevel => GetXpRequiredForLevel(GetPlayerLevel());
 
         public static int GetPlayerLevel()
         {
@@ -28,13 +29,25 @@ namespace Diceforge.Progression
         public static int GetLevelForXp(int xp)
         {
             int clampedXp = Mathf.Max(0, xp);
-            return (clampedXp / GetXpPerLevel()) + 1;
+            int level = 1;
+
+            while (clampedXp >= GetLevelFloorXp(level + 1))
+                level++;
+
+            return level;
         }
 
         public static int GetLevelFloorXp(int level)
         {
             int clampedLevel = Mathf.Max(1, level);
-            return (clampedLevel - 1) * GetXpPerLevel();
+            int completedLevels = clampedLevel - 1;
+            if (completedLevels <= 0)
+                return 0;
+
+            long baseXp = GetBaseXpPerLevel();
+            long increment = GetXpPerLevelIncrement();
+            long totalXp = (completedLevels * (2L * baseXp + ((completedLevels - 1L) * increment))) / 2L;
+            return totalXp > int.MaxValue ? int.MaxValue : (int)totalXp;
         }
 
         public static int GetXpIntoCurrentLevel(int xp)
@@ -45,8 +58,26 @@ namespace Diceforge.Progression
 
         public static int GetXpPerLevel()
         {
+            return GetBaseXpPerLevel();
+        }
+
+        public static int GetBaseXpPerLevel()
+        {
             UiProgressionConfig config = GetConfig();
             return Mathf.Max(1, config != null ? config.xpPerLevel : DefaultXpPerLevel);
+        }
+
+        public static int GetXpPerLevelIncrement()
+        {
+            UiProgressionConfig config = GetConfig();
+            return Mathf.Max(0, config != null ? config.xpPerLevelIncrement : DefaultXpPerLevelIncrement);
+        }
+
+        public static int GetXpRequiredForLevel(int level)
+        {
+            int clampedLevel = Mathf.Max(1, level);
+            int xpRequired = GetBaseXpPerLevel() + ((clampedLevel - 1) * GetXpPerLevelIncrement());
+            return Mathf.Max(1, xpRequired);
         }
 
         public static int GetChestSectionUnlockLevel()

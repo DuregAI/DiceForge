@@ -1,4 +1,5 @@
 using Diceforge.Battle;
+using Diceforge.Map;
 using Diceforge.MapSystem;
 using Diceforge.Progression;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,7 @@ public static class TutorialFlow
             throw new System.InvalidOperationException($"[TutorialFlow] StartTrainingBattle failed: tutorial map is not assigned for preset '{_tutorialPreset.name}'.");
 
         IsTrainingBattleActive = true;
+        MapFlowRuntime.StartStandaloneBattle();
         BattleLauncher.Start(new BattleStartRequest(_tutorialPreset, _tutorialMapConfig));
     }
 

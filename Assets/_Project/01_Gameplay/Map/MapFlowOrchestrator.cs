@@ -25,6 +25,11 @@ namespace Diceforge.Map
             RewardsHandledInBattleFlow = false;
         }
 
+        public static void StartStandaloneBattle()
+        {
+            ClearRunContext();
+        }
+
         public static void ReportBattleResult(bool won)
         {
             LastBattleWon = won;

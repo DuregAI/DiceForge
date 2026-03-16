@@ -205,8 +205,8 @@ public sealed class PlayerInfoController : MonoBehaviour
     private void Refresh()
     {
         var xp = Mathf.Max(0, ProfileService.Current.hero.xp);
-        int xpPerLevel = UiProgressionService.GetXpPerLevel();
         int level = UiProgressionService.GetLevelForXp(xp);
+        int xpPerLevel = UiProgressionService.GetXpRequiredForLevel(level);
         int levelFloorXp = UiProgressionService.GetLevelFloorXp(level);
         var displayName = ClampPlayerName(ProfileService.GetDisplayName());
         var avatar = AvatarService.GetSelectedAvatarSprite();

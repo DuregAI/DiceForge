@@ -224,7 +224,8 @@ public sealed class WalletPanelController : MonoBehaviour
             _shardsLabel.text = ProfileService.GetCurrency(ProgressionIds.Shards).ToString();
 
         int xp = Mathf.Max(0, ProfileService.Current.hero.xp);
-        int xpPerLevel = UiProgressionService.GetXpPerLevel();
+        int currentLevel = UiProgressionService.GetPlayerLevel();
+        int xpPerLevel = UiProgressionService.GetXpRequiredForLevel(currentLevel);
         int levelXp = UiProgressionService.GetXpIntoCurrentLevel(xp);
         float xpProgress = Mathf.Clamp01(levelXp / (float)xpPerLevel);
 

@@ -675,6 +675,7 @@ public class MainMenuController : MonoBehaviour
         if (preset.mapConfig == null)
             throw new System.InvalidOperationException($"[MainMenu] Legacy start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
 
+        MapFlowRuntime.StartStandaloneBattle();
         Debug.Log($"[MainMenu] Starting LEGACY button through BattleLauncher preset={preset.name} map={preset.mapConfig.name}");
         BattleLauncher.Start(new BattleStartRequest(preset, preset.mapConfig));
     }
@@ -689,6 +690,7 @@ public class MainMenuController : MonoBehaviour
             throw new System.InvalidOperationException($"[MainMenu] New start failed: map override is not assigned for preset '{preset.name}' modeId='{preset.modeId}'.");
         }
 
+        MapFlowRuntime.StartStandaloneBattle();
         Debug.Log($"[MainMenu] Starting NEW battle pipeline with preset: {preset.name} ({preset.modeId}) mapOverride={mapOverride.name}");
         BattleLauncher.Start(new BattleStartRequest(preset, mapOverride));
     }

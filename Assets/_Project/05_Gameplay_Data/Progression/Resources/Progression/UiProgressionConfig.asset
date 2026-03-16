@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6a7bd6335d47058e4e213dc73559a7, type: 3}
   m_Name: UiProgressionConfig
   m_EditorClassIdentifier: 
-  chestSectionUnlockLevel: 2
-  upgradesUnlockLevel: 3
-  xpPerLevel: 75
-  winXp: 45
-  lossXp: 20
+  chestSectionUnlockLevel: 3
+  upgradesUnlockLevel: 5
+  xpPerLevel: 100
+  xpPerLevelIncrement: 50
+  winXp: 70
+  lossXp: 30
   winSoftGold: 35
   lossSoftGold: 18
   winEssence: 4
