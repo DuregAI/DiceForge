@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0ce1aca18a4587844b12584fc1e254, type: 3}
+  m_Name: Map_Level_06
+  m_EditorClassIdentifier: 
+  mapId: level_06
+  displayName: Level 06
+  boardLayout: {fileID: 11400000, guid: d8e9b85cdc5f442694b6c8a3be8b26fa, type: 2}
+  mapTheme: {fileID: 11400000, guid: cfb8544cc5ef40289c6b3425af86535b, type: 2}

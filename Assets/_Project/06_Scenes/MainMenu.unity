@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -707,6 +707,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbe1a0feca0b4e428a7a863dcb03824a, type: 2}
   - {fileID: 11400000, guid: c4a54d743c274014883c17aedb6b23a6, type: 2}
   - {fileID: 11400000, guid: 6cb1d5028e244b089b31a8f8f07bf127, type: 2}
+  - {fileID: 11400000, guid: effcc1753eca4ae8af6700d9009d9960, type: 2}
+  - {fileID: 11400000, guid: 239c0a4e491d4467828048805a4e8c2f, type: 2}
+  - {fileID: 11400000, guid: 80fa1a901ce041d4b5ffd9ec1f54b431, type: 2}
+  - {fileID: 11400000, guid: 8cf1a3604a684340a98131e3fad7b240, type: 2}
+  - {fileID: 11400000, guid: 0b34fd23cc1e475484172d050ff17cee, type: 2}
+  - {fileID: 11400000, guid: 97fb44e5ded5435daf423f2bfe5a48cd, type: 2}
+  - {fileID: 11400000, guid: b22690ce9a074f2bba6b7a74a7c51aa0, type: 2}
+  - {fileID: 11400000, guid: 4fb9b2601e6547f3bd8b43f5da1df983, type: 2}
+  - {fileID: 11400000, guid: b85fef655a1e45d4976133b05e648816, type: 2}
   battleMaps:
   - {fileID: 11400000, guid: 9e0b54564f6d414ba1ecdc3cf4f066da, type: 2}
   - {fileID: 11400000, guid: 9bc7181800f34f7a830e678663f7e063, type: 2}
@@ -718,3 +727,4 @@ SceneRoots:
   - {fileID: 345960770}
   - {fileID: 148167643}
   - {fileID: 485800847}
+

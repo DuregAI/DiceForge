@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c660931a2f4a67afe674a6986e2908, type: 3}
+  m_Name: GM_Level_01
+  m_EditorClassIdentifier: 
+  modeId: level_01
+  displayName: Level 01
+  rulesetPreset: {fileID: 11400000, guid: 8d329110fba14e7fbdffe6de45e3bbe0, type: 2}
+  diceBagA: {fileID: 11400000, guid: d1b6e3c195794a9f93f93ba965df3a15, type: 2}
+  diceBagB: {fileID: 11400000, guid: d1b6e3c195794a9f93f93ba965df3a15, type: 2}
+  setupPreset: {fileID: 11400000, guid: 466f95ad9c8b468dbb6aac30fbfd9d80, type: 2}
+  mapConfig: {fileID: 11400000, guid: 02c644f0a75c4c0e8a2f3f35e2e355bf, type: 2}
