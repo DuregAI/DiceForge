@@ -537,7 +537,15 @@ namespace Diceforge.View
 
             sortingGroup.sortAtRoot = true;
             sortingGroup.sortingOrder = 0;
-            sortingGroup.sortingLayerName = "Default";
+            // Keep units above tile layers while still letting foreground decor overlap them.
+            sortingGroup.sortingLayerName = "Actors";
+
+            Renderer[] renderers = unit.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].sortingLayerName = "Actors";
+                renderers[i].sortingOrder = 0;
+            }
 
             Animator animator = unit.GetComponentInChildren<Animator>(true);
             if (animator != null)

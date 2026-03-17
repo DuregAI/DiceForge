@@ -8,7 +8,10 @@ namespace Diceforge.MapSystem
     {
         public GameObject tilemapPrefab;
         public string positionTilemapName = "TM_Tiles";
+        // Optional separate background prefab. Do not reuse the board/tilemap prefab here.
         public GameObject backgroundPrefab;
+        // Optional grouped decoration prefab authored in the same local space as the board/tilemap.
+        // Do not assign single loose props here, or they will spawn at the theme root origin.
         public GameObject decorationsPrefab;
         public GameObject unitPrefab;
         public Color teamAColor = Color.white;

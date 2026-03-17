@@ -14,6 +14,7 @@ namespace Diceforge.View
 
         [Header("Movement")]
         [SerializeField] private float heightOffset = 0.05f;
+        [SerializeField] private float tilemapDepthOffset = 0.2f;
         [SerializeField] private float moveDuration = 0.25f;
         [SerializeField] private bool rotateAlongPath = true;
         [SerializeField] private bool logMovementState;
@@ -91,7 +92,7 @@ namespace Diceforge.View
             if (tokenRoot == null)
                 return;
 
-            tokenRoot.position = worldPosition + Vector3.up * heightOffset + visualOffset;
+            tokenRoot.position = worldPosition + ResolvePresentationOffset();
             currentCellId = resolvedCellId;
         }
 
@@ -201,9 +202,17 @@ namespace Diceforge.View
         private Vector3 ResolveWorldPosition(CellData cell)
         {
             if (positionTilemap != null)
-                return positionTilemap.GetCellCenterWorld(cell.gridPos) + Vector3.up * heightOffset + visualOffset;
+                return positionTilemap.GetCellCenterWorld(cell.gridPos) + ResolvePresentationOffset();
 
-            return cell.worldPos + Vector3.up * heightOffset + visualOffset;
+            return cell.worldPos + ResolvePresentationOffset();
+        }
+
+        private Vector3 ResolvePresentationOffset()
+        {
+            // Mesh units render as opaque 3D geometry, so push them slightly behind the tilemap plane.
+            // This keeps them above the board visually while allowing foreground sprite decor to overlap.
+            Vector3 depthAxis = positionTilemap != null ? positionTilemap.transform.forward : Vector3.forward;
+            return Vector3.up * heightOffset + depthAxis * tilemapDepthOffset + visualOffset;
         }
 
         private bool TryGetCellWorldPosition(int requestedCellId, out Vector3 worldPosition, out int resolvedCellId)

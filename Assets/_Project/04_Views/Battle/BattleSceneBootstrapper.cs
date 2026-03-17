@@ -49,6 +49,9 @@ namespace Diceforge.View
             if (map.mapTheme.tilemapPrefab == null)
                 throw BuildBootstrapException("map theme has no tilemapPrefab", activePreset, map);
 
+            if (map.mapTheme.backgroundPrefab != null && map.mapTheme.backgroundPrefab == map.mapTheme.tilemapPrefab)
+                throw BuildBootstrapException("map theme backgroundPrefab must be a separate background prefab, not the same asset as tilemapPrefab", activePreset, map);
+
             if (map.mapTheme.unitPrefab == null)
                 throw BuildBootstrapException("map theme has no unitPrefab", activePreset, map);
 
@@ -95,6 +98,7 @@ namespace Diceforge.View
             VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
 
             // Legacy single-mover visuals are disabled; token view is the only runtime stone visual path.
+            // UnitsRoot is just a runtime container; unit positions still resolve from the active tilemap.
             boardViewController.SetMovers(null, null);
             boardViewController.ConfigureTokensView(
                 map.boardLayout,
@@ -137,6 +141,7 @@ namespace Diceforge.View
             if (theme.backgroundPrefab != null && backgroundRoot != null)
                 Instantiate(theme.backgroundPrefab, backgroundRoot);
 
+            // Decoration prefabs are expected to be pre-authored in board-local space.
             if (theme.decorationsPrefab != null && decorationsRoot != null)
                 Instantiate(theme.decorationsPrefab, decorationsRoot);
 

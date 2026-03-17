@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapPrefab: {fileID: 1068388755505221198, guid: 419a11cd6e7a4ea4b999479581139278, type: 3}
   positionTilemapName: TM_Tiles
-  backgroundPrefab: {fileID: 1068388755505221198, guid: 419a11cd6e7a4ea4b999479581139278, type: 3}
-  decorationsPrefab: {fileID: 343229648803061613, guid: 070a957a8c94b8c4f8009a081137cb1e, type: 3}
+  backgroundPrefab: {fileID: 0}
+  decorationsPrefab: {fileID: 0}
   unitPrefab: {fileID: 8101172961102235175, guid: 6771507c7038717468c9f25a1f85ef1e, type: 3}
   teamAColor: {r: 1, g: 1, b: 1, a: 1}
   teamBColor: {r: 1, g: 0, b: 0.24241209, a: 1}
