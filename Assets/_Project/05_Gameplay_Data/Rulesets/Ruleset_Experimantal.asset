@@ -15,34 +15,25 @@ MonoBehaviour:
   rulesetId: experimantal
   displayName: Experimantal
   maxRounds: 30
-  maxUnitsPerSide: 10
+  maxUnitsPerSide: 1
   allowReroll: 0
   actionsPerTurn: 1
   gameMode: 0
-  boardSize: 24
-  homeSize: 6
-  totalStonesPerPlayer: 20
+  boardSize: 9
+  homeSize: 1
+  totalStonesPerPlayer: 1
   dieMin: 1
   dieMax: 6
   startCellA: 0
-  startCellB: 15
+  startCellB: 8
   moveDirA: 1
   moveDirB: -1
-  allowHitSingleStone: 1
+  allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
   maxTurns: 180
   randomSeed: 34567
   verboseLog: 0
   headRules:
-    restrictHeadMoves: 1
+    restrictHeadMoves: 0
     maxHeadMovesPerTurn: 1
-    firstTurnHeadAllowance:
-    - dieA: 6
-      dieB: 6
-      maxHeadMoves: 2
-    - dieA: 4
-      dieB: 4
-      maxHeadMoves: 2
-    - dieA: 3
-      dieB: 3
-      maxHeadMoves: 2
+    firstTurnHeadAllowance: []
