@@ -95,7 +95,13 @@ namespace Diceforge.View
             if (positionTilemap == null)
                 throw BuildBootstrapException($"position tilemap '{map.mapTheme.positionTilemapName}' was not found in tilemap prefab", activePreset, map);
 
-            VerifyUnitPrefabAnimator(map.mapTheme.unitPrefab);
+            GameObject teamAUnitPrefab = map.mapTheme.unitPrefab;
+            GameObject teamBUnitPrefab = map.mapTheme.teamBUnitPrefab != null
+                ? map.mapTheme.teamBUnitPrefab
+                : map.mapTheme.unitPrefab;
+
+            VerifyUnitPrefabAnimator(teamAUnitPrefab);
+            VerifyUnitPrefabAnimator(teamBUnitPrefab);
 
             // Legacy single-mover visuals are disabled; token view is the only runtime stone visual path.
             // UnitsRoot is just a runtime container; unit positions still resolve from the active tilemap.
@@ -104,7 +110,8 @@ namespace Diceforge.View
                 map.boardLayout,
                 positionTilemap,
                 unitsRoot,
-                map.mapTheme.unitPrefab,
+                teamAUnitPrefab,
+                teamBUnitPrefab,
                 map.mapTheme.teamAColor,
                 map.mapTheme.teamBColor);
 

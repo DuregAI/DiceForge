@@ -17,6 +17,7 @@ MonoBehaviour:
   backgroundPrefab: {fileID: 343229648803061613, guid: 30855b65ba8d48d9bb0cc5970d007d6f, type: 3}
   decorationsPrefab: {fileID: 0}
   unitPrefab: {fileID: 8101172961102235175, guid: 6771507c7038717468c9f25a1f85ef1e, type: 3}
+  teamBUnitPrefab: {fileID: 807837956358224819, guid: edbf479112fba644485cca00f2e1e954, type: 3}
   teamAColor: {r: 1, g: 1, b: 1, a: 1}
-  teamBColor: {r: 1, g: 0, b: 0.24241209, a: 1}
+  teamBColor: {r: 1, g: 1, b: 1, a: 1}
   postProcessProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}

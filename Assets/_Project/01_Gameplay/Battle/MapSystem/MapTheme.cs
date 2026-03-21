@@ -14,6 +14,7 @@ namespace Diceforge.MapSystem
         // Do not assign single loose props here, or they will spawn at the theme root origin.
         public GameObject decorationsPrefab;
         public GameObject unitPrefab;
+        public GameObject teamBUnitPrefab;
         public Color teamAColor = Color.white;
         public Color teamBColor = Color.red;
         public VolumeProfile postProcessProfile;

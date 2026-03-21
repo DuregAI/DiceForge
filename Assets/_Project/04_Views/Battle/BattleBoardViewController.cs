@@ -40,12 +40,12 @@ namespace Diceforge.View
                 SnapToStartCells();
         }
 
-        public void ConfigureTokensView(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject unitPrefab, Color teamAColor, Color teamBColor)
+        public void ConfigureTokensView(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject teamAUnitPrefab, GameObject teamBUnitPrefab, Color teamAColor, Color teamBColor)
         {
             if (stonesTokensView == null)
                 stonesTokensView = GetComponent<StonesTokensView>() ?? gameObject.AddComponent<StonesTokensView>();
 
-            stonesTokensView.Configure(layout, positionTilemap, unitsRoot, unitPrefab, teamAColor, teamBColor);
+            stonesTokensView.Configure(layout, positionTilemap, unitsRoot, teamAUnitPrefab, teamBUnitPrefab, teamAColor, teamBColor);
 
             if (_runner?.State != null)
             {

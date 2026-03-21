@@ -29,7 +29,8 @@ namespace Diceforge.View
         private BoardLayout _layout;
         private Tilemap _positionTilemap;
         private Transform _unitsRoot;
-        private GameObject _unitPrefab;
+        private GameObject _teamAUnitPrefab;
+        private GameObject _teamBUnitPrefab;
         private Color _teamAColor;
         private Color _teamBColor;
         private bool _configured;
@@ -39,15 +40,19 @@ namespace Diceforge.View
         [SerializeField] private float barStackStepY = 0.045f;
         [SerializeField] private float barStackStepZ = 0.03f;
 
-        public void Configure(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject unitPrefab, Color teamAColor, Color teamBColor)
+        public void Configure(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject teamAUnitPrefab, GameObject teamBUnitPrefab, Color teamAColor, Color teamBColor)
         {
             _layout = layout;
             _positionTilemap = positionTilemap;
             _unitsRoot = unitsRoot;
-            _unitPrefab = unitPrefab;
+            _teamAUnitPrefab = teamAUnitPrefab;
+            _teamBUnitPrefab = teamBUnitPrefab != null ? teamBUnitPrefab : teamAUnitPrefab;
             _teamAColor = teamAColor;
             _teamBColor = teamBColor;
-            _configured = _layout != null && _unitsRoot != null && _unitPrefab != null;
+            _configured = _layout != null
+                && _unitsRoot != null
+                && _teamAUnitPrefab != null
+                && _teamBUnitPrefab != null;
         }
 
         public void BuildTokensFromMatchState(GameState matchState)
@@ -449,11 +454,12 @@ namespace Diceforge.View
             List<TokenBinding> tokens = player == PlayerId.A ? _tokensA : _tokensB;
             Color color = player == PlayerId.A ? _teamAColor : _teamBColor;
             string prefix = player == PlayerId.A ? "StoneA" : "StoneB";
+            GameObject unitPrefab = player == PlayerId.A ? _teamAUnitPrefab : _teamBUnitPrefab;
 
             while (tokens.Count < requiredCount)
             {
                 int index = tokens.Count;
-                GameObject instance = Instantiate(_unitPrefab, _unitsRoot);
+                GameObject instance = Instantiate(unitPrefab, _unitsRoot);
                 instance.name = $"{prefix}_{index:D2}";
 
                 BoardLayoutTokenMover mover = instance.GetComponent<BoardLayoutTokenMover>();
