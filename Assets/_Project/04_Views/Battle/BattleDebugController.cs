@@ -579,7 +579,7 @@ namespace Diceforge.View
             hud?.SetDiceOutcome(_runner.CurrentOutcome, _runner.RemainingDice, _runner.UsedDice);
             hud?.SetBagStatus(_runner.CurrentBagRemaining, _runner.CurrentBagTotal);
             hud?.SetLastMove(lastMove);
-            hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "-" : "-");
+            hud?.SetWinner(state.IsFinished ? state.Winner?.ToString() ?? "Draw" : "-");
             hud?.SetPlayerStatsA($"A: Off {state.BorneOffA} | Bar {state.BarA}");
             hud?.SetPlayerStatsB($"B: Off {state.BorneOffB} | Bar {state.BarB}");
             hud?.SetHeadMovesInfo(_runner.HeadMovesUsed, _runner.HeadMovesLimit);
@@ -859,10 +859,10 @@ namespace Diceforge.View
 
             boardView?.HandleMatchEnded(state);
             if (verboseLog)
-                Debug.Log($"[Diceforge] Match end. Winner: {result.Winner}  Turns: {state.TurnIndex}");
+                Debug.Log($"[Diceforge] Match end. Winner: {result.Winner?.ToString() ?? "Draw"}  Turns: {state.TurnIndex}");
 
             ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
-                result.Winner.ToString(),
+                result.Winner?.ToString() ?? "Draw",
                 result.Reason.ToString(),
                 state.TurnIndex));
             OnMatchEnded?.Invoke(result);
@@ -957,7 +957,7 @@ namespace Diceforge.View
                 return "Status: -";
 
             if (_runner.State.IsFinished || _runner.MatchEnded)
-                return $"Status: Finished ({_runner.State.Winner})";
+                return $"Status: Finished ({_runner.State.Winner?.ToString() ?? "Draw"})";
 
             if (IsBoardAnimating())
                 return "Status: Animating move";

@@ -7,15 +7,17 @@ namespace Diceforge.View
 {
     internal sealed class PostBattleRewardOutcome
     {
-        public PostBattleRewardOutcome(bool won, bool isMapBattle, RewardBundle rewardBundle, RewardApplicationResult applicationResult)
+        public PostBattleRewardOutcome(bool won, bool isMapBattle, RewardBundle rewardBundle, RewardApplicationResult applicationResult, bool isDraw = false)
         {
             Won = won;
             IsMapBattle = isMapBattle;
+            IsDraw = isDraw;
             RewardBundle = rewardBundle ?? new RewardBundle();
             ApplicationResult = applicationResult ?? new RewardApplicationResult(RewardBundle, UiProgressionService.GetPlayerLevel(), UiProgressionService.GetPlayerLevel(), null, LevelUpSourceContexts.Battle);
         }
 
         public bool Won { get; }
+        public bool IsDraw { get; }
         public bool IsMapBattle { get; }
         public RewardBundle RewardBundle { get; }
         public RewardApplicationResult ApplicationResult { get; }
@@ -36,6 +38,7 @@ namespace Diceforge.View
     {
         public static PostBattleRewardOutcome Resolve(MatchResult result, bool won)
         {
+            won = won && !result.IsDraw;
             bool isMapBattle = MapFlowRuntime.IsMapBattleActive;
             RewardBundle rewardBundle = ResolveRewardBundle(result, won, isMapBattle);
             RewardApplicationResult applicationResult = ProfileService.ApplyRewardDetailed(rewardBundle, LevelUpSourceContexts.Battle);
@@ -43,11 +46,14 @@ namespace Diceforge.View
             if (isMapBattle && won)
                 MapFlowRuntime.MarkRewardsHandledInBattleFlow();
 
-            return new PostBattleRewardOutcome(won, isMapBattle, rewardBundle, applicationResult);
+            return new PostBattleRewardOutcome(won, isMapBattle, rewardBundle, applicationResult, result.IsDraw);
         }
 
         private static RewardBundle ResolveRewardBundle(MatchResult result, bool won, bool isMapBattle)
         {
+            if (result.IsDraw)
+                return new RewardBundle();
+
             if (isMapBattle)
             {
                 if (!won)

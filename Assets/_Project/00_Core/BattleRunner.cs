@@ -408,13 +408,6 @@ namespace Diceforge.Core
             if (result == ApplyResult.Finished || State.IsFinished)
                 endReason = MatchEndReason.Win;
 
-            if (!_matchEnded && !State.IsFinished && State.TurnIndex >= Rules.maxTurns - 1)
-            {
-                var winner = DecideWinnerOnTimeout(State);
-                CompleteMatch(winner, MatchEndReason.Timeout);
-                endReason = MatchEndReason.Timeout;
-            }
-
             if (!_matchEnded && result == ApplyResult.Finished)
             {
                 var winner = State.Winner ?? State.CurrentPlayer;
@@ -493,16 +486,49 @@ namespace Diceforge.Core
             if (_matchEnded || State.IsFinished)
                 return;
 
+            // The limit counts completed turns, including passes and empty rolls.
+            // Keep the final turn's remaining dice playable before evaluating it.
+            PlayerId player = State.CurrentPlayer;
+            int completedTurn = State.TurnIndex;
             State.AdvanceTurn();
+            if (State.TurnIndex >= Rules.maxTurns)
+            {
+                CompleteMatch(DecideWinnerOnTimeout(State), MatchEndReason.Timeout);
+                Log.Add(new MoveRecord(completedTurn, player, null, null, null, null,
+                    _currentOutcome, _remainingDice.ToArray(), ApplyResult.Finished,
+                    MatchEndReason.Timeout, State.Winner));
+                FireMatchEndedIfNeeded();
+                return;
+            }
+
             BeginTurn();
         }
 
-        private static PlayerId DecideWinnerOnTimeout(GameState s)
+        private static PlayerId? DecideWinnerOnTimeout(GameState state)
         {
-            return PlayerId.A;
+            int offA = state.GetBorneOff(PlayerId.A);
+            int offB = state.GetBorneOff(PlayerId.B);
+            if (offA != offB)
+                return offA > offB ? PlayerId.A : PlayerId.B;
+
+            int distanceA = GetRemainingDistance(state, PlayerId.A);
+            int distanceB = GetRemainingDistance(state, PlayerId.B);
+            if (distanceA != distanceB)
+                return distanceA < distanceB ? PlayerId.A : PlayerId.B;
+
+            return null;
         }
 
-        private void CompleteMatch(PlayerId winner, MatchEndReason reason)
+        private static int GetRemainingDistance(GameState state, PlayerId player)
+        {
+            // A bar token must enter the board before completing the full route.
+            int distance = state.GetBarCount(player) * (state.Rules.boardSize + 1);
+            for (int cell = 0; cell < state.Rules.boardSize; cell++)
+                distance += state.GetStonesAt(player, cell) * BoardPathRules.PipsToBearOff(state.Rules, player, cell);
+            return distance;
+        }
+
+        private void CompleteMatch(PlayerId? winner, MatchEndReason reason)
         {
             if (_matchEnded)
                 return;

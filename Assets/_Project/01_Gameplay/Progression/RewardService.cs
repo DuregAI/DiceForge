@@ -7,6 +7,9 @@ namespace Diceforge.Progression
     {
         public static RewardBundle CalculateMatchRewards(MatchResult matchResult, string mode)
         {
+            if (matchResult.IsDraw)
+                return new RewardBundle();
+
             bool won = matchResult.Winner == PlayerId.A;
             RewardBundle bundle = BuildBaseReward(won);
 

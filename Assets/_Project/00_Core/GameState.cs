@@ -155,7 +155,7 @@ namespace Diceforge.Core
             CurrentPlayer = (CurrentPlayer == PlayerId.A) ? PlayerId.B : PlayerId.A;
         }
 
-        public void Finish(PlayerId winner)
+        public void Finish(PlayerId? winner)
         {
             IsFinished = true;
             Winner = winner;

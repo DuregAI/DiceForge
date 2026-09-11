@@ -150,7 +150,7 @@ namespace Diceforge.View
         private void PrepareOutcomeView(PostBattleRewardOutcome outcome)
         {
             if (_resultLabel != null)
-                _resultLabel.text = outcome.Won ? "Victory" : "Defeat";
+                _resultLabel.text = outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat";
 
             if (_xpValueLabel != null)
                 _xpValueLabel.text = $"+{outcome.ApplicationResult.XpGained} XP";
@@ -321,6 +321,9 @@ namespace Diceforge.View
 
         private string BuildInitialSummary(PostBattleRewardOutcome outcome)
         {
+            if (outcome.IsDraw)
+                return "Turn limit reached. Neither side is ahead. No rewards earned.";
+
             if (outcome.Won)
                 return outcome.HasRewardSummary ? "Spoils gathered from this clash" : "The battle is won.";
 
