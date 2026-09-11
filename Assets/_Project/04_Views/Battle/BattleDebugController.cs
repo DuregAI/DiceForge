@@ -55,6 +55,9 @@ namespace Diceforge.View
         private bool _wasBoardAnimating;
         private string _pendingAnimatedTokenName;
         private bool _hasBattleResultTriggered;
+        internal BattleRewardSession RewardSession { get; private set; }
+        public bool HasPendingResultSave => RewardSession != null && RewardSession.HasPendingSave;
+        public void RetryResultSave() => RewardSession?.Retry();
 
         [Header("Debug")]
         [SerializeField] private bool logRerollInventory;
@@ -318,6 +321,7 @@ namespace Diceforge.View
         [ContextMenu("Restart")]
         public void RestartMatch()
         {
+            if (HasPendingResultSave) return;
             bool wasRunning = _isRunning;
             _elapsed = 0f;
             _pendingAnimatedTokenName = null;
@@ -362,6 +366,7 @@ namespace Diceforge.View
 
         private void HandleMatchStarted(GameState state)
         {
+            RewardSession = new BattleRewardSession(_externalPreset != null ? _externalPreset.modeId : MatchService.ActivePreset?.modeId);
             _hasBattleResultTriggered = false;
             _waitingForFromCell = false;
             _pendingAnimatedTokenName = null;
@@ -858,6 +863,7 @@ namespace Diceforge.View
             hud?.SetSurrenderEnabled(false);
 
             boardView?.HandleMatchEnded(state);
+            RewardSession?.Complete(result, localPlayer == result.Winner);
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {result.Winner?.ToString() ?? "Draw"}  Turns: {state.TurnIndex}");
 

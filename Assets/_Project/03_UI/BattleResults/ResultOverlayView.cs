@@ -33,6 +33,7 @@ namespace Diceforge.View
         private ScrollView _rewardsList;
         private Button _restartButton;
         private Button _backToMenuButton;
+        private Button _retrySaveButton;
         private LevelUpWindowPresenter _levelUpPresenter;
         private ChestRewardWindowPresenter _chestRewardPresenter;
         private RewardPopupEffectsBridge _backEffectsBridge;
@@ -82,6 +83,17 @@ namespace Diceforge.View
             _rewardsList = _root.Q<ScrollView>("resultRewardsList");
             _restartButton = _root.Q<Button>("restartButton");
             _backToMenuButton = _root.Q<Button>("backToMenuButton");
+            _retrySaveButton = _root.Q<Button>("retryResultSaveButton");
+            if (_retrySaveButton == null && _panel != null)
+            {
+                _retrySaveButton = new Button { name = "retryResultSaveButton", text = "Повторить сохранение" };
+                _panel.Add(_retrySaveButton);
+            }
+            if (_retrySaveButton != null)
+            {
+                _retrySaveButton.style.display = DisplayStyle.None;
+                _retrySaveButton.clicked += RetrySave;
+            }
 
             if (_overlayRoot != null)
                 _overlayRoot.pickingMode = PickingMode.Ignore;
@@ -97,12 +109,14 @@ namespace Diceforge.View
 
             if (battleController != null)
                 battleController.OnMatchEnded += HandleMatchEnded;
+            if (battleController != null && battleController.IsMatchEnded) ShowResult();
         }
 
         private void OnDisable()
         {
             if (battleController != null)
                 battleController.OnMatchEnded -= HandleMatchEnded;
+            if (_retrySaveButton != null) _retrySaveButton.clicked -= RetrySave;
 
             if (_restartButton != null)
                 _restartButton.clicked -= HandleRestartClicked;
@@ -116,23 +130,51 @@ namespace Diceforge.View
 
         private void HandleMatchEnded(MatchResult result)
         {
-            if (_isVisible)
-                return;
+            ShowResult();
+        }
 
-            bool won = battleController != null && battleController.LocalPlayer == result.Winner;
-            if (MapFlowRuntime.IsMapBattleActive)
-                MapFlowRuntime.ReportBattleResult(won);
+        private void RetrySave()
+        {
+            battleController?.RetryResultSave();
+            ShowResult();
+        }
 
-            PostBattleRewardOutcome outcome = PostBattleRewardResolver.Resolve(result, won);
-            PrepareOutcomeView(outcome);
-
+        private void ShowResult()
+        {
+            var session = battleController?.RewardSession;
+            if (session == null) return;
             if (_overlayRoot != null)
             {
                 _overlayRoot.style.display = DisplayStyle.Flex;
                 _overlayRoot.pickingMode = PickingMode.Position;
             }
+            if (session.HasPendingSave)
+            {
+                StopPresentationRoutine();
+                _rewardsList?.Clear();
+                SetXpStageVisible(false);
+                if (_resultLabel != null) _resultLabel.text = "Не удалось сохранить результат";
+                UpdateSummaryText("Повторите сохранение, чтобы продолжить.");
+                _restartButton?.SetEnabled(false);
+                _backToMenuButton?.SetEnabled(false);
+                if (_retrySaveButton != null) _retrySaveButton.style.display = DisplayStyle.Flex;
+                _isVisible = true;
+                return;
+            }
+            PostBattleRewardOutcome outcome = session.Outcome;
+            if (outcome == null) return;
+            if (_retrySaveButton != null) _retrySaveButton.style.display = DisplayStyle.None;
+            PrepareOutcomeView(outcome);
+            if (session.PresentationStarted)
+            {
+                UpdateSummaryText(BuildFinalSummary(outcome));
+                SetNavigationButtonsReady(true, outcome);
+                _isVisible = true;
+                return;
+            }
+            session.PresentationStarted = true;
 
-            if (won)
+            if (outcome.Won)
             {
                 _backEffectsBridge?.BeginPresentation("level_up_arcane", _fxBackLayer, _resultLabel);
                 _frontEffectsBridge?.BeginPresentation("level_up_arcane", _fxFrontLayer, _resultLabel);
@@ -220,6 +262,7 @@ namespace Diceforge.View
 
         private void HandleRestartClicked()
         {
+            if (battleController != null && battleController.HasPendingResultSave) return;
             if (_restartButton != null && !_restartButton.enabledSelf)
                 return;
 
@@ -231,6 +274,7 @@ namespace Diceforge.View
 
         private void HandleBackToMenuClicked()
         {
+            if (battleController != null && battleController.HasPendingResultSave) return;
             if (_backToMenuButton != null && !_backToMenuButton.enabledSelf)
                 return;
 

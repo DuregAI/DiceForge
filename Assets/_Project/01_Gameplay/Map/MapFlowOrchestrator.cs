@@ -15,14 +15,12 @@ namespace Diceforge.Map
         public static bool HasPendingBattleResult { get; private set; }
         public static bool LastBattleWon { get; private set; }
         public static bool ReturnToMapRequested { get; private set; }
-        public static bool RewardsHandledInBattleFlow { get; private set; }
 
         public static void StartNodeBattle(string chapterId, string nodeId)
         {
             ChapterId = chapterId;
             SelectedNodeId = nodeId;
             HasPendingBattleResult = false;
-            RewardsHandledInBattleFlow = false;
         }
 
         public static void StartStandaloneBattle()
@@ -40,11 +38,6 @@ namespace Diceforge.Map
         public static void RequestReturnToMap()
         {
             ReturnToMapRequested = true;
-        }
-
-        public static void MarkRewardsHandledInBattleFlow()
-        {
-            RewardsHandledInBattleFlow = true;
         }
 
         public static bool ConsumeReturnToMapRequest()
@@ -68,7 +61,6 @@ namespace Diceforge.Map
             HasPendingBattleResult = false;
             LastBattleWon = false;
             ReturnToMapRequested = false;
-            RewardsHandledInBattleFlow = false;
         }
     }
 
@@ -86,6 +78,8 @@ namespace Diceforge.Map
         private LevelUpWindowPresenter _levelUpPresenter;
         private ChestRewardWindowPresenter _chestRewardPresenter;
         private ProgressionDatabase _progressionDatabase;
+        private ProgressionOperation _pendingOperation;
+        private string _saveError;
 
         public bool IsDevMode => devModeConfig != null ? devModeConfig.devModeEnabled : Debug.isDebugBuild;
 
@@ -131,9 +125,12 @@ namespace Diceforge.Map
 
         public void OnNodeSelected(string nodeId)
         {
+            if (_pendingOperation != null) return;
             var node = _map.GetNode(nodeId);
             if (node == null)
                 return;
+
+            if (node.type != MapNodeType.Battle && _state.IsCompleted(nodeId)) return;
 
             _state.currentNodeId = nodeId;
 
@@ -156,6 +153,7 @@ namespace Diceforge.Map
 
         public void ResetRun()
         {
+            if (_pendingOperation != null) return;
             if (_map == null)
                 return;
 
@@ -166,6 +164,7 @@ namespace Diceforge.Map
 
         public void UnlockAll()
         {
+            if (_pendingOperation != null) return;
             if (_map == null)
                 return;
 
@@ -181,39 +180,11 @@ namespace Diceforge.Map
             if (_map == null || !MapFlowRuntime.HasPendingBattleResult || !MapFlowRuntime.IsMapBattleActive)
                 return;
 
-            var node = _map.GetNode(MapFlowRuntime.SelectedNodeId);
-            if (node == null)
-            {
-                MapFlowRuntime.ClearRunContext();
-                return;
-            }
-
-            LevelUpPresentationData levelUpData = null;
-            if (MapFlowRuntime.LastBattleWon)
-            {
-                if (!MapFlowRuntime.RewardsHandledInBattleFlow)
-                {
-                    var reward = BuildRewardBundle(node.reward, node.id);
-                    if (reward != null && !reward.IsEmpty)
-                        levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Battle);
-                }
-
-                CompleteNode(node);
-            }
-            else
-            {
-                _state.currentNodeId = node.id;
-                if (!_state.IsUnlocked(node.id))
-                    _state.Unlock(node.id);
-            }
-
-            MapProgressService.Save(_map.chapterId, _state);
+            _state = MapProgressService.Load(_map);
             MapFlowRuntime.ClearPendingResult();
             MapFlowRuntime.ConsumeReturnToMapRequest();
             RefreshMap();
-            ShowLevelUp(levelUpData);
         }
-
         private void LaunchBattle(MapNodeDefinition node)
         {
             var preset = battlePresets.Find(x => x != null && x.modeId == node.battlePresetId);
@@ -235,16 +206,39 @@ namespace Diceforge.Map
 
         private void CompleteNonBattleNode(MapNodeDefinition node, RewardBundle reward)
         {
-            LevelUpPresentationData levelUpData = null;
-            if (reward != null && !reward.IsEmpty)
-                levelUpData = ProfileService.ApplyReward(reward, LevelUpSourceContexts.Progression);
+            string runId = MapProgressService.GetRunId(_map.chapterId);
+            _pendingOperation = ProgressionTransactionService.Prepare("node:" + runId + ":" + node.id,
+                _map.chapterId, runId, node.id, node.nextIds, true, reward, LevelUpSourceContexts.Progression);
+            RetryNodeSave();
+        }
 
-            ChestRewardPresentationData chestRewardData = BuildChestPresentationData(reward, levelUpData != null);
-
-            CompleteNode(node);
-            MapProgressService.Save(_map.chapterId, _state);
+        private void RetryNodeSave()
+        {
+            var result = ProgressionTransactionService.Commit(_pendingOperation);
+            if (!result.Succeeded)
+            {
+                _saveError = result.Error;
+                Debug.LogWarning("[MapFlow] Не удалось сохранить результат: " + _saveError);
+                return;
+            }
+            _pendingOperation = null;
+            _saveError = null;
+            _state = MapProgressService.Load(_map);
             RefreshMap();
-            PresentProgressionRewards(levelUpData, chestRewardData);
+            if (result.Status == ProgressionCommitStatus.Applied)
+                PresentProgressionRewards(result.Application.LevelUpData,
+                    BuildChestPresentationData(result.Application.RewardBundle, result.Application.DidLevelUp));
+        }
+
+        private void OnGUI()
+        {
+            if (string.IsNullOrEmpty(_saveError)) return;
+            GUI.ModalWindow(GetEntityId().GetHashCode(), new Rect((Screen.width - 420) / 2, (Screen.height - 160) / 2, 420, 160),
+                _ =>
+                {
+                    GUI.Label(new Rect(20, 35, 380, 45), "Повторите сохранение, чтобы продолжить.");
+                    if (GUI.Button(new Rect(70, 95, 280, 35), "Повторить сохранение")) RetryNodeSave();
+                }, "Не удалось сохранить результат");
         }
 
         private void ShowLevelUp(LevelUpPresentationData data)

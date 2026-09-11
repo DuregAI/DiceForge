@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using Diceforge.Progression;
 using UnityEngine;
 
 namespace Diceforge.Map
@@ -8,48 +11,60 @@ namespace Diceforge.Map
 
         public static MapRunState Load(MapDefinitionSO map)
         {
-            var key = KeyPrefix + map.chapterId;
-            if (!PlayerPrefs.HasKey(key))
+            var profile = ProfileService.Snapshot();
+            var chapter = profile.chapters.Find(x => x.chapterId == map.chapterId);
+            if (chapter != null) return Clone(chapter.state);
+            string json = PlayerPrefs.GetString(KeyPrefix + map.chapterId, string.Empty);
+            MapRunState state;
+            if (string.IsNullOrWhiteSpace(json)) state = CreateNewRun(map);
+            else
             {
-                var fresh = CreateNewRun(map);
-                Save(map.chapterId, fresh);
-                return fresh;
+                state = JsonUtility.FromJson<MapRunState>(json);
+                if (state == null || state.completedNodeIds == null || state.unlockedNodeIds == null ||
+                    !json.Contains("\"completedNodeIds\"") || !json.Contains("\"unlockedNodeIds\""))
+                    throw new InvalidDataException("Не удалось импортировать прогресс главы " + map.chapterId);
+                if (string.IsNullOrEmpty(state.currentNodeId)) state.currentNodeId = map.startNodeId;
+                state.Unlock(map.startNodeId);
             }
+            profile.chapters.Add(new ChapterProgress { chapterId = map.chapterId, runId = Guid.NewGuid().ToString("N"), state = state });
+            if (!ProfileService.TryCommit(profile, out string error)) throw new IOException(error);
+            return Clone(state);
+        }
 
-            var json = PlayerPrefs.GetString(key, string.Empty);
-            var loaded = string.IsNullOrWhiteSpace(json) ? null : JsonUtility.FromJson<MapRunState>(json);
-            if (loaded == null)
-            {
-                loaded = CreateNewRun(map);
-            }
-
-            loaded.unlockedNodeIds ??= new();
-            loaded.completedNodeIds ??= new();
-            if (string.IsNullOrEmpty(loaded.currentNodeId))
-                loaded.currentNodeId = map.startNodeId;
-            loaded.Unlock(map.startNodeId);
-            return loaded;
+        public static string GetRunId(string chapterId)
+        {
+            Load(MapDefinitionSO.LoadChapter(chapterId));
+            return ProfileService.Current.chapters.Find(x => x.chapterId == chapterId).runId;
         }
 
         public static void Save(string chapterId, MapRunState state)
         {
-            var key = KeyPrefix + chapterId;
-            PlayerPrefs.SetString(key, JsonUtility.ToJson(state));
-            PlayerPrefs.Save();
+            var profile = ProfileService.Snapshot();
+            var chapter = profile.chapters.Find(x => x.chapterId == chapterId);
+            if (chapter == null)
+            {
+                chapter = new ChapterProgress { chapterId = chapterId, runId = Guid.NewGuid().ToString("N") };
+                profile.chapters.Add(chapter);
+            }
+            chapter.state = Clone(state);
+            if (!ProfileService.TryCommit(profile, out string error)) throw new IOException(error);
         }
 
         public static void Reset(string chapterId)
         {
-            PlayerPrefs.DeleteKey(KeyPrefix + chapterId);
-            PlayerPrefs.Save();
+            var profile = ProfileService.Snapshot();
+            profile.chapters.RemoveAll(x => x.chapterId == chapterId);
+            profile.chapters.Add(new ChapterProgress
+            {
+                chapterId = chapterId, runId = Guid.NewGuid().ToString("N"), state = CreateNewRun(MapDefinitionSO.LoadChapter(chapterId))
+            });
+            if (!ProfileService.TryCommit(profile, out string error)) throw new IOException(error);
         }
 
+        private static MapRunState Clone(MapRunState state) => JsonUtility.FromJson<MapRunState>(JsonUtility.ToJson(state));
         private static MapRunState CreateNewRun(MapDefinitionSO map)
         {
-            var state = new MapRunState
-            {
-                currentNodeId = map.startNodeId
-            };
+            var state = new MapRunState { currentNodeId = map.startNodeId };
             state.Unlock(map.startNodeId);
             return state;
         }

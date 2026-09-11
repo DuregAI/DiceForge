@@ -9,65 +9,109 @@ namespace Diceforge.Progression
     {
         private const string FileName = "player_profile.json";
         private const string DefaultDisplayName = "Player";
-        private const string ProfileVersion = "0.0.5";
+        private const string ProfileVersion = "0.0.6";
         private static readonly Dictionary<string, int> CurrencyMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> InventoryMap = new(StringComparer.Ordinal);
         private static readonly Dictionary<string, int> UpgradeMap = new(StringComparer.Ordinal);
 
         private static PlayerProfile _profile;
+        private static AtomicProfileStore _store;
+        private static string _lastSavedJson;
+        public static string LoadError { get; private set; }
+        private static AtomicProfileStore Store => _store ??= new AtomicProfileStore(GetPath());
 
         public static event Action ProfileChanged;
         public static event Action<string> OnPlayerNameChanged;
 
-        public static PlayerProfile Current => _profile ??= CreateDefault();
+        public static PlayerProfile Current
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(LoadError)) throw new InvalidOperationException(LoadError);
+                if (_profile == null) Load();
+                return _profile;
+            }
+        }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void RuntimeInit()
         {
-            Load();
+            try { Load(); }
+            catch (Exception exception)
+            {
+                Debug.LogError("[ProfileService] " + exception.Message);
+                ProfileLoadErrorView.Show();
+            }
         }
 
         public static void Load()
         {
-            var path = GetPath();
-            if (File.Exists(path))
+            try
             {
-                var json = File.ReadAllText(path);
-                _profile = JsonUtility.FromJson<PlayerProfile>(json) ?? CreateDefault();
+                var loaded = Store.Load();
+                LoadError = null;
+                _profile = loaded ?? CreateDefault();
+                RebuildCache();
+                _lastSavedJson = JsonUtility.ToJson(_profile);
+                var guidGenerated = EnsurePlayerGuid();
+                var avatarNormalized = EnsureSelectedAvatarId();
+                if (loaded == null || guidGenerated || avatarNormalized) Save();
             }
-            else
+            catch (Exception exception)
             {
-                _profile = CreateDefault();
-                Save();
+                LoadError = "Не удалось загрузить профиль. " + exception.Message;
+                throw;
             }
-
-            RebuildCache();
-            var guidGenerated = EnsurePlayerGuid();
-            var avatarNormalized = EnsureSelectedAvatarId();
-            if (guidGenerated || avatarNormalized)
-            {
-                Save();
-            }
-
             NotifyChanged();
             NotifyPlayerNameChanged();
         }
 
         public static void Save()
         {
-            if (_profile == null)
+            var candidate = Snapshot();
+            if (!TryCommit(candidate, out string error, false))
             {
-                _profile = CreateDefault();
+                if (_lastSavedJson != null)
+                {
+                    _profile = JsonUtility.FromJson<PlayerProfile>(_lastSavedJson);
+                    RebuildCache();
+                }
+                throw new IOException(error);
             }
+        }
 
-            _profile.version = ProfileVersion;
-            _profile.currencies = ToList(CurrencyMap);
-            _profile.inventory = ToList(InventoryMap);
-            _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
-            _profile.upgradeLevels = ToList(UpgradeMap);
+        internal static PlayerProfile Snapshot()
+        {
+            var candidate = JsonUtility.FromJson<PlayerProfile>(JsonUtility.ToJson(Current));
+            candidate.version = ProfileVersion;
+            candidate.currencies = ToList(CurrencyMap);
+            candidate.inventory = ToList(InventoryMap);
+            candidate.upgradeLevels = ToList(UpgradeMap);
+            return candidate;
+        }
 
-            var json = JsonUtility.ToJson(_profile, true);
-            File.WriteAllText(GetPath(), json);
+        internal static bool TryCommit(PlayerProfile candidate, out string error, bool notify = true)
+        {
+            error = null;
+            if (!string.IsNullOrEmpty(LoadError)) { error = LoadError; return false; }
+            candidate.version = ProfileVersion;
+            try { Store.Save(candidate); }
+            catch (Exception exception)
+            {
+                // An exception can reach the caller after the replacement succeeded.
+                try
+                {
+                    var saved = Store.Load();
+                    if (saved == null || JsonUtility.ToJson(saved) != JsonUtility.ToJson(candidate))
+                    { error = exception.Message; return false; }
+                }
+                catch { error = exception.Message; return false; }
+            }
+            _profile = candidate;
+            RebuildCache();
+            _lastSavedJson = JsonUtility.ToJson(_profile);
+            if (notify) NotifyChanged();
+            return true;
         }
 
         public static string GetDisplayName()
@@ -225,40 +269,9 @@ namespace Diceforge.Progression
                     sourceContext);
             }
 
-            if (resolvedBundle.currencies != null)
-            {
-                foreach (var currency in resolvedBundle.currencies)
-                {
-                    if (currency == null)
-                        continue;
-                    AddAmount(CurrencyMap, currency.id, currency.amount);
-                }
-            }
-
-            if (resolvedBundle.items != null)
-            {
-                foreach (var item in resolvedBundle.items)
-                {
-                    if (item == null)
-                        continue;
-                    AddAmount(InventoryMap, item.id, item.amount);
-                }
-            }
-
-            if (resolvedBundle.xp > 0)
-                Current.hero.xp += resolvedBundle.xp;
-
-            if (resolvedBundle.chests != null)
-            {
-                foreach (var chest in resolvedBundle.chests)
-                {
-                    if (chest == null)
-                        continue;
-                    Current.chestQueue.Add(chest);
-                }
-            }
-
-            SaveAndNotify();
+            var candidate = Snapshot();
+            ProgressionTransactionService.ApplyReward(candidate, resolvedBundle);
+            if (!TryCommit(candidate, out string error)) throw new IOException(error);
             int newLevel = UiProgressionService.GetPlayerLevel();
             LevelUpPresentationData levelUpData = LevelUpProgressionService.Build(previousLevel, newLevel, sourceContext);
             return new RewardApplicationResult(
@@ -316,7 +329,10 @@ namespace Diceforge.Progression
 
         public static void ResetProfile()
         {
+            var old = Snapshot();
             _profile = CreateDefault();
+            _profile.chapters = old.chapters;
+            _profile.progressionReceipts = old.progressionReceipts;
             RebuildCache();
             EnsureSelectedAvatarId();
             SaveAndNotify();
@@ -389,7 +405,12 @@ namespace Diceforge.Progression
 
         private static void NotifyChanged()
         {
-            ProfileChanged?.Invoke();
+            if (ProfileChanged == null) return;
+            foreach (Action callback in ProfileChanged.GetInvocationList())
+            {
+                try { callback(); }
+                catch (Exception exception) { Debug.LogException(exception); }
+            }
         }
 
         private static void NotifyPlayerNameChanged()
@@ -462,6 +483,8 @@ namespace Diceforge.Progression
             _profile.upgrades = new Dictionary<string, int>(UpgradeMap, StringComparer.Ordinal);
             _profile.upgradeLevels = ToList(UpgradeMap);
             _profile.chestQueue ??= new List<ChestInstance>();
+            _profile.chapters ??= new List<ChapterProgress>();
+            _profile.progressionReceipts ??= new List<ProgressionReceipt>();
         }
 
         private static PlayerProfile CreateDefault()

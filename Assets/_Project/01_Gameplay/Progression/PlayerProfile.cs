@@ -6,7 +6,9 @@ namespace Diceforge.Progression
     [Serializable]
     public sealed class PlayerProfile
     {
-        public string version = "0.0.5";
+        public string version = "0.0.6";
+        public List<ChapterProgress> chapters = new();
+        public List<ProgressionReceipt> progressionReceipts = new();
         public string playerGuid = string.Empty;
         public string playerName = string.Empty;
         public string selectedAvatarId = string.Empty;
