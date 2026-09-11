@@ -1,0 +1,7 @@
+{
+    "name": "Diceforge.TokenPlacement.Tests",
+    "references": ["Diceforge.TokenPlacement"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "includePlatforms": ["Editor"],
+    "autoReferenced": false
+}

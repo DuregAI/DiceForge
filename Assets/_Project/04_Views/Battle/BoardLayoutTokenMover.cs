@@ -28,6 +28,7 @@ namespace Diceforge.View
         private UnitAnimationController _animationController;
         private int _movementVisualsRefCount;
         private bool _suppressStopAtMoveEnd;
+        private bool _hasPlacement;
 
         public int CurrentCellId => currentCellId;
         public bool IsAnimating => _moveRoutine != null || _moveStepsRoutine != null;
@@ -59,9 +60,9 @@ namespace Diceforge.View
 
         private void Start()
         {
-            // Keep the cell resolved during initial token reconciliation.
-            // Snapping to 0 here collapses all freshly spawned tokens to one point on match start.
-            SnapTo(currentCellId);
+            // A view may already have placed this token on the bar or started its first move.
+            if (!_hasPlacement)
+                SnapTo(currentCellId);
         }
 
         private void OnDisable()
@@ -83,6 +84,7 @@ namespace Diceforge.View
 
             tokenRoot.position = targetPosition;
             currentCellId = resolvedCellId;
+            _hasPlacement = true;
         }
 
         public void SnapToWorld(Vector3 worldPosition, int resolvedCellId = -1)
@@ -94,6 +96,7 @@ namespace Diceforge.View
 
             tokenRoot.position = worldPosition + ResolvePresentationOffset();
             currentCellId = resolvedCellId;
+            _hasPlacement = true;
         }
 
         public void MoveTo(int cellId)
@@ -105,6 +108,8 @@ namespace Diceforge.View
 
             if (tokenRoot == null)
                 return;
+
+            _hasPlacement = true;
 
             float duration = Mathf.Max(0f, moveDuration);
             if (duration <= Mathf.Epsilon)
@@ -130,6 +135,13 @@ namespace Diceforge.View
 
             if (!TryGetCellIdBounds(out int minCellId, out int maxCellId))
                 return;
+
+            // A coroutine that finishes before its first yield would leave a stale handle.
+            if (moveDuration <= Mathf.Epsilon)
+            {
+                SnapTo(WrapCellId(currentCellId + steps, minCellId, maxCellId));
+                return;
+            }
 
             _moveStepsRoutine = StartCoroutine(MoveStepsRoutine(steps, minCellId, maxCellId));
         }

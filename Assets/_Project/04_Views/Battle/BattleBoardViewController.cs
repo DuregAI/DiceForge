@@ -88,6 +88,7 @@ namespace Diceforge.View
 
         private void HandleMatchStarted(GameState state)
         {
+            _pendingAnimatedTokenName = null;
             BuildTokensIfAvailable(state);
             SnapToStartCells();
         }
@@ -183,6 +184,7 @@ namespace Diceforge.View
 
         private void UnbindRunner()
         {
+            _pendingAnimatedTokenName = null;
             if (_runner == null)
                 return;
 
