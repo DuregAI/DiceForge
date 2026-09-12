@@ -61,6 +61,8 @@ public class MainMenuController : MonoBehaviour
     private AudioManager audioManager;
     private MapFlowOrchestrator mapFlowOrchestrator;
     private bool areDevActionsVisible;
+    private float unmutedMusicVolume = 1f;
+    private float unmutedSfxVolume = 1f;
 
     [Header("Map")]
     [SerializeField] private string defaultChapterId = "Chapter1";
@@ -107,6 +109,11 @@ public class MainMenuController : MonoBehaviour
         RegisterPanel("UpgradeShopPanel");
         RegisterPanel("ChestOpenPanel");
         RegisterPanel("ChestShopPanel");
+        RegisterButton("btnMyGoblins", OpenMenuProfile);
+        RegisterButton("btnMenuProfile", OpenMenuProfile);
+        RegisterButton("btnInventory", () => root.Q("LeftSidebar")?.ToggleInClassList("inventory-open"));
+        RegisterButton("btnCloseInventory", CloseInventory);
+        RegisterButton("btnMenuAudio", ToggleMenuAudio);
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -259,6 +266,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowPanel(string panelName)
     {
+        CloseInventory();
         if (!panels.TryGetValue(panelName, out var targetPanel))
         {
             Debug.LogWarning($"[MainMenu] Panel not found: {panelName}");
@@ -303,6 +311,40 @@ public class MainMenuController : MonoBehaviour
         {
             OpenSettings();
         }
+    }
+
+    private void OpenMenuProfile()
+    {
+        CloseInventory();
+        GetComponent<PlayerInfoController>()?.Open();
+    }
+
+    private void CloseInventory()
+    {
+        root?.Q("LeftSidebar")?.RemoveFromClassList("inventory-open");
+    }
+
+    private void ToggleMenuAudio()
+    {
+        if (audioManager == null) return;
+        bool muted = audioManager.MusicVolume <= 0f && audioManager.SfxVolume <= 0f;
+        if (!muted)
+        {
+            unmutedMusicVolume = audioManager.MusicVolume;
+            unmutedSfxVolume = audioManager.SfxVolume;
+        }
+        audioManager.SetMusicVolume(muted ? unmutedMusicVolume : 0f);
+        audioManager.SetSfxVolume(muted ? unmutedSfxVolume : 0f);
+        RefreshMenuAudio();
+    }
+
+    private void RefreshMenuAudio()
+    {
+        var button = root?.Q<Button>("btnMenuAudio");
+        if (button == null || audioManager == null) return;
+        bool muted = audioManager.MusicVolume <= 0f && audioManager.SfxVolume <= 0f;
+        button.EnableInClassList("is-muted", muted);
+        button.tooltip = muted ? "Unmute audio" : "Mute audio";
     }
 
     public void HidePanel(VisualElement panel)
@@ -357,6 +399,14 @@ public class MainMenuController : MonoBehaviour
 
     private void RefreshProgressiveUi()
     {
+        var menuLevel = root?.Q<Label>("menuLevel");
+        var menuCoins = root?.Q<Label>("menuCoins");
+        if (menuLevel != null) menuLevel.text = $"Lv {UiProgressionService.GetPlayerLevel()}";
+        if (menuCoins != null) menuCoins.text = ProfileService.GetCurrency(ProgressionIds.SoftGold).ToString();
+        var menuAvatar = root?.Q(className: "gh-avatar");
+        var selectedAvatar = AvatarService.GetSelectedAvatarSprite();
+        if (menuAvatar != null && selectedAvatar != null)
+            menuAvatar.style.backgroundImage = new StyleBackground(selectedAvatar);
         bool upgradesUnlocked = UiProgressionService.IsUpgradesUnlocked();
         if (upgradesButton != null)
             upgradesButton.style.display = upgradesUnlocked ? DisplayStyle.Flex : DisplayStyle.None;
@@ -531,6 +581,7 @@ public class MainMenuController : MonoBehaviour
 
     private void HandleAudioVolumesChanged(float musicVolume, float sfxVolume)
     {
+        RefreshMenuAudio();
         if (musicSlider != null)
             musicSlider.SetValueWithoutNotify(musicVolume);
 
@@ -546,6 +597,8 @@ public class MainMenuController : MonoBehaviour
 
         if (audioManager == null)
             return;
+
+        RefreshMenuAudio();
 
         if (musicSlider != null)
             musicSlider.SetValueWithoutNotify(audioManager.MusicVolume);

@@ -1,0 +1,64 @@
+/* Landscape menu, authored at 1920 x 1080. Text and controls remain live. */
+#Root {
+    background-image: url("../../07_Art/UI/GlimblehopMenu/background-landscape.png");
+    background-size: cover;
+    background-position: center;
+}
+#Center { left: 0; top: 0; right: 0; bottom: 0; translate: 0 0; }
+#MenuPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+#SettingsPanel { display: none; }
+#GlimblehopLogo {
+    position: absolute; left: 3%; top: 9%; width: 39%; height: 25%;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/logo.png");
+    background-size: contain; background-repeat: no-repeat; background-position: center;
+}
+#GlimblehopTagline {
+    position: absolute; left: 3%; top: 33%; width: 38%;
+    font-size: 32px; color: rgb(250, 235, 206); -unity-text-align: middle-center;
+    text-shadow: 0 2px 3px rgb(35, 26, 17);
+}
+#ModeButtonsColumn { position: absolute; left: 4%; top: 41%; width: 29%; align-items: center; }
+.gh-button {
+    width: 83%; height: 100px; min-height: 100px; margin: 8px 0;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-color: transparent; background-size: 100% 100%; border-width: 0;
+    color: rgb(56, 36, 21); font-size: 29px; -unity-font-style: bold;
+    -unity-text-align: middle-center; transition-property: scale; transition-duration: 0.12s;
+}
+.gh-button:hover { scale: 1.025 1.025; }
+.gh-button:active { scale: 0.97 0.97; }
+.gh-primary {
+    width: 100%; height: 138px; min-height: 138px; font-size: 56px;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/button-primary.png");
+    color: rgb(255, 241, 213); text-shadow: 0 2px 2px rgb(53, 39, 20);
+}
+#GlimblehopChapter {
+    position: absolute; left: 6%; top: 80%; color: rgb(250, 235, 206);
+    font-size: 24px; text-shadow: 0 2px 3px rgb(35, 26, 17);
+}
+.gh-profile, .gh-wallet {
+    position: absolute; top: 2%; flex-direction: row; align-items: center;
+    background-color: rgba(40, 30, 19, 0.85); border-width: 0; border-radius: 60px;
+    color: rgb(250, 235, 206); font-size: 32px; padding: 6px 24px 6px 6px;
+}
+.gh-profile { left: 2%; }
+.gh-avatar { width: 102px; height: 102px; background-image: url("../../07_Art/UI/GlimblehopMenu/avatar.png"); background-size: contain; }
+.gh-wallet { right: 7%; }
+.gh-coin { width: 50px; height: 50px; background-image: url("../../07_Art/UI/GlimblehopMenu/coin.png"); background-size: contain; }
+.gh-wallet-caption { font-size: 19px; margin-left: 16px; }
+#Corners { position: absolute; left: auto; right: 2%; top: 2%; bottom: auto; width: 70px; height: 70px; }
+#CornerBR { left: 0; right: 0; top: 0; bottom: 0; }
+#btnSettings, .gh-audio {
+    width: 70px; height: 70px; padding: 0; margin: 0; border-width: 0;
+    background-color: transparent; background-size: contain;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/settings.png");
+}
+#btnSettings.state-back { background-image: url("../../07_Art/UI/GlimblehopMenu/settings.png"); }
+.gh-audio { position: absolute; right: 2%; bottom: 2%; background-image: url("../../07_Art/UI/GlimblehopMenu/audio-on.png"); }
+.gh-audio.is-muted { background-image: url("../../07_Art/UI/GlimblehopMenu/audio-off.png"); }
+#LeftSidebar { display: none; left: 24px; top: 24px; bottom: 24px; width: 400px; background-color: rgb(44, 37, 25); }
+#LeftSidebar.inventory-open { display: flex; }
+.gh-utility { font-size: 22px; min-height: 42px; color: rgb(255, 238, 206); background-color: rgb(65, 77, 43); border-width: 0; margin: 4px; }
+
+.gh-dev { position: absolute; left: 4%; bottom: 3%; flex-direction: row; }
+.gh-dev .gh-utility { font-size: 18px; }

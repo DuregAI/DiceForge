@@ -6,16 +6,32 @@
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss?fileID=7433441132597879392&amp;guid=6f87a6afb6b647fb9ace9bdf3d801eb2&amp;type=3#Spacing"/>
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
-    <ui:VisualElement name="Root" style="background-image: url(&quot;project://database/Assets/_Project/07_Art/UI/menu_bg.png?fileID=2800000&amp;guid=470d414bcd8521e428daedc5be669a05&amp;type=3#menu_bg&quot;); position: absolute;">
+    <Style src="GlimblehopMenu.uss"/>
+    <ui:VisualElement name="Root">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
-                <ui:VisualElement name="ModeButtonsColumn" class="df-theme">
-                    <ui:Button name="btnLong" text="STORY" class="menu-button main-menu-button df-interactive" style="padding-top: 14px;"/>
-                    <ui:Button name="btnShort" text="Short" class="menu-button main-menu-button df-interactive" style="padding-top: 11px;"/>
-                    <ui:Button name="btnTutorial" text="Tutorial" class="menu-button main-menu-button df-interactive" style="padding-top: 10px;"/>
-                    <ui:Button name="btnExperimental" text="Experimental" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
-                    <ui:Button name="btnUpgrades" text="Upgrades" class="menu-button main-menu-button df-interactive" style="padding-top: 9px;"/>
+                <ui:VisualElement name="GlimblehopLogo" picking-mode="Ignore"/>
+                <ui:Label name="GlimblehopTagline" text="Little feet. Big mischief." picking-mode="Ignore"/>
+                <ui:VisualElement name="ModeButtonsColumn">
+                    <ui:Button name="btnLong" text="PLAY" class="gh-button gh-primary"/>
+                    <ui:Button name="btnMyGoblins" text="MY GOBLINS" class="gh-button"/>
+                    <ui:Button name="btnTutorial" text="HOW TO PLAY" class="gh-button"/>
                 </ui:VisualElement>
+                <ui:VisualElement class="gh-dev">
+                    <ui:Button name="btnShort" text="SHORT (DEV)" class="gh-utility"/>
+                    <ui:Button name="btnExperimental" text="EXPERIMENTAL (DEV)" class="gh-utility"/>
+                </ui:VisualElement>
+                <ui:Label name="GlimblehopChapter" text="Chapter 1 · Woodland Trail"/>
+                <ui:Button name="btnMenuProfile" class="gh-profile" tooltip="Open player profile">
+                    <ui:VisualElement class="gh-avatar" picking-mode="Ignore"/>
+                    <ui:Label name="menuLevel" text="Lv 1" picking-mode="Ignore"/>
+                </ui:Button>
+                <ui:Button name="btnInventory" class="gh-wallet" tooltip="Inventory, resources and upgrades">
+                    <ui:VisualElement class="gh-coin" picking-mode="Ignore"/>
+                    <ui:Label name="menuCoins" text="0" picking-mode="Ignore"/>
+                    <ui:Label text="INVENTORY" class="gh-wallet-caption" picking-mode="Ignore"/>
+                </ui:Button>
+                <ui:Button name="btnMenuAudio" class="gh-audio" tooltip="Mute audio"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SettingsPanel" enabled="true" class="settings-overlay" style="height: 1081px; align-items: center; justify-content: center; opacity: 1;">
@@ -190,6 +206,8 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="LeftSidebar" class="left-sidebar">
+            <ui:Button name="btnCloseInventory" text="CLOSE INVENTORY" class="gh-utility"/>
+            <ui:Button name="btnUpgrades" text="UPGRADES" class="gh-utility"/>
             <ui:VisualElement class="left-sidebar-frame">
                 <ui:VisualElement class="left-sidebar-content">
                     <ui:VisualElement name="PlayerPanel" class="player-panel">
@@ -344,9 +362,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Corners" enabled="true" style="top: auto; bottom: 0; right: 0; left: auto; align-self: stretch; border-left-width: 0; background-size: 10% 10%; background-position-x: right 0; width: 329px; height: 293px;">
-            <ui:VisualElement name="CornerBR" style="background-size: 129% 206%;">
-                <ui:Button name="btnSettings" tooltip="Settings" class="icon-button state-settings df-interactive" style="background-size: 100% 100%; width: 256px; height: 256px;"/>
+        <ui:VisualElement name="Corners" picking-mode="Ignore">
+            <ui:VisualElement name="CornerBR" picking-mode="Ignore">
+                <ui:Button name="btnSettings" tooltip="Settings" class="icon-button state-settings df-interactive"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
