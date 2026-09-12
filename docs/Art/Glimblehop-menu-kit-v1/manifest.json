@@ -1,0 +1,170 @@
+[
+  {
+    "file": "button-primary.png",
+    "width": 447,
+    "height": 159,
+    "sourceRect": [
+      13,
+      92,
+      447,
+      159
+    ],
+    "transparent": true
+  },
+  {
+    "file": "button-secondary.png",
+    "width": 378,
+    "height": 157,
+    "sourceRect": [
+      466,
+      92,
+      378,
+      157
+    ],
+    "transparent": true
+  },
+  {
+    "file": "counter-panel.png",
+    "width": 374,
+    "height": 158,
+    "sourceRect": [
+      861,
+      92,
+      374,
+      158
+    ],
+    "transparent": true
+  },
+  {
+    "file": "settings.png",
+    "width": 302,
+    "height": 298,
+    "sourceRect": [
+      72,
+      310,
+      302,
+      298
+    ],
+    "transparent": true
+  },
+  {
+    "file": "audio-on.png",
+    "width": 293,
+    "height": 292,
+    "sourceRect": [
+      482,
+      313,
+      293,
+      292
+    ],
+    "transparent": true
+  },
+  {
+    "file": "coin.png",
+    "width": 262,
+    "height": 265,
+    "sourceRect": [
+      911,
+      330,
+      262,
+      265
+    ],
+    "transparent": true
+  },
+  {
+    "file": "avatar.png",
+    "width": 345,
+    "height": 341,
+    "sourceRect": [
+      54,
+      629,
+      345,
+      341
+    ],
+    "transparent": true
+  },
+  {
+    "file": "play-arrow.png",
+    "width": 188,
+    "height": 241,
+    "sourceRect": [
+      543,
+      681,
+      188,
+      241
+    ],
+    "transparent": true
+  },
+  {
+    "file": "forest.png",
+    "width": 314,
+    "height": 244,
+    "sourceRect": [
+      891,
+      681,
+      314,
+      244
+    ],
+    "transparent": true
+  },
+  {
+    "file": "progress-active.png",
+    "width": 187,
+    "height": 187,
+    "sourceRect": [
+      128,
+      1008,
+      187,
+      187
+    ],
+    "transparent": true
+  },
+  {
+    "file": "progress-idle.png",
+    "width": 187,
+    "height": 187,
+    "sourceRect": [
+      536,
+      1008,
+      187,
+      187
+    ],
+    "transparent": true
+  },
+  {
+    "file": "audio-off.png",
+    "width": 253,
+    "height": 251,
+    "sourceRect": [
+      921,
+      965,
+      253,
+      251
+    ],
+    "transparent": true
+  },
+  {
+    "file": "logo.png",
+    "width": 2025,
+    "height": 709,
+    "sourceRect": [
+      24,
+      30,
+      2025,
+      709
+    ],
+    "transparent": true
+  },
+  {
+    "file": "background-landscape.png",
+    "width": 1672,
+    "height": 941,
+    "transparent": false
+  },
+  {
+    "file": "background-portrait.png",
+    "width": 941,
+    "height": 1672,
+    "transparent": false
+  }
+]
