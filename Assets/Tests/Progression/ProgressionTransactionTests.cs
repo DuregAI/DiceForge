@@ -25,7 +25,6 @@ namespace Diceforge.Tests.Progression
         internal static IList List(object target, string field) => (IList)Field(target, field);
     }
 
-    [NonParallelizable]
     public class ProgressionTransactionTests
     {
         private readonly Dictionary<FieldInfo, object> _saved = new();

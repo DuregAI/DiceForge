@@ -366,6 +366,9 @@ namespace Diceforge.Editor
         {
             if (walkClip == null)
                 return;
+            // Validation must preserve the authored prefab, its local IDs and animation controller.
+            if (AssetDatabase.LoadAssetAtPath<GameObject>(ValidationPrefabPath) != null)
+                return;
 
             AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ValidationControllerPath);
             if (controller == null)
@@ -379,9 +382,6 @@ namespace Diceforge.Editor
             walkState.motion = walkClip;
             stateMachine.defaultState = walkState;
             EditorUtility.SetDirty(controller);
-
-            if (AssetDatabase.LoadAssetAtPath<GameObject>(ValidationPrefabPath) != null)
-                AssetDatabase.DeleteAsset(ValidationPrefabPath);
 
             var root = new GameObject("GoblinValidationPrefab");
             try

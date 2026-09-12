@@ -212,9 +212,13 @@ namespace Diceforge.View
 
                 int slot = assignment.Location == TokenLocation.Cell ? assignment.Cell : counts.BoardSize;
                 int index = stackIndices[assignment.Player, slot]++;
-                token.mover.SetVisualOffset(assignment.Location == TokenLocation.Cell
-                    ? CalculateFormationOffset(index, counts.Get(assignment.Player, TokenLocation.Cell, assignment.Cell))
-                    : Vector3.zero);
+                int cellCount = assignment.Location == TokenLocation.Cell
+                    ? counts.Get(assignment.Player, TokenLocation.Cell, assignment.Cell) : 1;
+                var presentation = token.root.GetComponent<BoardUnitFacing>();
+                token.mover.SetVisualOffset(presentation != null
+                    ? presentation.ArrangeInCell(index, cellCount)
+                    : assignment.Location == TokenLocation.Cell
+                        ? CalculateFormationOffset(index, cellCount) : Vector3.zero);
                 if (assignment.Id == animatedId) continue;
                 if (assignment.Location == TokenLocation.Bar)
                     token.mover.SnapToWorld(CalculateBarStoneWorldPosition(token.player, barCenter, index));
