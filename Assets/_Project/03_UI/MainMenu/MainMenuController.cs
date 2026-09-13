@@ -29,6 +29,9 @@ public class MainMenuController : MonoBehaviour
 
     private UIDocument document;
     private VisualElement root;
+    private MenuAmbientView ambientView;
+    [Header("Menu atmosphere")]
+    [SerializeField] private MenuAmbientSettings atmosphere = new MenuAmbientSettings();
     private Label buildInfoLabel;
     private Label aboutVersionLabel;
     private Slider musicSlider;
@@ -208,6 +211,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        if (root != null) ambientView = new MenuAmbientView(root, atmosphere);
         audioManager = AudioManager.Instance != null
             ? AudioManager.Instance
             : FindAnyObjectByType<AudioManager>();
@@ -228,6 +232,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        ambientView?.Dispose();
         ProfileService.ProfileChanged -= RefreshProgressiveUi;
 
         if (chestOpenController != null)

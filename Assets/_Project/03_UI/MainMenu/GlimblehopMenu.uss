@@ -77,7 +77,7 @@
 
 .gh-button, #btnSettings, .gh-audio {
     -unity-background-image-tint-color: rgb(240, 240, 240);
-    transition-property: scale, -unity-background-image-tint-color;
+    transition-property: scale, translate, -unity-background-image-tint-color;
     transition-duration: 0.14s;
     transition-timing-function: ease-out;
 }
@@ -87,6 +87,7 @@
 }
 .gh-button:active, #btnSettings:active, .gh-audio:active {
     scale: 0.97 0.97;
+    translate: 0 2px;
     -unity-background-image-tint-color: rgb(232, 232, 232);
 }
 
