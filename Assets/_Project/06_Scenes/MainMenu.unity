@@ -675,6 +675,14 @@ MonoBehaviour:
     leafFallSeconds: 23
     leafSize: 1.21
     leafOpacity: 0.742
+    birdsEnabled: 1
+    birdIntervalSeconds: 15
+    birdSize: 2.3
+    birdOpacity: 0.5
+    flagEnabled: 1
+    blinkEnabled: 1
+    blinkPauseRange: {x: 2, y: 7}
+    secondGoblinBlinkEnabled: 1
   defaultChapterId: Chapter1
 --- !u!114 &1000000004
 MonoBehaviour:

@@ -17,6 +17,18 @@ public sealed class MenuAmbientSettings
     [Range(3, 60)] public float leafFallSeconds = 18;
     [Range(0.25f, 3)] public float leafSize = 1;
     [Range(0, 1)] public float leafOpacity = 0.7f;
+
+    [Header("Distant birds")]
+    public bool birdsEnabled = true;
+    [Range(15, 90)] public float birdIntervalSeconds = 32;
+    [Range(0.5f, 3)] public float birdSize = 1.8f;
+    [Range(0, 1)] public float birdOpacity = 0.8f;
+    [Header("Characters and flag")]
+    public bool flagEnabled = true;
+    public bool blinkEnabled = true;
+    [Tooltip("Random pause between blinks, in seconds. Each goblin has an independent timer.")]
+    public Vector2 blinkPauseRange = new Vector2(3, 8);
+    public bool secondGoblinBlinkEnabled = true;
 }
 
 // Presentation only: one non-interactive drawing layer, no spawned GameObjects.
@@ -27,9 +39,11 @@ internal sealed class MenuAmbientView : IDisposable
     private readonly VisualElement[] entrance;
     private readonly IVisualElementScheduledItem tick;
     private readonly MenuAmbientSettings settings;
+    private readonly MenuCharacterMotion characterMotion;
     private float elapsed;
     private float dustTime;
     private float leafCycle = 4f / 18f;
+    private float birdTime = -2;
     private float lastTime;
     private readonly float entranceStart;
     private bool entranceFinished;
@@ -37,6 +51,7 @@ internal sealed class MenuAmbientView : IDisposable
     public MenuAmbientView(VisualElement root, MenuAmbientSettings settings)
     {
         this.settings = settings ?? new MenuAmbientSettings();
+        characterMotion = new MenuCharacterMotion(this.settings);
         menu = root.Q("MenuPanel");
         if (menu == null) return;
         layer = new VisualElement { name = "MenuAtmosphere", pickingMode = PickingMode.Ignore };
@@ -62,6 +77,8 @@ internal sealed class MenuAmbientView : IDisposable
         if (!Application.isFocused || !menu.enabledInHierarchy || menu.resolvedStyle.display == DisplayStyle.None)
             return;
         elapsed += dt;
+        birdTime += dt;
+        if (birdTime > Mathf.Clamp(settings.birdIntervalSeconds, 15, 90)) birdTime = 0;
         dustTime += dt * Mathf.Clamp(settings.dustSpeed, 0, 4);
         leafCycle = Mathf.Repeat(leafCycle + dt / Mathf.Clamp(settings.leafFallSeconds, 3, 60), 1);
         layer.MarkDirtyRepaint();
@@ -85,8 +102,10 @@ internal sealed class MenuAmbientView : IDisposable
         float width = layer.contentRect.width;
         float height = layer.contentRect.height;
         if (width <= 0 || height <= 0) return;
+        characterMotion.Draw(context, width, height, elapsed);
         var painter = context.painter2D;
         float scale = Mathf.Min(width / 1920f, height / 1080f);
+        DrawBirds(painter, width, height, scale);
         // Fixed phases keep the animation repeatable without touching gameplay RNG.
         for (int i = 0; i < Mathf.Clamp(settings.dustCount, 0, 400); i++)
         {
@@ -136,6 +155,30 @@ internal sealed class MenuAmbientView : IDisposable
         painter.BezierCurveTo(new Vector2(x - rx, y - ry * k), new Vector2(x - rx * k, y - ry), new Vector2(x, y - ry));
         painter.BezierCurveTo(new Vector2(x + rx * k, y - ry), new Vector2(x + rx, y - ry * k), new Vector2(x + rx, y));
         painter.ClosePath(); painter.Fill();
+    }
+
+    private void DrawBirds(Painter2D painter, float width, float height, float scale)
+    {
+        if (!settings.birdsEnabled || birdTime < 0 || birdTime > 7) return;
+        // Small distant silhouettes cross the sunlit clearing, never the menu text.
+        for (int i = 0; i < 2; i++)
+        {
+            float t = (birdTime - i * 0.45f) / 6;
+            if (t < 0 || t > 1) continue;
+            float x = width * Mathf.Lerp(0.58f, 0.93f, t);
+            float y = height * (0.12f + i * 0.025f - Mathf.Sin(t * Mathf.PI) * 0.025f);
+            float birdScale = scale * Mathf.Clamp(settings.birdSize, 0.5f, 3);
+            float wing = Mathf.Sin(birdTime * 9 + i) * 4 * birdScale;
+            float size = (i == 0 ? 6 : 4.5f) * birdScale;
+            float alpha = Mathf.Clamp01(Mathf.Min(t, 1 - t) * 8) * Mathf.Clamp01(settings.birdOpacity);
+            painter.strokeColor = new Color(0.25f, 0.29f, 0.20f, alpha);
+            painter.lineWidth = 1.5f * birdScale;
+            painter.BeginPath();
+            painter.MoveTo(new Vector2(x - size, y - wing));
+            painter.QuadraticCurveTo(new Vector2(x - size * 0.4f, y - 2 * scale), new Vector2(x, y));
+            painter.QuadraticCurveTo(new Vector2(x + size * 0.4f, y - 2 * scale), new Vector2(x + size, y - wing));
+            painter.Stroke();
+        }
     }
 
     public void Dispose()

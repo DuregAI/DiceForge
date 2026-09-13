@@ -1,6 +1,6 @@
 /* Landscape menu, authored at 1920 x 1080. Text and controls remain live. */
 #Root {
-    background-image: url("../../07_Art/UI/GlimblehopMenu/background-landscape.png");
+    background-image: url("../../07_Art/UI/GlimblehopMenu/background-landscape-clean.png");
     background-size: cover;
     background-position: center;
 }
