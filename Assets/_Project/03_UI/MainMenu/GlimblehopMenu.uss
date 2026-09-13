@@ -24,6 +24,12 @@
     background-color: transparent; background-size: 100% 100%; border-width: 0;
     color: rgb(56, 36, 21); font-size: 29px; -unity-font-style: bold;
     -unity-text-align: middle-center; transition-property: scale; transition-duration: 0.12s;
+    /* 378 x 157 texture: preserve the rounded wooden ends and bevels. */
+    -unity-slice-left: 48;
+    -unity-slice-right: 48;
+    -unity-slice-top: 48;
+    -unity-slice-bottom: 48;
+    -unity-slice-scale: 0.64;
 }
 .gh-button:hover { scale: 1.025 1.025; }
 .gh-button:active { scale: 0.97 0.97; }
@@ -31,6 +37,12 @@
     width: 100%; height: 138px; min-height: 138px; font-size: 56px;
     background-image: url("../../07_Art/UI/GlimblehopMenu/button-primary.png");
     color: rgb(255, 241, 213); text-shadow: 0 2px 2px rgb(53, 39, 20);
+    /* 447 x 159 texture: keep the entire leaf clusters in the end caps. */
+    -unity-slice-left: 100;
+    -unity-slice-right: 100;
+    -unity-slice-top: 76;
+    -unity-slice-bottom: 76;
+    -unity-slice-scale: 0.87;
 }
 #GlimblehopChapter {
     position: absolute; left: 6%; top: 80%; color: rgb(250, 235, 206);
@@ -141,11 +153,29 @@
 .gh-settings-hint { font-size: 18px; color: rgb(114, 88, 55); -unity-text-align: middle-center; height: 26px; }
 .gh-settings-divider { height: 2px; background-color: rgba(130, 99, 58, 0.25); margin: 16px 0 12px 0; }
 .gh-settings-actions { flex-direction: row; justify-content: space-between; }
-.gh-settings-actions .gh-button { width: 49%; height: 76px; min-height: 76px; font-size: 23px; margin: 0; }
+.gh-settings-actions .gh-button { width: 49%; height: 76px; min-height: 76px; font-size: 23px; margin: 0; -unity-slice-scale: 0.48; }
 #copyLogTooltip { position: absolute; bottom: 230px; left: 90px; right: 90px; }
 .gh-settings-build { flex-direction: row; justify-content: center; margin: 22px 0 12px 0; }
 .gh-settings-build Label { font-size: 17px; color: rgb(122, 97, 65); margin: 0 8px; }
-.gh-settings-done { width: 72%; height: 96px; min-height: 96px; align-self: center; font-size: 35px; margin: 0; }
+.gh-settings-done { width: 72%; height: 96px; min-height: 96px; align-self: center; font-size: 35px; margin: 0; -unity-slice-scale: 0.60; }
 .gh-settings-close, .gh-mute-switch { transition-property: scale; transition-duration: 0.12s; }
 .gh-settings-close:hover, .gh-mute-switch:hover { scale: 1.035 1.035; }
 .gh-settings-close:active, .gh-mute-switch:active { scale: 0.97 0.97; }
+
+.gh-legal-link {
+    position: absolute; left: 3%; bottom: 2%; padding: 8px 12px;
+    background-color: transparent; border-width: 0; font-size: 22px;
+    color: rgb(240, 225, 192); text-shadow: 0 2px 3px rgb(35, 26, 17);
+    border-bottom-width: 1px; border-bottom-color: rgba(240, 225, 192, 0.5);
+}
+.gh-legal-link:hover { color: white; border-bottom-color: white; }
+#LegalPanel { display: none; background-color: rgba(24, 30, 18, 0.60); }
+.gh-legal-window {
+    width: 820px; height: 950px; max-width: 94%; max-height: 96%;
+    padding: 126px 92px 74px 92px;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/settings-panel.png");
+    background-size: 100% 100%; color: rgb(65, 43, 25);
+}
+.gh-legal-scroll { flex-grow: 1; flex-shrink: 1; margin: 8px 0 20px 0; }
+.gh-legal-body { white-space: normal; font-size: 24px; margin: 8px 10px 24px 0; }
+.gh-legal-note { font-size: 20px; color: rgb(113, 87, 53); }

@@ -104,6 +104,7 @@ public class MainMenuController : MonoBehaviour
 
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
+        RegisterPanel("LegalPanel");
         RegisterPanel("UpgradeShopPanel");
         RegisterPanel("ChestOpenPanel");
         RegisterPanel("ChestShopPanel");
@@ -115,6 +116,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnSettingsMute", ToggleMenuAudio);
         RegisterButton("btnCloseSettings", CloseSettings);
         RegisterButton("btnSettingsDone", CloseSettings);
+        RegisterButton("btnLegal", () => ShowPanel("LegalPanel"));
+        RegisterButton("btnCloseLegal", () => ShowPanel("MenuPanel"));
+        RegisterButton("btnLegalDone", () => ShowPanel("MenuPanel"));
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -284,7 +288,8 @@ public class MainMenuController : MonoBehaviour
         }
 
         bool openingSettings = panelName == "SettingsPanel";
-        if (currentPanel != null && !(openingSettings && currentPanel.name == "MenuPanel"))
+        bool openingMenuOverlay = openingSettings || panelName == "LegalPanel";
+        if (currentPanel != null && !(openingMenuOverlay && currentPanel.name == "MenuPanel"))
         {
             HidePanel(currentPanel);
         }
@@ -300,8 +305,8 @@ public class MainMenuController : MonoBehaviour
         }
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
-            menuPanel.SetEnabled(!openingSettings);
-            if (openingSettings)
+            menuPanel.SetEnabled(!openingMenuOverlay);
+            if (openingMenuOverlay)
             {
                 menuPanel.style.display = DisplayStyle.Flex;
                 menuPanel.AddToClassList(VisibleClass);
@@ -312,6 +317,7 @@ public class MainMenuController : MonoBehaviour
         isSettingsOpen = currentPanel.name == "SettingsPanel";
         UpdateSettingsButtonState(isSettingsOpen);
         if (isSettingsOpen) root.Q<Button>("btnCloseSettings")?.Focus();
+        else if (panelName == "LegalPanel") root.Q<Button>("btnCloseLegal")?.Focus();
         else if (panelName == "MenuPanel") settingsButton?.Focus();
     }
 
@@ -415,6 +421,14 @@ public class MainMenuController : MonoBehaviour
     {
         if (evt == null)
             return;
+
+        if (evt.keyCode == KeyCode.Escape && currentPanel?.name == "LegalPanel")
+        {
+            ShowPanel("MenuPanel");
+            root.Q<Button>("btnLegal")?.Focus();
+            evt.StopPropagation();
+            return;
+        }
 
         if (evt.keyCode == KeyCode.Escape && isSettingsOpen)
         {
