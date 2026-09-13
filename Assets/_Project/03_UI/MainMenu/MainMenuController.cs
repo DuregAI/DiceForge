@@ -112,6 +112,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnInventory", () => root.Q("LeftSidebar")?.ToggleInClassList("inventory-open"));
         RegisterButton("btnCloseInventory", CloseInventory);
         RegisterButton("btnMenuAudio", ToggleMenuAudio);
+        RegisterButton("btnSettingsMute", ToggleMenuAudio);
+        RegisterButton("btnCloseSettings", CloseSettings);
+        RegisterButton("btnSettingsDone", CloseSettings);
 
         if (panels.TryGetValue("MenuPanel", out var menuPanel))
         {
@@ -280,17 +283,36 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
-        if (currentPanel != null)
+        bool openingSettings = panelName == "SettingsPanel";
+        if (currentPanel != null && !(openingSettings && currentPanel.name == "MenuPanel"))
         {
             HidePanel(currentPanel);
         }
 
         currentPanel = targetPanel;
         targetPanel.style.display = DisplayStyle.Flex;
-        targetPanel.RemoveFromClassList(VisibleClass);
-        targetPanel.schedule.Execute(() => targetPanel.AddToClassList(VisibleClass)).ExecuteLater(1);
+        if (!targetPanel.ClassListContains(VisibleClass))
+        {
+            targetPanel.schedule.Execute(() =>
+            {
+                if (currentPanel == targetPanel) targetPanel.AddToClassList(VisibleClass);
+            }).ExecuteLater(20);
+        }
+        if (panels.TryGetValue("MenuPanel", out var menuPanel))
+        {
+            menuPanel.SetEnabled(!openingSettings);
+            if (openingSettings)
+            {
+                menuPanel.style.display = DisplayStyle.Flex;
+                menuPanel.AddToClassList(VisibleClass);
+            }
+            else if (panelName != "MenuPanel")
+                HidePanel(menuPanel);
+        }
         isSettingsOpen = currentPanel.name == "SettingsPanel";
         UpdateSettingsButtonState(isSettingsOpen);
+        if (isSettingsOpen) root.Q<Button>("btnCloseSettings")?.Focus();
+        else if (panelName == "MenuPanel") settingsButton?.Focus();
     }
 
     public void CloseSettings()
@@ -341,6 +363,16 @@ public class MainMenuController : MonoBehaviour
         bool muted = audioManager.IsMuted;
         button.EnableInClassList("is-muted", muted);
         button.tooltip = muted ? "Unmute audio" : "Mute audio";
+        var settingsMute = root.Q<Button>("btnSettingsMute");
+        if (settingsMute != null)
+        {
+            settingsMute.text = muted ? "MUTED" : "SOUND ON";
+            settingsMute.EnableInClassList("is-muted", muted);
+            settingsMute.tooltip = button.tooltip;
+        }
+        var soundHint = root.Q<Label>("settingsSoundHint");
+        if (soundHint != null)
+            soundHint.text = muted ? "Sound is muted. Your volume levels are saved." : "A little woodland ambience.";
     }
 
     public void HidePanel(VisualElement panel)
@@ -383,6 +415,16 @@ public class MainMenuController : MonoBehaviour
     {
         if (evt == null)
             return;
+
+        if (evt.keyCode == KeyCode.Escape && isSettingsOpen)
+        {
+            if (feedbackModal != null && feedbackModal.resolvedStyle.display != DisplayStyle.None)
+                CloseFeedbackForm();
+            else
+                CloseSettings();
+            evt.StopPropagation();
+            return;
+        }
 
         bool isDevToggle = (evt.ctrlKey || evt.commandKey) && !evt.altKey && evt.keyCode == KeyCode.D;
         if (!isDevToggle)
@@ -492,6 +534,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (feedbackModal != null)
             feedbackModal.style.display = DisplayStyle.None;
+        openFeedbackButton?.Focus();
     }
 
     private void SubmitFeedback()
@@ -578,6 +621,7 @@ public class MainMenuController : MonoBehaviour
     private void HandleAudioVolumesChanged(float musicVolume, float sfxVolume)
     {
         RefreshMenuAudio();
+        RefreshSettingsVolumeLabels(musicVolume, sfxVolume);
         if (musicSlider != null)
             musicSlider.SetValueWithoutNotify(musicVolume);
 
@@ -595,12 +639,21 @@ public class MainMenuController : MonoBehaviour
             return;
 
         RefreshMenuAudio();
+        RefreshSettingsVolumeLabels(audioManager.MusicVolume, audioManager.SfxVolume);
 
         if (musicSlider != null)
             musicSlider.SetValueWithoutNotify(audioManager.MusicVolume);
 
         if (sfxSlider != null)
             sfxSlider.SetValueWithoutNotify(audioManager.SfxVolume);
+    }
+
+    private void RefreshSettingsVolumeLabels(float music, float sfx)
+    {
+        var musicValue = root?.Q<Label>("settingsMusicValue");
+        var sfxValue = root?.Q<Label>("settingsSfxValue");
+        if (musicValue != null) musicValue.text = $"{Mathf.RoundToInt(music * 100f)}%";
+        if (sfxValue != null) sfxValue.text = $"{Mathf.RoundToInt(sfx * 100f)}%";
     }
 
     private void CopyLogToClipboard()

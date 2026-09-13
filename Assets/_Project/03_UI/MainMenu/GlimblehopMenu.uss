@@ -86,3 +86,66 @@
 .gh-core-menu .gh-dev {
     display: none;
 }
+
+/* Settings stays above the menu and uses the same warm wood / moss palette. */
+#SettingsPanel {
+    background-color: rgba(24, 30, 18, 0.60);
+    translate: 0 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+}
+#SettingsWindow {
+    width: 760px; height: 950px; max-width: 94%; max-height: 96%;
+    padding: 126px 90px 68px 90px;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/settings-panel.png");
+    background-size: 100% 100%;
+    color: rgb(65, 43, 25);
+    translate: 0 20px; scale: 0.96 0.96;
+    transition-property: translate, scale;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+#SettingsPanel.is-visible #SettingsWindow { translate: 0 0; scale: 1 1; }
+.gh-settings-title {
+    font-size: 54px; -unity-font-style: bold; -unity-text-align: middle-center;
+    -unity-font-definition: url("../../07_Art/Fonts/LuckiestGuy-Regular.ttf");
+}
+.gh-settings-subtitle { font-size: 23px; -unity-text-align: middle-center; color: rgb(113, 87, 53); margin-bottom: 26px; }
+.gh-settings-close {
+    position: absolute; right: 54px; top: 72px; width: 56px; height: 56px;
+    background-color: rgb(91, 62, 34); border-radius: 28px; border-width: 2px;
+    border-color: rgb(186, 142, 79); color: rgb(255, 237, 200); font-size: 37px;
+    -unity-text-align: middle-center; padding: 0;
+}
+.gh-sound-heading { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.gh-section-heading { font-size: 23px; -unity-font-style: bold; color: rgb(87, 101, 48); }
+.gh-mute-switch {
+    width: 160px; height: 45px; background-color: rgb(88, 111, 48);
+    color: rgb(255, 244, 213); border-radius: 16px; border-width: 0;
+    font-size: 19px; -unity-font-style: bold;
+}
+.gh-mute-switch.is-muted { background-color: rgb(120, 93, 64); }
+.gh-volume-heading { flex-direction: row; justify-content: space-between; font-size: 27px; margin-top: 8px; }
+#settingsMusicValue, #settingsSfxValue { color: rgb(95, 113, 50); -unity-font-style: bold; }
+.gh-slider { height: 52px; margin: 4px 0 12px 0; }
+.gh-slider .unity-base-slider__tracker {
+    height: 12px; border-radius: 6px; background-color: rgb(115, 126, 64);
+    border-width: 2px; border-color: rgb(81, 85, 41);
+}
+.gh-slider .unity-base-slider__dragger {
+    width: 34px; height: 34px; border-radius: 17px;
+    background-color: rgb(253, 228, 170); border-width: 4px; border-color: rgb(127, 88, 42);
+}
+.gh-slider .unity-base-slider__dragger-border { border-width: 0; }
+.gh-slider:hover .unity-base-slider__dragger { background-color: rgb(255, 243, 210); }
+.gh-settings-hint { font-size: 18px; color: rgb(114, 88, 55); -unity-text-align: middle-center; height: 26px; }
+.gh-settings-divider { height: 2px; background-color: rgba(130, 99, 58, 0.25); margin: 16px 0 12px 0; }
+.gh-settings-actions { flex-direction: row; justify-content: space-between; }
+.gh-settings-actions .gh-button { width: 49%; height: 76px; min-height: 76px; font-size: 23px; margin: 0; }
+#copyLogTooltip { position: absolute; bottom: 230px; left: 90px; right: 90px; }
+.gh-settings-build { flex-direction: row; justify-content: center; margin: 22px 0 12px 0; }
+.gh-settings-build Label { font-size: 17px; color: rgb(122, 97, 65); margin: 0 8px; }
+.gh-settings-done { width: 72%; height: 96px; min-height: 96px; align-self: center; font-size: 35px; margin: 0; }
+.gh-settings-close, .gh-mute-switch { transition-property: scale; transition-duration: 0.12s; }
+.gh-settings-close:hover, .gh-mute-switch:hover { scale: 1.035 1.035; }
+.gh-settings-close:active, .gh-mute-switch:active { scale: 0.97 0.97; }
