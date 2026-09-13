@@ -7,7 +7,7 @@
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
     <Style src="GlimblehopMenu.uss"/>
-    <ui:VisualElement name="Root">
+    <ui:VisualElement name="Root" class="gh-core-menu">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="GlimblehopLogo" picking-mode="Ignore"/>

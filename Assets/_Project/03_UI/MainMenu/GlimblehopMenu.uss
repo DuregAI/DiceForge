@@ -46,10 +46,10 @@
 .gh-wallet { right: 7%; }
 .gh-coin { width: 50px; height: 50px; background-image: url("../../07_Art/UI/GlimblehopMenu/coin.png"); background-size: contain; }
 .gh-wallet-caption { font-size: 19px; margin-left: 16px; }
-#Corners { position: absolute; left: auto; right: 2%; top: 2%; bottom: auto; width: 70px; height: 70px; }
+#Corners { position: absolute; left: auto; right: 2%; top: 2%; bottom: auto; width: 84px; height: 84px; }
 #CornerBR { left: 0; right: 0; top: 0; bottom: 0; }
 #btnSettings, .gh-audio {
-    width: 70px; height: 70px; padding: 0; margin: 0; border-width: 0;
+    width: 84px; height: 84px; padding: 0; margin: 0; border-width: 0;
     background-color: transparent; background-size: contain;
     background-image: url("../../07_Art/UI/GlimblehopMenu/settings.png");
 }
@@ -62,3 +62,27 @@
 
 .gh-dev { position: absolute; left: 4%; bottom: 3%; flex-direction: row; }
 .gh-dev .gh-utility { font-size: 18px; }
+
+.gh-button, #btnSettings, .gh-audio {
+    -unity-background-image-tint-color: rgb(240, 240, 240);
+    transition-property: scale, -unity-background-image-tint-color;
+    transition-duration: 0.14s;
+    transition-timing-function: ease-out;
+}
+.gh-button:hover, #btnSettings:hover, .gh-audio:hover {
+    scale: 1.035 1.035;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+.gh-button:active, #btnSettings:active, .gh-audio:active {
+    scale: 0.97 0.97;
+    -unity-background-image-tint-color: rgb(232, 232, 232);
+}
+
+/* Temporary gameplay iteration: remove gh-core-menu from Root to restore these entries. */
+.gh-core-menu #btnMyGoblins,
+.gh-core-menu #GlimblehopChapter,
+.gh-core-menu #btnMenuProfile,
+.gh-core-menu #btnInventory,
+.gh-core-menu .gh-dev {
+    display: none;
+}

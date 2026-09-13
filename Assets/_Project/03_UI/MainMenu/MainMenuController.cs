@@ -61,8 +61,6 @@ public class MainMenuController : MonoBehaviour
     private AudioManager audioManager;
     private MapFlowOrchestrator mapFlowOrchestrator;
     private bool areDevActionsVisible;
-    private float unmutedMusicVolume = 1f;
-    private float unmutedSfxVolume = 1f;
 
     [Header("Map")]
     [SerializeField] private string defaultChapterId = "Chapter1";
@@ -214,6 +212,7 @@ public class MainMenuController : MonoBehaviour
         {
             audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
             audioManager.OnVolumesChanged += HandleAudioVolumesChanged;
+            audioManager.OnMuteChanged += HandleMuteChanged;
         }
 
         if (Diceforge.Map.MapFlowRuntime.HasPendingBattleResult || Diceforge.Map.MapFlowRuntime.ConsumeReturnToMapRequest())
@@ -252,7 +251,10 @@ public class MainMenuController : MonoBehaviour
             feedbackCancelButton.clicked -= CloseFeedbackForm;
 
         if (audioManager != null)
+        {
             audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
+            audioManager.OnMuteChanged -= HandleMuteChanged;
+        }
 
         if (musicSlider != null)
             musicSlider.UnregisterValueChangedCallback(OnMusicSliderChanged);
@@ -327,22 +329,16 @@ public class MainMenuController : MonoBehaviour
     private void ToggleMenuAudio()
     {
         if (audioManager == null) return;
-        bool muted = audioManager.MusicVolume <= 0f && audioManager.SfxVolume <= 0f;
-        if (!muted)
-        {
-            unmutedMusicVolume = audioManager.MusicVolume;
-            unmutedSfxVolume = audioManager.SfxVolume;
-        }
-        audioManager.SetMusicVolume(muted ? unmutedMusicVolume : 0f);
-        audioManager.SetSfxVolume(muted ? unmutedSfxVolume : 0f);
-        RefreshMenuAudio();
+        audioManager.SetMuted(!audioManager.IsMuted);
     }
+
+    private void HandleMuteChanged(bool muted) => RefreshMenuAudio();
 
     private void RefreshMenuAudio()
     {
         var button = root?.Q<Button>("btnMenuAudio");
         if (button == null || audioManager == null) return;
-        bool muted = audioManager.MusicVolume <= 0f && audioManager.SfxVolume <= 0f;
+        bool muted = audioManager.IsMuted;
         button.EnableInClassList("is-muted", muted);
         button.tooltip = muted ? "Unmute audio" : "Mute audio";
     }

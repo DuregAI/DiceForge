@@ -31,12 +31,14 @@ namespace Diceforge.Audio
         public event Action<string, string> OnTrackChanged;
         public event Action<string, TrackVote> OnVoteChanged;
         public event Action<float, float> OnVolumesChanged;
+        public event Action<bool> OnMuteChanged;
         public event Action OnStatsChanged;
 
         public string CurrentTrackId => _currentTrackId;
         public MusicContext ActiveContext => _activeContext;
         public float MusicVolume => _prefs != null ? Mathf.Clamp01(_prefs.musicVolume) : 1f;
         public float SfxVolume => _prefs != null ? Mathf.Clamp01(_prefs.sfxVolume) : 1f;
+        public bool IsMuted => _prefs != null && _prefs.isMuted;
         public long CurrentTrackElapsedMs => GetCurrentTrackElapsedMs();
 
         public string CurrentTrackDisplayName => musicLibrary != null
@@ -166,6 +168,17 @@ namespace Diceforge.Audio
         public bool TryPlayPrev()
         {
             return TryPlayFromHistoryOffset(-1, true);
+        }
+
+        public void SetMuted(bool muted)
+        {
+            if (_prefs == null || _prefs.isMuted == muted)
+                return;
+
+            _prefs.isMuted = muted;
+            ApplyVolumes();
+            _storage.Save(_prefs);
+            OnMuteChanged?.Invoke(muted);
         }
 
         public void SetMusicVolume(float v)
@@ -327,10 +340,16 @@ namespace Diceforge.Audio
                 return;
 
             if (musicSource != null)
+            {
+                musicSource.mute = _prefs.isMuted;
                 musicSource.volume = Mathf.Clamp01(_prefs.musicVolume);
+            }
 
             if (sfxSource != null)
+            {
+                sfxSource.mute = _prefs.isMuted;
                 sfxSource.volume = Mathf.Clamp01(_prefs.sfxVolume);
+            }
         }
     }
 }

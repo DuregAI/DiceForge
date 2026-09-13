@@ -16,6 +16,7 @@ namespace Diceforge.Audio
 
         public float musicVolume = 0.7f;
         public float sfxVolume = 0.7f;
+        public bool isMuted;
 
         [SerializeField] private List<TrackVoteEntry> voteEntries = new();
 
