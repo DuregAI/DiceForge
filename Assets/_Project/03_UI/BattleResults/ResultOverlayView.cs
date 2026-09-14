@@ -266,14 +266,18 @@ namespace Diceforge.View
             if (_restartButton != null && !_restartButton.enabledSelf)
                 return;
 
-            _backEffectsBridge?.StopActivePresentation();
-            _frontEffectsBridge?.StopActivePresentation();
-            battleController?.RestartMatch();
-            HideOverlay();
+            Diceforge.Transitions.ScreenTransition.Switch(() =>
+            {
+                _backEffectsBridge?.StopActivePresentation();
+                _frontEffectsBridge?.StopActivePresentation();
+                battleController?.RestartMatch();
+                HideOverlay();
+            });
         }
 
         private void HandleBackToMenuClicked()
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (battleController != null && battleController.HasPendingResultSave) return;
             if (_backToMenuButton != null && !_backToMenuButton.enabledSelf)
                 return;
@@ -286,7 +290,7 @@ namespace Diceforge.View
 
             string currentSceneName = SceneManager.GetActiveScene().name;
             if (!string.Equals(currentSceneName, "MainMenu", System.StringComparison.Ordinal))
-                SceneManager.LoadScene("MainMenu");
+                Diceforge.Transitions.ScreenTransition.LoadScene("MainMenu");
         }
 
         private void HideOverlay()

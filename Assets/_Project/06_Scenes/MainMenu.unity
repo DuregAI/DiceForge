@@ -668,10 +668,8 @@ MonoBehaviour:
   tutorialPortraitLibrary: {fileID: 11400000, guid: 1a8442e9f2804ac685bd8080281da68e, type: 2}
   atmosphere:
     entranceDelay: 1
-    entranceDuration: 0.8
-    entranceStagger: 0.2
-    fadeOutDuration: 0.4
-    fadeInDuration: 0.55
+    entranceDuration: 0.9
+    entranceStagger: 0.23
     dustCount: 230
     dustSpeed: 1.29
     dustSize: 1.32

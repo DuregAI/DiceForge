@@ -11,10 +11,6 @@ public sealed class MenuAmbientSettings
     [Tooltip("Pause between the title, tagline and each button.")]
     [Range(0, 1)] public float entranceStagger = 0.16f;
 
-    [Header("Map transition (seconds)")]
-    [Range(0, 2)] public float fadeOutDuration = 0.4f;
-    [Range(0, 2)] public float fadeInDuration = 0.55f;
-
     [Header("Dust / sparks")]
     [Range(0, 400)] public int dustCount = 220;
     [Range(0, 4)] public float dustSpeed = 1;
@@ -84,6 +80,7 @@ internal sealed class MenuAmbientView : IDisposable
         lastTime = now;
         if (!entranceFinished)
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) { entranceStart = -1; return; }
             // Start after layout, so scene loading doesn't consume the entrance animation.
             if (entranceStart < 0) entranceStart = now;
             UpdateEntrance(menu.enabledInHierarchy ? now - entranceStart : float.PositiveInfinity);

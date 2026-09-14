@@ -21,14 +21,17 @@ public static class TutorialFlow
 
     public static void EnterTutorial(GameModePreset tutorialPreset)
     {
-        _tutorialPreset = tutorialPreset;
-        _tutorialMapConfig = tutorialPreset.mapConfig;
-        IsTrainingBattleActive = false;
-        SceneManager.LoadScene(TutorialSceneName);
+        Diceforge.Transitions.ScreenTransition.LoadScene(TutorialSceneName, () =>
+        {
+            _tutorialPreset = tutorialPreset;
+            _tutorialMapConfig = tutorialPreset.mapConfig;
+            IsTrainingBattleActive = false;
+        });
     }
 
     public static void StartTrainingBattle()
     {
+        if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
         if (_tutorialPreset == null)
             throw new System.InvalidOperationException("[TutorialFlow] StartTrainingBattle failed: tutorial preset is not assigned.");
 
@@ -42,8 +45,7 @@ public static class TutorialFlow
 
     public static void ExitTutorial()
     {
-        IsTrainingBattleActive = false;
-        SceneManager.LoadScene(MainMenuSceneName);
+        Diceforge.Transitions.ScreenTransition.LoadScene(MainMenuSceneName, () => IsTrainingBattleActive = false);
     }
 
     public static void CompleteTutorialAndExit()

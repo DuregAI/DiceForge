@@ -396,15 +396,13 @@ public sealed class ChestOpenController : MonoBehaviour
 
     private void HandleCloseClicked()
     {
-        Hide();
-
         if (CloseRequested != null)
         {
             CloseRequested.Invoke();
             return;
         }
 
-        SceneManager.LoadScene("MainMenu");
+        Diceforge.Transitions.ScreenTransition.LoadScene("MainMenu");
     }
 
     private void ResetVisualState()

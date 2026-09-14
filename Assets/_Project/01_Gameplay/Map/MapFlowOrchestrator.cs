@@ -125,6 +125,7 @@ namespace Diceforge.Map
 
         public void OnNodeSelected(string nodeId)
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (_pendingOperation != null) return;
             var node = _map.GetNode(nodeId);
             if (node == null)

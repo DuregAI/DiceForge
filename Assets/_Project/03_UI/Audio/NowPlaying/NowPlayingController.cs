@@ -191,6 +191,7 @@ namespace Diceforge.UI.Audio
 
         private void Update()
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
                 return;
 

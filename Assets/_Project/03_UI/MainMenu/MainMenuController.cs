@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using Diceforge.Transitions;
 using System.Collections.Generic;
 using Diceforge.Audio;
 using Diceforge.Battle;
@@ -31,10 +31,6 @@ public class MainMenuController : MonoBehaviour
     private UIDocument document;
     private VisualElement root;
     private MenuAmbientView ambientView;
-    private Coroutine screenTransition;
-    private VisualElement transitionVeil;
-    private bool isScreenTransitioning;
-    private bool rootWasEnabled;
     [Header("Menu atmosphere")]
     [SerializeField] private MenuAmbientSettings atmosphere = new MenuAmbientSettings();
     private Label buildInfoLabel;
@@ -232,7 +228,7 @@ public class MainMenuController : MonoBehaviour
         }
 
         if (Diceforge.Map.MapFlowRuntime.HasPendingBattleResult || Diceforge.Map.MapFlowRuntime.ConsumeReturnToMapRequest())
-            OpenMapChapter();
+            OpenMapChapterImmediately();
     }
 
     private void OnDestroy()
@@ -284,6 +280,14 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void ShowPanel(string panelName)
+    {
+        bool modal = panelName == "SettingsPanel" || panelName == "LegalPanel"
+            || currentPanel?.name == "SettingsPanel" || currentPanel?.name == "LegalPanel";
+        if (modal) ShowPanelImmediately(panelName);
+        else TransitionToScreen(() => ShowPanelImmediately(panelName));
+    }
+
+    private void ShowPanelImmediately(string panelName)
     {
         CloseInventory();
         if (!panels.TryGetValue(panelName, out var targetPanel))
@@ -429,6 +433,7 @@ public class MainMenuController : MonoBehaviour
 
     private void HandleRootKeyDown(KeyDownEvent evt)
     {
+        if (ScreenTransition.IsBusy) { evt?.StopImmediatePropagation(); return; }
         if (evt == null)
             return;
 
@@ -693,14 +698,12 @@ public class MainMenuController : MonoBehaviour
         if (!UiProgressionService.IsUpgradesUnlocked())
             return;
 
-        ShowPanel("UpgradeShopPanel");
-        upgradeShopController?.Show();
+        TransitionToScreen(() => { ShowPanelImmediately("UpgradeShopPanel"); upgradeShopController?.Show(); });
     }
 
     private void CloseUpgradeShop()
     {
-        upgradeShopController?.Hide();
-        ShowPanel("MenuPanel");
+        TransitionToScreen(() => { upgradeShopController?.Hide(); ShowPanelImmediately("MenuPanel"); });
     }
 
     private void OpenChestScreen()
@@ -708,14 +711,12 @@ public class MainMenuController : MonoBehaviour
         if (!UiProgressionService.IsChestSectionUnlocked())
             return;
 
-        ShowPanel("ChestOpenPanel");
-        chestOpenController?.Show();
+        TransitionToScreen(() => { ShowPanelImmediately("ChestOpenPanel"); chestOpenController?.Show(); });
     }
 
     private void CloseChestScreen()
     {
-        chestOpenController?.Hide();
-        ShowPanel("MenuPanel");
+        TransitionToScreen(() => { chestOpenController?.Hide(); ShowPanelImmediately("MenuPanel"); });
     }
 
     private void OpenChestShop()
@@ -723,14 +724,12 @@ public class MainMenuController : MonoBehaviour
         if (!UiProgressionService.IsChestSectionUnlocked())
             return;
 
-        ShowPanel("ChestShopPanel");
-        chestShopController?.Show();
+        TransitionToScreen(() => { ShowPanelImmediately("ChestShopPanel"); chestShopController?.Show(); });
     }
 
     private void CloseChestShop()
     {
-        chestShopController?.Hide();
-        ShowPanel("MenuPanel");
+        TransitionToScreen(() => { chestShopController?.Hide(); ShowPanelImmediately("MenuPanel"); });
     }
 
     private void HandleTutorialSelected()
@@ -824,73 +823,19 @@ public class MainMenuController : MonoBehaviour
     private void OpenMapChapter()
     {
         if (mapFlowOrchestrator == null) return;
-        TransitionToScreen(() =>
-        {
-            ShowPanel("MenuPanel");
-            mapFlowOrchestrator.StartChapter(defaultChapterId);
-        });
+        TransitionToScreen(OpenMapChapterImmediately);
+    }
+
+    private void OpenMapChapterImmediately()
+    {
+        ShowPanelImmediately("MenuPanel");
+        mapFlowOrchestrator?.StartChapter(defaultChapterId);
     }
 
     private void TransitionToScreen(Action switchScreen)
     {
-        if (isScreenTransitioning || root == null || !isActiveAndEnabled) return;
-        isScreenTransitioning = true;
-        screenTransition = StartCoroutine(FadeToScreen(switchScreen));
+        if (root != null && isActiveAndEnabled) ScreenTransition.Switch(switchScreen);
     }
-
-    private IEnumerator FadeToScreen(Action switchScreen)
-    {
-        rootWasEnabled = root.enabledSelf;
-        root.SetEnabled(false);
-        transitionVeil = new VisualElement { name = "MenuTransitionVeil", pickingMode = PickingMode.Position };
-        transitionVeil.style.position = Position.Absolute;
-        transitionVeil.style.left = transitionVeil.style.top = transitionVeil.style.right = transitionVeil.style.bottom = 0;
-        transitionVeil.style.backgroundColor = new Color(0.035f, 0.045f, 0.025f, 1);
-        transitionVeil.style.opacity = 0;
-        root.Add(transitionVeil);
-        try
-        {
-            yield return FadeVeil(0, 1, atmosphere.fadeOutDuration);
-            // Render a fully covered frame before rebuilding the map.
-            yield return null;
-            switchScreen();
-            transitionVeil.BringToFront();
-            yield return null;
-            yield return FadeVeil(1, 0, atmosphere.fadeInDuration);
-        }
-        finally
-        {
-            FinishScreenTransition();
-        }
-    }
-
-    private IEnumerator FadeVeil(float from, float to, float duration)
-    {
-        float time = 0;
-        while (time < duration)
-        {
-            transitionVeil.style.opacity = Mathf.Lerp(from, to, Mathf.SmoothStep(0, 1, time / duration));
-            yield return null;
-            time += Time.unscaledDeltaTime;
-        }
-        transitionVeil.style.opacity = to;
-    }
-
-    private void FinishScreenTransition()
-    {
-        transitionVeil?.RemoveFromHierarchy();
-        transitionVeil = null;
-        if (isScreenTransitioning) root?.SetEnabled(rootWasEnabled);
-        isScreenTransitioning = false;
-        screenTransition = null;
-    }
-
-    private void OnDisable()
-    {
-        if (screenTransition != null) StopCoroutine(screenTransition);
-        FinishScreenTransition();
-    }
-
     private void HandleMapResetRequested()
     {
         mapFlowOrchestrator?.ResetRun();

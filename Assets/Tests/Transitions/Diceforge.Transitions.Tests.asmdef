@@ -1,0 +1,6 @@
+{
+    "name": "Diceforge.Transitions.Tests",
+    "references": ["Diceforge.Transitions"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}

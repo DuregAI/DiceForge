@@ -157,6 +157,7 @@ namespace Diceforge.View
 
         private void Update()
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             bool isBoardAnimating = IsBoardAnimating();
             if (isBoardAnimating != _wasBoardAnimating)
             {

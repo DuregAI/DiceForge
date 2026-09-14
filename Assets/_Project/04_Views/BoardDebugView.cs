@@ -69,6 +69,7 @@ namespace Diceforge.View
 
         private void Update()
         {
+            if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (!_cellSelectionEnabled)
                 return;
 

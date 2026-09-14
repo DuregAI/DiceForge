@@ -24,9 +24,11 @@ namespace Diceforge.Battle
             if (request.mapConfigOverride == null)
                 throw new InvalidOperationException($"[BattleLauncher] Start failed: map is null for preset '{request.presetOverride.name}' modeId='{request.presetOverride.modeId}'.");
 
-            PendingRequest = request;
-            Debug.Log($"[BattleLauncher] Loading battle scene with request: {request.DebugSummary()}");
-            SceneManager.LoadScene(BattleSceneName);
+            Diceforge.Transitions.ScreenTransition.LoadScene(BattleSceneName, () =>
+            {
+                PendingRequest = request;
+                Debug.Log($"[BattleLauncher] Loading battle scene with request: {request.DebugSummary()}");
+            });
         }
 
         public static BattleStartRequest ConsumePendingRequest()
