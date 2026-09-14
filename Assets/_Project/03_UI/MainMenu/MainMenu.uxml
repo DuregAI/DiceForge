@@ -31,6 +31,7 @@
                     <ui:Label text="INVENTORY" class="gh-wallet-caption" picking-mode="Ignore"/>
                 </ui:Button>
                 <ui:Button name="btnMenuAudio" class="gh-audio" tooltip="Mute audio"/>
+                <ui:Button name="btnLanguage" class="gh-language" tooltip="English · Русский · 简体中文"/>
                 <ui:Button name="btnLegal" text="Legal" class="gh-legal-link" tooltip="Legal and build information"/>
             </ui:VisualElement>
         </ui:VisualElement>

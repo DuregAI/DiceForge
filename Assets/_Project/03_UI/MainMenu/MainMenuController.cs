@@ -31,6 +31,10 @@ public class MainMenuController : MonoBehaviour
     private UIDocument document;
     private VisualElement root;
     private MenuAmbientView ambientView;
+    private MenuLocalization localization;
+    private string feedbackStatusSource = FeedbackDefaultStatus;
+    private bool feedbackStatusError;
+    private string T(string source) => localization?.T(source) ?? source;
     private readonly List<IDisposable> modalBindings = new();
     private readonly Dictionary<VisualElement, IVisualElementScheduledItem> panelHideJobs = new();
     [Header("Menu atmosphere")]
@@ -149,6 +153,9 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnLong", OpenMapChapter);
         RegisterButton("btnShort", () => SelectModeAndLoad(shortPreset));
         RegisterButton("btnTutorial", HandleTutorialSelected);
+        MenuButtonIcon.Attach(root.Q<Button>("btnLong"), false);
+        MenuButtonIcon.Attach(root.Q<Button>("btnTutorial"), true);
+        localization = new MenuLocalization(root, RefreshLanguage);
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
@@ -246,6 +253,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        localization?.Dispose();
         foreach (var binding in modalBindings) binding.Dispose();
         foreach (var job in panelHideJobs.Values) job.Pause();
         ambientView?.Dispose();
@@ -403,17 +411,17 @@ public class MainMenuController : MonoBehaviour
         if (button == null || audioManager == null) return;
         bool muted = audioManager.IsMuted;
         button.EnableInClassList("is-muted", muted);
-        button.tooltip = muted ? "Unmute audio" : "Mute audio";
+        button.tooltip = T(muted ? "Unmute audio" : "Mute audio");
         var settingsMute = root.Q<Button>("btnSettingsMute");
         if (settingsMute != null)
         {
-            settingsMute.text = muted ? "MUTED" : "SOUND ON";
+            settingsMute.text = T(muted ? "MUTED" : "SOUND ON");
             settingsMute.EnableInClassList("is-muted", muted);
             settingsMute.tooltip = button.tooltip;
         }
         var soundHint = root.Q<Label>("settingsSoundHint");
         if (soundHint != null)
-            soundHint.text = muted ? "Sound is muted. Your volume levels are saved." : "A little woodland ambience.";
+            soundHint.text = T(muted ? "Sound is muted. Your volume levels are saved." : "A little woodland ambience.");
     }
 
     public void HidePanel(VisualElement panel)
@@ -525,7 +533,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (aboutVersionLabel != null)
         {
-            aboutVersionLabel.text = $"Version {Application.version}";
+            aboutVersionLabel.text = $"{T("Version")} {Application.version}";
         }
     }
 
@@ -549,6 +557,8 @@ public class MainMenuController : MonoBehaviour
         if (feedbackCategoryField != null)
         {
             feedbackCategoryField.choices = FeedbackCategories;
+            feedbackCategoryField.formatListItemCallback = value => T(value);
+            feedbackCategoryField.formatSelectedValueCallback = value => T(value);
             feedbackCategoryField.index = 0;
         }
 
@@ -594,6 +604,15 @@ public class MainMenuController : MonoBehaviour
         openFeedbackButton?.Focus();
     }
 
+    private void RefreshLanguage()
+    {
+        RefreshMenuAudio();
+        InitializeAboutSection();
+        SetFeedbackStatus(feedbackStatusSource, feedbackStatusError);
+        if (feedbackCategoryField != null)
+            feedbackCategoryField.SetValueWithoutNotify(feedbackCategoryField.value);
+    }
+
     private void SubmitFeedback()
     {
         string category = feedbackCategoryField != null ? feedbackCategoryField.value : string.Empty;
@@ -614,7 +633,7 @@ public class MainMenuController : MonoBehaviour
 
         if (trimmedMessage.Length > SpacetimeDbFeedbackSink.MaxMessageLength)
         {
-            SetFeedbackStatus($"Feedback is limited to {SpacetimeDbFeedbackSink.MaxMessageLength} characters.", true);
+            SetFeedbackStatus("Feedback is limited to {0} characters.", true);
             return;
         }
 
@@ -633,10 +652,12 @@ public class MainMenuController : MonoBehaviour
 
     private void SetFeedbackStatus(string message, bool isError)
     {
+        feedbackStatusSource = message;
+        feedbackStatusError = isError;
         if (feedbackStatusLabel == null)
             return;
 
-        feedbackStatusLabel.text = message ?? string.Empty;
+        feedbackStatusLabel.text = string.Format(T(message) ?? string.Empty, SpacetimeDbFeedbackSink.MaxMessageLength);
         feedbackStatusLabel.style.color = isError
             ? new StyleColor(new Color(1f, 0.68f, 0.68f, 1f))
             : new StyleColor(new Color(0.96f, 0.92f, 0.69f, 1f));

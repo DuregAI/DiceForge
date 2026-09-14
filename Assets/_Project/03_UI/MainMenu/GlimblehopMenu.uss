@@ -50,6 +50,49 @@
     position: absolute; left: 6%; top: 80%; color: rgb(250, 235, 206);
     font-size: 24px; text-shadow: 0 2px 3px rgb(35, 26, 17);
 }
+/* Scope the larger lettering to the two main actions, not modal buttons. */
+#btnLong {
+    -unity-font-definition: initial;
+    -unity-font: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-font-style: normal;
+    font-size: 56px;
+    letter-spacing: 2px;
+    padding-left: 72px; padding-right: 72px;
+    color: rgb(255, 239, 200);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(64, 46, 24);
+    text-shadow: 0 4px 0 rgb(40, 33, 17);
+}
+#btnTutorial {
+    -unity-font-definition: initial;
+    -unity-font: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-font-style: normal;
+    font-size: 29px;
+    letter-spacing: 0.5px;
+    padding-left: 55px; padding-right: 55px;
+    color: rgb(70, 42, 21);
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(52, 32, 17);
+    text-shadow: 0 2px 0 rgb(255, 235, 188);
+}
+.gh-action-icon {
+    position: absolute; right: 75px; top: 50%;
+    width: 44px; height: 48px; translate: 0 -50%;
+}
+#btnTutorial .gh-action-icon { right: 35px; width: 37px; height: 42px; }
+.gh-language {
+    position: absolute; right: 8.5%; bottom: 2%; width: 104px; height: 84px;
+    margin: 0; padding: 0; border-width: 0; background-color: transparent;
+    transition-property: scale; transition-duration: 0.14s;
+}
+.gh-language:hover { scale: 1.05 1.05; }
+.gh-language:active { scale: 0.97 0.97; }
+.locale-ru #btnLong { font-size: 52px; -unity-font-style: bold; letter-spacing: 0; }
+.locale-ru #btnTutorial { font-size: 27px; -unity-font-style: bold; letter-spacing: 0; }
+.locale-zh #btnLong { font-size: 47px; -unity-font-style: bold; letter-spacing: 1px; }
+.locale-zh #btnTutorial { font-size: 31px; letter-spacing: 1px; }
+.locale-ru .gh-settings-actions .gh-button { font-size: 19px; }
+.locale-ru .gh-settings-hint { font-size: 16px; }
 .gh-profile, .gh-wallet {
     position: absolute; top: 2%; flex-direction: row; align-items: center;
     background-color: rgba(40, 30, 19, 0.85); border-width: 0; border-radius: 60px;
