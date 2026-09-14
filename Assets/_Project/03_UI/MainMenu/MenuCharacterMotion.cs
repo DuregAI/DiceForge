@@ -19,8 +19,8 @@ internal sealed class MenuCharacterMotion
         Vector2 offset = new Vector2((width - 1672 * scale) / 2, (height - 941 * scale) / 2);
         if (flag != null)
         {
-            Patch(context, flag, new Rect(1501, 130, 137, 114), new Rect(106f / 1536, 69f / 1024, 1357f / 1536, 885f / 1024), offset, scale, settings.flagEnabled ? time : 0, true, 1);
-            DrawFlagTies(context.painter2D, offset, scale);
+            Patch(context, flag, new Rect(1493, 130, 137, 114), new Rect(106f / 1536, 69f / 1024, 1357f / 1536, 885f / 1024), offset, scale, settings.flagEnabled ? time : 0, true, 1);
+
         }
         float close = BlinkAmount(time, 0);
         if (blink != null && settings.blinkEnabled && close > 0)
@@ -42,32 +42,6 @@ internal sealed class MenuCharacterMotion
     private void EyePatch(MeshGenerationContext context, Rect eye, Vector2 offset, float scale, float close)
     {
         Patch(context, secondBlink, eye, new Rect(eye.x / 1672, eye.y / 941, eye.width / 1672, eye.height / 941), offset, scale, 0, false, close);
-    }
-
-    private static void DrawFlagTies(Painter2D painter, Vector2 offset, float scale)
-    {
-        // Two twine loops wrap the surviving pole and pass through the cloth's hoist edge.
-        for (int tie = 0; tie < 2; tie++)
-        {
-            float y = tie == 0 ? 137 : 236;
-            for (int pass = 0; pass < 2; pass++)
-            {
-                painter.strokeColor = pass == 0 ? new Color(0.28f, 0.16f, 0.07f) : new Color(0.82f, 0.66f, 0.38f);
-                painter.lineWidth = (pass == 0 ? 3.4f : 1.8f) * scale;
-                painter.BeginPath();
-                painter.MoveTo(offset + new Vector2(1504, y) * scale);
-                painter.BezierCurveTo(offset + new Vector2(1494, y - 6) * scale,
-                    offset + new Vector2(1475, y - 5) * scale, offset + new Vector2(1480, y + 1) * scale);
-                painter.BezierCurveTo(offset + new Vector2(1484, y + 6) * scale,
-                    offset + new Vector2(1496, y + 4) * scale, offset + new Vector2(1504, y) * scale);
-                painter.Stroke();
-                painter.BeginPath();
-                painter.MoveTo(offset + new Vector2(1499, y - 2) * scale);
-                painter.LineTo(offset + new Vector2(1504, y + 4) * scale);
-                painter.LineTo(offset + new Vector2(1500, y + 8) * scale);
-                painter.Stroke();
-            }
-        }
     }
 
     private float BlinkAmount(float time, int index)
