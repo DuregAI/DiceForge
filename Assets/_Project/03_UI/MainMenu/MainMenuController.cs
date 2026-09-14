@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Diceforge.Audio;
 using Diceforge.Battle;
@@ -30,6 +31,10 @@ public class MainMenuController : MonoBehaviour
     private UIDocument document;
     private VisualElement root;
     private MenuAmbientView ambientView;
+    private Coroutine screenTransition;
+    private VisualElement transitionVeil;
+    private bool isScreenTransitioning;
+    private bool rootWasEnabled;
     [Header("Menu atmosphere")]
     [SerializeField] private MenuAmbientSettings atmosphere = new MenuAmbientSettings();
     private Label buildInfoLabel;
@@ -818,8 +823,72 @@ public class MainMenuController : MonoBehaviour
 
     private void OpenMapChapter()
     {
-        ShowPanel("MenuPanel");
-        mapFlowOrchestrator?.StartChapter(defaultChapterId);
+        if (mapFlowOrchestrator == null) return;
+        TransitionToScreen(() =>
+        {
+            ShowPanel("MenuPanel");
+            mapFlowOrchestrator.StartChapter(defaultChapterId);
+        });
+    }
+
+    private void TransitionToScreen(Action switchScreen)
+    {
+        if (isScreenTransitioning || root == null || !isActiveAndEnabled) return;
+        isScreenTransitioning = true;
+        screenTransition = StartCoroutine(FadeToScreen(switchScreen));
+    }
+
+    private IEnumerator FadeToScreen(Action switchScreen)
+    {
+        rootWasEnabled = root.enabledSelf;
+        root.SetEnabled(false);
+        transitionVeil = new VisualElement { name = "MenuTransitionVeil", pickingMode = PickingMode.Position };
+        transitionVeil.style.position = Position.Absolute;
+        transitionVeil.style.left = transitionVeil.style.top = transitionVeil.style.right = transitionVeil.style.bottom = 0;
+        transitionVeil.style.backgroundColor = new Color(0.035f, 0.045f, 0.025f, 1);
+        transitionVeil.style.opacity = 0;
+        root.Add(transitionVeil);
+        try
+        {
+            yield return FadeVeil(0, 1, atmosphere.fadeOutDuration);
+            // Render a fully covered frame before rebuilding the map.
+            yield return null;
+            switchScreen();
+            transitionVeil.BringToFront();
+            yield return null;
+            yield return FadeVeil(1, 0, atmosphere.fadeInDuration);
+        }
+        finally
+        {
+            FinishScreenTransition();
+        }
+    }
+
+    private IEnumerator FadeVeil(float from, float to, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            transitionVeil.style.opacity = Mathf.Lerp(from, to, Mathf.SmoothStep(0, 1, time / duration));
+            yield return null;
+            time += Time.unscaledDeltaTime;
+        }
+        transitionVeil.style.opacity = to;
+    }
+
+    private void FinishScreenTransition()
+    {
+        transitionVeil?.RemoveFromHierarchy();
+        transitionVeil = null;
+        if (isScreenTransitioning) root?.SetEnabled(rootWasEnabled);
+        isScreenTransitioning = false;
+        screenTransition = null;
+    }
+
+    private void OnDisable()
+    {
+        if (screenTransition != null) StopCoroutine(screenTransition);
+        FinishScreenTransition();
     }
 
     private void HandleMapResetRequested()
@@ -835,6 +904,6 @@ public class MainMenuController : MonoBehaviour
     private void HandleMapBackRequested()
     {
         var mapController = GetComponent<MapController>();
-        mapController?.Hide();
+        if (mapController != null) TransitionToScreen(mapController.Hide);
     }
 }

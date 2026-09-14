@@ -5,6 +5,16 @@ using UnityEngine.UIElements;
 [Serializable]
 public sealed class MenuAmbientSettings
 {
+    [Header("Menu entrance (seconds)")]
+    [Range(0, 3)] public float entranceDelay = 0.08f;
+    [Range(0, 3)] public float entranceDuration = 0.8f;
+    [Tooltip("Pause between the title, tagline and each button.")]
+    [Range(0, 1)] public float entranceStagger = 0.16f;
+
+    [Header("Map transition (seconds)")]
+    [Range(0, 2)] public float fadeOutDuration = 0.4f;
+    [Range(0, 2)] public float fadeInDuration = 0.55f;
+
     [Header("Dust / sparks")]
     [Range(0, 400)] public int dustCount = 220;
     [Range(0, 4)] public float dustSpeed = 1;
@@ -45,7 +55,7 @@ internal sealed class MenuAmbientView : IDisposable
     private float leafCycle = 4f / 18f;
     private float birdTime = -2;
     private float lastTime;
-    private readonly float entranceStart;
+    private float entranceStart = -1;
     private bool entranceFinished;
 
     public MenuAmbientView(VisualElement root, MenuAmbientSettings settings)
@@ -60,10 +70,10 @@ internal sealed class MenuAmbientView : IDisposable
         layer.style.overflow = Overflow.Hidden;
         menu.Insert(0, layer);
         layer.generateVisualContent += Draw;
-        entrance = new[] { root.Q("GlimblehopLogo"), root.Q("GlimblehopTagline"), root.Q("ModeButtonsColumn") };
+        entrance = new[] { root.Q("GlimblehopLogo"), root.Q("GlimblehopTagline"), root.Q("btnLong"), root.Q("btnTutorial") };
+        foreach (var element in entrance) element?.AddToClassList("menu-entering");
         UpdateEntrance(0);
         lastTime = Time.realtimeSinceStartup;
-        entranceStart = lastTime;
         tick = layer.schedule.Execute(Update).Every(33);
     }
 
@@ -72,7 +82,12 @@ internal sealed class MenuAmbientView : IDisposable
         float now = Time.realtimeSinceStartup;
         float dt = Mathf.Clamp(now - lastTime, 0, 0.1f);
         lastTime = now;
-        if (!entranceFinished) UpdateEntrance(menu.enabledInHierarchy ? now - entranceStart : 1);
+        if (!entranceFinished)
+        {
+            // Start after layout, so scene loading doesn't consume the entrance animation.
+            if (entranceStart < 0) entranceStart = now;
+            UpdateEntrance(menu.enabledInHierarchy ? now - entranceStart : float.PositiveInfinity);
+        }
         // Freeze while unfocused or covered by a modal; don't jump on return.
         if (!Application.isFocused || !menu.enabledInHierarchy || menu.resolvedStyle.display == DisplayStyle.None)
             return;
@@ -86,15 +101,29 @@ internal sealed class MenuAmbientView : IDisposable
 
     private void UpdateEntrance(float time)
     {
+        if (entrance == null) return;
         for (int i = 0; i < entrance.Length; i++)
         {
             if (entrance[i] == null) continue;
-            float t = Mathf.Clamp01((time - i * 0.10f) / 0.55f);
+            float delay = Mathf.Max(0, settings.entranceDelay) + i * Mathf.Max(0, settings.entranceStagger);
+            float duration = Mathf.Max(0, settings.entranceDuration);
+            float t = time < delay ? 0 : duration <= 0 ? 1 : Mathf.Clamp01((time - delay) / duration);
             float eased = 1 - Mathf.Pow(1 - t, 3);
-            entrance[i].style.opacity = eased;
-            entrance[i].style.translate = new Translate(0, (1 - eased) * 18);
+            entrance[i].style.opacity = Mathf.SmoothStep(0, 1, Mathf.Clamp01(t * 1.5f));
+            entrance[i].style.translate = new Translate(0, (1 - eased) * (i == 0 ? 30 : 22));
+            // Scale the title only; button hover/press scaling stays owned by USS.
+            if (i == 0) entrance[i].style.scale = new Scale(Vector3.one * Mathf.Lerp(0.94f, 1, eased));
+            if (t >= 1)
+            {
+                entrance[i].style.opacity = StyleKeyword.Null;
+                entrance[i].style.translate = StyleKeyword.Null;
+                if (i == 0) entrance[i].style.scale = StyleKeyword.Null;
+                entrance[i].RemoveFromClassList("menu-entering");
+            }
         }
-        entranceFinished = time >= 0.75f;
+        entranceFinished = time >= Mathf.Max(0, settings.entranceDelay)
+            + (entrance.Length - 1) * Mathf.Max(0, settings.entranceStagger)
+            + Mathf.Max(0, settings.entranceDuration);
     }
 
     private void Draw(MeshGenerationContext context)
@@ -187,6 +216,6 @@ internal sealed class MenuAmbientView : IDisposable
         if (layer == null) return;
         layer.generateVisualContent -= Draw;
         layer.RemoveFromHierarchy();
-        UpdateEntrance(1);
+        UpdateEntrance(float.PositiveInfinity);
     }
 }

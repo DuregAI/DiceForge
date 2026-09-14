@@ -18,6 +18,8 @@
     text-shadow: 0 2px 3px rgb(35, 26, 17);
 }
 #ModeButtonsColumn { position: absolute; left: 4%; top: 41%; width: 29%; align-items: center; }
+/* Entrance owns translation temporarily; keep hover feedback responsive. */
+#MenuPanel .menu-entering { transition-property: scale, -unity-background-image-tint-color; }
 .gh-button {
     width: 83%; height: 100px; min-height: 100px; margin: 8px 0;
     background-image: url("../../07_Art/UI/GlimblehopMenu/button-secondary.png");
