@@ -11,7 +11,6 @@
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
                 <ui:VisualElement name="GlimblehopLogo" picking-mode="Ignore"/>
-                <ui:Label name="GlimblehopTagline" text="Little feet. Big mischief." picking-mode="Ignore"/>
                 <ui:VisualElement name="ModeButtonsColumn">
                     <ui:Button name="btnLong" text="PLAY" class="gh-button gh-primary"/>
                     <ui:Button name="btnMyGoblins" text="MY GOBLINS" class="gh-button"/>

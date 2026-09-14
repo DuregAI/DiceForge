@@ -22,3 +22,7 @@ Validation: Unity MCP compilation and Play Mode checks; inspected the fully clos
 Latest built-in edit prompt: Open the foreground goblin’s viewer-right eye to match his other open eye. Repair the far goblin’s raised hands, especially his left hand, to one thumb and three fingers. Preserve pose, composition, lighting, token symbols and the background without flag cloth.
 
 Latest validation: inspected both open and fully closed eye frames in Unity Play Mode against the updated background, including the enlarged flag and visible birds.
+
+September 14 menu polish (built-in Imagegen background edit): remove only the right flag pole, preserve the potion sign; repair the hat goblin's grip to one thumb and three fingers per hand; replace token 5's fashion boot with a chunky hiking boot while preserving its wing, number and engraving style. Preserve composition, lighting and eye alignment. Saved to Assets/_Project/07_Art/UI/GlimblehopMenu/background-landscape-clean.png.
+
+The separate flag-image edit hit the image-generation usage limit; no generated replacement was installed. The existing triangular fabric is reused without the old diagonal shear. Its hoist is fixed, its free tip waves, and two shaded UI Toolkit twine loops connect the hoist to the surviving pole. Tagline removed; Legal moved from 2% to 4% above the bottom. Verified the integrated menu in Unity Play Mode.

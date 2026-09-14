@@ -166,7 +166,7 @@
 .gh-settings-close:active, .gh-mute-switch:active { scale: 0.97 0.97; }
 
 .gh-legal-link {
-    position: absolute; left: 3%; bottom: 2%; padding: 8px 12px;
+    position: absolute; left: 3%; bottom: 4%; padding: 8px 12px;
     background-color: transparent; border-width: 0; font-size: 22px;
     color: rgb(240, 225, 192); text-shadow: 0 2px 3px rgb(35, 26, 17);
     border-bottom-width: 1px; border-bottom-color: rgba(240, 225, 192, 0.5);

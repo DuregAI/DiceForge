@@ -66,7 +66,7 @@ internal sealed class MenuAmbientView : IDisposable
         layer.style.overflow = Overflow.Hidden;
         menu.Insert(0, layer);
         layer.generateVisualContent += Draw;
-        entrance = new[] { root.Q("GlimblehopLogo"), root.Q("GlimblehopTagline"), root.Q("btnLong"), root.Q("btnTutorial") };
+        entrance = new[] { root.Q("GlimblehopLogo"), root.Q("btnLong"), root.Q("btnTutorial") };
         foreach (var element in entrance) element?.AddToClassList("menu-entering");
         UpdateEntrance(0);
         lastTime = Time.realtimeSinceStartup;
