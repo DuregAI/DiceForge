@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public sealed class TutorialSceneController : MonoBehaviour
 {
+    private System.IDisposable settingsDismiss;
     [SerializeField] private UIDocument tutorialDocument;
     [SerializeField] private DialogueRunner dialogueRunner;
     [SerializeField] private DialogueSequence tutorialIntroSequence;
@@ -34,6 +35,7 @@ public sealed class TutorialSceneController : MonoBehaviour
         _settingsButton = root?.Q<Button>("TutorialSettingsButton");
         _closeSettingsButton = root?.Q<Button>("TutorialSettingsCloseButton");
         _settingsOverlay = root?.Q<VisualElement>("TutorialSettingsOverlay");
+        settingsDismiss = Diceforge.UI.ModalDismiss.BindButton(root, "TutorialSettingsOverlay", "TutorialSettingsCloseButton");
         _musicSlider = root?.Q<Slider>("TutorialMusicSlider");
         _sfxSlider = root?.Q<Slider>("TutorialSfxSlider");
 
@@ -84,6 +86,7 @@ public sealed class TutorialSceneController : MonoBehaviour
 
     private void OnDestroy()
     {
+        settingsDismiss?.Dispose();
         if (_exitButton != null)
             _exitButton.clicked -= ExitTutorial;
 

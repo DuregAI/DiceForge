@@ -1,0 +1,6 @@
+{
+    "name": "Diceforge.UI.Modals.Tests",
+    "references": ["Diceforge.UI.Common"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}

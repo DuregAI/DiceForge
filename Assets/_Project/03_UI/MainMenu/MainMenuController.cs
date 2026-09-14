@@ -31,6 +31,8 @@ public class MainMenuController : MonoBehaviour
     private UIDocument document;
     private VisualElement root;
     private MenuAmbientView ambientView;
+    private readonly List<IDisposable> modalBindings = new();
+    private readonly Dictionary<VisualElement, IVisualElementScheduledItem> panelHideJobs = new();
     [Header("Menu atmosphere")]
     [SerializeField] private MenuAmbientSettings atmosphere = new MenuAmbientSettings();
     private Label buildInfoLabel;
@@ -120,6 +122,17 @@ public class MainMenuController : MonoBehaviour
         RegisterButton("btnSettingsMute", ToggleMenuAudio);
         RegisterButton("btnCloseSettings", CloseSettings);
         RegisterButton("btnSettingsDone", CloseSettings);
+        BindModal("SettingsPanel", "btnCloseSettings");
+        BindModal("LegalPanel", "btnCloseLegal");
+        BindModal("FeedbackModal", "btnFeedbackCancel");
+        BindModal("PlayerInfoModal", "btnClosePlayerInfo");
+        BindModal("AvatarSelectionModal", "btnCloseAvatarSelection");
+        BindModal("AvatarShopPlaceholderModal", "btnCloseAvatarShopPlaceholder");
+        BindModal("TutorialReplayConfirmModal", "btnTutorialReplayCancel");
+        BindModal("RenameConfirmModal", "btnRenameConfirmCancel");
+        BindModal("RenamePlayerModal", "btnRenameCancel");
+        BindModal("UpgradeShopPanel", "btnCloseUpgrades");
+        BindModal("ChestShopPanel", "btnCloseChestShop");
         RegisterButton("btnLegal", () => ShowPanel("LegalPanel"));
         RegisterButton("btnCloseLegal", () => ShowPanel("MenuPanel"));
         RegisterButton("btnLegalDone", () => ShowPanel("MenuPanel"));
@@ -233,6 +246,8 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        foreach (var binding in modalBindings) binding.Dispose();
+        foreach (var job in panelHideJobs.Values) job.Pause();
         ambientView?.Dispose();
         ProfileService.ProfileChanged -= RefreshProgressiveUi;
 
@@ -309,7 +324,13 @@ public class MainMenuController : MonoBehaviour
         }
 
         currentPanel = targetPanel;
+        if (panelHideJobs.TryGetValue(targetPanel, out var hideJob))
+        {
+            hideJob.Pause();
+            panelHideJobs.Remove(targetPanel);
+        }
         targetPanel.style.display = DisplayStyle.Flex;
+        targetPanel.pickingMode = PickingMode.Position;
         if (!targetPanel.ClassListContains(VisibleClass))
         {
             targetPanel.schedule.Execute(() =>
@@ -397,14 +418,21 @@ public class MainMenuController : MonoBehaviour
 
     public void HidePanel(VisualElement panel)
     {
+        if (panelHideJobs.TryGetValue(panel, out var previousJob)) previousJob.Pause();
         panel.RemoveFromClassList(VisibleClass);
-        panel.schedule.Execute(() =>
+        panelHideJobs[panel] = panel.schedule.Execute(() =>
         {
             if (panel != currentPanel)
             {
                 panel.style.display = DisplayStyle.None;
             }
-        }).ExecuteLater(Mathf.RoundToInt(TransitionSeconds * 1000f));
+        });
+        panelHideJobs[panel].ExecuteLater(Mathf.RoundToInt(TransitionSeconds * 1000f));
+    }
+
+    private void BindModal(string overlay, string button)
+    {
+        modalBindings.Add(Diceforge.UI.ModalDismiss.BindButton(root, overlay, button));
     }
 
     private void RegisterPanel(string name)

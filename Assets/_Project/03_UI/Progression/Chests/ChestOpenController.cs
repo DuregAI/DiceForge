@@ -37,6 +37,7 @@ public sealed class ChestOpenController : MonoBehaviour
     private AudioManager _audioManager;
 
     public event Action CloseRequested;
+    private IDisposable backdropDismiss;
 
     public void Initialize(VisualElement root)
     {
@@ -57,6 +58,8 @@ public sealed class ChestOpenController : MonoBehaviour
         _inventoryList = root.Q<ScrollView>("chestInventoryList");
         _openButton = root.Q<Button>("btnOpenChestScreen");
         _closeButton = root.Q<Button>("btnCloseChestScreen");
+        backdropDismiss?.Dispose();
+        backdropDismiss = Diceforge.UI.ModalDismiss.BindButton(root, "ChestOpenPanel", "btnCloseChestScreen");
 
         if (_burstFx != null)
             _burstFx.pickingMode = PickingMode.Ignore;
@@ -74,6 +77,7 @@ public sealed class ChestOpenController : MonoBehaviour
 
     private void OnDestroy()
     {
+        backdropDismiss?.Dispose();
         ProfileService.ProfileChanged -= Refresh;
 
         if (_openButton != null)

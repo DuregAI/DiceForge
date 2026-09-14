@@ -13,6 +13,8 @@ namespace Diceforge.UI.Audio
 {
     public sealed class NowPlayingController : MonoBehaviour
     {
+        private IDisposable settingsDismiss;
+        private IDisposable feedbackDismiss;
         private const string VisibleClass = "is-visible";
         private const float TransitionSeconds = 0.2f;
         private const string SettingsStateClass = "state-settings";
@@ -102,6 +104,16 @@ namespace Diceforge.UI.Audio
             _feedbackCategoryField = _root.Q<DropdownField>("feedbackCategoryField");
             _feedbackMessageField = _root.Q<TextField>("feedbackMessageField");
 
+            // MainMenuController owns these shared controls, including the close buttons.
+            // A second settings state here made reopening after X toggle the wrong state.
+            if (uiDocument.GetComponent<MainMenuController>() != null)
+            {
+                _settingsPanel = _feedbackModal = _copyLogTooltip = null;
+                _settingsButton = _copyLogButton = _openFeedbackButton = _feedbackSubmitButton = _feedbackCancelButton = null;
+                _musicSlider = _sfxSlider = null;
+                _aboutVersionLabel = _buildInfoLabel = _feedbackStatusLabel = null;
+            }
+
             _isPanelOpen = startPanelOpen;
             _isSettingsOpen = false;
             _isFeedbackOpen = false;
@@ -114,6 +126,14 @@ namespace Diceforge.UI.Audio
             InitializeAudioSliders();
             InitializeCopyLogTooltip();
             InitializeFeedbackForm();
+            if (uiDocument.GetComponent<MainMenuController>() == null)
+            {
+                feedbackDismiss = Diceforge.UI.ModalDismiss.BindButton(_root, "FeedbackModal", "btnFeedbackCancel");
+                if (_settingsPanel != null && _settingsPanel.childCount > 0)
+                {
+                    settingsDismiss = new Diceforge.UI.ModalDismiss(_settingsPanel, _settingsPanel.ElementAt(0), () => SetSettingsOpen(false));
+                }
+            }
             UpdateSettingsButtonState(false);
 
             if (_panelToggleButton != null)
@@ -150,6 +170,8 @@ namespace Diceforge.UI.Audio
 
         private void OnDisable()
         {
+            settingsDismiss?.Dispose();
+            feedbackDismiss?.Dispose();
             if (_panelToggleButton != null)
                 _panelToggleButton.clicked -= HandleTogglePanelClicked;
             if (_prevButton != null)
@@ -191,6 +213,7 @@ namespace Diceforge.UI.Audio
 
         private void Update()
         {
+            if (_settingsPanel == null) return;
             if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
                 return;

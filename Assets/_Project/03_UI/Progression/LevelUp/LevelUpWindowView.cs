@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public sealed class LevelUpWindowView
 {
+    private readonly IDisposable backdropDismiss;
     private readonly VisualElement _container;
     private readonly VisualElement _overlay;
     private readonly VisualElement _panel;
@@ -50,6 +51,7 @@ public sealed class LevelUpWindowView
         _unlockSection = _overlay.Q<VisualElement>("levelUpUnlockSection");
         _unlockList = _overlay.Q<VisualElement>("levelUpUnlockList");
         _continueButton = _overlay.Q<Button>("levelUpContinueButton");
+        backdropDismiss = new Diceforge.UI.ModalDismiss(_overlay, _panel, HandleContinueClicked);
 
         if (_continueButton != null)
             _continueButton.clicked += HandleContinueClicked;
@@ -189,6 +191,7 @@ public sealed class LevelUpWindowView
 
     public void Dispose()
     {
+        backdropDismiss?.Dispose();
         if (_continueButton != null)
             _continueButton.clicked -= HandleContinueClicked;
 

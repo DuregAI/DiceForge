@@ -12,6 +12,7 @@ namespace Diceforge.View
 {
     public sealed class ResultOverlayView : MonoBehaviour
     {
+        private System.IDisposable backdropDismiss;
         private const string DatabasePath = "Progression/ProgressionDatabase";
         private const float RewardStageDelaySeconds = 0.45f;
         private const float XpStageDelaySeconds = 0.9f;
@@ -83,6 +84,7 @@ namespace Diceforge.View
             _rewardsList = _root.Q<ScrollView>("resultRewardsList");
             _restartButton = _root.Q<Button>("restartButton");
             _backToMenuButton = _root.Q<Button>("backToMenuButton");
+            backdropDismiss = new Diceforge.UI.ModalDismiss(_overlayRoot, _panel, HandleBackToMenuClicked);
             _retrySaveButton = _root.Q<Button>("retryResultSaveButton");
             if (_retrySaveButton == null && _panel != null)
             {
@@ -114,6 +116,7 @@ namespace Diceforge.View
 
         private void OnDisable()
         {
+            backdropDismiss?.Dispose();
             if (battleController != null)
                 battleController.OnMatchEnded -= HandleMatchEnded;
             if (_retrySaveButton != null) _retrySaveButton.clicked -= RetrySave;

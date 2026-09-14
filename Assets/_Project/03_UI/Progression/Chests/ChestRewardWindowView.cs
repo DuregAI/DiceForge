@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public sealed class ChestRewardWindowView
 {
+    private readonly IDisposable backdropDismiss;
     private readonly VisualElement _container;
     private readonly VisualElement _overlay;
     private readonly VisualElement _panel;
@@ -54,6 +55,7 @@ public sealed class ChestRewardWindowView
         _detailsSection = _overlay.Q<VisualElement>("chestRewardDetailsSection");
         _detailsList = _overlay.Q<VisualElement>("chestRewardDetailsList");
         _continueButton = _overlay.Q<Button>("chestRewardContinueButton");
+        backdropDismiss = new Diceforge.UI.ModalDismiss(_overlay, _panel, HandleContinueClicked);
 
         if (_continueButton != null)
             _continueButton.clicked += HandleContinueClicked;
@@ -225,6 +227,7 @@ public sealed class ChestRewardWindowView
 
     public void Dispose()
     {
+        backdropDismiss?.Dispose();
         if (_continueButton != null)
             _continueButton.clicked -= HandleContinueClicked;
 
