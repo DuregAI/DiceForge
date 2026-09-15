@@ -1,0 +1,31 @@
+#JoTutorialPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; background-color: rgb(38, 55, 34); background-image: url('../../07_Art/UI/GlimblehopMenu/jo-tutorial-wide.png'); background-size: contain; background-repeat: no-repeat; background-position: left center; }
+.jo-book { width: 94%; height: 92%; max-width: 1800px; flex-direction: row; }
+.jo-portrait { width: 36%; height: 100%; flex-shrink: 0; }
+.jo-page { flex-grow: 1; width: 64%; padding: 25px 44px 30px; color: rgb(69, 44, 25); background-color: rgba(250, 234, 204, .94); border-radius: 32px; border-width: 3px; border-color: rgb(179, 135, 76); }
+.jo-close { position: absolute; right: 15px; top: 6px; width: 72px; height: 72px; background-color: transparent; border-width: 0; color: rgb(88, 54, 27); font-size: 62px; }
+.jo-close:hover { color: rgb(169, 62, 36); scale: 1.08; }
+.jo-counter { font-size: 23px; color: rgb(108, 111, 58); margin-bottom: 4px; }
+.jo-title { font-size: 43px; -unity-font-style: bold; white-space: normal; margin-right: 40px; -unity-font-definition: url('../../07_Art/Fonts/LuckiestGuy-Regular.ttf'); }
+.jo-bubble { margin-top: 12px; padding: 12px 22px; background-color: rgb(255, 246, 222); border-radius: 20px; border-bottom-left-radius: 3px; border-bottom-width: 3px; border-bottom-color: rgb(215, 190, 146); }
+.jo-name { color: rgb(110, 119, 57); font-size: 23px; -unity-font-style: bold; margin-bottom: 3px; }
+.jo-speech { font-size: 29px; white-space: normal; }
+.jo-hint { font-size: 24px; white-space: normal; -unity-text-align: middle-center; color: rgb(96, 105, 48); margin: 12px 0 0; }
+.jo-choices { flex-direction: row; justify-content: space-around; align-items: center; min-height: 170px; flex-grow: 1; }
+.jo-token { width: 170px; height: 170px; background-color: transparent; border-width: 0; color: rgb(71, 41, 20); font-size: 40px; -unity-font-style: bold; -unity-text-align: lower-center; padding-bottom: 19px; align-items: center; transition-property: scale; transition-duration: .15s; }
+.jo-token:hover { scale: 1.06; }
+.jo-token.jo-selected { scale: 1.08; background-color: rgba(141, 164, 63, .35); border-radius: 90px; }
+.jo-token-wood { position: absolute; left: 0; top: 0; width: 170px; height: 170px; }
+.jo-step-mark { position: absolute; top: 19px; width: 94px; height: 85px; }
+.jo-demo { min-height: 70px; height: 78px; justify-content: flex-end; margin: 0 10px 18px; }
+.jo-second-page .jo-demo { flex-grow: 1; min-height: 180px; }
+.jo-path { flex-direction: row; height: 66px; }
+.jo-tile { width: 16.6667%; background-color: rgb(215, 201, 173); border-width: 2px; border-bottom-width: 7px; border-color: rgb(163, 139, 102); border-radius: 14px; color: rgb(120, 102, 73); -unity-text-align: lower-center; font-size: 22px; padding-bottom: 3px; margin-right: 2px; flex-shrink: 1; }
+.jo-tile.jo-lit { background-color: rgb(255, 221, 116); border-color: rgb(210, 169, 65); border-top-color: rgb(255, 247, 214); }
+.jo-goblin { position: absolute; bottom: 35px; width: 16.6667%; height: 140px; margin: 0; background-color: transparent; background-image: url('../../07_Art/UI/GlimblehopMenu/avatar.png'); background-size: contain; background-repeat: no-repeat; background-position: center; border-width: 0; }
+.jo-goblin:hover { scale: 1.08; }
+.jo-goblin:disabled { opacity: 1; }
+.jo-navigation { flex-direction: row; justify-content: space-between; }
+.jo-navigation .gh-button { width: 47%; height: 85px; font-size: 27px; margin: 0; }
+.jo-navigation .gh-primary { width: 49%; height: 85px; font-size: 27px; }
+
+.jo-token-number { position: absolute; bottom: 23px; left: 0; right: 0; font-size: 38px; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(71, 41, 20); }

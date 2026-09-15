@@ -32,6 +32,7 @@ public class MainMenuController : MonoBehaviour
     private VisualElement root;
     private MenuAmbientView ambientView;
     private MenuLocalization localization;
+    private JoTutorialView joTutorial;
     private string feedbackStatusSource = FeedbackDefaultStatus;
     private bool feedbackStatusError;
     private string T(string source) => localization?.T(source) ?? source;
@@ -113,6 +114,7 @@ public class MainMenuController : MonoBehaviour
         RegisterPanel("MenuPanel");
         RegisterPanel("SettingsPanel");
         RegisterPanel("LegalPanel");
+        RegisterPanel("JoTutorialPanel");
         RegisterPanel("UpgradeShopPanel");
         RegisterPanel("ChestOpenPanel");
         RegisterPanel("ChestShopPanel");
@@ -154,6 +156,7 @@ public class MainMenuController : MonoBehaviour
         MenuButtonIcon.Attach(root.Q<Button>("btnLong"), false);
         MenuButtonIcon.Attach(root.Q<Button>("btnTutorial"), true);
         localization = new MenuLocalization(root, RefreshLanguage);
+        joTutorial = new JoTutorialView(root.Q("JoTutorialPanel"), T, () => ShowPanel("MenuPanel"));
         RegisterButton("btnExperimental", () => SelectModeAndLoad(experimentalPreset));
         RegisterButton("btnUpgrades", OpenUpgradeShop);
         RegisterButton("btnCloseUpgrades", CloseUpgradeShop);
@@ -250,6 +253,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        joTutorial?.Dispose();
         localization?.Dispose();
         foreach (var binding in modalBindings) binding.Dispose();
         foreach (var job in panelHideJobs.Values) job.Pause();
@@ -321,6 +325,8 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
+        if (currentPanel?.name == "JoTutorialPanel") joTutorial?.CancelAnimation();
+        if (settingsButton != null) settingsButton.style.visibility = panelName == "JoTutorialPanel" ? Visibility.Hidden : Visibility.Visible;
         bool openingSettings = panelName == "SettingsPanel";
         bool openingMenuOverlay = openingSettings || panelName == "LegalPanel";
         if (currentPanel != null && !(openingMenuOverlay && currentPanel.name == "MenuPanel"))
@@ -470,6 +476,13 @@ public class MainMenuController : MonoBehaviour
         if (ScreenTransition.IsBusy) { evt?.StopImmediatePropagation(); return; }
         if (evt == null)
             return;
+
+        if (evt.keyCode == KeyCode.Escape && currentPanel?.name == "JoTutorialPanel")
+        {
+            joTutorial.Exit();
+            evt.StopPropagation();
+            return;
+        }
 
         if (evt.keyCode == KeyCode.Escape && currentPanel?.name == "LegalPanel")
         {
@@ -801,13 +814,8 @@ public class MainMenuController : MonoBehaviour
 
     private void HandleTutorialSelected()
     {
-        if (!TutorialFlow.RequiresReplayConfirmation())
-        {
-            TutorialFlow.EnterTutorial(tutorialPreset);
-            return;
-        }
-
-        OpenTutorialReplayConfirmation();
+        joTutorial.Reset();
+        ShowPanel("JoTutorialPanel");
     }
 
     private void InitializeTutorialReplayConfirmation()

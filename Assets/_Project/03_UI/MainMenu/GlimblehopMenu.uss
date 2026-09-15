@@ -246,6 +246,8 @@
 #btnLegalDone { flex-shrink: 0; }
 .gh-legal-body { white-space: normal; font-size: 24px; margin: 8px 10px 24px 0; }
 .gh-legal-note { font-size: 20px; color: rgb(113, 87, 53); }
+.locale-ru #LegalPanel .gh-settings-title { font-size: 32px; white-space: normal; }
+#LegalPanel .gh-section-heading { white-space: normal; }
 
 /* Chunky sound controls, shared by all three menu languages. */
 #SettingsWindow {

@@ -25,11 +25,14 @@ internal sealed class MenuLocalization : IDisposable
         this.changed = changed;
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
         Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
-        var asset = Resources.Load<TextAsset>("Localization/menu");
-        if (asset != null)
-            foreach (var entry in JsonUtility.FromJson<Catalog>(asset.text).entries)
-                entries.Add(entry.en, entry);
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal" })
+        foreach (var catalogName in new[] { "menu", "legal", "tutorial" })
+        {
+            var asset = Resources.Load<TextAsset>("Localization/" + catalogName);
+            if (asset != null)
+                foreach (var entry in JsonUtility.FromJson<Catalog>(asset.text).entries)
+                    entries[entry.en] = entry;
+        }
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel" })
         {
             var panel = root.Q(scope);
             if (panel == null) continue;
@@ -78,11 +81,17 @@ internal sealed class MenuLocalization : IDisposable
             bodyFont ??= Resources.Load<Font>("Localization/NotoSansCJKsc-Regular");
             russianFont ??= Resources.Load<Font>("Localization/RobotoSlab");
         }
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal" })
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel" })
         {
             var panel = root.Q(scope);
             if (panel == null) continue;
             panel.style.unityFontDefinition = Language == 0 ? new StyleFontDefinition(StyleKeyword.Null) : new StyleFontDefinition(FontDefinition.FromFont(bodyFont));
+            // A font assigned to a label in USS overrides the panel's inherited font.
+            // Assign the bundled font on each text element: player builds must not rely on OS fallbacks.
+            panel.Query<TextElement>().ForEach(element =>
+                element.style.unityFontDefinition = Language == 0
+                    ? new StyleFontDefinition(StyleKeyword.Null)
+                    : new StyleFontDefinition(FontDefinition.FromFont(bodyFont)));
         }
         foreach (string id in new[] { "btnLong", "btnTutorial" })
         {

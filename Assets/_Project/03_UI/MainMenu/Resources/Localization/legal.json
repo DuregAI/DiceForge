@@ -1,0 +1,94 @@
+{
+  "entries": [
+    {
+      "en": "LEGAL",
+      "ru": "ПРАВОВАЯ ИНФОРМАЦИЯ",
+      "zh": "法律信息"
+    },
+    {
+      "en": "TERMS OF USE",
+      "ru": "УСЛОВИЯ ИСПОЛЬЗОВАНИЯ",
+      "zh": "使用条款"
+    },
+    {
+      "en": "You may install and play a lawfully obtained copy of Glimblehop for personal, non-commercial use, subject to applicable law and the distribution platform's terms. The game is licensed, not sold. Rights in the game and its content remain with their respective owners.",
+      "ru": "Вы можете установить законно полученную копию Glimblehop и играть в личных некоммерческих целях с соблюдением применимого законодательства и условий платформы распространения. Игра предоставляется по лицензии, а не продаётся. Права на игру и её содержимое сохраняются за соответствующими правообладателями.",
+      "zh": "您可以安装合法取得的 Glimblehop 副本并用于个人非商业娱乐，但须遵守适用法律及发行平台的条款。游戏以许可方式提供，而非出售。游戏及其内容的权利归各自权利人所有。"
+    },
+    {
+      "en": "Do not disrupt online services, gain unauthorized access, distribute malicious software, or submit unlawful or abusive content. Do not redistribute game assets without permission, except where permitted by law or the applicable license.",
+      "ru": "Не нарушайте работу онлайн-сервисов, не получайте несанкционированный доступ, не распространяйте вредоносное ПО и не отправляйте незаконные или оскорбительные материалы. Не распространяйте игровые материалы без разрешения, кроме случаев, допускаемых законом или соответствующей лицензией.",
+      "zh": "请勿干扰在线服务、未经授权获取访问权限、传播恶意软件，或提交违法或侮辱性内容。未经许可，请勿再分发游戏素材，法律或相关许可允许的情况除外。"
+    },
+    {
+      "en": "This is a development build. Features and online availability may change, and progress may be lost or reset. To the extent permitted by law, the build is provided as available without a guarantee that it will be uninterrupted or error-free. Nothing in these terms excludes mandatory consumer rights or liability that cannot lawfully be excluded.",
+      "ru": "Это версия игры в разработке. Функции и доступность онлайн-сервисов могут изменяться, а прогресс может быть утрачен или сброшен. В пределах, допускаемых законом, эта версия предоставляется по мере доступности без гарантии бесперебойной или безошибочной работы. Эти условия не исключают обязательные права потребителя или ответственность, которую нельзя исключить по закону.",
+      "zh": "这是开发中的版本。功能和在线服务的可用性可能发生变化，进度也可能丢失或重置。在法律允许的范围内，本版本按可用状态提供，不保证服务不中断或不存在错误。本条款不排除法定消费者权利或依法不得免除的责任。"
+    },
+    {
+      "en": "You may stop using the game at any time. Any mandatory purchase or refund rights and the relevant store's terms continue to apply. Material changes to these terms will be identified in an updated notice; any agreement required by law will be requested separately.",
+      "ru": "Вы можете прекратить использование игры в любой момент. Обязательные права при покупке и возврате средств, а также условия соответствующего магазина продолжают действовать. Существенные изменения этих условий будут отражены в обновлённом уведомлении; согласие, требуемое законом, будет запрошено отдельно.",
+      "zh": "您可以随时停止使用游戏。法定购买或退款权利以及相关商店的条款仍然适用。本条款的重大变更将在更新后的通知中说明；法律要求的同意将另行征求。"
+    },
+    {
+      "en": "PRIVACY POLICY",
+      "ru": "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ",
+      "zh": "隐私政策"
+    },
+    {
+      "en": "Local data. The game stores progress, player identifiers, preferences and audio settings on your device. Removing local application data can erase progress and settings. Resetting a campaign does not necessarily remove other stored data or records already sent to a server.",
+      "ru": "Локальные данные. Игра хранит на вашем устройстве прогресс, идентификаторы игрока, предпочтения и настройки звука. Удаление локальных данных приложения может привести к потере прогресса и настроек. Сброс кампании не обязательно удаляет другие сохранённые данные или записи, уже отправленные на сервер.",
+      "zh": "本地数据。游戏会在您的设备上存储游戏进度、玩家标识符、偏好和音频设置。删除应用的本地数据可能导致进度和设置丢失。重置战役不一定会删除其他已存储的数据或已发送到服务器的记录。"
+    },
+    {
+      "en": "Online data. When connected, the game can send session identifiers, session times and duration, build version, platform, operating system, CPU and GPU names, screen dimensions, frame-rate and performance measurements, and battle counts. Online features can also send player-name changes and music events or votes.",
+      "ru": "Онлайн-данные. При подключении игра может отправлять идентификаторы сеансов, время и длительность сеансов, версию сборки, платформу, операционную систему, названия процессора и видеокарты, размеры экрана, показатели частоты кадров и производительности, а также число боёв. Онлайн-функции также могут отправлять изменения имени игрока, музыкальные события или голоса.",
+      "zh": "在线数据。连接时，游戏可能发送会话标识符、会话时间和时长、构建版本、平台、操作系统、CPU 和 GPU 名称、屏幕尺寸、帧率与性能测量数据以及战斗次数。在线功能还可能发送玩家名称变更、音乐事件或投票。"
+    },
+    {
+      "en": "Feedback. If you send feedback, the submission includes your message and category, feedback identifier and timestamp, player and session identifiers, player name, build version and scene. Please do not include passwords, payment details or sensitive personal information.",
+      "ru": "Обратная связь. При отправке отзыва передаются сообщение и его категория, идентификатор и время отзыва, идентификаторы игрока и сеанса, имя игрока, версия сборки и сцена. Не указывайте пароли, платёжные реквизиты или чувствительные персональные данные.",
+      "zh": "反馈。您发送反馈时，提交内容包括消息及其类别、反馈标识符和时间戳、玩家与会话标识符、玩家名称、构建版本和场景。请勿提供密码、支付信息或敏感个人信息。"
+    },
+    {
+      "en": "Purposes. Local storage supports gameplay and remembers your settings. Online records support connected features and help investigate performance and bugs. Feedback records help review and respond to reports. Opening this notice does not itself provide consent to data processing.",
+      "ru": "Цели. Локальное хранение обеспечивает игровой процесс и сохранение настроек. Онлайн-записи поддерживают сетевые функции и помогают исследовать производительность и ошибки. Отзывы используются для рассмотрения сообщений и ответа на них. Само открытие этого уведомления не означает согласия на обработку данных.",
+      "zh": "用途。本地存储用于支持游戏运行并记住您的设置。在线记录用于支持联网功能，并帮助调查性能和错误。反馈记录用于查看并回应反馈。仅打开本通知并不表示您同意数据处理。"
+    },
+    {
+      "en": "Your rights. Depending on your location and applicable law, you may request access, correction, deletion or a copy of your personal data, object to or restrict processing, and withdraw consent where processing relies on consent. You may also complain to your local data protection authority. Proportionate identity verification may be needed to process a request.",
+      "ru": "Ваши права. В зависимости от вашего местонахождения и применимого законодательства вы можете запросить доступ, исправление, удаление или копию персональных данных, возразить против обработки или ограничить её, а также отозвать согласие, если обработка основана на согласии. Вы также можете подать жалобу в местный орган по защите данных. Для обработки запроса может потребоваться соразмерная проверка личности.",
+      "zh": "您的权利。根据您所在地区和适用法律，您可以请求访问、更正、删除或获取个人数据副本，反对或限制数据处理，并在处理以同意为依据时撤回同意。您也可以向当地数据保护主管部门投诉。处理请求时可能需要进行适度的身份核验。"
+    },
+    {
+      "en": "Children. Do not submit personal information about children through feedback.",
+      "ru": "Дети. Не отправляйте персональные данные детей через форму обратной связи.",
+      "zh": "儿童。请勿通过反馈表提交儿童的个人信息。"
+    },
+    {
+      "en": "Updates. This notice will be updated when data practices change. Material changes and any choices required by applicable law will be communicated before the relevant new processing begins.",
+      "ru": "Обновления. Это уведомление будет обновляться при изменении порядка работы с данными. О существенных изменениях и вариантах выбора, требуемых законом, будет сообщено до начала соответствующей новой обработки.",
+      "zh": "更新。数据处理方式发生变化时，本通知将相应更新。在相关的新处理开始之前，我们将告知重大变更以及适用法律要求提供的选择。"
+    },
+    {
+      "en": "THIRD-PARTY NOTICES",
+      "ru": "СТОРОННИЕ КОМПОНЕНТЫ",
+      "zh": "第三方声明"
+    },
+    {
+      "en": "Built with Unity. Online integration uses SpacetimeDB. Third-party software, fonts and assets remain subject to their respective licenses. Their names identify technology used by the game and do not imply endorsement.",
+      "ru": "Игра создана с использованием Unity. Онлайн-интеграция использует SpacetimeDB. Сторонние программы, шрифты и материалы регулируются соответствующими лицензиями. Их названия указывают на используемые технологии и не означают одобрения игры.",
+      "zh": "本游戏使用 Unity 制作。在线集成使用 SpacetimeDB。第三方软件、字体和素材仍受各自许可的约束。其名称用于标明游戏使用的技术，并不表示其对本游戏的认可或支持。"
+    },
+    {
+      "en": "BACK",
+      "ru": "НАЗАД",
+      "zh": "返回"
+    },
+    {
+      "en": "Close legal information",
+      "ru": "Закрыть правовую информацию",
+      "zh": "关闭法律信息"
+    }
+  ]
+}

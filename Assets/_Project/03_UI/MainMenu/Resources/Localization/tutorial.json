@@ -1,0 +1,74 @@
+{
+  "entries": [
+    {
+      "en": "CHOOSE A STEP",
+      "ru": "ВЫБЕРИ ШАГ",
+      "zh": "选择步数"
+    },
+    {
+      "en": "CHOOSE A GOBLIN",
+      "ru": "ВЫБЕРИ ГОБЛИНА",
+      "zh": "选择哥布林"
+    },
+    {
+      "en": "Hi! I’m Jo. Pick a token: its number tells you how many spaces your goblin will move.",
+      "ru": "Привет! Я Джо. Выбери жетон: число показывает, на сколько клеток пойдёт твой гоблин.",
+      "zh": "你好！我是 Jo。选择一个步数牌，数字表示哥布林要前进的格数。"
+    },
+    {
+      "en": "Now tap the goblin. The glowing stones show your route.",
+      "ru": "Теперь нажми на гоблина. Светящиеся клетки показывают путь.",
+      "zh": "现在点击哥布林。发光的石块就是前进路线。"
+    },
+    {
+      "en": "Nicely done! Choose a step, then choose a goblin. That’s the idea!",
+      "ru": "Отлично! Выбираешь шаг, затем гоблина. Вот и весь секрет!",
+      "zh": "做得好！先选步数，再选哥布林。就是这么简单！"
+    },
+    {
+      "en": "Try any token.",
+      "ru": "Нажми на любой жетон.",
+      "zh": "试着点击任意步数牌。"
+    },
+    {
+      "en": "NEXT",
+      "ru": "ДАЛЕЕ",
+      "zh": "下一步"
+    },
+    {
+      "en": "BACK TO MENU",
+      "ru": "В МЕНЮ",
+      "zh": "返回主菜单"
+    },
+    {
+      "en": "Tap the goblin to try your move.",
+      "ru": "Нажми на гоблина, чтобы попробовать ход.",
+      "zh": "点击哥布林，试试这一步。"
+    },
+    {
+      "en": "Ready for an adventure!",
+      "ru": "Можно отправляться в путь!",
+      "zh": "准备好出发啦！"
+    },
+    {
+      "en": "STEP",
+      "ru": "ШАГ",
+      "zh": "慢走"
+    },
+    {
+      "en": "DASH",
+      "ru": "РАЗБЕГ",
+      "zh": "快跑"
+    },
+    {
+      "en": "HOP",
+      "ru": "ПРЫЖОК",
+      "zh": "跳跃"
+    },
+    {
+      "en": "Pick a token. Its number is how many spaces you move.",
+      "ru": "Выбери жетон. Число — сколько клеток пройдёт гоблин.",
+      "zh": "选择步数牌。数字就是前进的格数。"
+    }
+  ]
+}

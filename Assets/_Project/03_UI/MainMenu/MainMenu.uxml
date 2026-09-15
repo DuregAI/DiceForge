@@ -7,6 +7,7 @@
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss?fileID=7433441132597879392&amp;guid=b93333b4e289421c8f7e6d002f6b7d55&amp;type=3#Components"/>
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
     <Style src="GlimblehopMenu.uss"/>
+    <Style src="JoTutorial.uss"/>
     <ui:VisualElement name="Root" class="gh-core-menu">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -33,6 +34,33 @@
                 <ui:Button name="btnMenuAudio" class="gh-audio" tooltip="Mute audio"/>
                 <ui:Button name="btnLanguage" class="gh-language" tooltip="English · Русский · 简体中文"/>
                 <ui:Button name="btnLegal" text="Legal" class="gh-legal-link" tooltip="Legal and build information"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="JoTutorialPanel" class="jo-overlay">
+            <ui:VisualElement class="jo-book">
+                <ui:VisualElement class="jo-portrait" picking-mode="Ignore"/>
+                <ui:VisualElement class="jo-page">
+                    <ui:Button name="JoClose" text="×" class="jo-close"/>
+                    <ui:Label name="JoCounter" class="jo-counter"/>
+                    <ui:Label name="JoTitle" class="jo-title"/>
+                    <ui:VisualElement class="jo-bubble"><ui:Label text="JO" class="jo-name"/><ui:Label name="JoSpeech" class="jo-speech"/></ui:VisualElement>
+                    <ui:Label name="JoHint" class="jo-hint"/>
+                    <ui:VisualElement name="JoChoices" class="jo-choices">
+                        <ui:Button name="JoStep1" text="1" class="jo-token"/>
+                        <ui:Button name="JoStep3" text="3" class="jo-token"/>
+                        <ui:Button name="JoStep5" text="5" class="jo-token"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="JoDemo" class="jo-demo">
+                        <ui:VisualElement name="JoPath" class="jo-path">
+                            <ui:Label text="0" class="jo-tile"/><ui:Label text="1" class="jo-tile"/><ui:Label text="2" class="jo-tile"/><ui:Label text="3" class="jo-tile"/><ui:Label text="4" class="jo-tile"/><ui:Label text="5" class="jo-tile"/>
+                        </ui:VisualElement>
+                        <ui:Button name="JoGoblin" class="jo-goblin"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="jo-navigation">
+                        <ui:Button name="JoBack" text="BACK" class="gh-button"/>
+                        <ui:Button name="JoNext" class="gh-button gh-primary"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SettingsPanel" class="settings-overlay gh-settings-overlay">
