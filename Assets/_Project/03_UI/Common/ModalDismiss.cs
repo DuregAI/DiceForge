@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Diceforge.UI
@@ -17,6 +18,8 @@ namespace Diceforge.UI
             this.window = window;
             this.close = close;
             if (overlay == null || window == null) return;
+            var chrome = Resources.Load<StyleSheet>("ModalChrome");
+            if (chrome != null && !overlay.styleSheets.Contains(chrome)) overlay.styleSheets.Add(chrome);
             overlay.RegisterCallback<PointerDownEvent>(OnDown, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerUpEvent>(OnUp, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerCancelEvent>(OnCancel);
@@ -26,6 +29,11 @@ namespace Diceforge.UI
         {
             var overlay = root?.Q(overlayName);
             var button = overlay?.Q<Button>(buttonName);
+            if (button != null && buttonName.IndexOf("Close", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                button.AddToClassList("df-modal-close");
+                if (button.text == "×" || button.text == "✕") button.AddToClassList("df-modal-close-icon");
+            }
             VisualElement window = button;
             while (window != null && window.parent != overlay) window = window.parent;
             return new ModalDismiss(overlay, window, () =>

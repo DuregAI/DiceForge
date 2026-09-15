@@ -53,7 +53,6 @@ public class MainMenuController : MonoBehaviour
     private Label feedbackStatusLabel;
     private Button feedbackSubmitButton;
     private Button feedbackCancelButton;
-    private VisualElement copyLogTooltip;
     private readonly Dictionary<string, VisualElement> panels = new();
     private VisualElement currentPanel;
     private bool isSettingsOpen;
@@ -97,7 +96,6 @@ public class MainMenuController : MonoBehaviour
         sfxSlider = root.Q<Slider>("sliderSfxVolume");
         settingsButton = root.Q<Button>("btnSettings");
         copyLogButton = root.Q<Button>("btnCopyLog");
-        copyLogTooltip = root.Q<VisualElement>("copyLogTooltip");
         openFeedbackButton = root.Q<Button>("btnOpenFeedback");
         upgradesButton = root.Q<Button>("btnUpgrades");
         feedbackModal = root.Q<VisualElement>("FeedbackModal");
@@ -173,7 +171,6 @@ public class MainMenuController : MonoBehaviour
 
         InitializeAboutSection();
         InitializeAudioSliders();
-        InitializeCopyLogTooltip();
         InitializeFeedbackForm();
         InitializeTutorialReplayConfirmation();
         UpdateSettingsButtonState(isSettingsOpen);
@@ -415,10 +412,11 @@ public class MainMenuController : MonoBehaviour
         var settingsMute = root.Q<Button>("btnSettingsMute");
         if (settingsMute != null)
         {
-            settingsMute.text = T(muted ? "MUTED" : "SOUND ON");
+            settingsMute.text = string.Empty;
             settingsMute.EnableInClassList("is-muted", muted);
             settingsMute.tooltip = button.tooltip;
         }
+        root.Q("SettingsAudioControls")?.EnableInClassList("is-muted", muted);
         var soundHint = root.Q<Label>("settingsSoundHint");
         if (soundHint != null)
             soundHint.text = T(muted ? "Sound is muted. Your volume levels are saved." : "A little woodland ambience.");
@@ -537,18 +535,6 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    private void InitializeCopyLogTooltip()
-    {
-        if (copyLogButton == null || copyLogTooltip == null)
-        {
-            return;
-        }
-
-        copyLogTooltip.style.display = DisplayStyle.None;
-        copyLogButton.RegisterCallback<MouseEnterEvent>(_ => copyLogTooltip.style.display = DisplayStyle.Flex);
-        copyLogButton.RegisterCallback<MouseLeaveEvent>(_ => copyLogTooltip.style.display = DisplayStyle.None);
-    }
-
     private void InitializeFeedbackForm()
     {
         if (feedbackModal != null)
@@ -659,8 +645,8 @@ public class MainMenuController : MonoBehaviour
 
         feedbackStatusLabel.text = string.Format(T(message) ?? string.Empty, SpacetimeDbFeedbackSink.MaxMessageLength);
         feedbackStatusLabel.style.color = isError
-            ? new StyleColor(new Color(1f, 0.68f, 0.68f, 1f))
-            : new StyleColor(new Color(0.96f, 0.92f, 0.69f, 1f));
+            ? new StyleColor(new Color(0.65f, 0.16f, 0.10f, 1f))
+            : new StyleColor(new Color(0.35f, 0.27f, 0.16f, 1f));
     }
 
     private void InitializeAudioSliders()
@@ -668,11 +654,13 @@ public class MainMenuController : MonoBehaviour
         if (musicSlider != null)
         {
             musicSlider.RegisterValueChangedCallback(OnMusicSliderChanged);
+            InitializeVolumeFill(musicSlider);
         }
 
         if (sfxSlider != null)
         {
             sfxSlider.RegisterValueChangedCallback(OnSfxSliderChanged);
+            InitializeVolumeFill(sfxSlider);
         }
 
         RefreshAudioSlidersFromManager();
@@ -684,7 +672,9 @@ public class MainMenuController : MonoBehaviour
             ? AudioManager.Instance
             : FindAnyObjectByType<AudioManager>();
 
+        UnmuteFromSlider();
         audioManager?.SetMusicVolume(evt.newValue);
+        UpdateVolumeFill(musicSlider, evt.newValue);
     }
 
     private void OnSfxSliderChanged(ChangeEvent<float> evt)
@@ -693,7 +683,9 @@ public class MainMenuController : MonoBehaviour
             ? AudioManager.Instance
             : FindAnyObjectByType<AudioManager>();
 
+        UnmuteFromSlider();
         audioManager?.SetSfxVolume(evt.newValue);
+        UpdateVolumeFill(sfxSlider, evt.newValue);
     }
 
     private void HandleAudioVolumesChanged(float musicVolume, float sfxVolume)
@@ -728,10 +720,36 @@ public class MainMenuController : MonoBehaviour
 
     private void RefreshSettingsVolumeLabels(float music, float sfx)
     {
-        var musicValue = root?.Q<Label>("settingsMusicValue");
-        var sfxValue = root?.Q<Label>("settingsSfxValue");
-        if (musicValue != null) musicValue.text = $"{Mathf.RoundToInt(music * 100f)}%";
-        if (sfxValue != null) sfxValue.text = $"{Mathf.RoundToInt(sfx * 100f)}%";
+        UpdateVolumeFill(musicSlider, music);
+        UpdateVolumeFill(sfxSlider, sfx);
+    }
+
+    private void InitializeVolumeFill(Slider slider)
+    {
+        var tracker = slider.Q(className: "unity-base-slider__tracker");
+        if (tracker != null && tracker.Q("VolumeFill") == null)
+        {
+            var fill = new VisualElement { name = "VolumeFill", pickingMode = PickingMode.Ignore };
+            fill.AddToClassList("gh-volume-fill");
+            tracker.Add(fill);
+        }
+        slider.RegisterCallback<PointerDownEvent>(evt =>
+        {
+            if (evt.button == 0) UnmuteFromSlider();
+        }, TrickleDown.TrickleDown);
+        UpdateVolumeFill(slider, slider.value);
+    }
+
+    private void UnmuteFromSlider()
+    {
+        audioManager ??= AudioManager.Instance;
+        if (audioManager != null && audioManager.IsMuted) audioManager.SetMuted(false);
+    }
+
+    private static void UpdateVolumeFill(Slider slider, float value)
+    {
+        var fill = slider?.Q("VolumeFill");
+        if (fill != null) fill.style.width = Length.Percent(Mathf.InverseLerp(slider.lowValue, slider.highValue, value) * 100f);
     }
 
     private void CopyLogToClipboard()

@@ -39,28 +39,19 @@
             <ui:VisualElement name="SettingsWindow" class="gh-settings-window">
                 <ui:Button name="btnCloseSettings" text="×" tooltip="Close settings" class="gh-settings-close"/>
                 <ui:Label text="SETTINGS" class="gh-settings-title"/>
-                <ui:Label text="Make yourself at home." class="gh-settings-subtitle"/>
-                <ui:VisualElement class="gh-sound-heading">
-                    <ui:Label text="SOUND" class="gh-section-heading"/>
-                    <ui:Button name="btnSettingsMute" text="SOUND ON" class="gh-mute-switch"/>
+                <ui:VisualElement name="SettingsSoundBlock" class="gh-sound-block">
+                    <ui:Button name="btnSettingsMute" class="gh-speaker" tooltip="Mute audio"/>
+                    <ui:VisualElement name="SettingsAudioControls" class="gh-audio-controls">
+                        <ui:Label text="Music" class="gh-audio-label"/>
+                        <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
+                        <ui:Label text="Sound effects" class="gh-audio-label"/>
+                        <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement class="gh-volume-heading">
-                    <ui:Label text="Music"/>
-                    <ui:Label name="settingsMusicValue" text="70%"/>
-                </ui:VisualElement>
-                <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
-                <ui:VisualElement class="gh-volume-heading">
-                    <ui:Label text="Sound effects"/>
-                    <ui:Label name="settingsSfxValue" text="70%"/>
-                </ui:VisualElement>
-                <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
-                <ui:Label name="settingsSoundHint" text="A little woodland ambience." class="gh-settings-hint"/>
-                <ui:VisualElement class="gh-settings-divider"/>
                 <ui:VisualElement class="gh-settings-actions">
-                    <ui:Button name="btnCopyLog" text="COPY LOG" tooltip="Copy diagnostic information to clipboard" class="gh-button"/>
+                    <ui:Button name="btnCopyLog" text="COPY LOG" class="gh-button"/>
                     <ui:Button name="btnOpenFeedback" text="FEEDBACK" class="gh-button"/>
                 </ui:VisualElement>
-                <ui:Label name="copyLogTooltip" text="Copy diagnostic information" class="gh-settings-hint"/>
                 <ui:VisualElement class="gh-settings-build">
                     <ui:Label name="lblAboutVersion" text="Version"/>
                     <ui:Label name="lblBuildInfo" text="Build: dev"/>
@@ -72,10 +63,7 @@
             <ui:VisualElement class="gh-legal-window">
                 <ui:Button name="btnCloseLegal" text="×" tooltip="Close legal information" class="gh-settings-close"/>
                 <ui:Label text="LEGAL" class="gh-settings-title"/>
-                <ui:Label text="Glimblehop · Development build" class="gh-settings-subtitle"/>
                 <ui:ScrollView class="gh-legal-scroll" mode="Vertical">
-                    <ui:Label text="DRAFT · 13 SEPTEMBER 2026" class="gh-section-heading"/>
-                    <ui:Label text="Terms of Use and Privacy Policy for the development build. This draft must be completed before public release. Operator: [LEGAL NAME AND ADDRESS]. Contact: [SUPPORT / PRIVACY EMAIL]." class="gh-legal-body gh-legal-note"/>
                     <ui:Label text="TERMS OF USE" class="gh-section-heading"/>
                     <ui:Label text="You may install and play a lawfully obtained copy of Glimblehop for personal, non-commercial use, subject to applicable law and the distribution platform's terms. The game is licensed, not sold. Rights in the game and its content remain with their respective owners." class="gh-legal-body"/>
                     <ui:Label text="Do not disrupt online services, gain unauthorized access, distribute malicious software, or submit unlawful or abusive content. Do not redistribute game assets without permission, except where permitted by law or the applicable license." class="gh-legal-body"/>
@@ -86,12 +74,11 @@
                     <ui:Label text="Online data. When connected, the game can send session identifiers, session times and duration, build version, platform, operating system, CPU and GPU names, screen dimensions, frame-rate and performance measurements, and battle counts. Online features can also send player-name changes and music events or votes." class="gh-legal-body"/>
                     <ui:Label text="Feedback. If you send feedback, the submission includes your message and category, feedback identifier and timestamp, player and session identifiers, player name, build version and scene. Please do not include passwords, payment details or sensitive personal information." class="gh-legal-body"/>
                     <ui:Label text="Purposes. Local storage supports gameplay and remembers your settings. Online records support connected features and help investigate performance and bugs. Feedback records help review and respond to reports. Opening this notice does not itself provide consent to data processing." class="gh-legal-body"/>
-                    <ui:Label text="Operator details to complete: [APPLICABLE LEGAL BASIS FOR EACH PURPOSE]; [HOSTING PROVIDERS, RECIPIENTS AND ANY PUBLIC VISIBILITY]; [STORAGE COUNTRIES AND TRANSFER SAFEGUARDS]; [RETENTION PERIODS AND DELETION PROCESS]. These details are not yet confirmed for a public service." class="gh-legal-body gh-legal-note"/>
-                    <ui:Label text="Your rights. Depending on your location and applicable law, you may request access, correction, deletion or a copy of your personal data, object to or restrict processing, and withdraw consent where processing relies on consent. You may also complain to your local data protection authority. Contact [PRIVACY EMAIL] to make a request; proportionate identity verification may be needed." class="gh-legal-body"/>
-                    <ui:Label text="Children. [CONFIRM INTENDED AGE GROUP, RELEASE TERRITORIES AND ANY REQUIRED PARENTAL CONSENT PROCESS BEFORE RELEASE]. Do not submit personal information about children through feedback." class="gh-legal-body"/>
-                    <ui:Label text="Updates. This notice will be updated when data practices change. The revision date appears above. Material changes and any choices required by applicable law will be communicated before the relevant new processing begins." class="gh-legal-body"/>
+                    <ui:Label text="Your rights. Depending on your location and applicable law, you may request access, correction, deletion or a copy of your personal data, object to or restrict processing, and withdraw consent where processing relies on consent. You may also complain to your local data protection authority. Proportionate identity verification may be needed to process a request." class="gh-legal-body"/>
+                    <ui:Label text="Children. Do not submit personal information about children through feedback." class="gh-legal-body"/>
+                    <ui:Label text="Updates. This notice will be updated when data practices change. Material changes and any choices required by applicable law will be communicated before the relevant new processing begins." class="gh-legal-body"/>
                     <ui:Label text="THIRD-PARTY NOTICES" class="gh-section-heading"/>
-                    <ui:Label text="Built with Unity. Online integration uses SpacetimeDB. Third-party software, fonts and assets remain subject to their respective licenses. Their names identify technology used by the game and do not imply endorsement. [ADD THE COMPLETE REQUIRED LICENSE NOTICES BEFORE DISTRIBUTION]." class="gh-legal-body"/>
+                    <ui:Label text="Built with Unity. Online integration uses SpacetimeDB. Third-party software, fonts and assets remain subject to their respective licenses. Their names identify technology used by the game and do not imply endorsement." class="gh-legal-body"/>
                 </ui:ScrollView>
                 <ui:Button name="btnLegalDone" text="BACK" class="gh-button gh-primary gh-settings-done"/>
             </ui:VisualElement>
@@ -329,8 +316,8 @@
                 <ui:TextField name="feedbackMessageField" multiline="true" class="df-input feedback-message-field"/>
                 <ui:Label name="feedbackStatusLabel" text="" class="df-label feedback-status-label"/>
                 <ui:VisualElement class="player-modal-actions feedback-modal-actions">
-                    <ui:Button name="btnFeedbackSubmit" text="Submit" class="df-button df-interactive"/>
-                    <ui:Button name="btnFeedbackCancel" text="Cancel" class="df-button df-interactive"/>
+                    <ui:Button name="btnFeedbackSubmit" text="Submit" class="gh-button gh-primary"/>
+                    <ui:Button name="btnFeedbackCancel" text="Cancel" class="gh-button"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

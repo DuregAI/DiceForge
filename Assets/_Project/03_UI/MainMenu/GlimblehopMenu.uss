@@ -170,7 +170,7 @@
 }
 .gh-settings-subtitle { font-size: 23px; -unity-text-align: middle-center; color: rgb(113, 87, 53); margin-bottom: 26px; }
 .gh-settings-close {
-    position: absolute; right: 54px; top: 72px; width: 56px; height: 56px;
+    position: absolute; right: 44px; top: 62px; width: 76px; height: 76px;
     background-color: rgb(91, 62, 34); border-radius: 28px; border-width: 2px;
     border-color: rgb(186, 142, 79); color: rgb(255, 237, 200); font-size: 37px;
     -unity-text-align: middle-center; padding: 0;
@@ -218,10 +218,107 @@
 #LegalPanel { display: none; background-color: rgba(24, 30, 18, 0.60); }
 .gh-legal-window {
     width: 820px; height: 950px; max-width: 94%; max-height: 96%;
-    padding: 126px 92px 74px 92px;
+    padding: 126px 92px 102px 92px;
     background-image: url("../../07_Art/UI/GlimblehopMenu/settings-panel.png");
     background-size: 100% 100%; color: rgb(65, 43, 25);
 }
-.gh-legal-scroll { flex-grow: 1; flex-shrink: 1; margin: 8px 0 20px 0; }
+.gh-legal-scroll {
+    flex-grow: 1; flex-shrink: 1; min-height: 0; margin: 8px 0 18px 0;
+    padding: 18px 12px 18px 20px;
+    background-color: rgba(255, 237, 201, 0.48);
+    border-radius: 28px; border-width: 0;
+}
+.gh-legal-scroll .unity-scroller--vertical { width: 24px; margin-left: 12px; }
+.gh-legal-scroll .unity-scroller__low-button,
+.gh-legal-scroll .unity-scroller__high-button { display: none; }
+.gh-legal-scroll .unity-base-slider__tracker {
+    left: 5px; margin-left: 0;
+    width: 10px; background-color: rgb(179, 148, 96); border-radius: 5px;
+    border-width: 1px; border-color: rgb(143, 109, 65);
+}
+.gh-legal-scroll .unity-base-slider__dragger {
+    left: 0; margin-left: 0;
+    width: 20px; min-height: 48px; border-radius: 10px;
+    background-color: rgb(106, 119, 52); border-width: 2px; border-color: rgb(75, 83, 35);
+}
+.gh-legal-scroll .unity-base-slider__dragger:hover { background-color: rgb(132, 148, 67); }
+.gh-legal-scroll .unity-base-slider__dragger-border { border-width: 0; }
+#btnLegalDone { flex-shrink: 0; }
 .gh-legal-body { white-space: normal; font-size: 24px; margin: 8px 10px 24px 0; }
 .gh-legal-note { font-size: 20px; color: rgb(113, 87, 53); }
+
+/* Chunky sound controls, shared by all three menu languages. */
+#SettingsWindow {
+    padding-bottom: 100px;
+    -unity-font-definition: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+}
+.locale-ru #SettingsWindow { -unity-font-definition: url("Resources/Localization/RobotoSlab.ttf"); }
+.locale-zh #SettingsWindow { -unity-font-definition: url("Resources/Localization/NotoSansCJKsc-Regular.otf"); }
+.gh-sound-block { flex-direction: row; align-items: center; flex-grow: 1; min-height: 280px; margin: 20px 0 24px 0; }
+.gh-audio-controls { flex-grow: 1; flex-shrink: 1; min-width: 0; transition-property: opacity; transition-duration: 0.15s; }
+.gh-audio-controls.is-muted { opacity: 0.42; }
+.gh-audio-label { font-size: 27px; margin: 6px 0 0 8px; color: rgb(74, 47, 24); }
+.gh-speaker {
+    width: 112px; height: 112px; min-width: 112px; margin: 0 24px 0 0; padding: 0;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/audio-on.png");
+    background-size: contain; background-color: transparent; border-width: 0;
+    transition-property: scale; transition-duration: 0.12s;
+}
+.gh-speaker.is-muted { background-image: url("../../07_Art/UI/GlimblehopMenu/audio-off.png"); }
+.gh-speaker:hover { scale: 1.06 1.06; }
+.gh-speaker:active { scale: 0.96 0.96; }
+#SettingsWindow .gh-slider { height: 78px; margin: 0 6px 18px 6px; }
+#SettingsWindow .gh-slider .unity-base-slider__tracker {
+    height: 22px; border-radius: 8px; overflow: hidden;
+    background-color: rgb(188, 153, 99); border-width: 3px; border-color: rgb(119, 81, 39);
+}
+.gh-volume-fill { position: absolute; left: 0; top: 0; bottom: 0; background-color: rgb(119, 146, 55); border-radius: 5px; border-top-width: 3px; border-top-color: rgb(173, 189, 91); }
+#SettingsWindow .gh-slider .unity-base-slider__dragger {
+    width: 48px; height: 48px; border-radius: 19px;
+    background-color: rgb(255, 226, 160); border-width: 5px;
+    border-left-color: rgb(166, 115, 53); border-top-color: rgb(218, 174, 91);
+    border-right-color: rgb(115, 77, 36); border-bottom-color: rgb(115, 77, 36);
+}
+#SettingsWindow .gh-slider:hover .unity-base-slider__dragger { background-color: rgb(255, 240, 193); }
+#SettingsWindow .gh-settings-build { margin: 22px 0; }
+#SettingsWindow .gh-settings-build Label { font-size: 22px; }
+#SettingsWindow .gh-settings-actions .gh-button { font-size: 21px; }
+.locale-ru #SettingsWindow .gh-settings-actions .gh-button { font-size: 19px; }
+
+/* Final alignment and a quieter speaker against the pale wood. */
+.gh-speaker { translate: 0 10px; opacity: 0.86; scale: 0.94 0.94; }
+.gh-speaker:hover { opacity: 1; scale: 1 1; }
+#SettingsWindow .gh-slider .unity-base-slider__dragger { translate: 0 -2px; }
+
+#FeedbackModal { background-color: rgba(24, 30, 18, 0.65); }
+#FeedbackModal .feedback-modal-window {
+    width: 800px; height: 880px; max-width: 94%; max-height: 96%;
+    padding: 116px 86px 92px 86px; border-width: 0; border-radius: 0;
+    background-color: transparent;
+    background-image: url("../../07_Art/UI/GlimblehopMenu/settings-panel.png");
+    background-size: 100% 100%;
+    color: rgb(65, 43, 25);
+    -unity-font-definition: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+}
+.locale-ru #FeedbackModal .feedback-modal-window { -unity-font-definition: url("Resources/Localization/RobotoSlab.ttf"); }
+.locale-zh #FeedbackModal .feedback-modal-window { -unity-font-definition: url("Resources/Localization/NotoSansCJKsc-Regular.otf"); }
+#FeedbackModal .panel-title { font-size: 36px; color: rgb(65, 43, 25); -unity-text-align: middle-center; margin: 0 0 22px 0; }
+#FeedbackModal .feedback-field-label { font-size: 24px; color: rgb(83, 94, 43); margin: 12px 0 8px 0; }
+#FeedbackModal .feedback-dropdown { height: 58px; min-height: 58px; padding: 0; margin: 0; border-width: 0; background-color: transparent; }
+#FeedbackModal .feedback-dropdown .unity-base-field__input {
+    background-color: rgb(245, 221, 173); border-width: 2px; border-color: rgb(157, 117, 61);
+    border-radius: 12px; padding: 8px 14px; color: rgb(64, 43, 25); font-size: 24px;
+}
+#FeedbackModal .feedback-dropdown .unity-popup-field__text { background-color: transparent; color: rgb(64, 43, 25); font-size: 24px; }
+#FeedbackModal .feedback-message-field { flex-grow: 1; flex-shrink: 1; min-height: 140px; height: auto; margin: 0; padding: 0; border-width: 0; background-color: transparent; }
+#FeedbackModal .feedback-message-field .unity-base-text-field__input {
+    background-color: rgba(255, 239, 205, 0.9); border-width: 2px; border-color: rgb(157, 117, 61);
+    border-radius: 12px; padding: 14px; font-size: 24px; color: rgb(59, 40, 24);
+    -unity-font-definition: initial; white-space: normal;
+}
+#FeedbackModal .feedback-status-label { font-size: 20px; min-height: 36px; margin: 12px 0; white-space: normal; }
+#FeedbackModal .feedback-modal-actions { flex-direction: row; justify-content: space-between; margin: 8px 0 0 0; flex-shrink: 0; }
+#FeedbackModal .feedback-modal-actions .gh-button { width: 48%; height: 84px; min-height: 84px; margin: 0; font-size: 28px; -unity-slice-scale: 0.53; }
+#FeedbackModal .feedback-modal-actions .gh-primary { -unity-slice-scale: 0.53; }
+#FeedbackModal .df-label { -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; }
+#FeedbackModal .feedback-field-label { -unity-text-align: middle-left; }

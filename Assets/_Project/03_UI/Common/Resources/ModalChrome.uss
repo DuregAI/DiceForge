@@ -1,0 +1,23 @@
+/* Shared close treatment, attached by ModalDismiss to every bound modal. */
+.df-modal-close {
+    background-image: url("../../../07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-color: transparent;
+    -unity-slice-left: 48; -unity-slice-right: 48;
+    -unity-slice-top: 48; -unity-slice-bottom: 48; -unity-slice-scale: 0.5;
+    border-width: 0; min-height: 64px; padding: 8px 24px;
+    color: rgb(66, 40, 20); -unity-font-style: bold;
+    transition-property: scale, -unity-background-image-tint-color;
+    transition-duration: 0.12s;
+}
+.df-modal-close:hover { scale: 1.06 1.06; -unity-background-image-tint-color: rgb(255, 246, 216); }
+.df-modal-close:active { scale: 0.95 0.95; }
+.df-modal-close.df-modal-close-icon {
+    width: 76px; height: 76px; min-width: 76px; min-height: 76px;
+    padding: 0; margin: 0; border-radius: 0;
+    border-width: 0; background-image: none; background-color: transparent;
+    color: rgb(65, 37, 18); font-size: 60px;
+    -unity-font-definition: initial; -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    text-shadow: 0 2px 0 rgb(232, 184, 110);
+}
+.df-modal-close.df-modal-close-icon:hover { color: rgb(173, 47, 30); }
