@@ -1,7 +1,7 @@
-#JoTutorialPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; background-color: rgb(38, 55, 34); background-image: url('../../07_Art/UI/GlimblehopMenu/jo-tutorial-wide.png'); background-size: contain; background-repeat: no-repeat; background-position: left center; }
+#JoTutorialPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; background-color: rgb(38, 55, 34); background-image: url('../../07_Art/UI/GlimblehopMenu/jo-tutorial-wide.png'); background-size: cover; background-repeat: no-repeat; background-position: left center; }
 .jo-book { width: 94%; height: 92%; max-width: 1800px; flex-direction: row; }
-.jo-portrait { width: 36%; height: 100%; flex-shrink: 0; }
-.jo-page { flex-grow: 1; width: 64%; padding: 25px 44px 30px; color: rgb(69, 44, 25); background-color: rgba(250, 234, 204, .94); border-radius: 32px; border-width: 3px; border-color: rgb(179, 135, 76); }
+.jo-portrait { width: 41%; height: 100%; flex-shrink: 0; }
+.jo-page { flex-grow: 1; width: 59%; padding: 25px 44px 30px; color: rgb(69, 44, 25); background-color: rgba(250, 234, 204, .94); border-radius: 32px; border-width: 3px; border-color: rgb(179, 135, 76); }
 .jo-close { position: absolute; right: 15px; top: 6px; width: 72px; height: 72px; background-color: transparent; border-width: 0; color: rgb(88, 54, 27); font-size: 62px; }
 .jo-close:hover { color: rgb(169, 62, 36); scale: 1.08; }
 .jo-counter { font-size: 23px; color: rgb(108, 111, 58); margin-bottom: 4px; }
@@ -17,7 +17,7 @@
 .jo-token-wood { position: absolute; left: 0; top: 0; width: 170px; height: 170px; }
 .jo-step-mark { position: absolute; top: 19px; width: 94px; height: 85px; }
 .jo-demo { min-height: 70px; height: 78px; justify-content: flex-end; margin: 0 10px 18px; }
-.jo-second-page .jo-demo { flex-grow: 1; min-height: 180px; }
+.jo-second-page .jo-demo { flex-grow: 0; height: 220px; min-height: 180px; margin-top: auto; margin-bottom: auto; }
 .jo-path { flex-direction: row; height: 66px; }
 .jo-tile { width: 16.6667%; background-color: rgb(215, 201, 173); border-width: 2px; border-bottom-width: 7px; border-color: rgb(163, 139, 102); border-radius: 14px; color: rgb(120, 102, 73); -unity-text-align: lower-center; font-size: 22px; padding-bottom: 3px; margin-right: 2px; flex-shrink: 1; }
 .jo-tile.jo-lit { background-color: rgb(255, 221, 116); border-color: rgb(210, 169, 65); border-top-color: rgb(255, 247, 214); }
