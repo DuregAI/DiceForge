@@ -69,6 +69,26 @@
       "en": "Pick a token. Its number is how many spaces you move.",
       "ru": "Выбери жетон. Число — сколько клеток пройдёт гоблин.",
       "zh": "选择步数牌。数字就是前进的格数。"
+    },
+    {
+      "en": "TRY AGAIN",
+      "ru": "ЕЩЁ РАЗ",
+      "zh": "再试一次"
+    },
+    {
+      "en": "Well done! Pick a step, then a goblin.",
+      "ru": "Отлично! Сначала шаг, затем гоблин.",
+      "zh": "真棒！先选步数，再选哥布林。"
+    },
+    {
+      "en": "Tap the goblin to make your move.",
+      "ru": "Нажми на гоблина, чтобы сделать ход.",
+      "zh": "点击哥布林，开始移动。"
+    },
+    {
+      "en": "Pick a token. Its number shows how far you move.",
+      "ru": "Выбери жетон. Число — длина хода.",
+      "zh": "选择步数牌。数字表示前进的格数。"
     }
   ]
 }

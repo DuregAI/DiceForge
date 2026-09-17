@@ -36,31 +36,28 @@
                 <ui:Button name="btnLegal" text="Legal" class="gh-legal-link" tooltip="Legal and build information"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="JoTutorialPanel" class="jo-overlay">
-            <ui:VisualElement class="jo-book">
-                <ui:VisualElement class="jo-portrait" picking-mode="Ignore"/>
-                <ui:VisualElement class="jo-page">
-                    <ui:Button name="JoClose" text="×" class="jo-close"/>
-                    <ui:Label name="JoCounter" class="jo-counter"/>
-                    <ui:Label name="JoTitle" class="jo-title"/>
-                    <ui:VisualElement class="jo-bubble"><ui:Label text="JO" class="jo-name"/><ui:Label name="JoSpeech" class="jo-speech"/></ui:VisualElement>
-                    <ui:Label name="JoHint" class="jo-hint"/>
-                    <ui:VisualElement name="JoChoices" class="jo-choices">
-                        <ui:Button name="JoStep1" text="1" class="jo-token"/>
-                        <ui:Button name="JoStep3" text="3" class="jo-token"/>
-                        <ui:Button name="JoStep5" text="5" class="jo-token"/>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="JoDemo" class="jo-demo">
-                        <ui:VisualElement name="JoPath" class="jo-path">
-                            <ui:Label text="0" class="jo-tile"/><ui:Label text="1" class="jo-tile"/><ui:Label text="2" class="jo-tile"/><ui:Label text="3" class="jo-tile"/><ui:Label text="4" class="jo-tile"/><ui:Label text="5" class="jo-tile"/>
-                        </ui:VisualElement>
-                        <ui:Button name="JoGoblin" class="jo-goblin"/>
-                    </ui:VisualElement>
-                    <ui:VisualElement class="jo-navigation">
-                        <ui:Button name="JoBack" text="BACK" class="gh-button"/>
-                        <ui:Button name="JoNext" class="gh-button gh-primary"/>
-                    </ui:VisualElement>
+        <ui:VisualElement name="JoTutorialPanel">
+            <ui:VisualElement name="JoStage" class="jo-stage">
+                <ui:Button name="JoClose" tooltip="Close" class="jo-close"/>
+                <ui:Label name="JoCounter" class="jo-counter"/>
+                <ui:Label name="JoTitle" class="jo-title"/>
+                <ui:Label name="JoSpeech" class="jo-speech"/>
+                <ui:Label name="JoHint" class="jo-hint"/>
+                <ui:VisualElement name="JoChoices" class="jo-choices">
+                    <ui:Button name="JoStep1" class="jo-token"/>
+                    <ui:Button name="JoStep3" class="jo-token"/>
+                    <ui:Button name="JoStep5" class="jo-token"/>
                 </ui:VisualElement>
+                <ui:VisualElement name="JoSelected" class="jo-selected-reminder" picking-mode="Ignore"/>
+                <ui:VisualElement name="JoDemo" class="jo-demo">
+                    <ui:VisualElement name="JoPath" class="jo-path">
+                        <ui:VisualElement class="jo-tile"/><ui:VisualElement class="jo-tile"/><ui:VisualElement class="jo-tile"/><ui:VisualElement class="jo-tile"/><ui:VisualElement class="jo-tile"/><ui:VisualElement class="jo-tile"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="JoGhost" class="jo-goblin jo-ghost" picking-mode="Ignore"/>
+                    <ui:Button name="JoGoblin" class="jo-goblin"/>
+                </ui:VisualElement>
+                <ui:Button name="JoBack" text="BACK" class="gh-button jo-back"/>
+                <ui:Button name="JoNext" class="gh-button gh-primary jo-next"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SettingsPanel" class="settings-overlay gh-settings-overlay">

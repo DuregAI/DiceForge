@@ -100,6 +100,12 @@ internal sealed class MenuLocalization : IDisposable
                 ? new StyleFontDefinition(StyleKeyword.Null)
                 : new StyleFontDefinition(FontDefinition.FromFont(Language == 1 ? russianFont : bodyFont));
         }
+        if (Language == 1)
+            foreach (string id in new[] { "JoTitle", "JoSpeech", "JoBack", "JoNext" })
+            {
+                var text = root.Q<TextElement>(id);
+                if (text != null) text.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromFont(russianFont));
+            }
         foreach (var binding in bindings) binding();
         badge.SetLanguage(Language);
         if (button != null) button.tooltip = Language == 0 ? "English · click for Русский" : Language == 1 ? "Русский · нажмите для 中文" : "简体中文 · 点击切换 English";

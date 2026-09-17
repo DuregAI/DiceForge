@@ -21,6 +21,7 @@ namespace Diceforge.Audio
         private bool _missingLibraryWarned;
         private bool _missingSfxSourceWarned;
         private bool _missingUiClickClipWarned;
+        private int _lastUiClickFrame = -1;
         private readonly List<string> _trackHistory = new();
         private int _historyIndex = -1;
         private const int MaxHistorySize = 20;
@@ -213,6 +214,9 @@ namespace Diceforge.Audio
 
         public void PlayUiClick(AudioClip clipOverride = null)
         {
+            bool isDefaultClick = clipOverride == null || clipOverride == defaultUiClickClip;
+            if (isDefaultClick && _lastUiClickFrame == Time.frameCount) return;
+            if (isDefaultClick) _lastUiClickFrame = Time.frameCount;
             AudioClip clip = clipOverride != null ? clipOverride : defaultUiClickClip;
             if (clip == null)
             {

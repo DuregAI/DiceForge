@@ -1,31 +1,37 @@
-#JoTutorialPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; background-color: rgb(38, 55, 34); background-image: url('../../07_Art/UI/GlimblehopMenu/jo-tutorial-wide.png'); background-size: cover; background-repeat: no-repeat; background-position: left center; }
-.jo-book { width: 94%; height: 92%; max-width: 1800px; flex-direction: row; }
-.jo-portrait { width: 41%; height: 100%; flex-shrink: 0; }
-.jo-page { flex-grow: 1; width: 59%; padding: 25px 44px 30px; color: rgb(69, 44, 25); background-color: rgba(250, 234, 204, .94); border-radius: 32px; border-width: 3px; border-color: rgb(179, 135, 76); }
-.jo-close { position: absolute; right: 15px; top: 6px; width: 72px; height: 72px; background-color: transparent; border-width: 0; color: rgb(88, 54, 27); font-size: 62px; }
-.jo-close:hover { color: rgb(169, 62, 36); scale: 1.08; }
-.jo-counter { font-size: 23px; color: rgb(108, 111, 58); margin-bottom: 4px; }
-.jo-title { font-size: 43px; -unity-font-style: bold; white-space: normal; margin-right: 40px; -unity-font-definition: url('../../07_Art/Fonts/LuckiestGuy-Regular.ttf'); }
-.jo-bubble { margin-top: 12px; padding: 12px 22px; background-color: rgb(255, 246, 222); border-radius: 20px; border-bottom-left-radius: 3px; border-bottom-width: 3px; border-bottom-color: rgb(215, 190, 146); }
-.jo-name { color: rgb(110, 119, 57); font-size: 23px; -unity-font-style: bold; margin-bottom: 3px; }
-.jo-speech { font-size: 29px; white-space: normal; }
-.jo-hint { font-size: 24px; white-space: normal; -unity-text-align: middle-center; color: rgb(96, 105, 48); margin: 12px 0 0; }
-.jo-choices { flex-direction: row; justify-content: space-around; align-items: center; min-height: 170px; flex-grow: 1; }
-.jo-token { width: 170px; height: 170px; background-color: transparent; border-width: 0; color: rgb(71, 41, 20); font-size: 40px; -unity-font-style: bold; -unity-text-align: lower-center; padding-bottom: 19px; align-items: center; transition-property: scale; transition-duration: .15s; }
-.jo-token:hover { scale: 1.06; }
-.jo-token.jo-selected { scale: 1.08; background-color: rgba(141, 164, 63, .35); border-radius: 90px; }
-.jo-token-wood { position: absolute; left: 0; top: 0; width: 170px; height: 170px; }
-.jo-step-mark { position: absolute; top: 19px; width: 94px; height: 85px; }
-.jo-demo { min-height: 70px; height: 78px; justify-content: flex-end; margin: 0 10px 18px; }
-.jo-second-page .jo-demo { flex-grow: 0; height: 220px; min-height: 180px; margin-top: auto; margin-bottom: auto; }
-.jo-path { flex-direction: row; height: 66px; }
-.jo-tile { width: 16.6667%; background-color: rgb(215, 201, 173); border-width: 2px; border-bottom-width: 7px; border-color: rgb(163, 139, 102); border-radius: 14px; color: rgb(120, 102, 73); -unity-text-align: lower-center; font-size: 22px; padding-bottom: 3px; margin-right: 2px; flex-shrink: 1; }
-.jo-tile.jo-lit { background-color: rgb(255, 221, 116); border-color: rgb(210, 169, 65); border-top-color: rgb(255, 247, 214); }
-.jo-goblin { position: absolute; bottom: 35px; width: 16.6667%; height: 140px; margin: 0; background-color: transparent; background-image: url('../../07_Art/UI/GlimblehopMenu/avatar.png'); background-size: contain; background-repeat: no-repeat; background-position: center; border-width: 0; }
-.jo-goblin:hover { scale: 1.08; }
+#JoTutorialPanel { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none; overflow: hidden; background-color: rgb(41, 39, 23); }
+.jo-stage { position: absolute; width: 1672px; height: 941px; flex-shrink: 0; background-image: url('../../07_Art/UI/GlimblehopMenu/jo-tutorial-approved.png'); background-size: 100% 100%; }
+.jo-title { position: absolute; left: 738px; top: 45px; width: 580px; height: 88px; font-size: 52px; color: rgb(255,229,181); -unity-font-definition: url('../../07_Art/Fonts/AlfaSlabOne-Regular.ttf'); -unity-text-align: middle-center; white-space: normal; text-shadow: 0 3px 1px rgb(64,34,15); }
+.jo-counter { position: absolute; left: 1390px; top: 65px; width: 120px; font-size: 37px; color: rgb(77,46,24); -unity-text-align: middle-center; }
+.jo-close { position: absolute; left: 1530px; top: 42px; width: 92px; height: 92px; background-image: none; background-color: rgb(124,82,41); border-radius: 50px; border-width: 3px; border-color: rgb(208,158,92); font-size: 70px; color: rgb(64,35,16); -unity-text-align: middle-center; }
+.jo-close:hover { color: rgb(177,57,31); scale: 1.04; }
+.jo-speech { position: absolute; left: 367px; top: 110px; width: 242px; height: 121px; font-size: 25px; color: rgb(65,39,21); white-space: normal; -unity-text-align: middle-center; }
+.jo-hint { position: absolute; left: 720px; top: 700px; width: 760px; height: 48px; font-size: 28px; color: rgb(89,78,38); -unity-text-align: middle-center; white-space: normal; }
+.jo-choices { position: absolute; left: 615px; top: 173px; width: 990px; height: 305px; flex-direction: row; justify-content: space-around; align-items: center; }
+.jo-token { width: 298px; height: 298px; border-width: 0; background-color: transparent; border-radius: 160px; padding: 0; margin: 0; transition-property: scale; transition-duration: .15s; }
+.jo-token:hover { scale: 1.035; }
+.jo-token.jo-selected { background-color: transparent; scale: 1.05; }
+.jo-art { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.jo-selected-reminder { position: absolute; left: 1010px; top: 180px; width: 230px; height: 230px; }
+.jo-demo { position: absolute; left: 707px; top: 440px; width: 796px; height: 230px; }
+.jo-second-page .jo-demo { top: 410px; height: 280px; }
+.jo-path { position: absolute; left: 0; right: 0; bottom: 0; height: 158px; flex-direction: row; }
+.jo-tile { width: 16.6667%; height: 158px; }
+.jo-goblin { position: absolute; bottom: 55px; width: 16.6667%; height: 165px; margin: 0; padding: 0; background-color: transparent; border-width: 0; }
+.jo-goblin:hover { scale: 1.06; }
 .jo-goblin:disabled { opacity: 1; }
-.jo-navigation { flex-direction: row; justify-content: space-between; }
-.jo-navigation .gh-button { width: 47%; height: 85px; font-size: 27px; margin: 0; }
-.jo-navigation .gh-primary { width: 49%; height: 85px; font-size: 27px; }
+.jo-ghost { opacity: .3; }
+.jo-back, .jo-next { position: absolute; top: 765px; width: 360px; height: 105px; font-size: 30px; -unity-font-definition: url('../../07_Art/Fonts/AlfaSlabOne-Regular.ttf'); }
+.jo-back { left: 620px; }
+.jo-next { left: 1195px; }
 
-.jo-token-number { position: absolute; bottom: 23px; left: 0; right: 0; font-size: 38px; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(71, 41, 20); }
+.jo-token.jo-selected .jo-art { border-width: 3px; border-color: rgb(255,226,141); border-radius: 160px; }
+.jo-tile .jo-art { width: 132%; left: -16%; }
+
+/* Shared typography on both slides: keep the text within the painted plaques. */
+.jo-title { font-size: 46px; -unity-font-style: bold; }
+.jo-speech { left: 370px; top: 107px; width: 236px; height: 112px; font-size: 24px; -unity-font-style: bold; }
+.jo-hint, .jo-counter { -unity-font-style: bold; }
+.jo-close { background-color: transparent; border-width: 0; padding: 0; }
+
+.jo-close { background-image: url('../../07_Art/UI/GlimblehopMenu/tutorial-close.png'); background-size: contain; background-repeat: no-repeat; background-position: center; width: 112px; height: 112px; left: 1520px; top: 32px; }
+.jo-close:hover { -unity-background-image-tint-color: rgb(255,206,160); }
