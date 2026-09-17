@@ -59,6 +59,7 @@ public sealed class MapController : MonoBehaviour
     private string _hoveredNodeId;
     private string _fxActiveCurrentId;
     private string _fxActiveHoverId;
+    private WoodlandMapView _woodlandView;
 
     public event Action BackRequested;
     public event Action ContinueRequested;
@@ -73,6 +74,35 @@ public sealed class MapController : MonoBehaviour
         var root = uiDocument?.rootVisualElement;
         if (root == null)
             return;
+
+        if (map.useWoodlandLayout)
+        {
+            StopFxTicker();
+            _isMapVisible = false;
+            _mapRoot ??= root.Q<VisualElement>("MapRoot");
+            if (_mapRoot != null) _mapRoot.style.display = DisplayStyle.None;
+            _currentMap = map;
+            _currentState = state;
+            _onNodeSelected = onNodeSelected;
+            if (_woodlandView == null || _woodlandView.Root.parent != root)
+            {
+                _woodlandView?.Dispose();
+                _woodlandView = new WoodlandMapView(Resources.Load<StyleSheet>("Map/WoodlandMap"));
+                _woodlandView.Root.style.position = Position.Absolute;
+                _woodlandView.Root.style.left = 0;
+                _woodlandView.Root.style.right = 0;
+                _woodlandView.Root.style.top = 0;
+                _woodlandView.Root.style.bottom = 0;
+                _woodlandView.LevelRequested += HandleWoodlandLevel;
+                _woodlandView.BackRequested += HandleBack;
+                root.Add(_woodlandView.Root);
+            }
+            _woodlandView.SetMapProgress(map, state);
+            _woodlandView.Root.style.display = DisplayStyle.Flex;
+            _woodlandView.Root.BringToFront();
+            return;
+        }
+        if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
 
         EnsureView(root, devMode);
 
@@ -96,6 +126,7 @@ public sealed class MapController : MonoBehaviour
 
     public void Hide()
     {
+        if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
         _isMapVisible = false;
         _hoveredNodeId = null;
         _fxActiveCurrentId = null;
@@ -104,6 +135,18 @@ public sealed class MapController : MonoBehaviour
 
         if (_mapRoot != null)
             _mapRoot.style.display = DisplayStyle.None;
+    }
+
+    private void HandleWoodlandLevel(int level)
+    {
+        if (_currentMap == null || level < 1 || level > _currentMap.nodes.Count) return;
+        HandleNodeClicked(_currentMap.nodes[level - 1].id);
+    }
+
+    private void OnDestroy()
+    {
+        StopFxTicker();
+        _woodlandView?.Dispose();
     }
 
     private void EnsureView(VisualElement root, bool devMode)

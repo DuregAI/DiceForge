@@ -9,6 +9,7 @@ namespace Diceforge.Map
     {
         public string chapterId = "Chapter1";
         public string startNodeId = "C1_01";
+        public bool useWoodlandLayout;
         public List<MapNodeDefinition> nodes = new();
 
         public MapNodeDefinition GetNode(string nodeId)
@@ -56,6 +57,24 @@ namespace Diceforge.Map
 
             if (GetNode(startNodeId) == null)
                 throw BuildValidationException(assetName, $"startNodeId='{startNodeId}' does not resolve to a node in the authored map definition.");
+
+            if (useWoodlandLayout)
+            {
+                if (nodes.Count != 6 || startNodeId != nodes[0]?.id)
+                    throw BuildValidationException(assetName, "Woodland layout requires six ordered levels, starting at the first node.");
+                var ids = new HashSet<string>();
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    var node = nodes[i];
+                    if (node == null || string.IsNullOrWhiteSpace(node.id) || !ids.Add(node.id) ||
+                        node.type != MapNodeType.Battle || string.IsNullOrWhiteSpace(node.battlePresetId))
+                        throw BuildValidationException(assetName, "Woodland nodes must be unique battle levels with configured presets.");
+                    int expectedNextCount = i == nodes.Count - 1 ? 0 : 1;
+                    if (node.nextIds == null || node.nextIds.Count != expectedNextCount ||
+                        (expectedNextCount == 1 && node.nextIds[0] != nodes[i + 1]?.id))
+                        throw BuildValidationException(assetName, "Woodland levels must form one ordered chain with no branches.");
+                }
+            }
         }
 
         private static InvalidOperationException BuildValidationException(string assetName, string reason)

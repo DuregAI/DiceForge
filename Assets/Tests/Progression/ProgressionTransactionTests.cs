@@ -123,6 +123,72 @@ namespace Diceforge.Tests.Progression
         }
 
         [Test]
+        public void WoodlandMigrationPreservesHistoryAndRunIdentity()
+        {
+            string run = RunId;
+            Commit(Operation("kept-receipt"));
+            var old = State;
+            R.Call(old, "MarkCompleted", "C1_02");
+            R.Call(old, "MarkCompleted", "C1_02_CHEST");
+            R.Call(old, "MarkCompleted", "C1_09");
+            R.Set(old, "currentNodeId", "C1_02_CHEST");
+            R.Static("Map.MapProgressService", "Save", "Chapter1", old);
+            var migrated = State;
+            Assert.That(R.Field(migrated, "currentNodeId"), Is.EqualTo("C1_03"));
+            Assert.That(R.Call(migrated, "IsUnlocked", "C1_03"), Is.True);
+            Assert.That(R.Call(migrated, "IsCompleted", "C1_09"), Is.True);
+            Assert.That(R.Call(migrated, "IsCompleted", "C1_02_CHEST"), Is.True);
+            Assert.That(RunId, Is.EqualTo(run));
+            Assert.That(Gold, Is.EqualTo(30));
+            Assert.That(R.List(R.Profile, "progressionReceipts").Count, Is.EqualTo(1));
+            int notifications = _notifications;
+            var again = State;
+            Assert.That(_notifications, Is.EqualTo(notifications), "Already normalized loads must not write again.");
+            Reload();
+            Assert.That(R.Field(State, "currentNodeId"), Is.EqualTo("C1_03"));
+        }
+
+        [Test]
+        public void WoodlandMigrationRetainsNonContiguousCompletions()
+        {
+            var old = State;
+            R.Call(old, "MarkCompleted", "C1_01");
+            R.Call(old, "MarkCompleted", "C1_03");
+            R.Call(old, "Unlock", "C1_06");
+            R.Set(old, "currentNodeId", "C1_06");
+            R.Static("Map.MapProgressService", "Save", "Chapter1", old);
+            Assert.That(R.Field(State, "currentNodeId"), Is.EqualTo("C1_02"));
+            Assert.That(R.Call(State, "IsCompleted", "C1_03"), Is.True);
+        }
+
+        [Test]
+        public void WoodlandFinalVictoryHasNoNextLevelAfterReload()
+        {
+            var old = State;
+            for (int i = 1; i <= 5; i++) R.Call(old, "MarkCompleted", "C1_" + i.ToString("00"));
+            R.Static("Map.MapProgressService", "Save", "Chapter1", old);
+            var op = R.Static("Progression.ProgressionTransactionService", "Prepare", "final-level", "Chapter1",
+                RunId, "C1_06", Array.Empty<string>(), true, Reward(), "Battle");
+            Assert.That(Status(Commit(op)), Is.EqualTo("Applied"));
+            Assert.That(R.Field(State, "currentNodeId"), Is.EqualTo(string.Empty));
+            Reload();
+            Assert.That(R.Call(State, "IsCompleted", "C1_06"), Is.True);
+            Assert.That(R.Field(State, "currentNodeId"), Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void WoodlandMigrationSaveFailureDoesNotMutateLiveProfile()
+        {
+            var old = State;
+            R.Set(old, "currentNodeId", "C1_04_SHOP");
+            R.Static("Map.MapProgressService", "Save", "Chapter1", old);
+            Fault("BeforeWrite");
+            Assert.Throws<TargetInvocationException>(() => R.Static("Map.MapProgressService", "Load", _map));
+            var chapter = R.List(R.Profile, "chapters")[0];
+            Assert.That(R.Field(R.Field(chapter, "state"), "currentNodeId"), Is.EqualTo("C1_04_SHOP"));
+        }
+
+        [Test]
         public void DuplicateResultAndRestartedProcessNeverGrantTwice()
         {
             var op = Operation();

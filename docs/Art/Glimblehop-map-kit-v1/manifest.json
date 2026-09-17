@@ -1,0 +1,68 @@
+[
+  {
+    "file": "node-stone.png",
+    "width": 571,
+    "height": 298,
+    "sourceCrop": [
+      26,
+      36,
+      597,
+      334
+    ],
+    "alpha": "segmented neutral background; filled opaque interior"
+  },
+  {
+    "file": "badge-completed.png",
+    "width": 309,
+    "height": 313,
+    "sourceCrop": [
+      19,
+      18,
+      328,
+      331
+    ],
+    "alpha": "segmented neutral background; filled opaque interior"
+  },
+  {
+    "file": "badge-locked.png",
+    "width": 315,
+    "height": 318,
+    "sourceCrop": [
+      21,
+      17,
+      336,
+      335
+    ],
+    "alpha": "segmented neutral background; filled opaque interior"
+  },
+  {
+    "file": "title-plaque.png",
+    "width": 670,
+    "height": 220,
+    "sourceCrop": [
+      14,
+      27,
+      684,
+      247
+    ],
+    "alpha": "segmented neutral background; filled opaque interior"
+  },
+  {
+    "file": "button-back.png",
+    "width": 288,
+    "height": 290,
+    "sourceCrop": [
+      24,
+      16,
+      312,
+      306
+    ],
+    "alpha": "segmented neutral background; filled opaque interior"
+  },
+  {
+    "file": "node-glow.png",
+    "width": 512,
+    "height": 256,
+    "alpha": "analytical soft elliptical ring; transparent center"
+  }
+]

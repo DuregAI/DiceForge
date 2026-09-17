@@ -1,0 +1,124 @@
+{
+  "referenceSize": [
+    1672,
+    941
+  ],
+  "origin": "top-left",
+  "nodes": [
+    {
+      "id": "C1_01",
+      "centerTopLeftNormalized": [
+        0.145,
+        0.65
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    },
+    {
+      "id": "C1_02",
+      "centerTopLeftNormalized": [
+        0.32,
+        0.47
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    },
+    {
+      "id": "C1_03",
+      "centerTopLeftNormalized": [
+        0.465,
+        0.565
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    },
+    {
+      "id": "C1_04",
+      "centerTopLeftNormalized": [
+        0.66,
+        0.465
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    },
+    {
+      "id": "C1_05",
+      "centerTopLeftNormalized": [
+        0.565,
+        0.265
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    },
+    {
+      "id": "C1_06",
+      "centerTopLeftNormalized": [
+        0.785,
+        0.27
+      ],
+      "sizeAtReference": [
+        165,
+        100
+      ],
+      "numberOffset": [
+        0,
+        15
+      ],
+      "heroFeetOffset": [
+        0,
+        -12
+      ]
+    }
+  ],
+  "heroIncluded": false
+}

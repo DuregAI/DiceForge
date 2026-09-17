@@ -13,7 +13,12 @@ namespace Diceforge.Map
         {
             var profile = ProfileService.Snapshot();
             var chapter = profile.chapters.Find(x => x.chapterId == map.chapterId);
-            if (chapter != null) return Clone(chapter.state);
+            if (chapter != null)
+            {
+                if (NormalizeWoodlandProgress(map, chapter.state) && !ProfileService.TryCommit(profile, out string migrationError))
+                    throw new IOException(migrationError);
+                return Clone(chapter.state);
+            }
             string json = PlayerPrefs.GetString(KeyPrefix + map.chapterId, string.Empty);
             MapRunState state;
             if (string.IsNullOrWhiteSpace(json)) state = CreateNewRun(map);
@@ -26,6 +31,7 @@ namespace Diceforge.Map
                 if (string.IsNullOrEmpty(state.currentNodeId)) state.currentNodeId = map.startNodeId;
                 state.Unlock(map.startNodeId);
             }
+            NormalizeWoodlandProgress(map, state);
             profile.chapters.Add(new ChapterProgress { chapterId = map.chapterId, runId = Guid.NewGuid().ToString("N"), state = state });
             if (!ProfileService.TryCommit(profile, out string error)) throw new IOException(error);
             return Clone(state);
@@ -59,6 +65,23 @@ namespace Diceforge.Map
                 chapterId = chapterId, runId = Guid.NewGuid().ToString("N"), state = CreateNewRun(MapDefinitionSO.LoadChapter(chapterId))
             });
             if (!ProfileService.TryCommit(profile, out string error)) throw new IOException(error);
+        }
+
+        // Preserve historic IDs, rewards and run receipts. Only repair the active pointer.
+        public static bool NormalizeWoodlandProgress(MapDefinitionSO map, MapRunState state)
+        {
+            if (!map.useWoodlandLayout) return false;
+            string next = string.Empty;
+            foreach (var node in map.nodes)
+                if (!state.IsCompleted(node.id)) { next = node.id; break; }
+            bool changed = state.currentNodeId != next;
+            state.currentNodeId = next;
+            if (!string.IsNullOrEmpty(next) && !state.IsUnlocked(next))
+            {
+                state.Unlock(next);
+                changed = true;
+            }
+            return changed;
         }
 
         private static MapRunState Clone(MapRunState state) => JsonUtility.FromJson<MapRunState>(JsonUtility.ToJson(state));

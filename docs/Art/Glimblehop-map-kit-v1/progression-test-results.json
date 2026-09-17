@@ -1,0 +1,230 @@
+{
+  "status": "completed",
+  "duration": 1.07,
+  "summary": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(0)",
+      "Status": "Passed",
+      "Duration": 0.0407794,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(1)",
+      "Status": "Passed",
+      "Duration": 0.0134439,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(-1)",
+      "Status": "Passed",
+      "Duration": 0.0113225,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(False)",
+      "Status": "Passed",
+      "Duration": 0.0176934,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(True)",
+      "Status": "Passed",
+      "Duration": 0.0150702,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.CorruptPrimaryRecoversBackupAndPreservesIt",
+      "Status": "Passed",
+      "Duration": 0.0242958,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.DuplicateResultAndRestartedProcessNeverGrantTwice",
+      "Status": "Passed",
+      "Duration": 0.0163625,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.ExceptionAfterReplaceRecognizesDurableSuccess",
+      "Status": "Passed",
+      "Duration": 0.0153787,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds",
+      "Status": "Passed",
+      "Duration": 0.0134728,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.FailedImportDoesNotPublishChapterAndCanRetry",
+      "Status": "Passed",
+      "Duration": 0.0169161,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(\"BeforeWrite\")",
+      "Status": "Passed",
+      "Duration": 0.0176877,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(\"BeforeFlush\")",
+      "Status": "Passed",
+      "Duration": 0.0161308,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(\"BeforeReplace\")",
+      "Status": "Passed",
+      "Duration": 0.0178504,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes",
+      "Status": "Passed",
+      "Duration": 0.0247726,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.LoadedMapIsDetachedFromProfile",
+      "Status": "Passed",
+      "Duration": 0.0108186,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.MigrationPreservesInventoryUpgradesAndChests",
+      "Status": "Passed",
+      "Duration": 0.0162291,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.NewVictoryOnCompletedNodeHasNoReward",
+      "Status": "Passed",
+      "Duration": 0.0234674,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(\"Chest\")",
+      "Status": "Passed",
+      "Duration": 0.0175974,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(\"Shop\")",
+      "Status": "Passed",
+      "Duration": 0.0163336,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(\"Story\")",
+      "Status": "Passed",
+      "Duration": 0.0154926,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.ResetProfilePreservesCompletedMapAndReceipts",
+      "Status": "Passed",
+      "Duration": 0.0290602,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.ResetRunPreservesWalletAndRejectsOldResults",
+      "Status": "Passed",
+      "Duration": 0.0287336,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(\"BeforeReplace\",False)",
+      "Status": "Passed",
+      "Duration": 0.0296656,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(\"AfterReplace\",True)",
+      "Status": "Passed",
+      "Duration": 0.025678,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.StandaloneAttemptsAreIndependentButEachIsIdempotent",
+      "Status": "Passed",
+      "Duration": 0.0166433,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.TwoCorruptFilesAreNeverOverwrittenWithDefaults",
+      "Status": "Passed",
+      "Duration": 0.0114641,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.VictoryCommitsAllRewardsAndMapBeforeReturn",
+      "Status": "Passed",
+      "Duration": 0.0169164,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandFinalVictoryHasNoNextLevelAfterReload",
+      "Status": "Passed",
+      "Duration": 0.0344547,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationPreservesHistoryAndRunIdentity",
+      "Status": "Passed",
+      "Duration": 0.0322716,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationRetainsNonContiguousCompletions",
+      "Status": "Passed",
+      "Duration": 0.0222145,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationSaveFailureDoesNotMutateLiveProfile",
+      "Status": "Passed",
+      "Duration": 0.0168485,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

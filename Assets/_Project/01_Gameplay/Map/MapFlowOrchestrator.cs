@@ -127,6 +127,8 @@ namespace Diceforge.Map
         {
             if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (_pendingOperation != null) return;
+            if (_map == null || _state == null || !_state.IsUnlocked(nodeId)) return;
+            if (_map.useWoodlandLayout && (_state.IsCompleted(nodeId) || nodeId != _state.currentNodeId)) return;
             var node = _map.GetNode(nodeId);
             if (node == null)
                 return;
