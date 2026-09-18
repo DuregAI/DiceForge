@@ -35,6 +35,10 @@ public sealed class MapController : MonoBehaviour
     [SerializeField] private Sprite iconPassed;
     [SerializeField] private Sprite chestNodeIcon;
     [SerializeField] private Sprite shopNodeIcon;
+    [Header("Woodland Water — live preview in Play Mode")]
+    [SerializeField] private WoodlandWaterSettings waterSettings = new();
+    [Header("Woodland Foliage — live preview in Play Mode")]
+    [SerializeField] private WoodlandFoliageSettings foliageSettings = new();
 
     private VisualElement _mapRoot;
     private VisualElement _background;
@@ -93,7 +97,7 @@ public sealed class MapController : MonoBehaviour
             if (_woodlandView == null || _woodlandView.Root.parent != root)
             {
                 _woodlandView?.Dispose();
-                _woodlandView = new WoodlandMapView(Resources.Load<StyleSheet>("Map/WoodlandMap"));
+                _woodlandView = new WoodlandMapView(Resources.Load<StyleSheet>("Map/WoodlandMap"), waterSettings, foliageSettings);
                 _woodlandView.Root.style.position = Position.Absolute;
                 _woodlandView.Root.style.left = 0;
                 _woodlandView.Root.style.right = 0;
@@ -104,14 +108,14 @@ public sealed class MapController : MonoBehaviour
                 root.Add(_woodlandView.Root);
             }
             _woodlandView.SetMapProgress(map, state);
-            _woodlandView.Root.style.display = DisplayStyle.Flex;
+            _woodlandView.SetVisible(true);
             _woodlandView.Root.BringToFront();
             _woodlandHero ??= gameObject.AddComponent<WoodlandSpriteHeroPresenter>();
             _woodlandHero.Show(_woodlandView.HeroImage);
             return;
         }
         _woodlandHero?.StopPresentation();
-        if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
+        _woodlandView?.SetVisible(false);
 
         EnsureView(root, devMode);
 
@@ -137,7 +141,7 @@ public sealed class MapController : MonoBehaviour
     {
         CancelWoodlandTravel();
         _woodlandHero?.StopPresentation();
-        if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
+        _woodlandView?.SetVisible(false);
         _isMapVisible = false;
         _hoveredNodeId = null;
         _fxActiveCurrentId = null;

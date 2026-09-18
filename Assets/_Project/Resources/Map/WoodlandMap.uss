@@ -5,6 +5,9 @@
     -unity-font-style: normal; color: rgb(255, 238, 201);
 }
 .woodland-map .wm-stage { position: absolute; width: 1672px; height: 941px; transform-origin: 0 0; }
+.woodland-map .wm-water { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; overflow: hidden; }
+.woodland-map .wm-foliage { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; }
+.woodland-map .wm-shrub { position: absolute; }
 .woodland-map .wm-scenery { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; background-image: url('../../07_Art/UI/GlimblehopMap/background-landscape.png'); background-size: contain; }
 .woodland-map Button {
     position: absolute; margin: 0; padding: 0; border-width: 0; border-radius: 0;
@@ -36,7 +39,13 @@
 .woodland-map .wm-progress { left: 42px; top: 61px; width: 216px; height: 38px; font-size: 31px; }
 .woodland-map .wm-play { right: 30px; bottom: 24px; width: 447px; height: 159px; background-image: url('../../07_Art/UI/GlimblehopMenu/button-primary.png'); }
 .woodland-map .wm-action-text { left: 71px; top: 54px; width: 268px; height: 48px; font-size: 28px; text-shadow: 0 2px 0 rgb(44, 45, 15); }
-.woodland-map .wm-arrow { position: absolute; right: 70px; top: 64px; width: 23px; height: 30px; background-image: url('../../07_Art/UI/GlimblehopMenu/play-arrow.png'); background-size: contain; background-repeat: no-repeat; }
+.woodland-map .wm-arrow { position: absolute; right: 58px; top: 64px; width: 23px; height: 30px; background-image: url('../../07_Art/UI/GlimblehopMenu/play-arrow.png'); background-size: contain; background-repeat: no-repeat; }
+.woodland-map .wm-action-text, .woodland-map .wm-chapter { flex-direction: row; justify-content: center; align-items: center; }
+.woodland-map .wm-text-part { position: relative; flex-shrink: 0; }
+.woodland-map .wm-number, .woodland-map .wm-progress, .woodland-map .wm-fixed-digits {
+    -unity-font-definition: url('../../07_Art/Fonts/AlfaSlabOne-Regular.ttf');
+    -unity-font-style: normal;
+}
 .woodland-map .wm-play:hover, .woodland-map .wm-back:hover { scale: 1.025 1.025; }
 .woodland-map .wm-play:active, .woodland-map .wm-back:active { scale: 0.98 0.98; }
 .woodland-map .wm-play:focus, .woodland-map .wm-back:focus { -unity-background-image-tint-color: rgb(255, 235, 185); }

@@ -25,16 +25,16 @@ internal sealed class MenuLocalization : IDisposable
         this.changed = changed;
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
         Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
-        foreach (var catalogName in new[] { "menu", "legal", "tutorial" })
+        foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map" })
         {
             var asset = Resources.Load<TextAsset>("Localization/" + catalogName);
             if (asset != null)
                 foreach (var entry in JsonUtility.FromJson<Catalog>(asset.text).entries)
                     entries[entry.en] = entry;
         }
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel" })
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot" })
         {
-            var panel = root.Q(scope);
+            var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;
             panel.Query<TextElement>().ForEach(element =>
             {
@@ -72,6 +72,13 @@ internal sealed class MenuLocalization : IDisposable
         changed?.Invoke();
     }
 
+    public void Refresh()
+    {
+        string saved = PlayerPrefs.GetString(PreferenceKey, "en");
+        Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
+        Apply();
+    }
+
     private void Apply()
     {
         root.EnableInClassList("locale-ru", Language == 1);
@@ -81,17 +88,24 @@ internal sealed class MenuLocalization : IDisposable
             bodyFont ??= Resources.Load<Font>("Localization/NotoSansCJKsc-Regular");
             russianFont ??= Resources.Load<Font>("Localization/RobotoSlab");
         }
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel" })
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot" })
         {
-            var panel = root.Q(scope);
+            var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;
-            panel.style.unityFontDefinition = Language == 0 ? new StyleFontDefinition(StyleKeyword.Null) : new StyleFontDefinition(FontDefinition.FromFont(bodyFont));
+            var font = scope == "WoodlandMapRoot" && Language == 1 ? russianFont : bodyFont;
+            panel.style.unityFontDefinition = Language == 0 ? new StyleFontDefinition(StyleKeyword.Null) : new StyleFontDefinition(FontDefinition.FromFont(font));
             // A font assigned to a label in USS overrides the panel's inherited font.
             // Assign the bundled font on each text element: player builds must not rely on OS fallbacks.
             panel.Query<TextElement>().ForEach(element =>
-                element.style.unityFontDefinition = Language == 0
+            {
+                bool fixedDigits = element.ClassListContains("wm-number") || element.ClassListContains("wm-progress") || element.ClassListContains("wm-fixed-digits");
+                element.style.unityFontDefinition = Language == 0 || fixedDigits
                     ? new StyleFontDefinition(StyleKeyword.Null)
-                    : new StyleFontDefinition(FontDefinition.FromFont(bodyFont)));
+                    : new StyleFontDefinition(FontDefinition.FromFont(font));
+                element.style.unityFontStyleAndWeight = Language == 0 || fixedDigits
+                    ? new StyleEnum<FontStyle>(StyleKeyword.Null)
+                    : new StyleEnum<FontStyle>(FontStyle.Bold);
+            });
         }
         foreach (string id in new[] { "btnLong", "btnTutorial" })
         {

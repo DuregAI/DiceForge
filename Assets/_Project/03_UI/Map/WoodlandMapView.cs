@@ -19,6 +19,9 @@ namespace Diceforge.Map
         public VisualElement Stage { get; }
         public Image HeroImage { get; }
         private readonly VisualElement heroShadow;
+        private readonly WoodlandWaterElement water;
+        private readonly WoodlandFoliageLayer foliage;
+        private readonly MenuLocalization localization;
         private readonly Button[] nodes = new Button[6];
         private readonly Button play;
         private readonly Label actionLabel, progress;
@@ -28,7 +31,7 @@ namespace Diceforge.Map
         public event Action<int> LevelRequested;
         public event Action BackRequested;
 
-        public WoodlandMapView(StyleSheet styleSheet)
+        public WoodlandMapView(StyleSheet styleSheet, WoodlandWaterSettings waterSettings = null, WoodlandFoliageSettings foliageSettings = null)
         {
             if (styleSheet == null) throw new ArgumentNullException(nameof(styleSheet));
             Root = new VisualElement { name = "WoodlandMapRoot" };
@@ -37,6 +40,10 @@ namespace Diceforge.Map
             Stage = Element("WoodlandMapStage", "wm-stage", Root);
             var scenery = Element("WoodlandMapScenery", "wm-scenery", Stage);
             scenery.pickingMode = PickingMode.Ignore;
+            water = new WoodlandWaterElement(waterSettings);
+            Stage.Add(water);
+            foliage = new WoodlandFoliageLayer(foliageSettings);
+            Stage.Add(foliage);
 
             for (int i = 0; i < nodes.Length; i++)
             {
@@ -73,6 +80,7 @@ namespace Diceforge.Map
             Element("Arrow", "wm-arrow", play);
             Stage.Add(play);
             Root.RegisterCallback<GeometryChangedEvent>(OnGeometry);
+            localization = new MenuLocalization(Root, null);
             SetProgress(0);
         }
 
@@ -82,7 +90,7 @@ namespace Diceforge.Map
             nextLevel = completed + 1;
             play.SetEnabled(true);
             progress.text = completed + " / 6";
-            actionLabel.text = completed == 6 ? "BACK TO MENU" : "PLAY LEVEL " + (completed + 1);
+            UpdateActionText();
             for (int i = 0; i < nodes.Length; i++)
             {
                 bool done = i < completed;
@@ -91,7 +99,7 @@ namespace Diceforge.Map
                 nodes[i].EnableInClassList("is-current", current);
                 nodes[i].EnableInClassList("is-locked", !done && !current);
                 nodes[i].SetEnabled(current);
-                nodes[i].tooltip = "Level " + (i + 1) + (done ? " — completed" : current ? " — ready" : " — locked");
+                nodes[i].tooltip = LevelTooltip(i, done, current);
             }
             PlaceHero(completed == 6 ? 5 : completed);
         }
@@ -119,12 +127,42 @@ namespace Diceforge.Map
                 nodes[i].EnableInClassList("is-current", current);
                 nodes[i].EnableInClassList("is-locked", !done && !current);
                 nodes[i].SetEnabled(current);
-                nodes[i].tooltip = "Level " + (i + 1) + (done ? " — completed" : current ? " — ready" : " — locked");
+                nodes[i].tooltip = LevelTooltip(i, done, current);
             }
             progress.text = completed + " / 6";
-            actionLabel.text = completed == 6 ? "BACK TO MENU" : "PLAY LEVEL " + nextLevel;
+            UpdateActionText();
             play.SetEnabled(completed == 6 || nextLevel > 0);
             PlaceHero(completed == 6 ? 5 : nextLevel - 1);
+        }
+
+        private void UpdateActionText()
+        {
+            SetMixedText(actionLabel, completed == 6 ? localization.T("BACK TO MENU") : string.Format(localization.T("PLAY LEVEL {0}"), nextLevel));
+            SetMixedText(Root.Q<Label>("WoodlandChapter"), localization.T("CHAPTER 1"));
+            actionLabel.style.fontSize = localization.Language == 1 ? 23 : 28;
+        }
+
+        private void SetMixedText(Label label, string text)
+        {
+            label.Clear();
+            label.text = localization.Language == 0 ? text : string.Empty;
+            if (localization.Language == 0) return;
+            for (int start = 0; start < text.Length;)
+            {
+                bool digit = char.IsDigit(text[start]);
+                int end = start + 1;
+                while (end < text.Length && char.IsDigit(text[end]) == digit) end++;
+                var part = new Label(text.Substring(start, end - start)) { pickingMode = PickingMode.Ignore };
+                part.AddToClassList("wm-text-part");
+                if (digit) part.AddToClassList("wm-fixed-digits");
+                label.Add(part);
+                start = end;
+            }
+        }
+
+        private string LevelTooltip(int index, bool done, bool current)
+        {
+            return string.Format(localization.T(done ? "Level {0} — completed" : current ? "Level {0} — ready" : "Level {0} — locked"), index + 1);
         }
 
         private void PlaceHero(int index)
@@ -191,8 +229,25 @@ namespace Diceforge.Map
             return label;
         }
 
+        public void SetVisible(bool visible)
+        {
+            if (visible)
+            {
+                localization.Refresh();
+                UpdateActionText();
+                for (int i = 0; i < nodes.Length; i++)
+                    nodes[i].tooltip = LevelTooltip(i, nodes[i].ClassListContains("is-completed"), nodes[i].ClassListContains("is-current"));
+            }
+            Root.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            water.SetActive(visible);
+            foliage.SetActive(visible);
+        }
+
         public void Dispose()
         {
+            water.Dispose();
+            foliage.Dispose();
+            localization.Dispose();
             Root.UnregisterCallback<GeometryChangedEvent>(OnGeometry);
             Root.RemoveFromHierarchy();
             LevelRequested = null;

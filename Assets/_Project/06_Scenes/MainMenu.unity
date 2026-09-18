@@ -707,6 +707,29 @@ MonoBehaviour:
   iconPassed: {fileID: 315556479, guid: a32c57da3a2a13247990e6fda2bc63ed, type: 3}
   chestNodeIcon: {fileID: 21300000, guid: c153be46d5a54d0e8a12ea8bdb5cfb52, type: 3}
   shopNodeIcon: {fileID: 21300000, guid: 2ac5cb687a486e54f9c31c898e93233f, type: 3}
+  waterSettings:
+    intensity: 1.18
+    riverOpacity: 1
+    riverSpeed: 1
+    riverDensity: 2
+    riverLineWidth: 2
+    waterfallOpacity: 0.5
+    waterfallSpeed: 1.5
+    waterfallDensity: 2
+    waterfallLineWidth: 1.5
+    waterfallStreakLength: 13.4
+    foamOpacity: 0.5
+    foamSpeed: 2.44
+    foamRings: 2
+    foamLineWidth: 4.06
+    foamSpread: 1.5
+  foliageSettings:
+    enabled: 1
+    swayDegrees: 2.5
+    speed: 1
+    gustStrength: 0.3
+    size: 1
+    opacity: 1
 --- !u!114 &1000000005
 MonoBehaviour:
   m_ObjectHideFlags: 0
