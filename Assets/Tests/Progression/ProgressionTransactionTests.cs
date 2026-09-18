@@ -345,6 +345,29 @@ namespace Diceforge.Tests.Progression
         }
 
         [Test]
+        public void MapReturnConsumesBattlePresentationOnceAfterCommittedVictory()
+        {
+            Commit(Operation());
+            var host = new GameObject("Map return test");
+            host.SetActive(false);
+            try
+            {
+                var flow = host.AddComponent(R.Type("Map.MapFlowOrchestrator"));
+                R.Set(flow, "_map", _map);
+                R.Set(flow, "_state", State);
+                R.Static("Map.MapFlowRuntime", "StartNodeBattle", "Chapter1", "C1_01");
+                R.Static("Map.MapFlowRuntime", "ReportBattleResult", true);
+                R.Call(flow, "ProcessPendingBattleResultIfAny");
+                Assert.That(R.Type("Map.MapFlowRuntime").GetProperty("HasPendingBattleResult").GetValue(null), Is.False);
+                Assert.That(R.Field(R.Field(flow, "_state"), "currentNodeId"), Is.EqualTo("C1_02"));
+                string snapshot = JsonUtility.ToJson(R.Profile);
+                R.Call(flow, "ProcessPendingBattleResultIfAny");
+                Assert.That(JsonUtility.ToJson(R.Profile), Is.EqualTo(snapshot));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(host); }
+        }
+
+        [Test]
         public void MigrationPreservesInventoryUpgradesAndChests()
         {
             object profile = R.Static("Progression.ProfileService", "Snapshot");

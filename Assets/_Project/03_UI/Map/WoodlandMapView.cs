@@ -17,11 +17,14 @@ namespace Diceforge.Map
 
         public VisualElement Root { get; }
         public VisualElement Stage { get; }
+        public Image HeroImage { get; }
+        private readonly VisualElement heroShadow;
         private readonly Button[] nodes = new Button[6];
         private readonly Button play;
         private readonly Label actionLabel, progress;
         private int completed;
         private int nextLevel = 1;
+        private bool travelLocked;
         public event Action<int> LevelRequested;
         public event Action BackRequested;
 
@@ -50,6 +53,10 @@ namespace Diceforge.Map
                 nodes[i] = node;
             }
 
+            heroShadow = Element("WoodlandHeroShadow", "wm-hero-shadow", Stage);
+            HeroImage = new Image { name = "WoodlandHero", pickingMode = PickingMode.Ignore };
+            HeroImage.AddToClassList("wm-hero");
+            Stage.Add(HeroImage);
             var title = Element("WoodlandTitlePlaque", "wm-title-plaque", Stage);
             Label("WoodlandChapter", "wm-chapter", "CHAPTER 1", title);
             Label("WoodlandTitle", "wm-title", "WOODLAND TRAIL", title);
@@ -86,11 +93,12 @@ namespace Diceforge.Map
                 nodes[i].SetEnabled(current);
                 nodes[i].tooltip = "Level " + (i + 1) + (done ? " — completed" : current ? " — ready" : " — locked");
             }
+            PlaceHero(completed == 6 ? 5 : completed);
         }
 
         private void RequestLevel(int level)
         {
-            if (level >= 1 && level <= nodes.Length && nodes[level - 1].enabledSelf) LevelRequested?.Invoke(level);
+            if (!travelLocked && level >= 1 && level <= nodes.Length && nodes[level - 1].enabledSelf) LevelRequested?.Invoke(level);
         }
 
         public void SetMapProgress(MapDefinitionSO map, MapRunState state)
@@ -116,6 +124,43 @@ namespace Diceforge.Map
             progress.text = completed + " / 6";
             actionLabel.text = completed == 6 ? "BACK TO MENU" : "PLAY LEVEL " + nextLevel;
             play.SetEnabled(completed == 6 || nextLevel > 0);
+            PlaceHero(completed == 6 ? 5 : nextLevel - 1);
+        }
+
+        private void PlaceHero(int index)
+        {
+            bool visible = index >= 0 && index < nodes.Length;
+            HeroImage.style.display = heroShadow.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (!visible) return;
+            SetHeroGroundPosition(GetHeroGroundPosition(index));
+        }
+
+        public Vector2 GetHeroGroundPosition(int index)
+        {
+            if (index < 0 || index >= nodes.Length) throw new ArgumentOutOfRangeException(nameof(index));
+            float left = nodes[index].style.left.value.value;
+            float top = nodes[index].style.top.value.value;
+            // Upper clearings sit beside the title. Stand next to their stone, below the plaque.
+            bool upperClearing = top < 290f;
+            float sideOffset = left > ReferenceWidth * .7f ? -79f : 115f;
+            float heroLeft = left + (upperClearing ? sideOffset : 18f);
+            float heroTop = upperClearing ? 184f : top - 103f;
+            return new Vector2(heroLeft + 72f, heroTop + 135f);
+        }
+
+        public void SetHeroGroundPosition(Vector2 position)
+        {
+            HeroImage.style.left = position.x - 72f;
+            HeroImage.style.top = position.y - 135f;
+            heroShadow.style.left = position.x - 30f;
+            heroShadow.style.top = position.y;
+        }
+
+        public void SetTravelLocked(bool locked)
+        {
+            travelLocked = locked;
+            play.SetEnabled(!locked && (completed == 6 || nextLevel > 0));
+            for (int i = 0; i < nodes.Length; i++) nodes[i].SetEnabled(!locked && i + 1 == nextLevel && completed < 6);
         }
 
         private void OnGeometry(GeometryChangedEvent evt)

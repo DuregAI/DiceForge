@@ -28,4 +28,4 @@ VerifyMapIntegration.cs is an explicit CLI verification helper outside Assets; i
 
 An existing DiagnosticsRuntime cleanup error appears on exiting Play Mode, predating this integration; it is outside the map changes. Earlier malformed-map errors in the console refer to the interrupted draft config, now corrected and guarded by validation. Tests passed against the corrected six-node asset.
 
-Remaining planned stages: hero placement/animation and environmental motion. Current water and bridge are static background art. Portrait-specific composition/localization remain separate work.
+Hero placement, sprite animation and post-victory route traversal are implemented and verified; see ../Glimblehop-map-hero-sprites-v1/travel-stage.md. Remaining planned work includes environmental motion. Current water and bridge are static background art. Portrait-specific composition/localization remain separate work.

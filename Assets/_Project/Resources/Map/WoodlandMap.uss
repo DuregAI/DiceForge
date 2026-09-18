@@ -13,6 +13,8 @@
 }
 .woodland-map Label { position: absolute; margin: 0; padding: 0; white-space: nowrap; -unity-text-align: middle-center; }
 .woodland-map .wm-node { width: 180px; height: 112px; }
+.woodland-map .wm-hero { position: absolute; width: 144px; height: 144px; }
+.woodland-map .wm-hero-shadow { position: absolute; width: 60px; height: 17px; border-radius: 50%; background-color: rgba(45, 35, 18, 0.25); }
 .woodland-map .wm-node:disabled { opacity: 1; }
 .woodland-map .wm-stone { position: absolute; left: 0; top: 9px; width: 180px; height: 94px; background-image: url('../../07_Art/UI/GlimblehopMap/node-stone.png'); background-size: contain; background-repeat: no-repeat; }
 .woodland-map .wm-number { left: 55px; top: 54px; width: 70px; height: 43px; font-size: 31px; color: rgb(62, 38, 19); }

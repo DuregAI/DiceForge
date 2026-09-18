@@ -126,6 +126,7 @@ namespace Diceforge.Map
         public void OnNodeSelected(string nodeId)
         {
             if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
+            if (mapController != null && mapController.IsHeroTravelling) return;
             if (_pendingOperation != null) return;
             if (_map == null || _state == null || !_state.IsUnlocked(nodeId)) return;
             if (_map.useWoodlandLayout && (_state.IsCompleted(nodeId) || nodeId != _state.currentNodeId)) return;
@@ -154,6 +155,26 @@ namespace Diceforge.Map
             }
         }
 
+#if UNITY_EDITOR
+        [ContextMenu("Reset Chapter Progress...")]
+        private void ResetChapterProgressFromInspector()
+        {
+            if (!Application.isPlaying || _map == null || _pendingOperation != null)
+            {
+                Debug.LogWarning("Enter Play Mode and open the map before resetting chapter progress.", this);
+                return;
+            }
+
+            if (UnityEditor.EditorUtility.DisplayDialog("Reset chapter progress?",
+                "Restart the current chapter from level 1? This saves immediately. Currency, inventory and experience are preserved.",
+                "Reset", "Cancel"))
+            {
+                MapFlowRuntime.ClearRunContext();
+                ResetRun();
+            }
+        }
+#endif
+
         public void ResetRun()
         {
             if (_pendingOperation != null) return;
@@ -180,13 +201,16 @@ namespace Diceforge.Map
 
         public void ProcessPendingBattleResultIfAny()
         {
-            if (_map == null || !MapFlowRuntime.HasPendingBattleResult || !MapFlowRuntime.IsMapBattleActive)
+            if (_map == null || !MapFlowRuntime.HasPendingBattleResult || !MapFlowRuntime.IsMapBattleActive || MapFlowRuntime.ChapterId != _map.chapterId)
                 return;
 
             _state = MapProgressService.Load(_map);
+            string fromNodeId = MapFlowRuntime.SelectedNodeId;
+            string destination = WoodlandTravelRules.GetDestination(_map, _state, MapFlowRuntime.ChapterId, fromNodeId, MapFlowRuntime.LastBattleWon);
             MapFlowRuntime.ClearPendingResult();
             MapFlowRuntime.ConsumeReturnToMapRequest();
             RefreshMap();
+            if (destination != null) mapController?.PlayWoodlandTravel(fromNodeId, destination);
         }
         private void LaunchBattle(MapNodeDefinition node)
         {

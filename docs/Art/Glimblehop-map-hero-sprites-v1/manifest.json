@@ -1,0 +1,49 @@
+{
+  "source": "C:\\Users\\tehno\\Downloads\\grok-video-690af12e-755c-4416-bfff-77a95f16da44.mp4",
+  "sha256": "eff713b2f30da1ed6b34968d450ad7cd2d70979aa7dc33e92e0be06dbf671499",
+  "fps": 24,
+  "runFrames": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68
+  ],
+  "idleFrames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "cellSize": 256,
+  "columns": 8,
+  "rows": 4,
+  "atlas": "Assets/_Project/Resources/Map/HeroSprites/goblin-atlas.png",
+  "scale": 0.4247104247104247,
+  "sourceVerticalBounds": [
+    10,
+    528
+  ],
+  "notes": "Original light outline retained; chroma spill removed only from partial-alpha edges. Run is a best-match section of generated footage, not a perfect authored loop."
+}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Diceforge.Audio;
@@ -60,6 +61,9 @@ public sealed class MapController : MonoBehaviour
     private string _fxActiveCurrentId;
     private string _fxActiveHoverId;
     private WoodlandMapView _woodlandView;
+    private WoodlandSpriteHeroPresenter _woodlandHero;
+    private Coroutine _woodlandTravel;
+    public bool IsHeroTravelling { get; private set; }
 
     public event Action BackRequested;
     public event Action ContinueRequested;
@@ -74,6 +78,8 @@ public sealed class MapController : MonoBehaviour
         var root = uiDocument?.rootVisualElement;
         if (root == null)
             return;
+
+        CancelWoodlandTravel();
 
         if (map.useWoodlandLayout)
         {
@@ -100,8 +106,11 @@ public sealed class MapController : MonoBehaviour
             _woodlandView.SetMapProgress(map, state);
             _woodlandView.Root.style.display = DisplayStyle.Flex;
             _woodlandView.Root.BringToFront();
+            _woodlandHero ??= gameObject.AddComponent<WoodlandSpriteHeroPresenter>();
+            _woodlandHero.Show(_woodlandView.HeroImage);
             return;
         }
+        _woodlandHero?.StopPresentation();
         if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
 
         EnsureView(root, devMode);
@@ -126,6 +135,8 @@ public sealed class MapController : MonoBehaviour
 
     public void Hide()
     {
+        CancelWoodlandTravel();
+        _woodlandHero?.StopPresentation();
         if (_woodlandView != null) _woodlandView.Root.style.display = DisplayStyle.None;
         _isMapVisible = false;
         _hoveredNodeId = null;
@@ -139,14 +150,80 @@ public sealed class MapController : MonoBehaviour
 
     private void HandleWoodlandLevel(int level)
     {
+        if (IsHeroTravelling) return;
         if (_currentMap == null || level < 1 || level > _currentMap.nodes.Count) return;
         HandleNodeClicked(_currentMap.nodes[level - 1].id);
     }
 
     private void OnDestroy()
     {
+        CancelWoodlandTravel();
         StopFxTicker();
         _woodlandView?.Dispose();
+    }
+
+    private void OnDisable()
+    {
+        CancelWoodlandTravel();
+        _woodlandHero?.StopPresentation();
+    }
+
+    public void PlayWoodlandTravel(string fromNodeId, string toNodeId)
+    {
+        if (_woodlandView == null || _woodlandHero == null || _currentMap == null || !isActiveAndEnabled) return;
+        int from = _currentMap.nodes.FindIndex(n => n.id == fromNodeId);
+        int to = _currentMap.nodes.FindIndex(n => n.id == toNodeId);
+        if (from < 0 || to != from + 1 || _currentState.currentNodeId != toNodeId || !_currentState.IsCompleted(fromNodeId)) return;
+        var routes = Resources.Load<WoodlandRoutesSO>("Map/" + _currentMap.chapterId + "_WoodlandRoutes");
+        var path = routes?.BuildPath(fromNodeId, toNodeId, _woodlandView.GetHeroGroundPosition(from), _woodlandView.GetHeroGroundPosition(to));
+        if (path == null || path.Length < 2) return;
+        CancelWoodlandTravel();
+        IsHeroTravelling = true;
+        _woodlandView.SetTravelLocked(true);
+        _woodlandView.SetHeroGroundPosition(path[0]);
+        _woodlandTravel = StartCoroutine(TravelWoodlandPath(path, Mathf.Max(1f, routes.referencePixelsPerSecond)));
+    }
+
+    private IEnumerator TravelWoodlandPath(Vector2[] path, float speed)
+    {
+        while (Diceforge.Transitions.ScreenTransition.IsBusy) yield return null;
+        yield return new WaitForSecondsRealtime(.2f);
+        int segment = 1;
+        Vector2 position = path[0];
+        bool faceLeft = false;
+        _woodlandHero.SetMoving(true);
+        while (segment < path.Length)
+        {
+            float budget = speed * Time.unscaledDeltaTime;
+            while (budget > 0 && segment < path.Length)
+            {
+                Vector2 delta = path[segment] - position;
+                float distance = delta.magnitude;
+                if (Mathf.Abs(delta.x) > .1f) faceLeft = delta.x < 0;
+                if (distance <= budget)
+                {
+                    position = path[segment++];
+                    budget -= distance;
+                }
+                else { position += delta * (budget / distance); budget = 0; }
+            }
+            _woodlandView.SetHeroGroundPosition(position);
+            _woodlandHero.SetMoving(true, faceLeft);
+            yield return null;
+        }
+        _woodlandHero.SetMoving(false);
+        _woodlandView.SetTravelLocked(false);
+        IsHeroTravelling = false;
+        _woodlandTravel = null;
+    }
+
+    private void CancelWoodlandTravel()
+    {
+        if (_woodlandTravel != null) StopCoroutine(_woodlandTravel);
+        _woodlandTravel = null;
+        IsHeroTravelling = false;
+        _woodlandView?.SetTravelLocked(false);
+        _woodlandHero?.SetMoving(false);
     }
 
     private void EnsureView(VisualElement root, bool devMode)

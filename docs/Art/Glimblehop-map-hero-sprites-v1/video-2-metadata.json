@@ -1,0 +1,19 @@
+{
+  "source": "C:\\Users\\tehno\\Downloads\\1224182 (1).mp4",
+  "count": 25,
+  "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+  "codec": "h264",
+  "pix_fmt": "yuv420p(tv, bt709, progressive)",
+  "audio_codec": "aac",
+  "fps": 24.0,
+  "source_size": [
+    544,
+    544
+  ],
+  "size": [
+    544,
+    544
+  ],
+  "rotate": 0,
+  "duration": 1.04
+}

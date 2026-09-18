@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9bebc5f6b88094a9b46c206c21c875, type: 3}
+  m_Name: Chapter1_WoodlandRoutes
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.Map.WoodlandRoutesSO
+  referencePixelsPerSecond: 190
+  routes:
+  - fromNodeId: C1_01
+    toNodeId: C1_02
+    waypoints:
+    - {x: 0.16746412, y: 0.60786396}
+    - {x: 0.18660288, y: 0.5834219}
+    - {x: 0.20753588, y: 0.5600425}
+    - {x: 0.23205742, y: 0.5387885}
+    - {x: 0.25717703, y: 0.51222104}
+    - {x: 0.28349283, y: 0.48352817}
+  - fromNodeId: C1_02
+    toNodeId: C1_03
+    waypoints:
+    - {x: 0.35107654, y: 0.46227416}
+    - {x: 0.37320575, y: 0.47821465}
+    - {x: 0.38935408, y: 0.50159407}
+    - {x: 0.40669855, y: 0.52603614}
+    - {x: 0.4300239, y: 0.5494155}
+  - fromNodeId: C1_03
+    toNodeId: C1_04
+    waypoints:
+    - {x: 0.4952153, y: 0.5589798}
+    - {x: 0.5185407, y: 0.5462274}
+    - {x: 0.54246414, y: 0.51753455}
+    - {x: 0.5681818, y: 0.49628055}
+    - {x: 0.5980861, y: 0.47927737}
+    - {x: 0.6279904, y: 0.47183847}
+  - fromNodeId: C1_04
+    toNodeId: C1_05
+    waypoints:
+    - {x: 0.6638756, y: 0.41232732}
+    - {x: 0.6555024, y: 0.38788524}
+    - {x: 0.6429426, y: 0.36769393}
+    - {x: 0.6297847, y: 0.35175344}
+  - fromNodeId: C1_05
+    toNodeId: C1_06
+    waypoints:
+    - {x: 0.6555024, y: 0.33900106}
+    - {x: 0.6782297, y: 0.3209352}
+    - {x: 0.7033493, y: 0.29649308}
+    - {x: 0.7200957, y: 0.29649308}
+    - {x: 0.72727275, y: 0.31668437}
