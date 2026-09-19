@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15291c">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <link rel="stylesheet" href="TemplateData/loading.css">
+</head>
+<body>
+  <canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" tabindex="-1" aria-label="GlimbleHop"></canvas>
+  <main id="loading" aria-label="Loading GlimbleHop">
+    <div class="forest" aria-hidden="true"></div>
+    <div class="shade" aria-hidden="true"></div>
+    <div id="fireflies" aria-hidden="true"></div>
+    <section class="content">
+      <div id="progress" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      <p id="error" role="alert" hidden></p>
+      <button id="retry" type="button" hidden>Try again</button>
+    </section>
+    <noscript>Please enable JavaScript to play.</noscript>
+  </main>
+  <script src="TemplateData/loading.js"></script>
+  <script>
+    const config = {
+      arguments: [],
+#if PROGRESSIVE_ASSET_LOADING
+      primaryDataUrls: {{{ JSON.stringify(PRIMARY_DATA_FILES) }}},
+      secondaryDataUrls: {{{ JSON.stringify(SECONDARY_DATA_FILES) }}},
+#else
+      dataUrl: "Build/{{{ DATA_FILENAME }}}",
+#endif
+      frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_WASM
+      codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}}
+    };
+    const loader = document.createElement('script');
+    loader.src = "Build/{{{ LOADER_FILENAME }}}";
+    loader.onload = () => {
+      Promise.resolve().then(() => createUnityInstance(document.getElementById('unity-canvas'), config, GlimbleHopLoading.progress))
+        .then(GlimbleHopLoading.complete).catch(GlimbleHopLoading.fail);
+    };
+    loader.onerror = () => GlimbleHopLoading.fail('Unable to download the game loader.');
+    document.body.appendChild(loader);
+  </script>
+</body>
+</html>

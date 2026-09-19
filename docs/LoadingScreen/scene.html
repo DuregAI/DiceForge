@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15291c">
+  <title>GlimbleHop loading preview</title>
+  <link rel="stylesheet" href="../../Assets/WebGLTemplates/GlimbleHop/TemplateData/loading.css">
+</head>
+<body>
+  <canvas id="unity-canvas" width="1366" height="768" tabindex="-1" aria-label="GlimbleHop"></canvas>
+  <main id="loading" aria-label="Loading GlimbleHop">
+    <div class="forest" aria-hidden="true"></div>
+    <div class="shade" aria-hidden="true"></div>
+    <div id="fireflies" aria-hidden="true"></div>
+    <section class="content">
+      <div id="progress" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      <p id="error" role="alert" hidden></p>
+      <button id="retry" type="button" hidden>Try again</button>
+    </section>
+    <noscript>Please enable JavaScript to play.</noscript>
+  </main>
+  <script src="../../Assets/WebGLTemplates/GlimbleHop/TemplateData/loading.js"></script>
+</body></html>

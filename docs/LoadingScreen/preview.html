@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GlimbleHop · Loading preview</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#11231a;color:#eeddb9;font:13px system-ui,sans-serif}iframe{position:absolute;width:100%;height:calc(100% - 62px);border:0}footer{position:absolute;bottom:0;min-height:62px;width:100%;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:#102017}button{border:1px solid #9b8755;background:#31412b;color:#fff0cc;border-radius:8px;padding:8px 14px;cursor:pointer}input{width:min(30vw,320px);accent-color:#b8cf6e}output{min-width:40px;font-variant-numeric:tabular-nums}.label{opacity:.65}@media(max-width:600px){footer{gap:7px}.label{display:none}button{padding:8px}input{width:24vw}}</style></head>
+<body><iframe id="scene" title="Loading screen preview"></iframe>
+<footer><span class="label">PREVIEW</span><button id="play">Pause</button><button id="restart">Restart</button><input id="range" aria-label="Preview loading progress" type="range" min="0" max="100" value="0"><output id="value">0%</output><button id="finish">Finish</button></footer>
+<script>
+const scene=document.getElementById('scene'),range=document.getElementById('range'),value=document.getElementById('value'),play=document.getElementById('play');
+const sceneMarkup="\u003c!doctype html>\n\u003chtml lang=\"en\">\n\u003chead>\n  \u003cmeta charset=\"utf-8\">\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n  \u003cmeta name=\"theme-color\" content=\"#15291c\">\n  \u003ctitle>GlimbleHop loading preview\u003c/title>\n  \u003clink rel=\"stylesheet\" href=\"../../Assets/WebGLTemplates/GlimbleHop/TemplateData/loading.css\">\n\u003c/head>\n\u003cbody>\n  \u003ccanvas id=\"unity-canvas\" width=\"1366\" height=\"768\" tabindex=\"-1\" aria-label=\"GlimbleHop\">\u003c/canvas>\n  \u003cmain id=\"loading\" aria-label=\"Loading GlimbleHop\">\n    \u003cdiv class=\"forest\" aria-hidden=\"true\">\u003c/div>\n    \u003cdiv class=\"shade\" aria-hidden=\"true\">\u003c/div>\n    \u003cdiv id=\"fireflies\" aria-hidden=\"true\">\u003c/div>\n    \u003csection class=\"content\">\n      \u003cdiv id=\"progress\" role=\"progressbar\" aria-label=\"Loading\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\u003c/div>\n      \u003cp id=\"error\" role=\"alert\" hidden>\u003c/p>\n      \u003cbutton id=\"retry\" type=\"button\" hidden>Try again\u003c/button>\n    \u003c/section>\n    \u003cnoscript>Please enable JavaScript to play.\u003c/noscript>\n  \u003c/main>\n  \u003cscript src=\"../../Assets/WebGLTemplates/GlimbleHop/TemplateData/loading.js\">\u003c/script>\n\u003c/body>\u003c/html>";
+let progress=0,playing=true,ready=false,last=0;
+function render(){range.value=progress;value.textContent=Math.round(progress)+'%';if(ready)scene.contentWindow.GlimbleHopLoading.progress(progress/100)}
+scene.addEventListener('load',()=>{ready=true;render()});
+function reload(){ready=false;scene.srcdoc=sceneMarkup}
+play.onclick=()=>{playing=!playing;play.textContent=playing?'Pause':'Play'};
+document.getElementById('restart').onclick=()=>{progress=0;playing=true;play.textContent='Pause';reload();render()};
+range.oninput=()=>{const next=Number(range.value);playing=false;play.textContent='Play';if(next<progress)reload();progress=next;render()};
+document.getElementById('finish').onclick=()=>{playing=false;play.textContent='Play';progress=100;render();if(ready)scene.contentWindow.GlimbleHopLoading.complete()};
+reload();
+function tick(now){const delta=Math.min(100,now-(last||now));last=now;if(playing&&ready){progress=Math.min(99,progress+delta/150);render();if(progress===99){playing=false;play.textContent='Play'}}requestAnimationFrame(tick)}requestAnimationFrame(tick);
+</script></body></html>
