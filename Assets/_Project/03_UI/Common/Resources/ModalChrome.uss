@@ -12,12 +12,24 @@
 .df-modal-close:hover { scale: 1.06 1.06; -unity-background-image-tint-color: rgb(255, 246, 216); }
 .df-modal-close:active { scale: 0.95 0.95; }
 .df-modal-close.df-modal-close-icon {
-    width: 76px; height: 76px; min-width: 76px; min-height: 76px;
+    width: 96px; height: 96px; min-width: 96px; min-height: 96px;
     padding: 0; margin: 0; border-radius: 0;
-    border-width: 0; background-image: none; background-color: transparent;
-    color: rgb(65, 37, 18); font-size: 60px;
-    -unity-font-definition: initial; -unity-font-style: bold;
-    -unity-text-align: middle-center;
-    text-shadow: 0 2px 0 rgb(232, 184, 110);
+    border-width: 0; background-color: transparent;
+    -unity-slice-left: 0; -unity-slice-right: 0;
+    -unity-slice-top: 0; -unity-slice-bottom: 0;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-1020008357&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_hover");
+    background-size: contain; background-repeat: no-repeat; background-position: center;
+    color: transparent; -unity-text-align: middle-center;
+    transition-property: scale; transition-duration: 0.12s;
 }
-.df-modal-close.df-modal-close-icon:hover { color: rgb(173, 47, 30); }
+.df-window-close-icon { position: absolute; right: 14px; top: 14px; }
+.df-modal-close.df-modal-close-icon:hover,
+.df-modal-close.df-modal-close-icon:focus {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=2110562698&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_normal");
+}
+.df-modal-close.df-modal-close-icon:active {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-715846277&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_pressed");
+}
+.df-modal-close.df-modal-close-icon:disabled {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=1134719527&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_disabled");
+}

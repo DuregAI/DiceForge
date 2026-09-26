@@ -1,0 +1,87 @@
+#SettingsPanel {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+    display: none; align-items: center; justify-content: center;
+    background-color: rgba(24, 30, 18, 0.60);
+    opacity: 0; transition-property: opacity; transition-duration: 0.2s;
+}
+#SettingsPanel.is-visible { display: flex; opacity: 1; }
+#SettingsWindow {
+    width: 760px; height: 950px; max-width: 94%; max-height: 96%;
+    padding: 126px 90px 100px 90px;
+    overflow: visible;
+    background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel.png");
+    background-size: 100% 100%; color: rgb(65, 43, 25);
+    -unity-font-definition: url("../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    translate: 0 20px; scale: 0.96 0.96;
+    transition-property: translate, scale; transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+#SettingsPanel.is-visible #SettingsWindow { translate: 0 0; scale: 1 1; }
+#SettingsPanel .gh-settings-title {
+    font-size: 54px; -unity-font-style: bold; -unity-text-align: middle-center;
+    -unity-font-definition: url("../07_Art/Fonts/LuckiestGuy-Regular.ttf");
+}
+#SettingsPanel .gh-settings-close {
+    position: absolute; right: -40px; top: 36px;
+    width: 128px; height: 128px; min-width: 128px; min-height: 128px;
+}
+#SettingsPanel .gh-sound-block {
+    flex-direction: row; align-items: center; flex-grow: 1;
+    min-height: 280px; margin: 20px 0 24px 0;
+}
+#SettingsPanel .gh-audio-controls {
+    flex-grow: 1; flex-shrink: 1; min-width: 0;
+    transition-property: opacity; transition-duration: 0.15s;
+}
+#SettingsPanel .gh-audio-controls.is-muted { opacity: 0.42; }
+#SettingsPanel .gh-audio-label { font-size: 27px; margin: 6px 0 0 8px; color: rgb(74, 47, 24); }
+#SettingsPanel .gh-speaker {
+    width: 112px; height: 112px; min-width: 112px; margin: 0 24px 0 0; padding: 0;
+    background-image: url("../07_Art/UI/GlimblehopMenu/audio-on.png");
+    background-size: contain; background-color: transparent; border-width: 0;
+    translate: 0 10px; opacity: 0.86; scale: 0.94 0.94;
+    transition-property: scale; transition-duration: 0.12s;
+}
+#SettingsPanel .gh-speaker.is-muted { background-image: url("../07_Art/UI/GlimblehopMenu/audio-off.png"); }
+#SettingsPanel .gh-speaker:hover { background-color: transparent; opacity: 1; scale: 1 1; }
+#SettingsPanel .gh-speaker:active { background-color: transparent; scale: 0.96 0.96; }
+#SettingsPanel .gh-slider { height: 78px; margin: 0 6px 18px 6px; }
+#SettingsPanel .gh-slider .unity-base-slider__tracker {
+    height: 22px; border-radius: 8px; overflow: hidden;
+    background-color: rgb(188, 153, 99); border-width: 3px; border-color: rgb(119, 81, 39);
+}
+#SettingsPanel .gh-volume-fill { position: absolute; left: 0; top: 0; bottom: 0; background-color: rgb(119, 146, 55); border-radius: 5px; border-top-width: 3px; border-top-color: rgb(173, 189, 91); }
+#SettingsPanel .gh-slider .unity-base-slider__dragger {
+    width: 48px; height: 48px; border-radius: 19px; translate: 0 -2px;
+    background-color: rgb(255, 226, 160); border-width: 5px;
+    border-left-color: rgb(166, 115, 53); border-top-color: rgb(218, 174, 91);
+    border-right-color: rgb(115, 77, 36); border-bottom-color: rgb(115, 77, 36);
+}
+#SettingsPanel .gh-slider .unity-base-slider__dragger-border { border-width: 0; }
+#SettingsPanel .gh-slider:hover .unity-base-slider__dragger { background-color: rgb(255, 240, 193); }
+#SettingsPanel .gh-settings-actions { flex-direction: row; justify-content: space-between; }
+#SettingsPanel .gh-button {
+    background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-color: transparent; background-size: 100% 100%; border-width: 0;
+    color: rgb(56, 36, 21); -unity-font-style: bold; -unity-text-align: middle-center;
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48;
+    -unity-slice-bottom: 48; -unity-slice-scale: 0.64;
+    transition-property: scale; transition-duration: 0.12s;
+}
+#SettingsPanel .gh-button:hover { background-color: transparent; scale: 1.025 1.025; }
+#SettingsPanel .gh-button:active { scale: 0.97 0.97; }
+#SettingsPanel .gh-settings-actions .gh-button {
+    width: 49%; height: 76px; min-height: 76px; font-size: 21px; margin: 0;
+    -unity-slice-scale: 0.48;
+}
+#SettingsPanel .gh-settings-build { flex-direction: row; justify-content: center; margin: 22px 0; }
+#SettingsPanel .gh-settings-build Label { font-size: 22px; color: rgb(122, 97, 65); margin: 0 8px; }
+#SettingsPanel .gh-settings-done {
+    width: 72%; height: 96px; min-height: 96px; align-self: center;
+    font-size: 35px; margin: 0; -unity-slice-scale: 0.60;
+    background-image: url("../07_Art/UI/GlimblehopMenu/button-primary.png");
+    color: rgb(255, 241, 213); text-shadow: 0 2px 2px rgb(53, 39, 20);
+    -unity-slice-left: 100; -unity-slice-right: 100;
+    -unity-slice-top: 76; -unity-slice-bottom: 76;
+}
+.locale-ru #SettingsPanel .gh-settings-actions .gh-button { font-size: 19px; }

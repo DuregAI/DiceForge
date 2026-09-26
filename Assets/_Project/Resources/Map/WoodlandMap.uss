@@ -20,7 +20,7 @@
 .woodland-map .wm-hero-shadow { position: absolute; width: 60px; height: 17px; border-radius: 50%; background-color: rgba(45, 35, 18, 0.25); }
 .woodland-map .wm-node:disabled { opacity: 1; }
 .woodland-map .wm-stone { position: absolute; left: 0; top: 9px; width: 180px; height: 94px; background-image: url('../../07_Art/UI/GlimblehopMap/node-stone.png'); background-size: contain; background-repeat: no-repeat; }
-.woodland-map .wm-number { left: 55px; top: 54px; width: 70px; height: 43px; font-size: 31px; color: rgb(62, 38, 19); }
+.woodland-map .wm-number { left: 55px; top: 54px; width: 70px; height: 43px; font-size: 35px; color: rgb(62, 38, 19); }
 .woodland-map .wm-badge { position: absolute; right: 4px; top: 0; width: 48px; height: 48px; background-size: contain; background-repeat: no-repeat; }
 .woodland-map .is-completed .wm-badge { background-image: url('../../07_Art/UI/GlimblehopMap/badge-completed.png'); }
 .woodland-map .is-locked .wm-badge { background-image: url('../../07_Art/UI/GlimblehopMap/badge-locked.png'); }
@@ -39,9 +39,10 @@
 .woodland-map .wm-progress { left: 42px; top: 61px; width: 216px; height: 38px; font-size: 31px; }
 .woodland-map .wm-play { right: 30px; bottom: 24px; width: 447px; height: 159px; background-image: url('../../07_Art/UI/GlimblehopMenu/button-primary.png'); }
 .woodland-map .wm-action-text { left: 71px; top: 54px; width: 268px; height: 48px; font-size: 28px; text-shadow: 0 2px 0 rgb(44, 45, 15); }
-.woodland-map .wm-arrow { position: absolute; right: 58px; top: 64px; width: 23px; height: 30px; background-image: url('../../07_Art/UI/GlimblehopMenu/play-arrow.png'); background-size: contain; background-repeat: no-repeat; }
+.woodland-map .wm-arrow { position: absolute; right: 82px; top: 64px; width: 23px; height: 30px; background-image: url('../../07_Art/UI/GlimblehopMenu/play-arrow.png'); background-size: contain; background-repeat: no-repeat; }
 .woodland-map .wm-action-text, .woodland-map .wm-chapter { flex-direction: row; justify-content: center; align-items: center; }
 .woodland-map .wm-text-part { position: relative; flex-shrink: 0; }
+.woodland-map.locale-ru .wm-chapter .wm-fixed-digits, .woodland-map.locale-ru .wm-action-text .wm-fixed-digits { margin-left: 8px; top: 2px; }
 .woodland-map .wm-number, .woodland-map .wm-progress, .woodland-map .wm-fixed-digits {
     -unity-font-definition: url('../../07_Art/Fonts/AlfaSlabOne-Regular.ttf');
     -unity-font-style: normal;

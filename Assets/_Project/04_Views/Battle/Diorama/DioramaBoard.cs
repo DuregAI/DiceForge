@@ -28,9 +28,7 @@ namespace Diceforge.View
         private int screenWidth, screenHeight;
         private bool configured;
         private LineRenderer preview;
-        private GameObject ghost;
-        private Mesh ghostMesh;
-        private Material ghostMaterial;
+        private GameObject landingRim;
         private readonly List<Vector3> previewPoints = new();
         private readonly Dictionary<int, TextMesh> badges = new();
         public void Initialize()
@@ -113,7 +111,7 @@ namespace Diceforge.View
         {
             if(!move.HasValue || state==null)
             {
-                if(preview!=null)preview.enabled=false;if(ghost!=null)ghost.SetActive(false);return;
+                if(preview!=null)preview.enabled=false;if(landingRim!=null)landingRim.SetActive(false);return;
             }
             var value=move.Value;
             var path=BoardPathRules.GetPathInfo(state.Rules,state.CurrentPlayer);
@@ -142,25 +140,24 @@ namespace Diceforge.View
             }
             preview.enabled=true;preview.positionCount=points.Count;
             for(int i=0;i<points.Count;i++)preview.SetPosition(i,points[i]+Vector3.up*.09f);
-            if(ghost==null)
+            if(landingRim==null)
             {
-                DioramaToken source=null;
-                foreach(var token in FindObjectsByType<DioramaToken>(FindObjectsSortMode.None))if(token.player==(int)state.CurrentPlayer){source=token;break;}
-                if(source!=null)
+                var source=cells[0].highlight;
+                var ringMesh=source!=null?source.GetComponent<MeshFilter>()?.sharedMesh:null;
+                if(ringMesh!=null && ringMesh.name=="FirstTrailSelectionRim")
                 {
-                    var skin=source.GetComponentInChildren<SkinnedMeshRenderer>();
-                    if(skin!=null)
-                    {
-                        var baked=new Mesh();skin.BakeMesh(baked);
-                        ghostMesh=new Mesh();ghostMesh.CombineMeshes(new[]{new CombineInstance {mesh=baked,transform=source.transform.worldToLocalMatrix*skin.transform.localToWorldMatrix}},true,true);Destroy(baked);
-                        ghost=new GameObject("LandingSilhouette");ghost.transform.SetParent(transform,false);ghost.transform.localScale=Vector3.one*.78f;ghost.AddComponent<MeshFilter>().sharedMesh=ghostMesh;
-                        ghostMaterial=new Material(Shader.Find("Universal Render Pipeline/Lit"));ghostMaterial.color=new Color(1,.83f,.35f,.30f);
-                        ghostMaterial.SetFloat("_Surface",1);ghostMaterial.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);ghostMaterial.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);ghostMaterial.SetFloat("_ZWrite",0);ghostMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");ghostMaterial.renderQueue=3000;
-                        var renderer=ghost.AddComponent<MeshRenderer>();renderer.sharedMaterial=ghostMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
-                    }
+                    landingRim=new GameObject("LandingRim");landingRim.transform.SetParent(transform,false);
+                    landingRim.transform.localScale=Vector3.one*1.08f;
+                    landingRim.AddComponent<MeshFilter>().sharedMesh=ringMesh;
+                    var renderer=landingRim.AddComponent<MeshRenderer>();
+                    renderer.sharedMaterial=source.sharedMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
                 }
             }
-            if(ghost!=null){ghost.SetActive(true);ghost.transform.position=points[points.Count-1];ghost.transform.rotation=Quaternion.Euler(0,180,0);}
+            if(landingRim!=null)
+            {
+                landingRim.SetActive(value.Kind!=MoveKind.BearOff);
+                landingRim.transform.position=points[points.Count-1]+Vector3.up*.03f;
+            }
         }
         public void SetCount(int player,int cell,int count)
         {
@@ -177,6 +174,6 @@ namespace Diceforge.View
             if(cameraView!=null)badge.transform.rotation=cameraView.transform.rotation;
         }
         private void ClearBadges(){foreach(var b in badges.Values)if(b!=null)Destroy(b.gameObject);badges.Clear();}
-        private void OnDestroy(){if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}if(ghostMesh!=null)Destroy(ghostMesh);if(ghostMaterial!=null)Destroy(ghostMaterial);}
+        private void OnDestroy(){if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}}
     }
 }

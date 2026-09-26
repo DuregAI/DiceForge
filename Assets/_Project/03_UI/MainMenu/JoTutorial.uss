@@ -33,5 +33,7 @@
 .jo-hint, .jo-counter { -unity-font-style: bold; }
 .jo-close { background-color: transparent; border-width: 0; padding: 0; }
 
-.jo-close { background-image: url('../../07_Art/UI/GlimblehopMenu/tutorial-close.png'); background-size: contain; background-repeat: no-repeat; background-position: center; width: 112px; height: 112px; left: 1520px; top: 32px; }
-.jo-close:hover { -unity-background-image-tint-color: rgb(255,206,160); }
+.jo-close { background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-1020008357&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_hover"); background-size: contain; background-repeat: no-repeat; background-position: center; width: 112px; height: 112px; left: 1520px; top: 32px; color: transparent; }
+.jo-close:hover, .jo-close:focus { background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=2110562698&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_normal"); }
+.jo-close:active { background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-715846277&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_pressed"); }
+.jo-close:disabled { background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=1134719527&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_disabled"); }

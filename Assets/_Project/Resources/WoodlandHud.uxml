@@ -7,6 +7,7 @@
       <ui:Label name="scoreB" class="score cool" text="ЛУНА  0 / 2" />
       <ui:Button name="pause" class="pause" text="II" />
     </ui:VisualElement>
+    <ui:Button name="settings" class="settings" tooltip="Settings" />
     <ui:VisualElement class="board-space" picking-mode="Ignore" />
     <ui:VisualElement class="bottom-bar">
       <ui:VisualElement name="moves" class="moves" />
@@ -19,6 +20,7 @@
       <ui:VisualElement class="menu">
         <ui:Label text="REST STOP" class="menu-title" />
         <ui:Button name="resume" text="Resume" />
+        <ui:Button name="pauseSettings" text="Settings" />
         <ui:Toggle name="mute" text="Mute audio" />
         <ui:Toggle name="reducedMotion" text="Reduce motion" />
         <ui:Button name="surrender" text="Surrender" />

@@ -91,6 +91,8 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
+        SharedSettingsPanel.AttachTo(root.Q("Root"));
+
         buildInfoLabel = root.Q<Label>("lblBuildInfo");
         aboutVersionLabel = root.Q<Label>("lblAboutVersion");
         musicSlider = root.Q<Slider>("sliderMusicVolume");

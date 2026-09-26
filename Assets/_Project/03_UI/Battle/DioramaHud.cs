@@ -1,4 +1,5 @@
 using Diceforge.Core;
+using Diceforge.Audio;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,15 +11,21 @@ namespace Diceforge.View
         private static DioramaHud instance;
         private BattleDebugController battle;
         private DioramaBoard board;
-        private UIDocument document;
+        private GameObject settingsObject;
+        private UIDocument document, settingsDocument;
         public UIDocument Document => document;
-        private VisualElement root, panel, dice, menu;
+        private VisualElement root, panel, dice, menu, settingsPanel;
         private Label turn, scoreA, scoreB, hint;
-        private Button reroll;
+        private Button reroll, settingsButton, settingsMute;
+        private Toggle pauseMute;
+        private Slider musicSlider, sfxSlider;
+        private AudioManager audioManager;
+        private Diceforge.UI.ModalDismiss settingsDismiss;
         private bool paused;
+        private bool settingsOpenedFromPause;
         private float previousTimeScale;
         private string diceSignature;
-        private MenuLocalization localization;
+        private MenuLocalization localization, settingsLocalization;
         private int width,height;
         public void Initialize(BattleDebugController controller,DioramaBoard geometry)
         {
@@ -31,10 +38,28 @@ namespace Diceforge.View
             root=document.rootVisualElement; root.pickingMode=PickingMode.Ignore;
             if(old?.Document!=null)old.Document.rootVisualElement.style.display=DisplayStyle.None;
             panel=root.Q("woodlandRoot");panel.pickingMode=PickingMode.Ignore;
+            var settingsPanelSettings=Resources.Load<PanelSettings>("BattleSettingsPanel");
+            if(settingsPanelSettings!=null)
+            {
+                settingsObject=new GameObject("BattleSettingsWindow");
+                settingsDocument=settingsObject.AddComponent<UIDocument>();
+                settingsDocument.panelSettings=settingsPanelSettings;
+                var settingsRoot=settingsDocument.rootVisualElement;
+                settingsRoot.pickingMode=PickingMode.Ignore;
+                settingsPanel=SharedSettingsPanel.AttachTo(settingsRoot);
+                if(settingsPanel!=null) settingsLocalization=new MenuLocalization(settingsRoot,null);
+            }
+            else Debug.LogError("[Settings] BattleSettingsPanel is missing.");
             localization=new MenuLocalization(root,()=>diceSignature=null);
             dice=root.Q("moves"); menu=root.Q("pauseOverlay");
             turn=root.Q<Label>("turn");scoreA=root.Q<Label>("scoreA");scoreB=root.Q<Label>("scoreB");hint=root.Q<Label>("hint");
             reroll=root.Q<Button>("reroll");reroll.clicked+=()=>battle.PresentationReroll();
+            settingsButton=root.Q<Button>("settings");
+            settingsButton.SetEnabled(settingsPanel!=null);
+            if(settingsPanel!=null) InitializeSettings();
+            root.Q<Button>("pauseSettings").SetEnabled(settingsPanel!=null);
+            if(settingsPanel!=null) root.Q<Button>("pauseSettings").clicked+=OpenSettings;
+            audioManager ??= AudioManager.Instance!=null?AudioManager.Instance:FindAnyObjectByType<AudioManager>();
             root.Q<Button>("pause").clicked+=()=>SetPaused(true);
             root.Q<Button>("resume").clicked+=()=>SetPaused(false);
             root.Q<Button>("surrender").clicked+=()=>root.Q("confirmSurrender").RemoveFromClassList("hidden");
@@ -43,10 +68,93 @@ namespace Diceforge.View
             var reduced=root.Q<Toggle>("reducedMotion");reduced.SetValueWithoutNotify(PlayerPrefs.GetInt("WoodlandReducedMotion",0)==1);
             DioramaBoard.ReducedMotion=reduced.value;
             reduced.RegisterValueChangedCallback(e=>{DioramaBoard.ReducedMotion=e.newValue;PlayerPrefs.SetInt("WoodlandReducedMotion",e.newValue?1:0);});
-            var muted=root.Q<Toggle>("mute");
-            muted.SetValueWithoutNotify(Diceforge.Audio.AudioManager.Instance != null && Diceforge.Audio.AudioManager.Instance.IsMuted);
-            muted.RegisterValueChangedCallback(e=>{if(Diceforge.Audio.AudioManager.Instance!=null)Diceforge.Audio.AudioManager.Instance.SetMuted(e.newValue);});
+            pauseMute=root.Q<Toggle>("mute");
+            pauseMute.SetValueWithoutNotify(audioManager!=null && audioManager.IsMuted);
+            pauseMute.RegisterValueChangedCallback(e=>audioManager?.SetMuted(e.newValue));
             board.GeometryChanged+=OnGeometryChanged;
+        }
+        private void InitializeSettings()
+        {
+            settingsPanel.style.display=DisplayStyle.None;
+            settingsPanel.Q(className:"gh-settings-actions").style.display=DisplayStyle.None;
+            settingsPanel.Q<Label>("lblAboutVersion").text=$"{localization.T("Version")} {Application.version}";
+            settingsPanel.Q<Label>("lblBuildInfo").style.display=DisplayStyle.None;
+            settingsButton.clicked+=OpenSettings;
+            settingsPanel.Q<Button>("btnCloseSettings").clicked+=CloseSettings;
+            settingsPanel.Q<Button>("btnSettingsDone").clicked+=CloseSettings;
+            settingsDismiss=new Diceforge.UI.ModalDismiss(settingsPanel,settingsPanel.Q("SettingsWindow"),CloseSettings);
+            settingsMute=settingsPanel.Q<Button>("btnSettingsMute");
+            settingsMute.clicked+=ToggleSettingsMute;
+            musicSlider=settingsPanel.Q<Slider>("sliderMusicVolume");
+            sfxSlider=settingsPanel.Q<Slider>("sliderSfxVolume");
+            musicSlider.RegisterValueChangedCallback(OnMusicVolumeChanged);
+            sfxSlider.RegisterValueChangedCallback(OnSfxVolumeChanged);
+            InitializeVolumeFill(musicSlider);
+            InitializeVolumeFill(sfxSlider);
+            audioManager=AudioManager.Instance!=null?AudioManager.Instance:FindAnyObjectByType<AudioManager>();
+            if(audioManager!=null)
+            {
+                audioManager.OnMuteChanged+=OnMuteChanged;
+                audioManager.OnVolumesChanged+=OnVolumesChanged;
+                OnMuteChanged(audioManager.IsMuted);
+                OnVolumesChanged(audioManager.MusicVolume,audioManager.SfxVolume);
+            }
+        }
+        private void OpenSettings()
+        {
+            settingsOpenedFromPause=paused;
+            SetPaused(true);
+            menu.AddToClassList("hidden");
+            settingsPanel.style.display=DisplayStyle.Flex;
+            settingsPanel.AddToClassList("is-visible");
+            settingsPanel.Q<Button>("btnCloseSettings")?.Focus();
+        }
+        private void CloseSettings()
+        {
+            settingsPanel.RemoveFromClassList("is-visible");
+            settingsPanel.style.display=DisplayStyle.None;
+            if(settingsOpenedFromPause) menu.RemoveFromClassList("hidden");
+            else SetPaused(false);
+        }
+        private void ToggleSettingsMute() => audioManager?.SetMuted(!audioManager.IsMuted);
+        private void OnMuteChanged(bool muted)
+        {
+            settingsMute.EnableInClassList("is-muted",muted);
+            settingsPanel.Q("SettingsAudioControls")?.EnableInClassList("is-muted",muted);
+            settingsMute.tooltip=localization.T(muted?"Unmute audio":"Mute audio");
+            pauseMute?.SetValueWithoutNotify(muted);
+        }
+        private void OnVolumesChanged(float music,float sfx)
+        {
+            musicSlider.SetValueWithoutNotify(music);
+            sfxSlider.SetValueWithoutNotify(sfx);
+            UpdateVolumeFill(musicSlider,music);
+            UpdateVolumeFill(sfxSlider,sfx);
+        }
+        private void OnMusicVolumeChanged(ChangeEvent<float> evt)
+        {
+            if(audioManager!=null && audioManager.IsMuted) audioManager.SetMuted(false);
+            audioManager?.SetMusicVolume(evt.newValue);
+            UpdateVolumeFill(musicSlider,evt.newValue);
+        }
+        private void OnSfxVolumeChanged(ChangeEvent<float> evt)
+        {
+            if(audioManager!=null && audioManager.IsMuted) audioManager.SetMuted(false);
+            audioManager?.SetSfxVolume(evt.newValue);
+            UpdateVolumeFill(sfxSlider,evt.newValue);
+        }
+        private static void InitializeVolumeFill(Slider slider)
+        {
+            var tracker=slider.Q(className:"unity-base-slider__tracker");
+            if(tracker==null)return;
+            var fill=new VisualElement{name="VolumeFill",pickingMode=PickingMode.Ignore};
+            fill.AddToClassList("gh-volume-fill");
+            tracker.Add(fill);
+        }
+        private static void UpdateVolumeFill(Slider slider,float value)
+        {
+            var fill=slider?.Q("VolumeFill");
+            if(fill!=null)fill.style.width=Length.Percent(Mathf.InverseLerp(slider.lowValue,slider.highValue,value)*100f);
         }
         private void OnGeometryChanged(){diceSignature=null;battle.RefreshPresentation();}
         private void LateUpdate()
@@ -109,7 +217,17 @@ namespace Diceforge.View
             if(paused)Time.timeScale=previousTimeScale;
             if(board!=null)board.GeometryChanged-=OnGeometryChanged;
             if(instance==this)instance=null;
+            settingsDismiss?.Dispose();
+            if(audioManager!=null)
+            {
+                audioManager.OnMuteChanged-=OnMuteChanged;
+                audioManager.OnVolumesChanged-=OnVolumesChanged;
+            }
+            musicSlider?.UnregisterValueChangedCallback(OnMusicVolumeChanged);
+            sfxSlider?.UnregisterValueChangedCallback(OnSfxVolumeChanged);
             localization?.Dispose();
+            settingsLocalization?.Dispose();
+            if(settingsObject!=null) Destroy(settingsObject);
         }
     }
 }

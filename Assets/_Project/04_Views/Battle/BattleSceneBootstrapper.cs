@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Diceforge.Battle;
 using Diceforge.Core;
 using Diceforge.Diagnostics;
@@ -17,6 +18,8 @@ namespace Diceforge.View
         [SerializeField] private Transform decorationsRoot;
         [SerializeField] private Transform unitsRoot;
         [SerializeField] private BattleBoardViewController boardViewController;
+        private BattleDebugController pendingHudBattle;
+        private DioramaBoard pendingHudDiorama;
 
         private void Awake()
         {
@@ -139,7 +142,8 @@ namespace Diceforge.View
             if (diorama != null)
             {
                 FindAnyObjectByType<BoardDebugView>().ConfigureGeometry(diorama);
-                battleDebugController.gameObject.AddComponent<DioramaHud>().Initialize(battleDebugController, diorama);
+                pendingHudBattle = battleDebugController;
+                pendingHudDiorama = diorama;
             }
             battleDebugController.StartFromPreset(activePreset);
 
@@ -151,6 +155,19 @@ namespace Diceforge.View
                 map.mapId,
                 map.name,
                 cellsCount));
+        }
+
+        private IEnumerator Start()
+        {
+            if (pendingHudBattle == null || pendingHudDiorama == null)
+                yield break;
+
+            // Scene loading can destroy the menu panel while UI Toolkit updates its native
+            // transform hierarchy. Attach the battle panel after that scene transition frame.
+            yield return null;
+            if (pendingHudBattle != null && pendingHudDiorama != null)
+                pendingHudBattle.gameObject.AddComponent<DioramaHud>()
+                    .Initialize(pendingHudBattle, pendingHudDiorama);
         }
 
         private static InvalidOperationException BuildBootstrapException(string reason, GameModePreset preset, BattleMapConfig map)

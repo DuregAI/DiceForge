@@ -342,6 +342,7 @@ namespace Diceforge.View.Editor
             layout.cellIds = map.boardLayout.cells.Select(cell => cell.cellId).ToArray();
             layout.landscape = new Vector3[8];
             var glow = AssetDatabase.LoadAssetAtPath<Material>(Diorama + "/Selection.mat");
+            var selectionRim = GetFirstTrailSelectionRim();
             var tiles = art.GetComponentsInChildren<Transform>();
             for (int i = 0; i < 8; i++)
             {
@@ -362,13 +363,14 @@ namespace Diceforge.View.Editor
                 collider.size = new Vector3(1.05f, .33f, 1.04f);
                 var marker = cell.AddComponent<DioramaCell>();
                 marker.cellId = layout.cellIds[i];
-                var highlight = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                var highlight = new GameObject("Available move");
                 highlight.name = "Available move";
                 highlight.transform.SetParent(cell.transform, false);
-                highlight.transform.localScale = new Vector3(.96f, .005f, .96f);
-                UnityEngine.Object.DestroyImmediate(highlight.GetComponent<Collider>());
-                marker.highlight = highlight.GetComponent<Renderer>();
+                highlight.AddComponent<MeshFilter>().sharedMesh = selectionRim;
+                marker.highlight = highlight.AddComponent<MeshRenderer>();
                 marker.highlight.sharedMaterial = glow;
+                marker.highlight.shadowCastingMode = ShadowCastingMode.Off;
+                marker.highlight.receiveShadows = false;
                 marker.highlight.enabled = false;
             }
             layout.portrait = (Vector3[])layout.landscape.Clone();
@@ -391,6 +393,60 @@ namespace Diceforge.View.Editor
             var prefab = PrefabUtility.SaveAsPrefabAsset(root, Diorama + "/FirstTrail8.prefab");
             UnityEngine.Object.DestroyImmediate(root);
             return prefab;
+        }
+
+        [MenuItem("Diceforge/Woodland/Repair first trail selection rim")]
+        public static void RepairFirstTrailSelectionRim()
+        {
+            var rim = GetFirstTrailSelectionRim();
+            var root = PrefabUtility.LoadPrefabContents(EightCellPrefab);
+            try
+            {
+                foreach (var cell in root.GetComponentsInChildren<DioramaCell>(true))
+                {
+                    var renderer = cell.highlight as MeshRenderer;
+                    if (renderer == null) continue;
+                    var filter = renderer.GetComponent<MeshFilter>();
+                    filter.sharedMesh = rim;
+                    renderer.transform.localPosition = Vector3.zero;
+                    renderer.transform.localScale = Vector3.one;
+                    renderer.shadowCastingMode = ShadowCastingMode.Off;
+                    renderer.receiveShadows = false;
+                    renderer.enabled = false;
+                }
+                PrefabUtility.SaveAsPrefabAsset(root, EightCellPrefab);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+        }
+
+        private static Mesh GetFirstTrailSelectionRim()
+        {
+            const int segments = 48;
+            var path = Diorama + "/FirstTrailSelectionRim.asset";
+            var rim = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if (rim != null) return rim;
+            rim = new Mesh { name = "FirstTrailSelectionRim" };
+            var vertices = new Vector3[segments * 2];
+            var triangles = new int[segments * 6];
+            for (int i = 0; i < segments; i++)
+            {
+                float angle = 2f * Mathf.PI * i / segments;
+                float x = Mathf.Cos(angle), z = Mathf.Sin(angle);
+                vertices[i * 2] = new Vector3(x * .49f, .018f, z * .46f);
+                vertices[i * 2 + 1] = new Vector3(x * .435f, .018f, z * .405f);
+                int next = (i + 1) % segments, offset = i * 6;
+                triangles[offset] = i * 2;
+                triangles[offset + 1] = i * 2 + 1;
+                triangles[offset + 2] = next * 2;
+                triangles[offset + 3] = i * 2 + 1;
+                triangles[offset + 4] = next * 2 + 1;
+                triangles[offset + 5] = next * 2;
+            }
+            rim.vertices = vertices;
+            rim.triangles = triangles;
+            rim.RecalculateNormals();
+            AssetDatabase.CreateAsset(rim, path);
+            return rim;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Diceforge.UI
         private readonly VisualElement overlay;
         private readonly VisualElement window;
         private readonly Action close;
+        private Button generatedClose;
         private int pointer = -1;
 
         public ModalDismiss(VisualElement overlay, VisualElement window, Action close)
@@ -23,6 +24,14 @@ namespace Diceforge.UI
             overlay.RegisterCallback<PointerDownEvent>(OnDown, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerUpEvent>(OnUp, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerCancelEvent>(OnCancel);
+            if (close != null && window.Q<Button>(className: "df-modal-close-icon") == null)
+            {
+                generatedClose = new Button(close) { name = overlay.name + "CloseIcon", tooltip = "Close" };
+                generatedClose.AddToClassList("df-modal-close");
+                generatedClose.AddToClassList("df-modal-close-icon");
+                generatedClose.AddToClassList("df-window-close-icon");
+                window.Add(generatedClose);
+            }
         }
 
         public static ModalDismiss BindButton(VisualElement root, string overlayName, string buttonName)
@@ -36,7 +45,7 @@ namespace Diceforge.UI
             }
             VisualElement window = button;
             while (window != null && window.parent != overlay) window = window.parent;
-            return new ModalDismiss(overlay, window, () =>
+            Action requestClose = () =>
             {
                 // Reuse Cancel/Close, including its readiness and unsaved-result guards.
                 if (button == null || !button.enabledInHierarchy || button.resolvedStyle.display == DisplayStyle.None) return;
@@ -45,7 +54,8 @@ namespace Diceforge.UI
                     evt.target = button;
                     button.SendEvent(evt);
                 }
-            });
+            };
+            return new ModalDismiss(overlay, window, requestClose);
         }
 
         private bool Outside(EventBase evt) => evt.target is VisualElement target
@@ -74,6 +84,7 @@ namespace Diceforge.UI
             overlay.UnregisterCallback<PointerDownEvent>(OnDown, TrickleDown.TrickleDown);
             overlay.UnregisterCallback<PointerUpEvent>(OnUp, TrickleDown.TrickleDown);
             overlay.UnregisterCallback<PointerCancelEvent>(OnCancel);
+            generatedClose?.RemoveFromHierarchy();
         }
     }
 }

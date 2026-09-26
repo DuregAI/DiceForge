@@ -29,8 +29,7 @@ namespace Diceforge.Transitions
                 var cloud = new VisualElement
                 {
                     name = "Cloud" + i,
-                    pickingMode = PickingMode.Ignore,
-                    usageHints = UsageHints.DynamicTransform
+                    pickingMode = PickingMode.Ignore
                 };
                 cloud.style.position = Position.Absolute;
                 cloud.style.backgroundImage = settings.cloudTexture;

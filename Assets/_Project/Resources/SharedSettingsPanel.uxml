@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="SettingsPanel" class="settings-overlay gh-settings-overlay">
+        <ui:VisualElement name="SettingsWindow" class="gh-settings-window">
+            <ui:Button name="btnCloseSettings" text="×" tooltip="Close settings" class="gh-settings-close df-modal-close df-modal-close-icon"/>
+            <ui:Label text="SETTINGS" class="gh-settings-title"/>
+            <ui:VisualElement name="SettingsSoundBlock" class="gh-sound-block">
+                <ui:Button name="btnSettingsMute" class="gh-speaker" tooltip="Mute audio"/>
+                <ui:VisualElement name="SettingsAudioControls" class="gh-audio-controls">
+                    <ui:Label text="Music" class="gh-audio-label"/>
+                    <ui:Slider name="sliderMusicVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
+                    <ui:Label text="Sound effects" class="gh-audio-label"/>
+                    <ui:Slider name="sliderSfxVolume" low-value="0" high-value="1" value="0.7" class="gh-slider"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="gh-settings-actions">
+                <ui:Button name="btnCopyLog" text="COPY LOG" class="gh-button"/>
+                <ui:Button name="btnOpenFeedback" text="FEEDBACK" class="gh-button"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="gh-settings-build">
+                <ui:Label name="lblAboutVersion" text="Version"/>
+                <ui:Label name="lblBuildInfo" text="Build: dev"/>
+            </ui:VisualElement>
+            <ui:Button name="btnSettingsDone" text="DONE" class="gh-button gh-primary gh-settings-done"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
