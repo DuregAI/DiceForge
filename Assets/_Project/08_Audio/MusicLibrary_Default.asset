@@ -17,5 +17,23 @@ MonoBehaviour:
     displayName: Goblin Woodland Adventure
     clip: {fileID: 8300000, guid: a560346617cca2c42854f0974176497c, type: 3}
     enabled: 1
-    allowedContexts: -1
+    allowedContexts: 3
+    tags: []
+  - id: trk_woodland_whimsy_map
+    displayName: Woodland Whimsy
+    clip: {fileID: 8300000, guid: 30cbbe04adb6425fb0b67894212f9df1, type: 3}
+    enabled: 1
+    allowedContexts: 8
+    tags: []
+  - id: trk_miniature_adventure_gameplay
+    displayName: Miniature Adventure
+    clip: {fileID: 8300000, guid: 26a5c1d4ee304bc68d07ef9be580a662, type: 3}
+    enabled: 1
+    allowedContexts: 4
+    tags: []
+  - id: trk_woodland_pursuit_gameplay
+    displayName: Woodland Pursuit
+    clip: {fileID: 8300000, guid: f82645dece654f5d8d8640b927b9a3c7, type: 3}
+    enabled: 1
+    allowedContexts: 4
     tags: []

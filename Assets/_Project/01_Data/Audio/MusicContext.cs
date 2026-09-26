@@ -9,6 +9,7 @@ namespace Diceforge.Audio
         Menu = 1 << 0,
         Tutorial = 1 << 1,
         Gameplay = 1 << 2,
-        All = Menu | Tutorial | Gameplay
+        Map = 1 << 3,
+        All = Menu | Tutorial | Gameplay | Map
     }
 }

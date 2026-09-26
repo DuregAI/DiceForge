@@ -12,7 +12,13 @@ namespace Diceforge.Audio
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioClip defaultUiClickClip;
         [SerializeField] private bool dontDestroyOnLoad = true;
+        [SerializeField, Min(0f)] private float musicCrossfadeSeconds = 1.25f;
 
+        private AudioSource _otherMusicSource;
+        private AudioSource _voiceSource;
+        private Coroutine _musicFade;
+        private float _musicGain = 1f;
+        private float _otherMusicGain;
         private PlayerMusicPrefsStorage _storage;
         private MusicSelector _selector;
         private Coroutine _playbackWatcher;
@@ -66,6 +72,18 @@ namespace Diceforge.Audio
             if (musicSource == null)
                 musicSource = GetComponent<AudioSource>();
 
+            _otherMusicSource = gameObject.AddComponent<AudioSource>();
+            _otherMusicSource.playOnAwake = false;
+            _otherMusicSource.spatialBlend = 0f;
+            if (musicSource != null)
+                _otherMusicSource.outputAudioMixerGroup = musicSource.outputAudioMixerGroup;
+
+            _voiceSource = gameObject.AddComponent<AudioSource>();
+            _voiceSource.playOnAwake = false;
+            _voiceSource.spatialBlend = 0f;
+            if (sfxSource != null)
+                _voiceSource.outputAudioMixerGroup = sfxSource.outputAudioMixerGroup;
+
             ApplyVolumes();
         }
 
@@ -112,8 +130,46 @@ namespace Diceforge.Audio
 
         public void StopMusic()
         {
+            if (_musicFade != null)
+            {
+                StopCoroutine(_musicFade);
+                _musicFade = null;
+            }
             if (musicSource != null)
+            {
                 musicSource.Stop();
+                musicSource.clip = null;
+            }
+            if (_otherMusicSource != null)
+            {
+                _otherMusicSource.Stop();
+                _otherMusicSource.clip = null;
+            }
+            _currentTrackId = null;
+            _musicGain = 1f;
+            _otherMusicGain = 0f;
+        }
+
+        public void PlayVoice(AudioClip clip)
+        {
+            if (_voiceSource == null || clip == null)
+                return;
+
+            _voiceSource.Stop();
+            _voiceSource.clip = clip;
+            ApplyVolumes();
+            _voiceSource.Play();
+            ApplyVolumes();
+        }
+
+        public void StopVoice()
+        {
+            if (_voiceSource == null)
+                return;
+
+            _voiceSource.Stop();
+            _voiceSource.clip = null;
+            ApplyVolumes();
         }
 
         public TrackVote GetVote(string trackId)
@@ -238,8 +294,14 @@ namespace Diceforge.Audio
             var wait = new WaitForSeconds(0.2f);
             while (true)
             {
-                if (musicSource != null && musicSource.clip != null && !musicSource.isPlaying)
+                if (musicSource != null && musicSource.clip != null && !musicSource.isPlaying && _musicFade == null)
                     TryPlayNext(false);
+
+                if (_voiceSource != null && !_voiceSource.isPlaying && _voiceSource.clip != null)
+                {
+                    _voiceSource.clip = null;
+                    ApplyVolumes();
+                }
 
                 yield return wait;
             }
@@ -260,6 +322,8 @@ namespace Diceforge.Audio
 
             if (!musicLibrary.TryGetById(targetTrackId, out TrackDef targetTrack) || targetTrack == null)
                 return false;
+            if (!musicLibrary.IsTrackAllowedInContext(targetTrackId, _activeContext))
+                return false;
 
             _historyIndex = targetIndex;
             PlayTrack(targetTrack, false);
@@ -268,14 +332,44 @@ namespace Diceforge.Audio
 
         private void PlayTrack(TrackDef def, bool recordHistory)
         {
-            if (def == null || musicSource == null)
+            if (def == null || def.clip == null || musicSource == null || _otherMusicSource == null)
             {
                 return;
+            }
+
+            if (_musicFade != null)
+            {
+                StopCoroutine(_musicFade);
+                _musicFade = null;
+            }
+
+            if (_otherMusicGain > _musicGain && _otherMusicSource.isPlaying)
+            {
+                (musicSource, _otherMusicSource) = (_otherMusicSource, musicSource);
+                (_musicGain, _otherMusicGain) = (_otherMusicGain, _musicGain);
+            }
+
+            _otherMusicSource.Stop();
+            _otherMusicSource.clip = null;
+            _otherMusicGain = 0f;
+
+            bool hasOutgoingTrack = musicSource.isPlaying;
+            if (hasOutgoingTrack)
+            {
+                (musicSource, _otherMusicSource) = (_otherMusicSource, musicSource);
+                _otherMusicGain = _musicGain;
+                _musicGain = 0f;
+            }
+            else
+            {
+                _musicGain = 0f;
             }
 
             musicSource.clip = def.clip;
             musicSource.loop = false;
             musicSource.Play();
+            ApplyVolumes();
+            _musicFade = StartCoroutine(FadeMusic(hasOutgoingTrack ? musicCrossfadeSeconds : 0.35f));
 
             _currentTrackId = def.id;
             if (recordHistory)
@@ -283,6 +377,30 @@ namespace Diceforge.Audio
 
             _missingLibraryWarned = false;
             OnTrackChanged?.Invoke(def.id, musicLibrary.GetDisplayName(def.id));
+        }
+
+        private IEnumerator FadeMusic(float duration)
+        {
+            float elapsed = 0f;
+            float outgoingStartGain = _otherMusicGain;
+            duration = Mathf.Max(0.01f, duration);
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float progress = Mathf.Clamp01(elapsed / duration);
+                _musicGain = progress;
+                _otherMusicGain = outgoingStartGain * (1f - progress);
+                ApplyVolumes();
+                yield return null;
+            }
+
+            _musicGain = 1f;
+            _otherMusicGain = 0f;
+            _otherMusicSource.Stop();
+            _otherMusicSource.clip = null;
+            _musicFade = null;
+            ApplyVolumes();
         }
 
         private void RegisterTrackInHistory(string trackId)
@@ -346,7 +464,13 @@ namespace Diceforge.Audio
             if (musicSource != null)
             {
                 musicSource.mute = _prefs.isMuted;
-                musicSource.volume = Mathf.Clamp01(_prefs.musicVolume);
+                musicSource.volume = Mathf.Clamp01(_prefs.musicVolume) * _musicGain * VoiceMusicGain();
+            }
+
+            if (_otherMusicSource != null)
+            {
+                _otherMusicSource.mute = _prefs.isMuted;
+                _otherMusicSource.volume = Mathf.Clamp01(_prefs.musicVolume) * _otherMusicGain * VoiceMusicGain();
             }
 
             if (sfxSource != null)
@@ -354,6 +478,14 @@ namespace Diceforge.Audio
                 sfxSource.mute = _prefs.isMuted;
                 sfxSource.volume = Mathf.Clamp01(_prefs.sfxVolume);
             }
+
+            if (_voiceSource != null)
+            {
+                _voiceSource.mute = _prefs.isMuted;
+                _voiceSource.volume = Mathf.Clamp01(_prefs.sfxVolume);
+            }
         }
+
+        private float VoiceMusicGain() => _voiceSource != null && _voiceSource.isPlaying ? 0.35f : 1f;
     }
 }

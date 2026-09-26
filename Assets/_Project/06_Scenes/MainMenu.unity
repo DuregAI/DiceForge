@@ -365,6 +365,7 @@ MonoBehaviour:
   sfxSource: {fileID: 148167645}
   defaultUiClickClip: {fileID: 8300000, guid: b7532909fe5f46543ab3abb803e4a9d5, type: 3}
   dontDestroyOnLoad: 1
+  musicCrossfadeSeconds: 1.25
 --- !u!114 &148167647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,6 +667,7 @@ MonoBehaviour:
   tutorialPreset: {fileID: 11400000, guid: 24b0d6abd43b4db9ab07727ad1026a43, type: 2}
   experimentalPreset: {fileID: 11400000, guid: dbe1a0feca0b4e428a7a863dcb03824a, type: 2}
   tutorialPortraitLibrary: {fileID: 11400000, guid: 1a8442e9f2804ac685bd8080281da68e, type: 2}
+  howToPlayVoiceClip: {fileID: 8300000, guid: 63dabe8bae714beab1bb2a4275ace820, type: 3}
   atmosphere:
     entranceDelay: 1
     entranceDuration: 0.9

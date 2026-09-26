@@ -27,6 +27,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameModePreset tutorialPreset;
     [SerializeField] private GameModePreset experimentalPreset;
     [SerializeField] private TutorialPortraitLibrary tutorialPortraitLibrary;
+    [SerializeField] private AudioClip howToPlayVoiceClip;
 
     private UIDocument document;
     private VisualElement root;
@@ -241,7 +242,9 @@ public class MainMenuController : MonoBehaviour
 
         RefreshAudioSlidersFromManager();
 
-        audioManager?.EnsureMusicForContext(MusicContext.Menu);
+        bool returnToMap = Diceforge.Map.MapFlowRuntime.HasPendingBattleResult ||
+            Diceforge.Map.MapFlowRuntime.ConsumeReturnToMapRequest();
+        audioManager?.EnsureMusicForContext(returnToMap ? MusicContext.Map : MusicContext.Menu);
         if (audioManager != null)
         {
             audioManager.OnVolumesChanged -= HandleAudioVolumesChanged;
@@ -249,12 +252,13 @@ public class MainMenuController : MonoBehaviour
             audioManager.OnMuteChanged += HandleMuteChanged;
         }
 
-        if (Diceforge.Map.MapFlowRuntime.HasPendingBattleResult || Diceforge.Map.MapFlowRuntime.ConsumeReturnToMapRequest())
+        if (returnToMap)
             OpenMapChapterImmediately();
     }
 
     private void OnDestroy()
     {
+        audioManager?.StopVoice();
         joTutorial?.Dispose();
         localization?.Dispose();
         foreach (var binding in modalBindings) binding.Dispose();
@@ -327,7 +331,11 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
-        if (currentPanel?.name == "JoTutorialPanel") joTutorial?.CancelAnimation();
+        if (currentPanel?.name == "JoTutorialPanel")
+        {
+            joTutorial?.CancelAnimation();
+            audioManager?.StopVoice();
+        }
         if (settingsButton != null) settingsButton.style.visibility = panelName == "JoTutorialPanel" ? Visibility.Hidden : Visibility.Visible;
         bool openingSettings = panelName == "SettingsPanel";
         bool openingMenuOverlay = openingSettings || panelName == "LegalPanel";
@@ -337,6 +345,8 @@ public class MainMenuController : MonoBehaviour
         }
 
         currentPanel = targetPanel;
+        if (panelName == "JoTutorialPanel")
+            audioManager?.PlayVoice(howToPlayVoiceClip);
         if (panelHideJobs.TryGetValue(targetPanel, out var hideJob))
         {
             hideJob.Pause();
@@ -906,6 +916,7 @@ public class MainMenuController : MonoBehaviour
     private void OpenMapChapterImmediately()
     {
         ShowPanelImmediately("MenuPanel");
+        audioManager?.EnsureMusicForContext(MusicContext.Map);
         mapFlowOrchestrator?.StartChapter(defaultChapterId);
     }
 
@@ -926,6 +937,10 @@ public class MainMenuController : MonoBehaviour
     private void HandleMapBackRequested()
     {
         var mapController = GetComponent<MapController>();
-        if (mapController != null) TransitionToScreen(mapController.Hide);
+        if (mapController != null) TransitionToScreen(() =>
+        {
+            mapController.Hide();
+            audioManager?.EnsureMusicForContext(MusicContext.Menu);
+        });
     }
 }

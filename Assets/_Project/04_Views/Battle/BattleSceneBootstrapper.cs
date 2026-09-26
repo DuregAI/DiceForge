@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Diceforge.Battle;
+using Diceforge.Audio;
 using Diceforge.Core;
 using Diceforge.Diagnostics;
 using Diceforge.Map;
@@ -23,6 +24,7 @@ namespace Diceforge.View
 
         private void Awake()
         {
+            AudioManager.Instance?.EnsureGameplayMusic();
             BattleStartRequest request = BattleLauncher.ConsumePendingRequest();
             if (request == null)
                 throw BuildBootstrapException("missing BattleStartRequest. All battle entries must use BattleLauncher.Start(BattleStartRequest)", null, null);
