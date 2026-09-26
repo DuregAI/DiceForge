@@ -2,7 +2,7 @@
 
 ## 1) High-level architecture
 
-DiceForge is a **Unity 6.3** project (URP + UI Toolkit) for a turn-based dice/board battle game with:
+DiceForge is a **Unity 6.6** project (URP 17.6 + UI Toolkit) for a turn-based dice/board battle game with:
 - Main menu + meta progression (currencies, upgrades, chests)
 - Chapter-map flow that launches battles from map nodes
 - Battle scene with gameplay core (`BattleRunner`, `MoveGenerator`, `GameState`) and debug/human controls
@@ -491,7 +491,7 @@ flowchart TD
 
 ## 5) Build & runtime notes
 
-- **Unity version**: `6000.3.9f1` (`ProjectSettings/ProjectVersion.txt`)
+- **Unity version**: `6000.6.0f1` (`ProjectSettings/ProjectVersion.txt`)
 - **Key packages** (`Packages/manifest.json`):
   - `com.unity.render-pipelines.universal` (17.3.0)
   - `com.unity.inputsystem` (1.18.0)

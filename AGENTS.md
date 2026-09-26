@@ -1,8 +1,8 @@
 # DiceForge Agent Instructions
 
 ## Project Baseline
-- Unity version is `6000.3.9f1` (`ProjectSettings/ProjectVersion.txt`).
-- Treat this as a Unity 6.3 URP project with UI Toolkit.
+- Unity version is `6000.6.0f1` (`ProjectSettings/ProjectVersion.txt`).
+- Treat this as a Unity 6.6 URP 17.6 project with UI Toolkit.
 - Do not introduce features/packages requiring a different Unity version unless explicitly requested.
 
 ## Coding Preferences (C# + Unity)

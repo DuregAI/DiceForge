@@ -74,6 +74,16 @@ namespace Diceforge.View
         public int CurrentRollDiceCount => _runner?.CurrentOutcome.Dice?.Length ?? 0;
         public int TotalStonesPerPlayer => _runner?.State?.Rules.totalStonesPerPlayer ?? _rules?.totalStonesPerPlayer ?? 0;
         public int LocalPlayerBorneOffCount => _runner?.State?.GetBorneOff(localPlayer) ?? 0;
+        public PlayerId CurrentPlayer => _runner?.State?.CurrentPlayer ?? localPlayer;
+        public GameState PresentationState => _runner?.State;
+        public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating();
+        public System.Collections.Generic.IReadOnlyList<int> PresentationDice => _runner?.RemainingDice;
+        public int? PresentationSelectedDie => _runner?.SelectedDieIndex;
+        public void SelectPresentationDie(int index) => HandleDieSelected(index);
+        public void PresentationReroll() => HandleRerollClicked();
+        public bool PresentationCanReroll => CanUseReroll() && !IsBoardAnimating();
+        public Move? PreviewMove(int cell) => SelectMoveForCell(cell);
+        public void RefreshPresentation() => UpdateUI();
 
         private void EnsureRunnerInitialized()
         {
@@ -157,6 +167,7 @@ namespace Diceforge.View
 
         private void Update()
         {
+            if (DioramaHud.BlocksGameplay) return;
             if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             bool isBoardAnimating = IsBoardAnimating();
             if (isBoardAnimating != _wasBoardAnimating)
@@ -407,7 +418,14 @@ namespace Diceforge.View
 
         private void HandleMatchEnded(MatchResult result)
         {
-            FinalizeMatchResult(result);
+            if (FindAnyObjectByType<DioramaBoard>() != null && IsBoardAnimating()) StartCoroutine(FinishAfterPresentation(result));
+            else FinalizeMatchResult(result);
+        }
+        private System.Collections.IEnumerator FinishAfterPresentation(MatchResult result)
+        {
+            var endedRunner=_runner;
+            while(IsBoardAnimating() && ReferenceEquals(endedRunner,_runner))yield return null;
+            if(ReferenceEquals(endedRunner,_runner) && _runner.State.IsFinished)FinalizeMatchResult(result);
         }
 
         private bool IsHumanTurn()

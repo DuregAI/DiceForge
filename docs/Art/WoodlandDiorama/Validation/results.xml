@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="87" result="Passed" total="87" passed="87" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0,4566043">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="87" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.456604" total="87" passed="87" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1024" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.371851" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20664" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1025" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.370429" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1026" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.270731" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1027" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.269245" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1002" name="BattleRunnerTerminationTests" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.168062" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1020" name="BarTokensCountAsFurtherAwayThanStartingCell" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.120793" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1018" name="BarTokensCountAsFurtherAwayThanStartingCell(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell(0)" methodname="BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1567045218" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.016542" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1019" name="BarTokensCountAsFurtherAwayThanStartingCell(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell(1)" methodname="BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1094460557" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000563" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1009" name="BearOffWinOnFinalDieTakesPriorityOverTimeout" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BearOffWinOnFinalDieTakesPriorityOverTimeout" methodname="BearOffWinOnFinalDieTakesPriorityOverTimeout" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="869094121" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.005844" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1006" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.006024" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1003" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;Tick&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;Tick&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="564398464" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.002820" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1004" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;EndTurnIfNoMoves&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;EndTurnIfNoMoves&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="764958977" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000638" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1005" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;TryApplyHumanMove&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;TryApplyHumanMove&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1343946866" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000629" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1011" name="CompletionIsSingleShotAndResetAllowsANewMatch" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.CompletionIsSingleShotAndResetAllowsANewMatch" methodname="CompletionIsSingleShotAndResetAllowsANewMatch" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="901381806" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.003716" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1021" name="DistanceComparisonIncludesEveryStoneInStacks" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DistanceComparisonIncludesEveryStoneInStacks" methodname="DistanceComparisonIncludesEveryStoneInStacks" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1023058389" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000581" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1022" name="DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" methodname="DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1607795583" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.001367" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1023" name="DrawOverlayShowsDrawAndAllowsRetry" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DrawOverlayShowsDrawAndAllowsRetry" methodname="DrawOverlayShowsDrawAndAllowsRetry" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1928516858" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.001942" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1007" name="EmptyRollsAlsoReachTheLimit" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.EmptyRollsAlsoReachTheLimit" methodname="EmptyRollsAlsoReachTheLimit" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1076248746" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000572" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1010" name="InvalidHumanMoveDoesNotConsumeTheLastTurn" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.InvalidHumanMoveDoesNotConsumeTheLastTurn" methodname="InvalidHumanMoveDoesNotConsumeTheLastTurn" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="614238558" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.004027" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1008" name="LastAllowedTurnCanUseBothDiceBeforeTimingOut" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.LastAllowedTurnCanUseBothDiceBeforeTimingOut" methodname="LastAllowedTurnCanUseBothDiceBeforeTimingOut" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="187661834" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.001237" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1014" name="MoreBorneOffStonesWinsBeforeDistance" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.003858" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1012" name="MoreBorneOffStonesWinsBeforeDistance(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance(0)" methodname="MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="884272122" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000793" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1013" name="MoreBorneOffStonesWinsBeforeDistance(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance(1)" methodname="MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1937200564" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000515" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1017" name="RemainingDistanceUsesEachSidesStartAndDirection" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.004636" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1015" name="RemainingDistanceUsesEachSidesStartAndDirection(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection(0)" methodname="RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1570864949" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000919" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1016" name="RemainingDistanceUsesEachSidesStartAndDirection(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection(1)" methodname="RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="453810283" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.000788" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1076" name="Diceforge.Progression.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.Progression.Tests.dll" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:20Z" duration="1.051682" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20664" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1077" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.370429" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1078" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-20 02:56:19Z" end-time="2026-09-20 02:56:19Z" duration="0.270731" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1079" name="Progression" fullname="Diceforge.Tests.Progression" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.839706" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1028" name="ProgressionTransactionTests" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.821908" total="32" passed="32" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1060" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.142220" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1057" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(0)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(0)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1072038947" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.112798" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1058" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(1)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(1)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2136234973" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.012168" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1059" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(-1)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(-1)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="590942325" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.011939" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1038" name="CampaignLossAndDrawKeepNodeOpen" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.037342" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1036" name="CampaignLossAndDrawKeepNodeOpen(False)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(False)" methodname="CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="928173659" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.017905" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1037" name="CampaignLossAndDrawKeepNodeOpen(True)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(True)" methodname="CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1555858033" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.016565" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1055" name="CorruptPrimaryRecoversBackupAndPreservesIt" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CorruptPrimaryRecoversBackupAndPreservesIt" methodname="CorruptPrimaryRecoversBackupAndPreservesIt" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1873114190" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.024307" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1034" name="DuplicateResultAndRestartedProcessNeverGrantTwice" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.DuplicateResultAndRestartedProcessNeverGrantTwice" methodname="DuplicateResultAndRestartedProcessNeverGrantTwice" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1522437793" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.018118" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1044" name="ExceptionAfterReplaceRecognizesDurableSuccess" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ExceptionAfterReplaceRecognizesDurableSuccess" methodname="ExceptionAfterReplaceRecognizesDurableSuccess" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="550461239" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015742" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1065" name="FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" methodname="FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1871326734" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.012874" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1051" name="FailedImportDoesNotPublishChapterAndCanRetry" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedImportDoesNotPublishChapterAndCanRetry" methodname="FailedImportDoesNotPublishChapterAndCanRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1166399087" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.018653" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1043" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.059311" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1040" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeWrite&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeWrite&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1981245783" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.017247" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1041" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeFlush&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeFlush&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1313495932" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015761" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1042" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeReplace&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeReplace&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="493005219" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.023525" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1050" name="LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" methodname="LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1129320036" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.022144" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1052" name="LoadedMapIsDetachedFromProfile" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.LoadedMapIsDetachedFromProfile" methodname="LoadedMapIsDetachedFromProfile" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1197921896" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.010017" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1053" name="MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" methodname="MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="401440360" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.018408" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1054" name="MigrationPreservesInventoryUpgradesAndChests" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.MigrationPreservesInventoryUpgradesAndChests" methodname="MigrationPreservesInventoryUpgradesAndChests" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1780969321" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015570" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1035" name="NewVictoryOnCompletedNodeHasNoReward" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NewVictoryOnCompletedNodeHasNoReward" methodname="NewVictoryOnCompletedNodeHasNoReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="883168088" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.020609" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1064" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.052059" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1061" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Chest&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Chest&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="377266340" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.017746" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1062" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Shop&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Shop&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="68370451" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015876" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1063" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Story&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Story&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="997124848" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.014929" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1049" name="ResetProfilePreservesCompletedMapAndReceipts" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ResetProfilePreservesCompletedMapAndReceipts" methodname="ResetProfilePreservesCompletedMapAndReceipts" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="377027607" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.026631" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1048" name="ResetRunPreservesWalletAndRejectsOldResults" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ResetRunPreservesWalletAndRejectsOldResults" methodname="ResetRunPreservesWalletAndRejectsOldResults" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="363432590" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.026338" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1047" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.052326" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1045" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;BeforeReplace&quot;,False)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;BeforeReplace&quot;,False)" methodname="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="431583698" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.027384" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1046" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;AfterReplace&quot;,True)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;AfterReplace&quot;,True)" methodname="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1690795605" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.021350" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1039" name="StandaloneAttemptsAreIndependentButEachIsIdempotent" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.StandaloneAttemptsAreIndependentButEachIsIdempotent" methodname="StandaloneAttemptsAreIndependentButEachIsIdempotent" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1955462205" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.014874" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1056" name="TwoCorruptFilesAreNeverOverwrittenWithDefaults" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.TwoCorruptFilesAreNeverOverwrittenWithDefaults" methodname="TwoCorruptFilesAreNeverOverwrittenWithDefaults" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="850842075" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.010768" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1029" name="VictoryCommitsAllRewardsAndMapBeforeReturn" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.VictoryCommitsAllRewardsAndMapBeforeReturn" methodname="VictoryCommitsAllRewardsAndMapBeforeReturn" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="38078794" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015726" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1032" name="WoodlandFinalVictoryHasNoNextLevelAfterReload" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandFinalVictoryHasNoNextLevelAfterReload" methodname="WoodlandFinalVictoryHasNoNextLevelAfterReload" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="656642690" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.031785" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1030" name="WoodlandMigrationPreservesHistoryAndRunIdentity" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationPreservesHistoryAndRunIdentity" methodname="WoodlandMigrationPreservesHistoryAndRunIdentity" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="7533128" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.026047" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1031" name="WoodlandMigrationRetainsNonContiguousCompletions" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationRetainsNonContiguousCompletions" methodname="WoodlandMigrationRetainsNonContiguousCompletions" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1933583256" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.019543" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1033" name="WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" methodname="WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1923797397" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.015011" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1066" name="WoodlandTravelTests" fullname="Diceforge.Tests.Progression.WoodlandTravelTests" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.013428" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1075" name="AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" methodname="AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="765207862" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.005768" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1074" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.005161" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1067" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,&quot;C1_02&quot;)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,&quot;C1_02&quot;)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1539956705" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000415" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1068" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(False,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(False,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1755999408" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000092" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1069" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,False,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,False,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="301746097" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000090" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1070" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;OtherChapter&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;OtherChapter&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1138659566" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000086" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1071" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_03&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_03&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="960457602" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000086" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1072" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,True,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,True,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="233724015" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000094" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1073" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_06&quot;,&quot;&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_06&quot;,&quot;&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="838330584" result="Passed" start-time="2026-09-20 02:56:20Z" end-time="2026-09-20 02:56:20Z" duration="0.000084" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1113" name="Diceforge.TokenPlacement.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.TokenPlacement.Tests.dll" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.380899" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20664" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1114" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.379151" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1115" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.374131" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1116" name="TokenPlacement" fullname="Diceforge.Tests.TokenPlacement" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.368735" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1080" name="StonesTokensViewTests" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.249019" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1081" name="AllMoveScenariosHaveIdenticalAssignmentsWithAndWithoutAnimation" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.AllMoveScenariosHaveIdenticalAssignmentsWithAndWithoutAnimation" methodname="AllMoveScenariosHaveIdenticalAssignmentsWithAndWithoutAnimation" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="508404018" result="Passed" start-time="2026-09-20 02:56:21Z" end-time="2026-09-20 02:56:29Z" duration="7.847141" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=3 pooledA=0 pooledB=3
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=3 pooledA=0 pooledB=3
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=2 pooledA=0 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=2 pooledA=0 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=2 pooledA=1 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=2 pooledA=1 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789872988963 session=f11162f3820644989be985bae3c8690f payload={sessionStartUnixMsUtc=1789872985312, sessionEndUnixMsUtc=1789872988963, durationSeconds=3.651, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=280, totalSampledSeconds=7.569, averageFps=36.991, minimumWindowFps=0.242, averageFrameTimeMs=27.034, worstSpikeMs=4131.885}
+]]></output>
+              </test-case>
+              <test-case id="1088" name="DioramaCapsVisibleModelsWithoutLosingLogicalStones" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.DioramaCapsVisibleModelsWithoutLosingLogicalStones" methodname="DioramaCapsVisibleModelsWithoutLosingLogicalStones" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="1463947603" result="Passed" start-time="2026-09-20 02:56:29Z" end-time="2026-09-20 02:56:35Z" duration="6.800678" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=4 totalB=0 pooledA=4 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_03'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=15 totalB=0 pooledA=15 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_03'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_04'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_05'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_06'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_07'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_08'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_09'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_10'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_11'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_12'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_13'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_14'. Movement will continue without Walk/Idle animation.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789872995780 session=1dc92a679adc438db5825460a3698bdd payload={sessionStartUnixMsUtc=1789872992480, sessionEndUnixMsUtc=1789872995780, durationSeconds=3.3, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=16, totalSampledSeconds=6.543, averageFps=2.445, minimumWindowFps=0.295, averageFrameTimeMs=408.949, worstSpikeMs=3392.678}
+]]></output>
+              </test-case>
+              <test-case id="1091" name="DioramaLayoutsCoverBothOrientationsAndKeepLegacyThemes" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.DioramaLayoutsCoverBothOrientationsAndKeepLegacyThemes" methodname="DioramaLayoutsCoverBothOrientationsAndKeepLegacyThemes" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="1701051674" result="Passed" start-time="2026-09-20 02:56:35Z" end-time="2026-09-20 02:56:42Z" duration="6.716271" asserts="0">
+                <properties />
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873002469 session=e3e25de9f46c441fb53e71e00adc325c payload={sessionStartUnixMsUtc=1789872999276, sessionEndUnixMsUtc=1789873002469, durationSeconds=3.193, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=10, totalSampledSeconds=6.424, averageFps=1.557, minimumWindowFps=0.295, averageFrameTimeMs=642.392, worstSpikeMs=3386.721}
+]]></output>
+              </test-case>
+              <test-case id="1089" name="DioramaMovesHiddenIdentityAndRefreshPreservesItsDestination" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.DioramaMovesHiddenIdentityAndRefreshPreservesItsDestination" methodname="DioramaMovesHiddenIdentityAndRefreshPreservesItsDestination" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="137339709" result="Passed" start-time="2026-09-20 02:56:42Z" end-time="2026-09-20 02:56:49Z" duration="7.341621" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=5 totalB=0 pooledA=5 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_03'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_04'. Movement will continue without Walk/Idle animation.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873009854 session=997161d8eefb4640a120bf757e84b55a payload={sessionStartUnixMsUtc=1789873005958, sessionEndUnixMsUtc=1789873009854, durationSeconds=3.896, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=501, totalSampledSeconds=7.183, averageFps=69.752, minimumWindowFps=0.29, averageFrameTimeMs=14.337, worstSpikeMs=3444.793}
+]]></output>
+              </test-case>
+              <test-case id="1090" name="DioramaSpecialMovesConvergeAndRestartCancelsAnimation" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.DioramaSpecialMovesConvergeAndRestartCancelsAnimation" methodname="DioramaSpecialMovesConvergeAndRestartCancelsAnimation" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="936886231" result="Passed" start-time="2026-09-20 02:56:49Z" end-time="2026-09-20 02:57:05Z" duration="15.098678" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[SpacetimeDb] Connect failed: A WebSocketException occurred, even though the WebSocketErrorCode is "Success".
+This indicates that there was no native error information for the exception.
+Due to limitations in the .NET core version we do not have access to the HTTP status code returned by the request which would provide more info on the nature of the error.
+
+This error could arise for a number of reasons:
+1. The target machine actively refused the connection.
+2. The module you are trying to connect to does not exist (404 NOT FOUND).
+3. The auth token you sent to SpacetimeDB was not signed by the correct signing key (400 BAD REQUEST).
+4. The auth token is malformed (400 BAD REQUEST).
+5. You are not authorized (401 UNAUTHORIZED).
+
+Did you forget to start the server or publish your module?
+
+Here are some values that might help you debug:
+Message: Unable to connect to the remote server
+WebSocketErrorCode: Success
+ErrorCode: 3
+NativeErrorCode: 3
+InnerException Message: No connection could be made because the target machine actively refused it.
+
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=3 pooledA=0 pooledB=3
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=0 totalB=2 pooledA=0 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=1 pooledA=3 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=2 pooledA=1 pooledB=2
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=1 pooledA=2 pooledB=1
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneB_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873024954 session=a08da12c71bd49f3bd2780d7e93de23a payload={sessionStartUnixMsUtc=1789873013388, sessionEndUnixMsUtc=1789873024954, durationSeconds=11.566, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=9899, totalSampledSeconds=14.835, averageFps=667.254, minimumWindowFps=0.291, averageFrameTimeMs=1.499, worstSpikeMs=3432.734}
+]]></output>
+              </test-case>
+              <test-case id="1085" name="Level01NormalBattleEntry" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.Level01NormalBattleEntry" methodname="Level01NormalBattleEntry" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="1056818795" result="Passed" start-time="2026-09-20 02:57:05Z" end-time="2026-09-20 02:57:13Z" duration="8.394491" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=6 startA=0 startB=5 mapId=level_01 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinValidationPrefab' controller='Goblin_Board'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'EvilGoblinPrefab' controller='Goblin_Validation'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_00' missing BoardLayoutTokenMover. Adding one.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=1 pooledA=1 pooledB=1
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1789873032592 session=24362ada9a7a4283b297829ae15fd18b payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=6}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1789873032693 session=24362ada9a7a4283b297829ae15fd18b payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[SpacetimeDb] Connect failed: A WebSocketException occurred, even though the WebSocketErrorCode is "Success".
+This indicates that there was no native error information for the exception.
+Due to limitations in the .NET core version we do not have access to the HTTP status code returned by the request which would provide more info on the nature of the error.
+
+This error could arise for a number of reasons:
+1. The target machine actively refused the connection.
+2. The module you are trying to connect to does not exist (404 NOT FOUND).
+3. The auth token you sent to SpacetimeDB was not signed by the correct signing key (400 BAD REQUEST).
+4. The auth token is malformed (400 BAD REQUEST).
+5. You are not authorized (401 UNAUTHORIZED).
+
+Did you forget to start the server or publish your module?
+
+Here are some values that might help you debug:
+Message: Unable to connect to the remote server
+WebSocketErrorCode: Success
+ErrorCode: 3
+NativeErrorCode: 3
+InnerException Message: No connection could be made because the target machine actively refused it.
+
+[Diceforge] A -> Move(0, 1)  Outcome=1  Pip=1  T0
+[Diceforge] B -> Move(5, 1)  Outcome=1  Pip=1  T1
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=1 pooledA=1 pooledB=1
+[Diceforge] A -> Move(0, 2)  Outcome=2  Pip=2  T0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=1 pooledA=1 pooledB=1
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873033350 session=24362ada9a7a4283b297829ae15fd18b payload={sessionStartUnixMsUtc=1789873028536, sessionEndUnixMsUtc=1789873033350, durationSeconds=4.814, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=2, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=1253, totalSampledSeconds=8.125, averageFps=154.221, minimumWindowFps=0.288, averageFrameTimeMs=6.484, worstSpikeMs=3466.611}
+]]></output>
+              </test-case>
+              <test-case id="1086" name="Level05NormalBattleEntry" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.Level05NormalBattleEntry" methodname="Level05NormalBattleEntry" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="334907180" result="Passed" start-time="2026-09-20 02:57:13Z" end-time="2026-09-20 02:57:22Z" duration="9.469727" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=15 startA=0 startB=14 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinValidationPrefab' controller='Goblin_Board'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'EvilGoblinPrefab' controller='Goblin_Validation'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_00' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_01' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_02' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_03' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_04' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_05' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_06' missing BoardLayoutTokenMover. Adding one.
+[StonesTokensView] BuildTokensFromMatchState totalA=7 totalB=7 pooledA=7 pooledB=7
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1789873040827 session=a3566d275bd54a3e859806ba96b6fac0 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=15}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1789873040886 session=a3566d275bd54a3e859806ba96b6fac0 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 3)  Outcome=3, 3  Pip=3  T0
+[SpacetimeDb] Connect failed: A WebSocketException occurred, even though the WebSocketErrorCode is "Success".
+This indicates that there was no native error information for the exception.
+Due to limitations in the .NET core version we do not have access to the HTTP status code returned by the request which would provide more info on the nature of the error.
+
+This error could arise for a number of reasons:
+1. The target machine actively refused the connection.
+2. The module you are trying to connect to does not exist (404 NOT FOUND).
+3. The auth token you sent to SpacetimeDB was not signed by the correct signing key (400 BAD REQUEST).
+4. The auth token is malformed (400 BAD REQUEST).
+5. You are not authorized (401 UNAUTHORIZED).
+
+Did you forget to start the server or publish your module?
+
+Here are some values that might help you debug:
+Message: Unable to connect to the remote server
+WebSocketErrorCode: Success
+ErrorCode: 3
+NativeErrorCode: 3
+InnerException Message: No connection could be made because the target machine actively refused it.
+
+[Diceforge] A -> Move(0, 3)  Outcome=3, 3  Pip=3  T0
+[Diceforge] B -> Move(14, 1)  Outcome=1, 2  Pip=1  T1
+[StonesTokensView] BuildTokensFromMatchState totalA=7 totalB=7 pooledA=7 pooledB=7
+[Diceforge] A -> Move(0, 2)  Outcome=2, 2  Pip=2  T0
+[StonesTokensView] BuildTokensFromMatchState totalA=7 totalB=7 pooledA=7 pooledB=7
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873042827 session=a3566d275bd54a3e859806ba96b6fac0 payload={sessionStartUnixMsUtc=1789873036947, sessionEndUnixMsUtc=1789873042827, durationSeconds=5.88, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=2, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=2012, totalSampledSeconds=9.195, averageFps=218.815, minimumWindowFps=0.289, averageFrameTimeMs=4.57, worstSpikeMs=3465.37}
+]]></output>
+              </test-case>
+              <test-case id="1087" name="Level09NormalBattleEntry" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.Level09NormalBattleEntry" methodname="Level09NormalBattleEntry" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="505260675" result="Passed" start-time="2026-09-20 02:57:22Z" end-time="2026-09-20 02:57:32Z" duration="9.750157" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[BattleLauncher] Loading battle scene with request: preset=GM_Level_09, map=Map_Level_09
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_09 modeId=level_09 rulesetId=level_09 setupId=level_09 cells=24 startA=0 startB=23 mapId=level_09 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinValidationPrefab' controller='Goblin_Board'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'EvilGoblinPrefab' controller='Goblin_Validation'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinValidationPrefab(Clone)' animator='goblin' controller='Goblin_Board' hasIsMoving=True hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_00' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_01' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_02' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_03' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_04' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_05' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_06' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_07' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_08' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_09' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_10' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_11' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_12' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_13' missing BoardLayoutTokenMover. Adding one.
+[UnitAnimationController] Token 'EvilGoblinPrefab(Clone)' animator='evil_goblin' controller='Goblin_Validation' hasIsMoving=True hasSpeed=True idleState=Idle walkState=Walk
+[StonesTokensView] Token 'StoneB_14' missing BoardLayoutTokenMover. Adding one.
+[StonesTokensView] BuildTokensFromMatchState totalA=15 totalB=15 pooledA=15 pooledB=15
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1789873050327 session=5b39044a3e264422b13731dd11451268 payload={modeId=level_09, rulesetId=level_09, setupId=level_09, mapId=level_09, mapName=Map_Level_09, boardCellCount=24}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1789873050391 session=5b39044a3e264422b13731dd11451268 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 6)  Outcome=6, 1  Pip=6  T0
+[SpacetimeDb] Connect failed: A WebSocketException occurred, even though the WebSocketErrorCode is "Success".
+This indicates that there was no native error information for the exception.
+Due to limitations in the .NET core version we do not have access to the HTTP status code returned by the request which would provide more info on the nature of the error.
+
+This error could arise for a number of reasons:
+1. The target machine actively refused the connection.
+2. The module you are trying to connect to does not exist (404 NOT FOUND).
+3. The auth token you sent to SpacetimeDB was not signed by the correct signing key (400 BAD REQUEST).
+4. The auth token is malformed (400 BAD REQUEST).
+5. You are not authorized (401 UNAUTHORIZED).
+
+Did you forget to start the server or publish your module?
+
+Here are some values that might help you debug:
+Message: Unable to connect to the remote server
+WebSocketErrorCode: Success
+ErrorCode: 3
+NativeErrorCode: 3
+InnerException Message: No connection could be made because the target machine actively refused it.
+
+[Diceforge] A -> Move(6, 1)  Outcome=6, 1  Pip=1  T0
+[Diceforge] B -> Move(23, 1)  Outcome=1, 5  Pip=1  T1
+[StonesTokensView] BuildTokensFromMatchState totalA=15 totalB=15 pooledA=15 pooledB=15
+[Diceforge] A -> Move(0, 4)  Outcome=4, 1  Pip=4  T0
+[StonesTokensView] BuildTokensFromMatchState totalA=15 totalB=15 pooledA=15 pooledB=15
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873052579 session=5b39044a3e264422b13731dd11451268 payload={sessionStartUnixMsUtc=1789873046440, sessionEndUnixMsUtc=1789873052579, durationSeconds=6.139, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=2, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=2263, totalSampledSeconds=9.472, averageFps=238.907, minimumWindowFps=0.286, averageFrameTimeMs=4.186, worstSpikeMs=3491.064}
+]]></output>
+              </test-case>
+              <test-case id="1083" name="RecoveryAndPoolResizeWorkWithBothAnimationSettings" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.RecoveryAndPoolResizeWorkWithBothAnimationSettings" methodname="RecoveryAndPoolResizeWorkWithBothAnimationSettings" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="206345872" result="Passed" start-time="2026-09-20 02:57:32Z" end-time="2026-09-20 02:57:39Z" duration="6.677782" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] Placement mismatch: Player 0, Cell 2: assigned 0, expected 1. Restoring from GameState.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=3 pooledB=0
+[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] Placement mismatch: Player 0, Cell 2: assigned 0, expected 1. Restoring from GameState.
+[UnitAnimationController] Animator not found for token 'StoneA_02'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873059242 session=8f6bc5ab4fbf47b0b549b9ab38a2532b payload={sessionStartUnixMsUtc=1789873056127, sessionEndUnixMsUtc=1789873059242, durationSeconds=3.115, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=13, totalSampledSeconds=6.378, averageFps=2.038, minimumWindowFps=0.293, averageFrameTimeMs=490.598, worstSpikeMs=3414.444}
+]]></output>
+              </test-case>
+              <test-case id="1082" name="RestartDuringMovementCancelsCoroutinesAndClearsPendingSelection" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.RestartDuringMovementCancelsCoroutinesAndClearsPendingSelection" methodname="RestartDuringMovementCancelsCoroutinesAndClearsPendingSelection" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="1841208441" result="Passed" start-time="2026-09-20 02:57:39Z" end-time="2026-09-20 02:57:46Z" duration="6.696091" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873065939 session=79586d84229642d7b00498ad28b94e1d payload={sessionStartUnixMsUtc=1789873062810, sessionEndUnixMsUtc=1789873065939, durationSeconds=3.129, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=13, totalSampledSeconds=6.389, averageFps=2.035, minimumWindowFps=0.294, averageFrameTimeMs=491.467, worstSpikeMs=3407.121}
+]]></output>
+              </test-case>
+              <test-case id="1084" name="ZeroDurationMoveFinishesAndMovedObjectCanBePickedAgain" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests.ZeroDurationMoveFinishesAndMovedObjectCanBePickedAgain" methodname="ZeroDurationMoveFinishesAndMovedObjectCanBePickedAgain" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" seed="2081220897" result="Passed" start-time="2026-09-20 02:57:46Z" end-time="2026-09-20 02:57:52Z" duration="6.733427" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[UnitAnimationController] Animator not found for token 'Test token prefab'. Movement will continue without Walk/Idle animation.
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[UnitAnimationController] Animator not found for token 'StoneA_00'. Movement will continue without Walk/Idle animation.
+[UnitAnimationController] Animator not found for token 'StoneA_01'. Movement will continue without Walk/Idle animation.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1789873072685 session=7d41e9e6bdc1468cb49d86d23df55d77 payload={sessionStartUnixMsUtc=1789873069508, sessionEndUnixMsUtc=1789873072685, durationSeconds=3.177, buildVersion=0.1.9-alpha, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26200), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=12, totalSampledSeconds=6.431, averageFps=1.866, minimumWindowFps=0.294, averageFrameTimeMs=535.883, worstSpikeMs=3403.815}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1092" name="TokenPlacementResolverTests" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.112012" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1108" name="InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" methodname="InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="2036963120" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.003071" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1109" name="MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" methodname="MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="806982479" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000743" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1110" name="MissingSourceDoesNotMoveAnArbitraryActiveToken" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MissingSourceDoesNotMoveAnArbitraryActiveToken" methodname="MissingSourceDoesNotMoveAnArbitraryActiveToken" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="535658258" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000553" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1107" name="MovePreservesIdentity" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.102367" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1093" name="MovePreservesIdentity(Regression_5_to_0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Regression_5_to_0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="243220775" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000648" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1094" name="MovePreservesIdentity(Forward_across_friendly_cells)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Forward_across_friendly_cells)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="2016015275" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000102" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1095" name="MovePreservesIdentity(Backward_across_friendly_cells)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Backward_across_friendly_cells)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1883788945" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000079" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1096" name="MovePreservesIdentity(Forward_wrap)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Forward_wrap)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1971335737" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000074" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1097" name="MovePreservesIdentity(Backward_wrap)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Backward_wrap)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1868351099" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000074" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1098" name="MovePreservesIdentity(Selection_A-0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_A-0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1061347015" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000088" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1099" name="MovePreservesIdentity(Selection_none)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_none)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1037656373" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000082" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1100" name="MovePreservesIdentity(Selection_missing)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_missing)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="739242582" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000081" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1101" name="MovePreservesIdentity(Selection_B-0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_B-0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="935589074" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000092" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1102" name="MovePreservesIdentity(Selection_A-2)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_A-2)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="2101607736" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000082" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1103" name="MovePreservesIdentity(Hit)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Hit)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="293458276" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000083" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1104" name="MovePreservesIdentity(Bar_entry_False)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Bar_entry_False)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1683031949" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000075" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1105" name="MovePreservesIdentity(Bar_entry_True)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Bar_entry_True)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="508786297" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000076" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1106" name="MovePreservesIdentity(Selected_bear_off)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selected_bear_off)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1973756092" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000074" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1111" name="RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" methodname="RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1372073879" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000444" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1112" name="UnchangedSyncPreservesNoncanonicalAssignments" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.UnchangedSyncPreservesNoncanonicalAssignments" methodname="UnchangedSyncPreservesNoncanonicalAssignments" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="789983448" result="Passed" start-time="2026-09-20 02:57:52Z" end-time="2026-09-20 02:57:52Z" duration="0.000184" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: docs/Art/WoodlandDiorama/Validation/results.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

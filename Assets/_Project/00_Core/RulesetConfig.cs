@@ -6,7 +6,8 @@ namespace Diceforge.Core
     public enum GameMode : byte
     {
         Long = 0,
-        Short = 1
+        Short = 1,
+        SoloTrail = 2
     }
 
     [Serializable]

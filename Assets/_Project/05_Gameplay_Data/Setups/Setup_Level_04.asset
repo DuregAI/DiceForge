@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setupId: level_04
   displayName: Level 04
-  boardSize: 12
+  boardSize: 8
   unitPlacements: []

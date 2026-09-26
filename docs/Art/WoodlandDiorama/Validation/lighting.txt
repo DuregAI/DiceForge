@@ -1,0 +1,46 @@
+Queued 22 lighting compositions
+BAKING Cells13Landscape
+DONE Cells13Landscape maps=2 renderers=16
+BAKING Cells13Portrait
+DONE Cells13Portrait maps=2 renderers=16
+BAKING Cells9Landscape
+DONE Cells9Landscape maps=2 renderers=12
+BAKING Cells9Portrait
+DONE Cells9Portrait maps=2 renderers=12
+BAKING Cells6Landscape
+DONE Cells6Landscape maps=2 renderers=9
+BAKING Cells6Portrait
+DONE Cells6Portrait maps=2 renderers=9
+BAKING Cells8Landscape
+DONE Cells8Landscape maps=2 renderers=11
+BAKING Cells8Portrait
+DONE Cells8Portrait maps=2 renderers=11
+BAKING Cells10Landscape
+DONE Cells10Landscape maps=2 renderers=13
+BAKING Cells10Portrait
+DONE Cells10Portrait maps=2 renderers=13
+BAKING Cells12Landscape
+DONE Cells12Landscape maps=2 renderers=15
+BAKING Cells12Portrait
+DONE Cells12Portrait maps=2 renderers=15
+BAKING Cells15Landscape
+DONE Cells15Landscape maps=2 renderers=18
+BAKING Cells15Portrait
+DONE Cells15Portrait maps=2 renderers=18
+BAKING Cells18Landscape
+DONE Cells18Landscape maps=2 renderers=21
+BAKING Cells18Portrait
+DONE Cells18Portrait maps=2 renderers=21
+BAKING Cells20Landscape
+DONE Cells20Landscape maps=1 renderers=23
+BAKING Cells20Portrait
+DONE Cells20Portrait maps=1 renderers=23
+BAKING Cells22Landscape
+DONE Cells22Landscape maps=2 renderers=25
+BAKING Cells22Portrait
+DONE Cells22Portrait maps=2 renderers=25
+BAKING Cells24Landscape
+DONE Cells24Landscape maps=1 renderers=27
+BAKING Cells24Portrait
+DONE Cells24Portrait maps=1 renderers=27
+COMPLETE

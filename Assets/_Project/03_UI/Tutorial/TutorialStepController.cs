@@ -77,6 +77,8 @@ public sealed class TutorialStepController : MonoBehaviour
     private void BuildView()
     {
         UIDocument doc = battleController.Hud != null ? battleController.Hud.Document : null;
+        var dioramaHud=FindAnyObjectByType<DioramaHud>();
+        if(dioramaHud!=null)doc=dioramaHud.Document;
         var root = doc != null ? doc.rootVisualElement : null;
         if (root == null)
             return;

@@ -23,6 +23,10 @@ namespace Diceforge.View
         private BoardLayout _selectionLayout;
         private Tilemap _selectionTilemap;
         private string _lastClickedPlayerATokenName;
+        private DioramaBoard _diorama;
+        private BattleDebugController _battle;
+        private Vector2 _touchStart;
+        public void ConfigureGeometry(DioramaBoard board) { _diorama=board; _battle=FindAnyObjectByType<BattleDebugController>(); }
 
         public event Action<int> OnCellClicked;
 
@@ -60,15 +64,17 @@ namespace Diceforge.View
         public void SetCellSelectionEnabled(bool enabled)
         {
             _cellSelectionEnabled = enabled;
+            if(!enabled && _diorama!=null)_diorama.Preview(null,null,-1);
         }
 
         public void SetHighlightedCells(System.Collections.Generic.IReadOnlyCollection<int> cells)
         {
-            // Intentionally no-op: legacy gizmo highlights were removed.
+            _diorama?.Highlight(cells);
         }
 
         private void Update()
         {
+            if (_diorama != null) { UpdateDioramaInput(); return; }
             if (Diceforge.Transitions.ScreenTransition.IsBusy) return;
             if (!_cellSelectionEnabled)
                 return;
@@ -112,6 +118,7 @@ namespace Diceforge.View
         {
             cellIndex = -1;
             tokenName = null;
+            if (_diorama != null) return TryPickDiorama(screenPosition, out cellIndex, out tokenName);
 
             BoardLayoutTokenMover[] movers = FindObjectsByType<BoardLayoutTokenMover>(FindObjectsSortMode.None);
             if (movers == null || movers.Length == 0)
@@ -168,6 +175,7 @@ namespace Diceforge.View
         private bool TryPickCell(Vector2 screenPosition, out int cellIndex)
         {
             cellIndex = -1;
+            if (_diorama != null) return TryPickDiorama(screenPosition, out cellIndex, out _);
 
             if (_selectionLayout == null || _selectionLayout.cells == null || _selectionLayout.cells.Count == 0)
                 return false;
@@ -239,6 +247,7 @@ namespace Diceforge.View
 
         private Vector3 ResolveCellWorldPosition(CellData cell)
         {
+            if (_diorama != null) return _diorama.CellPosition(cell.cellId);
             if (_selectionTilemap != null)
                 return _selectionTilemap.GetCellCenterWorld(cell.gridPos);
 
@@ -250,6 +259,55 @@ namespace Diceforge.View
             // Legacy debug stone GameObjects are intentionally disabled.
             // Battle visuals are owned by StonesTokensView.
             DisableLegacyStoneVisuals();
+        }
+
+        private void UpdateDioramaInput()
+        {
+            if (!_cellSelectionEnabled || Diceforge.Transitions.ScreenTransition.IsBusy || DioramaHud.BlocksGameplay) return;
+            if (_camera == null) _camera = Camera.main;
+            if (_camera == null) return;
+            Vector2 pos = default; bool pressed = false;
+            if(Mouse.current!=null)
+            {
+                var hover=Mouse.current.position.ReadValue();
+                if(!DioramaHud.IsOverInterface(hover) && TryPickDiorama(hover,out int hoverCell,out _))
+                    _diorama.Preview(_battle.PreviewMove(hoverCell),_battle.PresentationState,hoverCell);
+                else _diorama.Preview(null,null,-1);
+            }
+            var touch = Touchscreen.current;
+            if (touch != null)
+            {
+                if (touch.primaryTouch.press.wasPressedThisFrame) _touchStart=touch.primaryTouch.position.ReadValue();
+                if (touch.primaryTouch.press.wasReleasedThisFrame)
+                {
+                    pos=touch.primaryTouch.position.ReadValue();
+                    pressed=Vector2.Distance(pos,_touchStart)<20 && !DioramaHud.IsOverInterface(_touchStart);
+                }
+            }
+            if (!pressed && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            { pos=Mouse.current.position.ReadValue(); pressed=true; }
+            if (!pressed || DioramaHud.IsOverInterface(pos)) return;
+            if(!TryPickDiorama(pos,out int cell,out string token))return;
+            _lastClickedPlayerATokenName=token;
+            _cellSelectionEnabled=false;
+            OnCellClicked?.Invoke(cell);
+        }
+        private bool TryPickDiorama(Vector2 position,out int cell,out string token)
+        {
+            cell=-1;token=null;
+            if(_camera==null)_camera=Camera.main;
+            if(_camera==null)return false;
+            var hits=Physics.RaycastAll(_camera.ScreenPointToRay(position),100);
+            Array.Sort(hits,(a,b)=>a.distance.CompareTo(b.distance));
+            foreach(var hit in hits)
+            {
+                var unit=hit.collider.GetComponentInParent<DioramaToken>();
+                if(unit!=null && unit.cellId>=0 && (_battle==null || unit.player==(int)_battle.CurrentPlayer))
+                {cell=unit.cellId;token=unit.gameObject.name;return true;}
+                var tile=hit.collider.GetComponentInParent<DioramaCell>();
+                if(tile!=null){cell=tile.cellId;return true;}
+            }
+            return false;
         }
 
         private void DisableLegacyStoneVisuals()

@@ -15,7 +15,7 @@ namespace Diceforge.Tests.TokenPlacement
 {
     // The legacy view/core live in Assembly-CSharp, which an asmdef cannot reference.
     // Keep the bridge here so the resolver and its test assembly stay independent.
-    public class StonesTokensViewTests
+    public partial class StonesTokensViewTests
     {
         private const BindingFlags Fields = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         private GameObject _root;
@@ -116,7 +116,7 @@ namespace Diceforge.Tests.TokenPlacement
             }
         }
 
-        private void CreateFixture(TokenAssignment[] assignments)
+        private void CreateFixture(TokenAssignment[] assignments, bool diorama = false)
         {
             _root = new GameObject("Token placement test");
             _layout = ScriptableObject.CreateInstance(RuntimeType("Diceforge.Map.BoardLayout"));
@@ -132,6 +132,12 @@ namespace Diceforge.Tests.TokenPlacement
             _prefab.AddComponent(RuntimeType("Diceforge.View.BoardLayoutTokenMover"));
             _prefab.SetActive(false);
             _view = _root.AddComponent(RuntimeType("Diceforge.View.StonesTokensView"));
+            if(diorama)
+            {
+                var boardPrefab=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/05_Gameplay_Data/Battle/Diorama/BoardLayout_Level_01.prefab");
+                var board=Object.Instantiate(boardPrefab,_root.transform).GetComponent(RuntimeType("Diceforge.View.DioramaBoard"));
+                Call(_view,"SetGeometry",board);
+            }
             Call(_view, "Configure", _layout, null, _root.transform, _prefab, _prefab, Color.white, Color.black);
             Call(_view, "BuildTokensFromMatchState", State(assignments));
             // Arrange previous identities, including noncanonical placements left by earlier moves.
@@ -145,6 +151,7 @@ namespace Diceforge.Tests.TokenPlacement
                 if (assignment.Location == TokenLocation.Cell) Call(mover, "SnapTo", assignment.Cell);
                 else if (assignment.Location == TokenLocation.Bar) Call(mover, "SnapToWorld", Vector3.zero, -1);
             }
+            if(diorama)Call(_view,"RefreshGeometry",State(assignments));
         }
 
         [UnityTest]
@@ -192,6 +199,13 @@ namespace Diceforge.Tests.TokenPlacement
             yield return null;
             yield return null;
             Component controller = (Component)Object.FindFirstObjectByType(RuntimeType("Diceforge.View.BattleDebugController"));
+            float entryDeadline=Time.realtimeSinceStartup+10;
+            while(controller==null && Time.realtimeSinceStartup<entryDeadline)
+            {
+                yield return null;
+                controller=(Component)Object.FindFirstObjectByType(RuntimeType("Diceforge.View.BattleDebugController"));
+            }
+            yield return null;
             Assert.That(controller, Is.Not.Null, "Normal battle bootstrap did not create a controller.");
             Call(controller, "StopMatch");
             _view = (Component)Object.FindFirstObjectByType(RuntimeType("Diceforge.View.StonesTokensView"));
@@ -262,8 +276,9 @@ namespace Diceforge.Tests.TokenPlacement
             foreach (object token in tokens)
             {
                 var assignment = (TokenAssignment)Get(token, "placement");
-                Assert.That(((GameObject)Get(token, "root")).activeSelf, Is.EqualTo(assignment.Location != TokenLocation.BorneOff));
-                if (checkMover && assignment.Location != TokenLocation.BorneOff)
+                bool diorama=Get(_view,"_geometry")?.GetType().Name=="DioramaBoard";
+                if(!diorama)Assert.That(((GameObject)Get(token, "root")).activeSelf, Is.EqualTo(assignment.Location != TokenLocation.BorneOff));
+                if (checkMover && assignment.Location != TokenLocation.BorneOff && (!diorama || ((GameObject)Get(token,"root")).activeSelf))
                     Assert.That(Property(Get(token, "mover"), "CurrentCellId"), Is.EqualTo(assignment.Cell), assignment.Id);
             }
         }

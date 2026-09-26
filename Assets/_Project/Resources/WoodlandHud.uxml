@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="WoodlandHud.uss" />
+  <ui:VisualElement name="woodlandRoot" picking-mode="Ignore">
+    <ui:VisualElement class="top-bar" picking-mode="Ignore">
+      <ui:Label name="scoreA" class="score warm" text="ЛИСТ  0 / 2" />
+      <ui:Label name="turn" class="turn" text="ВАШ ХОД" />
+      <ui:Label name="scoreB" class="score cool" text="ЛУНА  0 / 2" />
+      <ui:Button name="pause" class="pause" text="II" />
+    </ui:VisualElement>
+    <ui:VisualElement class="board-space" picking-mode="Ignore" />
+    <ui:VisualElement class="bottom-bar">
+      <ui:VisualElement name="moves" class="moves" />
+      <ui:VisualElement class="bottom-line">
+        <ui:Label name="hint" text="Choose a step. Choose a goblin." />
+        <ui:Button name="reroll" text="Reroll" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="pauseOverlay" class="overlay hidden">
+      <ui:VisualElement class="menu">
+        <ui:Label text="REST STOP" class="menu-title" />
+        <ui:Button name="resume" text="Resume" />
+        <ui:Toggle name="mute" text="Mute audio" />
+        <ui:Toggle name="reducedMotion" text="Reduce motion" />
+        <ui:Button name="surrender" text="Surrender" />
+        <ui:VisualElement name="confirmSurrender" class="hidden">
+          <ui:Label text="End this match in defeat?" />
+          <ui:Button name="cancelSurrender" text="Return to game" />
+          <ui:Button name="acceptSurrender" text="Yes, surrender" />
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

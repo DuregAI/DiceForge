@@ -1,0 +1,32 @@
+#woodlandRoot { flex-grow: 1; padding: 12px 22px 14px; color: rgb(255, 239, 195); }
+.top-bar { flex-direction: row; align-items: center; justify-content: center; }
+.score, .turn, .pause, .menu { background-color: rgb(71, 41, 22); border-color: rgb(159, 111, 56); border-width: 2px; border-radius: 18px; background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png"); }
+.score { padding: 10px 18px; font-size: 20px; -unity-font-style: bold; }
+.warm { color: rgb(255, 171, 100); }
+.cool { color: rgb(146, 228, 213); }
+.turn { padding: 12px 26px; margin: 0 8px; font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; }
+.pause { margin-left: 10px; width: 54px; height: 54px; font-size: 23px; }
+.board-space { flex-grow: 1; }
+.bottom-bar { align-self: center; padding: 0; min-width: 0; }
+.eyebrow { font-size: 12px; color: rgb(202, 173, 112); -unity-text-align: middle-center; letter-spacing: 3px; }
+.moves { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+Button { background-color: rgb(111, 67, 31); color: rgb(255, 237, 191); border-color: rgb(178, 131, 64); border-width: 2px; border-radius: 10px; min-height: 48px; padding: 5px 14px; font-size: 17px; }
+Button:hover { background-color: rgb(144, 93, 43); }
+Button:disabled { opacity: .48; }
+.move-token { width: 64px; height: 64px; margin: 3px 7px; border-radius: 36px; background-color: rgb(197, 146, 78); border-color: rgb(104, 64, 28); border-width: 4px; color: rgb(55, 32, 19); font-size: 32px; -unity-font-style: bold; }
+.move-token.selected { border-color: rgb(255, 232, 158); background-color: rgb(225, 178, 96); }
+.bottom-line { flex-direction: row; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 10px; background-color: rgba(43, 28, 18, .82); }
+#hint { font-size: 14px; margin-right: 8px; white-space: normal; }
+.overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(13, 22, 15, .78); align-items: center; justify-content: center; }
+.menu { width: 320px; padding: 24px; }
+.menu-title { font-size: 28px; -unity-text-align: middle-center; margin-bottom: 16px; }
+.menu Button, .menu Toggle { margin-top: 10px; min-height: 48px; }
+.hidden { display: none; }
+.portrait .top-bar { flex-wrap: wrap; }
+.portrait .turn { font-size: 18px; padding: 8px 12px; width: 95%; margin-bottom: 5px; }
+.portrait .score { font-size: 15px; padding: 10px 8px; }
+.portrait .pause { width: 48px; height: 48px; margin-left: 4px; }
+.portrait .bottom-bar { min-width: 0; width: 96%; padding-left: 8px; padding-right: 8px; }
+.portrait .move-token { width: 65px; height: 65px; font-size: 32px; margin: 5px; }
+.portrait .bottom-line { flex-direction: column; }
+.portrait #hint { margin-right: 0; font-size: 16px; margin-bottom: 5px; }

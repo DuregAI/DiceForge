@@ -84,7 +84,8 @@ namespace Diceforge.Core
             }
 
             int headCell = GetHeadCell(s, current);
-            bool allInHome = AllStonesInHome(s, current);
+            bool soloTrail = rules.gameMode == GameMode.SoloTrail;
+            bool allInHome = soloTrail || AllStonesInHome(s, current);
             int maxPipsInHome = allInHome ? GetMaxPipsInHome(s.Rules, s, current) : -1;
 
             for (int cell = 0; cell < rules.boardSize; cell++)
@@ -98,7 +99,7 @@ namespace Diceforge.Core
 
                 if (classification == MovePathClassification.ExactBearOff || classification == MovePathClassification.Overshoot)
                 {
-                    if (allInHome && CanBearOff(s, current, cell, dieValue, maxPipsInHome))
+                    if (soloTrail || (allInHome && CanBearOff(s, current, cell, dieValue, maxPipsInHome)))
                         moves.Add(Move.BearOff(cell, dieValue));
                     continue;
                 }
@@ -137,7 +138,8 @@ namespace Diceforge.Core
                         return ApplyResult.Illegal;
 
                     if (!s.RemoveStoneFromCell(s.CurrentPlayer, from)) return ApplyResult.Illegal;
-                    TryHitSingleStone(s, Opponent(s.CurrentPlayer), to);
+                    if (s.Rules.gameMode != GameMode.SoloTrail)
+                        TryHitSingleStone(s, Opponent(s.CurrentPlayer), to);
                     s.AddStoneToCell(s.CurrentPlayer, to);
                     return ApplyResult.Ok;
                 }
@@ -168,8 +170,8 @@ namespace Diceforge.Core
                         return ApplyResult.Illegal;
                     if (s.GetStonesAt(s.CurrentPlayer, from) <= 0) return ApplyResult.Illegal;
                     if (s.GetBarCount(s.CurrentPlayer) > 0) return ApplyResult.Illegal;
-                    if (!AllStonesInHome(s, s.CurrentPlayer)) return ApplyResult.Illegal;
-                    if (!CanBearOff(s, s.CurrentPlayer, from, m.PipUsed)) return ApplyResult.Illegal;
+                    if (s.Rules.gameMode != GameMode.SoloTrail && !AllStonesInHome(s, s.CurrentPlayer)) return ApplyResult.Illegal;
+                    if (s.Rules.gameMode != GameMode.SoloTrail && !CanBearOff(s, s.CurrentPlayer, from, m.PipUsed)) return ApplyResult.Illegal;
 
                     var classification = BoardPathRules.ClassifyMove(s.Rules, s.CurrentPlayer, from, m.PipUsed, out int rawToCell, out _);
                     LogMoveClassification(s, s.CurrentPlayer, from, m.PipUsed, rawToCell, classification);

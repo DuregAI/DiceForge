@@ -51,7 +51,8 @@ namespace Diceforge.Core
             int startCellB = Rules.startCellB;
             int startStones = Math.Max(0, Rules.totalStonesPerPlayer);
             _stonesAByCell[startCellA] = startStones;
-            _stonesBByCell[startCellB] = startStones;
+            if (Rules.gameMode != GameMode.SoloTrail)
+                _stonesBByCell[startCellB] = startStones;
 
             BorneOffA = 0;
             BorneOffB = 0;
@@ -152,7 +153,9 @@ namespace Diceforge.Core
             else TurnsTakenB++;
 
             TurnIndex++;
-            CurrentPlayer = (CurrentPlayer == PlayerId.A) ? PlayerId.B : PlayerId.A;
+            CurrentPlayer = Rules.gameMode == GameMode.SoloTrail
+                ? PlayerId.A
+                : (CurrentPlayer == PlayerId.A ? PlayerId.B : PlayerId.A);
         }
 
         public void Finish(PlayerId? winner)

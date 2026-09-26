@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ec27ede2073ed40b9d01eb4506b830, type: 3}
+  m_Name: Cells12Landscape
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DioramaLighting
+  colors:
+  - {fileID: 2800000, guid: e4f92b9ea1781854698e8a906c204d76, type: 3}
+  - {fileID: 2800000, guid: e79a31a1a0c7993489fc394dfca3bdcd, type: 3}
+  directions:
+  - {fileID: 0}
+  - {fileID: 0}
+  masks:
+  - {fileID: 0}
+  - {fileID: 0}
+  probes: {fileID: 25800002, guid: 97f9acd2bbf969146a86f8a1d285cdec, type: 2}
+  sunOutputJson: '{"probeOcclusionLightIndex":0,"occlusionMaskChannel":0,"lightmapBakeType":1,"mixedLightingMode":1,"isBaked":true}'
+  bindings:
+  - path: Island/Island(Clone)
+    index: 1
+    scaleOffset: {x: 0.84102803, y: 0.83367944, z: -0.14075764, w: -0.13949361}
+  - path: Cell_0/Tile_0/Tile_0(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.42646822, w: 0.7138053}
+  - path: Cell_1/Tile_1/Tile_1(Clone)
+    index: 1
+    scaleOffset: {x: 0.19928458, y: 0.20913759, z: 0.20733841, w: 0.010496035}
+  - path: Cell_2/Tile_2/Tile_2(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.78584325, w: 0.7606803}
+  - path: Cell_3/Tile_3/Tile_3(Clone)
+    index: 0
+    scaleOffset: {x: 0.1992866, y: 0.20915137, z: -0.027036905, w: 0.8229939}
+  - path: Cell_4/Tile_0/Tile_0(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.81709325, w: -0.02838219}
+  - path: Cell_5/Tile_1/Tile_1(Clone)
+    index: 1
+    scaleOffset: {x: 0.19928458, y: 0.20913759, z: 0.035463408, w: 0.17455854}
+  - path: Cell_6/Tile_2/Tile_2(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.69209325, w: 0.7372428}
+  - path: Cell_7/Tile_3/Tile_3(Clone)
+    index: 1
+    scaleOffset: {x: 0.1992866, y: 0.20915137, z: 0.3948381, w: -0.005131103}
+  - path: Cell_8/Tile_0/Tile_0(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.25459322, w: 0.7138053}
+  - path: Cell_9/Tile_1/Tile_1(Clone)
+    index: 1
+    scaleOffset: {x: 0.19928458, y: 0.20913759, z: 0.23077591, w: 0.15893354}
+  - path: Cell_10/Tile_2/Tile_2(Clone)
+    index: 0
+    scaleOffset: {x: 0.19683841, y: 0.20795079, z: 0.59834325, w: 0.7138053}
+  - path: Cell_11/Tile_3/Tile_3(Clone)
+    index: 1
+    scaleOffset: {x: 0.1992866, y: 0.20915137, z: 0.035463095, w: 0.010493897}
+  - path: Flag/Flag(Clone)
+    index: 0
+    scaleOffset: {x: 0.07355508, y: 0.07513888, z: 0.8987915, w: 0.5157343}
+  - path: Grove
+    index: 0
+    scaleOffset: {x: 0.8520586, y: 0.84772575, z: -0.004537467, w: -0.004494529}

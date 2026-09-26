@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fc64450e665684f91a4078d2791782, type: 3}
+  m_Name: BoardLayout_Level_01
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DioramaLayout
+  cellIds: 000000000100000002000000030000000400000005000000i
+  landscape:
+  - {x: -0, y: 0.23, z: -1.7}
+  - {x: -1.9413402, y: 0.23, z: -0.9579567}
+  - {x: -1.9413373, y: 0.23, z: 0.95795983}
+  - {x: 0.0000040201235, y: 0.23, z: 1.7}
+  - {x: 1.9413432, y: 0.23, z: 0.9579537}
+  - {x: 1.9413354, y: 0.23, z: -0.95796204}
+  portrait:
+  - {x: -0, y: 0.23, z: -2.4}
+  - {x: -1.4831593, y: 0.23, z: -1.0516411}
+  - {x: -1.4831581, y: 0.23, z: 1.0516444}
+  - {x: 0.0000034820266, y: 0.23, z: 2.4}
+  - {x: 1.4831619, y: 0.23, z: 1.0516332}
+  - {x: 1.4831582, y: 0.23, z: -1.0516443}
+  landscapeSize: {x: 6.7, y: 1, z: 5.4}
+  portraitSize: {x: 5.3, y: 1, z: 6.8}

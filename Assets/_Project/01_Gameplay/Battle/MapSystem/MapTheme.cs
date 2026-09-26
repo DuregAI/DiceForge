@@ -6,6 +6,9 @@ namespace Diceforge.MapSystem
     [CreateAssetMenu(menuName = "Diceforge/Battle/Map Theme", fileName = "Theme_New")]
     public sealed class MapTheme : ScriptableObject
     {
+        public enum Presentation { Tilemap, Diorama }
+        public Presentation presentation;
+        public GameObject dioramaPrefab;
         public GameObject tilemapPrefab;
         public string positionTilemapName = "TM_Tiles";
         // Optional separate background prefab. Do not reuse the board/tilemap prefab here.

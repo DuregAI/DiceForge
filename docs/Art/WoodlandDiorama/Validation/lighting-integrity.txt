@@ -1,0 +1,1 @@
+PASS: all landscape/portrait prefabs reference persisted lighting maps, probes, sun flags and valid renderer bindings.

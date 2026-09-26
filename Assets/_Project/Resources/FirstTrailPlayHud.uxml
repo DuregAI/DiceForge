@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="FirstTrailPlayHud.uss" />
+    <ui:VisualElement name="trail-overlay" picking-mode="Ignore">
+        <ui:VisualElement name="trail-top" class="trail-panel">
+            <ui:Label text="ЛЕСНАЯ ТРОПИНКА" class="trail-title" />
+            <ui:Label name="trail-progress" text="У мостика 0 / 2" class="trail-progress" />
+            <ui:Button name="trail-restart" text="Заново" class="trail-restart" />
+        </ui:VisualElement>
+        <ui:VisualElement name="trail-bottom" class="trail-panel">
+            <ui:Label name="trail-hint" text="Выбери шаг, затем гоблина" class="trail-hint" />
+            <ui:VisualElement name="step-choices" class="step-choices" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

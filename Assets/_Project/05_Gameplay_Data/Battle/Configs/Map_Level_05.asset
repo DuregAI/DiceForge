@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapId: level_05
   displayName: Level 05
-  boardLayout: {fileID: 11400000, guid: 04c81d56961840bd900189db7b23082c, type: 2}
-  mapTheme: {fileID: 11400000, guid: 83ab2f2a46644e23a24c1a2fbf805aa7, type: 2}
+  boardLayout: {fileID: 11400000, guid: 2ebe5d3bc5db4e569fda3b2224e7b855, type: 2}
+  mapTheme: {fileID: 11400000, guid: 2b2f1dd7172c46e4e8439059a9920df2, type: 2}

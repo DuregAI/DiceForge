@@ -29,6 +29,16 @@ namespace Diceforge.View
         private int _movementVisualsRefCount;
         private bool _suppressStopAtMoveEnd;
         private bool _hasPlacement;
+        private IBoardGeometry _geometry;
+        private bool _diorama;
+        public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; _diorama = geometry is DioramaBoard; }
+        public void MoveToWorld(Vector3 destination, int resolvedCellId, float duration)
+        {
+            CancelAllMovement();
+            _hasPlacement=true;
+            BeginMovementVisuals();
+            _moveRoutine=StartCoroutine(MoveRoutine(destination+visualOffset,resolvedCellId,Mathf.Max(.05f,duration)));
+        }
 
         public int CurrentCellId => currentCellId;
         public bool IsAnimating => _moveRoutine != null || _moveStepsRoutine != null;
@@ -178,6 +188,7 @@ namespace Diceforge.View
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
                 tokenRoot.position = Vector3.Lerp(startPosition, targetPosition, t);
+                if (_diorama && !DioramaBoard.ReducedMotion) tokenRoot.position += Vector3.up * (Mathf.Sin(t * Mathf.PI) * .32f);
                 yield return null;
             }
 
@@ -193,6 +204,7 @@ namespace Diceforge.View
         {
             int direction = steps > 0 ? 1 : -1;
             int stepCount = Mathf.Abs(steps);
+            float originalDuration = moveDuration;
 
             BeginMovementVisuals();
             _suppressStopAtMoveEnd = true;
@@ -200,19 +212,23 @@ namespace Diceforge.View
             for (int i = 0; i < stepCount; i++)
             {
                 int nextCellId = WrapCellId(currentCellId + direction, minCellId, maxCellId);
+                if (_diorama) moveDuration = Mathf.Min(.32f, 1.45f / stepCount);
                 MoveTo(nextCellId);
+                moveDuration = originalDuration;
 
                 while (_moveRoutine != null)
                     yield return null;
             }
 
             _suppressStopAtMoveEnd = false;
+            moveDuration = originalDuration;
             EndMovementVisuals();
             _moveStepsRoutine = null;
         }
 
         private Vector3 ResolveWorldPosition(CellData cell)
         {
+            if (_geometry != null) return _geometry.CellPosition(cell.cellId) + ResolvePresentationOffset();
             if (positionTilemap != null)
                 return positionTilemap.GetCellCenterWorld(cell.gridPos) + ResolvePresentationOffset();
 
@@ -221,6 +237,7 @@ namespace Diceforge.View
 
         private Vector3 ResolvePresentationOffset()
         {
+            if (_diorama) return visualOffset;
             // Mesh units render as opaque 3D geometry, so push them slightly behind the tilemap plane.
             // This keeps them above the board visually while allowing foreground sprite decor to overlap.
             Vector3 depthAxis = positionTilemap != null ? positionTilemap.transform.forward : Vector3.forward;

@@ -15,17 +15,17 @@ MonoBehaviour:
   rulesetId: level_03
   displayName: Level 03
   maxRounds: 1
-  maxUnitsPerSide: 3
+  maxUnitsPerSide: 2
   allowReroll: 0
   actionsPerTurn: 2
   gameMode: 0
-  boardSize: 10
-  homeSize: 3
-  totalStonesPerPlayer: 3
+  boardSize: 8
+  homeSize: 2
+  totalStonesPerPlayer: 2
   dieMin: 1
   dieMax: 5
   startCellA: 0
-  startCellB: 9
+  startCellB: 7
   moveDirA: 1
   moveDirB: -1
   allowHitSingleStone: 0

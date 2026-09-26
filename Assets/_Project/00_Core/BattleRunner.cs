@@ -157,6 +157,10 @@ namespace Diceforge.Core
             if (_matchEnded || State.IsFinished)
                 return false;
 
+            // The short trail has one human side; never let the bot play it.
+            if (Rules.gameMode == GameMode.SoloTrail)
+                return false;
+
             if (_remainingDice.Count == 0)
             {
                 EndTurn();
@@ -506,6 +510,8 @@ namespace Diceforge.Core
 
         private static PlayerId? DecideWinnerOnTimeout(GameState state)
         {
+            if (state.Rules.gameMode == GameMode.SoloTrail)
+                return null;
             int offA = state.GetBorneOff(PlayerId.A);
             int offB = state.GetBorneOff(PlayerId.B);
             if (offA != offB)

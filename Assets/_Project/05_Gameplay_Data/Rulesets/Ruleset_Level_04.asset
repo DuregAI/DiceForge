@@ -15,17 +15,17 @@ MonoBehaviour:
   rulesetId: level_04
   displayName: Level 04
   maxRounds: 1
-  maxUnitsPerSide: 5
+  maxUnitsPerSide: 3
   allowReroll: 0
   actionsPerTurn: 2
   gameMode: 0
-  boardSize: 12
-  homeSize: 3
-  totalStonesPerPlayer: 5
+  boardSize: 8
+  homeSize: 2
+  totalStonesPerPlayer: 3
   dieMin: 1
   dieMax: 5
   startCellA: 0
-  startCellB: 11
+  startCellB: 7
   moveDirA: 1
   moveDirB: -1
   allowHitSingleStone: 0

@@ -25,14 +25,14 @@ internal sealed class MenuLocalization : IDisposable
         this.changed = changed;
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
         Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
-        foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map" })
+        foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map", "battle" })
         {
             var asset = Resources.Load<TextAsset>("Localization/" + catalogName);
             if (asset != null)
                 foreach (var entry in JsonUtility.FromJson<Catalog>(asset.text).entries)
                     entries[entry.en] = entry;
         }
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot" })
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot", "woodlandRoot" })
         {
             var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;
@@ -88,7 +88,7 @@ internal sealed class MenuLocalization : IDisposable
             bodyFont ??= Resources.Load<Font>("Localization/NotoSansCJKsc-Regular");
             russianFont ??= Resources.Load<Font>("Localization/RobotoSlab");
         }
-        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot" })
+        foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot", "woodlandRoot" })
         {
             var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fc64450e665684f91a4078d2791782, type: 3}
+  m_Name: FirstTrail8
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DioramaLayout
+  cellIds: 0000000001000000020000000300000004000000050000000600000007000000i
+  landscape:
+  - {x: -2.8526304, y: 0.24297968, z: -1.0462562}
+  - {x: -1.9565568, y: 0.2421132, z: -1.0269169}
+  - {x: -1.0844713, y: 0.2403805, z: -0.79821783}
+  - {x: -0.28443152, y: 0.24120903, z: -0.36065134}
+  - {x: 0.36529854, y: 0.2416839, z: 0.23842917}
+  - {x: 0.885284, y: 0.24293727, z: 0.9799333}
+  - {x: 1.7929776, y: 0.36050147, z: 1.3606188}
+  - {x: 2.8482435, y: 0.23946324, z: 1.3747377}
+  portrait:
+  - {x: -2.8526304, y: 0.24297968, z: -1.0462562}
+  - {x: -1.9565568, y: 0.2421132, z: -1.0269169}
+  - {x: -1.0844713, y: 0.2403805, z: -0.79821783}
+  - {x: -0.28443152, y: 0.24120903, z: -0.36065134}
+  - {x: 0.36529854, y: 0.2416839, z: 0.23842917}
+  - {x: 0.885284, y: 0.24293727, z: 0.9799333}
+  - {x: 1.7929776, y: 0.36050147, z: 1.3606188}
+  - {x: 2.8482435, y: 0.23946324, z: 1.3747377}
+  landscapeSize: {x: 9.8, y: 2, z: 7.4}
+  portraitSize: {x: 9.8, y: 2, z: 7.4}

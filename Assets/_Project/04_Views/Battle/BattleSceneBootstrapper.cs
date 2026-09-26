@@ -46,7 +46,8 @@ namespace Diceforge.View
             if (map.mapTheme == null)
                 throw BuildBootstrapException("map has no MapTheme", activePreset, map);
 
-            if (map.mapTheme.tilemapPrefab == null)
+            bool useDiorama = map.mapTheme.presentation == MapTheme.Presentation.Diorama;
+            if (!useDiorama && map.mapTheme.tilemapPrefab == null)
                 throw BuildBootstrapException("map theme has no tilemapPrefab", activePreset, map);
 
             if (map.mapTheme.backgroundPrefab != null && map.mapTheme.backgroundPrefab == map.mapTheme.tilemapPrefab)
@@ -91,8 +92,22 @@ namespace Diceforge.View
             if (tilemapRoot == null)
                 throw BuildBootstrapException("tilemapRoot reference is missing", activePreset, map);
 
-            Tilemap positionTilemap = InstantiateThemeAndResolvePositionTilemap(map);
-            if (positionTilemap == null)
+            DioramaBoard diorama = null;
+            Tilemap positionTilemap = null;
+            if (useDiorama)
+            {
+                if (map.mapTheme.dioramaPrefab == null) throw BuildBootstrapException("diorama prefab missing", activePreset, map);
+                diorama = Instantiate(map.mapTheme.dioramaPrefab, tilemapRoot).GetComponent<DioramaBoard>();
+                if (diorama == null || diorama.layout == null || !diorama.layout.Validate(cellsCount, out _))
+                    throw BuildBootstrapException("invalid diorama layout", activePreset, map);
+                diorama.Initialize();
+                var legacyFloor = GameObject.Find("Floor");
+                if (legacyFloor != null) legacyFloor.SetActive(false);
+                var legacyMusicPanel = GameObject.Find("NowPlayingUI");
+                if (legacyMusicPanel != null) legacyMusicPanel.SetActive(false);
+            }
+            else positionTilemap = InstantiateThemeAndResolvePositionTilemap(map);
+            if (!useDiorama && positionTilemap == null)
                 throw BuildBootstrapException($"position tilemap '{map.mapTheme.positionTilemapName}' was not found in tilemap prefab", activePreset, map);
 
             GameObject teamAUnitPrefab = map.mapTheme.unitPrefab;
@@ -114,12 +129,18 @@ namespace Diceforge.View
                 teamBUnitPrefab,
                 map.mapTheme.teamAColor,
                 map.mapTheme.teamBColor);
+            if (diorama != null) boardViewController.ConfigureDiorama(diorama);
 
             BattleDebugController battleDebugController = FindAnyObjectByType<BattleDebugController>();
             if (battleDebugController == null)
                 throw BuildBootstrapException("BattleDebugController not found in scene", activePreset, map);
 
             battleDebugController.ConfigureBoardSelection(map.boardLayout, positionTilemap);
+            if (diorama != null)
+            {
+                FindAnyObjectByType<BoardDebugView>().ConfigureGeometry(diorama);
+                battleDebugController.gameObject.AddComponent<DioramaHud>().Initialize(battleDebugController, diorama);
+            }
             battleDebugController.StartFromPreset(activePreset);
 
             // Publish battle start only after strict validation and match bootstrap succeed.

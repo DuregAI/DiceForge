@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fc64450e665684f91a4078d2791782, type: 3}
+  m_Name: BoardLayout_Level_03
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.DioramaLayout
+  cellIds: 00000000010000000200000003000000040000000500000006000000070000000800000009000000i
+  landscape:
+  - {x: -0, y: 0.23, z: -1.7}
+  - {x: -1.24465, y: 0.23, z: -1.4419773}
+  - {x: -2.1915307, y: 0.23, z: -0.6136589}
+  - {x: -2.191529, y: 0.23, z: 0.6136622}
+  - {x: -1.2446462, y: 0.23, z: 1.4419789}
+  - {x: 0.0000040201235, y: 0.23, z: 1.7}
+  - {x: 1.2446535, y: 0.23, z: 1.4419757}
+  - {x: 2.191533, y: 0.23, z: 0.61365455}
+  - {x: 2.1915286, y: 0.23, z: -0.61366296}
+  - {x: 1.2446461, y: 0.23, z: -1.441979}
+  portrait:
+  - {x: -0, y: 0.23, z: -2.4}
+  - {x: -1.087174, y: 0.23, z: -1.8053375}
+  - {x: -1.5906327, y: 0.23, z: -0.63794464}
+  - {x: -1.5906321, y: 0.23, z: 0.6379481}
+  - {x: -1.0871719, y: 0.23, z: 1.8053402}
+  - {x: 0.0000034820266, y: 0.23, z: 2.4}
+  - {x: 1.0871781, y: 0.23, z: 1.8053324}
+  - {x: 1.5906336, y: 0.23, z: 0.6379393}
+  - {x: 1.5906317, y: 0.23, z: -0.63794965}
+  - {x: 1.0871716, y: 0.23, z: -1.8053408}
+  landscapeSize: {x: 6.7, y: 1, z: 5.4}
+  portraitSize: {x: 5.3, y: 1, z: 6.8}

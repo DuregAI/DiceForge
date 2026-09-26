@@ -15,17 +15,17 @@ MonoBehaviour:
   rulesetId: level_06
   displayName: Level 06
   maxRounds: 1
-  maxUnitsPerSide: 9
+  maxUnitsPerSide: 4
   allowReroll: 0
   actionsPerTurn: 2
   gameMode: 0
-  boardSize: 18
-  homeSize: 5
-  totalStonesPerPlayer: 9
+  boardSize: 8
+  homeSize: 2
+  totalStonesPerPlayer: 4
   dieMin: 1
   dieMax: 4
   startCellA: 0
-  startCellB: 17
+  startCellB: 7
   moveDirA: 1
   moveDirB: -1
   allowHitSingleStone: 0

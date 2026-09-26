@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+using Diceforge.Core;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+namespace Diceforge.View
+{
+    public sealed class DioramaBoard : MonoBehaviour, IBoardGeometry
+    {
+        public DioramaLayout layout;
+        public GameObject landscapeRoot;
+        public GameObject portraitRoot;
+        public UniversalRenderPipelineAsset desktopPipeline;
+        public UniversalRenderPipelineAsset mobilePipeline;
+        public DioramaLighting landscapeLighting;
+        public DioramaLighting portraitLighting;
+        public bool landscapeOnly;
+        private LightmapData[] previousLightmaps;
+        private LightProbes previousProbes;
+        public event Action GeometryChanged;
+        public bool IsPortrait { get; private set; }
+        public static bool ReducedMotion { get; set; }
+        private Camera cameraView;
+        private RenderPipelineAsset previousPipeline;
+        private DioramaCell[] cells;
+        private int screenWidth, screenHeight;
+        private bool configured;
+        private LineRenderer preview;
+        private GameObject ghost;
+        private Mesh ghostMesh;
+        private Material ghostMaterial;
+        private readonly List<Vector3> previewPoints = new();
+        private readonly Dictionary<int, TextMesh> badges = new();
+        public void Initialize()
+        {
+            if (configured) return;
+            configured = true;
+            previousPipeline = QualitySettings.renderPipeline;
+            previousLightmaps=LightmapSettings.lightmaps;previousProbes=LightmapSettings.lightProbes;
+            QualitySettings.renderPipeline = Application.isMobilePlatform ? mobilePipeline : desktopPipeline;
+            cameraView = Camera.main;
+            if (cameraView != null)
+            {
+                cameraView.orthographic = true;
+                cameraView.transform.rotation = Quaternion.Euler(50, 0, 0);
+                cameraView.clearFlags = CameraClearFlags.SolidColor;
+                cameraView.backgroundColor = new Color(.13f,.20f,.14f);
+                cameraView.nearClipPlane = .1f; cameraView.farClipPlane = 100;
+                cameraView.GetUniversalAdditionalCameraData().SetRenderer(0);
+            }
+            foreach (var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
+                if (light.type == LightType.Directional)
+                {
+                    light.transform.rotation = Quaternion.Euler(48,-35,0);
+                    light.color = new Color(1,.89f,.69f); light.intensity = 1.65f;
+                    light.shadows = LightShadows.Soft;
+                }
+            RenderSettings.ambientMode = AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor = new Color(.60f,.68f,.60f);
+            RenderSettings.ambientEquatorColor = new Color(.37f,.40f,.28f);
+            RenderSettings.ambientGroundColor = new Color(.19f,.14f,.085f);
+            ApplyOrientation(true);
+        }
+        private void Update()
+        {
+            if (configured && (screenWidth != Screen.width || screenHeight != Screen.height)) ApplyOrientation(false);
+        }
+        public void ApplyOrientation(bool force)
+        {
+            bool portrait = !landscapeOnly && Screen.height > Screen.width;
+            bool changed = force || portrait != IsPortrait;
+            IsPortrait = portrait; screenWidth = Screen.width; screenHeight = Screen.height;
+            landscapeRoot.SetActive(!portrait); portraitRoot.SetActive(portrait);
+            cells = (portrait ? portraitRoot : landscapeRoot).GetComponentsInChildren<DioramaCell>();
+            if(changed)(portrait?portraitLighting:landscapeLighting)?.Apply(portrait?portraitRoot:landscapeRoot);
+            FitCamera();
+            if (changed) { Preview(null, null, -1); ClearBadges(); GeometryChanged?.Invoke(); }
+        }
+        private void FitCamera()
+        {
+            if (cameraView == null) return;
+            Bounds bounds = WorldBounds;
+            float halfWidth = bounds.extents.x + .4f;
+            float halfHeight = bounds.extents.z * Mathf.Sin(50*Mathf.Deg2Rad) + .60f;
+            float freeHeight = IsPortrait ? .69f : .74f;
+            cameraView.orthographicSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect)) * 1.04f;
+            Vector3 target = bounds.center + cameraView.transform.up * (-cameraView.orthographicSize*.09f);
+            cameraView.transform.position = target - cameraView.transform.forward*25;
+        }
+        public Vector3 CellPosition(int id)
+        {
+            var positions = IsPortrait ? layout.portrait : layout.landscape;
+            for (int i=0;i<layout.cellIds.Length;i++) if (layout.cellIds[i]==id) return transform.TransformPoint(positions[i]);
+            throw new ArgumentOutOfRangeException(nameof(id));
+        }
+        public Quaternion CellRotation(int id) => Quaternion.Euler(0,180,0);
+        public Vector3 FormationOffset(int slot, int count)
+        {
+            if(count<=1) return Vector3.zero;
+            return (slot%3) switch { 0 => new Vector3(-.20f,0,-.10f), 1 => new Vector3(.20f,0,-.10f), _ => new Vector3(0,0,.21f) };
+        }
+        public Vector3 WaitingPosition(int player) => transform.TransformPoint(new Vector3((player==0?-1:1)*.66f,.23f,0));
+        public Vector3 ExitPosition(int player) => WaitingPosition(player) + Vector3.forward*.8f;
+        public Bounds WorldBounds => new Bounds(transform.position, IsPortrait?layout.portraitSize:layout.landscapeSize);
+        public void Highlight(IReadOnlyCollection<int> ids)
+        {
+            if(cells==null)return;
+            foreach(var c in cells) { bool on=false; if(ids!=null)foreach(int id in ids)if(id==c.cellId){on=true;break;} c.Highlight(on); }
+        }
+        public void Preview(Move? move,GameState state,int cell)
+        {
+            if(!move.HasValue || state==null)
+            {
+                if(preview!=null)preview.enabled=false;if(ghost!=null)ghost.SetActive(false);return;
+            }
+            var value=move.Value;
+            var path=BoardPathRules.GetPathInfo(state.Rules,state.CurrentPlayer);
+            var points=previewPoints;
+            points.Clear();
+            int destination=cell;
+            if(value.Kind==MoveKind.EnterFromBar)
+            {
+                points.Add(WaitingPosition((int)state.CurrentPlayer));points.Add(CellPosition(cell));
+            }
+            else
+            {
+                int steps=value.Kind==MoveKind.BearOff?Mathf.Max(0,BoardPathRules.PipsToBearOff(state.Rules,state.CurrentPlayer,value.FromCell)-1):value.PipUsed;
+                for(int i=0;i<=steps;i++)
+                {
+                    destination=(value.FromCell+path.MoveDir*i+layout.cellIds.Length*2)%layout.cellIds.Length;
+                    points.Add(CellPosition(destination));
+                }
+                if(value.Kind==MoveKind.BearOff)points.Add(ExitPosition((int)state.CurrentPlayer));
+            }
+            if(preview==null)
+            {
+                var go=new GameObject("RoutePreview");go.transform.SetParent(transform,false);preview=go.AddComponent<LineRenderer>();
+                preview.sharedMaterial=cells[0].highlight.sharedMaterial;preview.widthMultiplier=.06f;preview.numCornerVertices=4;preview.numCapVertices=4;
+                preview.shadowCastingMode=ShadowCastingMode.Off;preview.receiveShadows=false;
+            }
+            preview.enabled=true;preview.positionCount=points.Count;
+            for(int i=0;i<points.Count;i++)preview.SetPosition(i,points[i]+Vector3.up*.09f);
+            if(ghost==null)
+            {
+                DioramaToken source=null;
+                foreach(var token in FindObjectsByType<DioramaToken>(FindObjectsSortMode.None))if(token.player==(int)state.CurrentPlayer){source=token;break;}
+                if(source!=null)
+                {
+                    var skin=source.GetComponentInChildren<SkinnedMeshRenderer>();
+                    if(skin!=null)
+                    {
+                        var baked=new Mesh();skin.BakeMesh(baked);
+                        ghostMesh=new Mesh();ghostMesh.CombineMeshes(new[]{new CombineInstance {mesh=baked,transform=source.transform.worldToLocalMatrix*skin.transform.localToWorldMatrix}},true,true);Destroy(baked);
+                        ghost=new GameObject("LandingSilhouette");ghost.transform.SetParent(transform,false);ghost.transform.localScale=Vector3.one*.78f;ghost.AddComponent<MeshFilter>().sharedMesh=ghostMesh;
+                        ghostMaterial=new Material(Shader.Find("Universal Render Pipeline/Lit"));ghostMaterial.color=new Color(1,.83f,.35f,.30f);
+                        ghostMaterial.SetFloat("_Surface",1);ghostMaterial.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);ghostMaterial.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);ghostMaterial.SetFloat("_ZWrite",0);ghostMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");ghostMaterial.renderQueue=3000;
+                        var renderer=ghost.AddComponent<MeshRenderer>();renderer.sharedMaterial=ghostMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
+                    }
+                }
+            }
+            if(ghost!=null){ghost.SetActive(true);ghost.transform.position=points[points.Count-1];ghost.transform.rotation=Quaternion.Euler(0,180,0);}
+        }
+        public void SetCount(int player,int cell,int count)
+        {
+            int key=player*1000+cell+1;
+            if(!badges.TryGetValue(key,out var badge))
+            {
+                if(count<2)return;
+                var go=new GameObject("Count_"+key);go.transform.SetParent(transform,false);
+                badge=go.AddComponent<TextMesh>();badge.fontSize=64;badge.characterSize=.065f;badge.anchor=TextAnchor.MiddleCenter;
+                badge.fontStyle=FontStyle.Bold;badge.color=new Color(1,.96f,.74f);badges.Add(key,badge);
+            }
+            badge.gameObject.SetActive(count>1);badge.text=count.ToString();
+            badge.transform.position=(cell<0?WaitingPosition(player):CellPosition(cell))+new Vector3(.25f,.78f,0);
+            if(cameraView!=null)badge.transform.rotation=cameraView.transform.rotation;
+        }
+        private void ClearBadges(){foreach(var b in badges.Values)if(b!=null)Destroy(b.gameObject);badges.Clear();}
+        private void OnDestroy(){if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}if(ghostMesh!=null)Destroy(ghostMesh);if(ghostMaterial!=null)Destroy(ghostMaterial);}
+    }
+}

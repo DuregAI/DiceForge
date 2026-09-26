@@ -35,6 +35,22 @@ namespace Diceforge.View
         private Color _teamAColor;
         private Color _teamBColor;
         private bool _configured;
+        private IBoardGeometry _geometry;
+        private GameState _lastState;
+        private string _finishingId;
+        public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; }
+        public void RefreshGeometry(GameState state)
+        {
+            _lastState=state;_finishingId=null;
+            CancelAllMovement(_tokensA);CancelAllMovement(_tokensB);
+            ApplyAssignments(ReadAssignments(),ReadCounts(state),null);
+        }
+        private void LateUpdate()
+        {
+            if (_finishingId == null || IsAnimating || _lastState == null) return;
+            _finishingId = null;
+            ApplyAssignments(ReadAssignments(), ReadCounts(_lastState), null);
+        }
 
         [Header("Bar Placement")]
         [SerializeField] private float barSideOffsetX = 0.28f;
@@ -58,6 +74,8 @@ namespace Diceforge.View
 
         public void BuildTokensFromMatchState(GameState matchState)
         {
+            _lastState = matchState;
+            _finishingId = null;
             if (!_configured || matchState == null)
                 return;
 
@@ -94,6 +112,7 @@ namespace Diceforge.View
 
         public void HandleMoveApplied(MoveRecord record, GameState state, bool animate, string preferredMovedTokenName = null)
         {
+            _lastState = state;
             if (!_configured || state == null)
                 return;
 
@@ -122,9 +141,44 @@ namespace Diceforge.View
             if (result.MovedId == null)
                 return;
 
+            var movingToken = FindToken(result.MovedId);
+            var hitOrigins = new Dictionary<TokenBinding,Vector3>();
+            if (animate && _geometry is DioramaBoard)
+            {
+                if (!movingToken.root.activeSelf)
+                {
+                    movingToken.root.SetActive(true);
+                    movingToken.mover.SetVisualOffset(Vector3.zero);
+                    if(record.FromCell.HasValue)movingToken.mover.SnapTo(record.FromCell.Value);
+                    else movingToken.mover.SnapToWorld(_geometry.WaitingPosition((int)record.PlayerId));
+                }
+                foreach(var assignment in result.Assignments)
+                {
+                    var token=FindToken(assignment.Id);
+                    if(token.placement.Location==TokenLocation.Cell && assignment.Location==TokenLocation.Bar)
+                        hitOrigins[token]=token.root.transform.position;
+                }
+            }
             ApplyAssignments(result.Assignments, counts, animate ? result.MovedId : null);
             if (animate && record.ToCell.HasValue)
+            {
                 AnimateMove(FindToken(result.MovedId), record, state.Rules.boardSize);
+                if (_geometry is DioramaBoard) _finishingId = result.MovedId;
+            }
+            if (animate && _geometry is DioramaBoard board)
+            {
+                _finishingId=result.MovedId;
+                if(record.Move?.Kind==MoveKind.BearOff)
+                {
+                    movingToken.root.SetActive(true);
+                    movingToken.mover.MoveToWorld(board.ExitPosition((int)record.PlayerId),-1,.55f);
+                }
+                foreach(var hit in hitOrigins)
+                {
+                    hit.Key.root.SetActive(true);hit.Key.root.transform.position=hit.Value;
+                    hit.Key.mover.MoveToWorld(board.WaitingPosition((int)hit.Key.player),-1,.5f);
+                }
+            }
         }
 
         private void RestoreFromState(GameState state)
@@ -205,6 +259,26 @@ namespace Diceforge.View
                 TokenBinding token = resolved[i];
                 token.assigned = true;
                 token.placement = assignment; // Logical destination is committed before animation.
+                if (_geometry is DioramaBoard diorama)
+                {
+                    int slot3d = assignment.Location == TokenLocation.Cell ? assignment.Cell : counts.BoardSize;
+                    int index3d = stackIndices[assignment.Player, slot3d]++;
+                    int count3d = assignment.Location == TokenLocation.Cell ? counts.Get(assignment.Player, TokenLocation.Cell, assignment.Cell)
+                        : counts.Get(assignment.Player, TokenLocation.Bar);
+                    bool show = (assignment.Location != TokenLocation.BorneOff && index3d < 3) || assignment.Id == animatedId;
+                    bool wasActive = token.root.activeSelf;
+                    token.root.SetActive(show);
+                    token.root.transform.localScale=Vector3.one*(count3d<=1?.78f:count3d==2?.62f:.52f);
+                    var identity = token.root.GetComponent<DioramaToken>();
+                    identity.cellId = assignment.Location == TokenLocation.Cell ? assignment.Cell : -1;
+                    if (!show) { token.mover.CancelAllMovement(); continue; }
+                    token.mover.SetVisualOffset(diorama.FormationOffset(index3d, Mathf.Min(3,count3d)));
+                    token.root.transform.rotation = Quaternion.Euler(0,180,0);
+                    if (assignment.Id == animatedId && wasActive) continue;
+                    if (assignment.Location == TokenLocation.Bar) token.mover.SnapToWorld(diorama.WaitingPosition(assignment.Player));
+                    else token.mover.SnapTo(assignment.Cell);
+                    continue;
+                }
                 bool visible = assignment.Location != TokenLocation.BorneOff;
                 if (!visible) token.mover.CancelAllMovement();
                 token.root.SetActive(visible);
@@ -227,6 +301,12 @@ namespace Diceforge.View
             }
             HideUnused(_tokensA);
             HideUnused(_tokensB);
+            if (_geometry is DioramaBoard board)
+                for(int p=0;p<2;p++)
+                {
+                    for(int c=0;c<counts.BoardSize;c++) board.SetCount(p,c,counts.Get(p,TokenLocation.Cell,c));
+                    board.SetCount(p,-1,counts.Get(p,TokenLocation.Bar));
+                }
         }
 
         private static void AnimateMove(TokenBinding token, MoveRecord record, int boardSize)
@@ -323,8 +403,15 @@ namespace Diceforge.View
 
                 mover.SetLayout(_layout);
                 mover.SetPositionTilemap(_positionTilemap);
+                mover.SetGeometry(_geometry);
 
-                ApplyTeamColor(instance, color);
+                if (_geometry is DioramaBoard)
+                {
+                    var identity = instance.AddComponent<DioramaToken>();
+                    identity.player = (int)player; identity.logicalId = $"{player}-{index}";
+                    var collider = instance.AddComponent<CapsuleCollider>(); collider.center = new Vector3(0,.5f,0); collider.height=1.1f; collider.radius=.33f;
+                }
+                else ApplyTeamColor(instance, color);
                 EnsureSorting(instance);
 
                 TokenBinding token = new TokenBinding

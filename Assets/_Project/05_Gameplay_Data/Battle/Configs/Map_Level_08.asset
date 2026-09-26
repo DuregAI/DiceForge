@@ -15,4 +15,4 @@ MonoBehaviour:
   mapId: level_08
   displayName: Level 08
   boardLayout: {fileID: 11400000, guid: 6cb37bfe5487470daf8c24258097bd96, type: 2}
-  mapTheme: {fileID: 11400000, guid: de0899a7cb2942a2a7cbcaf38d8d0d17, type: 2}
+  mapTheme: {fileID: 11400000, guid: 8bdae15c3419800459a40226d6377ed1, type: 2}

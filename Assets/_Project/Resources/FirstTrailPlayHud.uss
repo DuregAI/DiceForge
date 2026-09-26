@@ -1,0 +1,79 @@
+#trail-overlay {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 17px;
+}
+
+.trail-panel {
+    background-color: rgba(63, 39, 23, 0.91);
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+    border-bottom-left-radius: 19px;
+    border-bottom-right-radius: 19px;
+    border-top-width: 2px;
+    border-bottom-width: 3px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-color: rgb(161, 112, 60);
+    border-bottom-color: rgb(30, 19, 13);
+    border-left-color: rgb(105, 68, 37);
+    border-right-color: rgb(105, 68, 37);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 18px;
+    padding-right: 18px;
+    min-height: 60px;
+}
+
+.trail-title, .trail-progress, .trail-hint {
+    color: rgb(255, 236, 190);
+    -unity-font-style: bold;
+    font-size: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.trail-progress { color: rgb(239, 205, 124); }
+.trail-hint { font-size: 18px; }
+.trail-restart {
+    background-color: rgb(125, 80, 42);
+    color: rgb(255, 236, 190);
+    min-height: 46px;
+    min-width: 90px;
+    margin-left: 15px;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+.step-choices { flex-direction: row; margin-left: 12px; }
+.step-token {
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgb(210, 155, 82);
+    color: rgb(65, 35, 20);
+    -unity-font-style: bold;
+    font-size: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+.step-token-selected {
+    background-color: rgb(255, 218, 134);
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-color: rgb(255, 249, 219);
+    border-bottom-color: rgb(255, 249, 219);
+    border-left-color: rgb(255, 249, 219);
+    border-right-color: rgb(255, 249, 219);
+}

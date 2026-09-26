@@ -14,6 +14,17 @@ namespace Diceforge.View
 
         private BattleRunner _runner;
         private string _pendingAnimatedTokenName;
+        private DioramaBoard _diorama;
+        public void ConfigureDiorama(DioramaBoard board)
+        {
+            _diorama = board;
+            stonesTokensView.SetGeometry(board);
+            board.GeometryChanged += RebuildForOrientation;
+        }
+        private void RebuildForOrientation()
+        {
+            if (_runner?.State != null) stonesTokensView.RefreshGeometry(_runner.State);
+        }
 
         public bool IsAnimating
         {
@@ -83,6 +94,7 @@ namespace Diceforge.View
 
         private void OnDestroy()
         {
+            if (_diorama != null) _diorama.GeometryChanged -= RebuildForOrientation;
             UnbindRunner();
         }
 
