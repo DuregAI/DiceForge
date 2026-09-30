@@ -9,13 +9,18 @@ namespace Diceforge.View
     {
         public static bool BlocksGameplay => instance != null && instance.paused;
         private static DioramaHud instance;
+        public static void SetResultVisible(bool visible)
+        {
+            if (instance?.root != null)
+                instance.root.style.display = visible ? DisplayStyle.None : DisplayStyle.Flex;
+        }
         private BattleDebugController battle;
         private DioramaBoard board;
         private GameObject settingsObject;
         private UIDocument document, settingsDocument;
         public UIDocument Document => document;
         private VisualElement root, panel, dice, menu, settingsPanel;
-        private Label turn, scoreA, scoreB, hint;
+        private Label turn, scoreA, scoreB, roleLabelA, roleLabelB, hint;
         private Button reroll, settingsButton, settingsMute;
         private Toggle pauseMute;
         private Slider musicSlider, sfxSlider;
@@ -27,6 +32,8 @@ namespace Diceforge.View
         private string diceSignature;
         private MenuLocalization localization, settingsLocalization;
         private int width,height;
+        private float logicalWidth,logicalHeight;
+        private Rect safeArea;
         public void Initialize(BattleDebugController controller,DioramaBoard geometry)
         {
             instance=this; battle=controller; board=geometry;
@@ -47,12 +54,15 @@ namespace Diceforge.View
                 var settingsRoot=settingsDocument.rootVisualElement;
                 settingsRoot.pickingMode=PickingMode.Ignore;
                 settingsPanel=SharedSettingsPanel.AttachTo(settingsRoot);
-                if(settingsPanel!=null) settingsLocalization=new MenuLocalization(settingsRoot,null);
+                if(settingsPanel!=null) settingsLocalization=new MenuLocalization(settingsRoot,()=>localization?.Refresh());
             }
             else Debug.LogError("[Settings] BattleSettingsPanel is missing.");
             localization=new MenuLocalization(root,()=>diceSignature=null);
             dice=root.Q("moves"); menu=root.Q("pauseOverlay");
             turn=root.Q<Label>("turn");scoreA=root.Q<Label>("scoreA");scoreB=root.Q<Label>("scoreB");hint=root.Q<Label>("hint");
+            roleLabelA=root.Q<Label>("roleA");roleLabelB=root.Q<Label>("roleB");
+            AttachTeamIcon(root.Q("teamIconA"),PlayerId.A);
+            AttachTeamIcon(root.Q("teamIconB"),PlayerId.B);
             reroll=root.Q<Button>("reroll");reroll.clicked+=()=>battle.PresentationReroll();
             settingsButton=root.Q<Button>("settings");
             settingsButton.SetEnabled(settingsPanel!=null);
@@ -165,13 +175,21 @@ namespace Diceforge.View
             var state=battle.PresentationState;
             if(state==null)return;
             bool can=battle.PresentationCanInteract;
-            turn.text=localization.T(battle.IsMatchEnded?"MATCH COMPLETE":can?"YOUR TURN":"OPPONENT'S TURN");
-            scoreA.text=$"{localization.T("LEAF")}  {state.GetBorneOff(PlayerId.A)} / {state.Rules.totalStonesPerPlayer}";
-            scoreB.text=$"{localization.T("MOON")}  {state.GetBorneOff(PlayerId.B)} / {state.Rules.totalStonesPerPlayer}";
-            hint.text=localization.T(can?"Choose a step. Choose a goblin.":"The forest awaits the next move…");
+            string turnKey=ResolveTurnKey(battle.PresentationIsAnimating,battle.IsMatchEnded,state.CurrentPlayer==battle.LocalPlayer);
+            SetText(turn,localization.T(turnKey));
+            string roleA=localization.T(battle.LocalPlayer==PlayerId.A?"You":"Opponent");
+            string roleB=localization.T(battle.LocalPlayer==PlayerId.B?"You":"Opponent");
+            SetText(roleLabelA,roleA);SetText(roleLabelB,roleB);
+            SetText(scoreA,$"{state.GetBorneOff(PlayerId.A)} / {state.Rules.totalStonesPerPlayer}");
+            SetText(scoreB,$"{state.GetBorneOff(PlayerId.B)} / {state.Rules.totalStonesPerPlayer}");
+            scoreA.parent.tooltip=$"{localization.T("LEAF")} · {roleA}";
+            scoreB.parent.tooltip=$"{localization.T("MOON")} · {roleB}";
+            string hintKey=ResolveHintKey(battle.PresentationIsAnimating,can,battle.PresentationHasLegalMove,
+                battle.PresentationSelectedDie.HasValue,battle.PresentationDice?.Count ?? 0);
+            SetText(hint,localization.T(hintKey));
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;
-            string signature=can+":"+battle.PresentationSelectedDie+":";
+            string signature=can+":"+state.CurrentPlayer+":"+battle.PresentationSelectedDie+":";
             if(battle.PresentationDice!=null)foreach(int value in battle.PresentationDice)signature+=value+",";
             if(signature!=diceSignature)
             {
@@ -180,18 +198,92 @@ namespace Diceforge.View
                 {
                     int index=i;
                     var button=new Button(()=>{battle.SelectPresentationDie(index);Diceforge.Audio.AudioManager.Instance?.PlayUiClick();}){text=battle.PresentationDice[i].ToString()};
+                    var marker=new VisualElement{pickingMode=PickingMode.Ignore};
+                    marker.AddToClassList("token-marker");
+                    AttachTeamIcon(marker,state.CurrentPlayer);
+                    button.Add(marker);
                     button.AddToClassList("move-token");button.EnableInClassList("selected",i==battle.PresentationSelectedDie);button.SetEnabled(can);dice.Add(button);
                 }
             }
-            if(width!=Screen.width || height!=Screen.height)
+            UpdateLayout();
+        }
+        private void UpdateLayout()
+        {
+            float nextWidth=root.resolvedStyle.width;
+            float nextHeight=root.resolvedStyle.height;
+            if(float.IsNaN(nextWidth) || float.IsNaN(nextHeight) || nextWidth<=0 || nextHeight<=0)return;
+            Rect nextSafeArea=Screen.safeArea;
+            if(width!=Screen.width || height!=Screen.height || logicalWidth!=nextWidth || logicalHeight!=nextHeight || safeArea!=nextSafeArea)
             {
-                width=Screen.width;height=Screen.height;panel.EnableInClassList("portrait",height>width);
-                var bar=turn.parent;bar.Remove(turn);bar.Insert(height>width?0:1,turn);
-                Rect safe=Screen.safeArea;
-                float scale=root.resolvedStyle.width/Mathf.Max(1,width);
-                panel.style.paddingLeft=safe.xMin*scale+12;panel.style.paddingRight=(width-safe.xMax)*scale+12;
-                panel.style.paddingTop=(height-safe.yMax)*scale+12;panel.style.paddingBottom=safe.yMin*scale+12;
+                width=Screen.width;height=Screen.height;
+                logicalWidth=nextWidth;logicalHeight=nextHeight;safeArea=nextSafeArea;
+                panel.EnableInClassList("portrait",logicalHeight>logicalWidth);
+                panel.EnableInClassList("compact",logicalWidth<900);
+                panel.EnableInClassList("narrow",logicalWidth<600);
+                float scaleX=logicalWidth/Mathf.Max(1,width);
+                float scaleY=logicalHeight/Mathf.Max(1,height);
+                panel.style.paddingLeft=safeArea.xMin*scaleX+12;panel.style.paddingRight=(width-safeArea.xMax)*scaleX+12;
+                panel.style.paddingTop=(height-safeArea.yMax)*scaleY+12;panel.style.paddingBottom=safeArea.yMin*scaleY+12;
             }
+        }
+        private static void AttachTeamIcon(VisualElement element,PlayerId team)
+        {
+            if(element==null)return;
+            element.pickingMode=PickingMode.Ignore;
+            element.generateVisualContent+=context=>DrawTeamIcon(context,element.contentRect,team);
+        }
+        private static void DrawTeamIcon(MeshGenerationContext context,Rect rect,PlayerId team)
+        {
+            float size=Mathf.Min(rect.width,rect.height);
+            if(size<1f)return;
+            Vector2 origin=rect.center-Vector2.one*(size*0.5f);
+            Vector2 Point(float x,float y)=>origin+new Vector2(x,y)*size;
+            var painter=context.painter2D;
+            painter.fillColor=team==PlayerId.A?new Color32(227,110,75,255):new Color32(113,199,189,255);
+            painter.strokeColor=team==PlayerId.A?new Color32(255,211,142,255):new Color32(219,249,224,255);
+            painter.lineWidth=Mathf.Max(1f,size*0.035f);
+            painter.lineJoin=LineJoin.Round;
+            painter.BeginPath();
+            if(team==PlayerId.A)
+            {
+                painter.MoveTo(Point(0.19f,0.79f));
+                painter.BezierCurveTo(Point(0.08f,0.41f),Point(0.37f,0.16f),Point(0.84f,0.09f));
+                painter.BezierCurveTo(Point(0.86f,0.48f),Point(0.67f,0.87f),Point(0.19f,0.79f));
+            }
+            else
+            {
+                painter.MoveTo(Point(0.65f,0.1f));
+                painter.BezierCurveTo(Point(0.18f,0.01f),Point(0.01f,0.63f),Point(0.4f,0.85f));
+                painter.BezierCurveTo(Point(0.64f,0.99f),Point(0.89f,0.83f),Point(0.94f,0.64f));
+                painter.BezierCurveTo(Point(0.46f,0.83f),Point(0.3f,0.34f),Point(0.65f,0.1f));
+            }
+            painter.ClosePath();painter.Fill();painter.Stroke();
+            if(team!=PlayerId.A)return;
+            painter.strokeColor=new Color32(115,54,37,255);
+            painter.lineWidth=Mathf.Max(1f,size*0.045f);
+            painter.lineCap=LineCap.Round;
+            painter.BeginPath();
+            painter.MoveTo(Point(0.12f,0.94f));painter.LineTo(Point(0.66f,0.31f));
+            painter.MoveTo(Point(0.39f,0.62f));painter.LineTo(Point(0.33f,0.39f));
+            painter.MoveTo(Point(0.4f,0.62f));painter.LineTo(Point(0.65f,0.62f));
+            painter.Stroke();
+        }
+        private static void SetText(Label label,string value)
+        {
+            if(label!=null && label.text!=value)label.text=value;
+        }
+        internal static string ResolveTurnKey(bool animating,bool ended,bool playersTurn)
+        {
+            if(animating)return "MOVING";
+            if(ended)return "MATCH COMPLETE";
+            return playersTurn?"YOUR TURN":"OPPONENT'S TURN";
+        }
+        internal static string ResolveHintKey(bool animating,bool canInteract,bool hasLegalMove,bool stepSelected,int stepsRemaining)
+        {
+            if(animating)return "Moving…";
+            if(!canInteract)return "The forest awaits the next move…";
+            if(!hasLegalMove || stepsRemaining==0)return "No move available. Wait for the next turn.";
+            return !stepSelected && stepsRemaining>1?"Choose a step.":"Choose a goblin.";
         }
         private void SetPaused(bool value)
         {

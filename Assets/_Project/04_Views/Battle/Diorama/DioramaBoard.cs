@@ -31,6 +31,7 @@ namespace Diceforge.View
         private GameObject landingRim;
         private readonly List<Vector3> previewPoints = new();
         private readonly Dictionary<int, TextMesh> badges = new();
+        private Sprite badgeSprite;
         public void Initialize()
         {
             if (configured) return;
@@ -139,6 +140,9 @@ namespace Diceforge.View
                 preview.shadowCastingMode=ShadowCastingMode.Off;preview.receiveShadows=false;
             }
             preview.enabled=true;preview.positionCount=points.Count;
+            preview.startWidth=.075f;preview.endWidth=.045f;
+            preview.startColor=new Color(1f,.81f,.42f,.9f);
+            preview.endColor=new Color(.55f,1f,.78f,1f);
             for(int i=0;i<points.Count;i++)preview.SetPosition(i,points[i]+Vector3.up*.09f);
             if(landingRim==null)
             {
@@ -167,13 +171,32 @@ namespace Diceforge.View
                 if(count<2)return;
                 var go=new GameObject("Count_"+key);go.transform.SetParent(transform,false);
                 badge=go.AddComponent<TextMesh>();badge.fontSize=64;badge.characterSize=.065f;badge.anchor=TextAnchor.MiddleCenter;
-                badge.fontStyle=FontStyle.Bold;badge.color=new Color(1,.96f,.74f);badges.Add(key,badge);
+                badge.fontStyle=FontStyle.Bold;badge.color=player==0?new Color(1,.83f,.58f):new Color(.61f,.96f,.88f);
+                badge.characterSize=.045f;
+                var profile = Resources.Load<BattlePresentationProfile>("BattlePresentationProfile");
+                if (profile != null && profile.countPlaque != null)
+                {
+                    if (badgeSprite == null)
+                        badgeSprite = Sprite.Create(profile.countPlaque,
+                            new Rect(0, 0, profile.countPlaque.width, profile.countPlaque.height),
+                            new Vector2(.5f, .5f), 100f);
+                    var backing = new GameObject("CountPlaque").AddComponent<SpriteRenderer>();
+                    backing.transform.SetParent(go.transform, false);
+                    backing.sprite = badgeSprite;
+                    backing.transform.localScale = new Vector3(.8f / badgeSprite.bounds.size.x, .36f / badgeSprite.bounds.size.y, 1f);
+                }
+                badges.Add(key,badge);
             }
             badge.gameObject.SetActive(count>1);badge.text=count.ToString();
-            badge.transform.position=(cell<0?WaitingPosition(player):CellPosition(cell))+new Vector3(.25f,.78f,0);
-            if(cameraView!=null)badge.transform.rotation=cameraView.transform.rotation;
+            badge.transform.position=(cell<0?WaitingPosition(player):CellPosition(cell))+new Vector3(.38f,.86f,0);
+            if(cameraView!=null)
+            {
+                badge.transform.rotation=cameraView.transform.rotation;
+                var backing=badge.GetComponentInChildren<SpriteRenderer>();
+                if(backing!=null)backing.transform.localPosition=Vector3.back*.025f;
+            }
         }
         private void ClearBadges(){foreach(var b in badges.Values)if(b!=null)Destroy(b.gameObject);badges.Clear();}
-        private void OnDestroy(){if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}}
+        private void OnDestroy(){if(badgeSprite!=null)Destroy(badgeSprite);if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}}
     }
 }

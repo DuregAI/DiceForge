@@ -1,35 +1,175 @@
-#woodlandRoot { flex-grow: 1; padding: 12px 22px 14px; color: rgb(255, 239, 195); }
+#woodlandRoot {
+    flex-grow: 1;
+    padding: 14px 22px 16px;
+    color: rgb(255, 240, 202);
+}
+.hud-header { flex-shrink: 0; }
 .top-bar { flex-direction: row; align-items: center; justify-content: center; }
-.score, .turn, .pause, .settings, .menu { background-color: rgb(71, 41, 22); border-color: rgb(159, 111, 56); border-width: 2px; border-radius: 18px; background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png"); }
-.score { padding: 10px 18px; font-size: 20px; -unity-font-style: bold; }
-.warm { color: rgb(255, 171, 100); }
-.cool { color: rgb(146, 228, 213); }
-.turn { padding: 12px 26px; margin: 0 8px; font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; }
-.pause { margin-left: 10px; width: 54px; height: 54px; font-size: 23px; }
-.settings { position: absolute; right: 26px; top: 12px; width: 54px; height: 54px; background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/settings.png"); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: transparent; border-width: 0; padding: 0; }
-.settings:hover { scale: 1.05 1.05; background-color: transparent; }
-.board-space { flex-grow: 1; }
-.bottom-bar { align-self: center; padding: 0; min-width: 0; }
-.eyebrow { font-size: 12px; color: rgb(202, 173, 112); -unity-text-align: middle-center; letter-spacing: 3px; }
-.moves { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-Button { background-color: rgb(111, 67, 31); color: rgb(255, 237, 191); border-color: rgb(178, 131, 64); border-width: 2px; border-radius: 10px; min-height: 48px; padding: 5px 14px; font-size: 17px; }
+.score-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 60px;
+    padding: 7px 17px 10px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    background-size: 100% 100%;
+}
+.team-icon { width: 29px; height: 33px; margin-right: 8px; flex-shrink: 0; }
+.score-copy { align-items: center; justify-content: center; }
+.score {
+    font-size: 23px;
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-text-align: middle-center;
+    margin: 0;
+    padding: 0;
+}
+.role { font-size: 11px; -unity-font-style: bold; margin: 0; padding: 0; -unity-text-align: middle-center; }
+.warm { color: rgb(248, 165, 117); }
+.cool { color: rgb(151, 221, 214); }
+.turn-plaque {
+    width: 268px;
+    height: 72px;
+    margin: 0 7px;
+    justify-content: center;
+    padding: 8px 40px 12px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMap/title-plaque.png");
+    background-size: 100% 100%;
+}
+.turn {
+    font-size: 22px;
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-text-align: middle-center;
+    white-space: normal;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 2px 1px rgba(41, 23, 13, .9);
+}
+.hud-actions { position: absolute; right: 0; top: 8px; flex-direction: row; align-items: center; }
+Button {
+    background-color: rgb(111, 67, 31);
+    color: rgb(255, 237, 191);
+    border-color: rgb(178, 131, 64);
+    border-width: 2px;
+    border-radius: 10px;
+    min-height: 44px;
+    padding: 5px 14px;
+    font-size: 17px;
+}
 Button:hover { background-color: rgb(144, 93, 43); }
-Button:disabled { opacity: .48; }
-.move-token { width: 64px; height: 64px; margin: 3px 7px; border-radius: 36px; background-color: rgb(197, 146, 78); border-color: rgb(104, 64, 28); border-width: 4px; color: rgb(55, 32, 19); font-size: 32px; -unity-font-style: bold; }
-.move-token.selected { border-color: rgb(255, 232, 158); background-color: rgb(225, 178, 96); }
-.bottom-line { flex-direction: row; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 10px; background-color: rgba(43, 28, 18, .82); }
-#hint { font-size: 14px; margin-right: 8px; white-space: normal; }
+Button:disabled { opacity: .58; }
+.pause {
+    width: 48px;
+    height: 48px;
+    margin: 0 7px 0 0;
+    padding: 0;
+    border-radius: 28px;
+    border-width: 2px;
+    border-color: rgb(202, 155, 91);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    background-size: cover;
+    font-size: 23px;
+    -unity-font-style: bold;
+}
+.settings {
+    width: 48px;
+    height: 48px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/settings.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.settings:hover { scale: 1.04 1.04; background-color: transparent; }
+.board-space { flex-grow: 1; }
+.bottom-bar {
+    flex-shrink: 0;
+    align-self: center;
+    align-items: center;
+    min-width: 264px;
+    max-width: 560px;
+    padding: 10px 25px 18px;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    -unity-slice-left: 80;
+    -unity-slice-right: 80;
+    -unity-slice-top: 55;
+    -unity-slice-bottom: 55;
+    -unity-slice-scale: .65;
+}
+.moves { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.move-token {
+    flex-shrink: 0;
+    width: 104px;
+    height: 104px;
+    min-height: 0;
+    margin: 7px 8px 4px;
+    padding: 0 0 8px;
+    border-radius: 60px;
+    border-width: 3px;
+    border-color: transparent;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/WoodlandBattle/move-token.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: rgb(63, 34, 18);
+    font-size: 26px;
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-text-align: lower-center;
+}
+.move-token:hover { background-color: transparent; -unity-background-image-tint-color: rgb(255, 246, 215); }
+.move-token.selected { border-color: rgb(255, 246, 205); scale: 1.045 1.045; }
+.move-token:disabled { opacity: .6; background-color: transparent; }
+.move-token:focus { border-color: rgb(255, 246, 205); }
+.token-marker { display: none; position: absolute; width: 23px; height: 27px; top: -12px; right: 2px; }
+.move-token.selected .token-marker { display: flex; }
+.bottom-line { flex-direction: row; align-items: center; justify-content: center; max-width: 100%; padding: 3px 9px 0; }
+#hint {
+    flex-shrink: 1;
+    font-size: 16px;
+    margin: 0;
+    padding: 0 4px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    text-shadow: 0 1px 1px rgb(43, 23, 11);
+}
+#reroll {
+    flex-shrink: 0;
+    margin: 0 0 0 10px;
+    min-height: 38px;
+    padding: 5px 17px 8px;
+    border-width: 0;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-size: 100% 100%;
+    color: rgb(65, 38, 20);
+    -unity-font-style: bold;
+    font-size: 14px;
+}
+#reroll:hover { -unity-background-image-tint-color: rgb(255, 239, 198); }
 .overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(13, 22, 15, .78); align-items: center; justify-content: center; }
-.menu { width: 320px; padding: 24px; }
+.menu { width: 320px; padding: 24px; background-color: rgb(71, 41, 22); border-color: rgb(159, 111, 56); border-width: 2px; border-radius: 18px; background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png"); }
 .menu-title { font-size: 28px; -unity-text-align: middle-center; margin-bottom: 16px; }
 .menu Button, .menu Toggle { margin-top: 10px; min-height: 48px; }
 .hidden { display: none; }
-.portrait .top-bar { flex-wrap: wrap; }
-.portrait .turn { font-size: 18px; padding: 8px 12px; width: 95%; margin-bottom: 5px; }
-.portrait .score { font-size: 15px; padding: 10px 8px; }
-.portrait .pause { width: 48px; height: 48px; margin-left: 4px; }
-.portrait .settings { width: 48px; height: 48px; }
-.portrait .bottom-bar { min-width: 0; width: 96%; padding-left: 8px; padding-right: 8px; }
-.portrait .move-token { width: 65px; height: 65px; font-size: 32px; margin: 5px; }
-.portrait .bottom-line { flex-direction: column; }
-.portrait #hint { margin-right: 0; font-size: 16px; margin-bottom: 5px; }
+.compact .top-bar { margin-right: 108px; }
+.compact .score-panel { width: 117px; height: 56px; padding-left: 12px; padding-right: 12px; }
+.compact .team-icon { width: 24px; height: 29px; margin-right: 5px; }
+.compact .score { font-size: 21px; }
+.compact .turn-plaque { width: 220px; height: 64px; padding-left: 31px; padding-right: 31px; margin-left: 4px; margin-right: 4px; }
+.compact .turn { font-size: 18px; }
+.narrow .top-bar { margin-right: 0; padding-top: 62px; }
+.narrow .turn-plaque { position: absolute; top: 0; left: 0; right: 108px; width: auto; height: 59px; margin: 0; padding-left: 27px; padding-right: 27px; }
+.narrow .turn { font-size: 17px; }
+.narrow .score-panel { width: auto; flex-grow: 1; max-width: 156px; margin-left: 4px; margin-right: 4px; }
+.narrow .hud-actions { top: 5px; }
+.narrow .bottom-bar { min-width: 0; max-width: 100%; padding: 8px 14px 17px; }
+.narrow .move-token { width: 78px; height: 78px; font-size: 21px; padding-bottom: 4px; margin: 5px; }
+.narrow .token-marker { width: 20px; height: 23px; top: -10px; }
+.narrow .bottom-line { flex-direction: column; }
+.narrow #hint { font-size: 15px; }
+.narrow #reroll { margin: 7px 0 0; }

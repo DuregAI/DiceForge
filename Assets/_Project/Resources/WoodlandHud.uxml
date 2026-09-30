@@ -1,18 +1,36 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
   <ui:Style src="WoodlandHud.uss" />
   <ui:VisualElement name="woodlandRoot" picking-mode="Ignore">
-    <ui:VisualElement class="top-bar" picking-mode="Ignore">
-      <ui:Label name="scoreA" class="score warm" text="ЛИСТ  0 / 2" />
-      <ui:Label name="turn" class="turn" text="ВАШ ХОД" />
-      <ui:Label name="scoreB" class="score cool" text="ЛУНА  0 / 2" />
-      <ui:Button name="pause" class="pause" text="II" />
+    <ui:VisualElement class="hud-header" picking-mode="Ignore">
+      <ui:VisualElement class="top-bar" picking-mode="Ignore">
+        <ui:VisualElement class="score-panel" picking-mode="Ignore">
+          <ui:VisualElement name="teamIconA" class="team-icon" picking-mode="Ignore" />
+          <ui:VisualElement class="score-copy" picking-mode="Ignore">
+            <ui:Label name="scoreA" class="score" text="0 / 2" picking-mode="Ignore" />
+            <ui:Label name="roleA" class="role warm" text="You" picking-mode="Ignore" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="turnPlaque" class="turn-plaque" picking-mode="Ignore">
+          <ui:Label name="turn" class="turn" text="YOUR TURN" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="score-panel" picking-mode="Ignore">
+          <ui:VisualElement name="teamIconB" class="team-icon" picking-mode="Ignore" />
+          <ui:VisualElement class="score-copy" picking-mode="Ignore">
+            <ui:Label name="scoreB" class="score" text="0 / 2" picking-mode="Ignore" />
+            <ui:Label name="roleB" class="role cool" text="Opponent" picking-mode="Ignore" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+      <ui:VisualElement class="hud-actions" picking-mode="Ignore">
+        <ui:Button name="pause" class="pause" text="II" tooltip="Pause" />
+        <ui:Button name="settings" class="settings" tooltip="Settings" />
+      </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Button name="settings" class="settings" tooltip="Settings" />
     <ui:VisualElement class="board-space" picking-mode="Ignore" />
     <ui:VisualElement class="bottom-bar">
-      <ui:VisualElement name="moves" class="moves" />
-      <ui:VisualElement class="bottom-line">
-        <ui:Label name="hint" text="Choose a step. Choose a goblin." />
+      <ui:VisualElement name="moves" class="moves" picking-mode="Ignore" />
+      <ui:VisualElement class="bottom-line" picking-mode="Ignore">
+        <ui:Label name="hint" text="Choose a step. Choose a goblin." picking-mode="Ignore" />
         <ui:Button name="reroll" text="Reroll" />
       </ui:VisualElement>
     </ui:VisualElement>

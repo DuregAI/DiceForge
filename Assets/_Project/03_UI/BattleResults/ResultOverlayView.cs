@@ -42,6 +42,8 @@ namespace Diceforge.View
         private Coroutine _presentationRoutine;
         private bool _isVisible;
         private bool _lastRestartVisibleState = true;
+        private MenuLocalization localization;
+        private string T(string source) => localization != null ? localization.T(source) : source;
 
         private void OnEnable()
         {
@@ -54,11 +56,15 @@ namespace Diceforge.View
             _root = document != null ? document.rootVisualElement : null;
             if (_root == null)
                 return;
+            document.sortingOrder = 20;
 
             _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
             _levelUpPresenter.Initialize(_root);
             _chestRewardPresenter = GetComponent<ChestRewardWindowPresenter>() ?? gameObject.AddComponent<ChestRewardWindowPresenter>();
             _chestRewardPresenter.Initialize(_root);
+            localization = new MenuLocalization(_root, null);
+            _levelUpPresenter.SetTranslator(T);
+            _chestRewardPresenter.SetTranslator(T);
             RewardPopupEffectsBridge[] effectBridges = GetComponents<RewardPopupEffectsBridge>();
             if (effectBridges.Length > 0)
                 _backEffectsBridge = effectBridges[0];
@@ -88,8 +94,10 @@ namespace Diceforge.View
             _retrySaveButton = _root.Q<Button>("retryResultSaveButton");
             if (_retrySaveButton == null && _panel != null)
             {
-                _retrySaveButton = new Button { name = "retryResultSaveButton", text = "Повторить сохранение" };
-                _panel.Add(_retrySaveButton);
+                _retrySaveButton = new Button { name = "retryResultSaveButton", text = "Retry save" };
+                _retrySaveButton.AddToClassList("result-overlay-button");
+                _retrySaveButton.AddToClassList("is-primary");
+                (_root.Q("resultPanelContent") ?? _panel).Add(_retrySaveButton);
             }
             if (_retrySaveButton != null)
             {
@@ -116,6 +124,8 @@ namespace Diceforge.View
 
         private void OnDisable()
         {
+            localization?.Dispose();
+            localization = null;
             backdropDismiss?.Dispose();
             if (battleController != null)
                 battleController.OnMatchEnded -= HandleMatchEnded;
@@ -146,6 +156,7 @@ namespace Diceforge.View
         {
             var session = battleController?.RewardSession;
             if (session == null) return;
+            DioramaHud.SetResultVisible(true);
             if (_overlayRoot != null)
             {
                 _overlayRoot.style.display = DisplayStyle.Flex;
@@ -156,11 +167,15 @@ namespace Diceforge.View
                 StopPresentationRoutine();
                 _rewardsList?.Clear();
                 SetXpStageVisible(false);
-                if (_resultLabel != null) _resultLabel.text = "Не удалось сохранить результат";
-                UpdateSummaryText("Повторите сохранение, чтобы продолжить.");
+                if (_resultLabel != null) _resultLabel.text = T("Could not save the result");
+                UpdateSummaryText(T("Retry saving to continue."));
                 _restartButton?.SetEnabled(false);
                 _backToMenuButton?.SetEnabled(false);
-                if (_retrySaveButton != null) _retrySaveButton.style.display = DisplayStyle.Flex;
+                if (_retrySaveButton != null)
+                {
+                    _retrySaveButton.text = T("Retry save");
+                    _retrySaveButton.style.display = DisplayStyle.Flex;
+                }
                 _isVisible = true;
                 return;
             }
@@ -195,7 +210,7 @@ namespace Diceforge.View
         private void PrepareOutcomeView(PostBattleRewardOutcome outcome)
         {
             if (_resultLabel != null)
-                _resultLabel.text = outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat";
+                _resultLabel.text = T(outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
 
             if (_xpValueLabel != null)
                 _xpValueLabel.text = $"+{outcome.ApplicationResult.XpGained} XP";
@@ -213,9 +228,9 @@ namespace Diceforge.View
             if (outcome.ApplicationResult.XpGained > 0)
             {
                 SetXpStageVisible(true);
-                UpdateSummaryText(outcome.Won
-                    ? $"XP +{outcome.ApplicationResult.XpGained} fuels the forge."
-                    : $"XP +{outcome.ApplicationResult.XpGained} recovered from the clash.");
+                UpdateSummaryText(string.Format(T(outcome.Won
+                    ? "XP +{0} fuels the forge."
+                    : "XP +{0} recovered from the clash."), outcome.ApplicationResult.XpGained));
                 yield return new WaitForSecondsRealtime(XpStageDelaySeconds);
             }
 
@@ -299,6 +314,7 @@ namespace Diceforge.View
         private void HideOverlay()
         {
             StopPresentationRoutine();
+            DioramaHud.SetResultVisible(false);
 
             if (_overlayRoot != null)
             {
@@ -351,11 +367,17 @@ namespace Diceforge.View
             if (_restartButton != null)
             {
                 _restartButton.style.display = showRestart ? DisplayStyle.Flex : DisplayStyle.None;
+                _restartButton.text = T("Retry battle");
+                _restartButton.EnableInClassList("is-primary", !outcome.Won);
                 _restartButton.SetEnabled(ready && showRestart);
             }
 
             if (_backToMenuButton != null)
+            {
+                _backToMenuButton.text = T(outcome.IsMapBattle ? "To map" : "Back to menu");
+                _backToMenuButton.EnableInClassList("is-primary", outcome.Won);
                 _backToMenuButton.SetEnabled(ready);
+            }
         }
 
         private void SetXpStageVisible(bool visible)
@@ -373,36 +395,36 @@ namespace Diceforge.View
         private string BuildInitialSummary(PostBattleRewardOutcome outcome)
         {
             if (outcome.IsDraw)
-                return "Turn limit reached. Neither side is ahead. No rewards earned.";
+                return T("Turn limit reached. Neither side is ahead. No rewards earned.");
 
             if (outcome.Won)
-                return outcome.HasRewardSummary ? "Spoils gathered from this clash" : "The battle is won.";
+                return T(outcome.HasRewardSummary ? "Spoils gathered from this clash" : "The battle is won.");
 
             if (outcome.RewardBundle != null && !outcome.RewardBundle.IsEmpty)
-                return "Defeat rewards secured.";
+                return T("Defeat rewards secured.");
 
-            return "No rewards earned this time.";
+            return T("No rewards earned this time.");
         }
 
         private string BuildFinalSummary(PostBattleRewardOutcome outcome)
         {
             if (outcome.ApplicationResult.LevelUpData != null)
-                return $"Level {outcome.ApplicationResult.LevelUpData.NewLevel} reached.";
+                return string.Format(T("Level {0} reached."), outcome.ApplicationResult.LevelUpData.NewLevel);
 
             if (outcome.ApplicationResult.HasChestRewards)
                 return BuildChestSummary(outcome.ApplicationResult.GrantedChests.Count);
 
             if (outcome.ApplicationResult.XpGained > 0)
-                return $"XP +{outcome.ApplicationResult.XpGained} applied.";
+                return string.Format(T("XP +{0} applied."), outcome.ApplicationResult.XpGained);
 
             return BuildInitialSummary(outcome);
         }
 
-        private static string BuildChestSummary(int chestCount)
+        private string BuildChestSummary(int chestCount)
         {
             return chestCount == 1
-                ? "A chest was added to your stash."
-                : $"{chestCount} chests were added to your stash.";
+                ? T("A chest was added to your stash.")
+                : string.Format(T("{0} chests were added to your stash."), chestCount);
         }
 
         private void PopulateRewardSummary(RewardBundle bundle)
@@ -425,7 +447,7 @@ namespace Diceforge.View
                     string name = definition != null && !string.IsNullOrWhiteSpace(definition.displayName)
                         ? definition.displayName
                         : currency.id;
-                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"+{currency.amount}", name);
+                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"+{currency.amount}", T(name));
                     hasEntries = true;
                 }
             }
@@ -442,7 +464,7 @@ namespace Diceforge.View
                     string name = definition != null && !string.IsNullOrWhiteSpace(definition.displayName)
                         ? definition.displayName
                         : item.id;
-                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"x{item.amount}", name);
+                    AddRewardRow(_rewardsList, definition != null ? definition.icon : null, $"x{item.amount}", T(name));
                     hasEntries = true;
                 }
             }

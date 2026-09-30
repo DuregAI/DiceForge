@@ -27,6 +27,8 @@ public sealed class ChestRewardWindowView
     private IVisualElementScheduledItem _pulseSchedule;
     private float _pulseStartTime;
     private bool _interactionReady;
+    private Func<string, string> translate = source => source;
+    public void SetTranslator(Func<string, string> translator) => translate = translator ?? (source => source);
 
     public ChestRewardWindowView(VisualElement root)
     {
@@ -90,7 +92,7 @@ public sealed class ChestRewardWindowView
         ChestRewardPresentationEntry primaryEntry = data.PrimaryEntry;
 
         if (_titleLabel != null)
-            _titleLabel.text = "REWARD RECEIVED";
+            _titleLabel.text = translate("REWARD RECEIVED");
 
         if (_chestIcon != null)
         {
@@ -109,18 +111,26 @@ public sealed class ChestRewardWindowView
         }
 
         if (_nameLabel != null)
-            _nameLabel.text = primaryEntry.DisplayName;
+            _nameLabel.text = translate(primaryEntry.DisplayName);
 
         if (_rarityLabel != null)
         {
-            _rarityLabel.text = primaryEntry.HasRarityLabel ? primaryEntry.RarityLabel : string.Empty;
+            _rarityLabel.text = primaryEntry.HasRarityLabel ? translate(primaryEntry.RarityLabel) : string.Empty;
             _rarityLabel.style.display = primaryEntry.HasRarityLabel ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         if (_flavorLabel != null)
         {
             bool hasFlavor = !string.IsNullOrWhiteSpace(data.FlavorText);
-            _flavorLabel.text = hasFlavor ? data.FlavorText : string.Empty;
+            string defaultFlavor = data.TotalChestCount == 1
+                ? "A battle-earned chest has been added to your stash."
+                : $"{data.TotalChestCount} battle-earned chests have been added to your stash.";
+            _flavorLabel.text = !hasFlavor ? string.Empty
+                : data.FlavorText == defaultFlavor
+                    ? data.TotalChestCount == 1
+                        ? translate("A battle-earned chest has been added to your stash.")
+                        : string.Format(translate("{0} battle-earned chests have been added to your stash."), data.TotalChestCount)
+                    : translate(data.FlavorText);
             _flavorLabel.style.display = hasFlavor ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
@@ -255,7 +265,7 @@ public sealed class ChestRewardWindowView
             icon.scaleMode = ScaleMode.ScaleToFit;
             icon.sprite = entry.Icon;
 
-            var name = new Label(entry.DisplayName);
+            var name = new Label(translate(entry.DisplayName));
             name.AddToClassList("chest-reward-detail-name");
 
             var count = new Label($"x{entry.Count}");

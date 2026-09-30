@@ -23,7 +23,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(5, 9, 14, 0.74);
+    background-color: rgba(13, 22, 15, 0.76);
 }
 
 .level-up-backdrop-glow {
@@ -34,7 +34,7 @@
     height: 520px;
     translate: -50% -50%;
     opacity: 0.1;
-    background-color: rgba(96, 152, 224, 0.07);
+    background-color: rgba(165, 210, 104, 0.09);
     border-top-left-radius: 999px;
     border-top-right-radius: 999px;
     border-bottom-left-radius: 999px;
@@ -254,7 +254,7 @@
     width: 144px;
     height: 144px;
     opacity: 0.32;
-    background-color: rgba(127, 196, 255, 0.16);
+    background-color: rgba(175, 215, 119, 0.16);
     border-top-left-radius: 999px;
     border-top-right-radius: 999px;
     border-bottom-left-radius: 999px;

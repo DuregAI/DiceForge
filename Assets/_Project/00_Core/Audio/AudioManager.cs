@@ -289,6 +289,15 @@ namespace Diceforge.Audio
             sfxSource.PlayOneShot(clip, Mathf.Clamp01(SfxVolume));
         }
 
+        public void PlayGameSfx(AudioClip clip, float gain = 1f)
+        {
+            if (clip == null || sfxSource == null || IsMuted)
+                return;
+
+            // Apply the saved SFX volume on the AudioSource, once.
+            sfxSource.PlayOneShot(clip, Mathf.Clamp01(gain));
+        }
+
         private IEnumerator PlaybackWatcher()
         {
             var wait = new WaitForSeconds(0.2f);

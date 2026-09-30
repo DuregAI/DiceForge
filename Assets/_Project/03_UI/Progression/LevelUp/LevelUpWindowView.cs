@@ -25,6 +25,8 @@ public sealed class LevelUpWindowView
     private IVisualElementScheduledItem _pulseSchedule;
     private float _pulseStartTime;
     private bool _interactionReady;
+    private Func<string, string> translate = source => source;
+    public void SetTranslator(Func<string, string> translator) => translate = translator ?? (source => source);
 
     public LevelUpWindowView(VisualElement root)
     {
@@ -78,16 +80,16 @@ public sealed class LevelUpWindowView
             throw new ArgumentNullException(nameof(data));
 
         if (_titleLabel != null)
-            _titleLabel.text = "LEVEL UP";
+            _titleLabel.text = translate("LEVEL UP");
         if (_subtitleLabel != null)
-            _subtitleLabel.text = $"You reached Level {data.NewLevel}";
+            _subtitleLabel.text = string.Format(translate("You reached Level {0}"), data.NewLevel);
         if (_levelValueLabel != null)
             _levelValueLabel.text = data.NewLevel.ToString();
 
         if (_flavorLabel != null)
         {
             bool hasFlavor = !string.IsNullOrWhiteSpace(data.FlavorText);
-            _flavorLabel.text = hasFlavor ? data.FlavorText : string.Empty;
+            _flavorLabel.text = hasFlavor ? translate(data.FlavorText) : string.Empty;
             _flavorLabel.style.display = hasFlavor ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
@@ -217,7 +219,7 @@ public sealed class LevelUpWindowView
             var marker = new VisualElement();
             marker.AddToClassList("level-up-unlock-marker");
 
-            var label = new Label(string.IsNullOrWhiteSpace(unlock.DisplayName) ? unlock.Id : unlock.DisplayName);
+            var label = new Label(translate(string.IsNullOrWhiteSpace(unlock.DisplayName) ? unlock.Id : unlock.DisplayName));
             label.AddToClassList("level-up-unlock-label");
 
             row.Add(marker);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Diceforge.View
@@ -7,6 +8,7 @@ namespace Diceforge.View
         private Animator animator;
         private BoardLayoutTokenMover mover;
         private bool wasMoving;
+        private Coroutine reaction;
 
         private void OnEnable()
         {
@@ -28,12 +30,40 @@ namespace Diceforge.View
                 return;
 
             wasMoving = moving;
+            if (moving && reaction != null)
+                return;
             if (moving)
                 animator.CrossFadeInFixedTime("Walk", .12f);
             else if (DioramaBoard.ReducedMotion)
                 animator.Play("Idle", 0, 0f);
             else
                 animator.CrossFadeInFixedTime("Idle", .18f, 0, Random.value);
+        }
+
+        public void React(string state, float seconds)
+        {
+            if (animator == null || animator.runtimeAnimatorController == null || DioramaBoard.ReducedMotion)
+                return;
+
+            if (reaction != null)
+                StopCoroutine(reaction);
+            reaction = StartCoroutine(PlayReaction(state, seconds));
+        }
+
+        private IEnumerator PlayReaction(string state, float seconds)
+        {
+            animator.CrossFadeInFixedTime(state, .06f);
+            yield return new WaitForSeconds(Mathf.Max(.05f, seconds));
+            if (animator != null)
+                animator.CrossFadeInFixedTime(mover != null && mover.IsAnimating ? "Walk" : "Idle", .12f);
+            reaction = null;
+        }
+
+        private void OnDisable()
+        {
+            if (reaction != null)
+                StopCoroutine(reaction);
+            reaction = null;
         }
     }
 }

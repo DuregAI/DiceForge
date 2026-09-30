@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Diceforge.Audio;
 using Diceforge.Core;
 using Diceforge.Map;
 using Diceforge.TokenPlacement;
@@ -38,6 +39,7 @@ namespace Diceforge.View
         private IBoardGeometry _geometry;
         private GameState _lastState;
         private string _finishingId;
+        private BattlePresentationProfile presentation;
         public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; }
         public void RefreshGeometry(GameState state)
         {
@@ -59,6 +61,7 @@ namespace Diceforge.View
 
         public void Configure(BoardLayout layout, Tilemap positionTilemap, Transform unitsRoot, GameObject teamAUnitPrefab, GameObject teamBUnitPrefab, Color teamAColor, Color teamBColor)
         {
+            presentation = Resources.Load<BattlePresentationProfile>("BattlePresentationProfile");
             _layout = layout;
             _positionTilemap = positionTilemap;
             _unitsRoot = unitsRoot;
@@ -168,17 +171,51 @@ namespace Diceforge.View
             if (animate && _geometry is DioramaBoard board)
             {
                 _finishingId=result.MovedId;
+                AudioClip cue = presentation != null ? presentation.moveClip : null;
+                if (record.Move?.Kind == MoveKind.BearOff) cue = presentation != null ? presentation.exitClip : null;
+                else if (hitOrigins.Count > 0) cue = presentation != null ? presentation.hitClip : null;
+                AudioManager.Instance?.PlayGameSfx(cue, presentation != null ? presentation.soundGain : 1f);
                 if(record.Move?.Kind==MoveKind.BearOff)
                 {
                     movingToken.root.SetActive(true);
                     movingToken.mover.MoveToWorld(board.ExitPosition((int)record.PlayerId),-1,.55f);
+                    movingToken.root.GetComponent<GoblinLife>()?.React("Return", presentation != null ? presentation.exitSeconds : .25f);
                 }
                 foreach(var hit in hitOrigins)
                 {
                     hit.Key.root.SetActive(true);hit.Key.root.transform.position=hit.Value;
                     hit.Key.mover.MoveToWorld(board.WaitingPosition((int)hit.Key.player),-1,.5f);
+                    hit.Key.root.GetComponent<GoblinLife>()?.React("Hit", presentation != null ? presentation.hitSeconds : .25f);
                 }
             }
+        }
+
+        public void ReactToSelection(string tokenName)
+        {
+            if (_geometry is not DioramaBoard || string.IsNullOrEmpty(tokenName)) return;
+            foreach (var team in new[] { _tokensA, _tokensB })
+                foreach (TokenBinding token in team)
+                    if (token.root.activeSelf && token.root.name == tokenName)
+                {
+                    token.root.GetComponent<GoblinLife>()?.React("Selected", presentation != null ? presentation.selectionSeconds : .2f);
+                    return;
+                }
+        }
+
+        public void ReactToMatchEnd(PlayerId? winner)
+        {
+            if (_geometry is not DioramaBoard || !winner.HasValue) return;
+            bool winnerVisible = false;
+            foreach (TokenBinding token in winner == PlayerId.A ? _tokensA : _tokensB)
+                if (token.root.activeSelf)
+                {
+                    token.root.GetComponent<GoblinLife>()?.React("Victory", presentation != null ? presentation.victorySeconds : .5f);
+                    winnerVisible = true;
+                }
+            if (winnerVisible) return;
+            foreach (TokenBinding token in winner == PlayerId.A ? _tokensB : _tokensA)
+                if (token.root.activeSelf)
+                    token.root.GetComponent<GoblinLife>()?.React("Hit", presentation != null ? presentation.hitSeconds : .25f);
         }
 
         private void RestoreFromState(GameState state)

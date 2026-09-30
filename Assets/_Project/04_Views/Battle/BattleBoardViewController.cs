@@ -42,6 +42,9 @@ namespace Diceforge.View
             _pendingAnimatedTokenName = tokenRootName;
         }
 
+        public void ReactToSelection(string tokenRootName) => stonesTokensView?.ReactToSelection(tokenRootName);
+        public void ReactToMatchEnd(PlayerId? winner) => stonesTokensView?.ReactToMatchEnd(winner);
+
         public void SetMovers(BoardLayoutTokenMover a, BoardLayoutTokenMover b)
         {
             moverA = a;

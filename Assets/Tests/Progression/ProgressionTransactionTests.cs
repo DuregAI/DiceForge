@@ -491,7 +491,7 @@ namespace Diceforge.Tests.Progression
                 R.Set(overlay, "_retrySaveButton", retry);
                 R.Set(overlay, "_resultLabel", title);
                 R.Call(overlay, "ShowResult");
-                Assert.That(title.text, Is.EqualTo("Не удалось сохранить результат"));
+                Assert.That(title.text, Is.EqualTo("Could not save the result"));
                 Assert.That(restart.enabledSelf, Is.False);
                 Assert.That(back.enabledSelf, Is.False);
                 Assert.That(retry.style.display.value, Is.EqualTo(DisplayStyle.Flex));

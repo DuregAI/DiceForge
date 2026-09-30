@@ -23,7 +23,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(5, 9, 14, 0.74);
+    background-color: rgba(13, 22, 15, 0.76);
 }
 
 .chest-reward-backdrop-glow {

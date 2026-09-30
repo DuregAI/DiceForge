@@ -41,6 +41,7 @@ public sealed class ChestRewardWindowPresenter : MonoBehaviour
     private bool _analyticsSentForCurrentPopup;
 
     public bool IsOpen => _view != null && _view.Root.style.display != DisplayStyle.None;
+    public void SetTranslator(Func<string, string> translator) => _view?.SetTranslator(translator);
 
     public void Initialize(VisualElement hostRoot)
     {

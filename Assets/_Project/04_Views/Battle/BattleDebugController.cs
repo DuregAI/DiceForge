@@ -77,6 +77,10 @@ namespace Diceforge.View
         public PlayerId CurrentPlayer => _runner?.State?.CurrentPlayer ?? localPlayer;
         public GameState PresentationState => _runner?.State;
         public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating();
+        public bool PresentationIsAnimating => IsBoardAnimating();
+        public bool PresentationIsHumanTurn => _runner?.State != null && IsHumanTurn() && !IsMatchEnded;
+        public bool PresentationHasLegalMove => _runner?.State != null && !IsMatchEnded && HasLegalMove();
+        private Coroutine selectionPresentation;
         public System.Collections.Generic.IReadOnlyList<int> PresentationDice => _runner?.RemainingDice;
         public int? PresentationSelectedDie => _runner?.SelectedDieIndex;
         public void SelectPresentationDie(int index) => HandleDieSelected(index);
@@ -138,6 +142,8 @@ namespace Diceforge.View
         private void OnDisable()
         {
             ProfileService.ProfileChanged -= HandleProfileChanged;
+            if (selectionPresentation != null) StopCoroutine(selectionPresentation);
+            selectionPresentation = null;
         }
 
         private void OnDestroy()
@@ -418,14 +424,37 @@ namespace Diceforge.View
 
         private void HandleMatchEnded(MatchResult result)
         {
-            if (FindAnyObjectByType<DioramaBoard>() != null && IsBoardAnimating()) StartCoroutine(FinishAfterPresentation(result));
+            if (FindAnyObjectByType<DioramaBoard>() != null) StartCoroutine(FinishAfterPresentation(result));
             else FinalizeMatchResult(result);
         }
         private System.Collections.IEnumerator FinishAfterPresentation(MatchResult result)
         {
             var endedRunner=_runner;
-            while(IsBoardAnimating() && ReferenceEquals(endedRunner,_runner))yield return null;
-            if(ReferenceEquals(endedRunner,_runner) && _runner.State.IsFinished)FinalizeMatchResult(result);
+            var profile = Resources.Load<BattlePresentationProfile>("BattlePresentationProfile");
+            yield return WaitForPresentation(
+                () => ReferenceEquals(endedRunner, _runner) && IsBoardAnimating(),
+                DioramaBoard.ReducedMotion ? 0f : profile != null ? profile.victorySeconds : .5f,
+                () =>
+                {
+                    if (!ReferenceEquals(endedRunner, _runner)) return;
+                    boardViewController?.ReactToMatchEnd(result.Winner);
+                    var cue = result.Winner == localPlayer ? profile?.victoryClip : profile?.defeatClip;
+                    Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(cue, profile != null ? profile.soundGain : 1f);
+                },
+                () =>
+                {
+                    if (ReferenceEquals(endedRunner, _runner) && _runner.State.IsFinished)
+                        FinalizeMatchResult(result);
+                });
+        }
+
+        internal static System.Collections.IEnumerator WaitForPresentation(System.Func<bool> isAnimating,
+            float reactionSeconds, System.Action react, System.Action finalize)
+        {
+            while (isAnimating()) yield return null;
+            react();
+            if (reactionSeconds > 0f) yield return new WaitForSeconds(reactionSeconds);
+            finalize();
         }
 
         private bool IsHumanTurn()
@@ -441,7 +470,7 @@ namespace Diceforge.View
         private bool IsBoardAnimating()
         {
             EnsureBoardViewControllerResolved();
-            return boardViewController != null && boardViewController.IsAnimating;
+            return selectionPresentation != null || (boardViewController != null && boardViewController.IsAnimating);
         }
 
         private void HandleMoveClicked()
@@ -487,7 +516,23 @@ namespace Diceforge.View
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             _lastHumanInputFeedback = string.Empty;
-            ApplyHumanMove(move.Value);
+            if (FindAnyObjectByType<DioramaBoard>() != null)
+            {
+                boardViewController?.ReactToSelection(_pendingAnimatedTokenName);
+                var profile = Resources.Load<BattlePresentationProfile>("BattlePresentationProfile");
+                Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(profile?.selectionClip, profile != null ? profile.soundGain : 1f);
+                selectionPresentation = StartCoroutine(ApplyAfterSelection(move.Value, profile != null ? profile.selectionSeconds : .2f));
+            }
+            else ApplyHumanMove(move.Value);
+        }
+
+        private System.Collections.IEnumerator ApplyAfterSelection(Move move, float seconds)
+        {
+            var selectedRunner = _runner;
+            yield return new WaitForSeconds(seconds);
+            selectionPresentation = null;
+            if (ReferenceEquals(selectedRunner, _runner) && _runner?.State != null && !_runner.State.IsFinished)
+                ApplyHumanMove(move);
         }
 
         private void HandleDieSelected(int index)
@@ -886,10 +931,11 @@ namespace Diceforge.View
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {result.Winner?.ToString() ?? "Draw"}  Turns: {state.TurnIndex}");
 
-            ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
-                result.Winner?.ToString() ?? "Draw",
-                result.Reason.ToString(),
-                state.TurnIndex));
+            if (Application.isPlaying)
+                ClientDiagnostics.RecordBattleEnded(new BattleEndDiagnosticsContext(
+                    result.Winner?.ToString() ?? "Draw",
+                    result.Reason.ToString(),
+                    state.TurnIndex));
             OnMatchEnded?.Invoke(result);
             UpdateUI();
             RefreshRerollUI();
