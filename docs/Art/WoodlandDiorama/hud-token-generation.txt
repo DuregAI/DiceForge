@@ -1,0 +1,5 @@
+Tool: built-in imagegen
+Asset: Assets/_Project/07_Art/UI/WoodlandBattle/move-token.png
+Transparent background: true
+
+Use case: stylized-concept. Asset type: production game UI sprite on genuine transparent background. One single round wooden movement token for a charming handcrafted woodland goblin board game. Straight front view, perfectly circular face, fills 92% of a square canvas, no perspective tilt. Warm pale honey maple wood, finely painted woodgrain, elegant carved concentric rim, slightly irregular handmade edge, visible dark wooden thickness along bottom, soft compact contact shadow only. One very bold dark umber engraved boot footprint silhouette centered in the UPPER HALF of the token, simple rounded boot sole with three transverse tread cutouts. Leave lower third of the face clean blank wood for a runtime number. This is a polished painterly 3D game interface asset, tactile, inviting, crisp, readable at 100 pixels. Light from upper left, creamy highlights. No text, NO NUMBERS, no letters, no leafy decoration, no background, no additional tokens, no frame, no gold metal. Preserve a clean transparent alpha outside the token.

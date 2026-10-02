@@ -12,7 +12,10 @@ namespace Diceforge.View
         public static void SetResultVisible(bool visible)
         {
             if (instance?.root != null)
+            {
+                if (visible) instance.CloseBattleMenus();
                 instance.root.style.display = visible ? DisplayStyle.None : DisplayStyle.Flex;
+            }
         }
         private BattleDebugController battle;
         private DioramaBoard board;
@@ -25,7 +28,7 @@ namespace Diceforge.View
         private Toggle pauseMute;
         private Slider musicSlider, sfxSlider;
         private AudioManager audioManager;
-        private Diceforge.UI.ModalDismiss settingsDismiss;
+        private Diceforge.UI.ModalDismiss settingsDismiss, pauseDismiss;
         private bool paused;
         private bool settingsOpenedFromPause;
         private float previousTimeScale;
@@ -59,6 +62,7 @@ namespace Diceforge.View
             else Debug.LogError("[Settings] BattleSettingsPanel is missing.");
             localization=new MenuLocalization(root,()=>diceSignature=null);
             dice=root.Q("moves"); menu=root.Q("pauseOverlay");
+            pauseDismiss=new Diceforge.UI.ModalDismiss(menu,root.Q("pauseWindow"),HandlePauseDismiss);
             turn=root.Q<Label>("turn");scoreA=root.Q<Label>("scoreA");scoreB=root.Q<Label>("scoreB");hint=root.Q<Label>("hint");
             roleLabelA=root.Q<Label>("roleA");roleLabelB=root.Q<Label>("roleB");
             AttachTeamIcon(root.Q("teamIconA"),PlayerId.A);
@@ -72,16 +76,25 @@ namespace Diceforge.View
             audioManager ??= AudioManager.Instance!=null?AudioManager.Instance:FindAnyObjectByType<AudioManager>();
             root.Q<Button>("pause").clicked+=()=>SetPaused(true);
             root.Q<Button>("resume").clicked+=()=>SetPaused(false);
-            root.Q<Button>("surrender").clicked+=()=>root.Q("confirmSurrender").RemoveFromClassList("hidden");
-            root.Q<Button>("cancelSurrender").clicked+=()=>root.Q("confirmSurrender").AddToClassList("hidden");
-            root.Q<Button>("acceptSurrender").clicked+=()=>{SetPaused(false);battle.ConfirmSurrender();};
+            root.Q<Button>("surrender").clicked+=()=>SetSurrenderConfirmation(true);
+            root.Q<Button>("cancelSurrender").clicked+=()=>{SetSurrenderConfirmation(false);root.Q<Button>("surrender")?.Focus();};
+            root.Q<Button>("acceptSurrender").clicked+=()=>{SetPaused(false);if(!battle.IsMatchEnded)battle.ConfirmSurrender();};
             var reduced=root.Q<Toggle>("reducedMotion");reduced.SetValueWithoutNotify(PlayerPrefs.GetInt("WoodlandReducedMotion",0)==1);
+            AddPauseToggleCheck(reduced);
             DioramaBoard.ReducedMotion=reduced.value;
             reduced.RegisterValueChangedCallback(e=>{DioramaBoard.ReducedMotion=e.newValue;PlayerPrefs.SetInt("WoodlandReducedMotion",e.newValue?1:0);});
             pauseMute=root.Q<Toggle>("mute");
+            AddPauseToggleCheck(pauseMute);
             pauseMute.SetValueWithoutNotify(audioManager!=null && audioManager.IsMuted);
             pauseMute.RegisterValueChangedCallback(e=>audioManager?.SetMuted(e.newValue));
             board.GeometryChanged+=OnGeometryChanged;
+        }
+        private static void AddPauseToggleCheck(Toggle toggle)
+        {
+            if(toggle==null || toggle.Q(className:"pause-toggle-check")!=null)return;
+            var check=new Label("✓"){pickingMode=PickingMode.Ignore};
+            check.AddToClassList("pause-toggle-check");
+            (toggle.Q(className:"unity-toggle__input") ?? toggle).Add(check);
         }
         private void InitializeSettings()
         {
@@ -112,6 +125,7 @@ namespace Diceforge.View
         }
         private void OpenSettings()
         {
+            if(settingsPanel==null || battle==null || battle.IsMatchEnded)return;
             settingsOpenedFromPause=paused;
             SetPaused(true);
             menu.AddToClassList("hidden");
@@ -121,10 +135,27 @@ namespace Diceforge.View
         }
         private void CloseSettings()
         {
+            if(settingsPanel==null)return;
             settingsPanel.RemoveFromClassList("is-visible");
             settingsPanel.style.display=DisplayStyle.None;
-            if(settingsOpenedFromPause) menu.RemoveFromClassList("hidden");
+            if(settingsOpenedFromPause && battle!=null && !battle.IsMatchEnded)
+            {
+                SetSurrenderConfirmation(false);
+                menu.RemoveFromClassList("hidden");
+                root.Q<Button>("resume")?.Focus();
+            }
             else SetPaused(false);
+            settingsOpenedFromPause=false;
+        }
+        private void CloseBattleMenus()
+        {
+            SetPaused(false);
+            if(settingsPanel!=null)
+            {
+                settingsPanel.RemoveFromClassList("is-visible");
+                settingsPanel.style.display=DisplayStyle.None;
+            }
+            settingsOpenedFromPause=false;
         }
         private void ToggleSettingsMute() => audioManager?.SetMuted(!audioManager.IsMuted);
         private void OnMuteChanged(bool muted)
@@ -287,10 +318,35 @@ namespace Diceforge.View
         }
         private void SetPaused(bool value)
         {
+            if(value && (battle==null || battle.IsMatchEnded))return;
+            SetSurrenderConfirmation(false);
             if(paused==value)return;
             paused=value;
             if(value){previousTimeScale=Time.timeScale;Time.timeScale=0;}else Time.timeScale=previousTimeScale;
             menu.EnableInClassList("hidden",!value);
+            if(value)
+            {
+                pauseMute?.SetValueWithoutNotify(audioManager!=null && audioManager.IsMuted);
+                root.Q<Button>("resume")?.Focus();
+            }
+        }
+        private void SetSurrenderConfirmation(bool visible)
+        {
+            if(visible && (!paused || battle==null || battle.IsMatchEnded))return;
+            root.Q("confirmSurrender")?.EnableInClassList("hidden",!visible);
+            root.Q("pauseMain")?.EnableInClassList("hidden",visible);
+            if(visible)root.Q<Button>("cancelSurrender")?.Focus();
+        }
+        private void HandlePauseDismiss()
+        {
+            var confirmation=root.Q("confirmSurrender");
+            if(confirmation!=null && !confirmation.ClassListContains("hidden"))
+            {
+                SetSurrenderConfirmation(false);
+                root.Q<Button>("surrender")?.Focus();
+                return;
+            }
+            SetPaused(false);
         }
         public static bool IsOverInterface(Vector2 screen)
         {
@@ -310,6 +366,7 @@ namespace Diceforge.View
             if(board!=null)board.GeometryChanged-=OnGeometryChanged;
             if(instance==this)instance=null;
             settingsDismiss?.Dispose();
+            pauseDismiss?.Dispose();
             if(audioManager!=null)
             {
                 audioManager.OnMuteChanged-=OnMuteChanged;

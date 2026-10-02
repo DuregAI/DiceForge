@@ -237,3 +237,122 @@
 }
 
 .result-overlay-button:disabled { opacity: 0.52; }
+
+.result-overlay-actions {
+    align-items: stretch;
+}
+
+.result-overlay-root.is-simple-result {
+    padding: 20px;
+    background-color: rgba(13, 31, 25, 0.48);
+}
+
+.is-simple-result .result-overlay-panel {
+    width: 420px;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    padding: 22px 28px 26px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    -unity-slice-left: 80;
+    -unity-slice-right: 80;
+    -unity-slice-top: 55;
+    -unity-slice-bottom: 55;
+    -unity-slice-scale: 0.65;
+    overflow: visible;
+}
+
+.is-simple-result .result-overlay-content {
+    flex-grow: 0;
+    padding: 0;
+    background-color: transparent;
+    background-image: none;
+}
+
+.is-simple-result .result-overlay-title {
+    min-height: 94px;
+    margin: 0 0 12px;
+    padding: 18px 38px 22px;
+    font-size: 32px;
+    color: rgb(255, 241, 207);
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    white-space: normal;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMap/title-plaque.png");
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    text-shadow: 0 2px 1px rgba(41, 23, 13, 0.9);
+}
+
+.is-simple-result .result-overlay-summary {
+    margin: 0 8px 12px;
+    color: rgb(239, 224, 188);
+    font-size: 18px;
+    white-space: normal;
+}
+
+.is-simple-result .is-defeat .result-overlay-title {
+    -unity-background-image-tint-color: rgb(203, 210, 189);
+}
+
+.is-simple-result .is-draw .result-overlay-title {
+    -unity-background-image-tint-color: rgb(218, 223, 201);
+}
+
+.is-simple-result .is-save-error .result-overlay-title {
+    font-size: 24px;
+}
+
+.is-simple-result .result-overlay-button {
+    margin: 6px 10px 0;
+    min-height: 50px;
+    padding: 10px 24px 13px;
+    font-size: 21px;
+    color: rgb(255, 235, 192);
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    -unity-slice-left: 80;
+    -unity-slice-right: 80;
+    -unity-slice-top: 55;
+    -unity-slice-bottom: 55;
+    -unity-slice-scale: 0.35;
+    white-space: normal;
+    text-shadow: 0 1px 1px rgba(41, 23, 13, 0.7);
+}
+
+.is-simple-result .result-overlay-button.is-primary {
+    min-height: 56px;
+    color: rgb(67, 39, 20);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/button-secondary.png");
+    -unity-slice-left: 65;
+    -unity-slice-right: 65;
+    -unity-slice-top: 35;
+    -unity-slice-bottom: 35;
+    -unity-slice-scale: 0.5;
+    text-shadow: none;
+}
+
+.is-simple-result .result-overlay-button:hover {
+    background-color: transparent;
+    -unity-background-image-tint-color: rgb(255, 239, 210);
+}
+
+.is-simple-result .result-overlay-button:active {
+    -unity-background-image-tint-color: rgb(224, 206, 174);
+}
+
+.is-simple-result .result-overlay-button:focus {
+    border-width: 2px;
+    border-color: rgb(255, 226, 161);
+    border-radius: 24px;
+}
+
+.is-simple-result .result-overlay-fx,
+.is-simple-result .result-overlay-xp-stage,
+.is-simple-result .result-overlay-rewards-container,
+.is-simple-result .result-overlay-chest-container,
+.is-simple-result .df-window-close-icon {
+    display: none;
+}

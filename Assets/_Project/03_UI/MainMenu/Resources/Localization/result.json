@@ -14,6 +14,8 @@
 {"en":"Turn limit reached. Neither side is ahead. No rewards earned.","ru":"Лимит ходов исчерпан. Ничья, наград нет.","zh":"回合数已达上限，双方平局，没有奖励。"},
 {"en":"Spoils gathered from this clash","ru":"Награды за победу","zh":"战斗胜利奖励"},
 {"en":"The battle is won.","ru":"Победа за вами.","zh":"战斗胜利。"},
+{"en":"A new attempt awaits.","ru":"Попробуйте ещё раз.","zh":"再试一次吧。"},
+{"en":"Neither side is ahead.","ru":"Ни одна из сторон не вышла вперёд.","zh":"双方不分胜负。"},
 {"en":"Defeat rewards secured.","ru":"Награды за бой получены.","zh":"已获得战斗奖励。"},
 {"en":"No rewards earned this time.","ru":"На этот раз без наград.","zh":"本次没有奖励。"},
 {"en":"Level {0} reached.","ru":"Достигнут уровень {0}.","zh":"达到 {0} 级。"},

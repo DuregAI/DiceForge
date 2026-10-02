@@ -22,7 +22,7 @@
         </ui:VisualElement>
       </ui:VisualElement>
       <ui:VisualElement class="hud-actions" picking-mode="Ignore">
-        <ui:Button name="pause" class="pause" text="II" tooltip="Pause" />
+        <ui:Button name="pause" class="pause" tooltip="Pause" />
         <ui:Button name="settings" class="settings" tooltip="Settings" />
       </ui:VisualElement>
     </ui:VisualElement>
@@ -34,18 +34,23 @@
         <ui:Button name="reroll" text="Reroll" />
       </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="pauseOverlay" class="overlay hidden">
-      <ui:VisualElement class="menu">
-        <ui:Label text="REST STOP" class="menu-title" />
-        <ui:Button name="resume" text="Resume" />
-        <ui:Button name="pauseSettings" text="Settings" />
-        <ui:Toggle name="mute" text="Mute audio" />
-        <ui:Toggle name="reducedMotion" text="Reduce motion" />
-        <ui:Button name="surrender" text="Surrender" />
-        <ui:VisualElement name="confirmSurrender" class="hidden">
-          <ui:Label text="End this match in defeat?" />
-          <ui:Button name="cancelSurrender" text="Return to game" />
-          <ui:Button name="acceptSurrender" text="Yes, surrender" />
+    <ui:VisualElement name="pauseOverlay" class="overlay pause-overlay hidden">
+      <ui:VisualElement name="pauseWindow" class="menu pause-window">
+        <ui:VisualElement name="pauseMain">
+          <ui:Label text="Paused" class="menu-title pause-title" />
+          <ui:Button name="resume" text="Resume" class="pause-action pause-primary" />
+          <ui:Button name="pauseSettings" text="Settings" class="pause-action" />
+          <ui:VisualElement class="pause-options">
+            <ui:Toggle name="mute" text="Mute audio" class="pause-toggle" />
+            <ui:Toggle name="reducedMotion" text="Reduce motion" class="pause-toggle" />
+          </ui:VisualElement>
+          <ui:Button name="surrender" text="Surrender" class="pause-action pause-surrender" />
+        </ui:VisualElement>
+        <ui:VisualElement name="confirmSurrender" class="pause-confirm hidden">
+          <ui:Label text="Surrender?" class="menu-title pause-title" />
+          <ui:Label text="End this match in defeat?" class="pause-confirm-message" />
+          <ui:Button name="cancelSurrender" text="Cancel" class="pause-action pause-primary" />
+          <ui:Button name="acceptSurrender" text="Yes, surrender" class="pause-action pause-surrender" />
         </ui:VisualElement>
       </ui:VisualElement>
     </ui:VisualElement>

@@ -19,6 +19,7 @@ namespace Diceforge.View
 
         [SerializeField] private UIDocument document;
         [SerializeField] private BattleDebugController battleController;
+        [SerializeField] private bool showProgressionDetails = false;
 
         private ProgressionDatabase _database;
         private VisualElement _root;
@@ -43,6 +44,7 @@ namespace Diceforge.View
         private bool _isVisible;
         private bool _lastRestartVisibleState = true;
         private MenuLocalization localization;
+        private string _languagePreference;
         private string T(string source) => localization != null ? localization.T(source) : source;
 
         private void OnEnable()
@@ -58,23 +60,12 @@ namespace Diceforge.View
                 return;
             document.sortingOrder = 20;
 
-            _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
-            _levelUpPresenter.Initialize(_root);
-            _chestRewardPresenter = GetComponent<ChestRewardWindowPresenter>() ?? gameObject.AddComponent<ChestRewardWindowPresenter>();
-            _chestRewardPresenter.Initialize(_root);
+            if (showProgressionDetails)
+                InitializeProgressionPresentation();
             localization = new MenuLocalization(_root, null);
-            _levelUpPresenter.SetTranslator(T);
-            _chestRewardPresenter.SetTranslator(T);
-            RewardPopupEffectsBridge[] effectBridges = GetComponents<RewardPopupEffectsBridge>();
-            if (effectBridges.Length > 0)
-                _backEffectsBridge = effectBridges[0];
-            else
-                _backEffectsBridge = gameObject.AddComponent<RewardPopupEffectsBridge>();
-
-            if (effectBridges.Length > 1)
-                _frontEffectsBridge = effectBridges[1];
-            else
-                _frontEffectsBridge = gameObject.AddComponent<RewardPopupEffectsBridge>();
+            _languagePreference = PlayerPrefs.GetString(MenuLocalization.PreferenceKey, "en");
+            _levelUpPresenter?.SetTranslator(T);
+            _chestRewardPresenter?.SetTranslator(T);
 
             _root.pickingMode = PickingMode.Ignore;
 
@@ -122,6 +113,39 @@ namespace Diceforge.View
             if (battleController != null && battleController.IsMatchEnded) ShowResult();
         }
 
+        private void InitializeProgressionPresentation()
+        {
+            _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
+            _levelUpPresenter.Initialize(_root);
+            _chestRewardPresenter = GetComponent<ChestRewardWindowPresenter>() ?? gameObject.AddComponent<ChestRewardWindowPresenter>();
+            _chestRewardPresenter.Initialize(_root);
+            RewardPopupEffectsBridge[] effectBridges = GetComponents<RewardPopupEffectsBridge>();
+            _backEffectsBridge = effectBridges.Length > 0
+                ? effectBridges[0] : gameObject.AddComponent<RewardPopupEffectsBridge>();
+            _frontEffectsBridge = effectBridges.Length > 1
+                ? effectBridges[1] : gameObject.AddComponent<RewardPopupEffectsBridge>();
+        }
+
+        private void LateUpdate()
+        {
+            if (!_isVisible || localization == null || showProgressionDetails)
+                return;
+
+            string language = PlayerPrefs.GetString(MenuLocalization.PreferenceKey, "en");
+            if (language == _languagePreference)
+                return;
+
+            _languagePreference = language;
+            localization.Refresh();
+            var session = battleController?.RewardSession;
+            if (session == null)
+                return;
+            if (session.HasPendingSave)
+                ShowResult();
+            else if (!showProgressionDetails && session.Outcome != null)
+                ShowSimpleOutcome(session.Outcome);
+        }
+
         private void OnDisable()
         {
             localization?.Dispose();
@@ -161,12 +185,13 @@ namespace Diceforge.View
             {
                 _overlayRoot.style.display = DisplayStyle.Flex;
                 _overlayRoot.pickingMode = PickingMode.Position;
+                _overlayRoot.EnableInClassList("is-simple-result", !showProgressionDetails);
             }
+            _panel?.EnableInClassList("is-save-error", session.HasPendingSave);
             if (session.HasPendingSave)
             {
-                StopPresentationRoutine();
-                _rewardsList?.Clear();
-                SetXpStageVisible(false);
+                HideProgressionPresentation();
+                SetOutcomeClasses(null);
                 if (_resultLabel != null) _resultLabel.text = T("Could not save the result");
                 UpdateSummaryText(T("Retry saving to continue."));
                 _restartButton?.SetEnabled(false);
@@ -182,6 +207,21 @@ namespace Diceforge.View
             PostBattleRewardOutcome outcome = session.Outcome;
             if (outcome == null) return;
             if (_retrySaveButton != null) _retrySaveButton.style.display = DisplayStyle.None;
+            SetOutcomeClasses(outcome);
+            if (!showProgressionDetails)
+            {
+                HideProgressionPresentation();
+                ShowSimpleOutcome(outcome);
+                return;
+            }
+            if (_levelUpPresenter == null || _chestRewardPresenter == null || _backEffectsBridge == null || _frontEffectsBridge == null)
+            {
+                InitializeProgressionPresentation();
+                _levelUpPresenter.SetTranslator(T);
+                _chestRewardPresenter.SetTranslator(T);
+            }
+            if (_fxBackLayer != null) _fxBackLayer.style.display = DisplayStyle.Flex;
+            if (_fxFrontLayer != null) _fxFrontLayer.style.display = DisplayStyle.Flex;
             PrepareOutcomeView(outcome);
             if (session.PresentationStarted)
             {
@@ -205,6 +245,40 @@ namespace Diceforge.View
 
             _isVisible = true;
             _presentationRoutine = StartCoroutine(RunPresentationSequence(outcome));
+        }
+
+        private void SetOutcomeClasses(PostBattleRewardOutcome outcome)
+        {
+            _panel?.EnableInClassList("is-victory", outcome != null && !outcome.IsDraw && outcome.Won);
+            _panel?.EnableInClassList("is-defeat", outcome != null && !outcome.IsDraw && !outcome.Won);
+            _panel?.EnableInClassList("is-draw", outcome != null && outcome.IsDraw);
+        }
+
+        private void ShowSimpleOutcome(PostBattleRewardOutcome outcome)
+        {
+            if (_resultLabel != null)
+                _resultLabel.text = T(outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
+            UpdateSummaryText(T(outcome.IsDraw ? "Neither side is ahead."
+                : outcome.Won ? "The battle is won." : "A new attempt awaits."));
+            SetNavigationButtonsReady(true, outcome);
+            _isVisible = true;
+        }
+
+        private void HideProgressionPresentation()
+        {
+            StopPresentationRoutine();
+            _backEffectsBridge?.StopActivePresentation();
+            _frontEffectsBridge?.StopActivePresentation();
+            _rewardsList?.Clear();
+            SetXpStageVisible(false);
+            if (_rewardsContainer != null) _rewardsContainer.style.display = DisplayStyle.None;
+            if (_fxBackLayer != null) { _fxBackLayer.image = null; _fxBackLayer.style.display = DisplayStyle.None; }
+            if (_fxFrontLayer != null) { _fxFrontLayer.image = null; _fxFrontLayer.style.display = DisplayStyle.None; }
+            foreach (string id in new[] { "resultChestContainer", "levelUpOverlay", "chestRewardOverlay" })
+            {
+                var element = _root.Q(id);
+                if (element != null) element.style.display = DisplayStyle.None;
+            }
         }
 
         private void PrepareOutcomeView(PostBattleRewardOutcome outcome)

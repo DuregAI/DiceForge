@@ -64,13 +64,16 @@ Button:disabled { opacity: .58; }
     margin: 0 7px 0 0;
     padding: 0;
     border-radius: 28px;
-    border-width: 2px;
-    border-color: rgb(202, 155, 91);
-    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
-    background-size: cover;
-    font-size: 23px;
-    -unity-font-style: bold;
+    border-width: 0;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/WoodlandBattle/pause-button.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+.pause:hover { scale: 1.04 1.04; background-color: transparent; -unity-background-image-tint-color: rgb(255, 239, 208); }
+.pause:active { scale: 0.96 0.96; background-color: transparent; -unity-background-image-tint-color: rgb(226, 209, 178); }
+.pause:focus { border-width: 2px; border-color: rgb(255, 235, 185); }
 .settings {
     width: 48px;
     height: 48px;
@@ -98,7 +101,7 @@ Button:disabled { opacity: .58; }
     -unity-slice-right: 80;
     -unity-slice-top: 55;
     -unity-slice-bottom: 55;
-    -unity-slice-scale: .65;
+    -unity-slice-scale: 0.65px;
 }
 .moves { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 100%; }
 .move-token {
@@ -151,10 +154,90 @@ Button:disabled { opacity: .58; }
     font-size: 14px;
 }
 #reroll:hover { -unity-background-image-tint-color: rgb(255, 239, 198); }
-.overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(13, 22, 15, .78); align-items: center; justify-content: center; }
-.menu { width: 320px; padding: 24px; background-color: rgb(71, 41, 22); border-color: rgb(159, 111, 56); border-width: 2px; border-radius: 18px; background-image: url("project://database/Assets/_Project/07_Art/UI/MainMenu/lp_bg_tile.png"); }
-.menu-title { font-size: 28px; -unity-text-align: middle-center; margin-bottom: 16px; }
-.menu Button, .menu Toggle { margin-top: 10px; min-height: 48px; }
+.overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(13, 31, 25, .48); align-items: center; justify-content: center; }
+.pause-overlay { padding: 16px; }
+.pause-window {
+    width: 360px;
+    max-width: 100%;
+    padding: 20px 26px 24px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    -unity-slice-left: 80;
+    -unity-slice-right: 80;
+    -unity-slice-top: 55;
+    -unity-slice-bottom: 55;
+    -unity-slice-scale: 0.65px;
+}
+.pause-title {
+    min-height: 80px;
+    margin: 0 0 10px;
+    padding: 16px 33px 21px;
+    font-size: 27px;
+    color: rgb(255, 241, 207);
+    -unity-font-definition: url("project://database/Assets/_Project/07_Art/Fonts/AlfaSlabOne-Regular.ttf");
+    -unity-text-align: middle-center;
+    white-space: normal;
+    text-shadow: 0 2px 1px rgba(41, 23, 13, .9);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMap/title-plaque.png");
+    background-size: 100% 100%;
+}
+.pause-window .pause-action {
+    min-height: 44px;
+    margin: 6px 0 0;
+    padding: 8px 22px 11px;
+    border-width: 0;
+    color: rgb(255, 237, 198);
+    font-size: 18px;
+    -unity-font-style: bold;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/counter-panel.png");
+    -unity-slice-left: 80;
+    -unity-slice-right: 80;
+    -unity-slice-top: 55;
+    -unity-slice-bottom: 55;
+    -unity-slice-scale: 0.32px;
+}
+.pause-window .pause-primary {
+    min-height: 50px;
+    color: rgb(66, 38, 20);
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/button-secondary.png");
+    -unity-slice-left: 65;
+    -unity-slice-right: 65;
+    -unity-slice-top: 35;
+    -unity-slice-bottom: 35;
+    -unity-slice-scale: 0.5px;
+}
+.pause-window .pause-action:hover { background-color: transparent; -unity-background-image-tint-color: rgb(255, 239, 210); }
+.pause-window .pause-action:active { background-color: transparent; -unity-background-image-tint-color: rgb(224, 206, 174); }
+.pause-window .pause-action:focus { border-width: 2px; border-color: rgb(255, 230, 176); border-radius: 22px; }
+.pause-window .pause-surrender { margin-top: 14px; color: rgb(235, 176, 146); -unity-background-image-tint-color: rgb(198, 164, 143); }
+.pause-options { margin-top: 12px; padding: 3px 5px; }
+.pause-toggle { min-height: 40px; margin: 0; color: rgb(243, 226, 193); font-size: 16px; -unity-font-style: bold; }
+.pause-toggle .unity-toggle__input { flex-grow: 1; align-items: center; justify-content: space-between; min-height: 40px; }
+.pause-toggle .unity-toggle__text { flex-grow: 1; margin: 0; white-space: normal; }
+.pause-toggle .unity-toggle__checkmark { display: none; }
+.pause-toggle-check {
+    width: 26px;
+    min-width: 26px;
+    height: 26px;
+    padding: 0;
+    margin: 0 0 0 12px;
+    border-width: 1px;
+    border-color: rgb(184, 144, 82);
+    border-radius: 6px;
+    background-color: rgb(53, 42, 27);
+    color: transparent;
+    font-size: 23px;
+    -unity-text-align: middle-center;
+}
+.pause-toggle:checked .pause-toggle-check { color: rgb(255, 241, 202); background-color: rgb(125, 107, 57); }
+.pause-toggle:hover .pause-toggle-check { border-color: rgb(255, 225, 169); }
+.pause-confirm-message { margin: 8px 10px 16px; font-size: 18px; color: rgb(243, 226, 193); white-space: normal; -unity-text-align: middle-center; }
+.pause-overlay .df-window-close-icon { display: none; }
+.narrow .pause-window { width: 320px; padding: 18px 22px 22px; }
+.narrow .pause-title { font-size: 25px; }
 .hidden { display: none; }
 .compact .top-bar { margin-right: 108px; }
 .compact .score-panel { width: 117px; height: 56px; padding-left: 12px; padding-right: 12px; }

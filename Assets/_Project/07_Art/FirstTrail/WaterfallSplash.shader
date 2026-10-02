@@ -1,6 +1,12 @@
 Shader "Diceforge/Waterfall Splash"
 {
-    Properties {_Still("Reduced motion",Float)=0}
+    Properties
+    {
+        _Still("Reduced motion",Float)=0
+        _RingStrength("Ripple strength",Range(0,1))=1
+        _Opacity("Splash opacity",Range(0,1))=1
+        _FoamColor("Foam color",Color)=(.68,.88,.83,1)
+    }
     SubShader
     {
         Tags {"RenderPipeline"="UniversalPipeline" "Queue"="Transparent+10" "RenderType"="Transparent"}
@@ -13,7 +19,8 @@ Shader "Diceforge/Waterfall Splash"
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             CBUFFER_START(UnityPerMaterial)
-            float _Still;
+            float _Still,_RingStrength,_Opacity;
+            half4 _FoamColor;
             CBUFFER_END
             struct A{float4 positionOS:POSITION;float2 uv:TEXCOORD0;};
             struct V{float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;};
@@ -24,7 +31,7 @@ Shader "Diceforge/Waterfall Splash"
                 float a=atan2(p.y,p.x);float irregular=r+.035*sin(a*7+t)+.025*sin(a*13-t);
                 float ring=pow(saturate(sin(irregular*24-t*3)),14)*(1-smoothstep(.45,.94,r))*.40;
                 float core=(1-smoothstep(.12,.48,irregular))*(.40+.10*sin(p.x*35+sin(p.y*26+t)));
-                return half4(.68,.88,.83,saturate(core+ring));
+                return half4(_FoamColor.rgb,saturate(core+ring*_RingStrength)*_Opacity*_FoamColor.a);
             }
             ENDHLSL
         }
