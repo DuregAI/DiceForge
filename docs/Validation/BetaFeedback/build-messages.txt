@@ -1,0 +1,8 @@
+Log: 1 URP assets included in build
+- URP_2D_Battle - Assets/_Project/00_Rendering/URP/URP_2D_Battle.asset
+	 - URP_2D_Battle_Renderer - Assets/_Project/00_Rendering/URP/URP_2D_Battle_Renderer.asset - UnityEngine.Rendering.Universal.Renderer2DData
+
+Log: [TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunInfo.json' (3172 bytes)
+Log: [TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunSettings.json' (23 bytes)
+Warning: Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds.
+Log: Including Unity Splash Screen logo because 'Show Unity Logo' is enabled.

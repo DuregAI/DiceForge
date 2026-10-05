@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="__CSRF_TOKEN__">
+  <title>GlimbleHop · Игроки</title>
+  <link rel="stylesheet" href="/admin-ui.css">
+  <script src="/admin-ui.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">GLIMBLEHOP · ЛОКАЛЬНАЯ АДМИНКА</p><h1 id="page-title">Игроки</h1><p id="page-description">Уровни и прогресс беты в SpacetimeDB</p></div><span class="badge">Локальный сервер</span></header>
+    <nav class="tabs" role="tablist" aria-label="Разделы админки"><button id="players-tab" role="tab" aria-controls="players-panel" aria-selected="true">Игроки</button><button id="feedback-tab" role="tab" aria-controls="feedback-panel" aria-selected="false" tabindex="-1">Отзывы</button></nav>
+    <section id="players-panel" class="panel" role="tabpanel" aria-labelledby="players-tab">
+      <div class="toolbar"><label for="search">Поиск игрока<input id="search" type="search" placeholder="Имя или ID" autocomplete="off"></label><button id="refresh">Обновить</button></div>
+      <p id="status" role="status" aria-live="polite">Подключаемся к базе…</p>
+      <div class="table-wrap"><table><thead><tr><th>Игрок</th><th>Уровень карты</th><th>Пройдено</th><th>Обновлено</th><th><span class="sr-only">Действия</span></th></tr></thead><tbody id="players"></tbody></table></div>
+      <p id="empty" hidden>Игроков пока нет. Они появятся после подключения игры к базе.</p>
+    </section>
+    <section id="feedback-panel" class="panel" role="tabpanel" aria-labelledby="feedback-tab" hidden>
+      <div class="toolbar"><label for="feedback-search">Поиск отзывов<input id="feedback-search" type="search" placeholder="Текст, имя игрока, ID или категория" autocomplete="off"></label><button id="feedback-refresh">Обновить отзывы</button></div>
+      <p id="feedback-status" role="status" aria-live="polite">Загружаем отзывы…</p>
+      <div class="table-wrap"><table class="feedback-table"><thead><tr><th>Игрок</th><th>Отзыв</th><th>Отправлено</th></tr></thead><tbody id="feedback"></tbody></table></div>
+      <p id="feedback-empty" hidden>Отзывов пока нет.</p>
+    </section>
+    <footer id="players-footer">Сброс возвращает игрока к началу карты. Имя и настройки сохраняются.</footer>
+  </main>
+  <dialog id="reset-dialog"><form method="dialog"><p class="eyebrow">СБРОС ПРОГРЕССА</p><h2 id="reset-title">Вернуть игрока к началу?</h2><p id="reset-player"></p><p>Все пройденные уровни карты и незавершённый бой будут сброшены. Игра применит сброс при подключении к серверу.</p><p class="warning">Это действие нельзя отменить.</p><p id="reset-error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel-reset" class="secondary">Отмена</button><button type="button" id="confirm-reset" class="danger">Сбросить прогресс</button></div></form></dialog>
+</body>
+</html>

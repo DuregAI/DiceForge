@@ -229,8 +229,6 @@ Button:disabled { opacity: .58; }
     border-radius: 6px;
     background-color: rgb(53, 42, 27);
     color: transparent;
-    font-size: 23px;
-    -unity-text-align: middle-center;
 }
 .pause-toggle:checked .pause-toggle-check { color: rgb(255, 241, 202); background-color: rgb(125, 107, 57); }
 .pause-toggle:hover .pause-toggle-check { border-color: rgb(255, 225, 169); }

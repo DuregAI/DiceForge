@@ -276,7 +276,7 @@ namespace Diceforge.View
             if (_fxFrontLayer != null) { _fxFrontLayer.image = null; _fxFrontLayer.style.display = DisplayStyle.None; }
             foreach (string id in new[] { "resultChestContainer", "levelUpOverlay", "chestRewardOverlay" })
             {
-                var element = _root.Q(id);
+                var element = _root?.Q(id);
                 if (element != null) element.style.display = DisplayStyle.None;
             }
         }

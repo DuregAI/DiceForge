@@ -36,6 +36,9 @@ public class MainMenuController : MonoBehaviour
     private JoTutorialView joTutorial;
     private string feedbackStatusSource = FeedbackDefaultStatus;
     private bool feedbackStatusError;
+    private bool feedbackSending;
+    private TextField feedbackNameField;
+    private PlayerFeedbackWindow campaignRating;
     private string T(string source) => localization?.T(source) ?? source;
     private readonly List<IDisposable> modalBindings = new();
     private readonly Dictionary<VisualElement, IVisualElementScheduledItem> panelHideJobs = new();
@@ -105,6 +108,7 @@ public class MainMenuController : MonoBehaviour
         feedbackModal = root.Q<VisualElement>("FeedbackModal");
         feedbackCategoryField = root.Q<DropdownField>("feedbackCategoryField");
         feedbackMessageField = root.Q<TextField>("feedbackMessageField");
+        feedbackNameField = root.Q<TextField>("feedbackNameField");
         feedbackStatusLabel = root.Q<Label>("feedbackStatusLabel");
         feedbackSubmitButton = root.Q<Button>("btnFeedbackSubmit");
         feedbackCancelButton = root.Q<Button>("btnFeedbackCancel");
@@ -258,6 +262,11 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        SpacetimeDbLocalDevRuntime.RemoveFeedbackCompletion(HandleFeedbackCompleted);
+        campaignRating?.Dispose();
+        campaignRating = null;
+        feedbackMessageField?.UnregisterValueChangedCallback(SaveFeedbackDraft);
+        feedbackCategoryField?.UnregisterValueChangedCallback(SaveFeedbackDraft);
         audioManager?.StopVoice();
         joTutorial?.Dispose();
         localization?.Dispose();
@@ -515,7 +524,7 @@ public class MainMenuController : MonoBehaviour
         }
 
         bool isDevToggle = (evt.ctrlKey || evt.commandKey) && !evt.altKey && evt.keyCode == KeyCode.D;
-        if (!isDevToggle)
+        if (!isDevToggle || mapFlowOrchestrator == null || !mapFlowOrchestrator.IsDevMode)
             return;
 
         areDevActionsVisible = !areDevActionsVisible;
@@ -570,14 +579,16 @@ public class MainMenuController : MonoBehaviour
             feedbackCategoryField.choices = FeedbackCategories;
             feedbackCategoryField.formatListItemCallback = value => T(value);
             feedbackCategoryField.formatSelectedValueCallback = value => T(value);
-            feedbackCategoryField.index = 0;
+            feedbackCategoryField.SetValueWithoutNotify(FeedbackCategories.Contains(FeedbackDraft.Category) ? FeedbackDraft.Category : FeedbackCategories[0]);
+            feedbackCategoryField.RegisterValueChangedCallback(SaveFeedbackDraft);
         }
 
         if (feedbackMessageField != null)
         {
             feedbackMessageField.multiline = true;
             feedbackMessageField.maxLength = SpacetimeDbFeedbackSink.MaxMessageLength;
-            feedbackMessageField.SetValueWithoutNotify(string.Empty);
+            feedbackMessageField.SetValueWithoutNotify(FeedbackDraft.Message);
+            feedbackMessageField.RegisterValueChangedCallback(SaveFeedbackDraft);
         }
 
         SetFeedbackStatus(FeedbackDefaultStatus, false);
@@ -597,14 +608,9 @@ public class MainMenuController : MonoBehaviour
         if (feedbackModal == null)
             return;
 
-        if (feedbackCategoryField != null)
-            feedbackCategoryField.index = 0;
-
-        if (feedbackMessageField != null)
-            feedbackMessageField.SetValueWithoutNotify(string.Empty);
-
-        SetFeedbackStatus(FeedbackDefaultStatus, false);
         feedbackModal.style.display = DisplayStyle.Flex;
+        feedbackNameField?.SetValueWithoutNotify(ProfileService.Current.playerName);
+        feedbackModal.BringToFront();
         feedbackMessageField?.Focus();
     }
 
@@ -626,6 +632,7 @@ public class MainMenuController : MonoBehaviour
 
     private void SubmitFeedback()
     {
+        if (feedbackSending) return;
         string category = feedbackCategoryField != null ? feedbackCategoryField.value : string.Empty;
         string message = feedbackMessageField != null ? feedbackMessageField.value : string.Empty;
         string trimmedMessage = string.IsNullOrWhiteSpace(message) ? string.Empty : message.Trim();
@@ -648,17 +655,43 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
+        FeedbackDraft.Save(category, message);
+        try { ProfileService.SetPlayerName(feedbackNameField?.value ?? ProfileService.Current.playerName); }
+        catch (Exception) { SetFeedbackStatus("Could not save your name. Please try again.", true); return; }
+        SetFeedbackSending(true);
+        SetFeedbackStatus("Sending feedback...", false);
         SpacetimeDbLocalDevRuntime.SubmitFeedback(
             category,
             trimmedMessage,
             Application.version,
-            SceneManager.GetActiveScene().name);
+            SceneManager.GetActiveScene().name,
+            HandleFeedbackCompleted);
+    }
 
-        if (feedbackMessageField != null)
-            feedbackMessageField.SetValueWithoutNotify(string.Empty);
+    private void SaveFeedbackDraft(ChangeEvent<string> evt)
+    {
+        FeedbackDraft.Save(feedbackCategoryField?.value, feedbackMessageField?.value);
+    }
 
-        SetFeedbackStatus("Feedback submitted.", false);
-        Debug.Log($"[MainMenu] Feedback submitted category={category}", this);
+    private void SetFeedbackSending(bool sending)
+    {
+        feedbackSending = sending;
+        feedbackSubmitButton?.SetEnabled(!sending);
+        feedbackCategoryField?.SetEnabled(!sending);
+        feedbackMessageField?.SetEnabled(!sending);
+        feedbackNameField?.SetEnabled(!sending);
+    }
+
+    private void HandleFeedbackCompleted(FeedbackSubmissionResult result)
+    {
+        if (this == null) return;
+        SetFeedbackSending(false);
+        if (result == FeedbackSubmissionResult.Sent)
+        {
+            FeedbackDraft.Save(feedbackCategoryField?.value, string.Empty);
+            feedbackMessageField?.SetValueWithoutNotify(string.Empty);
+        }
+        SetFeedbackStatus(FeedbackDraft.StatusText(result), result != FeedbackSubmissionResult.Sent);
     }
 
     private void SetFeedbackStatus(string message, bool isError)
@@ -918,6 +951,11 @@ public class MainMenuController : MonoBehaviour
         ShowPanelImmediately("MenuPanel");
         audioManager?.EnsureMusicForContext(MusicContext.Map);
         mapFlowOrchestrator?.StartChapter(defaultChapterId);
+        campaignRating ??= new PlayerFeedbackWindow(root);
+        root.schedule.Execute(() =>
+        {
+            if (isActiveAndEnabled) campaignRating?.TryOfferRating(defaultChapterId);
+        }).ExecuteLater(600);
     }
 
     private void TransitionToScreen(Action switchScreen)

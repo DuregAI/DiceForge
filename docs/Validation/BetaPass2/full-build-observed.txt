@@ -1,0 +1,2 @@
+Captured after the full build completed, before the cached report replaced browser-build.txt:
+Succeeded: errors=0, warnings=22, bytes=95227722, duration=00:07:11.7144030

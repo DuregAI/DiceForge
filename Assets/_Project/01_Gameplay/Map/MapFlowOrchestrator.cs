@@ -81,7 +81,7 @@ namespace Diceforge.Map
         private ProgressionOperation _pendingOperation;
         private string _saveError;
 
-        public bool IsDevMode => devModeConfig != null ? devModeConfig.devModeEnabled : Debug.isDebugBuild;
+        public bool IsDevMode => Application.isEditor && (devModeConfig == null || devModeConfig.devModeEnabled);
 
         public void SetLevelUpPresenter(LevelUpWindowPresenter presenter)
         {
@@ -177,6 +177,7 @@ namespace Diceforge.Map
 
         public void ResetRun()
         {
+            if (!Application.isEditor) return;
             if (_pendingOperation != null) return;
             if (_map == null)
                 return;
@@ -188,6 +189,7 @@ namespace Diceforge.Map
 
         public void UnlockAll()
         {
+            if (!IsDevMode) return;
             if (_pendingOperation != null) return;
             if (_map == null)
                 return;

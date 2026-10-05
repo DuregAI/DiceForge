@@ -1,39 +1,84 @@
 using System;
-using System.Collections.Generic;
+using SpacetimeDB;
+using SpacetimeDB.ClientApi;
 using SpacetimeDB.Types;
 using UnityEngine;
 
 namespace Diceforge.Integrations.SpacetimeDb
 {
+    public enum FeedbackSubmissionResult { Sent, Failed, TimedOut, Unavailable, Busy }
+
+    public static class FeedbackDraft
+    {
+        private const string MessageKey = "feedback.draft.message";
+        private const string CategoryKey = "feedback.draft.category";
+        public static string Message => PlayerPrefs.GetString(MessageKey, string.Empty);
+        public static string Category => PlayerPrefs.GetString(CategoryKey, "bug");
+        public static void Save(string category, string message)
+        {
+            PlayerPrefs.SetString(CategoryKey, category ?? "bug");
+            PlayerPrefs.SetString(MessageKey, message ?? string.Empty);
+            PlayerPrefs.Save();
+        }
+        public static string StatusText(FeedbackSubmissionResult result)
+        {
+            switch (result)
+            {
+                case FeedbackSubmissionResult.Sent: return "Feedback submitted.";
+                case FeedbackSubmissionResult.TimedOut: return "No confirmation received. Delivery is unknown; your draft is saved.";
+                case FeedbackSubmissionResult.Busy: return "Another feedback message is being sent. Please try again shortly.";
+                default: return "Could not send feedback. Your draft is saved; please try again.";
+            }
+        }
+    }
+
     public sealed class SpacetimeDbFeedbackSink
     {
         public const int MaxMessageLength = 1000;
 
         private readonly DbConnection _connection;
-        private readonly Queue<PendingFeedbackSubmission> _pendingFeedback = new Queue<PendingFeedbackSubmission>(2);
+        public const float SubmissionTimeoutSeconds = 15f;
+        private PendingFeedbackSubmission? _pendingFeedback;
+        private Action<FeedbackSubmissionResult> _completion;
+        private float _deadline;
 
         public SpacetimeDbFeedbackSink(DbConnection connection)
         {
             _connection = connection;
         }
 
-        public void SubmitFeedback(string sessionId, string playerGuid, string playerName, string category, string message, string buildVersion, string sceneName)
+        public void SubmitFeedback(string sessionId, string playerGuid, string playerName, string category, string message, string buildVersion, string sceneName, Action<FeedbackSubmissionResult> completion)
         {
+            if (_pendingFeedback.HasValue)
+            {
+                completion?.Invoke(FeedbackSubmissionResult.Busy);
+                return;
+            }
             string trimmedCategory = Sanitize(category);
             string trimmedMessage = Sanitize(message);
             if (string.IsNullOrWhiteSpace(trimmedCategory) || string.IsNullOrWhiteSpace(trimmedMessage))
             {
                 Debug.LogWarning("[SpacetimeDb] Feedback submission ignored because category or message is empty.");
+                completion?.Invoke(FeedbackSubmissionResult.Failed);
                 return;
             }
 
             if (trimmedMessage.Length > MaxMessageLength)
             {
                 Debug.LogWarning($"[SpacetimeDb] Feedback submission ignored because the message exceeds {MaxMessageLength} characters.");
+                completion?.Invoke(FeedbackSubmissionResult.Failed);
                 return;
             }
 
-            _pendingFeedback.Enqueue(new PendingFeedbackSubmission(
+            if (_connection == null || !_connection.IsActive)
+            {
+                completion?.Invoke(FeedbackSubmissionResult.Unavailable);
+                return;
+            }
+
+            _completion = completion;
+            _deadline = Time.realtimeSinceStartup + SubmissionTimeoutSeconds;
+            _pendingFeedback = new PendingFeedbackSubmission(
                 Guid.NewGuid().ToString("N"),
                 Sanitize(sessionId),
                 Sanitize(playerGuid),
@@ -42,14 +87,36 @@ namespace Diceforge.Integrations.SpacetimeDb
                 trimmedMessage,
                 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 Sanitize(buildVersion),
-                Sanitize(sceneName)));
+                Sanitize(sceneName));
 
             TrySubmitPendingFeedback();
         }
 
         public void HandleConnected()
         {
-            TrySubmitPendingFeedback();
+            // Offline drafts belong to the UI, and must not be sent unexpectedly on reconnect.
+        }
+
+        public void Tick(float realtime)
+        {
+            if (_pendingFeedback.HasValue && realtime >= _deadline)
+                Complete(FeedbackSubmissionResult.TimedOut);
+        }
+
+        public void HandleDisconnected() => Complete(FeedbackSubmissionResult.Unavailable);
+
+        public void RemoveCompletion(Action<FeedbackSubmissionResult> completion)
+        {
+            if (_completion == completion) _completion = null;
+        }
+
+        private void Complete(FeedbackSubmissionResult result)
+        {
+            if (!_pendingFeedback.HasValue) return;
+            _pendingFeedback = null;
+            var callback = _completion;
+            _completion = null;
+            callback?.Invoke(result);
         }
 
         public void HandleSubmitFeedback(
@@ -64,25 +131,18 @@ namespace Diceforge.Integrations.SpacetimeDb
             string buildVersion,
             string sceneName)
         {
-            Debug.Log(
-                $"[SpacetimeDb] submit_feedback callback feedbackId={feedbackId} session={sessionId} playerGuid={playerGuid} playerName={playerName} category={category} scene={sceneName} createdAt={createdAtUnixMsUtc} status={ctx.Event.Status}");
+            if (!_pendingFeedback.HasValue || _pendingFeedback.Value.FeedbackId != feedbackId) return;
+            bool committed = ctx.Event.Status is Status.Committed;
+            if (!committed) Debug.LogWarning($"[SpacetimeDb] Feedback rejected: {ctx.Event.Status}");
+            Complete(committed ? FeedbackSubmissionResult.Sent : FeedbackSubmissionResult.Failed);
         }
 
         private void TrySubmitPendingFeedback()
         {
-            if (_connection == null || !_connection.IsActive)
+            if (!_pendingFeedback.HasValue) return;
+            try
             {
-                if (_pendingFeedback.Count > 0)
-                    Debug.Log("[SpacetimeDb] Feedback queued; connection is not active yet.");
-
-                return;
-            }
-
-            while (_pendingFeedback.Count > 0)
-            {
-                PendingFeedbackSubmission pendingFeedback = _pendingFeedback.Dequeue();
-                Debug.Log(
-                    $"[SpacetimeDb] Submitting feedback_entry feedbackId={pendingFeedback.FeedbackId} session={pendingFeedback.SessionId} playerGuid={pendingFeedback.PlayerGuid} playerName={pendingFeedback.PlayerName} category={pendingFeedback.Category} scene={pendingFeedback.SceneName}");
+                PendingFeedbackSubmission pendingFeedback = _pendingFeedback.Value;
 
                 _connection.Reducers.SubmitFeedback(
                     pendingFeedback.FeedbackId,
@@ -94,6 +154,11 @@ namespace Diceforge.Integrations.SpacetimeDb
                     pendingFeedback.CreatedAtUnixMsUtc,
                     pendingFeedback.BuildVersion,
                     pendingFeedback.SceneName);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"[SpacetimeDb] Feedback send failed: {exception.Message}");
+                Complete(FeedbackSubmissionResult.Failed);
             }
         }
 

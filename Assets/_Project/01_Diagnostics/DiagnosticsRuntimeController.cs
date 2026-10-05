@@ -31,7 +31,7 @@ namespace Diceforge.Diagnostics
 
         public static void UnregisterSessionSummarySink(IDiagnosticsSessionSummarySink sink)
         {
-            DiagnosticsRuntimeController.EnsureCreated().UnregisterSessionSummarySink(sink);
+            DiagnosticsRuntimeController.UnregisterExistingSessionSummarySink(sink);
         }
 
         public static void RecordBattleStarted(BattleStartDiagnosticsContext context)
@@ -129,6 +129,13 @@ namespace Diceforge.Diagnostics
         internal static void ResetStaticState()
         {
             _instance = null;
+        }
+
+        internal static void UnregisterExistingSessionSummarySink(IDiagnosticsSessionSummarySink sink)
+        {
+            // Teardown must not recreate the diagnostics runtime after its owner was destroyed.
+            if (_instance != null)
+                _instance.UnregisterSessionSummarySink(sink);
         }
 
         private void Awake()

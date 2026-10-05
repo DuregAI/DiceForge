@@ -15,7 +15,6 @@ internal sealed class MenuLocalization : IDisposable
     private readonly Button button;
     private readonly LanguageBadge badge;
     private readonly Action changed;
-    private Font bodyFont;
     private Font russianFont;
     public int Language { get; private set; }
 
@@ -24,7 +23,7 @@ internal sealed class MenuLocalization : IDisposable
         this.root = root;
         this.changed = changed;
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
-        Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
+        Language = saved == "ru" ? 1 : 0;
         foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map", "battle", "result" })
         {
             var asset = Resources.Load<TextAsset>("Localization/" + catalogName);
@@ -59,14 +58,14 @@ internal sealed class MenuLocalization : IDisposable
     public string T(string source)
     {
         if (source == null || !entries.TryGetValue(source, out var entry)) return source;
-        string result = Language == 1 ? entry.ru : Language == 2 ? entry.zh : entry.en;
+        string result = Language == 1 ? entry.ru : entry.en;
         return string.IsNullOrEmpty(result) ? entry.en : result;
     }
 
     private void Cycle()
     {
-        Language = (Language + 1) % 3;
-        PlayerPrefs.SetString(PreferenceKey, Language == 1 ? "ru" : Language == 2 ? "zh-Hans" : "en");
+        Language = (Language + 1) % 2;
+        PlayerPrefs.SetString(PreferenceKey, Language == 1 ? "ru" : "en");
         PlayerPrefs.Save();
         Apply();
         changed?.Invoke();
@@ -75,24 +74,23 @@ internal sealed class MenuLocalization : IDisposable
     public void Refresh()
     {
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
-        Language = saved == "ru" ? 1 : saved == "zh-Hans" ? 2 : 0;
+        Language = saved == "ru" ? 1 : 0;
         Apply();
     }
 
     private void Apply()
     {
         root.EnableInClassList("locale-ru", Language == 1);
-        root.EnableInClassList("locale-zh", Language == 2);
+        root.EnableInClassList("locale-zh", false);
         if (Language != 0)
         {
-            bodyFont ??= Resources.Load<Font>("Localization/NotoSansCJKsc-Regular");
             russianFont ??= Resources.Load<Font>("Localization/RobotoSlab");
         }
         foreach (string scope in new[] { "MenuPanel", "SettingsPanel", "FeedbackModal", "LegalPanel", "JoTutorialPanel", "WoodlandMapRoot", "woodlandRoot", "resultOverlayRoot", "levelUpOverlay", "chestRewardOverlay" })
         {
             var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;
-            var font = scope == "WoodlandMapRoot" && Language == 1 ? russianFont : bodyFont;
+            var font = russianFont;
             panel.style.unityFontDefinition = Language == 0 ? new StyleFontDefinition(StyleKeyword.Null) : new StyleFontDefinition(FontDefinition.FromFont(font));
             // A font assigned to a label in USS overrides the panel's inherited font.
             // Assign the bundled font on each text element: player builds must not rely on OS fallbacks.
@@ -112,7 +110,7 @@ internal sealed class MenuLocalization : IDisposable
             var action = root.Q<Button>(id);
             if (action != null) action.style.unityFontDefinition = Language == 0
                 ? new StyleFontDefinition(StyleKeyword.Null)
-                : new StyleFontDefinition(FontDefinition.FromFont(Language == 1 ? russianFont : bodyFont));
+                : new StyleFontDefinition(FontDefinition.FromFont(russianFont));
         }
         if (Language == 1)
             foreach (string id in new[] { "JoTitle", "JoSpeech", "JoBack", "JoNext" })
@@ -122,7 +120,7 @@ internal sealed class MenuLocalization : IDisposable
             }
         foreach (var binding in bindings) binding();
         badge.SetLanguage(Language);
-        if (button != null) button.tooltip = Language == 0 ? "English · click for Русский" : Language == 1 ? "Русский · нажмите для 中文" : "简体中文 · 点击切换 English";
+        if (button != null) button.tooltip = Language == 0 ? "English · click for Русский" : "Русский · нажмите для English";
     }
 
     public void Dispose() { if (button != null) button.clicked -= Cycle; }

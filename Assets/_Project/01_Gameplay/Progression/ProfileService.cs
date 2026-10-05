@@ -333,10 +333,52 @@ namespace Diceforge.Progression
             _profile = CreateDefault();
             _profile.chapters = old.chapters;
             _profile.progressionReceipts = old.progressionReceipts;
+            _profile.adminMapResetEpoch = old.adminMapResetEpoch;
+            _profile.adminMapResetIdentity = old.adminMapResetIdentity;
             RebuildCache();
             EnsureSelectedAvatarId();
             SaveAndNotify();
             NotifyPlayerNameChanged();
+        }
+
+        // Reset counters belong to the authenticated identity, including when
+        // a token is replaced while the local profile remains available.
+        internal static bool TryBindAdminMapResetIdentity(string identity, out string error)
+        {
+            error = null;
+            if (Current.adminMapResetIdentity == identity) return true;
+            var candidate = Snapshot();
+            candidate.adminMapResetIdentity = identity;
+            candidate.adminMapResetEpoch = 0;
+            return TryCommit(candidate, out error);
+        }
+
+        // Commit the map reset and its acknowledgement in one atomic local save.
+        internal static bool TryApplyAdminMapReset(long epoch, out string error)
+        {
+            error = null;
+            if (epoch <= Current.adminMapResetEpoch) return false;
+            var candidate = Snapshot();
+            var chapterIds = new HashSet<string>(StringComparer.Ordinal) { "Chapter1" };
+            foreach (var chapter in candidate.chapters)
+                if (!string.IsNullOrEmpty(chapter.chapterId)) chapterIds.Add(chapter.chapterId);
+            candidate.chapters.Clear();
+            foreach (string chapterId in chapterIds)
+            {
+                var map = Diceforge.Map.MapDefinitionSO.LoadChapter(chapterId);
+                var state = new Diceforge.Map.MapRunState { currentNodeId = map.startNodeId };
+                state.Unlock(map.startNodeId);
+                candidate.chapters.Add(new ChapterProgress
+                {
+                    chapterId = chapterId, runId = Guid.NewGuid().ToString("N"), state = state
+                });
+            }
+            candidate.progressionReceipts.RemoveAll(receipt => !string.IsNullOrEmpty(receipt.chapterId));
+            candidate.adminMapResetEpoch = epoch;
+            if (!TryCommit(candidate, out error)) return false;
+            foreach (string chapterId in chapterIds) PlayerPrefs.DeleteKey("map_state_" + chapterId);
+            PlayerPrefs.Save();
+            return true;
         }
 
         public static void AddTestCurrency()

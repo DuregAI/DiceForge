@@ -56,9 +56,14 @@ namespace Diceforge.UI.Audio
         private Slider _sfxSlider;
         private DropdownField _feedbackCategoryField;
         private TextField _feedbackMessageField;
+        private TextField _feedbackNameField;
         private bool _isPanelOpen;
         private bool _isSettingsOpen;
         private bool _isFeedbackOpen;
+        private bool _feedbackSending;
+        private MenuLocalization _feedbackLocalization;
+        private string _feedbackStatusSource = FeedbackDefaultStatus;
+        private bool _feedbackStatusError;
         private Coroutine _panelAutoCloseRoutine;
 
         private void OnEnable()
@@ -103,6 +108,7 @@ namespace Diceforge.UI.Audio
             _sfxSlider = _root.Q<Slider>("sliderSfxVolume");
             _feedbackCategoryField = _root.Q<DropdownField>("feedbackCategoryField");
             _feedbackMessageField = _root.Q<TextField>("feedbackMessageField");
+            _feedbackNameField = _root.Q<TextField>("feedbackNameField");
 
             // MainMenuController owns these shared controls, including the close buttons.
             // A second settings state here made reopening after X toggle the wrong state.
@@ -112,6 +118,13 @@ namespace Diceforge.UI.Audio
                 _settingsButton = _copyLogButton = _openFeedbackButton = _feedbackSubmitButton = _feedbackCancelButton = null;
                 _musicSlider = _sfxSlider = null;
                 _aboutVersionLabel = _buildInfoLabel = _feedbackStatusLabel = null;
+                _feedbackCategoryField = null;
+                _feedbackMessageField = null;
+                _feedbackNameField = null;
+            }
+            else
+            {
+                _feedbackLocalization = new MenuLocalization(_root, RefreshFeedbackLanguage);
             }
 
             _isPanelOpen = startPanelOpen;
@@ -170,6 +183,12 @@ namespace Diceforge.UI.Audio
 
         private void OnDisable()
         {
+            SpacetimeDbLocalDevRuntime.RemoveFeedbackCompletion(HandleFeedbackCompleted);
+            _feedbackMessageField?.UnregisterValueChangedCallback(SaveFeedbackDraft);
+            _feedbackCategoryField?.UnregisterValueChangedCallback(SaveFeedbackDraft);
+            _feedbackLocalization?.Dispose();
+            _feedbackLocalization = null;
+            SetFeedbackSending(false);
             settingsDismiss?.Dispose();
             feedbackDismiss?.Dispose();
             if (_panelToggleButton != null)
@@ -537,14 +556,18 @@ namespace Diceforge.UI.Audio
             if (_feedbackCategoryField != null)
             {
                 _feedbackCategoryField.choices = FeedbackCategories;
-                _feedbackCategoryField.index = 0;
+                _feedbackCategoryField.formatListItemCallback = FeedbackText;
+                _feedbackCategoryField.formatSelectedValueCallback = FeedbackText;
+                _feedbackCategoryField.SetValueWithoutNotify(FeedbackCategories.Contains(FeedbackDraft.Category) ? FeedbackDraft.Category : FeedbackCategories[0]);
+                _feedbackCategoryField.RegisterValueChangedCallback(SaveFeedbackDraft);
             }
 
             if (_feedbackMessageField != null)
             {
                 _feedbackMessageField.multiline = true;
                 _feedbackMessageField.maxLength = SpacetimeDbFeedbackSink.MaxMessageLength;
-                _feedbackMessageField.SetValueWithoutNotify(string.Empty);
+                _feedbackMessageField.SetValueWithoutNotify(FeedbackDraft.Message);
+                _feedbackMessageField.RegisterValueChangedCallback(SaveFeedbackDraft);
             }
 
             SetFeedbackStatus(FeedbackDefaultStatus, false);
@@ -557,14 +580,8 @@ namespace Diceforge.UI.Audio
             if (_feedbackModal == null)
                 return;
 
-            if (_feedbackCategoryField != null)
-                _feedbackCategoryField.index = 0;
-
-            if (_feedbackMessageField != null)
-                _feedbackMessageField.SetValueWithoutNotify(string.Empty);
-
-            SetFeedbackStatus(FeedbackDefaultStatus, false);
             _feedbackModal.style.display = DisplayStyle.Flex;
+            _feedbackNameField?.SetValueWithoutNotify(Diceforge.Progression.ProfileService.Current.playerName);
             _feedbackModal.BringToFront();
             _isFeedbackOpen = true;
             ConfigureHitTesting();
@@ -582,6 +599,7 @@ namespace Diceforge.UI.Audio
 
         private void SubmitFeedback()
         {
+            if (_feedbackSending) return;
             string category = _feedbackCategoryField != null ? _feedbackCategoryField.value : string.Empty;
             string message = _feedbackMessageField != null ? _feedbackMessageField.value : string.Empty;
             string trimmedMessage = string.IsNullOrWhiteSpace(message) ? string.Empty : message.Trim();
@@ -600,29 +618,66 @@ namespace Diceforge.UI.Audio
 
             if (trimmedMessage.Length > SpacetimeDbFeedbackSink.MaxMessageLength)
             {
-                SetFeedbackStatus($"Feedback is limited to {SpacetimeDbFeedbackSink.MaxMessageLength} characters.", true);
+                SetFeedbackStatus("Feedback is limited to {0} characters.", true);
                 return;
             }
 
+            FeedbackDraft.Save(category, message);
+            try { Diceforge.Progression.ProfileService.SetPlayerName(_feedbackNameField?.value ?? Diceforge.Progression.ProfileService.Current.playerName); }
+            catch (Exception) { SetFeedbackStatus("Could not save your name. Please try again.", true); return; }
+            SetFeedbackSending(true);
+            SetFeedbackStatus("Sending feedback...", false);
             SpacetimeDbLocalDevRuntime.SubmitFeedback(
                 category,
                 trimmedMessage,
                 Application.version,
-                SceneManager.GetActiveScene().name);
+                SceneManager.GetActiveScene().name,
+                HandleFeedbackCompleted);
+        }
 
-            if (_feedbackMessageField != null)
-                _feedbackMessageField.SetValueWithoutNotify(string.Empty);
+        private string FeedbackText(string source) => _feedbackLocalization?.T(source) ?? source;
 
-            SetFeedbackStatus("Feedback submitted.", false);
-            Debug.Log($"[NowPlaying] Feedback submitted category={category}", this);
+        private void RefreshFeedbackLanguage()
+        {
+            SetFeedbackStatus(_feedbackStatusSource, _feedbackStatusError);
+            _feedbackCategoryField?.SetValueWithoutNotify(_feedbackCategoryField.value);
+        }
+
+        private void SaveFeedbackDraft(ChangeEvent<string> evt)
+        {
+            if (_feedbackLocalization == null) return;
+            FeedbackDraft.Save(_feedbackCategoryField?.value, _feedbackMessageField?.value);
+        }
+
+        private void SetFeedbackSending(bool sending)
+        {
+            _feedbackSending = sending;
+            _feedbackSubmitButton?.SetEnabled(!sending);
+            _feedbackCategoryField?.SetEnabled(!sending);
+            _feedbackMessageField?.SetEnabled(!sending);
+            _feedbackNameField?.SetEnabled(!sending);
+        }
+
+        private void HandleFeedbackCompleted(FeedbackSubmissionResult result)
+        {
+            if (this == null || !isActiveAndEnabled) return;
+            SetFeedbackSending(false);
+            if (result == FeedbackSubmissionResult.Sent)
+            {
+                FeedbackDraft.Save(_feedbackCategoryField?.value, string.Empty);
+                _feedbackMessageField?.SetValueWithoutNotify(string.Empty);
+            }
+            SetFeedbackStatus(FeedbackDraft.StatusText(result), result != FeedbackSubmissionResult.Sent);
         }
 
         private void SetFeedbackStatus(string message, bool isError)
         {
+            _feedbackStatusSource = message;
+            _feedbackStatusError = isError;
             if (_feedbackStatusLabel == null)
                 return;
 
-            _feedbackStatusLabel.text = message ?? string.Empty;
+            _feedbackStatusLabel.text = string.Format(FeedbackText(message) ?? string.Empty, SpacetimeDbFeedbackSink.MaxMessageLength);
             _feedbackStatusLabel.style.color = isError
                 ? new StyleColor(new Color(1f, 0.68f, 0.68f, 1f))
                 : new StyleColor(new Color(0.96f, 0.92f, 0.69f, 1f));

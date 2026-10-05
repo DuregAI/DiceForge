@@ -33,6 +33,7 @@ namespace SpacetimeDB.Types
             AddTable(MusicSkipEvent = new(conn));
             AddTable(PerformanceSessionSummary = new(conn));
             AddTable(PlayerNameChangeEvent = new(conn));
+            AddTable(PlayerProgress = new(conn));
         }
     }
 
@@ -535,6 +536,7 @@ namespace SpacetimeDB.Types
             new QueryBuilder().From.MusicSkipEvent().ToSql(),
             new QueryBuilder().From.PerformanceSessionSummary().ToSql(),
             new QueryBuilder().From.PlayerNameChangeEvent().ToSql(),
+            new QueryBuilder().From.PlayerProgress().ToSql(),
         }
         ;
     }
@@ -547,6 +549,7 @@ namespace SpacetimeDB.Types
         public global::SpacetimeDB.Table<MusicSkipEvent, MusicSkipEventCols, MusicSkipEventIxCols> MusicSkipEvent() => new("music_skip_event", new MusicSkipEventCols("music_skip_event"), new MusicSkipEventIxCols("music_skip_event"));
         public global::SpacetimeDB.Table<PerformanceSessionSummary, PerformanceSessionSummaryCols, PerformanceSessionSummaryIxCols> PerformanceSessionSummary() => new("performance_session_summary", new PerformanceSessionSummaryCols("performance_session_summary"), new PerformanceSessionSummaryIxCols("performance_session_summary"));
         public global::SpacetimeDB.Table<PlayerNameChangeEvent, PlayerNameChangeEventCols, PlayerNameChangeEventIxCols> PlayerNameChangeEvent() => new("player_name_change_event", new PlayerNameChangeEventCols("player_name_change_event"), new PlayerNameChangeEventIxCols("player_name_change_event"));
+        public global::SpacetimeDB.Table<PlayerProgress, PlayerProgressCols, PlayerProgressIxCols> PlayerProgress() => new("player_progress", new PlayerProgressCols("player_progress"), new PlayerProgressIxCols("player_progress"));
     }
 
     public sealed class TypedSubscriptionBuilder
@@ -628,12 +631,14 @@ namespace SpacetimeDB.Types
             var eventContext = (ReducerEventContext)context;
             return reducer switch
             {
+                Reducer.ResetPlayerMap args => Reducers.InvokeResetPlayerMap(eventContext, args),
                 Reducer.SubmitFeedback args => Reducers.InvokeSubmitFeedback(eventContext, args),
                 Reducer.SubmitLike args => Reducers.InvokeSubmitLike(eventContext, args),
                 Reducer.SubmitMusicDislike args => Reducers.InvokeSubmitMusicDislike(eventContext, args),
                 Reducer.SubmitMusicSkip args => Reducers.InvokeSubmitMusicSkip(eventContext, args),
                 Reducer.SubmitPerformanceSessionSummary args => Reducers.InvokeSubmitPerformanceSessionSummary(eventContext, args),
                 Reducer.SubmitPlayerNameChange args => Reducers.InvokeSubmitPlayerNameChange(eventContext, args),
+                Reducer.SyncPlayerProgress args => Reducers.InvokeSyncPlayerProgress(eventContext, args),
                 _ => throw new ArgumentOutOfRangeException("Reducer", $"Unknown reducer {reducer}")
             };
         }

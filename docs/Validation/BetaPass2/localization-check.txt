@@ -1,0 +1,3 @@
+en: 0 -> 1 -> 0, Settings=Settings
+ru: 1 -> 0 -> 1, Settings=Настройки
+zh-Hans: 0 -> 1 -> 0, Settings=Settings

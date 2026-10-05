@@ -1,0 +1,15 @@
+<Project>
+  <!-- Runtime 2.0.3 resets WasiSdkRoot inside its ObtainWasiSdk target.
+       Override only when a caller explicitly supplies an installed toolchain. -->
+  <Target Name="ObtainWasiSdk" BeforeTargets="_SetupWasiSdk;CheckWasmSdks">
+    <PropertyGroup>
+      <WasiSdkRoot>$(LocalWasiRoot)</WasiSdkRoot>
+      <WASI_SDK_PATH>$(LocalWasiRoot)</WASI_SDK_PATH>
+      <WasiSysRoot>$(LocalWasiRoot)/share/wasi-sysroot</WasiSysRoot>
+      <WasiClang>$(LocalWasiRoot)/bin/clang</WasiClang>
+      <WasiClang Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(WasiClang).exe</WasiClang>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(WasiClang)')" Text="The supplied LocalWasiRoot does not contain clang." />
+    <Error Condition="!Exists('$(WasiSysRoot)')" Text="The supplied LocalWasiRoot does not contain the WASI sysroot." />
+  </Target>
+</Project>

@@ -1,0 +1,9 @@
+{
+  "wasmBytes": 41574258,
+  "dataBytes": 130284845,
+  "validWasmMagic": true,
+  "correctMovingHint": true,
+  "corruptedMovingHint": false,
+  "russianFontLoadInMetadata": true,
+  "chineseFontLoadInMetadata": false
+}

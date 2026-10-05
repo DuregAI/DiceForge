@@ -311,6 +311,8 @@
         <ui:VisualElement name="FeedbackModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window">
                 <ui:Label text="Send Feedback" class="panel-title df-label"/>
+                <ui:Label text="Player name" class="df-label feedback-field-label"/>
+                <ui:TextField name="feedbackNameField" max-length="23" class="df-input feedback-name-field"/>
                 <ui:Label text="Category" class="df-label feedback-field-label"/>
                 <ui:DropdownField name="feedbackCategoryField" class="df-input feedback-dropdown"/>
                 <ui:Label text="Message" class="df-label feedback-field-label"/>

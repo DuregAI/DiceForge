@@ -1,6 +1,10 @@
 {
   "entries": [
-    { "en": "Build: dev", "ru": "Сборка: dev", "zh": "构建：dev" },
+    {
+      "en": "Build: dev",
+      "ru": "Сборка: dev",
+      "zh": "构建：dev"
+    },
     {
       "en": "PLAY",
       "ru": "ИГРАТЬ",
@@ -162,6 +166,26 @@
       "zh": "请先填写反馈内容。"
     },
     {
+      "en": "Sending feedback...",
+      "ru": "Отправляем сообщение…",
+      "zh": "正在发送反馈…"
+    },
+    {
+      "en": "Could not send feedback. Your draft is saved; please try again.",
+      "ru": "Не удалось отправить. Черновик сохранён; попробуйте ещё раз.",
+      "zh": "发送失败。草稿已保存，请重试。"
+    },
+    {
+      "en": "No confirmation received. Delivery is unknown; your draft is saved.",
+      "ru": "Подтверждение не получено. Доставка неизвестна; черновик сохранён.",
+      "zh": "未收到确认，无法确定是否送达。草稿已保存。"
+    },
+    {
+      "en": "Another feedback message is being sent. Please try again shortly.",
+      "ru": "Уже отправляется другое сообщение. Попробуйте чуть позже.",
+      "zh": "另一条反馈正在发送，请稍后重试。"
+    },
+    {
       "en": "Feedback submitted.",
       "ru": "Сообщение отправлено.",
       "zh": "反馈已发送。"
@@ -195,6 +219,56 @@
       "en": "other",
       "ru": "Другое",
       "zh": "其他"
+    },
+    {
+      "en": "Player name",
+      "ru": "Имя игрока",
+      "zh": ""
+    },
+    {
+      "en": "Thanks for playing!",
+      "ru": "Спасибо за игру!",
+      "zh": ""
+    },
+    {
+      "en": "All six levels completed. How was your adventure?",
+      "ru": "Все шесть уровней пройдены. Как вам приключение?",
+      "zh": ""
+    },
+    {
+      "en": "Your feedback helps us improve the game.",
+      "ru": "Ваш отзыв поможет нам сделать игру лучше.",
+      "zh": ""
+    },
+    {
+      "en": "Comment (optional)",
+      "ru": "Комментарий (необязательно)",
+      "zh": ""
+    },
+    {
+      "en": "Send rating",
+      "ru": "Отправить оценку",
+      "zh": ""
+    },
+    {
+      "en": "Later",
+      "ru": "Позже",
+      "zh": ""
+    },
+    {
+      "en": "Choose 1 to 5 stars.",
+      "ru": "Выберите от 1 до 5 звёзд.",
+      "zh": ""
+    },
+    {
+      "en": "Please shorten your message.",
+      "ru": "Пожалуйста, сократите сообщение.",
+      "zh": ""
+    },
+    {
+      "en": "Could not save your name. Please try again.",
+      "ru": "Не удалось сохранить имя. Попробуйте ещё раз.",
+      "zh": ""
     }
   ]
 }

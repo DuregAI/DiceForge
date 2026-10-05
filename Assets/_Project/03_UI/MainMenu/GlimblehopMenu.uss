@@ -87,10 +87,8 @@
 }
 .gh-language:hover { scale: 1.05 1.05; }
 .gh-language:active { scale: 0.97 0.97; }
-.locale-ru #btnLong { font-size: 52px; -unity-font-style: bold; letter-spacing: 0; }
-.locale-ru #btnTutorial { font-size: 27px; -unity-font-style: bold; letter-spacing: 0; }
-.locale-zh #btnLong { font-size: 47px; -unity-font-style: bold; letter-spacing: 1px; }
-.locale-zh #btnTutorial { font-size: 31px; letter-spacing: 1px; }
+.locale-ru #btnLong { font-size: 48px; -unity-font-style: bold; letter-spacing: 0; padding-right: 120px; }
+.locale-ru #btnTutorial { font-size: 27px; -unity-font-style: bold; letter-spacing: 0; padding-right: 95px; }
 .locale-ru .gh-settings-actions .gh-button { font-size: 19px; }
 .locale-ru .gh-settings-hint { font-size: 16px; }
 .gh-profile, .gh-wallet {
@@ -261,7 +259,6 @@
     -unity-font-definition: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
 }
 .locale-ru #SettingsWindow { -unity-font-definition: url("Resources/Localization/RobotoSlab.ttf"); }
-.locale-zh #SettingsWindow { -unity-font-definition: url("Resources/Localization/NotoSansCJKsc-Regular.otf"); }
 .gh-sound-block { flex-direction: row; align-items: center; flex-grow: 1; min-height: 280px; margin: 20px 0 24px 0; }
 .gh-audio-controls { flex-grow: 1; flex-shrink: 1; min-width: 0; transition-property: opacity; transition-duration: 0.15s; }
 .gh-audio-controls.is-muted { opacity: 0.42; }
@@ -300,7 +297,7 @@
 
 #FeedbackModal { background-color: rgba(24, 30, 18, 0.65); }
 #FeedbackModal .feedback-modal-window {
-    width: 800px; height: 880px; max-width: 94%; max-height: 96%;
+    width: 800px; height: 1000px; max-width: 94%; max-height: 96%;
     padding: 116px 86px 92px 86px; border-width: 0; border-radius: 0;
     background-color: transparent;
     background-image: url("../../07_Art/UI/GlimblehopMenu/settings-panel.png");
@@ -309,7 +306,6 @@
     -unity-font-definition: url("../../07_Art/Fonts/AlfaSlabOne-Regular.ttf");
 }
 .locale-ru #FeedbackModal .feedback-modal-window { -unity-font-definition: url("Resources/Localization/RobotoSlab.ttf"); }
-.locale-zh #FeedbackModal .feedback-modal-window { -unity-font-definition: url("Resources/Localization/NotoSansCJKsc-Regular.otf"); }
 #FeedbackModal .panel-title { font-size: 36px; color: rgb(65, 43, 25); -unity-text-align: middle-center; margin: 0 0 22px 0; }
 #FeedbackModal .feedback-field-label { font-size: 24px; color: rgb(83, 94, 43); margin: 12px 0 8px 0; }
 #FeedbackModal .feedback-dropdown { height: 58px; min-height: 58px; padding: 0; margin: 0; border-width: 0; background-color: transparent; }
@@ -330,3 +326,6 @@
 #FeedbackModal .feedback-modal-actions .gh-primary { -unity-slice-scale: 0.53; }
 #FeedbackModal .df-label { -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; }
 #FeedbackModal .feedback-field-label { -unity-text-align: middle-left; }
+
+#FeedbackModal .feedback-name-field { width: 100%; height: 54px; min-height: 54px; flex-grow: 0; flex-shrink: 0; flex-direction: column; align-self: stretch; margin: 0; padding: 0; border-width: 0; background-color: transparent; }
+#FeedbackModal .feedback-name-field .unity-base-text-field__input { width: 100%; min-width: 0; flex-grow: 1; background-color: rgb(245, 221, 173); border-width: 2px; border-color: rgb(157, 117, 61); border-radius: 12px; padding: 8px 14px; color: rgb(64, 43, 25); font-size: 24px; }

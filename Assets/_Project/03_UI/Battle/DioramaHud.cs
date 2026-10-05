@@ -34,6 +34,7 @@ namespace Diceforge.View
         private float previousTimeScale;
         private string diceSignature;
         private MenuLocalization localization, settingsLocalization;
+        private PlayerFeedbackWindow feedbackWindow;
         private int width,height;
         private float logicalWidth,logicalHeight;
         private Rect safeArea;
@@ -92,14 +93,31 @@ namespace Diceforge.View
         private static void AddPauseToggleCheck(Toggle toggle)
         {
             if(toggle==null || toggle.Q(className:"pause-toggle-check")!=null)return;
-            var check=new Label("✓"){pickingMode=PickingMode.Ignore};
+            var check=new VisualElement{pickingMode=PickingMode.Ignore};
             check.AddToClassList("pause-toggle-check");
+            check.generateVisualContent+=context=>
+            {
+                if(!toggle.value)return;
+                float width=check.contentRect.width,height=check.contentRect.height;
+                if(width<=0 || height<=0)return;
+                var painter=context.painter2D;
+                painter.strokeColor=new Color32(255,241,202,255);
+                painter.lineWidth=3;
+                painter.BeginPath();
+                painter.MoveTo(new Vector2(width*.20f,height*.50f));
+                painter.LineTo(new Vector2(width*.43f,height*.73f));
+                painter.LineTo(new Vector2(width*.82f,height*.25f));
+                painter.Stroke();
+            };
+            toggle.RegisterValueChangedCallback(_=>check.MarkDirtyRepaint());
             (toggle.Q(className:"unity-toggle__input") ?? toggle).Add(check);
         }
         private void InitializeSettings()
         {
             settingsPanel.style.display=DisplayStyle.None;
-            settingsPanel.Q(className:"gh-settings-actions").style.display=DisplayStyle.None;
+            settingsPanel.Q<Button>("btnCopyLog").style.display=DisplayStyle.None;
+            feedbackWindow=new PlayerFeedbackWindow(settingsDocument.rootVisualElement,()=>settingsPanel.Q<Button>("btnOpenFeedback")?.Focus());
+            settingsPanel.Q<Button>("btnOpenFeedback").clicked+=()=>feedbackWindow.Open();
             settingsPanel.Q<Label>("lblAboutVersion").text=$"{localization.T("Version")} {Application.version}";
             settingsPanel.Q<Label>("lblBuildInfo").style.display=DisplayStyle.None;
             settingsButton.clicked+=OpenSettings;
@@ -376,6 +394,7 @@ namespace Diceforge.View
             sfxSlider?.UnregisterValueChangedCallback(OnSfxVolumeChanged);
             localization?.Dispose();
             settingsLocalization?.Dispose();
+            feedbackWindow?.Dispose();
             if(settingsObject!=null) Destroy(settingsObject);
         }
     }

@@ -26,22 +26,26 @@ namespace Diceforge.Integrations.SpacetimeDb
     public sealed class SpacetimeDbLocalDevRuntime : MonoBehaviour
     {
         private const string RuntimeObjectName = "SpacetimeDbLocalDevRuntime";
-        private const string ServerUri = "http://localhost:3000";
-        private const string DatabaseName = "diceforgelocaldev";
+        private static string ServerUri => SpacetimeDbRuntimeConfig.Current.ServerUri;
+        private static string DatabaseName => SpacetimeDbRuntimeConfig.Current.DatabaseName;
 
         private static SpacetimeDbLocalDevRuntime _instance;
 
         private bool _initialized;
         private bool _sinkRegistered;
+        private float _lastConnectionAttemptAt;
         private DbConnection _connection;
         private SpacetimeDbAnalyticsSink _analyticsSink;
         private SpacetimeDbLikeSink _likeSink;
         private SpacetimeDbFeedbackSink _feedbackSink;
         private SpacetimeDbMusicEventSink _musicEventSink;
         private SpacetimeDbPlayerNameChangeSink _playerNameChangeSink;
+        private SpacetimeDbProgressSync _progressSync;
+        private static string IdentityTokenKey => "diceforge.spacetime.token." + ServerUri + "/" + DatabaseName;
 
         public static SpacetimeDbLocalDevRuntime EnsureCreated()
         {
+            if (!SpacetimeDbRuntimeConfig.Current.Enabled) return null;
             if (_instance != null)
                 return _instance;
 
@@ -62,27 +66,34 @@ namespace Diceforge.Integrations.SpacetimeDb
 
         public static void SubmitMusicTrackLike(string trackId)
         {
-            EnsureCreated().SubmitMusicTrackLikeInternal(trackId);
+            EnsureCreated()?.SubmitMusicTrackLikeInternal(trackId);
         }
 
         public static void SubmitMusicTrackDislike(string trackId, long trackElapsedMs)
         {
-            EnsureCreated().SubmitMusicTrackDislikeInternal(trackId, trackElapsedMs);
+            EnsureCreated()?.SubmitMusicTrackDislikeInternal(trackId, trackElapsedMs);
         }
 
         public static void SubmitMusicTrackSkip(string trackId, long trackElapsedMs)
         {
-            EnsureCreated().SubmitMusicTrackSkipInternal(trackId, trackElapsedMs);
+            EnsureCreated()?.SubmitMusicTrackSkipInternal(trackId, trackElapsedMs);
         }
 
-        public static void SubmitFeedback(string category, string message, string buildVersion, string sceneName)
+        public static void SubmitFeedback(string category, string message, string buildVersion, string sceneName, Action<FeedbackSubmissionResult> completion)
         {
-            EnsureCreated().SubmitFeedbackInternal(category, message, buildVersion, sceneName);
+            var runtime = EnsureCreated();
+            if (runtime == null) completion?.Invoke(FeedbackSubmissionResult.Unavailable);
+            else runtime.SubmitFeedbackInternal(category, message, buildVersion, sceneName, completion);
+        }
+
+        public static void RemoveFeedbackCompletion(Action<FeedbackSubmissionResult> completion)
+        {
+            if (_instance != null) _instance._feedbackSink?.RemoveCompletion(completion);
         }
 
         public static void SubmitPlayerNameChange(string previousPlayerName, string newPlayerName)
         {
-            EnsureCreated().SubmitPlayerNameChangeInternal(previousPlayerName, newPlayerName);
+            EnsureCreated()?.SubmitPlayerNameChangeInternal(previousPlayerName, newPlayerName);
         }
 
         internal static void ResetStaticState()
@@ -106,15 +117,39 @@ namespace Diceforge.Integrations.SpacetimeDb
 
         private void Update()
         {
+            if (_initialized && (_connection == null || !_connection.IsActive) &&
+                Time.realtimeSinceStartup - _lastConnectionAttemptAt >= 15f)
+            {
+                ReleaseConnection();
+                InitializeIfNeeded();
+            }
             if (!_initialized || _connection == null)
                 return;
 
             // Advance the generated SpacetimeDB client from Unity's frame loop.
+#if !(UNITY_WEBGL && !UNITY_EDITOR)
             _connection.FrameTick();
+#endif
+        }
+
+        private void LateUpdate()
+        {
+            // Process acknowledgements before expiring a pending request.
+            _feedbackSink?.Tick(Time.realtimeSinceStartup);
+            _progressSync?.Tick(Time.realtimeSinceStartup);
         }
 
         private void OnDestroy()
         {
+            ReleaseConnection();
+            if (_instance == this) _instance = null;
+        }
+
+        private void ReleaseConnection()
+        {
+            _feedbackSink?.HandleDisconnected();
+            _progressSync?.Dispose();
+            _progressSync = null;
             if (_connection != null)
             {
                 if (_analyticsSink != null)
@@ -137,27 +172,42 @@ namespace Diceforge.Integrations.SpacetimeDb
 
                 _connection.OnUnhandledReducerError -= HandleUnhandledReducerError;
 
-                if (_connection.IsActive)
-                    _connection.Disconnect();
+#if UNITY_WEBGL && !UNITY_EDITOR
+                var networkManager = FindAnyObjectByType<SpacetimeDBNetworkManager>();
+                if (networkManager != null) networkManager.RemoveConnection(_connection);
+#endif
+                // Dispose connecting and failed connections too, including their parser.
+                _connection.Disconnect();
             }
 
             if (_analyticsSink != null && _sinkRegistered)
                 ClientDiagnostics.UnregisterSessionSummarySink(_analyticsSink);
 
-            if (_instance == this)
-                _instance = null;
+            _connection = null;
+            _feedbackSink = null;
+            _initialized = false;
+            _sinkRegistered = false;
         }
 
         private void InitializeIfNeeded()
         {
-            if (_initialized)
+            if (_initialized || !SpacetimeDbRuntimeConfig.Current.Enabled)
                 return;
 
             Debug.Log($"[SpacetimeDb] Connecting to local database '{DatabaseName}' at {ServerUri}.");
+            _lastConnectionAttemptAt = Time.realtimeSinceStartup;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // The SDK starts its WebGL message-parser coroutine in the connection
+            // constructor only when this manager already exists. It also owns FrameTick.
+            if (FindAnyObjectByType<SpacetimeDBNetworkManager>() == null)
+                gameObject.AddComponent<SpacetimeDBNetworkManager>();
+#endif
+            string savedToken = PlayerPrefs.GetString(IdentityTokenKey, string.Empty);
             _connection = DbConnection.Builder()
                 .WithUri(ServerUri)
                 .WithDatabaseName(DatabaseName)
+                .WithToken(string.IsNullOrEmpty(savedToken) ? null : savedToken)
                 .OnConnect(HandleConnect)
                 .OnConnectError(HandleConnectError)
                 .OnDisconnect(HandleDisconnect)
@@ -168,6 +218,7 @@ namespace Diceforge.Integrations.SpacetimeDb
             _feedbackSink = new SpacetimeDbFeedbackSink(_connection);
             _musicEventSink = new SpacetimeDbMusicEventSink(_connection);
             _playerNameChangeSink = new SpacetimeDbPlayerNameChangeSink(_connection);
+            _progressSync = new SpacetimeDbProgressSync(_connection);
 
             _connection.Reducers.OnSubmitPerformanceSessionSummary += _analyticsSink.HandleSubmitPerformanceSessionSummary;
             _connection.Reducers.OnSubmitLike += _likeSink.HandleSubmitLike;
@@ -230,12 +281,20 @@ namespace Diceforge.Integrations.SpacetimeDb
                 SceneManager.GetActiveScene().name);
         }
 
-        private void SubmitFeedbackInternal(string category, string message, string buildVersion, string sceneName)
+        private void SubmitFeedbackInternal(string category, string message, string buildVersion, string sceneName, Action<FeedbackSubmissionResult> completion)
         {
+            // A deliberate retry can reconnect after the local server has been restarted.
+            // Do not rebuild a connection on every click while its handshake is still pending.
+            if (_initialized && (_connection == null || !_connection.IsActive) &&
+                Time.realtimeSinceStartup - _lastConnectionAttemptAt >= 5f)
+                ReleaseConnection();
             InitializeIfNeeded();
 
             if (_feedbackSink == null)
+            {
+                completion?.Invoke(FeedbackSubmissionResult.Unavailable);
                 return;
+            }
 
             _feedbackSink.SubmitFeedback(
                 ClientDiagnostics.GetCurrentSessionId(),
@@ -244,7 +303,8 @@ namespace Diceforge.Integrations.SpacetimeDb
                 category,
                 message,
                 buildVersion,
-                sceneName);
+                sceneName,
+                completion);
         }
 
         private void SubmitPlayerNameChangeInternal(string previousPlayerName, string newPlayerName)
@@ -265,6 +325,9 @@ namespace Diceforge.Integrations.SpacetimeDb
 
         private void HandleConnect(DbConnection connection, Identity identity, string token)
         {
+            PlayerPrefs.SetString(IdentityTokenKey, token);
+            PlayerPrefs.Save();
+            _progressSync?.HandleConnected(identity);
             Debug.Log($"[SpacetimeDb] Connected to '{DatabaseName}' identity={identity}.");
             if (_analyticsSink != null)
                 _analyticsSink.HandleConnected();
@@ -284,11 +347,15 @@ namespace Diceforge.Integrations.SpacetimeDb
 
         private void HandleConnectError(Exception exception)
         {
+            _progressSync?.HandleDisconnected();
+            _feedbackSink?.HandleDisconnected();
             Debug.LogWarning($"[SpacetimeDb] Connect failed: {exception.Message}", this);
         }
 
         private void HandleDisconnect(DbConnection connection, Exception exception)
         {
+            _progressSync?.HandleDisconnected();
+            _feedbackSink?.HandleDisconnected();
             string reason = exception != null ? exception.Message : "unknown";
             Debug.LogWarning($"[SpacetimeDb] Disconnected from '{DatabaseName}': {reason}", this);
         }

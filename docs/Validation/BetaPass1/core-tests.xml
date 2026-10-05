@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="80" result="Passed" total="80" passed="80" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0,8225324">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="92" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.822532" total="80" passed="80" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1029" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.061188" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1030" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.060824" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1031" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.060592" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1032" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.060333" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1002" name="BattleRunnerTerminationTests" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.051759" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1020" name="BarTokensCountAsFurtherAwayThanStartingCell" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.022012" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1018" name="BarTokensCountAsFurtherAwayThanStartingCell(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell(0)" methodname="BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="931723997" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.017376" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1019" name="BarTokensCountAsFurtherAwayThanStartingCell(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BarTokensCountAsFurtherAwayThanStartingCell(1)" methodname="BarTokensCountAsFurtherAwayThanStartingCell" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1728466839" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000504" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1009" name="BearOffWinOnFinalDieTakesPriorityOverTimeout" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BearOffWinOnFinalDieTakesPriorityOverTimeout" methodname="BearOffWinOnFinalDieTakesPriorityOverTimeout" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="113588683" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.005600" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1006" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.004327" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1003" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;Tick&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;Tick&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="762745300" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.002687" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1004" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;EndTurnIfNoMoves&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;EndTurnIfNoMoves&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1609958828" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000628" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;TryApplyHumanMove&quot;)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses(&quot;TryApplyHumanMove&quot;)" methodname="BlockedBoardStopsAtTheLimitIncludingHumanAndBotPasses" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1185949995" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000555" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1011" name="CompletionIsSingleShotAndResetAllowsANewMatch" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.CompletionIsSingleShotAndResetAllowsANewMatch" methodname="CompletionIsSingleShotAndResetAllowsANewMatch" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1042482748" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.003579" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="DistanceComparisonIncludesEveryStoneInStacks" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DistanceComparisonIncludesEveryStoneInStacks" methodname="DistanceComparisonIncludesEveryStoneInStacks" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1922851683" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000540" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" methodname="DrawHasNoWinnerOrRewardsInCampaignOrStandaloneBattle" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="95146489" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.001285" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="DrawOverlayShowsDrawAndAllowsRetry" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.DrawOverlayShowsDrawAndAllowsRetry" methodname="DrawOverlayShowsDrawAndAllowsRetry" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="1823016204" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.002083" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1007" name="EmptyRollsAlsoReachTheLimit" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.EmptyRollsAlsoReachTheLimit" methodname="EmptyRollsAlsoReachTheLimit" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="68832081" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000519" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1010" name="InvalidHumanMoveDoesNotConsumeTheLastTurn" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.InvalidHumanMoveDoesNotConsumeTheLastTurn" methodname="InvalidHumanMoveDoesNotConsumeTheLastTurn" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="314188004" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000497" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1008" name="LastAllowedTurnCanUseBothDiceBeforeTimingOut" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.LastAllowedTurnCanUseBothDiceBeforeTimingOut" methodname="LastAllowedTurnCanUseBothDiceBeforeTimingOut" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="194600004" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000902" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1014" name="MoreBorneOffStonesWinsBeforeDistance" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.001309" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1012" name="MoreBorneOffStonesWinsBeforeDistance(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance(0)" methodname="MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="329479192" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000605" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="MoreBorneOffStonesWinsBeforeDistance(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.MoreBorneOffStonesWinsBeforeDistance(1)" methodname="MoreBorneOffStonesWinsBeforeDistance" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="615843672" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000413" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1017" name="RemainingDistanceUsesEachSidesStartAndDirection" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.001178" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1015" name="RemainingDistanceUsesEachSidesStartAndDirection(0)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection(0)" methodname="RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="170169445" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000515" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1016" name="RemainingDistanceUsesEachSidesStartAndDirection(1)" fullname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests.RemainingDistanceUsesEachSidesStartAndDirection(1)" methodname="RemainingDistanceUsesEachSidesStartAndDirection" classname="Diceforge.Tests.BattleTermination.BattleRunnerTerminationTests" runstate="Runnable" seed="39063343" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000396" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1024" name="DioramaPresentationTests" fullname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" classname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.007891" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1025" name="AnimationNeverAppearsAsOpponentTurn" fullname="Diceforge.Tests.BattleTermination.DioramaPresentationTests.AnimationNeverAppearsAsOpponentTurn" methodname="AnimationNeverAppearsAsOpponentTurn" classname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" runstate="Runnable" seed="658933906" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000268" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="GuidanceFollowsTheInputPhase" fullname="Diceforge.Tests.BattleTermination.DioramaPresentationTests.GuidanceFollowsTheInputPhase" methodname="GuidanceFollowsTheInputPhase" classname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" runstate="Runnable" seed="38251014" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000385" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="ResultIsPublishedOnlyOnce" fullname="Diceforge.Tests.BattleTermination.DioramaPresentationTests.ResultIsPublishedOnlyOnce" methodname="ResultIsPublishedOnlyOnce" classname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" runstate="Runnable" seed="274608256" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.004278" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diceforge] Match end. Winner: A  Turns: 0
+]]></output>
+              </test-case>
+              <test-case id="1027" name="ResultWaitsForMovementThenReaction" fullname="Diceforge.Tests.BattleTermination.DioramaPresentationTests.ResultWaitsForMovementThenReaction" methodname="ResultWaitsForMovementThenReaction" classname="Diceforge.Tests.BattleTermination.DioramaPresentationTests" runstate="Runnable" seed="763945168" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.002330" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1081" name="Diceforge.Progression.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.Progression.Tests.dll" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.743052" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1082" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.742763" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1083" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.742484" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1084" name="Progression" fullname="Diceforge.Tests.Progression" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.742182" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1033" name="ProgressionTransactionTests" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.734489" total="32" passed="32" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1065" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.145722" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1062" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(0)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(0)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2007420278" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.120945" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1063" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(1)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(1)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1449713838" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.011523" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1064" name="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(-1)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry(-1)" methodname="BattleSessionSavesWithoutOverlayAndDoesNotRerollOnRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="613413814" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.012668" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1043" name="CampaignLossAndDrawKeepNodeOpen" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.034127" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1041" name="CampaignLossAndDrawKeepNodeOpen(False)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(False)" methodname="CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="615775936" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.017828" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="CampaignLossAndDrawKeepNodeOpen(True)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CampaignLossAndDrawKeepNodeOpen(True)" methodname="CampaignLossAndDrawKeepNodeOpen" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="242079941" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.015849" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1060" name="CorruptPrimaryRecoversBackupAndPreservesIt" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.CorruptPrimaryRecoversBackupAndPreservesIt" methodname="CorruptPrimaryRecoversBackupAndPreservesIt" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="709255746" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.023080" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1039" name="DuplicateResultAndRestartedProcessNeverGrantTwice" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.DuplicateResultAndRestartedProcessNeverGrantTwice" methodname="DuplicateResultAndRestartedProcessNeverGrantTwice" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2106004183" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.017037" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="ExceptionAfterReplaceRecognizesDurableSuccess" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ExceptionAfterReplaceRecognizesDurableSuccess" methodname="ExceptionAfterReplaceRecognizesDurableSuccess" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="912377353" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016789" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" methodname="FailedBattleSaveBlocksNavigationAndRestartUntilRetrySucceeds" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1499628893" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.011932" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1056" name="FailedImportDoesNotPublishChapterAndCanRetry" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedImportDoesNotPublishChapterAndCanRetry" methodname="FailedImportDoesNotPublishChapterAndCanRetry" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1618149516" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.014937" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1048" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.059654" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1045" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeWrite&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeWrite&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1660916384" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.021046" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeFlush&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeFlush&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="381775961" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.018323" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeReplace&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward(&quot;BeforeReplace&quot;)" methodname="FailedWriteLeavesMemoryAndDiskUnchangedAndRetryUsesOriginalReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1870379163" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.018404" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1055" name="LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" methodname="LegacyImportIsOnceOnlyAndDoesNotRegrantCompletedNodes" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="811138646" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.032867" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1057" name="LoadedMapIsDetachedFromProfile" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.LoadedMapIsDetachedFromProfile" methodname="LoadedMapIsDetachedFromProfile" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="873720372" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.009790" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" methodname="MapReturnConsumesBattlePresentationOnceAfterCommittedVictory" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="629356075" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016431" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1059" name="MigrationPreservesInventoryUpgradesAndChests" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.MigrationPreservesInventoryUpgradesAndChests" methodname="MigrationPreservesInventoryUpgradesAndChests" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2108223585" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016244" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1040" name="NewVictoryOnCompletedNodeHasNoReward" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NewVictoryOnCompletedNodeHasNoReward" methodname="NewVictoryOnCompletedNodeHasNoReward" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1893234061" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.021624" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1069" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.050932" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1066" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Chest&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Chest&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1433607332" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.017253" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1067" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Shop&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Shop&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="955421775" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016286" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1068" name="NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Story&quot;)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.NonBattleNodesUseOneTransactionAndIgnoreSecondClick(&quot;Story&quot;)" methodname="NonBattleNodesUseOneTransactionAndIgnoreSecondClick" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="886243098" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016733" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1054" name="ResetProfilePreservesCompletedMapAndReceipts" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ResetProfilePreservesCompletedMapAndReceipts" methodname="ResetProfilePreservesCompletedMapAndReceipts" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1188261673" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.028565" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1053" name="ResetRunPreservesWalletAndRejectsOldResults" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.ResetRunPreservesWalletAndRejectsOldResults" methodname="ResetRunPreservesWalletAndRejectsOldResults" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1894704932" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.027836" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1052" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.050378" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1050" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;BeforeReplace&quot;,False)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;BeforeReplace&quot;,False)" methodname="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2015852902" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.027481" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1051" name="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;AfterReplace&quot;,True)" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot(&quot;AfterReplace&quot;,True)" methodname="SimulatedProcessInterruptionLoadsWholeOldOrNewSnapshot" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="678113535" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.022409" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1044" name="StandaloneAttemptsAreIndependentButEachIsIdempotent" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.StandaloneAttemptsAreIndependentButEachIsIdempotent" methodname="StandaloneAttemptsAreIndependentButEachIsIdempotent" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2002846091" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016972" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="TwoCorruptFilesAreNeverOverwrittenWithDefaults" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.TwoCorruptFilesAreNeverOverwrittenWithDefaults" methodname="TwoCorruptFilesAreNeverOverwrittenWithDefaults" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1412715825" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.013900" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="VictoryCommitsAllRewardsAndMapBeforeReturn" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.VictoryCommitsAllRewardsAndMapBeforeReturn" methodname="VictoryCommitsAllRewardsAndMapBeforeReturn" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1286062500" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.018221" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="WoodlandFinalVictoryHasNoNextLevelAfterReload" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandFinalVictoryHasNoNextLevelAfterReload" methodname="WoodlandFinalVictoryHasNoNextLevelAfterReload" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="942663507" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.033074" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1035" name="WoodlandMigrationPreservesHistoryAndRunIdentity" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationPreservesHistoryAndRunIdentity" methodname="WoodlandMigrationPreservesHistoryAndRunIdentity" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="1646610804" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.030934" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1036" name="WoodlandMigrationRetainsNonContiguousCompletions" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationRetainsNonContiguousCompletions" methodname="WoodlandMigrationRetainsNonContiguousCompletions" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="338185699" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.020495" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1038" name="WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" methodname="WoodlandMigrationSaveFailureDoesNotMutateLiveProfile" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="345214249" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.016490" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1071" name="WoodlandTravelTests" fullname="Diceforge.Tests.Progression.WoodlandTravelTests" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.007138" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1080" name="AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" methodname="AllFiveRoutesPreserveEndpointsAndBridgeRouteUsesBridgeDeck" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="850515460" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.005296" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1079" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.001371" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1072" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,&quot;C1_02&quot;)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,&quot;C1_02&quot;)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="714917431" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000421" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1073" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(False,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(False,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1801365701" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000075" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1074" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,False,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,False,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1454474022" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000056" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;OtherChapter&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;OtherChapter&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1118255903" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1076" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_03&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_03&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="2121967803" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1077" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,True,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_01&quot;,&quot;C1_02&quot;,True,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="902322565" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000045" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1078" name="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_06&quot;,&quot;&quot;,False,null)" fullname="Diceforge.Tests.Progression.WoodlandTravelTests.TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor(True,True,&quot;Chapter1&quot;,&quot;C1_06&quot;,&quot;&quot;,False,null)" methodname="TravelRequiresSavedVictoryAndAnAvailableDirectSuccessor" classname="Diceforge.Tests.Progression.WoodlandTravelTests" runstate="Runnable" seed="1469851802" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000046" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1119" name="Diceforge.TokenPlacement.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.TokenPlacement.Tests.dll" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.011655" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1120" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.011261" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1121" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.010910" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1122" name="TokenPlacement" fullname="Diceforge.Tests.TokenPlacement" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.010544" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1085" name="StonesTokensViewTests" fullname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" classname="Diceforge.Tests.TokenPlacement.StonesTokensViewTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000310" total="0" passed="0" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+            </test-suite>
+            <test-suite type="TestFixture" id="1098" name="TokenPlacementResolverTests" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.009779" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1114" name="InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" methodname="InitializeAndRestartOrderByCellThenBarThenOffAndStoneIndex" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1222066885" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.004906" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1115" name="MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" methodname="MismatchIsAtomicAndCanBeRecoveredWithDifferentTokenCount" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="720179614" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000927" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1116" name="MissingSourceDoesNotMoveAnArbitraryActiveToken" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MissingSourceDoesNotMoveAnArbitraryActiveToken" methodname="MissingSourceDoesNotMoveAnArbitraryActiveToken" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1965513934" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000170" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1113" name="MovePreservesIdentity" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.002220" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1099" name="MovePreservesIdentity(Regression_5_to_0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Regression_5_to_0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="853010821" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000414" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1100" name="MovePreservesIdentity(Forward_across_friendly_cells)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Forward_across_friendly_cells)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1581969308" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000047" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1101" name="MovePreservesIdentity(Backward_across_friendly_cells)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Backward_across_friendly_cells)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1921109525" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000041" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1102" name="MovePreservesIdentity(Forward_wrap)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Forward_wrap)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1318593710" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1103" name="MovePreservesIdentity(Backward_wrap)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Backward_wrap)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1020128469" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000034" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1104" name="MovePreservesIdentity(Selection_A-0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_A-0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1791785844" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1105" name="MovePreservesIdentity(Selection_none)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_none)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1721714447" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1106" name="MovePreservesIdentity(Selection_missing)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_missing)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="205469640" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1107" name="MovePreservesIdentity(Selection_B-0)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_B-0)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1084975161" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1108" name="MovePreservesIdentity(Selection_A-2)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selection_A-2)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="667295985" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1109" name="MovePreservesIdentity(Hit)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Hit)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="948354854" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000039" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1110" name="MovePreservesIdentity(Bar_entry_False)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Bar_entry_False)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1766350935" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1111" name="MovePreservesIdentity(Bar_entry_True)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Bar_entry_True)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="537836853" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1112" name="MovePreservesIdentity(Selected_bear_off)" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.MovePreservesIdentity(Selected_bear_off)" methodname="MovePreservesIdentity" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1664858684" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1117" name="RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" methodname="RejectsDuplicateIdsAndDuplicateIndicesAndInvalidCells" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="1480805000" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000319" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1118" name="UnchangedSyncPreservesNoncanonicalAssignments" fullname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests.UnchangedSyncPreservesNoncanonicalAssignments" methodname="UnchangedSyncPreservesNoncanonicalAssignments" classname="Diceforge.Tests.TokenPlacement.TokenPlacementResolverTests" runstate="Runnable" seed="2122449002" result="Passed" start-time="2026-10-04 17:24:29Z" end-time="2026-10-04 17:24:29Z" duration="0.000145" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/tehno/AppData/LocalLow/BarabolaCompany/GlimbleHop\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

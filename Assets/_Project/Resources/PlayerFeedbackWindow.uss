@@ -1,0 +1,19 @@
+.pf-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(24, 30, 18, 0.65); }
+.pf-window { width: 800px; height: 1040px; max-width: 94%; max-height: 94%; padding: 116px 86px 92px 86px; background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel.png"); background-size: 100% 100%; color: rgb(65, 43, 25); }
+.pf-title { font-size: 38px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; margin-bottom: 12px; }
+.pf-subtitle { font-size: 22px; white-space: normal; -unity-text-align: middle-center; margin-bottom: 18px; }
+.pf-input { margin-bottom: 18px; font-size: 22px; flex-direction: column; }
+.pf-input > .unity-base-field__label { margin-bottom: 7px; font-size: 20px; }
+.pf-input > .unity-base-field__input { background-color: rgb(255, 247, 224); border-width: 2px; border-color: rgb(173, 138, 83); border-radius: 10px; padding: 10px; min-height: 48px; color: rgb(65, 43, 25); }
+.pf-message > .unity-base-field__input { height: 140px; }
+.pf-status { white-space: normal; font-size: 19px; margin-bottom: 14px; color: rgb(69, 93, 43); }
+.pf-status.is-error { color: rgb(160, 54, 34); }
+.pf-actions { flex-direction: row; }
+.pf-button { flex-grow: 1; min-height: 62px; font-size: 23px; margin: 4px; background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png"); background-size: 100% 100%; background-color: transparent; border-width: 0; color: rgb(56, 36, 21); -unity-font-style: bold; }
+.pf-primary { background-image: url("../07_Art/UI/GlimblehopMenu/button-primary.png"); }
+.pf-stars { flex-direction: row; justify-content: center; margin-bottom: 12px; }
+.pf-star-button { width: 82px; height: 82px; padding: 8px; margin: 4px; background-color: transparent; border-width: 2px; border-color: transparent; border-radius: 14px; }
+.pf-star-button:focus, .pf-star-button.is-selected { border-color: rgb(166, 117, 42); background-color: rgba(255, 240, 195, 0.5); }
+.pf-star-image { flex-grow: 1; }
+
+.pf-scroll { flex-grow: 1; min-height: 0; }

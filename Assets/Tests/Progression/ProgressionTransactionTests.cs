@@ -105,6 +105,84 @@ namespace Diceforge.Tests.Progression
         { if (stage == checkpoint) throw new IOException("Injected " + stage); }));
         private void Reload() => R.Static("Progression.ProfileService", "Load");
 
+        private bool ApplyAdminReset(long epoch)
+        {
+            object[] args = { epoch, null };
+            return (bool)R.Type("Progression.ProfileService").GetMethod("TryApplyAdminMapReset", R.Flags).Invoke(null, args);
+        }
+
+        [Test]
+        public void AdminResetClearsMapButPreservesPlayerAndDevelopment()
+        {
+            Commit(Operation());
+            R.Static("Progression.ProfileService", "SetPlayerName", "Existing player");
+            string guid = (string)R.Field(R.Profile, "playerGuid");
+            string avatar = (string)R.Field(R.Profile, "selectedAvatarId");
+            PlayerPrefs.SetString(_legacyKey, JsonUtility.ToJson(State));
+            Assert.That(ApplyAdminReset(1), Is.True);
+            Assert.That(R.List(State, "completedNodeIds"), Is.Empty);
+            Assert.That(R.Field(State, "currentNodeId"), Is.EqualTo("C1_01"));
+            Assert.That(R.Field(R.Profile, "playerGuid"), Is.EqualTo(guid));
+            Assert.That(R.Field(R.Profile, "playerName"), Is.EqualTo("Existing player"));
+            Assert.That(R.Field(R.Profile, "selectedAvatarId"), Is.EqualTo(avatar));
+            Assert.That(Xp, Is.EqualTo(120));
+            Assert.That(Gold, Is.EqualTo(30));
+            Assert.That(PlayerPrefs.HasKey(_legacyKey), Is.False);
+            Reload();
+            Assert.That(R.Field(R.Profile, "adminMapResetEpoch"), Is.EqualTo(1L));
+            Assert.That(R.List(State, "completedNodeIds"), Is.Empty);
+        }
+
+        [Test]
+        public void AdminResetInvalidatesPreparedResultFromOldRun()
+        {
+            var old = Operation();
+            Assert.That(ApplyAdminReset(1), Is.True);
+            Assert.That(Status(Commit(old)), Is.EqualTo("SaveFailed"));
+            Assert.That(R.List(State, "completedNodeIds"), Is.Empty);
+            Assert.That(Xp, Is.Zero);
+        }
+
+        [Test]
+        public void AdminResetCannotAcknowledgeEpochWhenSaveFails()
+        {
+            Commit(Operation());
+            Fault("BeforeReplace");
+            Assert.That(ApplyAdminReset(1), Is.False);
+            Assert.That(R.Field(R.Profile, "adminMapResetEpoch"), Is.EqualTo(0L));
+            Assert.That(R.Call(State, "IsCompleted", "C1_01"), Is.True);
+            R.Set(_store, "Checkpoint", null);
+            Assert.That(ApplyAdminReset(1), Is.True);
+        }
+
+        [Test]
+        public void DuplicateOrOlderAdminResetDoesNotEraseNewProgress()
+        {
+            Assert.That(ApplyAdminReset(2), Is.True);
+            Commit(Operation("after-reset"));
+            Assert.That(ApplyAdminReset(2), Is.False);
+            Assert.That(ApplyAdminReset(1), Is.False);
+            Assert.That(R.Call(State, "IsCompleted", "C1_01"), Is.True);
+        }
+
+        [Test]
+        public void ResetEpochBelongsToAuthenticatedIdentityAndSurvivesReload()
+        {
+            object[] args = { "first-identity", null };
+            var bind = R.Type("Progression.ProfileService").GetMethod("TryBindAdminMapResetIdentity", R.Flags);
+            Assert.That(bind.Invoke(null, args), Is.True);
+            ApplyAdminReset(2);
+            Commit(Operation("after-reset"));
+            Assert.That(bind.Invoke(null, args), Is.True);
+            Assert.That(R.Field(R.Profile, "adminMapResetEpoch"), Is.EqualTo(2L));
+            args[0] = "replacement-identity";
+            Assert.That(bind.Invoke(null, args), Is.True);
+            Reload();
+            Assert.That(R.Field(R.Profile, "adminMapResetEpoch"), Is.EqualTo(0L));
+            Assert.That(R.Field(R.Profile, "adminMapResetIdentity"), Is.EqualTo("replacement-identity"));
+            Assert.That(R.Call(State, "IsCompleted", "C1_01"), Is.True);
+        }
+
         [Test]
         public void VictoryCommitsAllRewardsAndMapBeforeReturn()
         {

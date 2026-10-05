@@ -13,6 +13,8 @@ namespace Diceforge.Progression
         public string playerName = string.Empty;
         public string selectedAvatarId = string.Empty;
         public bool tutorialCompleted;
+        public long adminMapResetEpoch;
+        public string adminMapResetIdentity = string.Empty;
         public HeroProgress hero = new();
         public List<ProfileAmount> currencies = new();
         public List<ProfileAmount> inventory = new();

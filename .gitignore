@@ -13,6 +13,7 @@
 .vs/
 .idea/
 *.csproj
+!/spacetimedb/spacetimedb/StdbModule.csproj
 *.sln
 *.user
 *.userprefs
