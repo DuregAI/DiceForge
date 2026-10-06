@@ -1,0 +1,199 @@
+{
+  "version": "0.1",
+  "date": "2026-10-06",
+  "method": "Built-in image_gen.imagegen; no CLI/API runner.",
+  "selectedConceptSheets": 13,
+  "generationCalls": 15,
+  "records": [
+    {
+      "id": "cast-01-heroes",
+      "prompt": "Use case: stylized-concept. Create a polished concept art sheet for GLIMBLEHOP, a cozy woodland goblin adventure. Input image is a STYLE AND SPECIES REFERENCE, not an edit target. Match the charming handcrafted clay and wooden miniature look, green goblins with large heads, broad triangular ears, warm amber eyes, expressive brows, warm leather boots, fabric clothes. Paper cream background with beautiful soft studio lighting. Landscape sheet divided into THREE generously spaced equal character-card columns. In each column show ONE clear full-body three-quarter pose plus TWO small expressive portrait studies and their unique prop. Clean silhouette, all feet visible, no overlapping characters. Pale subtle dividers, fine art book layout. No title, no writing, no labels, no speech bubbles, no UI, no watermark. Each character must be different and recognizable at small scale. This is finished visual development, not production sprites. Left column TISH: adult male goblin, compact adventurous build, one ear has a tiny notch, short brown leaf-shaped hair tuft, coral red triangular scarf, simple dark leather tunic and small satchel, tentative heroic smile. Portraits: determined and embarrassed. Middle column LUMA: adult female goblin pathfinder, confident capable equal partner, short dark green braid, teal neckerchief with bronze leaf clasp, practical cream shirt and brown trousers, small folded trail map, upright warm expression. Portraits: focused and amused. Right column BUM: adult male goblin gentle giant, 1.4 times Tish's height, broad rounded shoulders, moss green skin, ochre sleeveless vest and huge soft backpack, big gentle face, carefully holding a tiny wedding garland without breaking it. Portraits: puzzled and joyful. No weapons, no baby-like adults, no sexualized design.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\01-characters.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/cast-01-heroes.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-5659cfae-4dff-4b02-b6aa-87d44124ff37.png"
+    },
+    {
+      "id": "cast-02-family",
+      "prompt": "Use case: stylized-concept. Create a polished concept art sheet for GLIMBLEHOP, a cozy woodland goblin adventure. Input image is a STYLE AND SPECIES REFERENCE, not an edit target. Match the charming handcrafted clay and wooden miniature look, green goblins with large heads, broad triangular ears, warm amber eyes, expressive brows, warm leather boots, fabric clothes. Paper cream background with beautiful soft studio lighting. Landscape sheet divided into THREE generously spaced equal character-card columns. In each column show ONE clear full-body three-quarter pose plus TWO small expressive portrait studies and their unique prop. Clean silhouette, all feet visible, no overlapping characters. Pale subtle dividers, fine art book layout. No title, no writing, no labels, no speech bubbles, no UI, no watermark. Each character must be different and recognizable at small scale. This is finished visual development, not production sprites. Left column KOREN: elderly adult male goblin craftsman, slightly stooped pear-shaped body, long cream moustache and short cream beard, oversized round spectacles, patched brown apron, rolled cream sleeves, holding a lovely small handcrafted wooden lantern with amber glass, kind knowing smile. Portraits: attentive and worried. Middle column PIP: boy goblin child nephew, half adult height, honey-yellow hooded jacket, green skin, large curious ears, small wooden compass and tiny backpack, playful forward-leaning pose. Portraits: astonished and sheepish. Right column FIKA: girl goblin child niece, half adult height, plum-purple simple jacket, green skin, short neat dark hair, holding a drawing notebook with NO readable writing and a blunt charcoal pencil, calm observant pose. Portraits: thoughtful and laughing. Family friendly child designs, practical full clothes.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\01-characters.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/cast-02-family.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-0ef4b343-a7ea-4687-b665-192fb16aa99d.png"
+    },
+    {
+      "id": "cast-03-village",
+      "prompt": "Use case: stylized-concept. Create a polished concept art sheet for GLIMBLEHOP, a cozy woodland goblin adventure. Input image is a STYLE AND SPECIES REFERENCE, not an edit target. Match the charming handcrafted clay and wooden miniature look, green goblins with large heads, broad triangular ears, warm amber eyes, expressive brows, warm leather boots, fabric clothes. Paper cream background with beautiful soft studio lighting. Landscape sheet divided into THREE generously spaced equal character-card columns. In each column show ONE clear full-body three-quarter pose plus TWO small expressive portrait studies and their unique prop. Clean silhouette, all feet visible, no overlapping characters. Pale subtle dividers, fine art book layout. No title, no writing, no labels, no speech bubbles, no UI, no watermark. Each character must be different and recognizable at small scale. This is finished visual development, not production sprites. Left column MIRA: adult female goblin, expressive wedding bridesmaid and flower organizer, berry-red fitted waistcoat over cream practical clothes, enormous asymmetrical flower wreath with cream and coral blossoms, holds wicker basket of garland greenery, broad reassuring smile. Portraits: organizing with energy and laughing. Middle column UNA: adult female goblin musician bridesmaid, tall slender silhouette, sky-blue short cape with soft scalloped leaf edges, calm features, small wooden flute in hands, simple brown boots. Portraits: playful and serene. Right column SHAL: elderly adult male goblin ferryman, very broad floppy straw hat with reed on brim, dark forest-green rain cape, weathered olive skin, short wooden paddle, rope belt, quietly amused face. Portraits: knowing grin and concentrating. Adults clearly distinct from child proportions; no glamor fashion.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\01-characters.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/cast-03-village.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-af674a09-e714-4b46-890b-3800afb4f16e.png"
+    },
+    {
+      "id": "cast-04-rivals",
+      "prompt": "Use case: stylized-concept. Create a polished concept art sheet for GLIMBLEHOP, a cozy woodland goblin adventure. Input image is a STYLE AND SPECIES REFERENCE, not an edit target. Match the charming handcrafted clay and wooden miniature look, green goblins with large heads, broad triangular ears, warm amber eyes, expressive brows, warm leather boots, fabric clothes. Paper cream background with beautiful soft studio lighting. Landscape sheet divided into THREE generously spaced equal character-card columns. In each column show ONE clear full-body three-quarter pose plus TWO small expressive portrait studies and their unique prop. Clean silhouette, all feet visible, no overlapping characters. Pale subtle dividers, fine art book layout. No title, no writing, no labels, no speech bubbles, no UI, no watermark. Each character must be different and recognizable at small scale. This is finished visual development, not production sprites. Left column KLOCH: charming small black-and-white magpie with cobalt sheen, big amber eyes, tiny single-leaf cap tied loosely, little soft satchel of shiny acorns, holds ONE warm amber circular lantern lens gently in beak, clever lonely posture. Portraits: boastful and vulnerable. Middle column RYZH: adult male green goblin friendly rival runner, bright rust-red hair tuft, dark brick-red waistcoat with large acorn emblem, cream rolled-up shirt sleeves, small running boots, cocky but warm smile, leaning forward athletic pose. Portraits: challenging and respectfully smiling. Right column BARK: rounded friendly woodland beetle, bark-like brown and moss shell with two large readable natural plates, six stubby legs, amber round eyes and tiny antennae, leaf in mouth, chunky toy-like form, no spikes. Portraits: sleepy and content. No combat weapons, no menace, no dice or pip symbols.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\01-characters.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/cast-04-rivals.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-0980cc81-594d-4495-ab75-939d245a5ab4.png"
+    },
+    {
+      "id": "locations-01-03",
+      "prompt": "Use case: stylized-concept. Finished environment concept sheet for GLIMBLEHOP, cozy green goblin woodland adventure, handcrafted clay/wood tabletop miniatures, cream paper background. Landscape sheet with THREE equal wide columns, one beautifully lit environment in each, generous margins. Three-quarter aerial fixed camera, rounded cream trail slabs clearly readable, moss foliage, softly sculpted shoreline, turquoise water, no realism or neon. References are visual STYLE guides only; create the specified six demo locations, not mushroom/snow biomes. No lettering, no logos, no captions, no dice, no game UI. Each column has ONE full diorama and a little row of three relevant prop studies. Concept path count is illustrative; show a short open trail, no maze. Characters absent so architecture and props can be studied. LEFT: morning house garden gate with small cream stone trail above grassy shore, unfinished wedding ribbons on fence, cozy goblin house recessed outside trail, warm cream coral accents. MIDDLE: shallow turquoise woodland creek with flat square cream stones, birch branch, pale bank, one loose black-and-white magpie feather by trail, morning sunlight, no dangerous water. RIGHT: simple wooden bridge leading to clearing, two coral and teal ribbons on railing, folded leather map prop, warm noon light, cream clay stepping stones and moss.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\02-world.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/locations-01-03.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-ad2f7fc1-2a74-4af8-920f-3ecc9a789b48.png"
+    },
+    {
+      "id": "locations-04-06",
+      "prompt": "Use case: stylized-concept. Finished environment concept sheet for GLIMBLEHOP, cozy green goblin woodland adventure, handcrafted clay/wood tabletop miniatures, cream paper background. Landscape sheet with THREE equal wide columns, one beautifully lit environment in each, generous margins. Three-quarter aerial fixed camera, rounded cream trail slabs clearly readable, moss foliage, softly sculpted shoreline, turquoise water, no realism or neon. References are visual STYLE guides only; create the specified six demo locations, not mushroom/snow biomes. No lettering, no logos, no captions, no dice, no game UI. Each column has ONE full diorama and a little row of three relevant prop studies. Concept path count is illustrative; show a short open trail, no maze. Characters absent so architecture and props can be studied. LEFT: craftsman's workshop tucked among giant roots of an old tree, wide open wooden door and worktable outside trail, spare tiny wooden lantern, warm shaded amber interior, gentle bark beetle on one cream slab. MIDDLE: old ferry landing with low wooden dock and tied small boat beside short stone trail, broad straw hat and short paddle props, calm turquoise green water, warm late-afternoon reeds. RIGHT: community wedding clearing at early dusk, short cream stone path leading to a tall unlit common WOODEN LANTERN on pedestal, flower garlands and flute, little low bird nest far from route, large tables waiting for feast, cool outer woods with amber lantern accents.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\Art\\Glimblehop-v1\\02-world.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/locations-04-06.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-78ac7b57-aaf2-4d4c-b7dd-ae53acc6f691.png"
+    },
+    {
+      "id": "story-S00",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Input images are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact characters: Tish adult green male compact goblin coral scarf, notched ear, brown leather tunic and satchel; Luma adult capable female green goblin teal neckerchief bronze leaf clasp, dark green short braid, cream sleeves and brown trousers; Bum adult broad gentle giant goblin ochre vest huge soft backpack. Style richly painted handcrafted clay/wood animation-film miniature, soft natural light, charming emotive faces, coherent scale. Landscape page with exactly THREE equal sequential panels side by side, pale cream gutters and thin borders, each clear storytelling composition with wide environment, characters not cropped. No title, no writing, no captions, no balloons, no symbols like dice, no watermark. Amber lens is a simple round amber glass DISC in a slim circular frame, no handle/no lantern body; the common lantern is a much larger wooden standing lantern. Distinguish those two props. Left to right sequence: 1. Cozy village wedding clearing, Tish and Luma together happily try coral and teal wedding ribbons next to the LARGE glowing common wooden lantern, gentle adult romantic companionship. 2. Black-and-white magpie Kloch wearing leaf cap flies away with a SINGLE amber lens disc, common wooden lantern now dim, alarmed Tish below. 3. Tish with satchel stands at open house gate ready to depart, confident Luma shows simple trail drawing, two goblin children Pip honey-yellow hood with compass and Fika plum jacket with notebook hold a garland safely at house edge. Emotional arc joy, surprise, resolve.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-02-family.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-04-rivals.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": false,
+      "workspaceOutput": "art/story-S00.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-9789b4c2-5f20-4423-8c9b-2466b700a99a.png"
+    },
+    {
+      "id": "story-S01",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Input images are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact characters: Tish adult green male compact goblin coral scarf, notched ear, brown leather tunic and satchel; Luma adult capable female green goblin teal neckerchief bronze leaf clasp, dark green short braid, cream sleeves and brown trousers; Bum adult broad gentle giant goblin ochre vest huge soft backpack. Style richly painted handcrafted clay/wood animation-film miniature, soft natural light, charming emotive faces, coherent scale. Landscape page with exactly THREE equal sequential panels side by side, pale cream gutters and thin borders, each clear storytelling composition with wide environment, characters not cropped. No title, no writing, no captions, no balloons, no symbols like dice, no watermark. Amber lens is a simple round amber glass DISC in a slim circular frame, no handle/no lantern body; the common lantern is a much larger wooden standing lantern. Distinguish those two props. Left to right sequence: 1. Tish stands just beyond familiar wooden garden gate, boy Pip in honey hood and girl Fika in plum jacket stop at the safe home fence, excited and proud. 2. Close group: Pip points at small compass, Fika shows a picture of a black-and-white feather and creek in her notebook, absolutely no readable text. 3. Tish alone looks toward a clear shallow woodland creek with short cream stone trail; children remain safely far behind by house. Morning sunlight, humor in Pip trying to hold compass right way up. Luma does not physically appear in this sequence.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-02-family.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S01.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-ce313694-19d1-4f06-b262-3314ef890d2b.png"
+    },
+    {
+      "id": "story-S02",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Input images are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact characters: Tish adult green male compact goblin coral scarf, notched ear, brown leather tunic and satchel; Luma adult capable female green goblin teal neckerchief bronze leaf clasp, dark green short braid, cream sleeves and brown trousers; Bum adult broad gentle giant goblin ochre vest huge soft backpack. Style richly painted handcrafted clay/wood animation-film miniature, soft natural light, charming emotive faces, coherent scale. Landscape page with exactly THREE equal sequential panels side by side, pale cream gutters and thin borders, each clear storytelling composition with wide environment, characters not cropped. No title, no writing, no captions, no balloons, no symbols like dice, no watermark. Amber lens is a simple round amber glass DISC in a slim circular frame, no handle/no lantern body; the common lantern is a much larger wooden standing lantern. Distinguish those two props. Left to right sequence: 1. Tish on far bank of shallow forest creek holding a black-and-white magpie feather, happy after crossing, coral scarf and satchel consistent. 2. Luma with teal neckerchief, short dark braid and bronze leaf clasp confidently waits at wooden bridge, her trail map laid on smooth stump, independently surveyed route. 3. Tish makes room beside the map, Luma and Tish stand shoulder to shoulder looking ahead at short cream stone trail, warm mutual trust, two coral and teal ribbons on bridge. No other characters; noon light.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S02.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-38d2c96c-a191-465e-b592-7b253cd2c306.png"
+    },
+    {
+      "id": "story-S03",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Inputs are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact identities from sheets. Tish adult green male compact goblin coral scarf, brown leather tunic and satchel; Luma adult female green goblin teal neckerchief, bronze leaf clasp, dark short braid, cream sleeves and trousers; Bum adult broad gentle giant, ochre vest, huge soft backpack. Koren elderly goblin cream moustache, spectacles, brown apron. Kloch black-and-white magpie with leaf cap. Ryzh goblin rusty hair, brick waistcoat with acorn. Painted handcrafted clay/wood animation-film miniature, warm expressive faces, soft light, cream paper edges. Landscape sheet with EXACTLY THREE equal sequential panels left to right, cream gutters, thin subtle border, each depicts clear scene with no overlapping duplicate characters. No text, logos, writing, speech balloons, captions, dice. COMMON LENS is a standalone amber glass circular DISC in thin frame, no handle or lantern body. COMMON LANTERN is a much larger wooden standing lantern with three-leaf wooden window frame. SPARE LANTERN is small box-shaped wooden camping lantern. Distinguish disc from lantern. Sequence: 1. Tish and Luma arrive at wooden workshop among huge tree roots, old Koren holds EMPTY large lantern window frame with circular gap where lens belongs, kindly explains, workshop warm and open. 2. Koren shows finished SMALL spare wooden camping lantern on worktable, Bum gently holds an intact long slightly crooked wedding garland, broad shoulders and huge soft backpack, Tish listening not boasting, Luma attentive. 3. Tish, Luma and Bum leave workshop together with spare lantern carefully packed in Bum's backpack; Bum squeezes through very wide doorway with playful polite care, Koren waving from inside. Do not include children.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-02-family.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S03.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-5996277a-7afc-466a-a30a-20781c0d48a5.png"
+    },
+    {
+      "id": "story-S04",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Inputs are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact identities from sheets. Tish adult green male compact goblin coral scarf, brown leather tunic and satchel; Luma adult female green goblin teal neckerchief, bronze leaf clasp, dark short braid, cream sleeves and trousers; Bum adult broad gentle giant, ochre vest, huge soft backpack. Koren elderly goblin cream moustache, spectacles, brown apron. Kloch black-and-white magpie with leaf cap. Ryzh goblin rusty hair, brick waistcoat with acorn. Painted handcrafted clay/wood animation-film miniature, warm expressive faces, soft light, cream paper edges. Landscape sheet with EXACTLY THREE equal sequential panels left to right, cream gutters, thin subtle border, each depicts clear scene with no overlapping duplicate characters. No text, logos, writing, speech balloons, captions, dice. COMMON LENS is a standalone amber glass circular DISC in thin frame, no handle or lantern body. COMMON LANTERN is a much larger wooden standing lantern with three-leaf wooden window frame. SPARE LANTERN is small box-shaped wooden camping lantern. Distinguish disc from lantern. Sequence: 1. Friendly round bark-shell woodland beetle contentedly chews fallen leaf beside root workshop, three goblin friends Tish Luma Bum walk safely past in background, no combat. 2. Shal old goblin ferryman in broad straw hat and forest-green cape holding short paddle warmly greets Tish Luma Bum at old wooden landing by calm water, afternoon reeds. 3. Ryzh rusty-haired green goblin in brick-red waistcoat with ACORN emblem smiles and issues friendly challenge at an unlettered sign; Tish leans forward tempted, Luma calm, Bum adjusts ochre backpack. Magpie Kloch absent.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-03-village.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-04-rivals.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": false,
+      "workspaceOutput": "art/story-S04.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-905758a7-b338-4f42-ae5c-a5709d0aae8d.png"
+    },
+    {
+      "id": "story-S05",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Inputs are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact identities from sheets. Tish adult green male compact goblin coral scarf, brown leather tunic and satchel; Luma adult female green goblin teal neckerchief, bronze leaf clasp, dark short braid, cream sleeves and trousers; Bum adult broad gentle giant, ochre vest, huge soft backpack. Koren elderly goblin cream moustache, spectacles, brown apron. Kloch black-and-white magpie with leaf cap. Ryzh goblin rusty hair, brick waistcoat with acorn. Painted handcrafted clay/wood animation-film miniature, warm expressive faces, soft light, cream paper edges. Landscape sheet with EXACTLY THREE equal sequential panels left to right, cream gutters, thin subtle border, each depicts clear scene with no overlapping duplicate characters. No text, logos, writing, speech balloons, captions, dice. COMMON LENS is a standalone amber glass circular DISC in thin frame, no handle or lantern body. COMMON LANTERN is a much larger wooden standing lantern with three-leaf wooden window frame. SPARE LANTERN is small box-shaped wooden camping lantern. Distinguish disc from lantern. Sequence: 1. At safe far bank of old crossing ALL THREE friends Tish Luma Bum are together, Tish smiles at his team rather than celebrating winning, Ryzh stands respectfully aside offering open hand, no podium/no ranking. 2. Low accessible magpie nest at clearing edge, Kloch leaf-capped magpie at small tea table with TWO cups and one EMPTY guest chair, stolen amber circular lens disc propped on table glowing warmly; Luma crouches to bird level with quiet empathy, Tish and Bum respectfully behind. 3. Clear close cooperative exchange: Tish extends ONE small BOX-shaped wooden spare lantern to Kloch; bird voluntarily extends ONE bare circular amber lens disc toward Tish with wing; Luma smiles, Bum holds OPEN backpack nearby. Exactly two distinct items, one disc and one box lantern; no duplicated hands or discs. Emotional resolution, dusk forest.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-04-rivals.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S05.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-b09c41d5-ab29-4e67-97b7-9e5490149bd9.png"
+    },
+    {
+      "id": "story-S06",
+      "prompt": "Use case: illustration-story. Finished narrative storyboard for GLIMBLEHOP cozy woodland goblin adventure. Inputs are CHARACTER IDENTITY AND STYLE REFERENCES, not edit targets. Match exact identities from sheets. Tish adult green male compact goblin coral scarf, brown leather tunic and satchel; Luma adult female green goblin teal neckerchief, bronze leaf clasp, dark short braid, cream sleeves and trousers; Bum adult broad gentle giant, ochre vest, huge soft backpack. Koren elderly goblin cream moustache, spectacles, brown apron. Kloch black-and-white magpie with leaf cap. Ryzh goblin rusty hair, brick waistcoat with acorn. Painted handcrafted clay/wood animation-film miniature, warm expressive faces, soft light, cream paper edges. Landscape sheet with EXACTLY THREE equal sequential panels left to right, cream gutters, thin subtle border, each depicts clear scene with no overlapping duplicate characters. No text, logos, writing, speech balloons, captions, dice. COMMON LENS is a standalone amber glass circular DISC in thin frame, no handle or lantern body. COMMON LANTERN is a much larger wooden standing lantern with three-leaf wooden window frame. SPARE LANTERN is small box-shaped wooden camping lantern. Distinguish disc from lantern. Sequence: 1. At community clearing elderly Koren cream moustache and spectacles installs returned round amber disc into LARGE wooden communal lantern with three-leaf frame, Tish Luma Bum stand equally together, warm light turns on, grateful gentle faces. 2. Adult Tish and Luma hold hands at their cozy WEDDING in familiar coral and teal clothing with wedding ribbons; bridesmaid Mira berry waistcoat giant flower wreath arranges garland, bridesmaid Una sky-blue cape plays flute, child Pip honey hood and Fika plum jacket happy safely behind near tables, simple handmade forest flower arch, no religious insignia. 3. At communal feast black-and-white magpie Kloch with leaf cap and his SMALL wooden camping lantern sits beside rusty-haired Ryzh with acorn emblem, second tea cup now occupied, gentle huge Bum in ochre vest wipes joyful tear with a TINY handkerchief. Everyone welcome, beautiful amber evening. Large common lantern stays background, lens NOT carried by Kloch.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-01-heroes.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-02-family.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-03-village.png",
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\cast-04-rivals.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S06.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-ad7ccab4-f6c8-43ad-ac20-92cc97366324.png"
+    },
+    {
+      "id": "story-S00-v2",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET, a completed three-panel Glimblehop storyboard. Change ONLY the THIRD RIGHTMOST panel: remove the large ochre-vest goblin with huge backpack (Bum) standing at the back upper-right, and replace the removed area with matching quiet wooden garden gate/forest background. Third panel must have exactly four characters: coral-scarf Tish, teal-scarf Luma showing map, small yellow-hood Pip and small plum-jacket Fika. Preserve their identities, poses and positions, all three panels, all lantern props, lens, lighting, colors, borders, panel sizes and all first/second-panel contents. Do not add characters. No writing, no other changes.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\story-S00.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S00-v2.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-fd60af2d-25c3-4b2d-94e7-711236b6f2e9.png"
+    },
+    {
+      "id": "story-S04-v2",
+      "prompt": "Use case: precise-object-edit. The input is the EDIT TARGET: three-panel Glimblehop storyboard. Change ONLY the THIRD RIGHTMOST panel: remove the small glowing circular amber lens sitting on the tree stump at the bottom right, replacing it with ordinary empty wood surface or a small non-glowing brown fallen leaf. The lens has not been found at this story point and must not appear here. Preserve all characters, gestures, clothes, sign with acorn, scenery, lighting, panel borders, canvas size and all contents of the first and second panels. Do not alter any other part. No new objects, writing or characters.",
+      "referenced_image_paths": [
+        "C:\\Backforge\\Diceforge\\DiceForge\\docs\\DemoRC\\v0.1\\art\\story-S04.png"
+      ],
+      "transparent_background": false,
+      "tool": "image_gen.imagegen",
+      "selected": true,
+      "workspaceOutput": "art/story-S04-v2.png",
+      "originalGeneratedOutput": "C:\\Users\\tehno\\.codex\\generated_images\\01a10d89-b841-7f92-b75f-b815fcffa9cd\\exec-ef44793c-f9ab-4633-9d50-acef8c37c860.png"
+    }
+  ]
+}

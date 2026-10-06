@@ -1,0 +1,2368 @@
+{
+  "schema": "glimblehop.demo.authoring.v0.1",
+  "version": "0.1",
+  "date": "2026-10-06",
+  "language": "ru",
+  "status": "proposal_requires_implementation",
+  "unityImportReady": false,
+  "scope": "Только документация. Эти данные не изменяют Unity-пресеты и не являются готовым импортом.",
+  "sourceDocument": "01_GAME_DESIGN.md",
+  "proofStatus": {
+    "codeReview": true,
+    "authoringModelSearch": true,
+    "manualReplaysChecked": true,
+    "unityRuntimeChecks": false,
+    "playtests": false,
+    "meaning": "Проверены исходники и авторская модель, не будущая сборка игры."
+  },
+  "units": {
+    "cellIds": "0..7, OUT отдельно после 7",
+    "turns": "В документе с 1; GameState.TurnIndex с 0",
+    "seconds": "Авторская цель первого прохождения без межуровневых комиксов"
+  },
+  "commonProposedRules": {
+    "gameMode": "SoloTrail",
+    "boardSize": 8,
+    "homeSize": 2,
+    "startCellA": 0,
+    "startCellB": 7,
+    "moveDirA": 1,
+    "moveDirB": -1,
+    "allowHitSingleStone": false,
+    "blockIfOpponentAnyStone": true,
+    "allowReroll": false,
+    "restrictHeadMoves": false,
+    "independentHeroBearOff": true,
+    "overshootAllowed": true,
+    "exitProgress": 8,
+    "allowFriendlyStacking": true,
+    "checkDestinationOnly": true,
+    "opponentVictory": false,
+    "playerSide": "A",
+    "environmentOccupancySide": "B",
+    "enemyMovesDoNotUseBPath": true,
+    "invalidInputConsumesAction": false,
+    "invalidInputEndsTurn": false,
+    "passOnlyWhenNoLegalActionInAllRemainingChoices": true,
+    "rewardGrantedOnlyOnAllHeroExit": true,
+    "timeoutUnlocksNextLevel": false,
+    "wallClockTimer": false,
+    "note": "Некоторые поля здесь — требования демо-адаптера, не существующие RulesetConfig-поля."
+  },
+  "stepOfferModes": {
+    "single": "Одна кнопка и одно действие. После успешного действия начинается следующий ход.",
+    "alternatives": "1 и 2 — альтернативы для одного действия; после успешного хода обновить оба, не суммировать.",
+    "sequential": "1 и 2 — отдельные действия; расходовать выбранное, выполнить оба в любом порядке либо pass при нуле legal."
+  },
+  "hazardPolicies": {
+    "static_destination_blocker": "Блокирует назначение. Промежуточную клетку можно перепрыгнуть. Не ходит, не выбивает.",
+    "forward_yielding_rival": "После полного хода A идёт +1. При попадании за7 или занятом A назначении уходит с логического поля навсегда. Не влияет на победу.",
+    "note": "Движущийся hazard отсутствует в текущем SoloTrail; нужен небольшой детерминированный обработчик."
+  },
+  "requiredIntegration": [
+    "Параметризовать FirstTrailPlayController 1–3 именными героями и картой tokenID->position.",
+    "Реализовать alternatives: actionsPerTurn сейчас не ограничивает действия в Runner.",
+    "Отделить реальное применение Move от pass: текущий TryApplyHumanMove может возвращать true без движения.",
+    "Сделать SoloTrail-валидацию A и B-occupancy асимметричной, не создавать невидимых соперников.",
+    "Двигать Рыжа один раз после полного хода A, показывая анимацию после последнего героя.",
+    "Скрыть счёт/роль B в HUD и связать победу A с картой и однократным сохранением.",
+    "Ограничить демо шестью уровнями и подключить S00–S06."
+  ],
+  "levels": [
+    {
+      "id": "L1",
+      "index": 1,
+      "name": "Калитка у дома",
+      "existingMapBinding": {
+        "modeId": "level_01",
+        "gameModePreset": "GM_Level_01",
+        "rulesetPreset": "Ruleset_Level_01",
+        "diceBagPreset": "DiceBag_Level_01",
+        "setupPreset": "Setup_Level_01",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 2,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 1,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 3,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1
+            ],
+            "weight": 3
+          },
+          {
+            "values": [
+              2
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              3
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 1.6666666666666667,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l1",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 1,
+        "maxUnitsPerSide": 1,
+        "maxTurns": 16,
+        "dieMin": 1,
+        "dieMax": 1,
+        "actionsPerTurn": 1,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "single",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1",
+              "weight": 1,
+              "dice": [
+                1
+              ]
+            }
+          ]
+        },
+        "hazards": [],
+        "nonPlayableCharacters": [],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 1,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Найти первый след сороки, унесшей линзу свадебного фонаря",
+      "newLesson": "Выбор шага и героя; отдельный выход за плитой 7",
+      "storyBefore": "S00",
+      "storyAfter": "S01",
+      "teaching": {
+        "guideSpeakerId": "luma",
+        "guideLabelRu": "Совет Лумы",
+        "guideDelivery": "remembered_advice_on_fika_drawing_left_in_S00",
+        "guidePhysicallyOnBoard": false,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L01_T01",
+          "L01_T02",
+          "L01_T04",
+          "L01_T10"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": true,
+        "proactiveHints": true,
+        "canRequestHelp": true,
+        "guidedMoves": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1,
+            "requireStateRatherThanFixedTurn": true
+          }
+        ],
+        "previewExamples": [],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Понимает расстояние и выход за7."
+        ]
+      },
+      "balance": {
+        "initialDistance": 8,
+        "minActions": 8,
+        "minTurns": 8,
+        "guidedManualReplayTurns": 8,
+        "guidedManualReplayActions": 8,
+        "targetFirstPassSeconds": {
+          "min": 60,
+          "max": 90
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 3,
+            "to": 4
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 4,
+            "to": 5
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 1,
+            "from": 6,
+            "to": 7
+          },
+          {
+            "turn": 8,
+            "hero": "tish",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 3,
+            "to": 4
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 4,
+            "to": 5
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 1,
+            "from": 6,
+            "to": 7
+          },
+          {
+            "turn": 8,
+            "hero": "tish",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": 1,
+        "note": "Дистанция считается доOUT; overshoot не даёт отрицательной дистанции."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Ровно одно успешное действие за ход.",
+        "Нет B-ходов и B-счёта.",
+        "Рестарт сбрасывает состояние, подсказки не дублируют награды.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    },
+    {
+      "id": "L2",
+      "index": 2,
+      "name": "Ручей коротких шагов",
+      "existingMapBinding": {
+        "modeId": "level_02",
+        "gameModePreset": "GM_Level_02",
+        "rulesetPreset": "Ruleset_Level_02",
+        "diceBagPreset": "DiceBag_Level_02",
+        "setupPreset": "Setup_Level_02",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 2,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 1,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 4,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1
+            ],
+            "weight": 3
+          },
+          {
+            "values": [
+              2
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              3
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              4
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 2.125,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l2",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 1,
+        "maxUnitsPerSide": 1,
+        "maxTurns": 24,
+        "dieMin": 1,
+        "dieMax": 2,
+        "actionsPerTurn": 1,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "alternatives",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1 · 2",
+              "weight": 1,
+              "dice": [
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "hazards": [],
+        "nonPlayableCharacters": [],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 1,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Перейти ручей и прочитать следы к мосту",
+      "newLesson": "Выбор расстояния 1 или 2; предпросмотр",
+      "storyBefore": "S01",
+      "storyAfter": "S02",
+      "teaching": {
+        "guideSpeakerId": "luma",
+        "guideLabelRu": "Совет Лумы",
+        "guideDelivery": "remembered_advice_on_fika_drawing_left_in_S00",
+        "guidePhysicallyOnBoard": false,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L02_T01",
+          "L02_T04",
+          "L02_T05",
+          "L02_T11"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": true,
+        "proactiveHints": true,
+        "canRequestHelp": true,
+        "guidedMoves": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 1,
+            "to": 3,
+            "requireStateRatherThanFixedTurn": true
+          }
+        ],
+        "previewExamples": [],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Понимает расстояние и выход за7."
+        ]
+      },
+      "balance": {
+        "initialDistance": 8,
+        "minActions": 4,
+        "minTurns": 4,
+        "guidedManualReplayTurns": 5,
+        "guidedManualReplayActions": 5,
+        "targetFirstPassSeconds": {
+          "min": 60,
+          "max": 100
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": null,
+        "note": "Среднее выдачи не определяет баланс альтернатив: игрок сам выбирает1 или2."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Ровно одно успешное действие за ход.",
+        "Нет B-ходов и B-счёта.",
+        "Рестарт сбрасывает состояние, подсказки не дублируют награды.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    },
+    {
+      "id": "L3",
+      "index": 3,
+      "name": "Мост двух друзей",
+      "existingMapBinding": {
+        "modeId": "level_03",
+        "gameModePreset": "GM_Level_03",
+        "rulesetPreset": "Ruleset_Level_03",
+        "diceBagPreset": "DiceBag_Level_03",
+        "setupPreset": "Setup_Level_03",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 2,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 1,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 5,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              2
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              3
+            ],
+            "weight": 2
+          },
+          {
+            "values": [
+              4
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              5
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 2.625,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l3",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 2,
+        "maxUnitsPerSide": 2,
+        "maxTurns": 40,
+        "dieMin": 1,
+        "dieMax": 2,
+        "actionsPerTurn": 1,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish",
+          "luma"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "luma",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "alternatives",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1 · 2",
+              "weight": 1,
+              "dice": [
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "hazards": [],
+        "nonPlayableCharacters": [],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 2,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Продолжить путь вместе с Лумой, не оставляя друга",
+      "newLesson": "Выбор друга; совместная клетка; вывести обоих",
+      "storyBefore": "S02",
+      "storyAfter": "S03",
+      "teaching": {
+        "guideSpeakerId": "luma",
+        "guideLabelRu": "Лума",
+        "guideDelivery": "character_portrait",
+        "guidePhysicallyOnBoard": true,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L03_T01",
+          "L03_T03",
+          "L03_T07"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": true,
+        "proactiveHints": true,
+        "canRequestHelp": true,
+        "guidedMoves": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 0,
+            "to": 2,
+            "requireStateRatherThanFixedTurn": true
+          }
+        ],
+        "previewExamples": [],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Осознанно переключает друга и ждёт 2/2."
+        ]
+      },
+      "balance": {
+        "initialDistance": 16,
+        "minActions": 8,
+        "minTurns": 8,
+        "guidedManualReplayTurns": 8,
+        "guidedManualReplayActions": 8,
+        "targetFirstPassSeconds": {
+          "min": 90,
+          "max": 140
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 8,
+            "hero": "luma",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 7,
+            "hero": "luma",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 8,
+            "hero": "luma",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": null,
+        "note": "Среднее выдачи не определяет баланс альтернатив: игрок сам выбирает1 или2."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Ровно одно успешное действие за ход.",
+        "Нет B-ходов и B-счёта.",
+        "Рестарт сбрасывает состояние, подсказки не дублируют награды.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    },
+    {
+      "id": "L4",
+      "index": 4,
+      "name": "Мастерская у корней",
+      "existingMapBinding": {
+        "modeId": "level_04",
+        "gameModePreset": "GM_Level_04",
+        "rulesetPreset": "Ruleset_Level_04",
+        "diceBagPreset": "DiceBag_Level_04",
+        "setupPreset": "Setup_Level_04",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 3,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 1,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 5,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              4
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              5
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 3,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l4",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 3,
+        "maxUnitsPerSide": 3,
+        "maxTurns": 64,
+        "dieMin": 1,
+        "dieMax": 2,
+        "actionsPerTurn": 1,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish",
+          "luma",
+          "bum"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "luma",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "bum",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "alternatives",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1 · 2",
+              "weight": 1,
+              "dice": [
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "hazards": [
+          {
+            "id": "bark",
+            "policy": "static_destination_blocker",
+            "cell": 4
+          }
+        ],
+        "nonPlayableCharacters": [],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 3,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Доставить запасной фонарь через корневую тропу вместе с Бумом",
+      "newLesson": "Третий друг; блок назначения; прыжок через Жука",
+      "storyBefore": "S03",
+      "storyAfter": "S04",
+      "teaching": {
+        "guideSpeakerId": "koren",
+        "guideLabelRu": "дед Корень",
+        "guideDelivery": "character_portrait",
+        "guidePhysicallyOnBoard": false,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L04_T01",
+          "L04_T04",
+          "L04_T05",
+          "L04_T06"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": true,
+        "proactiveHints": true,
+        "canRequestHelp": true,
+        "guidedMoves": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5,
+            "requireStateRatherThanFixedTurn": true
+          }
+        ],
+        "previewExamples": [
+          {
+            "hero": "tish",
+            "from": 2,
+            "step": 2,
+            "to": 4,
+            "legal": false,
+            "reason": "bark_occupied",
+            "cost": 0
+          },
+          {
+            "hero": "tish",
+            "from": 3,
+            "step": 2,
+            "to": 5,
+            "legal": true,
+            "reason": "landing_free"
+          }
+        ],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Проводит второго друга через3->5 без новой инструкции."
+        ]
+      },
+      "balance": {
+        "initialDistance": 24,
+        "minActions": 15,
+        "minTurns": 15,
+        "guidedManualReplayTurns": 15,
+        "guidedManualReplayActions": 15,
+        "targetFirstPassSeconds": {
+          "min": 150,
+          "max": 210
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 7,
+            "hero": "luma",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 8,
+            "hero": "luma",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 9,
+            "hero": "luma",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 10,
+            "hero": "luma",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          },
+          {
+            "turn": 11,
+            "hero": "bum",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 12,
+            "hero": "bum",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 13,
+            "hero": "bum",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 14,
+            "hero": "bum",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 15,
+            "hero": "bum",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 3,
+            "hero": "bum",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 8,
+            "hero": "luma",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 9,
+            "hero": "luma",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 10,
+            "hero": "luma",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 11,
+            "hero": "luma",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 12,
+            "hero": "bum",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 13,
+            "hero": "bum",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 14,
+            "hero": "bum",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 15,
+            "hero": "bum",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": null,
+        "note": "Среднее выдачи не определяет баланс альтернатив: игрок сам выбирает1 или2."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Ровно одно успешное действие за ход.",
+        "Назначение блокируется, промежуточные клетки не блокируют прыжок.",
+        "Рестарт сбрасывает состояние, подсказки не дублируют награды.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    },
+    {
+      "id": "L5",
+      "index": 5,
+      "name": "Старая переправа",
+      "existingMapBinding": {
+        "modeId": "level_05",
+        "gameModePreset": "GM_Level_05",
+        "rulesetPreset": "Ruleset_Level_05",
+        "diceBagPreset": "DiceBag_Level_05",
+        "setupPreset": "Setup_Level_05",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 3,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 2,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 3,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              1,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              1,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              3
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 4,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l5",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 3,
+        "maxUnitsPerSide": 3,
+        "maxTurns": 64,
+        "dieMin": 1,
+        "dieMax": 2,
+        "actionsPerTurn": 2,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish",
+          "luma",
+          "bum"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "luma",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "bum",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "sequential",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1 · 2",
+              "weight": 1,
+              "dice": [
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "hazards": [
+          {
+            "id": "ryzh",
+            "policy": "forward_yielding_rival",
+            "cell": 3,
+            "step": 1,
+            "direction": 1,
+            "trigger": "turn_completed",
+            "yieldWhenTargetOccupiedByA": true,
+            "retirePermanentlyOnYield": true,
+            "retireAtProgress": 8,
+            "projectedUnimpededCells": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              "OFF_TRAIL"
+            ]
+          }
+        ],
+        "nonPlayableCharacters": [],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 3,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Пройти переправу и показать Рыжу, как идёт дружная команда",
+      "newLesson": "Два отдельных действия; порядок; движение Рыжа после полного хода",
+      "storyBefore": "S04",
+      "storyAfter": "S05",
+      "teaching": {
+        "guideSpeakerId": "luma",
+        "guideLabelRu": "Лума",
+        "guideDelivery": "character_portrait",
+        "guidePhysicallyOnBoard": true,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L05_T01",
+          "L05_T03",
+          "L05_T06",
+          "L05_T07",
+          "L05_T08"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": true,
+        "proactiveHints": true,
+        "canRequestHelp": true,
+        "guidedMoves": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 1,
+            "from": 0,
+            "to": 1,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3,
+            "requireStateRatherThanFixedTurn": true
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 1,
+            "to": 3,
+            "requireStateRatherThanFixedTurn": true
+          }
+        ],
+        "previewExamples": [
+          {
+            "hero": "tish",
+            "from": 2,
+            "step": 2,
+            "to": 4,
+            "legal": false,
+            "reason": "ryzh_occupied_after_turn_1",
+            "cost": 0
+          }
+        ],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Понимает остаток второго действия и движение Рыжа после полного хода."
+        ]
+      },
+      "balance": {
+        "initialDistance": 24,
+        "minActions": 16,
+        "minTurns": 8,
+        "guidedManualReplayTurns": 8,
+        "guidedManualReplayActions": 16,
+        "targetFirstPassSeconds": {
+          "min": 150,
+          "max": 210
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 3,
+            "to": 4
+          },
+          {
+            "turn": 3,
+            "hero": "bum",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 4,
+            "hero": "bum",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 6,
+            "hero": "bum",
+            "step": 1,
+            "from": 3,
+            "to": 4
+          },
+          {
+            "turn": 7,
+            "hero": "luma",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 1,
+            "from": 4,
+            "to": 5
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "turn": 2,
+            "hero": "bum",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 3,
+            "hero": "luma",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 3,
+            "to": 4
+          },
+          {
+            "turn": 4,
+            "hero": "bum",
+            "step": 2,
+            "from": 2,
+            "to": 4
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 4,
+            "to": 5
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 7,
+            "hero": "luma",
+            "step": 1,
+            "from": 6,
+            "to": 7
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 2,
+            "from": 4,
+            "to": 6
+          },
+          {
+            "turn": 8,
+            "hero": "luma",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": 3,
+        "note": "Дистанция считается доOUT; overshoot не даёт отрицательной дистанции."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Два отдельных значения расходуются отдельно.",
+        "Назначение блокируется, промежуточные клетки не блокируют прыжок.",
+        "Рыж +1 только после полного хода, уступает занятую A клетку и не возвращается.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    },
+    {
+      "id": "L6",
+      "index": 6,
+      "name": "Поляна общего света",
+      "existingMapBinding": {
+        "modeId": "level_06",
+        "gameModePreset": "GM_Level_06",
+        "rulesetPreset": "Ruleset_Level_06",
+        "diceBagPreset": "DiceBag_Level_06",
+        "setupPreset": "Setup_Level_06",
+        "note": "Названия проверены; ID map node для импорта должен сверить разработчик."
+      },
+      "currentVerified": {
+        "gameMode": "Long",
+        "boardSize": 8,
+        "homeSize": 2,
+        "stonesPerEachSide": 4,
+        "authoredActionsPerTurn": 2,
+        "actualOutcomeActionCount": 2,
+        "runnerEnforcesActionsPerTurn": false,
+        "dieMin": 1,
+        "dieMax": 4,
+        "maxTurns": 160,
+        "bagDrawMode": "Shuffled",
+        "bagOutcomes": [
+          {
+            "values": [
+              1,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              1,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              1,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              1,
+              4
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              2,
+              4
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              3,
+              4
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              4,
+              1
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              4,
+              2
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              4,
+              3
+            ],
+            "weight": 1
+          },
+          {
+            "values": [
+              4,
+              4
+            ],
+            "weight": 1
+          }
+        ],
+        "meanOfferedDistancePerTurn": 5,
+        "allowHitSingleStone": false,
+        "blockIfOpponentAnyStone": true,
+        "restrictHeadMoves": true,
+        "setupPlacementsEmpty": true
+      },
+      "proposed": {
+        "rulesetId": "demo_l6",
+        "gameMode": "SoloTrail",
+        "totalStonesPerPlayer": 3,
+        "maxUnitsPerSide": 3,
+        "maxTurns": 64,
+        "dieMin": 1,
+        "dieMax": 2,
+        "actionsPerTurn": 2,
+        "actionsPerTurnNeedsEnforcement": true,
+        "activeHeroes": [
+          "tish",
+          "luma",
+          "bum"
+        ],
+        "heroPlacements": [
+          {
+            "id": "tish",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "luma",
+            "side": "A",
+            "cell": 0
+          },
+          {
+            "id": "bum",
+            "side": "A",
+            "cell": 0
+          }
+        ],
+        "stepOfferMode": "sequential",
+        "bag": {
+          "drawMode": "Sequential",
+          "outcomes": [
+            {
+              "label": "1 · 2",
+              "weight": 1,
+              "dice": [
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "hazards": [
+          {
+            "id": "bark",
+            "policy": "static_destination_blocker",
+            "cell": 4
+          }
+        ],
+        "nonPlayableCharacters": [
+          "ryzh",
+          "mira",
+          "una",
+          "koren",
+          "pip",
+          "fika"
+        ],
+        "victory": {
+          "condition": "all_A_heroes_exited",
+          "requiredCount": 3,
+          "winner": "A",
+          "reason": "Win"
+        },
+      "failure": {
+          "condition": "technical_maxTurns_reached",
+          "playerRestartPolicy": "reset_board_show_recovery_only",
+          "directRestartShowsFailureScene": false,
+          "messageTone": "мягкий повтор",
+          "timeoutWinner": null,
+          "unlockNext": false,
+          "healthDamage": false
+        }
+      },
+      "motivation": "Вернуть всю команду с линзой, зажечь общий фонарь и отпраздновать свадьбу",
+      "newLesson": "Самостоятельное применение знакомых правил",
+      "storyBefore": "S05",
+      "storyAfter": "S06",
+      "teaching": {
+        "guideSpeakerId": "luma",
+        "guideLabelRu": "Лума",
+        "guideDelivery": "character_portrait",
+        "guidePhysicallyOnBoard": true,
+        "guidedMovesAreRecommendations": true,
+        "legalAlternativeAlwaysAccepted": true,
+        "skipProvesMastery": false,
+        "automaticInstructionIds": [
+          "L06_T01"
+        ],
+        "namedHeroSelectionRequired": true,
+        "sharedOriginChoosesNamedHero": true,
+        "firstRunGuided": false,
+        "proactiveHints": false,
+        "canRequestHelp": true,
+        "guidedMoves": [],
+        "previewExamples": [],
+        "expectedLearningEvidence": [
+          "Самостоятельное легальное действие после примера.",
+          "Завершает знакомую комбинацию без проактивной реплики."
+        ]
+      },
+      "balance": {
+        "initialDistance": 24,
+        "minActions": 16,
+        "minTurns": 8,
+        "guidedManualReplayTurns": 8,
+        "guidedManualReplayActions": 16,
+        "targetFirstPassSeconds": {
+          "min": 100,
+          "max": 160
+        },
+        "modelProof": "Отдельная авторская модель, не Unity/BattleRunner исполнение.",
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 3,
+            "hero": "bum",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 5,
+            "hero": "bum",
+            "step": 1,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 6,
+            "hero": "bum",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 5,
+            "to": 7
+          },
+          {
+            "turn": 7,
+            "hero": "luma",
+            "step": 1,
+            "from": 7,
+            "to": "OUT"
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 1,
+            "from": 0,
+            "to": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 1,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "turn": 4,
+            "hero": "bum",
+            "step": 2,
+            "from": 0,
+            "to": 2
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 1,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 2,
+            "from": 3,
+            "to": 5
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 1,
+            "from": 5,
+            "to": 6
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 6,
+            "to": "OUT"
+          }
+        ],
+        "meanOfferedDistanceInProposedMode": 3,
+        "note": "Дистанция считается доOUT; overshoot не даёт отрицательной дистанции."
+      },
+      "rcChecks": [
+        "Количество видимых/логических героев равно victory.requiredCount.",
+        "Ручной маршрут завершается только после всех выходов.",
+        "OUT доступен при точном шаге и overshoot; invalid preview не расходует действие.",
+        "Два отдельных значения расходуются отдельно.",
+        "Назначение блокируется, промежуточные клетки не блокируют прыжок.",
+        "Рестарт сбрасывает состояние, подсказки не дублируют награды.",
+        "Результат сохраняется один раз, timeout не открывает следующий уровень."
+      ]
+    }
+  ],
+  "globalRC": [
+    "Реальный запуск с карты всех6 конфигов.",
+    "Рестарт при анимации безопасен.",
+    "Победа на последнем разрешённом ходе важнее timeout.",
+    "Long/Short не изменены и сохраняют зеркальные правила сторон.",
+    "S00–S06 подключены без старого Wombat-сюжета.",
+    "RC-тесты пока не пройдены, требуются внедрение и Unity-проверки."
+  ],
+  "openDecisions": [
+    "Целевые платформы",
+    "Финальные имена",
+    "Озвучка/языки",
+    "Длительность комиксов",
+    "Тизер полной версии"
+  ]
+}

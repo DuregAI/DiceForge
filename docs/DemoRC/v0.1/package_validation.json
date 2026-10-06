@@ -1,0 +1,28 @@
+{
+  "selectedConcepts": 13,
+  "chapters": 7,
+  "dialogueEvents": 138,
+  "levelCount": 6,
+  "pdfPages": 95,
+  "pdfBytes": 12077734,
+  "pdfTextCharacters": 211267,
+  "uniqueDialogueIds": 138,
+  "knownSpeakerIds": 12,
+  "characterCards": 12,
+  "storyboardFrames": 21,
+  "localChapterLinksValid": true,
+  "allPdfPagesRendered": 95,
+  "validationScope": "Authoring JSON, chapter links, PDF rendering and content coverage. Gameplay runtime not verified.",
+  "pdfSha256": "8d0e0bfadaee5a60678c9d85317b1437203179f45a70f1cc0f4437d3bacaeada",
+  "visualReviewComplete": true,
+  "contactSheetsReviewed": 4,
+  "detailedPdfPagesReviewed": [
+    2,
+    6,
+    56,
+    83,
+    95
+  ],
+  "selectedArtSheetsInspected": 13,
+  "onlyDocumentationAndArtChanged": true
+}
