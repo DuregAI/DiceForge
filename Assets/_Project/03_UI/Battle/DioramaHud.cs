@@ -7,7 +7,7 @@ namespace Diceforge.View
 {
     public sealed class DioramaHud : MonoBehaviour
     {
-        public static bool BlocksGameplay => instance != null && instance.paused;
+        public static bool BlocksGameplay => instance != null && (instance.paused || instance.battle?.DemoNarrative?.IsModal == true);
         private static DioramaHud instance;
         public static void SetResultVisible(bool visible)
         {
@@ -320,7 +320,7 @@ namespace Diceforge.View
             SetText(hint,localization.T(hintKey));
             RefreshDemoControls(can && !paused);
             if (can && !paused && previewHero != null && battle.TryGetHero(previewHero, out int previewCell, out _, out bool left) && !left)
-                battle.PreviewPresentationCell(board, previewCell);
+                battle.PreviewPresentationCell(board, previewCell, previewHero);
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;
             string signature=can+":"+state.CurrentPlayer+":"+battle.PresentationSelectedDie+":";

@@ -1,0 +1,31 @@
+#demoNarrativeRoot { flex-grow: 1; color: rgb(255, 242, 210); font-size: 17px; }
+.help-button { position: absolute; left: 18px; top: 16px; height: 42px; min-width: 110px; }
+Button { background-color: rgb(90, 61, 32); color: rgb(255, 242, 210); border-color: rgb(195, 156, 82); border-width: 2px; border-radius: 9px; padding: 8px 12px; min-height: 40px; }
+Button:focus { border-color: rgb(255, 237, 156); border-width: 3px; }
+Button:hover { background-color: rgb(116, 79, 42); }
+.hint-card { display: none; position: absolute; left: 18px; top: 66px; width: 270px; background-color: rgba(41, 31, 22, .96); border-color: rgb(181, 145, 74); border-width: 2px; border-radius: 12px; padding: 14px; }
+.hint-portrait { width: 64px; height: 64px; }
+.speaker { font-size: 20px; -unity-font-style: bold; margin-bottom: 8px; }
+.hint-text { white-space: normal; font-size: 17px; }
+.hint-actions { flex-direction: row; margin-top: 12px; }
+.hint-actions Button { font-size: 12px; flex-grow: 1; margin-right: 4px; padding: 6px 5px; }
+.story-overlay, .help-overlay { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(13, 19, 16, .94); }
+.story-card { width: 90%; height: 88%; max-width: 1100px; padding: 22px; border-radius: 16px; background-color: rgb(42, 32, 24); border-color: rgb(201, 162, 92); border-width: 2px; }
+.story-heading { white-space: normal; font-size: 25px; -unity-font-style: bold; margin-bottom: 16px; }
+.story-body { flex-grow: 1; flex-shrink: 1; flex-direction: row; min-height: 0; }
+.story-art { width: 45%; flex-shrink: 0; margin-right: 24px; }
+.story-text { flex-grow: 1; flex-shrink: 1; white-space: normal; font-size: 24px; -unity-text-align: middle-left; }
+.story-nav { flex-direction: row; align-items: center; justify-content: flex-end; margin-top: 16px; }
+.story-nav Label { flex-grow: 1; }
+.story-nav Button { margin-left: 12px; font-size: 18px; }
+.help-card { width: 80%; max-width: 740px; height: 80%; padding: 18px; background-color: rgb(42, 32, 24); border-width: 2px; border-color: rgb(201, 162, 92); border-radius: 14px; }
+#helpTopics { flex-grow: 1; margin-bottom: 12px; }
+.help-topic { white-space: normal; margin-bottom: 9px; font-size: 17px; }
+.help-card > Button { margin-top: 6px; }
+.save-message { display: none; position: absolute; bottom: 12px; right: 12px; width: 340px; padding: 12px; background-color: rgb(42, 32, 24); }
+.save-message Label { white-space: normal; }
+.portrait .hint-card { top: 170px; width: 230px; }
+.portrait .story-body { flex-direction: column; }
+.portrait .story-art { width: 100%; height: 58%; margin-right: 0; margin-bottom: 12px; }
+.portrait .story-text { font-size: 19px; }
+.portrait .story-heading { font-size: 19px; }

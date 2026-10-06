@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="DemoNarrative.uss" />
+  <ui:VisualElement name="demoNarrativeRoot" picking-mode="Ignore">
+    <ui:Button name="demoHelpButton" text="Подсказка" class="help-button" />
+    <ui:VisualElement name="demoHint" class="hint-card">
+      <ui:Image name="hintPortrait" class="hint-portrait" picking-mode="Ignore" />
+      <ui:Label name="hintSpeaker" class="speaker" picking-mode="Ignore" />
+      <ui:Label name="hintText" class="hint-text" picking-mode="Ignore" />
+      <ui:VisualElement class="hint-actions">
+        <ui:Button name="hintSkip" text="Закрыть" />
+        <ui:Button name="hideGuidance" text="Скрыть обучение" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="demoHelp" class="help-overlay">
+      <ui:VisualElement class="help-card">
+        <ui:ScrollView name="helpTopics" />
+        <ui:Button name="guidanceOn" text="Включить обучение" />
+        <ui:Button name="replayStory" text="Повторить историю" />
+        <ui:Button name="helpClose" text="Закрыть справку" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="demoStory" class="story-overlay">
+      <ui:VisualElement class="story-card">
+        <ui:Label name="storyHeading" class="story-heading" />
+        <ui:VisualElement class="story-body">
+          <ui:Image name="storyArt" class="story-art" picking-mode="Ignore" />
+          <ui:Label name="storyText" class="story-text" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="story-nav">
+          <ui:Label name="storyPage" />
+          <ui:Button name="storySkip" text="Пропустить сцену" />
+          <ui:Button name="storyNext" text="Дальше" />
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="demoSave" class="save-message">
+      <ui:Label name="demoSaveError" />
+      <ui:Button name="retryDemoSave" text="Повторить сохранение" />
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

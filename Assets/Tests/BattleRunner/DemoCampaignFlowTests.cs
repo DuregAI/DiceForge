@@ -23,6 +23,7 @@ namespace Diceforge.Tests.BattleTermination
         private string originalLanguage;
         private bool hadLanguage;
         private UnityEngine.Random.State randomState;
+        private readonly List<string> storyOrder = new();
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -134,6 +135,7 @@ namespace Diceforge.Tests.BattleTermination
                 yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null),
                     "The battle transition did not finish.");
                 Component battle = Find("View.BattleDebugController");
+                yield return DismissOpening(battle, level);
                 var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
                 Assert.That(hud.rootVisualElement.Q("scorePanelB").ClassListContains("hidden"), Is.True);
                 Assert.That(hud.rootVisualElement.Q<Label>("stepRule").text, Is.EqualTo(level >= 5 ? "Два шага на ход" : "Один шаг на ход"));
@@ -202,7 +204,7 @@ namespace Diceforge.Tests.BattleTermination
                     for (int action = 0; action < (level == 1 ? 8 : 4); action++)
                         yield return Move(battle, "tish", level == 1 ? 1 : 2);
 
-                yield return Until(() => results == 1, "Campaign result was not presented after the final exit.");
+                yield return FinishStoryAndResult(battle, () => results == 1, level);
                 Assert.That(Runtime.Get(battle, "HasPendingResultSave"), Is.EqualTo(false));
                 object session = Runtime.Get(battle, "RewardSession");
                 Assert.That(Runtime.Get(session, "Outcome"), Is.Not.Null);
@@ -216,11 +218,97 @@ namespace Diceforge.Tests.BattleTermination
                 Assert.That(Runtime.Call(progress, "IsCompleted", "C1_0" + level), Is.EqualTo(true));
                 if (level < 6) Assert.That(Runtime.Call(progress, "IsUnlocked", "C1_0" + (level + 1)), Is.EqualTo(true));
             }
+            CollectionAssert.AreEqual(new[] { "S00", "S01", "S02", "S03", "S04", "S05", "S06" }, storyOrder);
+            Assert.That(((IList)Runtime.Field(Profile, "demoLearning")).Count, Is.EqualTo(6));
+            Assert.That(((IList)Runtime.Field(Profile, "demoStorySeen")).Count, Is.EqualTo(7));
+        }
+
+        private IEnumerator DismissOpening(Component battle, int level)
+        {
+            object narrative = Runtime.Get(battle, "DemoNarrative");
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible"), "Opening dialogue never appeared.");
+            Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.False);
+            Runtime.Call(battle, "MovePresentationHero", "tish"); Runtime.Call(battle, "SelectPresentationDie", 0);
+            Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(0));
+            Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(0));
+            float deadline = Time.realtimeSinceStartup + 20;
+            while ((bool)Runtime.Get(narrative, "IsModal") && Time.realtimeSinceStartup < deadline)
+            {
+                string scene = (string)Runtime.Get(narrative, "StoryId");
+                if (scene != null)
+                {
+                    storyOrder.Add(scene);
+                    if (level == 1)
+                    {
+                        yield return CaptureNarrative("S00-frame-1"); Runtime.Call(narrative, "AdvanceStory");
+                        Assert.That(Runtime.Get(narrative, "StoryFrame"), Is.EqualTo(1));
+                        Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S00-frame-3");
+                    }
+                }
+                Runtime.Call(narrative, "SkipStory"); yield return null; yield return null;
+            }
+            Assert.That(Runtime.Get(narrative, "IsModal"), Is.False);
+            Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(0), "Skipping must not count as learning.");
+            if (level == 6) Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo("L06_T01"), "Hiding guidance must keep the level objective.");
+            if (level == 1)
+            {
+                yield return CaptureNarrative("L1-luma-note"); Runtime.Call(narrative, "SkipHint", true);
+                Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(0));
+                Assert.That(((IList)Runtime.Field(Profile, "progressionReceipts")).Count, Is.EqualTo(0));
+                Assert.That(Runtime.Field(Profile, "demoGuidanceHidden"), Is.EqualTo(true));
+                Runtime.Call(narrative, "OpenHelp"); yield return CaptureNarrative("L1-help");
+                var doc = (UIDocument)Runtime.Field(narrative, "document");
+                doc.rootVisualElement.Q("demoHelp").style.display = DisplayStyle.None;
+            }
+        }
+
+        private IEnumerator FinishStoryAndResult(Component battle, Func<bool> ready, int level)
+        {
+            var narrative = Runtime.Get(battle, "DemoNarrative"); float deadline = Time.realtimeSinceStartup + 25;
+            while (!ready() && Time.realtimeSinceStartup < deadline)
+            {
+                if ((bool)Runtime.Get(narrative, "IsStoryVisible"))
+                {
+                    Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.False, "Story must wait for the last movement.");
+                    string scene = (string)Runtime.Get(narrative, "StoryId");
+                    if (scene != null)
+                    {
+                        storyOrder.Add(scene);
+                        Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(level >= 4 ? 3 : level == 3 ? 2 : 1));
+                        yield return CaptureNarrative(scene + "-frame-1");
+                        if (level == 6)
+                        {
+                            Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-wedding");
+                            Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-last-frame");
+                        }
+                    }
+                    Runtime.Call(narrative, "SkipStory");
+                }
+                yield return null;
+            }
+            Assert.That(ready(), Is.True, "Result must finalize exactly once after closing the story.");
+            Assert.That((int)Runtime.Get(narrative, "EvidenceCount"), Is.GreaterThan(0));
+        }
+
+        private static IEnumerator CaptureNarrative(string name)
+        {
+            string directory = Path.GetFullPath("docs/Validation/DemoRCStage3");
+            Directory.CreateDirectory(directory); yield return null; yield return null;
+            Component narrative = Find("UI.Dialogue.DemoNarrativeController");
+            if ((bool)Runtime.Get(narrative, "IsStoryVisible"))
+            {
+                var doc = (UIDocument)Runtime.Field(narrative, "document");
+                var bounds = doc.rootVisualElement.Q("demoStory").worldBound;
+                Assert.That(bounds.height, Is.GreaterThan(300));
+                Assert.That(bounds.yMin, Is.GreaterThanOrEqualTo(0));
+                Assert.That(bounds.yMax, Is.LessThanOrEqualTo(doc.rootVisualElement.panel.visualTree.worldBound.yMax + 1), "Story must fit inside the visible panel.");
+            }
+            ScreenCapture.CaptureScreenshot(Path.Combine(directory, name + ".png")); yield return null; yield return null;
         }
 
         private static IEnumerator Capture(string name)
         {
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage2");
+            string directory = Path.GetFullPath("docs/Validation/DemoRCStage3");
             Directory.CreateDirectory(directory);
             yield return null;
             yield return null;

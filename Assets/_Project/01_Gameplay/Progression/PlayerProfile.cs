@@ -13,6 +13,9 @@ namespace Diceforge.Progression
         public string playerName = string.Empty;
         public string selectedAvatarId = string.Empty;
         public bool tutorialCompleted;
+        public List<Diceforge.Core.DemoLearningState> demoLearning = new();
+        public List<string> demoStorySeen = new();
+        public bool demoGuidanceHidden;
         public long adminMapResetEpoch;
         public string adminMapResetIdentity = string.Empty;
         public HeroProgress hero = new();

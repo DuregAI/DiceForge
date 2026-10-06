@@ -70,6 +70,11 @@ namespace Diceforge.View
         public event System.Action OnHumanTurnStarted;
         public event System.Action<MoveRecord> OnHumanMoveApplied;
         public event System.Action OnHumanRerollUsed;
+        public event System.Action OnDemoStepSelected;
+        public event System.Action<DemoInputRejection, string> OnDemoInputRejected;
+        public event System.Action<string> OnDemoBlockedPreview;
+        public event System.Action OnDemoRestarted;
+        public Diceforge.UI.Dialogue.DemoNarrativeController DemoNarrative { get; private set; }
         public PlayerId LocalPlayer => localPlayer;
         public bool IsMatchEnded => _hasBattleResultTriggered || (_runner != null && (_runner.MatchEnded || (_runner.State != null && _runner.State.IsFinished)));
         public DebugHudUITK Hud => hud;
@@ -78,7 +83,7 @@ namespace Diceforge.View
         public int LocalPlayerBorneOffCount => _runner?.State?.GetBorneOff(localPlayer) ?? 0;
         public PlayerId CurrentPlayer => _runner?.State?.CurrentPlayer ?? localPlayer;
         public GameState PresentationState => _runner?.State;
-        public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating();
+        public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating() && DemoNarrative?.IsModal != true;
         public bool PresentationIsAnimating => IsBoardAnimating();
         public bool PresentationIsHumanTurn => _runner?.State != null && IsHumanTurn() && !IsMatchEnded;
         public bool PresentationHasLegalMove => _runner?.State != null && !IsMatchEnded && HasLegalMove();
@@ -89,7 +94,7 @@ namespace Diceforge.View
         public void PresentationReroll() => HandleRerollClicked();
         public bool PresentationCanReroll => CanUseReroll() && !IsBoardAnimating();
         public Move? PreviewMove(int cell) => SelectMoveForCell(cell);
-        public void PreviewPresentationCell(DioramaBoard geometry, int cell)
+        public void PreviewPresentationCell(DioramaBoard geometry, int cell, string heroId = null)
         {
             var move = PreviewMove(cell);
             if (move.HasValue) { geometry.Preview(move, PresentationState, cell); return; }
@@ -99,6 +104,7 @@ namespace Diceforge.View
                 if (cell + step < 8 && PresentationState.GetStonesAt(PlayerId.B, cell + step) > 0)
                 {
                     geometry.PreviewBlocked(cell, step, PresentationState);
+                    OnDemoBlockedPreview?.Invoke(heroId);
                     return;
                 }
             }
@@ -117,7 +123,10 @@ namespace Diceforge.View
         public void MovePresentationHero(string heroId)
         {
             if (DemoLevel == null || !PresentationCanInteract || DioramaHud.BlocksGameplay) return;
-            if (!TryGetHero(heroId, out int cell, out string tokenName, out bool exited) || exited || cell < 0) return;
+            if (!TryGetHero(heroId, out int cell, out string tokenName, out bool exited))
+            { OnDemoInputRejected?.Invoke(DemoInputRejection.UnknownTarget, heroId); return; }
+            if (exited) { OnDemoInputRejected?.Invoke(DemoInputRejection.HeroAlreadyExited, heroId); return; }
+            if (cell < 0) { OnDemoInputRejected?.Invoke(DemoInputRejection.UnknownTarget, heroId); return; }
             HandleSelectedCell(cell, tokenName);
         }
 
@@ -367,6 +376,11 @@ namespace Diceforge.View
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed, SetupConfig.FromPreset(preset.setupPreset));
             boardViewController.Bind(_runner);
             _isInitialized = true;
+            if (preset.demoLevel != null)
+            {
+                DemoNarrative = gameObject.AddComponent<Diceforge.UI.Dialogue.DemoNarrativeController>();
+                DemoNarrative.Configure(this);
+            }
         }
 
         [ContextMenu("Start")]
@@ -409,6 +423,7 @@ namespace Diceforge.View
             hud?.SetSurrenderDialogVisible(false);
             _runner.Reset();
             boardViewController?.Bind(_runner);
+            OnDemoRestarted?.Invoke();
             _isRunning = wasRunning;
             SyncHudState();
             UpdateUI();
@@ -508,12 +523,11 @@ namespace Diceforge.View
                     boardViewController?.ReactToMatchEnd(result.Winner);
                     var cue = result.Winner == localPlayer ? profile?.victoryClip : profile?.defeatClip;
                     Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(cue, profile != null ? profile.soundGain : 1f);
-                },
-                () =>
-                {
-                    if (ReferenceEquals(endedRunner, _runner) && endedGeneration == matchGeneration && _runner.State.IsFinished)
-                        FinalizeMatchResult(result);
-                });
+                }, () => { });
+            if (!ReferenceEquals(endedRunner, _runner) || endedGeneration != matchGeneration || !_runner.State.IsFinished) yield break;
+            if (DemoNarrative != null) yield return DemoNarrative.PlayCompletion(result);
+            if (ReferenceEquals(endedRunner, _runner) && endedGeneration == matchGeneration && _runner.State.IsFinished)
+                FinalizeMatchResult(result);
         }
 
         internal static System.Collections.IEnumerator WaitForPresentation(System.Func<bool> isAnimating,
@@ -559,6 +573,7 @@ namespace Diceforge.View
 
         private void HandleSelectedCell(int cellIndex, string clickedTokenName)
         {
+            if (DemoNarrative?.IsModal == true) return;
             if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
                 return;
 
@@ -579,6 +594,7 @@ namespace Diceforge.View
                         }
                     if (candidates != 1)
                     {
+                        OnDemoInputRejected?.Invoke(candidates == 0 ? DemoInputRejection.EmptyOrigin : DemoInputRejection.UnknownTarget, null);
                         _lastHumanInputFeedback = "Choose a friend by name.";
                         UpdateUI();
                         return;
@@ -590,6 +606,7 @@ namespace Diceforge.View
             var move = SelectMoveForCell(cellIndex);
             if (!move.HasValue)
             {
+                OnDemoInputRejected?.Invoke(_runner.SelectedDieIndex.HasValue ? DemoInputRejection.BlockedDestination : DemoInputRejection.NoStepSelected, SelectedHeroId);
                 _pendingAnimatedTokenName = null;
 
                 if (_runner.SelectedDieIndex.HasValue && _runner.RemainingDice.Count > _runner.SelectedDieIndex.Value)
@@ -635,6 +652,7 @@ namespace Diceforge.View
 
         private void HandleDieSelected(int index)
         {
+            if (DemoNarrative?.IsModal == true) return;
             if (!IsHumanTurn() || _runner?.State == null || _runner.MatchEnded || _runner.State.IsFinished || IsBoardAnimating())
                 return;
 
@@ -865,13 +883,18 @@ namespace Diceforge.View
 
         private bool TrySelectDieIndex(int index)
         {
+            if (DemoNarrative?.IsModal == true) return false;
             if (_runner == null || !_runner.SelectDieIndex(index))
+            {
+                if (DemoLevel != null) OnDemoInputRejected?.Invoke(DemoInputRejection.StaleStepChoice, SelectedHeroId);
                 return false;
+            }
 
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             _lastHumanInputFeedback = string.Empty;
             UpdateUI();
+            OnDemoStepSelected?.Invoke();
             return true;
         }
 

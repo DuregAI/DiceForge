@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.IO;
 using System.Text.RegularExpressions;
 using Diceforge.TokenPlacement;
 using NUnit.Framework;
@@ -22,6 +23,9 @@ namespace Diceforge.Tests.TokenPlacement
         private GameObject _prefab;
         private ScriptableObject _layout;
         private Component _view;
+        private readonly Dictionary<FieldInfo, object> savedProfileFields = new();
+        private string profileDirectory;
+        private const BindingFlags StaticFields = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
         internal static Type RuntimeType(string name) => Type.GetType(name + ", Assembly-CSharp", true);
         internal static object Get(object target, string name) => target.GetType().GetField(name, Fields).GetValue(target);
@@ -34,6 +38,26 @@ namespace Diceforge.Tests.TokenPlacement
         public IEnumerator EnterRuntime()
         {
             yield return new EnterPlayMode();
+            yield return null;
+            Type service = RuntimeType("Diceforge.Progression.ProfileService");
+            foreach (string name in new[] { "_profile", "_store", "_lastSavedJson", "<LoadError>k__BackingField" })
+            {
+                FieldInfo field = service.GetField(name, StaticFields);
+                savedProfileFields.Add(field, field.GetValue(null));
+            }
+            profileDirectory = Path.Combine(Application.temporaryCachePath, "TokenPlacement-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(profileDirectory);
+            object originalProfile = service.GetField("_profile", StaticFields).GetValue(null);
+            object profile = originalProfile == null ? Activator.CreateInstance(RuntimeType("Diceforge.Progression.PlayerProfile"))
+                : JsonUtility.FromJson(JsonUtility.ToJson(originalProfile), RuntimeType("Diceforge.Progression.PlayerProfile"));
+            object store = Activator.CreateInstance(RuntimeType("Diceforge.Progression.AtomicProfileStore"),
+                BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { Path.Combine(profileDirectory, "profile.json") }, null);
+            service.GetField("_profile", StaticFields).SetValue(null, profile);
+            service.GetField("_store", StaticFields).SetValue(null, store);
+            service.GetField("_lastSavedJson", StaticFields).SetValue(null, null);
+            service.GetField("<LoadError>k__BackingField", StaticFields).SetValue(null, null);
+            service.GetMethod("RebuildCache", StaticFields).Invoke(null, null);
+            service.GetMethod("Save", StaticFields).Invoke(null, null);
         }
 
         [UnityTearDown]
@@ -44,7 +68,11 @@ namespace Diceforge.Tests.TokenPlacement
             // Dispose the integration first; leave the unrelated production shutdown bug out of this suite.
             foreach (Object client in Object.FindObjectsByType(RuntimeType("Diceforge.Integrations.SpacetimeDb.SpacetimeDbLocalDevRuntime"), FindObjectsSortMode.None))
                 Object.DestroyImmediate(((Component)client).gameObject);
+            foreach (var pair in savedProfileFields) pair.Key.SetValue(null, pair.Value);
+            savedProfileFields.Clear();
+            RuntimeType("Diceforge.Progression.ProfileService").GetMethod("RebuildCache", StaticFields).Invoke(null, null);
             yield return new ExitPlayMode();
+            if (!string.IsNullOrEmpty(profileDirectory) && Directory.Exists(profileDirectory)) Directory.Delete(profileDirectory, true);
         }
 
         [UnityTest]

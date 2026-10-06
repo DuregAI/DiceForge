@@ -261,7 +261,7 @@ namespace Diceforge.View
                     ? outcome.Won ? "Trail complete" : "Let's try again"
                     : outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
             UpdateSummaryText(T(battleController?.DemoLevel != null
-                ? outcome.Won ? "Everyone has reached the exit." : "This trail is still waiting for your friends."
+                ? outcome.Won ? battleController.DemoLevel.levelId == "L6" ? "The shared light is back. The wedding took place." : "Everyone has reached the exit." : "This trail is still waiting for your friends."
                 : outcome.IsDraw ? "Neither side is ahead."
                 : outcome.Won ? "The battle is won." : "A new attempt awaits."));
             SetNavigationButtonsReady(true, outcome);

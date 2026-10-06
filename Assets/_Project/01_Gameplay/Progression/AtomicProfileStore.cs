@@ -74,6 +74,8 @@ namespace Diceforge.Progression
                 throw new InvalidDataException("Profile structure is invalid.");
             profile.chapters ??= new();
             profile.progressionReceipts ??= new();
+            profile.demoLearning ??= new();
+            profile.demoStorySeen ??= new();
             var chapters = new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
             foreach (var chapter in profile.chapters)
                 if (chapter == null || string.IsNullOrEmpty(chapter.chapterId) || string.IsNullOrEmpty(chapter.runId) ||
