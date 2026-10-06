@@ -257,8 +257,12 @@ namespace Diceforge.View
         private void ShowSimpleOutcome(PostBattleRewardOutcome outcome)
         {
             if (_resultLabel != null)
-                _resultLabel.text = T(outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
-            UpdateSummaryText(T(outcome.IsDraw ? "Neither side is ahead."
+                _resultLabel.text = T(battleController?.DemoLevel != null
+                    ? outcome.Won ? "Trail complete" : "Let's try again"
+                    : outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
+            UpdateSummaryText(T(battleController?.DemoLevel != null
+                ? outcome.Won ? "Everyone has reached the exit." : "This trail is still waiting for your friends."
+                : outcome.IsDraw ? "Neither side is ahead."
                 : outcome.Won ? "The battle is won." : "A new attempt awaits."));
             SetNavigationButtonsReady(true, outcome);
             _isVisible = true;
@@ -284,7 +288,9 @@ namespace Diceforge.View
         private void PrepareOutcomeView(PostBattleRewardOutcome outcome)
         {
             if (_resultLabel != null)
-                _resultLabel.text = T(outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
+                _resultLabel.text = T(battleController?.DemoLevel != null
+                    ? outcome.Won ? "Trail complete" : "Let's try again"
+                    : outcome.IsDraw ? "Draw" : outcome.Won ? "Victory" : "Defeat");
 
             if (_xpValueLabel != null)
                 _xpValueLabel.text = $"+{outcome.ApplicationResult.XpGained} XP";

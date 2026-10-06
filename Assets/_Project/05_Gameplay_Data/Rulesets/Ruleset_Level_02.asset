@@ -15,26 +15,27 @@ MonoBehaviour:
   rulesetId: level_02
   displayName: Level 02
   maxRounds: 1
-  maxUnitsPerSide: 2
+  maxUnitsPerSide: 1
   allowReroll: 0
-  actionsPerTurn: 2
-  gameMode: 0
+  actionsPerTurn: 1
+  gameMode: 2
+  soloTrailStepOfferMode: 2
   boardSize: 8
   homeSize: 2
-  totalStonesPerPlayer: 2
+  totalStonesPerPlayer: 1
   dieMin: 1
-  dieMax: 4
+  dieMax: 2
   startCellA: 0
   startCellB: 7
   moveDirA: 1
   moveDirB: -1
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
-  maxTurns: 160
+  maxTurns: 24
   randomSeed: 12345
   verboseLog: 0
   headRules:
-    restrictHeadMoves: 1
+    restrictHeadMoves: 0
     maxHeadMovesPerTurn: 1
     firstTurnHeadAllowance:
     - dieA: 6

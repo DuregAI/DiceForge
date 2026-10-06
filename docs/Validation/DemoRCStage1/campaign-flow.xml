@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35,3121238">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.312124" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1044" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.261769" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1045" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.252436" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1046" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.250710" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1047" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.249125" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1024" name="DemoCampaignFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-06 16:05:30Z" end-time="2026-10-06 16:06:06Z" duration="35.245492" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1025" name="MapToL1L2L3SavesExactlyOnceAndKeepsNamedHeroes" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToL1L2L3SavesExactlyOnceAndKeepsNamedHeroes" methodname="MapToL1L2L3SavesExactlyOnceAndKeepsNamedHeroes" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" seed="1230355723" result="Passed" start-time="2026-10-06 16:05:24Z" end-time="2026-10-06 16:06:06Z" duration="41.907296" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[SpacetimeDb] Connected to 'diceforgelocaldev' identity=C200E45F1AE8026DE810B15E8283A465DEFE5445E114F3979608BB9E2E39EF06.
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302732392 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[SpacetimeDb] Map progress reset by administrator.
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302734487 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791302736449 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302736511 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1  Pip=1  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(1, 1)  Outcome=1  Pip=1  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1  Pip=1  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 1)  Outcome=1  Pip=1  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791302742673 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302743562 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_02, map=Map_Level_02
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_02 modeId=level_02 rulesetId=level_02 setupId=level_02 cells=8 startA=0 startB=7 mapId=level_02 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791302745524 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302745581 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 3
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791302750500 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8, winner=A, endReason=Win, turnIndex=3}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302751368 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791302753308 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791302753378 session=74b6bc0c421d4d459fb83f15064736c8 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791302764104 session=74b6bc0c421d4d459fb83f15064736c8 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791302764229 session=74b6bc0c421d4d459fb83f15064736c8 payload={sessionStartUnixMsUtc=1791302729157, sessionEndUnixMsUtc=1791302764229, durationSeconds=35.072, buildVersion=0.2.8-beta, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=8, battlesStartedCount=3, battlesEndedCount=3, sampleWindowSeconds=3, totalFrames=15797, totalSampledSeconds=39.839, averageFps=396.523, minimumWindowFps=0.196, averageFrameTimeMs=2.522, worstSpikeMs=5114.188}
+<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/tehno/AppData/LocalLow/BarabolaCompany/GlimbleHop\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

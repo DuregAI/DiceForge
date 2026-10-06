@@ -55,6 +55,8 @@ namespace Diceforge.View
         private bool _wasBoardAnimating;
         private string _pendingAnimatedTokenName;
         private bool _hasBattleResultTriggered;
+        private int matchGeneration;
+        private Coroutine resultPresentation;
         internal BattleRewardSession RewardSession { get; private set; }
         public bool HasPendingResultSave => RewardSession != null && RewardSession.HasPendingSave;
         public void RetryResultSave() => RewardSession?.Retry();
@@ -87,7 +89,37 @@ namespace Diceforge.View
         public void PresentationReroll() => HandleRerollClicked();
         public bool PresentationCanReroll => CanUseReroll() && !IsBoardAnimating();
         public Move? PreviewMove(int cell) => SelectMoveForCell(cell);
+        public void PreviewPresentationCell(DioramaBoard geometry, int cell)
+        {
+            var move = PreviewMove(cell);
+            if (move.HasValue) { geometry.Preview(move, PresentationState, cell); return; }
+            if (DemoLevel != null && PresentationSelectedDie.HasValue && PresentationState.GetStonesAt(PlayerId.A, cell) > 0)
+            {
+                int step = PresentationDice[PresentationSelectedDie.Value];
+                if (cell + step < 8 && PresentationState.GetStonesAt(PlayerId.B, cell + step) > 0)
+                {
+                    geometry.PreviewBlocked(cell, step, PresentationState);
+                    return;
+                }
+            }
+            geometry.Preview(null, null, -1);
+        }
         public void RefreshPresentation() => UpdateUI();
+        public Diceforge.GameModes.DemoLevelDefinition DemoLevel => _externalPreset?.demoLevel;
+        public string SelectedHeroId { get; private set; }
+        public string DemoInputFeedback => _lastHumanInputFeedback;
+        public bool IsPassingTrailTurn { get; private set; }
+        public bool TryGetHero(string heroId, out int cell, out string tokenName, out bool exited)
+        {
+            cell = -1; tokenName = null; exited = false;
+            return boardViewController != null && boardViewController.TryGetHero(heroId, out cell, out tokenName, out exited);
+        }
+        public void MovePresentationHero(string heroId)
+        {
+            if (DemoLevel == null || !PresentationCanInteract || DioramaHud.BlocksGameplay) return;
+            if (!TryGetHero(heroId, out int cell, out string tokenName, out bool exited) || exited || cell < 0) return;
+            HandleSelectedCell(cell, tokenName);
+        }
 
         private void EnsureRunnerInitialized()
         {
@@ -144,6 +176,8 @@ namespace Diceforge.View
             ProfileService.ProfileChanged -= HandleProfileChanged;
             if (selectionPresentation != null) StopCoroutine(selectionPresentation);
             selectionPresentation = null;
+            if (resultPresentation != null) StopCoroutine(resultPresentation);
+            resultPresentation = null;
         }
 
         private void OnDestroy()
@@ -199,10 +233,27 @@ namespace Diceforge.View
             if (_runner?.State == null || _runner.State.IsFinished || _runner.MatchEnded)
                 return;
 
+            if (_runner.Rules.gameMode == GameMode.SoloTrail && !isBoardAnimating && !_runner.HasAnyLegalMove())
+            {
+                if (DemoLevel != null) selectionPresentation = StartCoroutine(PassTrailTurn());
+                else _runner.EndTurnIfNoMoves();
+                return;
+            }
+
             if (_runner.State == null || _runner.State.IsFinished || _runner.MatchEnded || IsHumanTurn() || isBoardAnimating)
                 return;
 
             ExecuteAutoTurn();
+        }
+        private IEnumerator PassTrailTurn()
+        {
+            int generation = matchGeneration;
+            IsPassingTrailTurn = true;
+            _lastHumanInputFeedback = "No steps available. Starting a new turn.";
+            yield return new WaitForSeconds(DioramaBoard.ReducedMotion ? .2f : .8f);
+            IsPassingTrailTurn = false;
+            selectionPresentation = null;
+            if (generation == matchGeneration && !_runner.MatchEnded) _runner.EndTurnIfNoMoves();
         }
         public void ConfigureBoardSelection(BoardLayout layout, Tilemap positionTilemap)
         {
@@ -304,6 +355,13 @@ namespace Diceforge.View
 
             _rules = RulesetConfig.FromPreset(preset.rulesetPreset);
             ApplySelectedMapBoardSizeOverride(_rules);
+            preset.demoLevel?.Validate(_rules);
+            boardViewController.ConfigureDemo(preset.demoLevel);
+            if (_rules.gameMode == GameMode.SoloTrail)
+            {
+                localPlayer = PlayerId.A;
+                controlModeA = ControlMode.Human;
+            }
             var bagA = BuildBagConfig(preset.diceBagA);
             var bagB = BuildBagConfig(preset.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed, SetupConfig.FromPreset(preset.setupPreset));
@@ -341,6 +399,10 @@ namespace Diceforge.View
         {
             if (HasPendingResultSave) return;
             bool wasRunning = _isRunning;
+            if (selectionPresentation != null) StopCoroutine(selectionPresentation);
+            selectionPresentation = null;
+            if (resultPresentation != null) StopCoroutine(resultPresentation);
+            resultPresentation = null;
             _elapsed = 0f;
             _pendingAnimatedTokenName = null;
             _hasBattleResultTriggered = false;
@@ -384,6 +446,10 @@ namespace Diceforge.View
 
         private void HandleMatchStarted(GameState state)
         {
+            matchGeneration++;
+            IsPassingTrailTurn = false;
+            SelectedHeroId = null;
+            _lastHumanInputFeedback = string.Empty;
             RewardSession = new BattleRewardSession(_externalPreset != null ? _externalPreset.modeId : MatchService.ActivePreset?.modeId);
             _hasBattleResultTriggered = false;
             _waitingForFromCell = false;
@@ -400,6 +466,7 @@ namespace Diceforge.View
             _elapsed = 0f;
             _rerollUsedThisTurn = false;
             _pendingAnimatedTokenName = null;
+            if (DemoLevel != null) _lastHumanInputFeedback = string.Empty;
             LogRerollCount("TurnStarted");
             if (IsHumanTurn())
                 OnHumanTurnStarted?.Invoke();
@@ -424,26 +491,27 @@ namespace Diceforge.View
 
         private void HandleMatchEnded(MatchResult result)
         {
-            if (FindAnyObjectByType<DioramaBoard>() != null) StartCoroutine(FinishAfterPresentation(result));
+            if (FindAnyObjectByType<DioramaBoard>() != null) resultPresentation = StartCoroutine(FinishAfterPresentation(result));
             else FinalizeMatchResult(result);
         }
         private System.Collections.IEnumerator FinishAfterPresentation(MatchResult result)
         {
             var endedRunner=_runner;
+            int endedGeneration = matchGeneration;
             var profile = Resources.Load<BattlePresentationProfile>("BattlePresentationProfile");
             yield return WaitForPresentation(
-                () => ReferenceEquals(endedRunner, _runner) && IsBoardAnimating(),
+                () => ReferenceEquals(endedRunner, _runner) && endedGeneration == matchGeneration && IsBoardAnimating(),
                 DioramaBoard.ReducedMotion ? 0f : profile != null ? profile.victorySeconds : .5f,
                 () =>
                 {
-                    if (!ReferenceEquals(endedRunner, _runner)) return;
+                    if (!ReferenceEquals(endedRunner, _runner) || endedGeneration != matchGeneration) return;
                     boardViewController?.ReactToMatchEnd(result.Winner);
                     var cue = result.Winner == localPlayer ? profile?.victoryClip : profile?.defeatClip;
                     Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(cue, profile != null ? profile.soundGain : 1f);
                 },
                 () =>
                 {
-                    if (ReferenceEquals(endedRunner, _runner) && _runner.State.IsFinished)
+                    if (ReferenceEquals(endedRunner, _runner) && endedGeneration == matchGeneration && _runner.State.IsFinished)
                         FinalizeMatchResult(result);
                 });
         }
@@ -486,10 +554,38 @@ namespace Diceforge.View
 
         private void HandleCellClicked(int cellIndex)
         {
+            HandleSelectedCell(cellIndex, boardView?.ConsumeLastClickedPlayerATokenName());
+        }
+
+        private void HandleSelectedCell(int cellIndex, string clickedTokenName)
+        {
             if (_runner?.State == null || !IsHumanTurn() || _runner.State.IsFinished || _runner.MatchEnded || IsBoardAnimating())
                 return;
 
             EnsureHumanTurnReady();
+
+            if (DemoLevel != null)
+            {
+                string heroId = boardViewController.HeroForToken(clickedTokenName);
+                if (heroId == null)
+                {
+                    int candidates = 0;
+                    foreach (string id in DemoLevel.heroIds)
+                        if (TryGetHero(id, out int heroCell, out string name, out bool exited) && !exited && heroCell == cellIndex)
+                        {
+                            candidates++;
+                            heroId = id;
+                            clickedTokenName = name;
+                        }
+                    if (candidates != 1)
+                    {
+                        _lastHumanInputFeedback = "Choose a friend by name.";
+                        UpdateUI();
+                        return;
+                    }
+                }
+                SelectedHeroId = heroId;
+            }
 
             var move = SelectMoveForCell(cellIndex);
             if (!move.HasValue)
@@ -499,11 +595,12 @@ namespace Diceforge.View
                 if (_runner.SelectedDieIndex.HasValue && _runner.RemainingDice.Count > _runner.SelectedDieIndex.Value)
                 {
                     int die = _runner.RemainingDice[_runner.SelectedDieIndex.Value];
-                    _lastHumanInputFeedback = $"No legal move from cell {cellIndex} with die {die}";
+                    _lastHumanInputFeedback = DemoLevel != null ? "This landing is unavailable. Choose another step or friend."
+                        : $"No legal move from cell {cellIndex} with die {die}";
                 }
                 else
                 {
-                    _lastHumanInputFeedback = $"No legal move from cell {cellIndex}";
+                    _lastHumanInputFeedback = DemoLevel != null ? "Choose a step." : $"No legal move from cell {cellIndex}";
                 }
 
                 if (verboseLog)
@@ -512,7 +609,7 @@ namespace Diceforge.View
                 return;
             }
 
-            _pendingAnimatedTokenName = boardView?.ConsumeLastClickedPlayerATokenName();
+            _pendingAnimatedTokenName = clickedTokenName;
             _waitingForFromCell = false;
             boardView?.SetCellSelectionEnabled(false);
             _lastHumanInputFeedback = string.Empty;
@@ -529,9 +626,10 @@ namespace Diceforge.View
         private System.Collections.IEnumerator ApplyAfterSelection(Move move, float seconds)
         {
             var selectedRunner = _runner;
+            int selectedGeneration = matchGeneration;
             yield return new WaitForSeconds(seconds);
             selectionPresentation = null;
-            if (ReferenceEquals(selectedRunner, _runner) && _runner?.State != null && !_runner.State.IsFinished)
+            if (ReferenceEquals(selectedRunner, _runner) && selectedGeneration == matchGeneration && _runner?.State != null && !_runner.State.IsFinished)
                 ApplyHumanMove(move);
         }
 
@@ -596,14 +694,14 @@ namespace Diceforge.View
             }
 
             var state = _runner.State;
-            PlayerId winner = GetOpponent(localPlayer);
+            PlayerId? winner = state.Rules.gameMode == GameMode.SoloTrail ? null : GetOpponent(localPlayer);
 
             // The battle rules do not track HP directly, so analytics reports remaining stones as HP-equivalent state.
             ClientDiagnostics.RecordBattleSurrender(new BattleSurrenderDiagnosticsContext(
                 BuildBattleAnalyticsId(),
                 state.TurnIndex,
                 GetRemainingStones(localPlayer),
-                GetRemainingStones(winner)));
+                winner.HasValue ? GetRemainingStones(winner.Value) : 0));
 
             if (IsDebugHudVisible())
                 Debug.Log("[Battle] Player surrendered", this);
@@ -681,7 +779,7 @@ namespace Diceforge.View
             if (allowInteraction)
             {
                 EnsureHumanTurnReady();
-                if (_runner.EndTurnIfNoMoves())
+                if (_runner.Rules.gameMode != GameMode.SoloTrail && _runner.EndTurnIfNoMoves())
                     return;
             }
 

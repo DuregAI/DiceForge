@@ -64,6 +64,7 @@ public static class MatchService
 
         var rules = RulesetConfig.FromPreset(preset.rulesetPreset);
         rules.Validate();
+        preset.demoLevel?.Validate(rules);
         return rules;
     }
 

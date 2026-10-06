@@ -19,6 +19,9 @@ namespace Diceforge.Presets
 
         [Header("Board")]
         public GameMode gameMode = GameMode.Long;
+        public SoloTrailStepOfferMode soloTrailStepOfferMode = SoloTrailStepOfferMode.Sequential;
+        public SoloTrailHazard soloTrailHazard;
+        public int soloTrailHazardStartCell = 4;
         public int boardSize = 24;
         public int homeSize = 6;
         public int totalStonesPerPlayer = 15;

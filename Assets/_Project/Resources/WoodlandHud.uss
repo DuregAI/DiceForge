@@ -237,6 +237,26 @@ Button:disabled { opacity: .58; }
 .narrow .pause-window { width: 320px; padding: 18px 22px 22px; }
 .narrow .pause-title { font-size: 25px; }
 .hidden { display: none; }
+.demo-title { font-size: 18px; margin: 0 108px 4px 0; white-space: normal; -unity-text-align: middle-center; }
+.demo-step-rule { font-size: 16px; margin: 0 0 4px; -unity-text-align: middle-center; }
+.demo-hazard-hint { font-size: 14px; margin: 3px 0; white-space: normal; -unity-text-align: middle-center; }
+.demo-mode .bottom-bar { max-width: 650px; padding: 10px 22px 16px; }
+.demo-mode .demo-meta { flex-direction: row; justify-content: center; align-items: center; }
+.demo-mode #actionsRemaining { margin-left: 18px; }
+.demo-mode .action-row { flex-direction: row; align-items: center; justify-content: center; }
+.demo-mode .move-token { width: 72px; height: 72px; font-size: 23px; padding-bottom: 5px; margin: 7px 6px 4px; }
+.demo-mode .token-marker { width: 19px; height: 23px; }
+.demo-mode #selectedHero { display: none; }
+.demo-mode .demo-heroes { margin-left: 12px; }
+.demo-mode.narrow .action-row { flex-direction: column; }
+.demo-mode.narrow .demo-heroes { margin-left: 0; }
+.demo-heroes { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+.demo-hero { min-height: 44px; margin: 4px; padding: 6px 16px; }
+.demo-hero-luma { background-color: rgb(42, 92, 85); border-color: rgb(113, 199, 189); }
+.demo-hero-bum { background-color: rgb(114, 79, 35); border-color: rgb(220, 173, 77); }
+.demo-hero.selected { border-color: rgb(255, 224, 135); border-width: 3px; }
+.demo-selected-hero { font-size: 14px; margin: 2px 0; -unity-text-align: middle-center; white-space: normal; }
+.narrow .demo-title { font-size: 15px; margin-right: 108px; }
 .compact .top-bar { margin-right: 108px; }
 .compact .score-panel { width: 117px; height: 56px; padding-left: 12px; padding-right: 12px; }
 .compact .team-icon { width: 24px; height: 29px; margin-right: 5px; }

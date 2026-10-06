@@ -2,6 +2,7 @@
   <ui:Style src="WoodlandHud.uss" />
   <ui:VisualElement name="woodlandRoot" picking-mode="Ignore">
     <ui:VisualElement class="hud-header" picking-mode="Ignore">
+      <ui:Label name="demoTitle" class="demo-title hidden" picking-mode="Ignore" />
       <ui:VisualElement class="top-bar" picking-mode="Ignore">
         <ui:VisualElement class="score-panel" picking-mode="Ignore">
           <ui:VisualElement name="teamIconA" class="team-icon" picking-mode="Ignore" />
@@ -13,7 +14,7 @@
         <ui:VisualElement name="turnPlaque" class="turn-plaque" picking-mode="Ignore">
           <ui:Label name="turn" class="turn" text="YOUR TURN" picking-mode="Ignore" />
         </ui:VisualElement>
-        <ui:VisualElement class="score-panel" picking-mode="Ignore">
+        <ui:VisualElement name="scorePanelB" class="score-panel" picking-mode="Ignore">
           <ui:VisualElement name="teamIconB" class="team-icon" picking-mode="Ignore" />
           <ui:VisualElement class="score-copy" picking-mode="Ignore">
             <ui:Label name="scoreB" class="score" text="0 / 2" picking-mode="Ignore" />
@@ -21,6 +22,7 @@
           </ui:VisualElement>
         </ui:VisualElement>
       </ui:VisualElement>
+      <ui:Label name="hazardHint" class="demo-hazard-hint hidden" picking-mode="Ignore" />
       <ui:VisualElement class="hud-actions" picking-mode="Ignore">
         <ui:Button name="pause" class="pause" tooltip="Pause" />
         <ui:Button name="settings" class="settings" tooltip="Settings" />
@@ -28,7 +30,15 @@
     </ui:VisualElement>
     <ui:VisualElement class="board-space" picking-mode="Ignore" />
     <ui:VisualElement class="bottom-bar">
-      <ui:VisualElement name="moves" class="moves" picking-mode="Ignore" />
+      <ui:VisualElement class="demo-meta" picking-mode="Ignore">
+        <ui:Label name="stepRule" class="demo-step-rule hidden" picking-mode="Ignore" />
+        <ui:Label name="actionsRemaining" class="demo-selected-hero hidden" picking-mode="Ignore" />
+      </ui:VisualElement>
+      <ui:VisualElement class="action-row" picking-mode="Ignore">
+        <ui:VisualElement name="moves" class="moves" picking-mode="Ignore" />
+        <ui:VisualElement name="demoHeroes" class="demo-heroes hidden" />
+      </ui:VisualElement>
+      <ui:Label name="selectedHero" class="demo-selected-hero hidden" picking-mode="Ignore" />
       <ui:VisualElement class="bottom-line" picking-mode="Ignore">
         <ui:Label name="hint" text="Choose a step. Choose a goblin." picking-mode="Ignore" />
         <ui:Button name="reroll" text="Reroll" />
@@ -39,6 +49,7 @@
         <ui:VisualElement name="pauseMain">
           <ui:Label text="Paused" class="menu-title pause-title" />
           <ui:Button name="resume" text="Resume" class="pause-action pause-primary" />
+          <ui:Button name="restartTrail" text="Restart trail" class="pause-action hidden" />
           <ui:Button name="pauseSettings" text="Settings" class="pause-action" />
           <ui:VisualElement class="pause-options">
             <ui:Toggle name="mute" text="Mute audio" class="pause-toggle" />
@@ -47,8 +58,8 @@
           <ui:Button name="surrender" text="Surrender" class="pause-action pause-surrender" />
         </ui:VisualElement>
         <ui:VisualElement name="confirmSurrender" class="pause-confirm hidden">
-          <ui:Label text="Surrender?" class="menu-title pause-title" />
-          <ui:Label text="End this match in defeat?" class="pause-confirm-message" />
+          <ui:Label name="leaveTitle" text="Surrender?" class="menu-title pause-title" />
+          <ui:Label name="leaveMessage" text="End this match in defeat?" class="pause-confirm-message" />
           <ui:Button name="cancelSurrender" text="Cancel" class="pause-action pause-primary" />
           <ui:Button name="acceptSurrender" text="Yes, surrender" class="pause-action pause-surrender" />
         </ui:VisualElement>

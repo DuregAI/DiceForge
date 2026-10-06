@@ -19,3 +19,4 @@ MonoBehaviour:
   diceBagB: {fileID: 11400000, guid: 4d4716406f3a4fc5843ed6ea63a9abd0, type: 2}
   setupPreset: {fileID: 11400000, guid: 3ce2befd81384b8fbf0d04ae6f912ec1, type: 2}
   mapConfig: {fileID: 11400000, guid: f06e2ff3bde94bc892dfe2b852666f6c, type: 2}
+  demoLevel: {fileID: 11400000, guid: 7a6562a1848a3d5ddf6c603f53f8a0e0, type: 2}

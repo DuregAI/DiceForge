@@ -24,6 +24,9 @@ namespace Diceforge.View
         public UIDocument Document => document;
         private VisualElement root, panel, dice, menu, settingsPanel;
         private Label turn, scoreA, scoreB, roleLabelA, roleLabelB, hint;
+        private Label demoTitle, stepRule, selectedHero;
+        private string previewHero;
+        private readonly System.Collections.Generic.Dictionary<string, Button> heroButtons = new();
         private Button reroll, settingsButton, settingsMute;
         private Toggle pauseMute;
         private Slider musicSlider, sfxSlider;
@@ -66,6 +69,7 @@ namespace Diceforge.View
             pauseDismiss=new Diceforge.UI.ModalDismiss(menu,root.Q("pauseWindow"),HandlePauseDismiss);
             turn=root.Q<Label>("turn");scoreA=root.Q<Label>("scoreA");scoreB=root.Q<Label>("scoreB");hint=root.Q<Label>("hint");
             roleLabelA=root.Q<Label>("roleA");roleLabelB=root.Q<Label>("roleB");
+            InitializeDemoControls();
             AttachTeamIcon(root.Q("teamIconA"),PlayerId.A);
             AttachTeamIcon(root.Q("teamIconB"),PlayerId.B);
             reroll=root.Q<Button>("reroll");reroll.clicked+=()=>battle.PresentationReroll();
@@ -89,6 +93,77 @@ namespace Diceforge.View
             pauseMute.SetValueWithoutNotify(audioManager!=null && audioManager.IsMuted);
             pauseMute.RegisterValueChangedCallback(e=>audioManager?.SetMuted(e.newValue));
             board.GeometryChanged+=OnGeometryChanged;
+        }
+
+        private void InitializeDemoControls()
+        {
+            if (battle.DemoLevel == null) return;
+            panel.AddToClassList("demo-mode");
+            demoTitle = root.Q<Label>("demoTitle");
+            stepRule = root.Q<Label>("stepRule");
+            selectedHero = root.Q<Label>("selectedHero");
+            var heroes = root.Q("demoHeroes");
+            root.Q("scorePanelB")?.AddToClassList("hidden");
+            demoTitle.RemoveFromClassList("hidden");
+            stepRule.RemoveFromClassList("hidden");
+            selectedHero.RemoveFromClassList("hidden");
+            heroes.RemoveFromClassList("hidden");
+            foreach (string id in battle.DemoLevel.heroIds)
+            {
+                string heroId = id;
+                var button = new Button(() => battle.MovePresentationHero(heroId)) { name = "hero_" + heroId };
+                button.AddToClassList("demo-hero");
+                button.AddToClassList("demo-hero-" + heroId);
+                heroes.Add(button);
+                heroButtons.Add(heroId, button);
+                button.RegisterCallback<PointerEnterEvent>(_ => previewHero = heroId);
+                button.RegisterCallback<FocusInEvent>(_ => previewHero = heroId);
+                button.RegisterCallback<PointerLeaveEvent>(_ => { previewHero = null; board.Preview(null, null, -1); });
+                button.RegisterCallback<FocusOutEvent>(_ => { previewHero = null; board.Preview(null, null, -1); });
+            }
+            var restart = root.Q<Button>("restartTrail");
+            restart.RemoveFromClassList("hidden");
+            restart.clicked += () => { CloseBattleMenus(); battle.RestartMatch(); };
+            localization.Refresh();
+        }
+
+        private readonly System.Collections.Generic.HashSet<string> presentedExited = new();
+        private void RefreshDemoControls(bool can)
+        {
+            if (battle.DemoLevel == null) return;
+            SetText(demoTitle, localization.T(battle.DemoLevel.title));
+            SetText(stepRule, localization.T(battle.PresentationState.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential
+                ? "Two steps per turn" : "One step per turn"));
+            SetText(selectedHero, string.IsNullOrEmpty(battle.SelectedHeroId) ? localization.T("Choose a friend by name.")
+                : string.Format(localization.T("Selected: {0}"), localization.T(Diceforge.GameModes.DemoLevelDefinition.HeroName(battle.SelectedHeroId))));
+            foreach (var pair in heroButtons)
+            {
+                bool found = battle.TryGetHero(pair.Key, out _, out _, out bool exited);
+                if (!battle.PresentationIsAnimating)
+                {
+                    if (exited) presentedExited.Add(pair.Key);
+                    else presentedExited.Remove(pair.Key);
+                }
+                pair.Value.text = localization.T(Diceforge.GameModes.DemoLevelDefinition.HeroName(pair.Key))
+                    + (presentedExited.Contains(pair.Key) ? " · " + localization.T("Arrived") : string.Empty);
+                pair.Value.SetEnabled(can && found && !exited);
+                pair.Value.EnableInClassList("selected", battle.SelectedHeroId == pair.Key);
+            }
+            var actions = root.Q<Label>("actionsRemaining");
+            bool sequential = battle.PresentationState.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential;
+            actions.EnableInClassList("hidden", !sequential);
+            if (sequential && !battle.PresentationIsAnimating)
+                SetText(actions, string.Format(localization.T("Actions left: {0}"), battle.PresentationDice.Count));
+            var hazard = root.Q<Label>("hazardHint");
+            var state = battle.PresentationState;
+            hazard.EnableInClassList("hidden", state.Rules.soloTrailHazard == SoloTrailHazard.None);
+            if (state.Rules.soloTrailHazard != SoloTrailHazard.None && !battle.PresentationIsAnimating)
+                SetText(hazard, localization.T(state.Rules.soloTrailHazard == SoloTrailHazard.Bark ? "Bark blocks the landing. Jump over him."
+                    : state.TrailHazardCell >= 0 ? "Ryzh moves after both steps." : "Ryzh has stepped aside. The trail is clear."));
+            root.Q<Button>("surrender").text = localization.T("Leave trail");
+            root.Q<Label>("leaveTitle").text = localization.T("Leave trail?");
+            root.Q<Label>("leaveMessage").text = localization.T("Return to the map without completing this trail?");
+            root.Q<Button>("acceptSurrender").text = localization.T("To map");
         }
         private static void AddPauseToggleCheck(Toggle toggle)
         {
@@ -229,18 +304,30 @@ namespace Diceforge.View
             string roleA=localization.T(battle.LocalPlayer==PlayerId.A?"You":"Opponent");
             string roleB=localization.T(battle.LocalPlayer==PlayerId.B?"You":"Opponent");
             SetText(roleLabelA,roleA);SetText(roleLabelB,roleB);
-            SetText(scoreA,$"{state.GetBorneOff(PlayerId.A)} / {state.Rules.totalStonesPerPlayer}");
+            if (battle.DemoLevel != null) SetText(roleLabelA,localization.T("Arrived"));
+            if (battle.DemoLevel == null || !battle.PresentationIsAnimating)
+                SetText(scoreA,$"{state.GetBorneOff(PlayerId.A)} / {state.Rules.totalStonesPerPlayer}");
             SetText(scoreB,$"{state.GetBorneOff(PlayerId.B)} / {state.Rules.totalStonesPerPlayer}");
             scoreA.parent.tooltip=$"{localization.T("LEAF")} · {roleA}";
             scoreB.parent.tooltip=$"{localization.T("MOON")} · {roleB}";
             string hintKey=ResolveHintKey(battle.PresentationIsAnimating,can,battle.PresentationHasLegalMove,
                 battle.PresentationSelectedDie.HasValue,battle.PresentationDice?.Count ?? 0);
+            if (battle.DemoLevel != null && can)
+                hintKey = string.IsNullOrEmpty(battle.DemoInputFeedback)
+                    ? state.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential && battle.PresentationDice.Count == 1
+                        ? "One more action. Choose a friend." : "Choose a step, then a friend." : battle.DemoInputFeedback;
+            if (battle.IsPassingTrailTurn) hintKey = "No steps available. Starting a new turn.";
             SetText(hint,localization.T(hintKey));
+            RefreshDemoControls(can && !paused);
+            if (can && !paused && previewHero != null && battle.TryGetHero(previewHero, out int previewCell, out _, out bool left) && !left)
+                battle.PreviewPresentationCell(board, previewCell);
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;
             string signature=can+":"+state.CurrentPlayer+":"+battle.PresentationSelectedDie+":";
             if(battle.PresentationDice!=null)foreach(int value in battle.PresentationDice)signature+=value+",";
-            if(signature!=diceSignature)
+            if (battle.DemoLevel != null && battle.PresentationIsAnimating)
+                foreach (var button in dice.Children()) button.SetEnabled(false);
+            else if(signature!=diceSignature)
             {
                 diceSignature=signature;dice.Clear();
                 if(battle.PresentationDice!=null)for(int i=0;i<battle.PresentationDice.Count;i++)

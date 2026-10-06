@@ -15,6 +15,8 @@ namespace Diceforge.View
         private BattleRunner _runner;
         private string _pendingAnimatedTokenName;
         private DioramaBoard _diorama;
+        private Diceforge.GameModes.DemoLevelDefinition demoLevel;
+        private DemoTrailHazardView hazardView;
         public void ConfigureDiorama(DioramaBoard board)
         {
             _diorama = board;
@@ -30,6 +32,7 @@ namespace Diceforge.View
         {
             get
             {
+                if (hazardView != null && hazardView.IsAnimating) return true;
                 if (stonesTokensView != null)
                     return stonesTokensView.IsAnimating;
 
@@ -44,6 +47,18 @@ namespace Diceforge.View
 
         public void ReactToSelection(string tokenRootName) => stonesTokensView?.ReactToSelection(tokenRootName);
         public void ReactToMatchEnd(PlayerId? winner) => stonesTokensView?.ReactToMatchEnd(winner);
+        public void ConfigureDemo(Diceforge.GameModes.DemoLevelDefinition level)
+        {
+            demoLevel = level;
+            stonesTokensView?.SetDemoLevel(level);
+            if (_diorama != null) _diorama.ConfigureTrail(level != null);
+        }
+        public string HeroForToken(string tokenName) => stonesTokensView?.HeroForToken(tokenName);
+        public bool TryGetHero(string heroId, out int cell, out string tokenName, out bool exited)
+        {
+            cell = -1; tokenName = null; exited = false;
+            return stonesTokensView != null && stonesTokensView.TryGetHero(heroId, out cell, out tokenName, out exited);
+        }
 
         public void SetMovers(BoardLayoutTokenMover a, BoardLayoutTokenMover b)
         {
@@ -78,6 +93,12 @@ namespace Diceforge.View
 
             if (_runner == null)
                 return;
+
+            if (demoLevel != null && _diorama != null)
+            {
+                hazardView = GetComponent<DemoTrailHazardView>() ?? gameObject.AddComponent<DemoTrailHazardView>();
+                hazardView.Configure(_runner, _diorama, stonesTokensView, demoLevel);
+            }
 
             _runner.OnMatchStarted += HandleMatchStarted;
             _runner.OnMoveApplied += HandleMoveApplied;

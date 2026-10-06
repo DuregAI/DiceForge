@@ -10,6 +10,15 @@ namespace Diceforge.Core
         SoloTrail = 2
     }
 
+    public enum SoloTrailStepOfferMode : byte
+    {
+        Sequential = 0,
+        Single = 1,
+        Alternatives = 2
+    }
+
+    public enum SoloTrailHazard : byte { None = 0, Bark = 1, Ryzh = 2 }
+
     [Serializable]
     public sealed class HeadRuleEntry
     {
@@ -77,6 +86,9 @@ namespace Diceforge.Core
         public int actionsPerTurn = 2;
 
         public GameMode gameMode = GameMode.Long;
+        public SoloTrailStepOfferMode soloTrailStepOfferMode = SoloTrailStepOfferMode.Sequential;
+        public SoloTrailHazard soloTrailHazard;
+        public int soloTrailHazardStartCell = 4;
 
         public int boardSize = 24;
         public int homeSize = 6;
@@ -116,6 +128,9 @@ namespace Diceforge.Core
                 allowReroll = preset.allowReroll,
                 actionsPerTurn = preset.actionsPerTurn,
                 gameMode = preset.gameMode,
+                soloTrailStepOfferMode = preset.soloTrailStepOfferMode,
+                soloTrailHazard = preset.soloTrailHazard,
+                soloTrailHazardStartCell = preset.soloTrailHazardStartCell,
                 boardSize = preset.boardSize,
                 homeSize = preset.homeSize,
                 totalStonesPerPlayer = preset.totalStonesPerPlayer,

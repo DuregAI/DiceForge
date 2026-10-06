@@ -31,6 +31,8 @@ namespace Diceforge.View
         private bool _hasPlacement;
         private IBoardGeometry _geometry;
         private bool _diorama;
+        private float presentationJumpHeight = .32f;
+        public void SetJumpHeight(float height) => presentationJumpHeight = Mathf.Max(0, height);
         public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; _diorama = geometry is DioramaBoard; }
         public void MoveToWorld(Vector3 destination, int resolvedCellId, float duration)
         {
@@ -188,7 +190,7 @@ namespace Diceforge.View
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
                 tokenRoot.position = Vector3.Lerp(startPosition, targetPosition, t);
-                if (_diorama && !DioramaBoard.ReducedMotion) tokenRoot.position += Vector3.up * (Mathf.Sin(t * Mathf.PI) * .32f);
+                if (_diorama && !DioramaBoard.ReducedMotion) tokenRoot.position += Vector3.up * (Mathf.Sin(t * Mathf.PI) * presentationJumpHeight);
                 yield return null;
             }
 

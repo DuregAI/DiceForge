@@ -270,9 +270,11 @@ namespace Diceforge.View
             if(Mouse.current!=null)
             {
                 var hover=Mouse.current.position.ReadValue();
-                if(!DioramaHud.IsOverInterface(hover) && TryPickDiorama(hover,out int hoverCell,out _))
-                    _diorama.Preview(_battle.PreviewMove(hoverCell),_battle.PresentationState,hoverCell);
-                else _diorama.Preview(null,null,-1);
+                if (!DioramaHud.IsOverInterface(hover))
+                {
+                    if (TryPickDiorama(hover, out int hoverCell, out _)) _battle.PreviewPresentationCell(_diorama, hoverCell);
+                    else _diorama.Preview(null, null, -1);
+                }
             }
             var touch = Touchscreen.current;
             if (touch != null)

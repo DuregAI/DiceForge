@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac46751b99e3ee0e22d8de068926d8d, type: 3}
+  m_Name: Demo_Level_05
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.GameModes.DemoLevelDefinition
+  sourceVersion: 0.1
+  sourceId: docs/DemoRC/v0.1/data/levels.json#L5
+  levelId: L5
+  title: Old crossing
+  heroIds:
+  - tish
+  - luma
+  - bum
+  bumPrefab: {fileID: 665225114892378097, guid: 2c00243addb317541a5cbe84eb6e67bf, type: 3}
+  hazardPrefab: {fileID: 3420654612266503661, guid: 5d5f15602a96efd4eb16c3a07a64a010, type: 3}

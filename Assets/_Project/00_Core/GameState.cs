@@ -30,6 +30,8 @@ namespace Diceforge.Core
 
         public bool IsFinished { get; private set; }
         public PlayerId? Winner { get; private set; }
+        public int TrailHazardCell { get; private set; } = -1;
+        public bool TrailHazardYielded { get; private set; }
 
         public GameState(RulesetConfig rules)
         {
@@ -68,6 +70,32 @@ namespace Diceforge.Core
 
             IsFinished = false;
             Winner = null;
+            ResetTrailHazard();
+        }
+
+        internal void ResetTrailHazard()
+        {
+            if (TrailHazardCell >= 0) RemoveStoneFromCell(PlayerId.B, TrailHazardCell);
+            TrailHazardCell = -1;
+            TrailHazardYielded = false;
+            if (Rules.gameMode != GameMode.SoloTrail || Rules.soloTrailHazard == SoloTrailHazard.None) return;
+            if (Rules.soloTrailHazardStartCell < 0 || Rules.soloTrailHazardStartCell >= Rules.boardSize)
+                throw new InvalidOperationException("Trail hazard start is outside the board.");
+            TrailHazardCell = Rules.soloTrailHazardStartCell;
+            AddStoneToCell(PlayerId.B, TrailHazardCell);
+        }
+
+        internal TrailHazardMove? AdvanceTrailHazard()
+        {
+            if (IsFinished || Rules.gameMode != GameMode.SoloTrail || Rules.soloTrailHazard != SoloTrailHazard.Ryzh || TrailHazardCell < 0)
+                return null;
+            int from = TrailHazardCell;
+            int next = from + 1;
+            TrailHazardYielded = next < Rules.boardSize && GetStonesAt(PlayerId.A, next) > 0;
+            RemoveStoneFromCell(PlayerId.B, from);
+            TrailHazardCell = TrailHazardYielded || next >= Rules.boardSize ? -1 : next;
+            if (TrailHazardCell >= 0) AddStoneToCell(PlayerId.B, TrailHazardCell);
+            return new TrailHazardMove(from, TrailHazardCell, TrailHazardYielded);
         }
 
         public int GetBorneOff(PlayerId p) => p == PlayerId.A ? BorneOffA : BorneOffB;

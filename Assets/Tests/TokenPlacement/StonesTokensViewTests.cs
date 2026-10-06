@@ -177,9 +177,20 @@ namespace Diceforge.Tests.TokenPlacement
 
         internal static void AssertPick(object picker, Camera camera, GameObject token, int cell)
         {
-            Vector3 screen = camera.WorldToScreenPoint(token.transform.position);
+            var collider = token.GetComponent<CapsuleCollider>();
+            Vector3 pickPosition = collider != null ? token.transform.TransformPoint(collider.center) : token.transform.position;
+            Vector3 screen = camera.WorldToScreenPoint(pickPosition);
             object[] args = { new Vector2(screen.x, screen.y), -1, null };
-            bool picked = (bool)Call(picker, "TryPickPlayerATokenCell", args);
+            // This checks collider geometry after movement, independently of whose turn follows it.
+            object battle = Get(picker, "_battle");
+            bool picked;
+            try
+            {
+                Set(picker, "_battle", null);
+                Physics.SyncTransforms();
+                picked = (bool)Call(picker, "TryPickPlayerATokenCell", args);
+            }
+            finally { Set(picker, "_battle", battle); }
             Assert.That(picked, Is.True, token.name);
             Assert.That(args[1], Is.EqualTo(cell));
             Assert.That(args[2], Is.EqualTo(token.name));
@@ -211,8 +222,10 @@ namespace Diceforge.Tests.TokenPlacement
             _view = (Component)Object.FindFirstObjectByType(RuntimeType("Diceforge.View.StonesTokensView"));
             object boardController = Object.FindFirstObjectByType(RuntimeType("Diceforge.View.BattleBoardViewController"));
             object runner = Get(controller, "_runner");
+            bool solo = Get(Property(runner, "Rules"), "gameMode").ToString() == "SoloTrail";
+            int expectedSides = solo ? 1 : 2;
             var seenPlayers = new HashSet<int>();
-            for (int attempt = 0; attempt < 12 && seenPlayers.Count < 2; attempt++)
+            for (int attempt = 0; attempt < 12 && seenPlayers.Count < expectedSides; attempt++)
             {
                 object gameState = Property(runner, "State");
                 int player = Convert.ToInt32(Property(gameState, "CurrentPlayer"));
@@ -244,11 +257,13 @@ namespace Diceforge.Tests.TokenPlacement
                 }
                 seenPlayers.Add(player);
             }
-            Assert.That(seenPlayers.Count, Is.EqualTo(2), $"Level {level}: both sides must move.");
+            Assert.That(seenPlayers.Count, Is.EqualTo(expectedSides), $"Level {level}: every active side must move.");
             // Use the normal restart entry point while a mover is still traversing the board.
             Call(controller, "RestartMatch");
             TokenAssignment[] restarted = Tokens().Where(t => (bool)Get(t, "assigned")).Select(t => (TokenAssignment)Get(t, "placement")).ToArray();
-            Call(runner, "Tick");
+            if (solo)
+                Call(runner, "TryApplyHumanMove", RuntimeType("Diceforge.Core.Move").GetMethod("MoveStone").Invoke(null, new object[] { 0, 1 }));
+            else Call(runner, "Tick");
             Assert.That((bool)Property(_view, "IsAnimating"), Is.True);
             yield return null;
             Call(boardController, "SetPendingAnimatedTokenName", "StoneA_00");

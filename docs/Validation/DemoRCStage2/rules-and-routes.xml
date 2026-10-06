@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="22" result="Passed" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 16:19:27Z" end-time="2026-10-06 16:19:28Z" duration="0,5143025">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="120" result="Passed" start-time="2026-10-06 16:19:27Z" end-time="2026-10-06 16:19:28Z" duration="0.514303" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1057" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-10-06 16:19:27Z" end-time="2026-10-06 16:19:28Z" duration="0.400464" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1058" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-10-06 16:19:27Z" end-time="2026-10-06 16:19:28Z" duration="0.399486" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1059" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.283895" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1060" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.282936" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1026" name="DemoCampaignTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.162450" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1040" name="AlternativesRefreshBothChoicesAfterExactlyOneAction" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AlternativesRefreshBothChoicesAfterExactlyOneAction" methodname="AlternativesRefreshBothChoicesAfterExactlyOneAction" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="2026321672" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.082478" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1039" name="AuthoringRoutesRunOnTheSavedCampaignPresets" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.041524" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1027" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="199471257" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.006063" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1028" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="217933540" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000890" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1029" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="772163581" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000791" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1030" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1271062364" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000742" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1031" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="448510727" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001811" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1032" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="756029677" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000842" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1033" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="635956310" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.003451" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1448459001" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001009" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1354601509" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.003021" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1706272914" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000961" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1200875835" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.002148" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1731502799" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000943" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1042" name="FirstFriendMayExitWhileTheOtherIsAtTheStart" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.FirstFriendMayExitWhileTheOtherIsAtTheStart" methodname="FirstFriendMayExitWhileTheOtherIsAtTheStart" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="462810504" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000432" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1041" name="InvalidSelectedStepPreservesTheOtherLegalChoice" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.InvalidSelectedStepPreservesTheOtherLegalChoice" methodname="InvalidSelectedStepPreservesTheOtherLegalChoice" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1950750310" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.000901" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="NamedLumaMovesFromSharedCellWithoutMovingTish" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.NamedLumaMovesFromSharedCellWithoutMovingTish" methodname="NamedLumaMovesFromSharedCellWithoutMovingTish" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1141616093" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.022668" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+]]></output>
+              </test-case>
+              <test-case id="1043" name="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" methodname="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1796838331" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001160" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1045" name="DemoHazardTests" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.012143" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1048" name="BarkBlocksOnlyLandingAndNeverMoves" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.005109" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1046" name="BarkBlocksOnlyLandingAndNeverMoves(4)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(4)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="617489586" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001428" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="BarkBlocksOnlyLandingAndNeverMoves(6)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(6)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="359051085" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001549" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1049" name="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" methodname="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="417834267" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001361" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" methodname="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="2104871441" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001343" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1051" name="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" methodname="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="961836409" result="Passed" start-time="2026-10-06 16:19:28Z" end-time="2026-10-06 16:19:28Z" duration="0.001162" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/tehno/AppData/LocalLow/BarabolaCompany/GlimbleHop\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

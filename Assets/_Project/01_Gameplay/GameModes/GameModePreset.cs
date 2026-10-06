@@ -13,6 +13,7 @@ public class GameModePreset : ScriptableObject
     public DiceBagDefinition diceBagB;
     public SetupPreset setupPreset;
     public BattleMapConfig mapConfig;
+    public Diceforge.GameModes.DemoLevelDefinition demoLevel;
 
     private void OnValidate()
     {

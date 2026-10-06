@@ -32,6 +32,28 @@ namespace Diceforge.View
         private readonly List<Vector3> previewPoints = new();
         private readonly Dictionary<int, TextMesh> badges = new();
         private Sprite badgeSprite;
+        private bool trailMode;
+        private GameObject trailExit;
+        private TextMesh blockedSign;
+        public void ConfigureTrail(bool enabled)
+        {
+            trailMode = enabled;
+            if (enabled && trailExit == null && cells != null && cells.Length > 0)
+            {
+                trailExit = Instantiate(cells[0].highlight.gameObject, transform);
+                trailExit.name = "TrailExit";
+                trailExit.transform.localScale *= 1.2f;
+                trailExit.SetActive(true);
+                trailExit.GetComponent<Renderer>().enabled = true;
+            }
+            if (trailExit != null) trailExit.SetActive(enabled);
+            FitCamera();
+            RefreshTrailExit();
+        }
+        private void RefreshTrailExit()
+        {
+            if (trailExit != null) trailExit.transform.position = ExitPosition(0) + Vector3.up * .04f;
+        }
         public void Initialize()
         {
             if (configured) return;
@@ -75,6 +97,7 @@ namespace Diceforge.View
             cells = (portrait ? portraitRoot : landscapeRoot).GetComponentsInChildren<DioramaCell>();
             if(changed)(portrait?portraitLighting:landscapeLighting)?.Apply(portrait?portraitRoot:landscapeRoot);
             FitCamera();
+            RefreshTrailExit();
             if (changed) { Preview(null, null, -1); ClearBadges(); GeometryChanged?.Invoke(); }
         }
         private void FitCamera()
@@ -101,8 +124,18 @@ namespace Diceforge.View
             return (slot%3) switch { 0 => new Vector3(-.20f,0,-.10f), 1 => new Vector3(.20f,0,-.10f), _ => new Vector3(0,0,.21f) };
         }
         public Vector3 WaitingPosition(int player) => transform.TransformPoint(new Vector3((player==0?-1:1)*.66f,.23f,0));
-        public Vector3 ExitPosition(int player) => WaitingPosition(player) + Vector3.forward*.8f;
-        public Bounds WorldBounds => new Bounds(transform.position, IsPortrait?layout.portraitSize:layout.landscapeSize);
+        public Vector3 ExitPosition(int player) => trailMode
+            ? CellPosition(7) + (CellPosition(7) - CellPosition(6)).normalized * .85f
+            : WaitingPosition(player) + Vector3.forward*.8f;
+        public Bounds WorldBounds
+        {
+            get
+            {
+                var bounds = new Bounds(transform.position, IsPortrait ? layout.portraitSize : layout.landscapeSize);
+                if (trailMode) bounds.Encapsulate(new Bounds(ExitPosition(0), Vector3.one * 1.1f));
+                return bounds;
+            }
+        }
         public void Highlight(IReadOnlyCollection<int> ids)
         {
             if(cells==null)return;
@@ -110,6 +143,7 @@ namespace Diceforge.View
         }
         public void Preview(Move? move,GameState state,int cell)
         {
+            if (blockedSign != null) blockedSign.gameObject.SetActive(false);
             if(!move.HasValue || state==null)
             {
                 if(preview!=null)preview.enabled=false;if(landingRim!=null)landingRim.SetActive(false);return;
@@ -129,7 +163,8 @@ namespace Diceforge.View
                 for(int i=0;i<=steps;i++)
                 {
                     destination=(value.FromCell+path.MoveDir*i+layout.cellIds.Length*2)%layout.cellIds.Length;
-                    points.Add(CellPosition(destination));
+                    points.Add(CellPosition(destination) + (trailMode && steps > 1 && !ReducedMotion
+                        ? Vector3.up * (Mathf.Sin(i / (float)steps * Mathf.PI) * .75f) : Vector3.zero));
                 }
                 if(value.Kind==MoveKind.BearOff)points.Add(ExitPosition((int)state.CurrentPlayer));
             }
@@ -162,6 +197,25 @@ namespace Diceforge.View
                 landingRim.SetActive(value.Kind!=MoveKind.BearOff);
                 landingRim.transform.position=points[points.Count-1]+Vector3.up*.03f;
             }
+        }
+        public void PreviewBlocked(int from, int step, GameState state)
+        {
+            Preview(Move.MoveStone(from, step), state, from + step);
+            if (preview != null) preview.startColor = preview.endColor = new Color(1, .48f, .32f);
+            if (blockedSign == null)
+            {
+                var sign = new GameObject("UnavailableLanding");
+                sign.transform.SetParent(transform, false);
+                blockedSign = sign.AddComponent<TextMesh>();
+                blockedSign.text = "X";
+                blockedSign.anchor = TextAnchor.MiddleCenter;
+                blockedSign.characterSize = .13f;
+                blockedSign.fontSize = 36;
+                blockedSign.color = new Color(1, .68f, .3f);
+            }
+            blockedSign.gameObject.SetActive(true);
+            blockedSign.transform.position = CellPosition(from + step) + Vector3.up * .9f;
+            if (cameraView != null) blockedSign.transform.rotation = cameraView.transform.rotation;
         }
         public void SetCount(int player,int cell,int count)
         {

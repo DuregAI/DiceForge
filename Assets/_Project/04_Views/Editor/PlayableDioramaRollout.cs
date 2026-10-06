@@ -141,8 +141,12 @@ namespace Diceforge.View.Editor
                 rules.homeSize = 2;
                 rules.startCellA = 0;
                 rules.startCellB = 7;
-                rules.maxUnitsPerSide = goblinsPerSide[level - 1];
-                rules.totalStonesPerPlayer = goblinsPerSide[level - 1];
+                if (preset.demoLevel == null)
+                {
+                    rules.maxUnitsPerSide = goblinsPerSide[level - 1];
+                    rules.totalStonesPerPlayer = goblinsPerSide[level - 1];
+                }
+                else preset.demoLevel.Validate(RulesetConfig.FromPreset(rules));
                 setup.boardSize = 8;
                 map.boardLayout = layout;
                 map.mapTheme = theme;
@@ -156,7 +160,7 @@ namespace Diceforge.View.Editor
                 EditorUtility.SetDirty(theme);
             }
             AssetDatabase.SaveAssets();
-            Debug.Log("Campaign levels 01-06 now share the eight-cell trail with 2/2/2/3/3/4 goblins per side.");
+            Debug.Log("Campaign levels 01-06 now share the eight-cell trail. Authored demo teams are preserved.");
         }
 
         private static void ConfigureGoblinClips()

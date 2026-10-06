@@ -17,24 +17,27 @@ MonoBehaviour:
   maxRounds: 1
   maxUnitsPerSide: 3
   allowReroll: 0
-  actionsPerTurn: 2
-  gameMode: 0
+  actionsPerTurn: 1
+  gameMode: 2
+  soloTrailStepOfferMode: 2
+  soloTrailHazard: 1
+  soloTrailHazardStartCell: 4
   boardSize: 8
   homeSize: 2
   totalStonesPerPlayer: 3
   dieMin: 1
-  dieMax: 5
+  dieMax: 2
   startCellA: 0
   startCellB: 7
   moveDirA: 1
   moveDirB: -1
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
-  maxTurns: 160
+  maxTurns: 64
   randomSeed: 12345
   verboseLog: 0
   headRules:
-    restrictHeadMoves: 1
+    restrictHeadMoves: 0
     maxHeadMovesPerTurn: 1
     firstTurnHeadAllowance:
     - dieA: 6

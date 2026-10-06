@@ -40,6 +40,35 @@ namespace Diceforge.View
         private GameState _lastState;
         private string _finishingId;
         private BattlePresentationProfile presentation;
+        private Diceforge.GameModes.DemoLevelDefinition demoLevel;
+        public void SetDemoLevel(Diceforge.GameModes.DemoLevelDefinition level) => demoLevel = level;
+
+        public bool TryGetHero(string heroId, out int cell, out string tokenName, out bool exited)
+        {
+            cell = -1;
+            tokenName = null;
+            exited = false;
+            if (demoLevel == null || demoLevel.heroIds == null) return false;
+            for (int i = 0; i < demoLevel.heroIds.Length && i < _tokensA.Count; i++)
+            {
+                if (demoLevel.heroIds[i] != heroId) continue;
+                var token = _tokensA[i];
+                if (!token.assigned) return false;
+                cell = token.placement.Location == TokenLocation.Cell ? token.placement.Cell : -1;
+                tokenName = token.root.name;
+                exited = token.placement.Location == TokenLocation.BorneOff;
+                return true;
+            }
+            return false;
+        }
+
+        public string HeroForToken(string tokenName)
+        {
+            if (demoLevel == null || string.IsNullOrEmpty(tokenName)) return null;
+            for (int i = 0; i < demoLevel.heroIds.Length && i < _tokensA.Count; i++)
+                if (_tokensA[i].root.name == tokenName) return demoLevel.heroIds[i];
+            return null;
+        }
         public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; }
         public void RefreshGeometry(GameState state)
         {
@@ -83,7 +112,7 @@ namespace Diceforge.View
                 return;
 
             int totalA = CountTotalStones(matchState, PlayerId.A);
-            int totalB = CountTotalStones(matchState, PlayerId.B);
+            int totalB = demoLevel != null ? 0 : CountTotalStones(matchState, PlayerId.B);
 
             EnsurePool(PlayerId.A, totalA);
             EnsurePool(PlayerId.B, totalB);
@@ -234,8 +263,8 @@ namespace Diceforge.View
             ApplyAssignments(result.Assignments, counts, null);
         }
 
-        private static TokenCounts ReadCounts(GameState state) => new TokenCounts(
-            state.StonesAByCell.ToArray(), state.StonesBByCell.ToArray(),
+        private TokenCounts ReadCounts(GameState state) => new TokenCounts(
+            state.StonesAByCell.ToArray(), demoLevel != null ? new int[state.Rules.boardSize] : state.StonesBByCell.ToArray(),
             state.GetBarCount(PlayerId.A), state.GetBarCount(PlayerId.B),
             state.GetBorneOff(PlayerId.A), state.GetBorneOff(PlayerId.B));
 
@@ -346,9 +375,15 @@ namespace Diceforge.View
                 }
         }
 
-        private static void AnimateMove(TokenBinding token, MoveRecord record, int boardSize)
+        private void AnimateMove(TokenBinding token, MoveRecord record, int boardSize)
         {
             token.mover.CancelAllMovement();
+            if (demoLevel != null && _geometry is DioramaBoard)
+            {
+                token.mover.SetJumpHeight((record.PipUsed ?? 1) >= 2 ? .75f : .32f);
+                token.mover.MoveToWorld(_geometry.CellPosition(record.ToCell.Value), record.ToCell.Value, DioramaBoard.ReducedMotion ? .08f : .5f);
+                return;
+            }
             if (record.Move.Value.Kind != MoveKind.EnterFromBar && record.FromCell.HasValue &&
                 record.PipUsed.HasValue && token.mover.CurrentCellId == record.FromCell.Value &&
                 BoardMoveAnimationResolver.TryResolveSignedSteps(boardSize, record.FromCell.Value,
@@ -428,7 +463,12 @@ namespace Diceforge.View
             while (tokens.Count < requiredCount)
             {
                 int index = tokens.Count;
-                GameObject instance = Instantiate(unitPrefab, _unitsRoot);
+                GameObject heroPrefab = player == PlayerId.A && demoLevel != null &&
+                    index < demoLevel.heroIds.Length && demoLevel.heroIds[index] == "luma"
+                    ? _teamBUnitPrefab : unitPrefab;
+                if (player == PlayerId.A && demoLevel != null && index < demoLevel.heroIds.Length &&
+                    demoLevel.heroIds[index] == "bum" && demoLevel.bumPrefab != null) heroPrefab = demoLevel.bumPrefab;
+                GameObject instance = Instantiate(heroPrefab, _unitsRoot);
                 instance.name = $"{prefix}_{index:D2}";
 
                 BoardLayoutTokenMover mover = instance.GetComponent<BoardLayoutTokenMover>();
@@ -445,7 +485,9 @@ namespace Diceforge.View
                 if (_geometry is DioramaBoard)
                 {
                     var identity = instance.AddComponent<DioramaToken>();
-                    identity.player = (int)player; identity.logicalId = $"{player}-{index}";
+                    identity.player = (int)player;
+                    identity.logicalId = player == PlayerId.A && demoLevel != null && index < demoLevel.heroIds.Length
+                        ? demoLevel.heroIds[index] : $"{player}-{index}";
                     var collider = instance.AddComponent<CapsuleCollider>(); collider.center = new Vector3(0,.5f,0); collider.height=1.1f; collider.radius=.33f;
                 }
                 else ApplyTeamColor(instance, color);

@@ -41,6 +41,7 @@ namespace Diceforge.Core
         public event Action<GameState> OnTurnStarted;
         public event Action<MoveRecord> OnMoveApplied;
         public event Action<MatchResult> OnMatchEnded;
+        public event Action<TrailHazardMove> OnTrailHazardMoved;
 
         public void Init(RulesetConfig rules, DiceBagConfigData bagA, DiceBagConfigData bagB, int seed, SetupConfig setup = null)
         {
@@ -54,6 +55,7 @@ namespace Diceforge.Core
 
             State = new GameState(Rules);
             ApplySetupPresetIfAvailable();
+            State.ResetTrailHazard();
             CreateBots();
             Log.Clear();
             _matchEnded = false;
@@ -72,6 +74,7 @@ namespace Diceforge.Core
 
             State.Reset();
             ApplySetupPresetIfAvailable();
+            State.ResetTrailHazard();
             CreateBots();
             Log.Clear();
             _bagA?.Reset();
@@ -129,7 +132,8 @@ namespace Diceforge.Core
 
             Debug.Log($"[BattleRunner] Setup counts after placement: A={placedA}, B={placedB}");
 
-            if (placedA != Rules.totalStonesPerPlayer || placedB != Rules.totalStonesPerPlayer)
+            if (placedA != Rules.totalStonesPerPlayer ||
+                (Rules.gameMode != GameMode.SoloTrail && placedB != Rules.totalStonesPerPlayer))
             {
                 Debug.LogWarning($"[BattleRunner] Setup stone count mismatch. Expected per player={Rules.totalStonesPerPlayer}, actual A={placedA}, B={placedB}.");
             }
@@ -189,6 +193,8 @@ namespace Diceforge.Core
             var legal = MoveGenerator.GenerateLegalMoves(State, dieValue, _headMovesUsed, _maxHeadMovesThisTurn);
             if (legal.Count == 0)
             {
+                if (Rules.gameMode == GameMode.SoloTrail)
+                    return false;
                 EndTurn();
                 return true;
             }
@@ -421,6 +427,12 @@ namespace Diceforge.Core
             if (result == ApplyResult.Ok || result == ApplyResult.Finished)
             {
                 ConsumeSelectedDie(move.PipUsed);
+                if (Rules.gameMode == GameMode.SoloTrail &&
+                    (Rules.soloTrailStepOfferMode != SoloTrailStepOfferMode.Sequential || _usedDice.Count >= Rules.actionsPerTurn))
+                {
+                    _remainingDice.Clear();
+                    _selectedDieIndex = null;
+                }
                 if (beforeMove.FromCell.HasValue && beforeMove.FromCell.Value == GetHeadCell(State.CurrentPlayer))
                     _headMovesUsed++;
             }
@@ -452,7 +464,7 @@ namespace Diceforge.Core
                 return true;
             }
 
-            if (!HasAnyLegalMove())
+            if (Rules.gameMode != GameMode.SoloTrail && !HasAnyLegalMove())
             {
                 EndTurn();
                 return true;
@@ -505,6 +517,8 @@ namespace Diceforge.Core
                 return;
             }
 
+            var hazardMove = State.AdvanceTrailHazard();
+            if (hazardMove.HasValue) OnTrailHazardMoved?.Invoke(hazardMove.Value);
             BeginTurn();
         }
 
