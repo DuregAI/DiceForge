@@ -57,6 +57,7 @@ namespace Diceforge.Progression
         internal bool Won;
         internal RewardBundle Reward;
         internal string Source;
+        internal DemoCompletionProgress DemoProgress;
     }
 
     public static class ProgressionTransactionService
@@ -105,6 +106,15 @@ namespace Diceforge.Progression
                 }
             }
             int previousLevel = UiProgressionService.GetLevelForXp(candidate.hero.xp);
+            if (operation.DemoProgress != null)
+            {
+                var learned = operation.DemoProgress.learning;
+                candidate.demoLearning.RemoveAll(s => s.levelId == learned.levelId);
+                candidate.demoLearning.Add(JsonUtility.FromJson<Diceforge.Core.DemoLearningState>(JsonUtility.ToJson(learned)));
+                candidate.demoGuidanceHidden = learned.guidanceHidden;
+                foreach (string scene in operation.DemoProgress.storySeen)
+                    if (!candidate.demoStorySeen.Contains(scene)) candidate.demoStorySeen.Add(scene);
+            }
             ApplyReward(candidate, reward);
             var receipt = new ProgressionReceipt
             {
@@ -112,6 +122,8 @@ namespace Diceforge.Progression
                 reward = reward, previousLevel = previousLevel, newLevel = UiProgressionService.GetLevelForXp(candidate.hero.xp), sourceContext = operation.Source
             };
             candidate.progressionReceipts.Add(receipt);
+            if (candidate.demoCheckpoint?.operationId == operation.Id)
+            { candidate.demoCheckpoint = null; candidate.demoCheckpointActive = false; }
             if (!ProfileService.TryCommit(candidate, out string error))
                 return new ProgressionCommitResult(ProgressionCommitStatus.SaveFailed, error: error);
             return new ProgressionCommitResult(ProgressionCommitStatus.Applied, receipt);

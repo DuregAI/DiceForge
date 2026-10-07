@@ -67,6 +67,20 @@ namespace Diceforge.Core
         public int RemainingCount => Math.Max(0, _bagItems.Count - _cursor);
         public int TotalCount => _bagItems.Count;
 
+        internal int SequentialCursor => _cursor;
+
+        internal bool TryGetSequentialOutcome(int cursor, out DiceOutcomeResult outcome)
+        {
+            outcome = default;
+            if (DrawMode != DiceBagDrawMode.Sequential || cursor < 1 || cursor > _bagItems.Count)
+                return false;
+            outcome = _config.Outcomes[_bagItems[cursor - 1]].ToResult();
+            return true;
+        }
+
+        // The caller validates the cursor and scenario before restoring any simulation state.
+        internal void RestoreSequentialCursor(int cursor) => _cursor = cursor;
+
         public DiceBagRuntime(DiceBagConfigData config, int seed)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));

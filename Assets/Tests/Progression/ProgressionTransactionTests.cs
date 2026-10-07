@@ -105,6 +105,39 @@ namespace Diceforge.Tests.Progression
         { if (stage == checkpoint) throw new IOException("Injected " + stage); }));
         private void Reload() => R.Static("Progression.ProfileService", "Load");
 
+        [Test]
+        public void DemoResultAndCheckpointRemovalCommitAtomically()
+        {
+            var operation = Operation();
+            var finalProgress = R.New("Progression.DemoCompletionProgress");
+            var learning = R.New("Core.DemoLearningState"); R.Set(learning, "levelId", "L5");
+            R.Set(finalProgress, "learning", learning); R.Set(finalProgress, "storySeen", new[] { "S05" });
+            R.Set(operation, "DemoProgress", finalProgress);
+            var checkpoint = R.New("Progression.DemoCheckpoint"); R.Set(checkpoint, "operationId", "battle-1");
+            R.Set(R.Profile, "demoCheckpoint", checkpoint);
+            R.Set(R.Profile, "demoCheckpointActive", true); R.Static("Progression.ProfileService", "Save");
+            Assert.That(R.Field(R.Field(R.Profile, "demoCheckpoint"), "operationId"), Is.EqualTo("battle-1"));
+            Fault("BeforeReplace");
+            Assert.That(Status(Commit(operation)), Is.EqualTo("SaveFailed"));
+            Assert.That(R.Field(R.Profile, "demoCheckpoint"), Is.Not.Null);
+            Assert.That(Xp, Is.Zero);
+            R.Set(_store, "Checkpoint", null);
+            Assert.That(Status(Commit(operation)), Is.EqualTo("Applied"));
+            Reload(); Assert.That(R.Field(R.Profile, "demoCheckpoint"), Is.Null);
+            CollectionAssert.Contains((IList)R.Field(R.Profile, "demoStorySeen"), "S05");
+            Assert.That(Status(Commit(operation)), Is.EqualTo("AlreadyApplied"));
+            Assert.That(Xp, Is.EqualTo(120));
+        }
+
+        [Test]
+        public void LegacyProfileWithoutDemoCheckpointStillLoads()
+        {
+            const string json = "{\"version\":\"0.0.6\",\"playerGuid\":\"legacy-player\",\"hero\":{\"xp\":0},\"currencies\":[],\"inventory\":[]}";
+            var loaded = R.Static("Progression.AtomicProfileStore", "Validate", json);
+            Assert.That(R.Field(loaded, "demoCheckpoint"), Is.Null);
+            Assert.That(R.Field(loaded, "playerGuid"), Is.EqualTo("legacy-player"));
+        }
+
         private bool ApplyAdminReset(long epoch)
         {
             object[] args = { epoch, null };

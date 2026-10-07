@@ -77,6 +77,22 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Runtime.Call(untranslated, "Text", false), Is.EqualTo(Runtime.Field(untranslated, "ru")));
         }
         [Test]
+        public void ResumeKeepsAttemptEvidencePendingHintAndErrorBudget()
+        {
+            var state = State(); var policy = Runtime.New("Core.DemoLearningPolicy", state);
+            Runtime.Call(policy, "ObserveMove", true, true, "luma", 0, 2, false, false);
+            Runtime.Call(policy, "CanNarrateError", Reason(5), "first", "tish");
+            Runtime.Call(policy, "CanNarrateError", Reason(5), "second", "bum");
+            Runtime.Call(policy, "ShowOnce", "L04_T06", false);
+            string attempt = (string)Runtime.Field(state, "attemptId");
+            var loaded = JsonUtility.FromJson(JsonUtility.ToJson(state), state.GetType());
+            var resumed = Runtime.New("Core.DemoLearningPolicy", loaded, true);
+            Assert.That(Runtime.Field(loaded, "attemptId"), Is.EqualTo(attempt));
+            Assert.That(Runtime.Field(loaded, "pendingHintId"), Is.EqualTo("L04_T06"));
+            Assert.That(Runtime.Get(resumed, "Moves"), Is.EqualTo(1));
+            Assert.That(Runtime.Call(resumed, "CanNarrateError", Reason(5), "third", "luma"), Is.False);
+        }
+        [Test]
         public void LearningSerializationKeepsKnowledgeWithoutInterfaceCache()
         {
             var state = State(); var policy = Runtime.New("Core.DemoLearningPolicy", state);

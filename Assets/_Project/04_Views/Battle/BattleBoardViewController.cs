@@ -54,6 +54,7 @@ namespace Diceforge.View
             if (_diorama != null) _diorama.ConfigureTrail(level != null);
         }
         public string HeroForToken(string tokenName) => stonesTokensView?.HeroForToken(tokenName);
+        public void RestoreDemoHeroes(Diceforge.Progression.DemoHeroCheckpoint[] heroes) => stonesTokensView.RestoreDemoHeroes(heroes, _runner.State);
         public bool TryGetHero(string heroId, out int cell, out string tokenName, out bool exited)
         {
             cell = -1; tokenName = null; exited = false;

@@ -197,6 +197,25 @@ namespace Diceforge.Core
             CurrentOutcome = outcome;
         }
 
+        internal void RestoreDemoCheckpoint(DemoBattleCheckpoint checkpoint)
+        {
+            Array.Copy(checkpoint.cellsA, _stonesAByCell, _stonesAByCell.Length);
+            Array.Copy(checkpoint.cellsB, _stonesBByCell, _stonesBByCell.Length);
+            BorneOffA = checkpoint.borneOffA;
+            BorneOffB = checkpoint.borneOffB;
+            BarA = checkpoint.barA;
+            BarB = checkpoint.barB;
+            TurnIndex = checkpoint.turnIndex;
+            TurnsTakenA = checkpoint.turnsTakenA;
+            TurnsTakenB = checkpoint.turnsTakenB;
+            CurrentPlayer = (PlayerId)checkpoint.currentPlayer;
+            CurrentOutcome = new DiceOutcomeResult(checkpoint.outcomeLabel, (int[])checkpoint.outcomeDice.Clone());
+            TrailHazardCell = checkpoint.trailHazardCell;
+            TrailHazardYielded = checkpoint.trailHazardYielded;
+            IsFinished = checkpoint.finished;
+            Winner = checkpoint.winner < 0 ? null : (PlayerId?)checkpoint.winner;
+        }
+
         //public string DebugSnapshot() => GameStateDebug.Snapshot(this);
 
         public static int Mod(int x, int m)

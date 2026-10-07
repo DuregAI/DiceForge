@@ -36,6 +36,10 @@ namespace Diceforge.UI.Dialogue
         public string PendingHintId => learning?.State.pendingHintId;
         public int EvidenceCount => learning?.Moves ?? 0;
         public bool SavePending { get; private set; }
+        public bool Ready => started;
+        public bool CompletionLinesSeen { get; private set; }
+        public DemoLearningState ExportLearning() => JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(learning.State));
+        public DemoCompletionProgress ExportCompletion() => new DemoCompletionProgress { learning = ExportLearning(), storySeen = storySeen.ToArray() };
         private bool Russian => PlayerPrefs.GetString("ui.language", "en") == "ru";
         private string T(string ru, string en) => Russian ? ru : en;
 
@@ -48,8 +52,11 @@ namespace Diceforge.UI.Dialogue
             var profile = ProfileService.Current;
             profile.demoLearning ??= new(); profile.demoStorySeen ??= new();
             var saved = profile.demoLearning.Find(s => s.levelId == battle.DemoLevel.levelId);
+            if (battle.DemoCheckpoint?.Resumed == true) saved = battle.DemoCheckpoint.Restored.learning;
             learning = new DemoLearningPolicy(saved == null ? new DemoLearningState { levelId = battle.DemoLevel.levelId }
-                : JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(saved)));
+                : JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(saved)), battle.DemoCheckpoint?.Resumed == true);
+            sawBlocked = learning.State.sawBlocked;
+            CompletionLinesSeen = battle.DemoCheckpoint?.Restored?.completionLinesSeen == true;
             learning.State.guidanceHidden = profile.demoGuidanceHidden;
             foreach (string id in profile.demoStorySeen) storySeen.Add(id);
             battle.OnHumanMoveApplied += MoveApplied;
@@ -87,9 +94,16 @@ namespace Diceforge.UI.Dialogue
             root.Q<Button>("helpClose").clicked += () => helpPanel.style.display = DisplayStyle.None;
             root.Q<Button>("replayStory").clicked += ReplayStory;
             root.Q<Button>("guidanceOn").clicked += () => { learning.State.guidanceHidden = false; Save(); OpenHelp(); };
-            root.Q<Button>("retryDemoSave").clicked += Save;
+            root.Q<Button>("retryDemoSave").clicked += () => { Save(); battle.DemoCheckpoint?.RetrySave(); };
             initialized = true; language = null;
             RefreshLanguage();
+            if (battle.DemoCheckpoint?.Resumed == true)
+            {
+                IsModal = false; started = true; opening = null;
+                if (!battle.IsMatchEnded)
+                    Show(catalog.Find(learning.State.pendingHintId) ?? catalog.Find(Prefix + "R01"), false);
+                Save(); yield break;
+            }
             if (!learning.State.introSeen)
             {
                 if (!storySeen.Contains("S" + (level - 1).ToString("00")))
@@ -103,6 +117,7 @@ namespace Diceforge.UI.Dialogue
             Evaluate("story_finished");
             if (hint == null) Evaluate("step_selected");
             if (hint == null) Evaluate("step_offer_ready");
+            if (battle.DemoCheckpoint?.ResumeFailed == true) Show(catalog.Find("G_R01"), false);
         }
 
         private string Prefix => "L" + level.ToString("00") + "_";
@@ -190,6 +205,7 @@ namespace Diceforge.UI.Dialogue
         {
             if (!IsStoryVisible) return;
             if (activeScene != null) storySeen.Add(activeScene.id);
+            else if (sequence != null && sequence.Length > 0 && sequence[0].id.StartsWith(Prefix + "V", StringComparison.Ordinal)) CompletionLinesSeen = true;
             activeScene = null; sequence = null; IsModal = false;
             story.style.display = DisplayStyle.None; Save();
             root.Q<Button>("demoHelpButton").SetEnabled(true);
@@ -203,11 +219,13 @@ namespace Diceforge.UI.Dialogue
         {
             if (!initialized) yield break;
             hint = null; hintPanel.style.display = DisplayStyle.None; helpPanel.style.display = DisplayStyle.None;
-            PlayLines(result.Winner == PlayerId.A ? "V" : "F");
+            if (result.Winner != PlayerId.A || !CompletionLinesSeen)
+                PlayLines(result.Winner == PlayerId.A ? "V" : "F");
             while (IsModal) yield return null;
             if (result.Winner == PlayerId.A)
             {
-                PlayScene(level); while (IsModal) yield return null;
+                if (!storySeen.Contains("S" + level.ToString("00")))
+                { PlayScene(level); while (IsModal) yield return null; }
                 if (level == 6)
                 {
                     // The final result stays readable after either Next or Skip closes the wedding scene.
@@ -298,6 +316,7 @@ namespace Diceforge.UI.Dialogue
             if (!started || IsModal || battle.PresentationIsAnimating) return;
             var c = Context(); c.hero = hero; c.blocked = true;
             Evaluate("illegal_destination_previewed", c); sawBlocked = true;
+            learning.State.sawBlocked = true; Save();
         }
         private void InputRejected(DemoInputRejection reason, string hero)
         {
@@ -341,6 +360,7 @@ namespace Diceforge.UI.Dialogue
             if (story != null) story.style.display = DisplayStyle.None;
             activeScene = null; sequence = null; IsModal = false; ClearHint();
             learning.Restart(); previousHazard = battle.PresentationState.TrailHazardCell; sawBlocked = false;
+            CompletionLinesSeen = false;
             observedMoves.Clear();
             if (!initialized) { IsModal = true; opening = StartCoroutine(OpenWhenReady()); return; }
             started = true; Show(catalog.Find(Prefix + "R02"), true);
@@ -352,11 +372,26 @@ namespace Diceforge.UI.Dialogue
             candidate.demoLearning.Add(JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(learning.State)));
             candidate.demoGuidanceHidden = learning.State.guidanceHidden;
             foreach (string id in storySeen) if (!candidate.demoStorySeen.Contains(id)) candidate.demoStorySeen.Add(id);
+            if (started && !battle.PresentationIsAnimating && candidate.demoCheckpoint?.operationId == battle.RewardSession?.OperationId &&
+                candidate.demoCheckpoint.learning.boardRevision == learning.State.boardRevision)
+            {
+                candidate.demoCheckpoint.learning = ExportLearning();
+                candidate.demoCheckpoint.completionLinesSeen = CompletionLinesSeen;
+            }
             SavePending = !ProfileService.TryCommit(candidate, out string error, false);
+            RefreshSaveStatus();
+        }
+        public void RefreshSaveStatus()
+        {
+            if (battle.RewardSession?.CommitResult?.Succeeded == true) SavePending = false;
             if (saveError != null)
             {
-                saveError.text = SavePending ? T("Не удалось сохранить обучение. Можно повторить сохранение.", "Could not save guidance. Retry is available.") : string.Empty;
-                root.Q("demoSave").style.display = SavePending ? DisplayStyle.Flex : DisplayStyle.None;
+                bool pending = SavePending || battle.DemoCheckpoint?.SavePending == true;
+                bool changed = battle.DemoCheckpoint?.RunChanged == true;
+                saveError.text = changed ? T("Прохождение обновилось. Продолжи с карты.", "The campaign changed. Continue from the map.") :
+                    pending ? T("Не удалось сохранить прогресс. Можно повторить сохранение.", "Could not save progress. Retry is available.") : string.Empty;
+                root.Q<Button>("retryDemoSave").SetEnabled(!changed);
+                root.Q("demoSave").style.display = pending ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
         private void OnDestroy()

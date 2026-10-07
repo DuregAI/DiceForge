@@ -69,6 +69,22 @@ namespace Diceforge.View
                 if (_tokensA[i].root.name == tokenName) return demoLevel.heroIds[i];
             return null;
         }
+        public void RestoreDemoHeroes(Diceforge.Progression.DemoHeroCheckpoint[] heroes, GameState state)
+        {
+            if (demoLevel == null || heroes == null) throw new InvalidOperationException("Demo hero checkpoint is missing.");
+            var assignments = new List<TokenAssignment>();
+            for (int i = 0; i < demoLevel.heroIds.Length; i++)
+            {
+                var hero = Array.Find(heroes, h => h.id == demoLevel.heroIds[i]);
+                if (hero == null || i >= _tokensA.Count) throw new InvalidOperationException("Demo hero checkpoint does not match the token pool.");
+                var token = _tokensA[i];
+                assignments.Add(new TokenAssignment(token.stoneId, 0, token.stoneIndex,
+                    hero.exited ? TokenLocation.BorneOff : TokenLocation.Cell, hero.cell));
+            }
+            _lastState = state; _finishingId = null;
+            CancelAllMovement(_tokensA); CancelAllMovement(_tokensB);
+            ApplyAssignments(assignments, ReadCounts(state), null);
+        }
         public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; }
         public void RefreshGeometry(GameState state)
         {

@@ -59,7 +59,7 @@ namespace Diceforge.View
         private Coroutine resultPresentation;
         internal BattleRewardSession RewardSession { get; private set; }
         public bool HasPendingResultSave => RewardSession != null && RewardSession.HasPendingSave;
-        public void RetryResultSave() => RewardSession?.Retry();
+        public void RetryResultSave() { RewardSession?.Retry(); DemoNarrative?.RefreshSaveStatus(); }
 
         [Header("Debug")]
         [SerializeField] private bool logRerollInventory;
@@ -75,6 +75,12 @@ namespace Diceforge.View
         public event System.Action<string> OnDemoBlockedPreview;
         public event System.Action OnDemoRestarted;
         public Diceforge.UI.Dialogue.DemoNarrativeController DemoNarrative { get; private set; }
+        public DemoCheckpointController DemoCheckpoint { get; private set; }
+        internal void RestoreDemoSession(string operationId, string heroId)
+        {
+            RewardSession = new BattleRewardSession(_externalPreset.modeId, operationId);
+            SelectedHeroId = heroId;
+        }
         public PlayerId LocalPlayer => localPlayer;
         public bool IsMatchEnded => _hasBattleResultTriggered || (_runner != null && (_runner.MatchEnded || (_runner.State != null && _runner.State.IsFinished)));
         public DebugHudUITK Hud => hud;
@@ -262,7 +268,8 @@ namespace Diceforge.View
             yield return new WaitForSeconds(DioramaBoard.ReducedMotion ? .2f : .8f);
             IsPassingTrailTurn = false;
             selectionPresentation = null;
-            if (generation == matchGeneration && !_runner.MatchEnded) _runner.EndTurnIfNoMoves();
+            if (generation == matchGeneration && !_runner.MatchEnded)
+            { _runner.EndTurnIfNoMoves(); DemoCheckpoint?.MarkDirty(); }
         }
         public void ConfigureBoardSelection(BoardLayout layout, Tilemap positionTilemap)
         {
@@ -374,13 +381,29 @@ namespace Diceforge.View
             var bagA = BuildBagConfig(preset.diceBagA);
             var bagB = BuildBagConfig(preset.diceBagB);
             _runner.Init(_rules, bagA, bagB, _rules.randomSeed, SetupConfig.FromPreset(preset.setupPreset));
+            if (preset.demoLevel != null)
+            {
+                DemoCheckpoint = gameObject.AddComponent<DemoCheckpointController>();
+                DemoCheckpoint.Configure(this, _runner, preset);
+            }
             boardViewController.Bind(_runner);
+            if (DemoCheckpoint?.Resumed == true) boardViewController.RestoreDemoHeroes(DemoCheckpoint.Restored.heroes);
             _isInitialized = true;
             if (preset.demoLevel != null)
             {
                 DemoNarrative = gameObject.AddComponent<Diceforge.UI.Dialogue.DemoNarrativeController>();
                 DemoNarrative.Configure(this);
+                DemoCheckpoint.BeginWatching();
+                if (DemoCheckpoint.Resumed && _runner.MatchResult.HasValue)
+                    StartCoroutine(ResumeDemoCompletion(_runner.MatchResult.Value));
             }
+        }
+        private IEnumerator ResumeDemoCompletion(MatchResult result)
+        {
+            int generation = matchGeneration;
+            while (generation == matchGeneration && DemoNarrative?.Ready != true) yield return null;
+            if (generation != matchGeneration || _runner?.State.IsFinished != true) yield break;
+            HandleMatchEnded(result);
         }
 
         [ContextMenu("Start")]
@@ -525,6 +548,7 @@ namespace Diceforge.View
                     Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(cue, profile != null ? profile.soundGain : 1f);
                 }, () => { });
             if (!ReferenceEquals(endedRunner, _runner) || endedGeneration != matchGeneration || !_runner.State.IsFinished) yield break;
+            DemoCheckpoint?.RetrySave();
             if (DemoNarrative != null) yield return DemoNarrative.PlayCompletion(result);
             if (ReferenceEquals(endedRunner, _runner) && endedGeneration == matchGeneration && _runner.State.IsFinished)
                 FinalizeMatchResult(result);
@@ -1048,7 +1072,9 @@ namespace Diceforge.View
             hud?.SetSurrenderEnabled(false);
 
             boardView?.HandleMatchEnded(state);
+            if (DemoNarrative != null) RewardSession?.SetDemoProgress(DemoNarrative.ExportCompletion());
             RewardSession?.Complete(result, localPlayer == result.Winner);
+            DemoNarrative?.RefreshSaveStatus();
             if (verboseLog)
                 Debug.Log($"[Diceforge] Match end. Winner: {result.Winner?.ToString() ?? "Draw"}  Turns: {state.TurnIndex}");
 

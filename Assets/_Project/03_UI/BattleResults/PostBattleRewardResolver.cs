@@ -68,7 +68,8 @@ namespace Diceforge.View
 
     internal sealed class BattleRewardSession
     {
-        private readonly string _id = Guid.NewGuid().ToString("N");
+        private readonly string _id;
+        internal string OperationId => _id;
         private readonly string _chapterId;
         private readonly string _runId;
         private readonly string _nodeId;
@@ -77,13 +78,17 @@ namespace Diceforge.View
         private ProgressionOperation _operation;
         private MatchResult? _matchResult;
         private bool _won;
+        private DemoCompletionProgress _demoProgress;
+        internal void SetDemoProgress(DemoCompletionProgress progress) => _demoProgress = progress;
         internal ProgressionCommitResult CommitResult { get; private set; }
         internal PostBattleRewardOutcome Outcome { get; private set; }
         internal bool HasPendingSave => _matchResult != null && (CommitResult == null || !CommitResult.Succeeded);
         internal bool PresentationStarted { get; set; }
 
-        internal BattleRewardSession(string modeId)
+        internal BattleRewardSession(string modeId) : this(modeId, null) { }
+        internal BattleRewardSession(string modeId, string operationId)
         {
+            _id = string.IsNullOrEmpty(operationId) ? Guid.NewGuid().ToString("N") : operationId;
             _modeId = modeId;
             if (!MapFlowRuntime.IsMapBattleActive) return;
             _chapterId = MapFlowRuntime.ChapterId;
@@ -113,6 +118,7 @@ namespace Diceforge.View
                         : RewardService.CalculateMatchRewards(_matchResult.Value, _modeId);
                     _operation = ProgressionTransactionService.Prepare(_id, _chapterId, _runId, _nodeId,
                         _node?.nextIds, _won, reward, LevelUpSourceContexts.Battle);
+                    _operation.DemoProgress = _demoProgress;
                 }
                 CommitResult = ProgressionTransactionService.Commit(_operation);
                 if (!CommitResult.Succeeded) return;

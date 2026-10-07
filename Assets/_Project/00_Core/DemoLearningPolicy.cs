@@ -6,13 +6,20 @@ namespace Diceforge.Core
     public enum DemoInputRejection { None, NoStepSelected, EmptyOrigin, UnknownTarget, HeroAlreadyExited, BlockedDestination, StaleStepChoice, MovementAnimation }
 
     [Serializable]
+    public sealed class DemoLearningErrorCount { public DemoInputRejection reason; public int count; }
+
+    [Serializable]
     public sealed class DemoLearningState
     {
         public string levelId, attemptId, pendingHintId;
         public int boardRevision;
+        public int moves, unaidedMoves;
+        public bool sawBlocked;
         public bool guidanceHidden, introSeen;
         public List<string> seenEventIds = new();
         public List<string> masteredSkills = new();
+        public List<string> errorKeys = new();
+        public List<DemoLearningErrorCount> errorCounts = new();
     }
 
     public sealed class DemoLearningContext
@@ -28,20 +35,29 @@ namespace Diceforge.Core
     public sealed class DemoLearningPolicy
     {
         public DemoLearningState State { get; }
-        public int Moves { get; private set; }
-        public int UnassistedMoves { get; private set; }
+        public int Moves { get => State.moves; private set => State.moves = value; }
+        public int UnassistedMoves { get => State.unaidedMoves; private set => State.unaidedMoves = value; }
         private readonly Dictionary<DemoInputRejection, int> errorCounts = new();
         private readonly HashSet<string> errorKeys = new();
 
-        public DemoLearningPolicy(DemoLearningState state)
+        public DemoLearningPolicy(DemoLearningState state) : this(state, false) { }
+        public DemoLearningPolicy(DemoLearningState state, bool resume)
         {
             State = state ?? throw new ArgumentNullException(nameof(state));
-            State.seenEventIds ??= new(); State.masteredSkills ??= new(); Restart();
+            State.seenEventIds ??= new(); State.masteredSkills ??= new();
+            State.errorKeys ??= new(); State.errorCounts ??= new();
+            if (!resume || string.IsNullOrEmpty(State.attemptId)) Restart();
+            else
+            {
+                foreach (string key in State.errorKeys) errorKeys.Add(key);
+                foreach (var count in State.errorCounts) errorCounts[count.reason] = count.count;
+            }
         }
         public void Restart()
         {
             State.attemptId = Guid.NewGuid().ToString("N"); State.boardRevision = 0; State.pendingHintId = null;
             Moves = UnassistedMoves = 0; errorCounts.Clear(); errorKeys.Clear();
+            State.sawBlocked = false; State.errorCounts.Clear(); State.errorKeys.Clear();
         }
         public void Help() => UnassistedMoves = 0;
         public bool ObserveMove(bool hasMove, bool positionChanged, string hero, int from, int step, bool exited, bool jumped)
@@ -60,9 +76,13 @@ namespace Diceforge.Core
         {
             string key = State.boardRevision + ":" + reason + ":" + stepInstance + ":" + hero;
             if (!errorKeys.Add(key)) return false;
+            State.errorKeys.Add(key);
             errorCounts.TryGetValue(reason, out int count);
             if (count >= 2) return false;
-            errorCounts[reason] = count + 1; UnassistedMoves = 0; return true;
+            errorCounts[reason] = count + 1;
+            State.errorCounts.RemoveAll(e => e.reason == reason);
+            State.errorCounts.Add(new DemoLearningErrorCount { reason = reason, count = count + 1 });
+            UnassistedMoves = 0; return true;
         }
         public bool ShowOnce(string id, bool instruction)
         {

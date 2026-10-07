@@ -43,6 +43,167 @@ namespace Diceforge.Core
         public event Action<MatchResult> OnMatchEnded;
         public event Action<TrailHazardMove> OnTrailHazardMoved;
 
+        public DemoBattleCheckpoint CaptureDemoCheckpoint()
+        {
+            string error = DemoCheckpointSupportError();
+            if (error != null) throw new InvalidOperationException(error);
+            return new DemoBattleCheckpoint
+            {
+                rulesetId = Rules.rulesetId, boardSize = Rules.boardSize,
+                cellsA = State.StonesAByCell.ToArray(), cellsB = State.StonesBByCell.ToArray(),
+                borneOffA = State.BorneOffA, borneOffB = State.BorneOffB, barA = State.BarA, barB = State.BarB,
+                turnIndex = State.TurnIndex, turnsTakenA = State.TurnsTakenA, turnsTakenB = State.TurnsTakenB,
+                currentPlayer = (int)State.CurrentPlayer,
+                outcomeLabel = _currentOutcome.Label, outcomeDice = (int[])_currentOutcome.Dice.Clone(),
+                remainingDice = _remainingDice.ToArray(), usedDice = _usedDice.ToArray(),
+                selectedDieIndex = _selectedDieIndex ?? -1, headMovesUsed = _headMovesUsed, headMovesLimit = _maxHeadMovesThisTurn,
+                trailHazardCell = State.TrailHazardCell, trailHazardYielded = State.TrailHazardYielded,
+                finished = State.IsFinished, winner = State.Winner.HasValue ? (int)State.Winner.Value : -1,
+                endReason = _matchResult?.Reason ?? MatchEndReason.None,
+                orderedBagCursor = _bagA.SequentialCursor
+            };
+        }
+
+        // No gameplay/presentation events are replayed. The owner rebinds its view after success.
+        public bool TryRestoreDemoCheckpoint(DemoBattleCheckpoint checkpoint, out string error)
+        {
+            error = ValidateDemoCheckpoint(checkpoint);
+            if (error != null) return false;
+            State.RestoreDemoCheckpoint(checkpoint);
+            _currentOutcome = State.CurrentOutcome;
+            _remainingDice.Clear(); _remainingDice.AddRange(checkpoint.remainingDice);
+            _usedDice.Clear(); _usedDice.AddRange(checkpoint.usedDice);
+            _selectedDieIndex = checkpoint.selectedDieIndex < 0 ? null : checkpoint.selectedDieIndex;
+            _headMovesUsed = checkpoint.headMovesUsed;
+            _maxHeadMovesThisTurn = checkpoint.headMovesLimit;
+            _bagA.RestoreSequentialCursor(checkpoint.orderedBagCursor);
+            _matchEnded = checkpoint.finished;
+            _matchEndedEventFired = checkpoint.finished;
+            _matchResult = checkpoint.finished ? new MatchResult(State.Winner, checkpoint.endReason) : null;
+            Log.Clear();
+            return true;
+        }
+
+        private string DemoCheckpointSupportError()
+        {
+            if (State == null || Rules == null) return "BattleRunner is not initialized.";
+            if (Rules.gameMode != GameMode.SoloTrail || Rules.allowReroll)
+                return "Demo checkpoints require SoloTrail without rerolls.";
+            if (_bagA == null || _bagA.DrawMode != DiceBagDrawMode.Sequential || _bagA.TotalCount == 0)
+                return "Demo checkpoints require a nonempty sequential step bag.";
+            return null;
+        }
+
+        private string ValidateDemoCheckpoint(DemoBattleCheckpoint c)
+        {
+            string unsupported = DemoCheckpointSupportError();
+            if (unsupported != null) return unsupported;
+            if (c == null || c.schemaVersion != DemoBattleCheckpoint.CurrentSchemaVersion)
+                return "Demo checkpoint schema is unsupported.";
+            if (!string.Equals(c.rulesetId, Rules.rulesetId, StringComparison.Ordinal) || c.boardSize != Rules.boardSize)
+                return "Demo checkpoint rules do not match this level.";
+            if (c.cellsA == null || c.cellsB == null || c.cellsA.Length != Rules.boardSize || c.cellsB.Length != Rules.boardSize ||
+                c.barA != 0 || c.barB != 0 || c.borneOffA < 0 || c.borneOffA > Rules.totalStonesPerPlayer || c.borneOffB != 0)
+                return "Demo checkpoint board counts are invalid.";
+            long totalA = c.borneOffA;
+            for (int cell = 0; cell < Rules.boardSize; cell++)
+            {
+                if (c.cellsA[cell] < 0 || c.cellsB[cell] < 0 ||
+                    (Rules.blockIfOpponentAnyStone && c.cellsA[cell] > 0 && c.cellsB[cell] > 0))
+                    return "Demo checkpoint contains an invalid board position.";
+                totalA += c.cellsA[cell];
+                int expectedB = cell == c.trailHazardCell ? 1 : 0;
+                if (c.cellsB[cell] != expectedB) return "Demo checkpoint hazard counts are inconsistent.";
+            }
+            if (totalA != Rules.totalStonesPerPlayer) return "Demo checkpoint team count is inconsistent.";
+            if (c.currentPlayer != (int)PlayerId.A || c.turnIndex < 0 || c.turnIndex > Rules.maxTurns ||
+                c.turnsTakenA != c.turnIndex || c.turnsTakenB != 0)
+                return "Demo checkpoint turn state is invalid.";
+            if (!c.finished && (c.winner != -1 || c.endReason != MatchEndReason.None ||
+                c.borneOffA == Rules.totalStonesPerPlayer || c.turnIndex >= Rules.maxTurns))
+                return "Demo checkpoint unfinished result is inconsistent.";
+            if (c.finished && !((c.endReason == MatchEndReason.Win && c.winner == (int)PlayerId.A &&
+                    c.borneOffA == Rules.totalStonesPerPlayer && c.turnIndex < Rules.maxTurns) ||
+                (c.endReason == MatchEndReason.Timeout && c.winner == -1 && c.turnIndex == Rules.maxTurns &&
+                    c.borneOffA < Rules.totalStonesPerPlayer)))
+                return "Demo checkpoint finished result is inconsistent.";
+
+            string hazardError = ValidateDemoHazard(c);
+            if (hazardError != null) return hazardError;
+            int drawnTurns = c.finished && c.endReason == MatchEndReason.Timeout ? c.turnIndex : c.turnIndex + 1;
+            int expectedCursor = ((drawnTurns - 1) % _bagA.TotalCount) + 1;
+            if (c.orderedBagCursor != expectedCursor || !_bagA.TryGetSequentialOutcome(c.orderedBagCursor, out var expectedOutcome) ||
+                !string.Equals(c.outcomeLabel, expectedOutcome.Label, StringComparison.Ordinal) ||
+                !EqualSteps(c.outcomeDice, expectedOutcome.Dice))
+                return "Demo checkpoint step bag position is inconsistent.";
+            if (c.remainingDice == null || c.usedDice == null || c.usedDice.Length > Rules.actionsPerTurn ||
+                (c.finished && c.endReason == MatchEndReason.Win && c.usedDice.Length == 0))
+                return "Demo checkpoint remaining actions are invalid.";
+            bool sequential = Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential;
+            if (!sequential && c.usedDice.Length > 1) return "Demo checkpoint single-action turn is inconsistent.";
+            var unused = new List<int>(c.outcomeDice);
+            foreach (int step in c.usedDice)
+                if (!unused.Remove(step)) return "Demo checkpoint consumed steps are inconsistent.";
+            bool clearedOffer = c.usedDice.Length > 0 && (!sequential || c.usedDice.Length >= Rules.actionsPerTurn);
+            if (clearedOffer ? c.remainingDice.Length != 0 : !SameStepMultiset(c.remainingDice, unused))
+                return "Demo checkpoint available steps are inconsistent.";
+            if (!IsStepSubsequence(c.remainingDice, c.outcomeDice) ||
+                (!c.finished && (clearedOffer || c.remainingDice.Length == 0)) ||
+                c.selectedDieIndex < -1 || c.selectedDieIndex >= c.remainingDice.Length ||
+                (c.remainingDice.Length == 0 && c.selectedDieIndex != -1))
+                return "Demo checkpoint step selection is invalid.";
+            int outcomeTurn = c.finished && c.endReason == MatchEndReason.Timeout ? c.turnIndex - 1 : c.turnIndex;
+            int expectedHeadLimit = CalculateHeadMoveLimit(outcomeTurn, expectedOutcome);
+            if (c.headMovesLimit != expectedHeadLimit || c.headMovesUsed < 0 ||
+                c.headMovesUsed > c.usedDice.Length || c.headMovesUsed > c.headMovesLimit)
+                return "Demo checkpoint head action limit is inconsistent.";
+            return null;
+        }
+
+        private string ValidateDemoHazard(DemoBattleCheckpoint c)
+        {
+            if (c.trailHazardCell < -1 || c.trailHazardCell >= Rules.boardSize)
+                return "Demo checkpoint hazard cell is invalid.";
+            switch (Rules.soloTrailHazard)
+            {
+                case SoloTrailHazard.None:
+                    return c.trailHazardCell == -1 && !c.trailHazardYielded ? null : "This level has no trail hazard.";
+                case SoloTrailHazard.Bark:
+                    return c.trailHazardCell == Rules.soloTrailHazardStartCell && !c.trailHazardYielded
+                        ? null : "The stationary trail hazard has moved.";
+                case SoloTrailHazard.Ryzh:
+                    int completedHazardTurns = c.turnIndex - (c.finished && c.endReason == MatchEndReason.Timeout ? 1 : 0);
+                    int expected = Rules.soloTrailHazardStartCell + completedHazardTurns;
+                    bool valid = c.trailHazardCell >= 0
+                        ? c.trailHazardCell == expected && !c.trailHazardYielded
+                        : c.trailHazardYielded ? completedHazardTurns > 0 : expected >= Rules.boardSize;
+                    return valid ? null : "Demo checkpoint moving hazard state is inconsistent.";
+                default: return "Demo checkpoint hazard rule is unsupported.";
+            }
+        }
+
+        private static bool EqualSteps(int[] actual, int[] expected)
+        {
+            if (actual == null || actual.Length != expected.Length) return false;
+            for (int i = 0; i < actual.Length; i++) if (actual[i] != expected[i]) return false;
+            return true;
+        }
+
+        private static bool SameStepMultiset(int[] actual, List<int> expected)
+        {
+            if (actual.Length != expected.Count) return false;
+            var remaining = new List<int>(expected);
+            foreach (int step in actual) if (!remaining.Remove(step)) return false;
+            return true;
+        }
+
+        private static bool IsStepSubsequence(int[] actual, int[] offered)
+        {
+            int cursor = 0;
+            foreach (int step in offered) if (cursor < actual.Length && step == actual[cursor]) cursor++;
+            return cursor == actual.Length;
+        }
+
         public void Init(RulesetConfig rules, DiceBagConfigData bagA, DiceBagConfigData bagB, int seed, SetupConfig setup = null)
         {
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
@@ -369,11 +530,14 @@ namespace Diceforge.Core
         }
 
         private int CalculateHeadMoveLimit(PlayerId player, DiceOutcomeResult outcome)
+            => CalculateHeadMoveLimit(State.GetTurnsTaken(player), outcome);
+
+        private int CalculateHeadMoveLimit(int turnsTaken, DiceOutcomeResult outcome)
         {
             if (Rules.headRules == null || !Rules.headRules.restrictHeadMoves)
                 return int.MaxValue;
 
-            if (State.GetTurnsTaken(player) == 0)
+            if (turnsTaken == 0)
             {
                 int dieA = outcome.Dice.Length > 0 ? outcome.Dice[0] : Rules.dieMin;
                 int dieB = outcome.Dice.Length > 1 ? outcome.Dice[1] : dieA;

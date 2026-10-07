@@ -30,6 +30,9 @@ namespace Diceforge.Tests.BattleTermination
         {
             yield return new EnterPlayMode();
             yield return null;
+            foreach (UnityEngine.Object client in UnityEngine.Object.FindObjectsByType(
+                Runtime.Type("Integrations.SpacetimeDb.SpacetimeDbLocalDevRuntime"), FindObjectsSortMode.None))
+                UnityEngine.Object.DestroyImmediate(((Component)client).gameObject);
             randomState = UnityEngine.Random.state;
             originalLanguage = PlayerPrefs.GetString("ui.language", "en");
             hadLanguage = PlayerPrefs.HasKey("ui.language");

@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="45" result="Passed" total="45" passed="45" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="17,1026752">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="142" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="17.102675" total="45" passed="45" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1081" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="16.757007" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1082" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="16.744720" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1083" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="16.742911" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1084" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="16.737815" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1024" name="DemoBattleCheckpointTests" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.314741" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1034" name="CaptureAndRestoreOwnTheirArrayCopies" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.CaptureAndRestoreOwnTheirArrayCopies" methodname="CaptureAndRestoreOwnTheirArrayCopies" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="438478668" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.116819" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1031" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.074971" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1025" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(1)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(1)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1820060647" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.017396" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1026" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(2)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(2)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1918164525" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.005479" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1027" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(3)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(3)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="983862944" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.006907" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1028" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(4)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(4)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1187404145" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.011325" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1029" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(5)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(5)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1909188366" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.010283" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1030" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(6)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(6)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1182377645" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.020026" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1032" name="MalformedCheckpointNeverPartiallyChangesTheRunner" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.MalformedCheckpointNeverPartiallyChangesTheRunner" methodname="MalformedCheckpointNeverPartiallyChangesTheRunner" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="105366481" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.004766" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1033" name="TimeoutRestoresAsDrawWithoutAdvancingRyzhAgain" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.TimeoutRestoresAsDrawWithoutAdvancingRyzhAgain" methodname="TimeoutRestoresAsDrawWithoutAdvancingRyzhAgain" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="375974003" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:06:11Z" duration="0.001882" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1035" name="DemoCampaignFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-06 18:06:20Z" end-time="2026-10-06 18:07:43Z" duration="82.931372" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1036" name="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" methodname="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" seed="908124019" result="Passed" start-time="2026-10-06 18:06:11Z" end-time="2026-10-06 18:07:43Z" duration="92.026904" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791309982217 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791309984362 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791309984428 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1  Pip=1  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(1, 1)  Outcome=1  Pip=1  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1  Pip=1  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 1)  Outcome=1  Pip=1  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791309992454 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791309993329 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_02, map=Map_Level_02
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_02 modeId=level_02 rulesetId=level_02 setupId=level_02 cells=8 startA=0 startB=7 mapId=level_02 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791309995269 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791309995328 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 3
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791309999964 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8, winner=A, endReason=Win, turnIndex=3}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310000844 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310002786 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310002877 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791310010410 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310011291 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310013242 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310013301 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] This landing is unavailable. Choose another step or friend.
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 2)  Outcome=1, 2  Pip=2  T8
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T9
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T10
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T11
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T12
+[Diceforge] A -> Move(5, 2)  Outcome=1, 2  Pip=2  T13
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T14
+[Diceforge] Match end. Winner: A  Turns: 14
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791310026065 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8, winner=A, endReason=Win, turnIndex=14}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310026939 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310028890 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310028960 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> Move(5, 2)  Outcome=1, 2  Pip=2  T7
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791310045352 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310046227 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_06, map=Map_Level_06
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_06 modeId=level_06 rulesetId=level_06 setupId=level_06 cells=8 startA=0 startB=7 mapId=level_06 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310048194 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310048261 session=07dd0143952e40bb823f62a45193e089 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(5, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791310061748 session=07dd0143952e40bb823f62a45193e089 payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791310061782 session=07dd0143952e40bb823f62a45193e089 payload={sessionStartUnixMsUtc=1791309978632, sessionEndUnixMsUtc=1791310061782, durationSeconds=83.15, buildVersion=0.2.9-beta, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=13, battlesStartedCount=6, battlesEndedCount=6, sampleWindowSeconds=3, totalFrames=31007, totalSampledSeconds=90.015, averageFps=344.464, minimumWindowFps=0.138, averageFrameTimeMs=2.903, worstSpikeMs=7266.143}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1037" name="DemoCampaignTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.064951" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1051" name="AlternativesRefreshBothChoicesAfterExactlyOneAction" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AlternativesRefreshBothChoicesAfterExactlyOneAction" methodname="AlternativesRefreshBothChoicesAfterExactlyOneAction" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1452437321" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004295" asserts="0">
+                <properties />
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1050" name="AuthoringRoutesRunOnTheSavedCampaignPresets" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.052274" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1038" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="2032346009" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004167" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1039" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="715667270" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.001158" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1040" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="2112335865" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.001657" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1041" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="439911581" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004218" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1042" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="743356075" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004181" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1043" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1705787084" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.003896" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1044" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="882590208" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004456" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1045" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="2021827699" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.013982" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1046" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="179905666" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.003398" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1047" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1771505428" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.001010" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1048" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1539944041" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.000962" asserts="0">
+                  <properties />
+                </test-case>
+                <test-case id="1049" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1691596769" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.000951" asserts="0">
+                  <properties />
+                </test-case>
+              </test-suite>
+              <test-case id="1053" name="FirstFriendMayExitWhileTheOtherIsAtTheStart" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.FirstFriendMayExitWhileTheOtherIsAtTheStart" methodname="FirstFriendMayExitWhileTheOtherIsAtTheStart" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="41821788" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.000503" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1052" name="InvalidSelectedStepPreservesTheOtherLegalChoice" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.InvalidSelectedStepPreservesTheOtherLegalChoice" methodname="InvalidSelectedStepPreservesTheOtherLegalChoice" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="625746975" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.001061" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1055" name="NamedLumaMovesFromSharedCellWithoutMovingTish" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.NamedLumaMovesFromSharedCellWithoutMovingTish" methodname="NamedLumaMovesFromSharedCellWithoutMovingTish" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="288908554" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.004126" asserts="0">
+                <properties />
+                <output><![CDATA[[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+]]></output>
+              </test-case>
+              <test-case id="1054" name="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" methodname="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="435518931" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:07:43Z" duration="0.001188" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1056" name="DemoCheckpointFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 18:08:49Z" end-time="2026-10-06 18:09:06Z" duration="16.585103" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1059" name="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" methodname="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="981261926" result="Passed" start-time="2026-10-06 18:07:43Z" end-time="2026-10-06 18:08:05Z" duration="21.408263" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310073666 session=38b2711410cc4dff99cc9934f48d8f23 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310075811 session=38b2711410cc4dff99cc9934f48d8f23 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310075880 session=38b2711410cc4dff99cc9934f48d8f23 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310080059 session=38b2711410cc4dff99cc9934f48d8f23 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310082018 session=38b2711410cc4dff99cc9934f48d8f23 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310082084 session=38b2711410cc4dff99cc9934f48d8f23 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791310083268 session=38b2711410cc4dff99cc9934f48d8f23 payload={sessionStartUnixMsUtc=1791310070093, sessionEndUnixMsUtc=1791310083268, durationSeconds=13.175, buildVersion=0.2.9-beta, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=5, battlesStartedCount=2, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=5805, totalSampledSeconds=19.417, averageFps=298.967, minimumWindowFps=0.151, averageFrameTimeMs=3.345, worstSpikeMs=6607.912}
+]]></output>
+              </test-case>
+              <test-case id="1058" name="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" methodname="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="2019549784" result="Passed" start-time="2026-10-06 18:08:05Z" end-time="2026-10-06 18:08:41Z" duration="36.193646" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310095139 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310097281 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310097347 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310102589 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310104552 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310104618 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T4
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T5
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T6
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[UnitAnimationController] State 'Idle' not found on 'StoneA_00'. Using animator.speed fallback.
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310108235 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310109028 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310110960 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310111022 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310114311 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310116264 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310116331 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791310117480 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310118351 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791310119499 session=97ca1db5acab4c03a8ec0c06d7b651f6 payload={sessionStartUnixMsUtc=1791310091469, sessionEndUnixMsUtc=1791310119499, durationSeconds=28.03, buildVersion=0.2.9-beta, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=MainMenu, scenesLoadedCount=11, battlesStartedCount=4, battlesEndedCount=1, sampleWindowSeconds=3, totalFrames=13323, totalSampledSeconds=34.295, averageFps=388.482, minimumWindowFps=0.151, averageFrameTimeMs=2.574, worstSpikeMs=6635.744}
+]]></output>
+              </test-case>
+              <test-case id="1057" name="MidTurnL5ResumeKeepsNamesAndOneHazardAdvanceThenRestartAndRejectsChangedScenario" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.MidTurnL5ResumeKeepsNamesAndOneHazardAdvanceThenRestartAndRejectsChangedScenario" methodname="MidTurnL5ResumeKeepsNamesAndOneHazardAdvanceThenRestartAndRejectsChangedScenario" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="771653988" result="Passed" start-time="2026-10-06 18:08:41Z" end-time="2026-10-06 18:09:06Z" duration="25.070066" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310130948 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310133096 session=40d59709bbc74ed6b0416f41c201ad35 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310133163 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310136170 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310138126 session=40d59709bbc74ed6b0416f41c201ad35 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310138204 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+Animator.GotoState: State could not be found
+Invalid Layer Index '-1'
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310141403 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Ryzh(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Red(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'Bum(Clone)' animator='Model' controller='Goblin_Red' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791310143368 session=40d59709bbc74ed6b0416f41c201ad35 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791310143431 session=40d59709bbc74ed6b0416f41c201ad35 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+BoardLayoutTokenMover is missing BoardLayout reference.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791310144585 session=40d59709bbc74ed6b0416f41c201ad35 payload={sessionStartUnixMsUtc=1791310127763, sessionEndUnixMsUtc=1791310144585, durationSeconds=16.822, buildVersion=0.2.9-beta, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=7, battlesStartedCount=3, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=7867, totalSampledSeconds=23.173, averageFps=339.492, minimumWindowFps=0.149, averageFrameTimeMs=2.946, worstSpikeMs=6728.835}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1060" name="DemoHazardTests" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.016209" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1063" name="BarkBlocksOnlyLandingAndNeverMoves" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.009288" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1061" name="BarkBlocksOnlyLandingAndNeverMoves(4)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(4)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="722425040" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.005111" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1062" name="BarkBlocksOnlyLandingAndNeverMoves(6)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(6)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="2004674961" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.001767" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1064" name="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" methodname="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="30343687" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000905" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" methodname="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="466461158" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000859" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" methodname="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="92895232" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000934" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1067" name="DemoLearningTests" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.097637" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1069" name="DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" methodname="DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1729351197" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.001507" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="L6HasOnlyOneAutomaticInstruction" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.L6HasOnlyOneAutomaticInstruction" methodname="L6HasOnlyOneAutomaticInstruction" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1464706025" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000350" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1075" name="LearningSerializationKeepsKnowledgeWithoutInterfaceCache" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.LearningSerializationKeepsKnowledgeWithoutInterfaceCache" methodname="LearningSerializationKeepsKnowledgeWithoutInterfaceCache" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1053200251" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000281" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" methodname="NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="97883393" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.002384" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" methodname="RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1099288203" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.001454" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1074" name="ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" methodname="ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1217067365" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000438" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="SkipAndPassNeverProduceEvidence" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.SkipAndPassNeverProduceEvidence" methodname="SkipAndPassNeverProduceEvidence" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="329041987" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000312" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" methodname="ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="867242174" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.000298" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1140" name="Diceforge.Progression.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.Progression.Tests.dll" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.271330" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26012" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1141" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.268296" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1142" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.265572" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1143" name="Progression" fullname="Diceforge.Tests.Progression" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.165431" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1085" name="ProgressionTransactionTests" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" testcasecount="39" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.151648" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1086" name="DemoResultAndCheckpointRemovalCommitAtomically" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.DemoResultAndCheckpointRemovalCommitAtomically" methodname="DemoResultAndCheckpointRemovalCommitAtomically" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="299680344" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.047674" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1087" name="LegacyProfileWithoutDemoCheckpointStillLoads" fullname="Diceforge.Tests.Progression.ProgressionTransactionTests.LegacyProfileWithoutDemoCheckpointStillLoads" methodname="LegacyProfileWithoutDemoCheckpointStillLoads" classname="Diceforge.Tests.Progression.ProgressionTransactionTests" runstate="Runnable" seed="2119845943" result="Passed" start-time="2026-10-06 18:09:06Z" end-time="2026-10-06 18:09:06Z" duration="0.004510" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/tehno/AppData/LocalLow/BarabolaCompany/GlimbleHop\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

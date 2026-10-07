@@ -83,6 +83,7 @@ namespace Diceforge.Progression
         internal static PlayerProfile Snapshot()
         {
             var candidate = JsonUtility.FromJson<PlayerProfile>(JsonUtility.ToJson(Current));
+            if (!candidate.demoCheckpointActive) candidate.demoCheckpoint = null;
             candidate.version = ProfileVersion;
             candidate.currencies = ToList(CurrencyMap);
             candidate.inventory = ToList(InventoryMap);
@@ -374,6 +375,8 @@ namespace Diceforge.Progression
                 });
             }
             candidate.progressionReceipts.RemoveAll(receipt => !string.IsNullOrEmpty(receipt.chapterId));
+            candidate.demoCheckpoint = null;
+            candidate.demoCheckpointActive = false;
             candidate.adminMapResetEpoch = epoch;
             if (!TryCommit(candidate, out error)) return false;
             foreach (string chapterId in chapterIds) PlayerPrefs.DeleteKey("map_state_" + chapterId);
@@ -517,6 +520,7 @@ namespace Diceforge.Progression
             }
 
             _profile.version = ProfileVersion;
+            if (!_profile.demoCheckpointActive) _profile.demoCheckpoint = null;
             _profile.playerGuid = string.IsNullOrWhiteSpace(_profile.playerGuid) ? string.Empty : _profile.playerGuid.Trim();
             _profile.playerName = string.IsNullOrWhiteSpace(_profile.playerName) ? string.Empty : _profile.playerName.Trim();
             _profile.selectedAvatarId = string.IsNullOrWhiteSpace(_profile.selectedAvatarId) ? string.Empty : _profile.selectedAvatarId.Trim();

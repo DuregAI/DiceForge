@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "duration": 0.42,
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance",
+      "Status": "Passed",
+      "Duration": 0.0459387,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.L6HasOnlyOneAutomaticInstruction",
+      "Status": "Passed",
+      "Duration": 0.0011135,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.LearningSerializationKeepsKnowledgeWithoutInterfaceCache",
+      "Status": "Passed",
+      "Duration": 0.0003203,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes",
+      "Status": "Passed",
+      "Duration": 0.013143,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.RepeatedErrorDeduplicatesAndCapsAtTwoPerReason",
+      "Status": "Passed",
+      "Duration": 0.0020588,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.ResumeKeepsAttemptEvidencePendingHintAndErrorBudget",
+      "Status": "Passed",
+      "Duration": 0.0006314,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.SkipAndPassNeverProduceEvidence",
+      "Status": "Passed",
+      "Duration": 0.0003449,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoLearningTests.ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak",
+      "Status": "Passed",
+      "Duration": 0.0003142,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

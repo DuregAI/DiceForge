@@ -76,6 +76,7 @@ namespace Diceforge.Progression
             profile.progressionReceipts ??= new();
             profile.demoLearning ??= new();
             profile.demoStorySeen ??= new();
+            if (!profile.demoCheckpointActive) profile.demoCheckpoint = null;
             var chapters = new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
             foreach (var chapter in profile.chapters)
                 if (chapter == null || string.IsNullOrEmpty(chapter.chapterId) || string.IsNullOrEmpty(chapter.runId) ||
