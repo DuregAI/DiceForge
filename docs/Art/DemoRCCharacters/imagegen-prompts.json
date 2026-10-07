@@ -1,0 +1,23 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-10-07",
+  "note": "Production briefs are normalized descriptions of the generation prompts. The final atlas edit prompt is preserved verbatim.",
+  "bum_reference": {
+    "output": "AIReferences/bum-front-a-pose.png",
+    "references": [
+      "../../DemoRC/v0.1/art/cast-01-heroes.png"
+    ],
+    "prompt": "Preserve the identity of the rightmost character Bum from cast-01. One adult warm moss-olive goblin with broad shoulders, round face, coral inner ears, amber eyes and leafy olive hair. Ochre waistcoat over oatmeal linen, dark trail trousers, chestnut boots, a large soft patched backpack with rolled blanket and visible straps. Full body, directly front facing, neutral closed mouth, relaxed A pose, empty separated hands, air gaps around arms and ears. Cozy detailed stylized 3D. Even lighting, transparent background, eight percent margin. No other characters, letters, ground shadow, or held objects."
+  },
+  "portraits": {
+    "output": "../../../Assets/_Project/07_Art/DemoRCCharacters/Portraits/neutral-atlas-v3.png",
+    "references": [
+      "../../DemoRC/v0.1/art/cast-01-heroes.png",
+      "../../DemoRC/v0.1/art/cast-02-family.png",
+      "../../DemoRC/v0.1/art/cast-03-village.png",
+      "../../DemoRC/v0.1/art/cast-04-rivals.png"
+    ],
+    "generation_brief": "Twelve separate neutral bust portraits in an exact equal-cell three-column four-row grid: tish/luma/bum, koren/pip/fika, mira/una/shal, kloch/ryzh/bark. Match the supplied cast identities, clothing and accessories in cozy detailed stylized 3D. Neutral gentle closed-mouth expressions. True alpha, no labels, frames, shadows, grid lines, cross-cell overlap or silhouettes cut by cell edges. Luma's hair and braid must be dark chestnut #58442F; her scarf stays turquoise.",
+    "final_edit_prompt": "Use case: identity-preserve. Edit target: the supplied 12-character portrait atlas. Keep exactly the same twelve character identities, faces, closed-mouth neutral expressions, poses, accessories, costume colors, warm cozy detailed stylized 3D medium, and exact order in a three-column four-row equal square-cell grid. Top row Tish, Luma, Bum; second row Koren, Pip, Fika; third row Mira, Una, Shal; bottom row Kloch, Ryzh, Bark. Keep Luma's hair and braid dark chestnut #58442F. Change only spacing and edge cleanup: reduce each whole portrait slightly and center it in its own grid cell so every silhouette, ear, hat, feather, antenna and bust bottom has at least 12.5 percent truly transparent margin on all four sides. No character may touch or spill into another cell. Remove ALL bright red and yellow stray pixels, color matte residue, halos, edge outlines, dust and disconnected alpha fragments around or below the silhouettes. Use clean antialiased natural edges with genuine alpha transparency and no opaque background. Preserve all natural character colors and clothing, and preserve the bark and bird textures. No text, no labels, no frame, no grid lines, no shadow outside the silhouettes. The overall image must have a 3:4 aspect ratio. This is a production UI sprite atlas, not a contact sheet with backgrounds."
+  }
+}

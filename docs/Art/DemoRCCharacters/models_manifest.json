@@ -1,0 +1,167 @@
+{
+  "generator": "build_demo_characters.py",
+  "source_sha256": "7b8d880aafd22c6e392808e256d544a763ca1f5130503cdc3735596cdd63a531",
+  "blender": "5.2.1 LTS",
+  "characters": [
+    {
+      "id": "tish",
+      "fbx": "Assets/_Project/07_Art/DemoRCCharacters/Models/tish.fbx",
+      "triangles": 31484,
+      "vertices": 16060,
+      "materials": 1,
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "bind_dimensions_xyz": [
+        2.3677680492401123,
+        0.7759998440742493,
+        2.255100257694721
+      ],
+      "idle_dimensions_xyz": [
+        2.2447428703308105,
+        0.7759998440742493,
+        2.255100257694721
+      ],
+      "source_height_relative": 1.0,
+      "suggested_field_scale_relative_to_tish": 1,
+      "rig_object": "GoblinFriend_Rig",
+      "animation": "GF_Idle",
+      "fbx_sha256": "94bb10e8d537befcb8056b665991affebe3f5ac2713c980934fb5b15972d788b"
+    },
+    {
+      "id": "luma",
+      "fbx": "Assets/_Project/07_Art/DemoRCCharacters/Models/luma.fbx",
+      "triangles": 32884,
+      "vertices": 16768,
+      "materials": 1,
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "bind_dimensions_xyz": [
+        2.2493796348571777,
+        0.7890376448631287,
+        2.2506452202796936
+      ],
+      "idle_dimensions_xyz": [
+        2.134676456451416,
+        0.7890376448631287,
+        2.2506452202796936
+      ],
+      "source_height_relative": 1.03,
+      "suggested_field_scale_relative_to_tish": 1,
+      "rig_object": "GoblinFriend_Rig",
+      "animation": "GF_Idle",
+      "fbx_sha256": "4c97b63c5f43857e4f1c77c450e5c81aba973febbc6141fae3fd5713109e4205"
+    },
+    {
+      "id": "bum",
+      "fbx": "Assets/_Project/07_Art/DemoRCCharacters/Models/bum.fbx",
+      "triangles": 30736,
+      "vertices": 15686,
+      "materials": 1,
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "bind_dimensions_xyz": [
+        3.17280912399292,
+        1.454699993133545,
+        2.983336851000786
+      ],
+      "idle_dimensions_xyz": [
+        3.0181353092193604,
+        1.454699993133545,
+        2.9833366721868515
+      ],
+      "source_height_relative": 1.36,
+      "suggested_field_scale_relative_to_tish": 0.76,
+      "rig_object": "GoblinFriend_Rig",
+      "animation": "GF_Idle",
+      "fbx_sha256": "51d68842d8ca78f5e53e3681f648b5616e137cdbd40246fe3b68b5f836224dbd"
+    },
+    {
+      "id": "ryzh",
+      "fbx": "Assets/_Project/07_Art/DemoRCCharacters/Models/ryzh.fbx",
+      "triangles": 30136,
+      "vertices": 15362,
+      "materials": 1,
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "bind_dimensions_xyz": [
+        2.154668688774109,
+        0.7527198791503906,
+        2.300129123032093
+      ],
+      "idle_dimensions_xyz": [
+        2.077739953994751,
+        0.7527198791503906,
+        2.300129123032093
+      ],
+      "source_height_relative": 1.01,
+      "suggested_field_scale_relative_to_tish": 1,
+      "rig_object": "GoblinFriend_Rig",
+      "animation": "GF_Idle",
+      "fbx_sha256": "3af1008c705dae10f8cd62b2c6e63e695637a11ec79be669686f8b78be43f367"
+    },
+    {
+      "id": "bark",
+      "fbx": "Assets/_Project/07_Art/DemoRCCharacters/Models/bark.fbx",
+      "triangles": 13984,
+      "vertices": 7168,
+      "materials": 1,
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "bind_dimensions_xyz": [
+        1.4281890392303467,
+        1.4179995656013489,
+        1.1680522561073303
+      ],
+      "idle_dimensions_xyz": [
+        1.4281890392303467,
+        1.4179995656013489,
+        1.1680522859096527
+      ],
+      "source_height_relative": null,
+      "suggested_field_scale_relative_to_tish": 1,
+      "rig_object": "GoblinFriend_Rig",
+      "animation": "Bark_Idle",
+      "fbx_sha256": "e08caa492a1636aaa6b105e96d53f01b3bf5dce4279a404da1a3cd489a2a5dd8"
+    }
+  ]
+}

@@ -1469,7 +1469,7 @@
         "fallback": "any other legal move continues play; abandon exact demonstration and resolve next hint from current state"
       },
       "text": {
-        "ru": "Порядок простой: шаг вверху, затем герой на тропе.",
+        "ru": "Порядок простой: выбери шаг, затем героя на тропе.",
         "en": "Choose the step above, then the hero on the trail.",
         "zh": null
       },
@@ -3279,7 +3279,7 @@
         "fallback": "any other legal move continues play; abandon exact demonstration and resolve next hint from current state"
       },
       "text": {
-        "ru": "Это варианты прошлого хода. Выбери шаг из тех, что сейчас видны вверху.",
+        "ru": "Это варианты прошлого хода. Выбери один из шагов, которые доступны сейчас.",
         "en": "That was last turn's choice. Use the current steps above.",
         "zh": null
       },
@@ -3311,7 +3311,7 @@
       "recovery": {
         "afterSkip": {
           "text": {
-            "ru": "Выбери текущий шаг вверху.",
+            "ru": "Выбери один из текущих шагов.",
             "en": "Choose a current step above.",
             "zh": null
           },
@@ -9625,7 +9625,7 @@
         "fallback": "reason-specific hint; no time-based repetition"
       },
       "text": {
-        "ru": "Сначала выбери шаг вверху, затем героя на тропе.",
+        "ru": "Сначала выбери шаг, затем героя на тропе.",
         "en": "Choose a step above, then a hero on the trail.",
         "zh": null
       },
@@ -9877,7 +9877,7 @@
         "fallback": "reason-specific hint; no time-based repetition"
       },
       "text": {
-        "ru": "Для этого шага сейчас нет доступного героя. Проверь другой шаг вверху.",
+        "ru": "Для этого шага сейчас нет доступного героя. Проверь другой шаг на панели.",
         "en": "No friend can use this step now. Check another step above.",
         "zh": null
       },

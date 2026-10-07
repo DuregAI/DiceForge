@@ -37,6 +37,7 @@ namespace Diceforge.View
         private float previousTimeScale;
         private string diceSignature;
         private MenuLocalization localization, settingsLocalization;
+        private Font demoFont;
         private PlayerFeedbackWindow feedbackWindow;
         private int width,height;
         private float logicalWidth,logicalHeight;
@@ -61,10 +62,10 @@ namespace Diceforge.View
                 var settingsRoot=settingsDocument.rootVisualElement;
                 settingsRoot.pickingMode=PickingMode.Ignore;
                 settingsPanel=SharedSettingsPanel.AttachTo(settingsRoot);
-                if(settingsPanel!=null) settingsLocalization=new MenuLocalization(settingsRoot,()=>localization?.Refresh());
+                if(settingsPanel!=null) settingsLocalization=new MenuLocalization(settingsRoot,RefreshHudLocalization);
             }
             else Debug.LogError("[Settings] BattleSettingsPanel is missing.");
-            localization=new MenuLocalization(root,()=>diceSignature=null);
+            localization=new MenuLocalization(root,OnHudLocaleChanged);
             dice=root.Q("moves"); menu=root.Q("pauseOverlay");
             pauseDismiss=new Diceforge.UI.ModalDismiss(menu,root.Q("pauseWindow"),HandlePauseDismiss);
             turn=root.Q<Label>("turn");scoreA=root.Q<Label>("scoreA");scoreB=root.Q<Label>("scoreB");hint=root.Q<Label>("hint");
@@ -74,6 +75,7 @@ namespace Diceforge.View
             AttachTeamIcon(root.Q("teamIconB"),PlayerId.B);
             reroll=root.Q<Button>("reroll");reroll.clicked+=()=>battle.PresentationReroll();
             settingsButton=root.Q<Button>("settings");
+            if (battle.DemoLevel != null) AttachDemoMenuIcons(root.Q<Button>("pause"), settingsButton);
             settingsButton.SetEnabled(settingsPanel!=null);
             if(settingsPanel!=null) InitializeSettings();
             root.Q<Button>("pauseSettings").SetEnabled(settingsPanel!=null);
@@ -93,6 +95,40 @@ namespace Diceforge.View
             pauseMute.SetValueWithoutNotify(audioManager!=null && audioManager.IsMuted);
             pauseMute.RegisterValueChangedCallback(e=>audioManager?.SetMuted(e.newValue));
             board.GeometryChanged+=OnGeometryChanged;
+            ApplyDemoFont();
+        }
+
+        private void RefreshHudLocalization()
+        {
+            localization?.Refresh();
+            OnHudLocaleChanged();
+        }
+
+        private string demoLanguage;
+        private void OnHudLocaleChanged()
+        {
+            diceSignature = null;
+            demoLanguage = PlayerPrefs.GetString("ui.language", "en");
+            ApplyDemoFont();
+        }
+
+        private void ApplyDemoFont()
+        {
+            if (battle?.DemoLevel == null || panel == null) return;
+            demoFont ??= Resources.Load<Font>("Localization/Nunito");
+            if (demoFont == null) return;
+            var definition = new StyleFontDefinition(FontDefinition.FromFont(demoFont));
+            panel.style.unityFontDefinition = definition;
+            foreach (string className in new[] { "hud-header", "bottom-bar" })
+            {
+                var section = panel.Q(className: className);
+                if (section == null) continue;
+                section.Query<TextElement>().ForEach(text =>
+                {
+                    text.style.unityFontDefinition = definition;
+                    text.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(StyleKeyword.Null);
+                });
+            }
         }
 
         private void InitializeDemoControls()
@@ -100,6 +136,7 @@ namespace Diceforge.View
             if (battle.DemoLevel == null) return;
             panel.AddToClassList("demo-mode");
             demoTitle = root.Q<Label>("demoTitle");
+            root.Q(className: "top-bar").Insert(0, demoTitle);
             stepRule = root.Q<Label>("stepRule");
             selectedHero = root.Q<Label>("selectedHero");
             var heroes = root.Q("demoHeroes");
@@ -125,12 +162,19 @@ namespace Diceforge.View
             restart.RemoveFromClassList("hidden");
             restart.clicked += () => { CloseBattleMenus(); battle.RestartMatch(); };
             localization.Refresh();
+            ApplyDemoFont();
         }
 
+        private static void AttachDemoMenuIcons(Button pauseButton, Button settingsButton)
+        {
+            DemoUiIcons.Attach(pauseButton, DemoUiIcon.Pause);
+            DemoUiIcons.Attach(settingsButton, DemoUiIcon.Settings);
+        }
         private readonly System.Collections.Generic.HashSet<string> presentedExited = new();
         private void RefreshDemoControls(bool can)
         {
             if (battle.DemoLevel == null) return;
+            if (demoLanguage != PlayerPrefs.GetString("ui.language", "en")) RefreshHudLocalization();
             SetText(demoTitle, localization.T(battle.DemoLevel.title));
             SetText(stepRule, localization.T(battle.PresentationState.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential
                 ? "Two steps per turn" : "One step per turn"));
@@ -147,6 +191,8 @@ namespace Diceforge.View
                 pair.Value.text = localization.T(Diceforge.GameModes.DemoLevelDefinition.HeroName(pair.Key))
                     + (presentedExited.Contains(pair.Key) ? " · " + localization.T("Arrived") : string.Empty);
                 pair.Value.SetEnabled(can && found && !exited);
+                pair.Value.EnableInClassList("available", can && found && !exited);
+                pair.Value.EnableInClassList("arrived", presentedExited.Contains(pair.Key));
                 pair.Value.EnableInClassList("selected", battle.SelectedHeroId == pair.Key);
             }
             var actions = root.Q<Label>("actionsRemaining");
@@ -159,7 +205,7 @@ namespace Diceforge.View
             hazard.EnableInClassList("hidden", state.Rules.soloTrailHazard == SoloTrailHazard.None);
             if (state.Rules.soloTrailHazard != SoloTrailHazard.None && !battle.PresentationIsAnimating)
                 SetText(hazard, localization.T(state.Rules.soloTrailHazard == SoloTrailHazard.Bark ? "Bark blocks the landing. Jump over him."
-                    : state.TrailHazardCell >= 0 ? "Ryzh moves after both steps." : "Ryzh has stepped aside. The trail is clear."));
+                    : state.TrailHazardCell >= 0 ? "Rusty moves after both steps." : "Rusty has stepped aside. The trail is clear."));
             root.Q<Button>("surrender").text = localization.T("Leave trail");
             root.Q<Label>("leaveTitle").text = localization.T("Leave trail?");
             root.Q<Label>("leaveMessage").text = localization.T("Return to the map without completing this trail?");
@@ -318,12 +364,15 @@ namespace Diceforge.View
                         ? "One more action. Choose a friend." : "Choose a step, then a friend." : battle.DemoInputFeedback;
             if (battle.IsPassingTrailTurn) hintKey = "No steps available. Starting a new turn.";
             SetText(hint,localization.T(hintKey));
+            if (battle.DemoLevel != null)
+                panel.EnableInClassList("has-input-feedback", !string.IsNullOrEmpty(battle.DemoInputFeedback));
             RefreshDemoControls(can && !paused);
             if (can && !paused && previewHero != null && battle.TryGetHero(previewHero, out int previewCell, out _, out bool left) && !left)
                 battle.PreviewPresentationCell(board, previewCell, previewHero);
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;
             string signature=can+":"+state.CurrentPlayer+":"+battle.PresentationSelectedDie+":";
+            if (battle.DemoLevel != null) signature += paused + ":";
             if(battle.PresentationDice!=null)foreach(int value in battle.PresentationDice)signature+=value+",";
             if (battle.DemoLevel != null && battle.PresentationIsAnimating)
                 foreach (var button in dice.Children()) button.SetEnabled(false);
@@ -333,15 +382,39 @@ namespace Diceforge.View
                 if(battle.PresentationDice!=null)for(int i=0;i<battle.PresentationDice.Count;i++)
                 {
                     int index=i;
-                    var button=new Button(()=>{battle.SelectPresentationDie(index);Diceforge.Audio.AudioManager.Instance?.PlayUiClick();}){text=battle.PresentationDice[i].ToString()};
+                    var button=new Button(()=>{battle.SelectPresentationDie(index);Diceforge.Audio.AudioManager.Instance?.PlayUiClick();})
+                    {
+                        text=battle.DemoLevel == null ? battle.PresentationDice[i].ToString()
+                            : string.Format(localization.T("Step {0}"), battle.PresentationDice[i])
+                    };
                     var marker=new VisualElement{pickingMode=PickingMode.Ignore};
                     marker.AddToClassList("token-marker");
                     AttachTeamIcon(marker,state.CurrentPlayer);
                     button.Add(marker);
-                    button.AddToClassList("move-token");button.EnableInClassList("selected",i==battle.PresentationSelectedDie);button.SetEnabled(can);dice.Add(button);
+                    bool available = can && (battle.DemoLevel == null || !paused);
+                    button.AddToClassList("move-token");
+                    button.EnableInClassList("selected",i==battle.PresentationSelectedDie);
+                    button.EnableInClassList("available",available);
+                    button.SetEnabled(available);
+                    dice.Add(button);
                 }
+                ApplyDemoFont();
             }
             UpdateLayout();
+            RefreshDemoBoardViewport();
+        }
+        private void RefreshDemoBoardViewport()
+        {
+            if (battle.DemoLevel == null || panel.ClassListContains("narrative-modal") || logicalWidth <= 0 || logicalHeight <= 0) return;
+            var header = panel.Q(className: "hud-header");
+            var surface = panel.Q("demoActionSurface");
+            float top = header.worldBound.yMax + 12;
+            float bottom = surface.worldBound.yMin - 12;
+            if (bottom <= top) return;
+            float left = panel.resolvedStyle.paddingLeft / logicalWidth;
+            float right = panel.resolvedStyle.paddingRight / logicalWidth;
+            board.SetDemoGameplayViewport(new Rect(left, 1 - bottom / logicalHeight,
+                1 - left - right, (bottom - top) / logicalHeight));
         }
         private void UpdateLayout()
         {

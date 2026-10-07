@@ -4,7 +4,7 @@
 
 Связанные документы: [геймдизайн](01_GAME_DESIGN.md), [история и карточки персонажей](02_STORY_CHARACTERS.md), [сценарий и комиксы](03_LEVEL_SCRIPT_STORYBOARDS.md), [структурированные реплики](data/dialogues.json), [конфиги уровней](data/levels.json).
 
-**Это спецификация для реализации, не готовый Unity-импорт.** Изменений игровой логики, ассетов, пресетов и старых реплик здесь нет. Текущая сборка не получает эти 138 событий автоматически. JSON содержит описательные условия и ключи будущих портретов; существующий DialogueSequence не умеет читать его схему.
+**Исходная авторская спецификация.** Описания ниже сохраняют структуру диздока. Теперь отдельный DemoNarrativeAssetsBuilder импортирует все 138 событий и комиксы в Narrative.asset, включая полный [английский источник](data/dialogues.en.json). Текущее состояние реализации и проверок: [Demo RC Stage6](../../Validation/DemoRCStage6/README.md).
 
 ## 1. Что входит в сценарий
 
@@ -12,7 +12,7 @@
 - 36 игровых сюжетных реплик: два открытия, два завершения и две реплики мягкого повторения на каждый уровень.
 - 12 коротких реплик возврата/рестарта: продолжить участок без повторения всей истории.
 - 18 глобальных событий: ошибки ввода, пропуск, пауза, справка, доступность, смена языка и неудачное восстановление участка.
-- Русский текст для всех 138 событий. Короткий английский черновик для 102 учебных, восстановительных и глобальных событий. Сюжетный английский и весь китайский ещё требуют перевода.
+- Русский текст для всех 138 событий. Короткий английский черновик для 102 учебных, восстановительных и глобальных событий. Полный английский перевод всех 138 событий, 35 реплик комиксов и их заголовков теперь находится в [dialogues.en.json](data/dialogues.en.json); Unity-импорт использует этот файл. Английские колонки ниже сохраняют краткий редакторский черновик. Китайский ещё требует перевода.
 - Постоянные speakerId всех 12 персонажей. На поле управляются только Тиш, затем Лума, затем Бум. Реплики остальных и весь свадебный эпилог находятся в S00–S06 у сценариста.
 
 Открытия/завершения ниже — короткие игровые акценты. Комиксы S00–S06 несут причинность сюжета: линза украдена, след найден, друзья собрались, Клоч добровольно вернул линзу, свадебный свет зажжён. Реплики не заменяют эти сцены. Клоч говорит «В следующий раз спрошу. Даже если блестит» в S06; повторять её в игровом tutorial не нужно.
@@ -188,7 +188,7 @@ trigger.event использует доменные snake_case-события г
 | L01_T04 | Совет Лумы / point | Новый ход — новый шаг «1». Выбирай его и снова Тиша. | New turn, new 1. Choose it, then Tish. |
 | L01_T05 | Совет Лумы / reassuring | На этой плите никого нет. Нажми Тиша там, где он стоит. | That space is empty. Choose Tish where he stands. |
 | L01_T06 | Совет Лумы / point | Идём от калитки к выходу. Шаги считают плиты впереди Тиша. | We move toward the exit. Steps count spaces ahead. |
-| L01_T07 | Совет Лумы / point | Порядок простой: шаг вверху, затем герой на тропе. | Choose the step above, then the hero on the trail. |
+| L01_T07 | Совет Лумы / point | Порядок простой: выбери шаг, затем героя на тропе. | Choose a step, then a hero on the trail. That's the order. |
 | L01_T08 | Совет Лумы / smile | Ты уже знаешь этот шаг. Дальше попробуй сам; подсказка доступна в справке. | You know this move. Try on your own; Help is available. |
 | L01_T09 | Совет Лумы / point | Наша цель — пройти всю тропу и выйти за последнюю плиту. | Cross the trail and move beyond the last space. |
 | L01_T10 | Совет Лумы / point | Вот последняя плита. Выбери «1» и Тиша — он шагнёт к выходу. | Last space. Choose 1, then Tish to reach the exit. |
@@ -262,7 +262,7 @@ trigger.event использует доменные snake_case-события г
 | L02_T07 | Совет Лумы / point | После движения ход закончился. Невыбранный шаг не переносится; появились новые варианты. | The move ended that turn. Unused choices do not carry over. |
 | L02_T08 | Совет Лумы / point | Пока Тиш не пошёл, можно выбрать другой шаг. Посмотри на оба расстояния. | Before moving, you can change the selected step. |
 | L02_T09 | Совет Лумы / point | Если шаг достигает выхода или проходит дальше него, Тиш завершит тропу. | Reach or pass the exit to finish the trail. |
-| L02_T10 | Совет Лумы / reassuring | Это варианты прошлого хода. Выбери шаг из тех, что сейчас видны вверху. | That was last turn's choice. Use the current steps above. |
+| L02_T10 | Совет Лумы / reassuring | Это варианты прошлого хода. Выбери один из шагов, которые доступны сейчас. | Those were last turn's choices. Choose one of the steps available now. |
 | L02_T11 | Совет Лумы / smile | Выход рядом. На этой плите любой доступный шаг доведёт Тиша до берега. | The exit is near. Either available step will take Tish out. |
 | L02_T12 | Совет Лумы / point | Один ход — «1» или «2». Выбери шаг, затем Тиша; доведи его до выхода. | Choose 1 or 2, then Tish. Lead him to the exit. |
 
@@ -296,7 +296,7 @@ trigger.event использует доменные snake_case-события г
 | L02_T07 | Невыбранная альтернатива не переносится. | G_E09 |
 | L02_T08 | До движения выбор шага можно изменить. | G_E01 |
 | L02_T09 | Достичь выхода или пройти дальше — достаточно. | G_E03 |
-| L02_T10 | Выбери текущий шаг вверху. | G_E09 |
+| L02_T10 | Выбери один из текущих шагов. | G_E09 |
 | L02_T11 | С этой плиты доступны оба шага к выходу. | G_E03 |
 | L02_T12 | Шаг «1» или «2» → Тиш → выход. | G_E01, G_E02 |
 
@@ -326,7 +326,7 @@ trigger.event использует доменные snake_case-события г
 |---|---|---|---|
 | L03_T01 | Лума / point | Теперь нас двое. Выбери шаг, а затем того, кто пойдёт. До выхода нужно довести обоих. | Choose a step, then a friend. Both must reach the exit. |
 | L03_T02 | Лума / point | Можно начать так: «2», затем Тиш. Я пока подожду на старте. | Try 2, then Tish. I can wait at the start. |
-| L03_T03 | Лума / point | Теперь попробуй дать «2» мне. Нажми Луму — мы встретимся на одной плите. | Try 2 for Luma. We can share the same space. |
+| L03_T03 | Лума / point | Теперь попробуй дать «2» мне. Нажми Луму — мы встретимся на одной плите. | Try 2 for Jo. We can share the same space. |
 | L03_T04 | Тиш / smile | Плита крепкая. Двух друзей она держит без очереди! | Solid space. Room for both friends! |
 | L03_T05 | Лума / point | Шаг целиком получает один герой. Разделить «2» на один шаг каждому здесь нельзя. | One friend uses the whole step. You cannot split 2 between friends. |
 | L03_T06 | Лума / point | Следующим может пойти любой из нас, если его ход доступен. Обязательной очереди нет. | Either friend may move next if the move is legal. |
@@ -395,7 +395,7 @@ trigger.event использует доменные snake_case-события г
 
 | ID | Голос / эмоция | Русский текст | Short English |
 |---|---|---|---|
-| L04_T01 | Лума / smile | С нами Бум. Теперь нужно провести троих; шаги для него выбираются так же. | Bum joins us. Lead all three out with the same steps. |
+| L04_T01 | Лума / smile | С нами Бум. Теперь нужно провести троих; шаги для него выбираются так же. | Boom joins us. Lead all three out with the same steps. |
 | L04_T02 | дед Корень / point | Счётчик должен показать «3 из 3». Маленький фонарь понесём все вместе. | The counter must reach 3 of 3. Lead every friend out. |
 | L04_T03 | дед Корень / point | Начни со знакомого: «2» для Тиша. До этой плиты путь свободен. | Try the familiar move: 2 for Tish. The landing is clear. |
 | L04_T04 | дед Корень / point | Жук спит на этой плите. На занятую плиту шагнуть нельзя. Посмотри на «1». | The beetle holds that space. You cannot land there. Try 1. |
@@ -468,16 +468,16 @@ trigger.event использует доменные snake_case-события г
 |---|---|---|---|
 | L05_T01 | Лума / point | Теперь есть «1» и «2». Это два отдельных действия за ход: сначала одно, затем оставшееся. | Now 1 and 2 are two separate moves. Use one, then the other. |
 | L05_T02 | Лума / point | Попробуй «2» для Тиша. Шаг «1» после этого останется для следующего действия. | Try 2 for Tish. The 1 will remain for the next move. |
-| L05_T03 | Лума / point | Осталась «1». Можно дать её Луме: выбери оставшийся шаг, затем меня. | Only 1 remains. You can give it to Luma. |
-| L05_T04 | Лума / point | Рыж ждёт, пока закончится наш ход. Обычно это происходит после обоих отдельных действий. | Ryzh waits until our turn ends, usually after both moves. |
+| L05_T03 | Лума / point | Осталась «1». Можно дать её Луме: выбери оставшийся шаг, затем меня. | Only 1 remains. You can give it to Jo. |
+| L05_T04 | Лума / point | Рыж ждёт, пока закончится наш ход. Обычно это происходит после обоих отдельных действий. | Rusty waits until our turn ends, usually after both moves. |
 | L05_T05 | Рыж / smile | Одна плита! Зато с таким разбегом! | One space! With magnificent momentum! |
-| L05_T06 | Лума / point | «2» ведёт на Рыжа. Там нельзя остановиться. Проверь «1» для Тиша. | 2 lands on Ryzh. You cannot stop there. Check 1 for Tish. |
-| L05_T07 | Лума / point | «1» ведёт Тиша на свободную плиту перед Рыжем. Так мы используем первое действие. | 1 has a clear landing before Ryzh. Use it for Tish. |
-| L05_T08 | Лума / point | Осталась «2». Дай её Луме, и я встану рядом с Тишем. После этого Рыж сделает свой шаг. | Give the remaining 2 to Luma. We can share Tish's space. |
+| L05_T06 | Лума / point | «2» ведёт на Рыжа. Там нельзя остановиться. Проверь «1» для Тиша. | 2 lands on Rusty. You cannot stop there. Check 1 for Tish. |
+| L05_T07 | Лума / point | «1» ведёт Тиша на свободную плиту перед Рыжем. Так мы используем первое действие. | 1 has a clear landing before Rusty. Use it for Tish. |
+| L05_T08 | Лума / point | Осталась «2». Дай её Луме, и я встану рядом с Тишем. После этого Рыж сделает свой шаг. | Give the remaining 2 to Jo. We can share Tish's space. |
 | L05_T09 | Лума / point | Оба шага можно дать одному другу или разным. Каждый шаг выполняется отдельно и проверяет свою посадку. | Give both steps to one friend or different friends. Check each landing separately. |
-| L05_T10 | Лума / point | После нашего хода Рыж идёт вперёд на одну плиту. Маркер показывает его следующую клетку. | After our turn, Ryzh moves one space. The marker shows his next space. |
+| L05_T10 | Лума / point | После нашего хода Рыж идёт вперёд на одну плиту. Маркер показывает его следующую клетку. | After our turn, Rusty moves one space. The marker shows his next space. |
 | L05_T11 | Рыж / smile | Тут уже компания? Ладно, уступлю. Побеждайте красиво! | Company already? I'll step aside. Finish in style! |
-| L05_T12 | Лума / point | Два отдельных шага. Выбирай свободную посадку, учитывай Рыжа после хода и доведи всех троих. | Use two separate moves. Check landings and Ryzh. Lead all three out. |
+| L05_T12 | Лума / point | Два отдельных шага. Выбирай свободную посадку, учитывай Рыжа после хода и доведи всех троих. | Use two separate moves. Check landings and Rusty. Lead all three out. |
 
 Триггеры и наблюдаемое действие. Формулы — авторская спецификация.
 
@@ -516,7 +516,7 @@ trigger.event использует доменные snake_case-события г
 | ID | Условие | Русский текст | Short English |
 |---|---|---|---|
 | L05_R01 | level_reentered · after_resume_validation | Мы у переправы. «1» и «2» — два отдельных действия. Используй доступные шаги и проведи троих. | Use 1 and 2 as separate moves. Lead all three out. |
-| L05_R02 | level_reentered · after_restart | Снова у переправы. После нашего полного хода Рыж продвинется на одну плиту. Следи за посадкой. | After our full turn, Ryzh moves one space. Check each landing. |
+| L05_R02 | level_reentered · after_restart | Снова у переправы. После нашего полного хода Рыж продвинется на одну плиту. Следи за посадкой. | After our full turn, Rusty moves one space. Check each landing. |
 
 ### L6. Поляна общего света
 
@@ -595,14 +595,14 @@ trigger.event использует доменные snake_case-события г
 
 | ID | Событие / условие | Русский текст | Short English | Действие / подсветка |
 |---|---|---|---|---|
-| G_E01 | input_rejected; reason=no_step_selected | Сначала выбери шаг вверху, затем героя на тропе. | Choose a step above, then a hero on the trail. | Выбрать доступный шаг. / hud.steps |
+| G_E01 | input_rejected; reason=no_step_selected | Сначала выбери шаг, затем героя на тропе. | Choose a step first, then a hero on the trail. | Выбрать доступный шаг. / hud.steps |
 | G_E02 | input_rejected; reason=empty_origin OR reason=unknown_target | Выбери героя на плите с обводкой. Имя на портрете поможет его найти. | Choose a hero on an outlined space. Use the named portrait if needed. | Выбрать героя на допустимой исходной клетке. / legalOrigins |
 | G_E03 | input_rejected; reason=hero_already_exited | Этот друг уже дошёл. Выбери того, кто ещё на тропе. | That friend is through. Choose one still on the trail. | Двигать героя, который ещё на тропе. / party.active |
 | G_E04 | input_rejected; reason=blocked_destination | На месте посадки кто-то стоит. Шаг не потрачен: выбери другой доступный ход. | The landing is held. Your step is unused; choose another legal move. | Изменить выбор шага или выбрать героя с легальным ходом. / blocked.destination+hud.steps |
-| G_E05 | step_selected; selectedStepHasNoLegalOrigin AND otherAvailableStepHasLegalMove | Для этого шага сейчас нет доступного героя. Проверь другой шаг вверху. | No friend can use this step now. Check another step above. | Изменить выбор шага или выбрать героя с легальным ходом. / hud.otherLegalStep |
+| G_E05 | step_selected; selectedStepHasNoLegalOrigin AND otherAvailableStepHasLegalMove | Для этого шага сейчас нет доступного героя. Проверь другой шаг на панели. | No hero can use this step right now. Check another step on the panel. | Изменить выбор шага или выбрать героя с легальным ходом. / hud.otherLegalStep |
 | G_E06 | no_legal_moves; allAvailableStepsChecked;runnerEndTurnAvailable | Сейчас ни один шаг не ведёт на свободную посадку. Ход завершится, и мы проверим следующие шаги. | No step has a clear landing. The turn ends; then check the next steps. | Не требуется ввод; симуляция обязана перейти к следующему состоянию. / hud.turn_state |
 | G_E07 | input_rejected; reason=movement_animation;notShownThisAnimation | Подождём, пока друг закончит шаг. Потом выберем следующий. | Let the friend finish moving, then choose the next move. | Не требуется ввод; дождаться завершения анимации. / movingHero |
-| G_E08 | input_rejected; reason=opponent_phase;ryzh.onBoard | Сейчас идёт Рыж. После его шага снова выберем наши. | Ryzh is moving now. Our steps come next. | Не требуется ввод; дождаться события humanTurnReady. / unit(ryzh) |
+| G_E08 | input_rejected; reason=opponent_phase;ryzh.onBoard | Сейчас идёт Рыж. После его шага снова выберем наши. | Rusty is moving now. Our steps come next. | Не требуется ввод; дождаться события humanTurnReady. / unit(ryzh) |
 | G_E09 | input_rejected; reason=step_already_used OR reason=stale_step_choice | Этот шаг уже завершён. Выбери один из шагов, которые сейчас доступны. | That step is finished. Choose one that is available now. | Выбрать шаг из текущего состояния HUD. / hud.current_steps |
 | G_E10 | input_rejected; reason=no_legal_exit_for_selected_hero;selectedStepAvailable | Этому другу выбранного шага ещё не хватает до выхода. Можно пройти дальше по тропе. | This step cannot take that friend out yet. Keep moving along the trail. | Выбрать героя на допустимой исходной клетке. / legalOrigins+exit.marker |
 | G_A01 | tutorial_skip_requested; scope=current_hint OR scope=all_guidance | Хорошо, продолжай своим темпом. Подсказки можно снова открыть в справке. | Keep your own pace. You can open Help again. | Скрыть обучение без изменения партии. / hud.help |

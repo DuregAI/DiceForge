@@ -33,6 +33,7 @@ namespace Diceforge.View
         private readonly Dictionary<int, TextMesh> badges = new();
         private Sprite badgeSprite;
         private bool trailMode;
+        private Rect? demoGameplayViewport;
         private GameObject trailExit;
         private TextMesh blockedSign;
         public void ConfigureTrail(bool enabled)
@@ -100,15 +101,24 @@ namespace Diceforge.View
             RefreshTrailExit();
             if (changed) { Preview(null, null, -1); ClearBadges(); GeometryChanged?.Invoke(); }
         }
+        public void SetDemoGameplayViewport(Rect viewport)
+        {
+            if (!trailMode || viewport.width <= 0 || viewport.height <= 0) return;
+            if (demoGameplayViewport.HasValue && demoGameplayViewport.Value == viewport) return;
+            demoGameplayViewport = viewport;
+            FitCamera();
+        }
         private void FitCamera()
         {
             if (cameraView == null) return;
             Bounds bounds = WorldBounds;
             float halfWidth = bounds.extents.x + .4f;
             float halfHeight = bounds.extents.z * Mathf.Sin(50*Mathf.Deg2Rad) + .60f;
-            float freeHeight = IsPortrait ? .69f : .74f;
-            cameraView.orthographicSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect)) * 1.04f;
-            Vector3 target = bounds.center + cameraView.transform.up * (-cameraView.orthographicSize*.09f);
+            Rect viewport = trailMode && demoGameplayViewport.HasValue ? demoGameplayViewport.Value : new Rect(0, 0, 1, 1);
+            float freeHeight = trailMode && demoGameplayViewport.HasValue ? viewport.height : IsPortrait ? .69f : .74f;
+            cameraView.orthographicSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect * viewport.width)) * 1.04f;
+            float verticalOffset = trailMode && demoGameplayViewport.HasValue ? 1 - viewport.center.y * 2 : -.09f;
+            Vector3 target = bounds.center + cameraView.transform.up * (cameraView.orthographicSize * verticalOffset);
             cameraView.transform.position = target - cameraView.transform.forward*25;
         }
         public Vector3 CellPosition(int id)

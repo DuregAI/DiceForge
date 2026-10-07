@@ -37,8 +37,8 @@ namespace Diceforge.GameModes
         public static string HeroName(string id) => id switch
         {
             "tish" => "Tish",
-            "luma" => "Luma",
-            "bum" => "Bum",
+            "luma" => "Jo",
+            "bum" => "Boom",
             _ => string.Empty
         };
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce7eb7b098183f409b7fc78490bbb9c, type: 3}
   m_Name: Narrative
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.Dialogue.DemoNarrativeCatalog
-  sourceVersion: 0.1
+  sourceVersion: 0.1.0
   events:
   - id: L01_I01
     levelId: L1
@@ -21,8 +21,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041D\u0430\u0439\u0434\u0443 \u043B\u0438\u043D\u0437\u0443 \u0434\u043E \u0442\u043E\u0433\u043E, \u043A\u0430\u043A \u041C\u0438\u0440\u0430 \u0443\u043A\u0440\u0430\u0441\u0438\u0442 \u043C\u0435\u043D\u044F \u0435\u0449\u0451 \u043E\u0434\u043D\u0438\u043C \u0431\u0430\u043D\u0442\u043E\u043C."
-    en: 
+    en: I'll find the lens before Mira ties another bow on me.
     priority: 80
   - id: L01_I02
     levelId: L1
@@ -31,8 +32,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u0430\u0447\u043D\u0438 \u0443 \u043A\u0430\u043B\u0438\u0442\u043A\u0438. \u041E\u0434\u0438\u043D \u0437\u043D\u0430\u043A\u043E\u043C\u044B\u0439 \u0448\u0430\u0433 \u043F\u0440\u0438\u0432\u0435\u0434\u0451\u0442 \u0442\u0435\u0431\u044F \u043A \u0440\u0443\u0447\u044C\u044E."
-    en: 
+    en: Start at the gate. One familiar step will take you toward the stream.
     priority: 80
   - id: L01_V01
     levelId: L1
@@ -41,8 +43,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u0435\u0440\u0432\u0430\u044F \u0442\u0440\u043E\u043F\u0438\u043D\u043A\u0430 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u0430. \u0428\u0430\u0440\u0444 \u0442\u043E\u0436\u0435 \u043D\u0430 \u043C\u0435\u0441\u0442\u0435. \u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u043D\u0430\u0447\u0430\u043B\u043E."
-    en: 
+    en: First trail crossed. Scarf still here. A good start.
     priority: 100
   - id: L01_V02
     levelId: L1
@@ -51,8 +54,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0421\u043B\u0435\u0434 \u0432\u0435\u0434\u0451\u0442 \u043A \u0440\u0443\u0447\u044C\u044E. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438 \u043D\u0430 \u0440\u0438\u0441\u0443\u043D\u043E\u043A \u0424\u0438\u043A\u0438."
-    en: 
+    en: The trail leads to the stream. Look at Fika's drawing.
     priority: 100
   - id: L01_F01
     levelId: L1
@@ -61,8 +65,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042F \u0442\u0430\u043A \u0441\u043C\u043E\u0442\u0440\u0435\u043B \u043D\u0430 \u0434\u0430\u043B\u044C\u043D\u044E\u044E \u0442\u0440\u043E\u043F\u0443, \u0447\u0442\u043E \u0437\u0430\u0431\u044B\u043B \u043F\u0440\u043E \u0431\u043B\u0438\u0436\u0430\u0439\u0448\u0443\u044E \u043F\u043B\u0438\u0442\u0443."
-    en: 
+    en: I was so busy looking down the trail, I forgot the tile right ahead.
     priority: 90
   - id: L01_F02
     levelId: L1
@@ -71,8 +76,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041C\u043E\u0436\u043D\u043E \u043D\u0430\u0447\u0430\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043E\u043A \u0441\u043D\u043E\u0432\u0430. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043E\u0434\u0438\u043D \u0448\u0430\u0433, \u043F\u043E\u0442\u043E\u043C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439."
-    en: 
+    en: You can start this trail again. One step first, then the next.
     priority: 90
   - id: L01_R01
     levelId: L1
@@ -81,8 +87,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041C\u044B \u0443 \u043A\u0430\u043B\u0438\u0442\u043A\u0438. \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \xAB1\xBB, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448\u0430 \u043D\u0430 \u043F\u043E\u0434\u0441\u0432\u0435\u0447\u0435\u043D\u043D\u043E\u0439 \u043F\u043B\u0438\u0442\u0435."
-    en: 'At the gate: choose 1, then Tish.'
+    en: We're at the gate. Choose 1, then Tish on the outlined tile.
     priority: 70
   - id: L01_R02
     levelId: L1
@@ -91,8 +98,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041A\u0430\u043B\u0438\u0442\u043A\u0430 \u0437\u043D\u0430\u043A\u043E\u043C\u0430\u044F. \u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438 \u0422\u0438\u0448\u0430; \u0434\u043B\u0438\u043D\u043D\u044B\u0435 \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u044F \u0443\u0436\u0435 \u0432 \u0441\u043F\u0440\u0430\u0432\u043A\u0435."
-    en: Choose 1, then Tish. Help has the details.
+    en: A familiar gate. Choose 1, then Tish. Help has the details.
     priority: 70
   - id: L01_T01
     levelId: L1
@@ -101,8 +109,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u0430\u0436\u043C\u0438 \u0448\u0430\u0433 \xAB1\xBB. \u041E\u043D \u0432\u0435\u0434\u0451\u0442 \u043D\u0430 \u0441\u043E\u0441\u0435\u0434\u043D\u044E\u044E \u043F\u043B\u0438\u0442\u0443."
-    en: Choose 1. It moves one space.
+    en: Choose step 1. It takes you to the next tile.
     priority: 60
   - id: L01_T02
     levelId: L1
@@ -111,8 +120,9 @@ MonoBehaviour:
     domainEvent: step_selected
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0422\u0438\u0448\u0430 \u043D\u0430 \u043F\u043E\u0434\u0441\u0432\u0435\u0447\u0435\u043D\u043D\u043E\u0439 \u043F\u043B\u0438\u0442\u0435. \u041E\u043D \u0441\u0430\u043C \u0441\u0434\u0435\u043B\u0430\u0435\u0442 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0448\u0430\u0433."
-    en: Now choose Tish on the outlined space.
+    en: Now tap Tish on the outlined tile. He'll take the step you chose.
     priority: 60
   - id: L01_T03
     levelId: L1
@@ -121,8 +131,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0434\u043D\u0430 \u043F\u043B\u0438\u0442\u0430. \u0414\u0430\u0436\u0435 \u043C\u043E\u0451 \u0432\u0442\u043E\u0440\u043E\u0435 \u0443\u0445\u043E \u0443\u0441\u043F\u0435\u043B\u043E \u0437\u0430 \u043F\u0435\u0440\u0432\u044B\u043C!"
-    en: One space. Even my other ear kept up!
+    en: One tile. Even my other ear kept up!
     priority: 20
   - id: L01_T04
     levelId: L1
@@ -131,8 +142,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u043E\u0432\u044B\u0439 \u0445\u043E\u0434 \u2014 \u043D\u043E\u0432\u044B\u0439 \u0448\u0430\u0433 \xAB1\xBB. \u0412\u044B\u0431\u0438\u0440\u0430\u0439 \u0435\u0433\u043E \u0438 \u0441\u043D\u043E\u0432\u0430 \u0422\u0438\u0448\u0430."
-    en: New turn, new 1. Choose it, then Tish.
+    en: New turn, new step 1. Choose it, then Tish again.
     priority: 60
   - id: L01_T05
     levelId: L1
@@ -141,8 +153,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u0430 \u044D\u0442\u043E\u0439 \u043F\u043B\u0438\u0442\u0435 \u043D\u0438\u043A\u043E\u0433\u043E \u043D\u0435\u0442. \u041D\u0430\u0436\u043C\u0438 \u0422\u0438\u0448\u0430 \u0442\u0430\u043C, \u0433\u0434\u0435 \u043E\u043D \u0441\u0442\u043E\u0438\u0442."
-    en: That space is empty. Choose Tish where he stands.
+    en: That tile is empty. Tap Tish where he's standing.
     priority: 75
   - id: L01_T06
     levelId: L1
@@ -151,8 +164,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: direction
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0418\u0434\u0451\u043C \u043E\u0442 \u043A\u0430\u043B\u0438\u0442\u043A\u0438 \u043A \u0432\u044B\u0445\u043E\u0434\u0443. \u0428\u0430\u0433\u0438 \u0441\u0447\u0438\u0442\u0430\u044E\u0442 \u043F\u043B\u0438\u0442\u044B \u0432\u043F\u0435\u0440\u0435\u0434\u0438 \u0422\u0438\u0448\u0430."
-    en: We move toward the exit. Steps count spaces ahead.
+    en: We move from the gate toward the exit. Steps count the tiles ahead of Tish.
     priority: 85
   - id: L01_T07
     levelId: L1
@@ -161,8 +175,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: input_order
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
-    ru: "\u041F\u043E\u0440\u044F\u0434\u043E\u043A \u043F\u0440\u043E\u0441\u0442\u043E\u0439: \u0448\u0430\u0433 \u0432\u0432\u0435\u0440\u0445\u0443, \u0437\u0430\u0442\u0435\u043C \u0433\u0435\u0440\u043E\u0439 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
-    en: Choose the step above, then the hero on the trail.
+    speakerLabelEn: Jo's advice
+    ru: "\u041F\u043E\u0440\u044F\u0434\u043E\u043A \u043F\u0440\u043E\u0441\u0442\u043E\u0439: \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
+    en: Choose a step, then a hero on the trail. That's the order.
     priority: 85
   - id: L01_T08
     levelId: L1
@@ -171,8 +186,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0422\u044B \u0443\u0436\u0435 \u0437\u043D\u0430\u0435\u0448\u044C \u044D\u0442\u043E\u0442 \u0448\u0430\u0433. \u0414\u0430\u043B\u044C\u0448\u0435 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 \u0441\u0430\u043C; \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0432 \u0441\u043F\u0440\u0430\u0432\u043A\u0435."
-    en: You know this move. Try on your own; Help is available.
+    en: You know this step now. Try on your own; Help is always there.
     priority: 20
   - id: L01_T09
     levelId: L1
@@ -181,8 +197,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: goal
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u0430\u0448\u0430 \u0446\u0435\u043B\u044C \u2014 \u043F\u0440\u043E\u0439\u0442\u0438 \u0432\u0441\u044E \u0442\u0440\u043E\u043F\u0443 \u0438 \u0432\u044B\u0439\u0442\u0438 \u0437\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u044E\u044E \u043F\u043B\u0438\u0442\u0443."
-    en: Cross the trail and move beyond the last space.
+    en: Our goal is to cross the trail and move beyond the last tile.
     priority: 85
   - id: L01_T10
     levelId: L1
@@ -191,8 +208,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0412\u043E\u0442 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u043F\u043B\u0438\u0442\u0430. \u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438 \u0422\u0438\u0448\u0430 \u2014 \u043E\u043D \u0448\u0430\u0433\u043D\u0451\u0442 \u043A \u0432\u044B\u0445\u043E\u0434\u0443."
-    en: Last space. Choose 1, then Tish to reach the exit.
+    en: The last tile. Choose 1, then Tish. He'll step out of the trail.
     priority: 60
   - id: L01_T11
     levelId: L1
@@ -201,8 +219,9 @@ MonoBehaviour:
     domainEvent: hero_exited
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0422\u0438\u0448 \u0434\u043E\u0448\u0451\u043B. \u041D\u0430 \u044D\u0442\u043E\u043C \u0443\u0447\u0430\u0441\u0442\u043A\u0435 \u043D\u0443\u0436\u043D\u043E \u0431\u044B\u043B\u043E \u043F\u0440\u043E\u0432\u0435\u0441\u0442\u0438 \u043E\u0434\u043D\u043E\u0433\u043E \u0433\u0435\u0440\u043E\u044F."
-    en: Tish is through. This trail needed one hero.
+    en: Tish is through. This trail needed one hero to reach the exit.
     priority: 20
   - id: L01_T12
     levelId: L1
@@ -211,8 +230,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448\u0430. \u041F\u043E\u0432\u0442\u043E\u0440\u044F\u0439, \u043F\u043E\u043A\u0430 \u043E\u043D \u043D\u0435 \u0432\u044B\u0439\u0434\u0435\u0442 \u0437\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u044E\u044E \u043F\u043B\u0438\u0442\u0443."
-    en: Choose 1, then Tish. Repeat until he exits.
+    en: Choose 1, then Tish. Repeat until he's beyond the last tile.
     priority: 85
   - id: L02_I01
     levelId: L2
@@ -221,8 +241,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043B\u0438\u0442\u044B \u0447\u0435\u0440\u0435\u0437 \u0440\u0443\u0447\u0435\u0439. \u0425\u043E\u0440\u043E\u0448\u043E: \u0441\u0430\u043F\u043E\u0433\u0438 \u0441\u0435\u0433\u043E\u0434\u043D\u044F \u043F\u0440\u0430\u0437\u0434\u043D\u0438\u0447\u043D\u044B\u0435."
-    en: 
+    en: Tiles across the stream. Good. I'm wearing my celebration boots.
     priority: 80
   - id: L02_I02
     levelId: L2
@@ -231,8 +252,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438, \u043A\u0443\u0434\u0430 \u0432\u0435\u0434\u0451\u0442 \u0448\u0430\u0433. \u0420\u0443\u0447\u0435\u0439 \u043C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u043F\u043E \u0441\u0443\u0445\u0438\u043C \u043F\u043B\u0438\u0442\u0430\u043C."
-    en: 
+    en: First check where the step will land. The tiles can keep your boots dry.
     priority: 80
   - id: L02_V01
     levelId: L2
@@ -241,8 +263,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u0430\u043F\u043E\u0433\u0438 \u0441\u0443\u0445\u0438\u0435. \u0421\u0430\u043C\u043E\u043C\u0443 \u043D\u0435 \u0432\u0435\u0440\u0438\u0442\u0441\u044F \u2014 \u043F\u0440\u043E\u0432\u0435\u0440\u044E \u0435\u0449\u0451 \u0440\u0430\u0437."
-    en: 
+    en: Dry boots. I can hardly believe it. Better check again.
     priority: 100
   - id: L02_V02
     levelId: L2
@@ -251,8 +274,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0414\u0430\u043B\u044C\u0448\u0435 \u2014 \u043C\u043E\u0441\u0442. \u0417\u0434\u0435\u0441\u044C \u043C\u044B \u0438 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u043B\u0438\u0441\u044C \u0432\u0441\u0442\u0440\u0435\u0442\u0438\u0442\u044C\u0441\u044F."
-    en: 
+    en: The bridge is next. That's where we agreed to meet.
     priority: 100
   - id: L02_F01
     levelId: L2
@@ -261,8 +285,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u0430\u0436\u0435\u0442\u0441\u044F, \u044F \u0432\u044B\u0431\u0438\u0440\u0430\u043B \u043D\u0435 \u043F\u043B\u0438\u0442\u0443, \u0430 \u0441\u0430\u043C\u044B\u0439 \u043A\u0440\u0430\u0441\u0438\u0432\u044B\u0439 \u0432\u0441\u043F\u043B\u0435\u0441\u043A."
-    en: 
+    en: I think I was choosing the prettiest splash instead of a tile.
     priority: 90
   - id: L02_F02
     levelId: L2
@@ -271,8 +296,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0415\u0441\u043B\u0438 \u0441\u043E\u0431\u044C\u0451\u0448\u044C\u0441\u044F, \u043D\u0430\u0447\u043D\u0438 \u0443 \u0440\u0443\u0447\u044C\u044F \u0438 \u0441\u043D\u043E\u0432\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u044C \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
-    en: 
+    en: If you lose your way, start at the stream again and check each landing.
     priority: 90
   - id: L02_R01
     levelId: L2
@@ -281,8 +307,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041C\u044B \u0443 \u0440\u0443\u0447\u044C\u044F. \u041E\u0434\u0438\u043D \u0445\u043E\u0434 \u2014 \u0448\u0430\u0433 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB. \u0412\u044B\u0431\u0435\u0440\u0438 \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u0438 \u0422\u0438\u0448\u0430."
-    en: 'At the stream: choose 1 or 2, then Tish.'
+    en: We're at the stream. One turn means step 1 or 2. Choose a distance, then Tish.
     priority: 70
   - id: L02_R02
     levelId: L2
@@ -291,8 +318,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041D\u0430\u0447\u043D\u0451\u043C \u0440\u0443\u0447\u0435\u0439 \u0441\u043D\u043E\u0432\u0430. \u0428\u0430\u0433 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448. \u041C\u043E\u0436\u043D\u043E \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u043B\u044E\u0431\u043E\u0439 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0445\u043E\u0434."
-    en: Choose 1 or 2, then Tish. Any legal move is fine.
+    en: Back at the stream. Choose 1 or 2, then Tish. Any available move is fine.
     priority: 70
   - id: L02_T01
     levelId: L2
@@ -301,8 +329,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0417\u0434\u0435\u0441\u044C \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u043C \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB. \u0417\u0430 \u0445\u043E\u0434 \u0422\u0438\u0448 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0434\u0438\u043D \u0438\u0437 \u044D\u0442\u0438\u0445 \u0448\u0430\u0433\u043E\u0432."
-    en: Choose 1 or 2. Tish uses one choice per turn.
+    en: Choose 1 or 2. Tish uses only one of these steps each turn.
     priority: 60
   - id: L02_T02
     levelId: L2
@@ -311,8 +340,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: guided_start
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0414\u043B\u044F \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0440\u0430\u0437\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448\u0430. \u041E\u043D \u043E\u043A\u0430\u0436\u0435\u0442\u0441\u044F \u043D\u0430 \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u0439 \u043F\u043B\u0438\u0442\u0435."
-    en: Try 1, then Tish. He lands on the next space.
+    en: Try 1, then Tish. He'll land on the next tile.
     priority: 85
   - id: L02_T03
     levelId: L2
@@ -321,8 +351,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u043E\u0440\u043E\u0442\u043A\u043E \u0438 \u0441\u0443\u0445\u043E. \u041E\u0434\u043E\u0431\u0440\u044F\u044E \u044D\u0442\u0443 \u0442\u0440\u043E\u043F\u0438\u043D\u043A\u0443."
-    en: Short and dry. I approve.
+    en: Short and dry. I approve of this trail.
     priority: 20
   - id: L02_T04
     levelId: L2
@@ -331,8 +362,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438 \u043D\u0430 \xAB2\xBB. \u042D\u0442\u043E\u0442 \u0448\u0430\u0433 \u0432\u0435\u0434\u0451\u0442 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443 \u043D\u0430 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E."
-    en: Look at 2. It moves two spaces ahead.
+    en: Now look at 2. It takes you two tiles ahead.
     priority: 60
   - id: L02_T05
     levelId: L2
@@ -341,8 +373,9 @@ MonoBehaviour:
     domainEvent: step_selected
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041E\u0431\u0432\u043E\u0434\u043A\u0430 \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442, \u043A\u0443\u0434\u0430 \u0448\u0430\u0433\u043D\u0451\u0442 \u0422\u0438\u0448. \u041D\u0430\u0436\u043C\u0438 \u0433\u0435\u0440\u043E\u044F, \u0447\u0442\u043E\u0431\u044B \u043F\u0440\u043E\u0439\u0442\u0438 \u0434\u0432\u0435 \u043F\u043B\u0438\u0442\u044B."
-    en: The outline shows the landing. Choose Tish to move.
+    en: The outline shows where Tish will land. Tap him to move two tiles.
     priority: 60
   - id: L02_T06
     levelId: L2
@@ -351,8 +384,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u0432\u0435 \u043F\u043B\u0438\u0442\u044B \u2014 \u0430 \u0432\u0430\u0436\u043D\u044B\u0439 \u0432\u0438\u0434 \u0443\u0436\u0435 \u043D\u0430 \u0442\u0440\u0438."
-    en: Two spaces, three times the dignity.
+    en: Two tiles, three times the dignity.
     priority: 20
   - id: L02_T07
     levelId: L2
@@ -361,8 +395,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041F\u043E\u0441\u043B\u0435 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0445\u043E\u0434 \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u043B\u0441\u044F. \u041D\u0435\u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0448\u0430\u0433 \u043D\u0435 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442\u0441\u044F; \u043F\u043E\u044F\u0432\u0438\u043B\u0438\u0441\u044C \u043D\u043E\u0432\u044B\u0435 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B."
-    en: The move ended that turn. Unused choices do not carry over.
+    en: That move ended the turn. The unused step doesn't carry over; new choices appear.
     priority: 60
   - id: L02_T08
     levelId: L2
@@ -371,8 +406,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: change_choice
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041F\u043E\u043A\u0430 \u0422\u0438\u0448 \u043D\u0435 \u043F\u043E\u0448\u0451\u043B, \u043C\u043E\u0436\u043D\u043E \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438 \u043D\u0430 \u043E\u0431\u0430 \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u044F."
-    en: Before moving, you can change the selected step.
+    en: Before Tish moves, you can change the selected step. Check both distances.
     priority: 85
   - id: L02_T09
     levelId: L2
@@ -381,8 +417,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: overshoot
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0415\u0441\u043B\u0438 \u0448\u0430\u0433 \u0434\u043E\u0441\u0442\u0438\u0433\u0430\u0435\u0442 \u0432\u044B\u0445\u043E\u0434\u0430 \u0438\u043B\u0438 \u043F\u0440\u043E\u0445\u043E\u0434\u0438\u0442 \u0434\u0430\u043B\u044C\u0448\u0435 \u043D\u0435\u0433\u043E, \u0422\u0438\u0448 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442 \u0442\u0440\u043E\u043F\u0443."
-    en: Reach or pass the exit to finish the trail.
+    en: If a step reaches or passes the exit, Tish finishes the trail.
     priority: 85
   - id: L02_T10
     levelId: L2
@@ -391,8 +428,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
-    ru: "\u042D\u0442\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E \u0445\u043E\u0434\u0430. \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438\u0437 \u0442\u0435\u0445, \u0447\u0442\u043E \u0441\u0435\u0439\u0447\u0430\u0441 \u0432\u0438\u0434\u043D\u044B \u0432\u0432\u0435\u0440\u0445\u0443."
-    en: That was last turn's choice. Use the current steps above.
+    speakerLabelEn: Jo's advice
+    ru: "\u042D\u0442\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E \u0445\u043E\u0434\u0430. \u0412\u044B\u0431\u0435\u0440\u0438 \u043E\u0434\u0438\u043D \u0438\u0437 \u0448\u0430\u0433\u043E\u0432, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B \u0441\u0435\u0439\u0447\u0430\u0441."
+    en: That step belonged to the last turn. Choose one of the steps available now.
     priority: 75
   - id: L02_T11
     levelId: L2
@@ -401,8 +439,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u0412\u044B\u0445\u043E\u0434 \u0440\u044F\u0434\u043E\u043C. \u041D\u0430 \u044D\u0442\u043E\u0439 \u043F\u043B\u0438\u0442\u0435 \u043B\u044E\u0431\u043E\u0439 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0448\u0430\u0433 \u0434\u043E\u0432\u0435\u0434\u0451\u0442 \u0422\u0438\u0448\u0430 \u0434\u043E \u0431\u0435\u0440\u0435\u0433\u0430."
-    en: The exit is near. Either available step will take Tish out.
+    en: The exit is close. Either available step will take Tish to the bank.
     priority: 60
   - id: L02_T12
     levelId: L2
@@ -411,8 +450,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: "\u0421\u043E\u0432\u0435\u0442 \u041B\u0443\u043C\u044B"
+    speakerLabelEn: Jo's advice
     ru: "\u041E\u0434\u0438\u043D \u0445\u043E\u0434 \u2014 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB. \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448\u0430; \u0434\u043E\u0432\u0435\u0434\u0438 \u0435\u0433\u043E \u0434\u043E \u0432\u044B\u0445\u043E\u0434\u0430."
-    en: Choose 1 or 2, then Tish. Lead him to the exit.
+    en: 'One turn: 1 or 2. Choose a step, then Tish. Lead him to the exit.'
     priority: 85
   - id: L03_I01
     levelId: L3
@@ -421,8 +461,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u0443\u043C\u0430\u043B, \u043F\u0440\u043E\u0439\u0434\u0443 \u0432\u0441\u0451 \u043E\u0434\u0438\u043D. \u0410 \u043C\u043E\u0441\u0442 \u043F\u043E\u0447\u0435\u043C\u0443-\u0442\u043E \u0440\u0430\u0441\u0441\u0447\u0438\u0442\u0430\u043D \u043D\u0430 \u0434\u0440\u0443\u0437\u0435\u0439."
-    en: 
+    en: I thought I'd cross alone. This bridge seems to have room for friends.
     priority: 80
   - id: L03_I02
     levelId: L3
@@ -431,8 +472,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042F \u0442\u043E\u0436\u0435 \u0445\u043E\u0447\u0443 \u0432\u0435\u0440\u043D\u0443\u0442\u044C \u0441\u0432\u0435\u0442. \u0418 \u043F\u0440\u043E\u0439\u0442\u0438 \u0441 \u0442\u043E\u0431\u043E\u0439 \u0434\u0430\u043B\u044C\u0448\u0435 \u043A\u0430\u043B\u0438\u0442\u043A\u0438."
-    en: 
+    en: I want to bring the light back too. And go farther than the gate with you.
     priority: 80
   - id: L03_V01
     levelId: L3
@@ -441,8 +483,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u0434\u0432\u043E\u0451\u043C \u0432\u0435\u0441\u0435\u043B\u0435\u0435. \u0414\u0430\u0436\u0435 \u0434\u043E\u0441\u043A\u0438 \u0441\u043A\u0440\u0438\u043F\u044F\u0442 \u0432 \u0434\u0432\u0430 \u0433\u043E\u043B\u043E\u0441\u0430."
-    en: 
+    en: It's more fun together. Even the boards creak in harmony.
     priority: 100
   - id: L03_V02
     levelId: L3
@@ -451,8 +494,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0431\u0430 \u043D\u0430 \u0431\u0435\u0440\u0435\u0433\u0443. \u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0439\u0434\u0451\u043C \u041A\u043E\u0440\u043D\u044F \u2014 \u043E\u043D \u0437\u043D\u0430\u0435\u0442 \u0441\u0442\u0430\u0440\u0443\u044E \u0442\u0440\u043E\u043F\u0443."
-    en: 
+    en: Both safely across. Let's find Grandpa Koren. He knows the old trail.
     priority: 100
   - id: L03_F01
     levelId: L3
@@ -461,8 +505,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042F \u0443\u0448\u0451\u043B \u043C\u044B\u0441\u043B\u044F\u043C\u0438 \u043A \u043C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u043E\u0439 \u0438 \u043D\u0435 \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u043B, \u0433\u0434\u0435 \u043C\u044B \u043E\u0431\u0430."
-    en: 
+    en: My thoughts reached the workshop before I checked where we both were.
     priority: 90
   - id: L03_F02
     levelId: L3
@@ -471,8 +516,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u043E\u0441\u0442 \u043F\u043E\u0434\u043E\u0436\u0434\u0451\u0442. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0441\u043D\u043E\u0432\u0430 \u0438 \u043F\u0440\u043E\u0432\u0435\u0434\u0451\u043C \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u0434\u0440\u0443\u0433\u0430."
-    en: 
+    en: The bridge can wait. Let's try again and get each friend across.
     priority: 90
   - id: L03_R01
     levelId: L3
@@ -481,8 +527,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u044B \u043D\u0430 \u043C\u043E\u0441\u0442\u0443. \u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB, \u0437\u0430\u0442\u0435\u043C \u043B\u044E\u0431\u043E\u0433\u043E \u0438\u0437 \u043D\u0430\u0441. \u0414\u043E\u0439\u0442\u0438 \u0434\u043E\u043B\u0436\u043D\u044B \u043E\u0431\u0430."
-    en: 'On the bridge: choose 1 or 2, then either friend. Both must exit.'
+    en: We're on the bridge. Choose 1 or 2, then either of us. Both must reach the exit.
     priority: 70
   - id: L03_R02
     levelId: L3
@@ -491,8 +538,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043D\u043E\u0432\u0430 \u0432\u043C\u0435\u0441\u0442\u0435 \u0443 \u043C\u043E\u0441\u0442\u0430. \u041E\u0434\u0438\u043D \u0448\u0430\u0433 \u043E\u0434\u043D\u043E\u043C\u0443 \u0433\u0435\u0440\u043E\u044E \u0437\u0430 \u0445\u043E\u0434; \u0446\u0435\u043B\u044C \u2014 \u0432\u044B\u0432\u0435\u0441\u0442\u0438 \u043E\u0431\u043E\u0438\u0445."
-    en: One step for one friend per turn. Lead both out.
+    en: Together at the bridge again. One step for one hero each turn. Lead both out.
     priority: 70
   - id: L03_T01
     levelId: L3
@@ -501,8 +549,9 @@ MonoBehaviour:
     domainEvent: story_finished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0441 \u0434\u0432\u043E\u0435. \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0430 \u0437\u0430\u0442\u0435\u043C \u0442\u043E\u0433\u043E, \u043A\u0442\u043E \u043F\u043E\u0439\u0434\u0451\u0442. \u0414\u043E \u0432\u044B\u0445\u043E\u0434\u0430 \u043D\u0443\u0436\u043D\u043E \u0434\u043E\u0432\u0435\u0441\u0442\u0438 \u043E\u0431\u043E\u0438\u0445."
-    en: Choose a step, then a friend. Both must reach the exit.
+    en: There are two of us now. Choose a step, then a friend. Both must reach the exit.
     priority: 60
   - id: L03_T02
     levelId: L3
@@ -511,8 +560,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: guided_start
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u043E\u0436\u043D\u043E \u043D\u0430\u0447\u0430\u0442\u044C \u0442\u0430\u043A: \xAB2\xBB, \u0437\u0430\u0442\u0435\u043C \u0422\u0438\u0448. \u042F \u043F\u043E\u043A\u0430 \u043F\u043E\u0434\u043E\u0436\u0434\u0443 \u043D\u0430 \u0441\u0442\u0430\u0440\u0442\u0435."
-    en: Try 2, then Tish. I can wait at the start.
+    en: Try 2, then Tish. I'll wait at the start for now.
     priority: 85
   - id: L03_T03
     levelId: L3
@@ -521,8 +571,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 \u0434\u0430\u0442\u044C \xAB2\xBB \u043C\u043D\u0435. \u041D\u0430\u0436\u043C\u0438 \u041B\u0443\u043C\u0443 \u2014 \u043C\u044B \u0432\u0441\u0442\u0440\u0435\u0442\u0438\u043C\u0441\u044F \u043D\u0430 \u043E\u0434\u043D\u043E\u0439 \u043F\u043B\u0438\u0442\u0435."
-    en: Try 2 for Luma. We can share the same space.
+    en: Now try 2 for me. Tap Jo. We'll meet on the same tile.
     priority: 60
   - id: L03_T04
     levelId: L3
@@ -531,8 +582,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043B\u0438\u0442\u0430 \u043A\u0440\u0435\u043F\u043A\u0430\u044F. \u0414\u0432\u0443\u0445 \u0434\u0440\u0443\u0437\u0435\u0439 \u043E\u043D\u0430 \u0434\u0435\u0440\u0436\u0438\u0442 \u0431\u0435\u0437 \u043E\u0447\u0435\u0440\u0435\u0434\u0438!"
-    en: Solid space. Room for both friends!
+    en: A sturdy tile. Room for two friends, no waiting!
     priority: 60
   - id: L03_T05
     levelId: L3
@@ -541,8 +593,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: step_distribution
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0428\u0430\u0433 \u0446\u0435\u043B\u0438\u043A\u043E\u043C \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442 \u043E\u0434\u0438\u043D \u0433\u0435\u0440\u043E\u0439. \u0420\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u044C \xAB2\xBB \u043D\u0430 \u043E\u0434\u0438\u043D \u0448\u0430\u0433 \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u0437\u0434\u0435\u0441\u044C \u043D\u0435\u043B\u044C\u0437\u044F."
-    en: One friend uses the whole step. You cannot split 2 between friends.
+    en: One hero uses the whole step. You can't split 2 into one tile each.
     priority: 85
   - id: L03_T06
     levelId: L3
@@ -551,8 +604,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: hero_order
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u043C \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0439\u0442\u0438 \u043B\u044E\u0431\u043E\u0439 \u0438\u0437 \u043D\u0430\u0441, \u0435\u0441\u043B\u0438 \u0435\u0433\u043E \u0445\u043E\u0434 \u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D. \u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0439 \u043E\u0447\u0435\u0440\u0435\u0434\u0438 \u043D\u0435\u0442."
-    en: Either friend may move next if the move is legal.
+    en: Either of us can move next if the move is available. We don't have to take turns.
     priority: 85
   - id: L03_T07
     levelId: L3
@@ -561,8 +615,9 @@ MonoBehaviour:
     domainEvent: hero_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0434\u0438\u043D \u0434\u0440\u0443\u0433 \u0434\u043E\u0448\u0451\u043B, \u0432\u0442\u043E\u0440\u043E\u0439 \u0435\u0449\u0451 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435. \u0421\u0447\u0451\u0442\u0447\u0438\u043A \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442, \u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0443\u0436\u0435 \u0443 \u0432\u044B\u0445\u043E\u0434\u0430."
-    en: One friend is through. Lead the other out too.
+    en: One friend is through; the other is still on the trail. The counter shows how many have reached the exit.
     priority: 60
   - id: L03_T08
     levelId: L3
@@ -571,8 +626,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: independent_exit
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0413\u0435\u0440\u043E\u0439 \u043C\u043E\u0436\u0435\u0442 \u0432\u044B\u0439\u0442\u0438 \u0441\u0440\u0430\u0437\u0443, \u043A\u0430\u043A \u0435\u0433\u043E \u0448\u0430\u0433 \u0434\u043E\u0441\u0442\u0438\u0433\u0430\u0435\u0442 \u043A\u0440\u0430\u044F. \u0416\u0434\u0430\u0442\u044C \u0432\u0442\u043E\u0440\u043E\u0433\u043E \u043D\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u043F\u043B\u0438\u0442\u0435 \u043D\u0435 \u043D\u0443\u0436\u043D\u043E."
-    en: A friend can exit when their step reaches the edge.
+    en: A hero can exit as soon as their step reaches the edge. No need to wait for the other on the last tile.
     priority: 85
   - id: L03_T09
     levelId: L3
@@ -581,8 +637,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u0442 \u0434\u0440\u0443\u0433 \u0443\u0436\u0435 \u0443 \u0432\u044B\u0445\u043E\u0434\u0430. \u0412\u044B\u0431\u0435\u0440\u0438 \u0442\u043E\u0433\u043E, \u043A\u0442\u043E \u0435\u0449\u0451 \u0441\u0442\u043E\u0438\u0442 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
-    en: That friend is already through. Choose one still on the trail.
+    en: That friend is already through. Choose someone still on the trail.
     priority: 75
   - id: L03_T10
     levelId: L3
@@ -591,8 +648,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: party_progress
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438, \u043A\u0442\u043E \u0434\u0430\u043B\u044C\u0448\u0435 \u043E\u0442 \u0432\u044B\u0445\u043E\u0434\u0430. \u041C\u043E\u0436\u043D\u043E \u0434\u0430\u0442\u044C \u0435\u043C\u0443 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0448\u0430\u0433 \u0438 \u0441\u0431\u043B\u0438\u0437\u0438\u0442\u044C \u0434\u0440\u0443\u0437\u0435\u0439."
-    en: You can give the next step to the friend farther from the exit.
+    en: See who's farther from the exit. You can give them the next step to bring us closer.
     priority: 85
   - id: L03_T11
     levelId: L3
@@ -601,8 +659,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: identify_shared_heroes
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u043E\u0433\u0434\u0430 \u043C\u044B \u0440\u044F\u0434\u043E\u043C, \u0432\u044B\u0431\u0438\u0440\u0430\u0439 \u0441\u0430\u043C\u043E\u0433\u043E \u0433\u0435\u0440\u043E\u044F \u0438\u043B\u0438 \u0435\u0433\u043E \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u0432 \u0441\u043F\u0438\u0441\u043A\u0435. \u0418\u043C\u044F \u043F\u043E\u043A\u0430\u0436\u0435\u0442, \u043A\u0442\u043E \u043F\u043E\u0439\u0434\u0451\u0442."
-    en: When friends share a space, choose the hero or their named portrait.
+    en: When we're on the same tile, tap the hero or their portrait in the list. The name shows who will move.
     priority: 85
   - id: L03_T12
     levelId: L3
@@ -611,8 +670,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB, \u0437\u0430\u0442\u0435\u043C \u043E\u0434\u043D\u043E\u0433\u043E \u0434\u0440\u0443\u0433\u0430. \u0414\u0440\u0443\u0437\u044C\u044F \u043C\u043E\u0433\u0443\u0442 \u0441\u0442\u043E\u044F\u0442\u044C \u0432\u043C\u0435\u0441\u0442\u0435; \u0432\u044B\u0439\u0442\u0438 \u0434\u043E\u043B\u0436\u043D\u044B \u043E\u0431\u0430."
-    en: Choose 1 or 2 for one friend. They can share spaces. Both must exit.
+    en: Choose 1 or 2, then one friend. Friends can share a tile; both must reach the exit.
     priority: 85
   - id: L04_I01
     levelId: L4
@@ -621,8 +681,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0424\u043E\u043D\u0430\u0440\u0438\u043A \u0432\u0437\u044F\u043B. \u0413\u043E\u0441\u0442\u0438\u043D\u0446\u044B \u0432\u0437\u044F\u043B. \u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435 \u2014 \u0442\u043E\u0436\u0435 \u0432\u0437\u044F\u043B."
-    en: 
+    en: Lantern packed. Treats packed. Good spirits packed too.
     priority: 80
   - id: L04_I02
     levelId: L4
@@ -631,8 +692,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0440\u043E\u043F\u0430 \u0441\u0442\u0430\u0440\u0430\u044F, \u0430 \u043F\u0440\u0430\u0432\u0438\u043B\u043E \u043F\u0440\u043E\u0441\u0442\u043E\u0435: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438, \u0433\u0434\u0435 \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0448\u044C\u0441\u044F."
-    en: 
+    en: 'An old trail, a simple rule: first check where you''ll land.'
     priority: 80
   - id: L04_V01
     levelId: L4
@@ -641,8 +703,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u0441\u0435 \u043F\u0440\u043E\u0448\u043B\u0438. \u0416\u0443\u043A \u0434\u0430\u0436\u0435 \u043D\u0435 \u043F\u0440\u043E\u0441\u043D\u0443\u043B\u0441\u044F. \u0412\u0435\u0436\u043B\u0438\u0432\u043E \u043F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C."
-    en: 
+    en: Everyone's through. The beetle didn't even wake up. Very polite of us.
     priority: 100
   - id: L04_V02
     levelId: L4
@@ -651,8 +714,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E, \u041A\u043E\u0440\u0435\u043D\u044C. \u041C\u044B \u0434\u043E\u043D\u0435\u0441\u0451\u043C \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u0444\u043E\u043D\u0430\u0440\u044C \u0434\u043E \u041A\u043B\u043E\u0447\u0430."
-    en: 
+    en: Thank you, Grandpa Koren. We'll carry the little lantern to Kloch.
     priority: 100
   - id: L04_F01
     levelId: L4
@@ -661,8 +725,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042F \u0433\u043E\u0442\u043E\u0432 \u0435\u0449\u0451 \u0440\u0430\u0437. \u0422\u043E\u043B\u044C\u043A\u043E \u0441\u043A\u0430\u0436\u0438\u0442\u0435: \u043A\u0443\u0434\u0430 \u0432\u0441\u0442\u0430\u0442\u044C \u0438 \u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u043E\u0439\u0442\u0438?"
-    en: 
+    en: Ready to try again. Just tell me where to stand and how far to go.
     priority: 90
   - id: L04_F02
     levelId: L4
@@ -671,8 +736,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041D\u0430\u0447\u043D\u0451\u043C \u043E\u0442 \u043C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u043E\u0439. \u0421\u043C\u043E\u0442\u0440\u0438 \u043D\u0430 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438 \u2014 \u043E\u043D\u043E \u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0435\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u0434\u043B\u0438\u043D\u043D\u043E\u0439 \u0440\u0435\u0447\u0438."
-    en: 
+    en: Back to the workshop. Check your landing; it says more than a long speech.
     priority: 90
   - id: L04_R01
     levelId: L4
@@ -681,8 +747,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u044B \u0443 \u043C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u043E\u0439. \u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB \u0434\u043B\u044F \u043E\u0434\u043D\u043E\u0433\u043E \u0434\u0440\u0443\u0433\u0430. \u041D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0441 \u0416\u0443\u043A\u043E\u043C \u043D\u0435 \u043E\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C\u0441\u044F."
-    en: Choose 1 or 2 for a friend. Do not land on the beetle.
+    en: We're at the workshop. Choose 1 or 2 for one friend. Don't land on the beetle's tile.
     priority: 70
   - id: L04_R02
     levelId: L4
@@ -691,8 +758,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043D\u043E\u0432\u0430 \u0443 \u043A\u043E\u0440\u043D\u0435\u0439. \u041D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0441 \u0416\u0443\u043A\u043E\u043C \u043D\u0435 \u0441\u0442\u043E\u0438\u043C; \u0447\u0435\u0440\u0435\u0437 \u043D\u0435\u0451 \u043C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u043A \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E\u0439 \u043F\u043E\u0441\u0430\u0434\u043A\u0435."
-    en: Do not land on the beetle. Cross it to reach a clear space.
+    en: Back among the roots. Don't stop on the beetle's tile. You can cross it to reach a clear landing.
     priority: 70
   - id: L04_T01
     levelId: L4
@@ -701,8 +769,9 @@ MonoBehaviour:
     domainEvent: story_finished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421 \u043D\u0430\u043C\u0438 \u0411\u0443\u043C. \u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0443\u0436\u043D\u043E \u043F\u0440\u043E\u0432\u0435\u0441\u0442\u0438 \u0442\u0440\u043E\u0438\u0445; \u0448\u0430\u0433\u0438 \u0434\u043B\u044F \u043D\u0435\u0433\u043E \u0432\u044B\u0431\u0438\u0440\u0430\u044E\u0442\u0441\u044F \u0442\u0430\u043A \u0436\u0435."
-    en: Bum joins us. Lead all three out with the same steps.
+    en: Boom is with us. Lead all three out. Choose his steps the same way.
     priority: 60
   - id: L04_T02
     levelId: L4
@@ -711,8 +780,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: party_goal
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u0447\u0451\u0442\u0447\u0438\u043A \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \xAB3 \u0438\u0437 3\xBB. \u041C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u0444\u043E\u043D\u0430\u0440\u044C \u043F\u043E\u043D\u0435\u0441\u0451\u043C \u0432\u0441\u0435 \u0432\u043C\u0435\u0441\u0442\u0435."
-    en: The counter must reach 3 of 3. Lead every friend out.
+    en: The counter must reach 3 of 3. We'll carry the little lantern together.
     priority: 85
   - id: L04_T03
     levelId: L4
@@ -721,8 +791,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: guided_start
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041D\u0430\u0447\u043D\u0438 \u0441\u043E \u0437\u043D\u0430\u043A\u043E\u043C\u043E\u0433\u043E: \xAB2\xBB \u0434\u043B\u044F \u0422\u0438\u0448\u0430. \u0414\u043E \u044D\u0442\u043E\u0439 \u043F\u043B\u0438\u0442\u044B \u043F\u0443\u0442\u044C \u0441\u0432\u043E\u0431\u043E\u0434\u0435\u043D."
-    en: 'Try the familiar move: 2 for Tish. The landing is clear.'
+    en: 'Start with a familiar move: 2 for Tish. That landing is clear.'
     priority: 85
   - id: L04_T04
     levelId: L4
@@ -731,8 +802,9 @@ MonoBehaviour:
     domainEvent: illegal_destination_previewed
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0416\u0443\u043A \u0441\u043F\u0438\u0442 \u043D\u0430 \u044D\u0442\u043E\u0439 \u043F\u043B\u0438\u0442\u0435. \u041D\u0430 \u0437\u0430\u043D\u044F\u0442\u0443\u044E \u043F\u043B\u0438\u0442\u0443 \u0448\u0430\u0433\u043D\u0443\u0442\u044C \u043D\u0435\u043B\u044C\u0437\u044F. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438 \u043D\u0430 \xAB1\xBB."
-    en: The beetle holds that space. You cannot land there. Try 1.
+    en: The beetle is sleeping on that tile. You can't land there. Look at 1.
     priority: 60
   - id: L04_T05
     levelId: L4
@@ -741,8 +813,9 @@ MonoBehaviour:
     domainEvent: step_selected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u043E\u0442 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0430\u044F \u043F\u043B\u0438\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u0416\u0443\u043A\u043E\u043C. \u0414\u0430\u0439 \u0422\u0438\u0448\u0443 \xAB1\xBB \u0438 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0441\u044C \u0440\u044F\u0434\u043E\u043C."
-    en: That space before the beetle is clear. Move Tish with 1.
+    en: The tile before the beetle is clear. Give Tish 1 to stop beside it.
     priority: 60
   - id: L04_T06
     levelId: L4
@@ -751,8 +824,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \xAB2\xBB \u0432\u0435\u0434\u0451\u0442 \u0437\u0430 \u0416\u0443\u043A\u0430. \u041F\u0440\u043E\u0439\u0442\u0438 \u043D\u0430\u0434 \u0437\u0430\u043D\u044F\u0442\u043E\u0439 \u043F\u043B\u0438\u0442\u043E\u0439 \u043C\u043E\u0436\u043D\u043E, \u0435\u0441\u043B\u0438 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E."
-    en: Now 2 passes the beetle. You may cross a held space to land on a clear one.
+    en: Now 2 takes you past the beetle. You can cross an occupied tile if the landing is clear.
     priority: 60
   - id: L04_T07
     levelId: L4
@@ -761,6 +835,7 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: move_bum
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u043D\u0435 \u0442\u043E\u0436\u0435 \u043C\u043E\u0436\u043D\u043E \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB? \u041E\u0442\u043B\u0438\u0447\u043D\u043E. \u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u2014 \u043A\u0440\u0435\u043F\u043A\u0438\u0439 \u0448\u0430\u0433."
     en: 1 or 2 for me too? Good. A clear plan makes a steady step.
     priority: 85
@@ -771,8 +846,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: shared_cell
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u0440\u0443\u0437\u044C\u044F \u043C\u043E\u0433\u0443\u0442 \u0441\u0442\u043E\u044F\u0442\u044C \u043D\u0430 \u043E\u0434\u043D\u043E\u0439 \u043F\u043B\u0438\u0442\u0435. \u041F\u043E\u043C\u0435\u0445\u0430 \u0437\u0434\u0435\u0441\u044C \u2014 \u0416\u0443\u043A, \u0430 \u043D\u0435 \u043D\u0430\u0448\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F."
-    en: Friends may share a space. The beetle is the obstacle.
+    en: Friends can share a tile. The beetle is the obstacle here, not our company.
     priority: 85
   - id: L04_T09
     levelId: L4
@@ -781,8 +857,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u0442 \u0448\u0430\u0433 \u0432\u0435\u0434\u0451\u0442 \u043D\u0430 \u0416\u0443\u043A\u0430. \u041E\u043D \u043D\u0435 \u043F\u043E\u0442\u0440\u0430\u0447\u0435\u043D: \u0432\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u0434\u0440\u0443\u0433\u0430."
-    en: That move lands on the beetle. The step is unused; choose another move.
+    en: That step lands on the beetle. It hasn't been used. Choose another step or another friend.
     priority: 75
   - id: L04_T10
     levelId: L4
@@ -791,8 +868,9 @@ MonoBehaviour:
     domainEvent: hero_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0432\u044B\u0445\u043E\u0434\u0430. \u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439 \u0441 \u0434\u0432\u0443\u043C\u044F \u0434\u0440\u0443\u0437\u044C\u044F\u043C\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0435\u0449\u0451 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
-    en: One is through. Keep moving the two still on the trail.
+    en: One friend is through. Keep moving the two still on the trail.
     priority: 60
   - id: L04_T11
     levelId: L4
@@ -801,8 +879,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: exit
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u0442\u043E \u0434\u043E\u0448\u0451\u043B \u0434\u043E \u043A\u0440\u0430\u044F, \u043C\u043E\u0436\u0435\u0442 \u0432\u044B\u0439\u0442\u0438 \u0441\u0432\u043E\u0438\u043C \u0448\u0430\u0433\u043E\u043C. \u041F\u043E\u0442\u043E\u043C \u043F\u0440\u043E\u0432\u0435\u0434\u0438 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u044B\u0445."
-    en: A friend at the edge can exit. Then lead the others out.
+    en: A friend at the edge can use their step to exit. Then lead the others out.
     priority: 85
   - id: L04_T12
     levelId: L4
@@ -811,8 +890,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB \u043E\u0434\u043D\u043E\u043C\u0443 \u0434\u0440\u0443\u0433\u0443. \u041D\u0430 \u0416\u0443\u043A\u0430 \u043D\u0435 \u0441\u0430\u0434\u0438\u043C\u0441\u044F, \u0447\u0435\u0440\u0435\u0437 \u043D\u0435\u0433\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u043C\u043E\u0436\u043D\u043E. \u0414\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445."
-    en: Choose 1 or 2 for one friend. Cross the beetle, never land on it. Lead all three out.
+    en: 1 or 2 for one friend. Cross the beetle's tile, but don't land on it. Lead all three out.
     priority: 85
   - id: L05_I01
     levelId: L5
@@ -821,8 +901,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u0442\u043E \u043F\u0435\u0440\u0432\u044B\u043C \u0434\u043E \u0431\u0435\u0440\u0435\u0433\u0430? \u042F \u0443\u0436\u0435 \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u0438\u043B \u043F\u043E\u0431\u0435\u0434\u043D\u044B\u0439 \u0445\u043E\u0445\u043E\u043B\u043E\u043A!"
-    en: 
+    en: Who's first to the bank? My victory crest is ready!
     priority: 80
   - id: L05_I02
     levelId: L5
@@ -831,8 +912,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0410 \u044F \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u0438\u043B \u0434\u0440\u0443\u0437\u0435\u0439. \u0414\u043E\u0439\u0434\u0451\u043C \u0432\u0441\u0435 \u2014 \u044D\u0442\u043E \u0438 \u0431\u0443\u0434\u0435\u0442 \u043C\u043E\u0439 \u0444\u0438\u043D\u0438\u0448."
-    en: 
+    en: 'I''ve brought my friends. Everyone across: that''s my finish line.'
     priority: 80
   - id: L05_V01
     levelId: L5
@@ -841,8 +923,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u0441\u0435 \u043D\u0430 \u0431\u0435\u0440\u0435\u0433\u0443. \u0422\u0435\u043F\u0435\u0440\u044C \u043C\u043E\u0436\u043D\u043E \u0445\u043E\u0445\u043E\u043B\u043E\u043A \u043F\u043E\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C."
-    en: 
+    en: Everyone's on the bank. Now there's time to fix your crest.
     priority: 100
   - id: L05_V02
     levelId: L5
@@ -851,8 +934,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u0430\u0448 \u0444\u0438\u043D\u0438\u0448 \u043E\u043A\u0430\u0437\u0430\u043B\u0441\u044F \u0448\u0438\u0440\u0435 \u043C\u043E\u0435\u0433\u043E. \u0412\u043E\u0437\u044C\u043C\u0451\u0442\u0435 \u043C\u0435\u043D\u044F \u043A \u0441\u0442\u043E\u043B\u0443?"
-    en: 
+    en: Your finish line was wider than mine. May I join you at the table?
     priority: 100
   - id: L05_F01
     levelId: L5
@@ -861,8 +945,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u0435\u0440\u0435\u043F\u0440\u0430\u0432\u0430 \u0441\u0442\u0430\u043B\u0430 \u043F\u0443\u0442\u0430\u043D\u0438\u0446\u0435\u0439. \u042F \u0441\u043D\u043E\u0432\u0430 \u0441\u043C\u043E\u0442\u0440\u0435\u043B \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u043F\u0435\u0440\u0451\u0434 \u0441\u0435\u0431\u044F."
-    en: 
+    en: I lost track of the crossing. I was only looking ahead of myself again.
     priority: 90
   - id: L05_F02
     levelId: L5
@@ -871,8 +956,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041D\u0430\u0447\u043D\u0451\u043C \u044D\u0442\u043E\u0442 \u0431\u0435\u0440\u0435\u0433 \u0441\u043D\u043E\u0432\u0430. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C \u043D\u0430 \u043E\u0431\u0430 \u0448\u0430\u0433\u0430 \u0438 \u0432\u0441\u0435\u0445 \u0434\u0440\u0443\u0437\u0435\u0439."
-    en: 
+    en: Let's start from this bank again. First, look at both steps and all our friends.
     priority: 90
   - id: L05_R01
     levelId: L5
@@ -881,8 +967,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u044B \u0443 \u043F\u0435\u0440\u0435\u043F\u0440\u0430\u0432\u044B. \xAB1\xBB \u0438 \xAB2\xBB \u2014 \u0434\u0432\u0430 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0435 \u0448\u0430\u0433\u0438 \u0438 \u043F\u0440\u043E\u0432\u0435\u0434\u0438 \u0442\u0440\u043E\u0438\u0445."
-    en: Use 1 and 2 as separate moves. Lead all three out.
+    en: We're at the crossing. 1 and 2 are separate moves. Use the available steps to lead all three out.
     priority: 70
   - id: L05_R02
     levelId: L5
@@ -891,8 +978,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043D\u043E\u0432\u0430 \u0443 \u043F\u0435\u0440\u0435\u043F\u0440\u0430\u0432\u044B. \u041F\u043E\u0441\u043B\u0435 \u043D\u0430\u0448\u0435\u0433\u043E \u043F\u043E\u043B\u043D\u043E\u0433\u043E \u0445\u043E\u0434\u0430 \u0420\u044B\u0436 \u043F\u0440\u043E\u0434\u0432\u0438\u043D\u0435\u0442\u0441\u044F \u043D\u0430 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u0421\u043B\u0435\u0434\u0438 \u0437\u0430 \u043F\u043E\u0441\u0430\u0434\u043A\u043E\u0439."
-    en: After our full turn, Ryzh moves one space. Check each landing.
+    en: Back at the crossing. After our whole turn, Rusty moves one tile forward. Check each landing.
     priority: 70
   - id: L05_T01
     levelId: L5
@@ -901,8 +989,9 @@ MonoBehaviour:
     domainEvent: step_offer_ready
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u0435\u0441\u0442\u044C \xAB1\xBB \u0438 \xAB2\xBB. \u042D\u0442\u043E \u0434\u0432\u0430 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0437\u0430 \u0445\u043E\u0434: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u043E\u0434\u043D\u043E, \u0437\u0430\u0442\u0435\u043C \u043E\u0441\u0442\u0430\u0432\u0448\u0435\u0435\u0441\u044F."
-    en: Now 1 and 2 are two separate moves. Use one, then the other.
+    en: 'Now we have 1 and 2: two separate moves each turn. Use one, then the remaining step.'
     priority: 60
   - id: L05_T02
     levelId: L5
@@ -911,8 +1000,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: guided_start
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 \xAB2\xBB \u0434\u043B\u044F \u0422\u0438\u0448\u0430. \u0428\u0430\u0433 \xAB1\xBB \u043F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u043E\u0441\u0442\u0430\u043D\u0435\u0442\u0441\u044F \u0434\u043B\u044F \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F."
-    en: Try 2 for Tish. The 1 will remain for the next move.
+    en: Try 2 for Tish. Step 1 will remain for the next move.
     priority: 85
   - id: L05_T03
     levelId: L5
@@ -921,8 +1011,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0441\u0442\u0430\u043B\u0430\u0441\u044C \xAB1\xBB. \u041C\u043E\u0436\u043D\u043E \u0434\u0430\u0442\u044C \u0435\u0451 \u041B\u0443\u043C\u0435: \u0432\u044B\u0431\u0435\u0440\u0438 \u043E\u0441\u0442\u0430\u0432\u0448\u0438\u0439\u0441\u044F \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u043C\u0435\u043D\u044F."
-    en: Only 1 remains. You can give it to Luma.
+    en: 'Step 1 remains. You can give it to Jo: choose that step, then me.'
     priority: 60
   - id: L05_T04
     levelId: L5
@@ -931,8 +1022,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: turn_end
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0420\u044B\u0436 \u0436\u0434\u0451\u0442, \u043F\u043E\u043A\u0430 \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0442\u0441\u044F \u043D\u0430\u0448 \u0445\u043E\u0434. \u041E\u0431\u044B\u0447\u043D\u043E \u044D\u0442\u043E \u043F\u0440\u043E\u0438\u0441\u0445\u043E\u0434\u0438\u0442 \u043F\u043E\u0441\u043B\u0435 \u043E\u0431\u043E\u0438\u0445 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439."
-    en: Ryzh waits until our turn ends, usually after both moves.
+    en: Rusty waits until our turn ends. That's usually after both separate moves.
     priority: 85
   - id: L05_T05
     levelId: L5
@@ -941,8 +1033,9 @@ MonoBehaviour:
     domainEvent: hazard_moved
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0434\u043D\u0430 \u043F\u043B\u0438\u0442\u0430! \u0417\u0430\u0442\u043E \u0441 \u0442\u0430\u043A\u0438\u043C \u0440\u0430\u0437\u0431\u0435\u0433\u043E\u043C!"
-    en: One space! With magnificent momentum!
+    en: One tile! With magnificent momentum!
     priority: 20
   - id: L05_T06
     levelId: L5
@@ -951,8 +1044,9 @@ MonoBehaviour:
     domainEvent: illegal_destination_previewed
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\xAB2\xBB \u0432\u0435\u0434\u0451\u0442 \u043D\u0430 \u0420\u044B\u0436\u0430. \u0422\u0430\u043C \u043D\u0435\u043B\u044C\u0437\u044F \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C\u0441\u044F. \u041F\u0440\u043E\u0432\u0435\u0440\u044C \xAB1\xBB \u0434\u043B\u044F \u0422\u0438\u0448\u0430."
-    en: 2 lands on Ryzh. You cannot stop there. Check 1 for Tish.
+    en: 2 lands on Rusty. You can't stop there. Check 1 for Tish.
     priority: 60
   - id: L05_T07
     levelId: L5
@@ -961,8 +1055,9 @@ MonoBehaviour:
     domainEvent: step_selected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\xAB1\xBB \u0432\u0435\u0434\u0451\u0442 \u0422\u0438\u0448\u0430 \u043D\u0430 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043B\u0438\u0442\u0443 \u043F\u0435\u0440\u0435\u0434 \u0420\u044B\u0436\u0435\u043C. \u0422\u0430\u043A \u043C\u044B \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C \u043F\u0435\u0440\u0432\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435."
-    en: 1 has a clear landing before Ryzh. Use it for Tish.
+    en: 1 takes Tish to the clear tile before Rusty. That's our first move.
     priority: 60
   - id: L05_T08
     levelId: L5
@@ -971,8 +1066,9 @@ MonoBehaviour:
     domainEvent: legal_move_applied
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0441\u0442\u0430\u043B\u0430\u0441\u044C \xAB2\xBB. \u0414\u0430\u0439 \u0435\u0451 \u041B\u0443\u043C\u0435, \u0438 \u044F \u0432\u0441\u0442\u0430\u043D\u0443 \u0440\u044F\u0434\u043E\u043C \u0441 \u0422\u0438\u0448\u0435\u043C. \u041F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u0420\u044B\u0436 \u0441\u0434\u0435\u043B\u0430\u0435\u0442 \u0441\u0432\u043E\u0439 \u0448\u0430\u0433."
-    en: Give the remaining 2 to Luma. We can share Tish's space.
+    en: Step 2 remains. Give it to Jo and I'll join Tish on his tile. Then Rusty will move.
     priority: 60
   - id: L05_T09
     levelId: L5
@@ -981,8 +1077,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: same_hero_twice
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0431\u0430 \u0448\u0430\u0433\u0430 \u043C\u043E\u0436\u043D\u043E \u0434\u0430\u0442\u044C \u043E\u0434\u043D\u043E\u043C\u0443 \u0434\u0440\u0443\u0433\u0443 \u0438\u043B\u0438 \u0440\u0430\u0437\u043D\u044B\u043C. \u041A\u0430\u0436\u0434\u044B\u0439 \u0448\u0430\u0433 \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0441\u044F \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E \u0438 \u043F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442 \u0441\u0432\u043E\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443."
-    en: Give both steps to one friend or different friends. Check each landing separately.
+    en: Give both steps to one friend or to different friends. Each move is separate; check each landing.
     priority: 85
   - id: L05_T10
     levelId: L5
@@ -991,8 +1088,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: opponent_schedule
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u0441\u043B\u0435 \u043D\u0430\u0448\u0435\u0433\u043E \u0445\u043E\u0434\u0430 \u0420\u044B\u0436 \u0438\u0434\u0451\u0442 \u0432\u043F\u0435\u0440\u0451\u0434 \u043D\u0430 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041C\u0430\u0440\u043A\u0435\u0440 \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0435\u0433\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u043A\u043B\u0435\u0442\u043A\u0443."
-    en: After our turn, Ryzh moves one space. The marker shows his next space.
+    en: After our turn, Rusty moves one tile forward. The marker shows his next tile.
     priority: 85
   - id: L05_T11
     levelId: L5
@@ -1001,8 +1099,9 @@ MonoBehaviour:
     domainEvent: hazard_yielded
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0443\u0442 \u0443\u0436\u0435 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F? \u041B\u0430\u0434\u043D\u043E, \u0443\u0441\u0442\u0443\u043F\u043B\u044E. \u041F\u043E\u0431\u0435\u0436\u0434\u0430\u0439\u0442\u0435 \u043A\u0440\u0430\u0441\u0438\u0432\u043E!"
-    en: Company already? I'll step aside. Finish in style!
+    en: Company already? All right, I'll step aside. Finish in style!
     priority: 20
   - id: L05_T12
     levelId: L5
@@ -1011,8 +1110,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u0432\u0430 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0445 \u0448\u0430\u0433\u0430. \u0412\u044B\u0431\u0438\u0440\u0430\u0439 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443, \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u0439 \u0420\u044B\u0436\u0430 \u043F\u043E\u0441\u043B\u0435 \u0445\u043E\u0434\u0430 \u0438 \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445."
-    en: Use two separate moves. Check landings and Ryzh. Lead all three out.
+    en: Two separate steps. Choose clear landings, allow for Rusty's move, and lead all three out.
     priority: 85
   - id: L06_I01
     levelId: L6
@@ -1021,8 +1121,9 @@ MonoBehaviour:
     domainEvent: level_entered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041B\u0438\u043D\u0437\u0430 \u0441 \u043D\u0430\u043C\u0438. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u0441\u044F \u0432\u0441\u0435, \u043A\u0430\u043A \u043E\u0431\u0435\u0449\u0430\u043B\u0438."
-    en: 
+    en: We have the lens. Now we're all heading home, just as we promised.
     priority: 80
   - id: L06_I02
     levelId: L6
@@ -1031,8 +1132,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u0442\u0440\u043E\u043F\u0438\u043D\u043A\u0430 \u0434\u043E \u043F\u043E\u043B\u044F\u043D\u044B. \u0421\u0432\u0435\u0442 \u043D\u0443\u0436\u0435\u043D \u043D\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430\u0448\u0435\u0439 \u0441\u0432\u0430\u0434\u044C\u0431\u0435."
-    en: 
+    en: One last trail to the clearing. Our wedding isn't the only thing that needs the light.
     priority: 80
   - id: L06_V01
     levelId: L6
@@ -1041,8 +1143,9 @@ MonoBehaviour:
     domainEvent: all_heroes_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u0441\u0435 \u0434\u043E\u043C\u0430. \u0422\u0435\u043F\u0435\u0440\u044C \u044F \u0437\u043D\u0430\u044E, \u0447\u0442\u043E \u043D\u0443\u0436\u043D\u043E \u0433\u0435\u0440\u043E\u044E: \u0434\u0440\u0443\u0437\u044C\u044F \u0438 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E\u0435 \u043C\u0435\u0441\u0442\u043E \u0437\u0430 \u0441\u0442\u043E\u043B\u043E\u043C."
-    en: 
+    en: 'Everyone''s home. Now I know what a hero needs: friends and room at the table.'
     priority: 100
   - id: L06_V02
     levelId: L6
@@ -1051,8 +1154,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u0440\u0438\u043D\u0435\u0441\u043B\u0438 \u0438 \u0441\u0432\u0435\u0442, \u0438 \u0433\u043E\u0441\u0442\u0435\u0439. \u041A\u043E\u0440\u0435\u043D\u044C, \u043C\u043E\u0436\u043D\u043E \u0437\u0430\u0436\u0438\u0433\u0430\u0442\u044C!"
-    en: 
+    en: We've brought the light and the guests. Grandpa Koren, time to light the lantern!
     priority: 100
   - id: L06_F01
     levelId: L6
@@ -1061,8 +1165,9 @@ MonoBehaviour:
     domainEvent: attempt_ended_unfinished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u044B \u0443\u0436\u0435 \u0442\u0430\u043A \u0431\u043B\u0438\u0437\u043A\u043E. \u041D\u043E \u0441\u043F\u0435\u0448\u0438\u0442\u044C \u0437\u0430 \u0432\u0441\u0435\u0445 \u0441\u0440\u0430\u0437\u0443 \u0443 \u043C\u0435\u043D\u044F \u043D\u0435 \u0432\u044B\u0445\u043E\u0434\u0438\u0442."
-    en: 
+    en: We're so close. But I can't do everyone's hurrying for them.
     priority: 90
   - id: L06_F02
     levelId: L6
@@ -1071,8 +1176,9 @@ MonoBehaviour:
     domainEvent: dialogue_line_advanced
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044E\u044E \u0442\u0440\u043E\u043F\u0438\u043D\u043A\u0443 \u043C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u0435\u0449\u0451 \u0440\u0430\u0437. \u0412\u044B\u0431\u0435\u0440\u0435\u043C \u0448\u0430\u0433 \u0438 \u043F\u043E\u043C\u043E\u0436\u0435\u043C \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u0434\u0440\u0443\u0433\u0443."
-    en: 
+    en: We can try this last trail again. Choose a step and help each friend along.
     priority: 90
   - id: L06_R01
     levelId: L6
@@ -1081,8 +1187,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041B\u0438\u043D\u0437\u0430 \u0441 \u043D\u0430\u043C\u0438. \u0414\u0432\u0430 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0445 \u0448\u0430\u0433\u0430; \u0416\u0443\u043A \u0434\u0435\u0440\u0436\u0438\u0442 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u0414\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445 \u043A \u0444\u043E\u043D\u0430\u0440\u044E."
-    en: The lens is with us. Use two separate moves and lead all three out.
+    en: We have the lens. Two separate steps; one tile occupied by the beetle. Lead all three to the lantern.
     priority: 70
   - id: L06_R02
     levelId: L6
@@ -1091,8 +1198,9 @@ MonoBehaviour:
     domainEvent: level_reentered
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u043D\u043E\u0432\u0430 \u043D\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0442\u0440\u043E\u043F\u0435. \u0417\u043D\u0430\u043A\u043E\u043C\u044B\u0435 \u0448\u0430\u0433\u0438, \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0430\u044F \u043F\u043E\u0441\u0430\u0434\u043A\u0430, \u0432\u0441\u0435 \u0434\u0440\u0443\u0437\u044C\u044F \u0443 \u0432\u044B\u0445\u043E\u0434\u0430."
-    en: Same steps, clear landings, every friend at the exit.
+    en: Back on the last trail. Familiar steps, clear landings, and every friend at the exit.
     priority: 70
   - id: L06_T01
     levelId: L6
@@ -1101,8 +1209,9 @@ MonoBehaviour:
     domainEvent: story_finished
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445 \u043A \u0444\u043E\u043D\u0430\u0440\u044E. \u0428\u0430\u0433\u0438 \u0437\u043D\u0430\u043A\u043E\u043C\u044B\u0435; \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430 \u0440\u044F\u0434\u043E\u043C, \u0435\u0441\u043B\u0438 \u043F\u043E\u043D\u0430\u0434\u043E\u0431\u0438\u0442\u0441\u044F."
-    en: Lead all three to the lantern. Help is here if you need it.
+    en: Lead all three to the lantern. You know the steps; Help is here if you need it.
     priority: 60
   - id: L06_T02
     levelId: L6
@@ -1111,8 +1220,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: step_choice
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u044B\u0431\u0435\u0440\u0438 \xAB1\xBB \u0438\u043B\u0438 \xAB2\xBB \u0434\u043B\u044F \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F. \u041F\u043E\u0442\u043E\u043C \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439 \u043E\u0441\u0442\u0430\u0432\u0448\u0438\u0439\u0441\u044F \u0448\u0430\u0433."
-    en: Choose 1 or 2 first. Then use the remaining step.
+    en: Choose 1 or 2 for the first move. Then use the remaining step.
     priority: 85
   - id: L06_T03
     levelId: L6
@@ -1121,8 +1231,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0416\u0443\u043A \u0441\u043D\u043E\u0432\u0430 \u0437\u0430\u043D\u044F\u043B \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438; \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u043D\u044F\u0442\u0443\u044E \u043F\u0440\u043E\u043C\u0435\u0436\u0443\u0442\u043E\u0447\u043D\u0443\u044E \u043F\u043B\u0438\u0442\u0443 \u043F\u0440\u043E\u0439\u0442\u0438 \u043C\u043E\u0436\u043D\u043E."
-    en: Check the landing. You may cross the beetle's space, but not land there.
+    en: The beetle has a tile again. Check the landing. You can cross an occupied tile on the way.
     priority: 75
   - id: L06_T04
     levelId: L6
@@ -1131,8 +1242,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: choose_friend
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041B\u044E\u0431\u043E\u0439 \u0434\u0440\u0443\u0433 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u043C \u0445\u043E\u0434\u043E\u043C \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0439\u0442\u0438. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438, \u043A\u043E\u043C\u0443 \u0441\u0435\u0439\u0447\u0430\u0441 \u043D\u0443\u0436\u043D\u0435\u0435 \u044D\u0442\u043E\u0442 \u0448\u0430\u0433."
-    en: Any friend with a legal move may use the step.
+    en: Any friend with an available move can go. See who needs this step most.
     priority: 85
   - id: L06_T05
     levelId: L6
@@ -1141,8 +1253,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: step_split
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\xAB1\xBB \u0438 \xAB2\xBB \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u044E\u0442\u0441\u044F \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E. \u0427\u0438\u0441\u043B\u0430 \u043D\u0435 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u043C \u0432 \u043E\u0434\u0438\u043D \u043E\u0431\u0449\u0438\u0439 \u043F\u0440\u044B\u0436\u043E\u043A."
-    en: 1 and 2 are separate moves. Do not combine them into one jump.
+    en: 1 and 2 are separate moves. Don't add the numbers into one big jump.
     priority: 85
   - id: L06_T06
     levelId: L6
@@ -1151,8 +1264,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: shared_cell
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u0440\u0443\u0437\u044C\u044F\u043C \u043C\u043E\u0436\u043D\u043E \u0441\u0442\u043E\u044F\u0442\u044C \u0440\u044F\u0434\u043E\u043C \u043D\u0430 \u043E\u0434\u043D\u043E\u0439 \u043F\u043B\u0438\u0442\u0435. \u041A\u0430\u0436\u0434\u044B\u0439 \u043F\u043E\u0442\u043E\u043C \u043F\u043E\u0439\u0434\u0451\u0442 \u0441\u0432\u043E\u0438\u043C \u0448\u0430\u0433\u043E\u043C."
-    en: Friends can share a space, then move separately.
+    en: Friends can share a tile. Each will take their own step afterward.
     priority: 85
   - id: L06_T07
     levelId: L6
@@ -1161,8 +1275,9 @@ MonoBehaviour:
     domainEvent: hero_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042F \u0441\u0442\u043E\u043B \u043F\u0440\u0438\u0434\u0435\u0440\u0436\u0443. \u0412\u044B \u0438\u0434\u0438\u0442\u0435 \u2014 \u043C\u0435\u0441\u0442\u043E \u0432\u0441\u0435\u043C \u043E\u0441\u0442\u0430\u0432\u0438\u043B!"
-    en: I'll keep a place at the table. Room for everyone!
+    en: I'll hold a place at the table. You keep going. Room for everyone!
     priority: 60
   - id: L06_T08
     levelId: L6
@@ -1171,8 +1286,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: last_friend
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0441\u0442\u0430\u043B\u0441\u044F \u043E\u0434\u0438\u043D \u0434\u0440\u0443\u0433. \u0412\u0441\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0435 \u0448\u0430\u0433\u0438 \u043C\u043E\u0436\u043D\u043E \u0434\u0430\u0432\u0430\u0442\u044C \u0435\u043C\u0443 \u0434\u043E \u0432\u044B\u0445\u043E\u0434\u0430."
-    en: One friend remains. Give them the available steps until they exit.
+    en: One friend remains. Give them the available steps until they reach the exit.
     priority: 85
   - id: L06_T09
     levelId: L6
@@ -1181,8 +1297,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: exit
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0414\u043E\u0441\u0442\u0438\u0447\u044C \u043A\u0440\u0430\u044F \u0438\u043B\u0438 \u043F\u0440\u043E\u0439\u0442\u0438 \u0434\u0430\u043B\u044C\u0448\u0435 \u2014 \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E. \u041D\u0430\u0436\u043C\u0438 \u0433\u0435\u0440\u043E\u044F \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u043C \u0448\u0430\u0433\u043E\u043C \u043A \u0432\u044B\u0445\u043E\u0434\u0443."
-    en: Reaching or passing the edge is enough. Move the friend out.
+    en: Reaching or passing the edge is enough. Tap a hero with an available step to the exit.
     priority: 85
   - id: L06_T10
     levelId: L6
@@ -1191,8 +1308,9 @@ MonoBehaviour:
     domainEvent: learning_evidence_updated
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041A\u0430\u0436\u0435\u0442\u0441\u044F, \u0442\u0440\u043E\u043F\u0430 \u0441\u0442\u0430\u043B\u0430 \u043F\u043E\u043D\u044F\u0442\u043D\u0435\u0435. \u0418\u043B\u0438 \u044F \u043D\u0430\u043A\u043E\u043D\u0435\u0446 \u0441\u043B\u0443\u0448\u0430\u044E \u0434\u0440\u0443\u0437\u0435\u0439."
-    en: I think the trail makes sense. Perhaps I'm listening now.
+    en: I think the trail makes more sense now. Or maybe I'm finally listening to my friends.
     priority: 20
   - id: L06_T11
     levelId: L6
@@ -1201,8 +1319,9 @@ MonoBehaviour:
     domainEvent: hero_exited
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0422\u0440\u043E\u0435 \u0438\u0437 \u0442\u0440\u0451\u0445. \u041C\u044B \u043F\u0440\u0438\u043D\u0435\u0441\u043B\u0438 \u043B\u0438\u043D\u0437\u0443 \u0432\u043C\u0435\u0441\u0442\u0435 \u2014 \u043C\u043E\u0436\u043D\u043E \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0442\u044C \u0441\u0432\u0435\u0442 \u043F\u043E\u043B\u044F\u043D\u0435."
-    en: Three of three. The lens is home with all our friends.
+    en: Three of three. We brought the lens back together. Time to light the clearing.
     priority: 20
   - id: L06_T12
     levelId: L6
@@ -1211,8 +1330,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: summary
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u044B\u0431\u0438\u0440\u0430\u0439 \u043E\u0434\u0438\u043D \u0438\u0437 \u043E\u0441\u0442\u0430\u0432\u0448\u0438\u0445\u0441\u044F \u0448\u0430\u0433\u043E\u0432 \u0438 \u0434\u0440\u0443\u0433\u0430. \u041D\u0435 \u0441\u0430\u0434\u0438\u0441\u044C \u043D\u0430 \u0416\u0443\u043A\u0430; \u043F\u0440\u043E\u0432\u0435\u0434\u0438 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043A \u0444\u043E\u043D\u0430\u0440\u044E."
-    en: Choose a remaining step and a friend. Avoid the beetle's landing. Lead everyone out.
+    en: Choose a remaining step and a friend. Don't land on the beetle. Lead everyone to the lantern.
     priority: 85
   - id: G_E01
     levelId: GLOBAL
@@ -1221,8 +1341,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
-    ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0432\u0432\u0435\u0440\u0445\u0443, \u0437\u0430\u0442\u0435\u043C \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
-    en: Choose a step above, then a hero on the trail.
+    speakerLabelEn: 
+    ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
+    en: First choose a step, then a hero on the trail.
     priority: 75
   - id: G_E02
     levelId: GLOBAL
@@ -1231,8 +1352,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0412\u044B\u0431\u0435\u0440\u0438 \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0441 \u043E\u0431\u0432\u043E\u0434\u043A\u043E\u0439. \u0418\u043C\u044F \u043D\u0430 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0435 \u043F\u043E\u043C\u043E\u0436\u0435\u0442 \u0435\u0433\u043E \u043D\u0430\u0439\u0442\u0438."
-    en: Choose a hero on an outlined space. Use the named portrait if needed.
+    en: Choose a hero on an outlined tile. Their portrait and name can help you find them.
     priority: 75
   - id: G_E03
     levelId: GLOBAL
@@ -1241,8 +1363,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u0442 \u0434\u0440\u0443\u0433 \u0443\u0436\u0435 \u0434\u043E\u0448\u0451\u043B. \u0412\u044B\u0431\u0435\u0440\u0438 \u0442\u043E\u0433\u043E, \u043A\u0442\u043E \u0435\u0449\u0451 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
-    en: That friend is through. Choose one still on the trail.
+    en: That friend is already through. Choose someone still on the trail.
     priority: 75
   - id: G_E04
     levelId: GLOBAL
@@ -1251,8 +1374,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041D\u0430 \u043C\u0435\u0441\u0442\u0435 \u043F\u043E\u0441\u0430\u0434\u043A\u0438 \u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u0438\u0442. \u0428\u0430\u0433 \u043D\u0435 \u043F\u043E\u0442\u0440\u0430\u0447\u0435\u043D: \u0432\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0445\u043E\u0434."
-    en: The landing is held. Your step is unused; choose another legal move.
+    en: The landing is occupied. Your step is unused. Choose another available move.
     priority: 75
   - id: G_E05
     levelId: GLOBAL
@@ -1261,8 +1385,9 @@ MonoBehaviour:
     domainEvent: step_selected
     helpTopic: 
     speakerLabelRu: 
-    ru: "\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0448\u0430\u0433\u0430 \u0441\u0435\u0439\u0447\u0430\u0441 \u043D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u0433\u0435\u0440\u043E\u044F. \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0432\u0432\u0435\u0440\u0445\u0443."
-    en: No friend can use this step now. Check another step above.
+    speakerLabelEn: 
+    ru: "\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0448\u0430\u0433\u0430 \u0441\u0435\u0439\u0447\u0430\u0441 \u043D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u0433\u0435\u0440\u043E\u044F. \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438."
+    en: No hero can use this step right now. Check another step.
     priority: 75
   - id: G_E06
     levelId: GLOBAL
@@ -1271,8 +1396,9 @@ MonoBehaviour:
     domainEvent: no_legal_moves
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u0435\u0439\u0447\u0430\u0441 \u043D\u0438 \u043E\u0434\u0438\u043D \u0448\u0430\u0433 \u043D\u0435 \u0432\u0435\u0434\u0451\u0442 \u043D\u0430 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443. \u0425\u043E\u0434 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0441\u044F, \u0438 \u043C\u044B \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u043C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0435 \u0448\u0430\u0433\u0438."
-    en: No step has a clear landing. The turn ends; then check the next steps.
+    en: No step has a clear landing right now. The turn will end, then we'll check the next steps.
     priority: 75
   - id: G_E07
     levelId: GLOBAL
@@ -1281,8 +1407,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u043E\u0434\u043E\u0436\u0434\u0451\u043C, \u043F\u043E\u043A\u0430 \u0434\u0440\u0443\u0433 \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0442 \u0448\u0430\u0433. \u041F\u043E\u0442\u043E\u043C \u0432\u044B\u0431\u0435\u0440\u0435\u043C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439."
-    en: Let the friend finish moving, then choose the next move.
+    en: Let our friend finish moving. Then choose the next step.
     priority: 75
   - id: G_E08
     levelId: GLOBAL
@@ -1291,8 +1418,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0434\u0451\u0442 \u0420\u044B\u0436. \u041F\u043E\u0441\u043B\u0435 \u0435\u0433\u043E \u0448\u0430\u0433\u0430 \u0441\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0435\u043C \u043D\u0430\u0448\u0438."
-    en: Ryzh is moving now. Our steps come next.
+    en: Rusty is moving now. After his step, we'll choose ours again.
     priority: 75
   - id: G_E09
     levelId: GLOBAL
@@ -1301,8 +1429,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u0442 \u0448\u0430\u0433 \u0443\u0436\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D. \u0412\u044B\u0431\u0435\u0440\u0438 \u043E\u0434\u0438\u043D \u0438\u0437 \u0448\u0430\u0433\u043E\u0432, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0441\u0435\u0439\u0447\u0430\u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B."
-    en: That step is finished. Choose one that is available now.
+    en: That step is finished. Choose one that's available now.
     priority: 75
   - id: G_E10
     levelId: GLOBAL
@@ -1311,8 +1440,9 @@ MonoBehaviour:
     domainEvent: input_rejected
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u043C\u0443 \u0434\u0440\u0443\u0433\u0443 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0448\u0430\u0433\u0430 \u0435\u0449\u0451 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0434\u043E \u0432\u044B\u0445\u043E\u0434\u0430. \u041C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u0434\u0430\u043B\u044C\u0448\u0435 \u043F\u043E \u0442\u0440\u043E\u043F\u0435."
-    en: This step cannot take that friend out yet. Keep moving along the trail.
+    en: This step won't take that friend to the exit yet. You can move farther along the trail.
     priority: 75
   - id: G_A01
     levelId: GLOBAL
@@ -1321,8 +1451,9 @@ MonoBehaviour:
     domainEvent: tutorial_skip_requested
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0425\u043E\u0440\u043E\u0448\u043E, \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439 \u0441\u0432\u043E\u0438\u043C \u0442\u0435\u043C\u043F\u043E\u043C. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043C\u043E\u0436\u043D\u043E \u0441\u043D\u043E\u0432\u0430 \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u0441\u043F\u0440\u0430\u0432\u043A\u0435."
-    en: Keep your own pace. You can open Help again.
+    en: Keep going at your own pace. You can open the hints again in Help.
     priority: 80
   - id: G_A02
     levelId: GLOBAL
@@ -1331,8 +1462,9 @@ MonoBehaviour:
     domainEvent: pause_opened
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u0435\u0440\u0435\u0434\u044B\u0448\u043A\u0430 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0430 \u0434\u0430\u0436\u0435 \u0433\u0435\u0440\u043E\u044F\u043C. \u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C, \u043A\u043E\u0433\u0434\u0430 \u0431\u0443\u0434\u0435\u0448\u044C \u0433\u043E\u0442\u043E\u0432."
-    en: Heroes may take a break. Resume when you are ready.
+    en: Even heroes can take a break. We'll continue when you're ready.
     priority: 80
   - id: G_A03
     levelId: GLOBAL
@@ -1341,8 +1473,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0427\u0442\u043E \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C: \u0448\u0430\u0433\u0438, \u0432\u044B\u0431\u043E\u0440 \u0434\u0440\u0443\u0433\u0430, \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443 \u0438\u043B\u0438 \u0432\u044B\u0445\u043E\u0434?"
-    en: 'Which topic: steps, friends, clear landings, or the exit?'
+    en: 'What shall we look at: steps, choosing a friend, clear landings, or the exit?'
     priority: 80
   - id: G_A04
     levelId: GLOBAL
@@ -1351,8 +1484,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: outlines
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041E\u0431\u0432\u043E\u0434\u043A\u0430 \u0438 \u0437\u043D\u0430\u0447\u043E\u043A \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u044E\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0445\u043E\u0434. \u0426\u0432\u0435\u0442 \u043F\u043E\u043C\u043E\u0433\u0430\u0435\u0442, \u043D\u043E \u0438\u043C\u044F \u0438 \u0444\u043E\u0440\u043C\u0430 \u0442\u043E\u0436\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0436\u0443\u0442."
-    en: Outlines, icons, and names show legal moves as well as color.
+    en: Outlines and icons show available moves. Color helps, and so do names and shapes.
     priority: 80
   - id: G_A05
     levelId: GLOBAL
@@ -1361,8 +1495,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: text
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u0420\u0435\u043F\u043B\u0438\u043A\u0430 \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F, \u043F\u043E\u043A\u0430 \u0442\u044B \u0435\u0451 \u043D\u0435 \u0437\u0430\u043A\u0440\u043E\u0435\u0448\u044C. \u0420\u0430\u0437\u043C\u0435\u0440 \u0442\u0435\u043A\u0441\u0442\u0430 \u043C\u043E\u0436\u043D\u043E \u043D\u0430\u0441\u0442\u0440\u043E\u0438\u0442\u044C."
-    en: Text stays until you close it. You can adjust the text size.
+    en: The line stays until you close it. You can adjust the text size.
     priority: 80
   - id: G_A06
     levelId: GLOBAL
@@ -1371,8 +1506,9 @@ MonoBehaviour:
     domainEvent: language_changed
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0439 \u0436\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043D\u0430 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C \u044F\u0437\u044B\u043A\u0435."
-    en: Continue from the same hint in your chosen language.
+    en: We'll continue from the same hint in your chosen language.
     priority: 80
   - id: G_A07
     levelId: GLOBAL
@@ -1381,8 +1517,9 @@ MonoBehaviour:
     domainEvent: help_requested
     helpTopic: motion
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u041C\u043E\u0436\u043D\u043E \u0443\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435. \u041F\u043E\u0440\u044F\u0434\u043E\u043A \u0448\u0430\u0433\u043E\u0432 \u0438 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043E\u0441\u0442\u0430\u043D\u0443\u0442\u0441\u044F \u0442\u0435\u043C\u0438 \u0436\u0435."
-    en: Reduce motion if you wish. Steps and hints stay the same.
+    en: You can reduce motion. The steps and hints will stay the same.
     priority: 80
   - id: G_R01
     levelId: GLOBAL
@@ -1391,252 +1528,328 @@ MonoBehaviour:
     domainEvent: resume_failed
     helpTopic: 
     speakerLabelRu: 
+    speakerLabelEn: 
     ru: "\u042D\u0442\u043E\u0442 \u0443\u0447\u0430\u0441\u0442\u043E\u043A \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C. \u041D\u0430\u0447\u043D\u0438 \u0435\u0433\u043E \u0441\u043D\u043E\u0432\u0430; \u043C\u044B \u043F\u043E\u043A\u0430\u0436\u0435\u043C \u043A\u0440\u0430\u0442\u043A\u0443\u044E \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0443."
-    en: This trail could not resume. Restart it with a short hint.
+    en: This trail couldn't be resumed. Start it again; we'll show a short hint.
     priority: 80
   scenes:
   - id: S00
     title: "\u0414\u043E \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0448\u0430\u0433\u0430"
+    titleEn: Before the First Step
     art: {fileID: 2800000, guid: 379fc49de77be1444b53f4e22ff1a6a5, type: 3}
     frames:
     - id: S00.1
       title: "\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0430"
+      titleEn: Getting Ready
       lines:
       - id: S00.1a
         speakerId: tish
         ru: "\u0421\u0435\u0433\u043E\u0434\u043D\u044F \u0432\u0441\u0451 \u0431\u0443\u0434\u0435\u0442 \u0440\u043E\u0432\u043D\u043E"
+        en: Everything will be just right today.
       - id: S00.1b
         speakerId: luma
         ru: "\u041C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0441\u0442\u043E \u0445\u043E\u0440\u043E\u0448\u043E"
+        en: Good is good enough.
     - id: S00.2
       title: "\u041B\u0438\u043D\u0437\u0430 \u0432 \u043F\u043E\u043B\u0451\u0442\u0435"
+      titleEn: The Lens Takes Flight
       lines:
       - id: S00.2a
         speakerId: kloch
         ru: "\u041E\u0434\u043E\u043B\u0436\u0443 \u0434\u043E \u043F\u0440\u0430\u0437\u0434\u043D\u0438\u043A\u0430!"
+        en: Just borrowing it until the celebration!
       - id: S00.2b
         speakerId: tish
         ru: "\u041D\u043E \u043F\u0440\u0430\u0437\u0434\u043D\u0438\u043A \u0437\u0434\u0435\u0441\u044C\u2026"
+        en: "But the celebration is here\u2026"
     - id: S00.3
       title: "\u0414\u0432\u0430 \u0440\u0435\u0448\u0435\u043D\u0438\u044F"
+      titleEn: Two Decisions
       lines:
       - id: S00.3a
         speakerId: tish
         ru: "\u0412\u0435\u0440\u043D\u0443 \u043B\u0438\u043D\u0437\u0443. \u042F \u0431\u044B\u0441\u0442\u0440\u043E"
+        en: I'll bring the lens back. Won't take long.
       - id: S00.3b
         speakerId: luma
         ru: "\u042F \u043F\u0440\u043E\u0432\u0435\u0440\u044E \u043C\u043E\u0441\u0442. \u0412\u0441\u0442\u0440\u0435\u0442\u0438\u043C\u0441\u044F \u0442\u0430\u043C"
+        en: I'll check the bridge. Meet you there.
   - id: S01
     title: "\u0421\u043B\u0435\u0434, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0437\u0430\u043C\u0435\u0442\u0438\u043B\u0438 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0435"
+    titleEn: A Clue the Little Ones Found
     art: {fileID: 2800000, guid: 65def979d3f11974980710d61e8afca9, type: 3}
     frames:
     - id: S01.1
       title: "\u041D\u0430 \u043A\u0440\u0430\u044E \u0434\u0432\u043E\u0440\u0430"
+      titleEn: At the Edge of the Yard
       lines:
       - id: S01.1a
         speakerId: pip
         ru: "\u0414\u044F\u0434\u044F! \u041C\u044B \u043D\u0430\u0448\u043B\u0438 \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435!"
+        en: Uncle Tish! We found the way!
     - id: S01.2
       title: "\u0414\u0432\u0435 \u043D\u0430\u0445\u043E\u0434\u043A\u0438"
+      titleEn: Two Discoveries
       lines:
       - id: S01.2a
         speakerId: pip
         ru: "\u042F \u043D\u0430\u0448\u0451\u043B \u0441\u0435\u0432\u0435\u0440"
+        en: I found north.
       - id: S01.2b
         speakerId: fika
         ru: "\u0410 \u044F \u2014 \u043F\u0435\u0440\u043E \u0443 \u0440\u0443\u0447\u044C\u044F"
+        en: And I found a feather by the stream.
     - id: S01.3
       title: "\u0412 \u043F\u0443\u0442\u044C, \u0434\u043E\u043C\u0430 \u0442\u043E\u0436\u0435 \u0435\u0441\u0442\u044C \u0434\u0435\u043B\u043E"
+      titleEn: Work to Do at Home
       lines:
       - id: S01.3a
         speakerId: tish
         ru: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E. \u0413\u0438\u0440\u043B\u044F\u043D\u0434\u0443 \u0434\u043E\u0432\u0435\u0440\u044F\u044E \u0432\u0430\u043C"
+        en: Thank you. I'm trusting you with the garland.
   - id: S02
     title: "\u0420\u044F\u0434\u043E\u043C \u043F\u043E \u0441\u0432\u043E\u0435\u0439 \u0432\u043E\u043B\u0435"
+    titleEn: Together by Choice
     art: {fileID: 2800000, guid: 7d86f39fa992efe42b636a38d10a6a95, type: 3}
     frames:
     - id: S02.1
       title: "\u0414\u0430\u043B\u044C\u043D\u0438\u0439 \u0431\u0435\u0440\u0435\u0433"
+      titleEn: The Far Bank
       lines:
       - id: S02.1a
         speakerId: tish
         ru: "\u0410 \u0442\u044B \u0443\u0436\u0435 \u0437\u0434\u0435\u0441\u044C"
+        en: You're here already.
     - id: S02.2
       title: "\u0415\u0451 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043D\u0430\u044F \u0437\u0430\u0434\u0430\u0447\u0430"
+      titleEn: Her Task Completed
       lines:
       - id: S02.2a
         speakerId: luma
         ru: "\u041C\u043E\u0441\u0442 \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u043B\u0430. \u0414\u043E \u041A\u043E\u0440\u043D\u044F \u0434\u043E\u0439\u0434\u0451\u043C \u0432\u043C\u0435\u0441\u0442\u0435"
+        en: The bridge is checked. We'll go to Grandpa Koren together.
     - id: S02.3
       title: "\u041C\u0435\u0441\u0442\u043E \u0440\u044F\u0434\u043E\u043C"
+      titleEn: A Place Beside You
       lines:
       - id: S02.3a
         speakerId: tish
         ru: "\u042F \u0445\u043E\u0442\u0435\u043B \u0441\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F \u0441\u0430\u043C\u2026"
+        en: "I wanted to manage on my own\u2026"
       - id: S02.3b
         speakerId: luma
         ru: "\u041C\u043E\u0436\u0435\u0448\u044C \u0438 \u0432\u043C\u0435\u0441\u0442\u0435 \u0441\u043E \u043C\u043D\u043E\u0439"
+        en: You can manage with me too.
   - id: S03
     title: "\u0422\u043E, \u0447\u0442\u043E \u043D\u0443\u0436\u043D\u043E \u0432\u0441\u0435\u043C"
+    titleEn: Something Everyone Needs
     art: {fileID: 2800000, guid: e1d3604e46e1ebc49a37b53215dea3c8, type: 3}
     frames:
     - id: S03.1
       title: "\u0423 \u043C\u0430\u0441\u0442\u0435\u0440\u0441\u043A\u043E\u0439"
+      titleEn: At the Workshop
       lines:
       - id: S03.1a
         speakerId: koren
         ru: "\u0411\u0435\u0437 \u044D\u0442\u043E\u0439 \u043B\u0438\u043D\u0437\u044B \u0438 \u0442\u0440\u043E\u043F\u0430 \u0442\u0443\u0441\u043A\u043B\u0435\u0435"
+        en: Without that lens, even the trail is dimmer.
     - id: S03.2
       title: "\u0414\u0432\u0430 \u0440\u0430\u0437\u043C\u0435\u0440\u0430 \u0441\u0432\u0435\u0442\u0430"
+      titleEn: Two Sizes of Light
       lines:
       - id: S03.2a
         speakerId: koren
         ru: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u0441\u0432\u0435\u0442 \u043D\u0443\u0436\u0435\u043D \u0432\u0441\u0435\u043C. \u041C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u043C \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F"
+        en: Everyone needs the big light. The little one can be shared.
       - id: S03.2b
         speakerId: bum
         ru: "\u042F \u043F\u043E\u043D\u0435\u0441\u0443. \u041E\u0441\u0442\u043E\u0440\u043E\u0436\u043D\u043E"
+        en: I'll carry it. Carefully.
     - id: S03.3
       title: "\u0422\u0440\u043E\u0435 \u0432 \u0434\u0432\u0435\u0440\u044F\u0445"
+      titleEn: Three in the Doorway
       lines:
       - id: S03.3a
         speakerId: tish
         ru: "\u0414\u0432\u0435\u0440\u044C \u0434\u0435\u0440\u0436\u0443. \u0418\u0434\u0451\u043C \u0432\u0442\u0440\u043E\u0451\u043C"
+        en: I've got the door. All three of us, let's go.
       - id: S03.3b
         speakerId: bum
         ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u0432\u0441\u0451 \u043F\u043E\u043D\u044F\u0442\u043D\u043E"
+        en: Now I understand.
   - id: S04
     title: "\u0427\u0443\u0436\u043E\u0439 \u0442\u0435\u043C\u043F"
+    titleEn: Someone Else's Pace
     art: {fileID: 2800000, guid: d7c53fb2c1d303c4ea479d65bb277af2, type: 3}
     frames:
     - id: S04.1
       title: "\u0416\u0443\u043A \u0437\u0430\u043D\u044F\u0442 \u0441\u0432\u043E\u0438\u043C \u0434\u0435\u043B\u043E\u043C"
+      titleEn: The Beetle's Own Business
       lines:
       - id: S04.1a
         speakerId: bum
         ru: "\u041E\u043D \u0442\u043E\u0436\u0435 \u043D\u0435 \u043B\u044E\u0431\u0438\u0442 \u0441\u043F\u0435\u0448\u0438\u0442\u044C"
+        en: He doesn't like hurrying either.
     - id: S04.2
       title: "\u041F\u0435\u0440\u0435\u043F\u0440\u0430\u0432\u0430 \u0428\u0430\u043B\u0430"
+      titleEn: Shal's Crossing
       lines:
       - id: S04.2a
         speakerId: shal
         ru: "\u0414\u043E \u043F\u043E\u043B\u044F\u043D\u044B \u0431\u043B\u0438\u0437\u043A\u043E. \u0422\u043E\u043B\u044C\u043A\u043E \u0420\u044B\u0436 \u043E\u043F\u044F\u0442\u044C \u043E\u0431\u044A\u044F\u0432\u0438\u043B \u0433\u043E\u043D\u043A\u0443"
+        en: The clearing's close. But Rusty's called another race.
     - id: S04.3
       title: "\u0412\u044B\u0437\u043E\u0432 \u0443 \u0443\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044F"
+      titleEn: A Challenge at the Signpost
       lines:
       - id: S04.3a
         speakerId: ryzh
         ru: "\u041A\u0442\u043E \u043F\u0435\u0440\u0432\u044B\u0439 \u043A \u043F\u043E\u043B\u044F\u043D\u0435?"
+        en: Who's first to the clearing?
       - id: S04.3b
         speakerId: luma
         ru: "\u041D\u0430\u043C \u0432\u0430\u0436\u043D\u043E \u0434\u043E\u0439\u0442\u0438 \u0432\u0441\u0435\u043C"
+        en: What matters is that we all get there.
   - id: S05
     title: "\u041A\u043E\u043C\u0443 \u043D\u0443\u0436\u0435\u043D \u0441\u0432\u0435\u0442"
+    titleEn: Who Needs the Light
     art: {fileID: 2800000, guid: f9c679d12a4810b47a12973ae2dadc5e, type: 3}
     frames:
     - id: S05.1
       title: "\u041E\u0431\u0449\u0438\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442"
+      titleEn: A Shared Finish
       lines:
       - id: S05.1a
         speakerId: ryzh
         ru: "\u0412\u044B \u043F\u0440\u0438\u0448\u043B\u0438 \u0432\u043C\u0435\u0441\u0442\u0435. \u0422\u043E\u0436\u0435 \u0443\u043C\u0435\u0435\u0442\u0435!"
+        en: You arrived together. That's a skill too!
       - id: S05.1b
         speakerId: tish
         ru: "\u041C\u044B \u0442\u0430\u043A \u0438 \u0445\u043E\u0442\u0435\u043B\u0438"
+        en: Just how we wanted it.
     - id: S05.2
       title: "\u0412\u0442\u043E\u0440\u043E\u0439 \u0447\u0430\u0439 \u0431\u0435\u0437 \u0433\u043E\u0441\u0442\u044F"
+      titleEn: A Cup Without a Guest
       lines:
       - id: S05.2a
         speakerId: luma
         ru: "\u0417\u0430\u0447\u0435\u043C \u0442\u0435\u0431\u0435 \u043D\u0430\u0448\u0430 \u043B\u0438\u043D\u0437\u0430?"
+        en: Why do you need our lens?
       - id: S05.2b
         speakerId: kloch
         ru: "\u0427\u0442\u043E\u0431\u044B \u0433\u043E\u0441\u0442\u0438 \u043D\u0430\u0448\u043B\u0438 \u043C\u043E\u0439 \u0441\u0442\u043E\u043B\u2026"
+        en: "So guests can find my table\u2026"
     - id: S05.3
       title: "\u0412\u0435\u0440\u043D\u0443\u0442\u044C \u0438 \u043F\u0440\u0438\u0433\u043B\u0430\u0441\u0438\u0442\u044C"
+      titleEn: Returning and Inviting
       lines:
       - id: S05.3a
         speakerId: tish
         ru: "\u042D\u0442\u043E\u0442 \u2014 \u0442\u0435\u0431\u0435. \u0410 \u043C\u0435\u0441\u0442\u043E \u0437\u0430 \u0441\u0442\u043E\u043B\u043E\u043C \u2014 \u0441 \u043D\u0430\u043C\u0438"
+        en: This one's for you. And there's a place with us at the table.
       - id: S05.3b
         speakerId: kloch
         ru: "\u042F \u043D\u0435 \u0441\u043F\u0440\u043E\u0441\u0438\u043B. \u041F\u0440\u043E\u0441\u0442\u0438. \u0412\u0435\u0440\u043D\u0443 \u043E\u0431\u0449\u0438\u0439 \u0441\u0432\u0435\u0442"
+        en: I didn't ask. I'm sorry. I'll give everyone's light back.
   - id: S06
     title: "\u041E\u0431\u0449\u0438\u0439 \u0441\u0442\u043E\u043B"
+    titleEn: Room at Our Table
     art: {fileID: 2800000, guid: 88d2820b07a37b54abd411393de1d203, type: 3}
     frames:
     - id: S06.1
       title: "\u0421\u0432\u0435\u0442 \u043D\u0430 \u043C\u0435\u0441\u0442\u0435"
+      titleEn: The Light Restored
       lines:
       - id: S06.1a
         speakerId: tish
         ru: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E. \u041E\u0434\u043D\u043E\u043C\u0443 \u0431\u044B\u043B\u043E \u0431\u044B \u0442\u0440\u0443\u0434\u043D\u0435\u0435"
+        en: Thank you. It would have been harder alone.
       - id: S06.1b
         speakerId: koren
         ru: "\u0412\u043E\u0442 \u0438 \u0441\u0432\u0435\u0442 \u043D\u0430 \u043C\u0435\u0441\u0442\u0435"
+        en: There. The light's where it belongs.
     - id: S06.2
       title: "\u0421\u0432\u0430\u0434\u044C\u0431\u0430, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0432\u044B\u0431\u0440\u0430\u043B\u0438 \u0434\u0432\u043E\u0435"
+      titleEn: A Wedding Chosen Together
       lines:
       - id: S06.2a
         speakerId: luma
         ru: "\u0411\u0443\u0434\u0435\u043C \u0432\u044B\u0431\u0438\u0440\u0430\u0442\u044C \u0434\u043E\u0440\u043E\u0433\u0443 \u0432\u043C\u0435\u0441\u0442\u0435?"
+        en: Shall we choose our path together?
       - id: S06.2b
         speakerId: tish
         ru: "\u0418 \u043C\u0435\u0441\u0442\u043E \u0434\u0440\u0443\u0433 \u0434\u043B\u044F \u0434\u0440\u0443\u0433\u0430 \u2014 \u043A\u0430\u0436\u0434\u044B\u0439 \u0434\u0435\u043D\u044C"
+        en: And make room for each other, every day.
     - id: S06.3
       title: "\u0413\u043E\u0441\u0442\u044C \u043B\u044E\u0431\u043E\u0433\u043E \u0440\u0430\u0437\u043C\u0435\u0440\u0430"
+      titleEn: A Guest of Any Size
       lines:
       - id: S06.3a
         speakerId: kloch
         ru: "\u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0440\u0430\u0437 \u0441\u043F\u0440\u043E\u0448\u0443. \u0414\u0430\u0436\u0435 \u0435\u0441\u043B\u0438 \u0431\u043B\u0435\u0441\u0442\u0438\u0442"
+        en: Next time I'll ask. Even if it sparkles.
       - id: S06.3b
         speakerId: bum
         ru: "\u041F\u043B\u0430\u0442\u043E\u043A \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439. \u0420\u0430\u0434\u043E\u0441\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0430\u044F"
+        en: Tiny handkerchief. Big happiness.
   speakers:
   - id: tish
     ru: "\u0422\u0438\u0448"
     en: Tish
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: 1404271452, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 1849127500, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: luma
     ru: "\u041B\u0443\u043C\u0430"
-    en: Luma
-    neutralPortrait: {fileID: 0}
+    en: Jo
+    neutralPortrait: {fileID: 1694453871, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 546466123, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: bum
     ru: "\u0411\u0443\u043C"
-    en: Bum
-    neutralPortrait: {fileID: 0}
+    en: Boom
+    neutralPortrait: {fileID: 87920167, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: -517942236, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: koren
     ru: "\u0434\u0435\u0434 \u041A\u043E\u0440\u0435\u043D\u044C"
     en: Grandpa Koren
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: -669619741, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 1037250349, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: pip
     ru: "\u041F\u0438\u043F"
     en: Pip
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: 464149917, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}
   - id: fika
     ru: "\u0424\u0438\u043A\u0430"
     en: Fika
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: 112970789, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}
   - id: mira
     ru: "\u041C\u0438\u0440\u0430"
     en: Mira
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: -1459680514, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}
   - id: una
     ru: "\u0423\u043D\u0430"
     en: Una
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: -1811039985, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}
   - id: shal
     ru: "\u0428\u0430\u043B"
     en: Shal
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: 1681466196, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 1413545530, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: kloch
     ru: "\u041A\u043B\u043E\u0447"
     en: Kloch
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: -801586497, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}
   - id: ryzh
     ru: "\u0420\u044B\u0436"
-    en: Ryzh
-    neutralPortrait: {fileID: 0}
+    en: Rusty
+    neutralPortrait: {fileID: -794354834, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 2032802404, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
   - id: bark
     ru: "\u0416\u0443\u043A-\u043A\u043E\u0440\u044F\u0436\u043D\u0438\u043A"
     en: Bark
-    neutralPortrait: {fileID: 0}
+    neutralPortrait: {fileID: -963329541, guid: 8c669641200db6d4bb12c4c6f2a7d9d3, type: 3}
+    dialogueProfile: {fileID: 0}

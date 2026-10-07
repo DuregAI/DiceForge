@@ -1,0 +1,48 @@
+{
+  "status": "prepared_not_submitted",
+  "date": "2026-10-07",
+  "endpoint": "POST https://api.meshy.ai/openapi/v1/image-to-3d",
+  "image_source": "AIReferences/bum-front-a-pose.png",
+  "note": "Replace image_url with a data:image/png;base64,... URI derived from the local reference. No credential or live job is stored. Existing Unity provider uses older defaults; these are current official API parameters.",
+  "detail_candidate": {
+    "image_url": "LOCAL_REFERENCE_DATA_URI",
+    "model_type": "standard",
+    "ai_model": "meshy-7.1",
+    "pose_mode": "a-pose",
+    "image_enhancement": false,
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "should_remesh": true,
+    "topology": "triangle",
+    "target_polycount": 30000,
+    "target_formats": [
+      "fbx",
+      "glb"
+    ]
+  },
+  "topology_candidate": {
+    "image_url": "LOCAL_REFERENCE_DATA_URI",
+    "model_type": "smart-topology",
+    "ai_model": "meshy-t2",
+    "pose_mode": "a-pose",
+    "target_polycount": 15000,
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "target_formats": [
+      "fbx",
+      "glb"
+    ]
+  },
+  "acceptance": [
+    "Bum's broad adult face, shoulders, ochre waistcoat and soft patched backpack match cast-01 and the portrait.",
+    "Inspect front, back and three-quarter views. Check hands/ears, hidden surfaces, UVs, material count and welded anatomy.",
+    "Clean and skin to the project's eight-bone Generic rig. Service auto-rig alone does not guarantee clip compatibility.",
+    "Verify idle and the rotation-only CharacterWalk in Unity, grounding, selected and stacked heroes, with landscape and portrait field cameras."
+  ],
+  "sources": [
+    "https://docs.meshy.ai/en/api/image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing"
+  ]
+}

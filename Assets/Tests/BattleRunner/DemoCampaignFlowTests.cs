@@ -244,8 +244,10 @@ namespace Diceforge.Tests.BattleTermination
                     if (level == 1)
                     {
                         yield return CaptureNarrative("S00-frame-1"); Runtime.Call(narrative, "AdvanceStory");
-                        Assert.That(Runtime.Get(narrative, "StoryFrame"), Is.EqualTo(1));
-                        Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S00-frame-3");
+                        Assert.That(Runtime.Get(narrative, "StoryFrame"), Is.EqualTo(0));
+                        Assert.That(Runtime.Field(narrative, "line"), Is.EqualTo(1), "The second speaker stays in the same frame.");
+                        while ((int)Runtime.Get(narrative, "StoryFrame") < 2) Runtime.Call(narrative, "AdvanceStory");
+                        yield return CaptureNarrative("S00-frame-3");
                     }
                 }
                 Runtime.Call(narrative, "SkipStory"); yield return null; yield return null;
@@ -281,8 +283,8 @@ namespace Diceforge.Tests.BattleTermination
                         yield return CaptureNarrative(scene + "-frame-1");
                         if (level == 6)
                         {
-                            Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-wedding");
-                            Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-last-frame");
+                            while ((int)Runtime.Get(narrative, "StoryFrame") < 1) Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-wedding");
+                            while ((int)Runtime.Get(narrative, "StoryFrame") < 2) Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-last-frame");
                         }
                     }
                     Runtime.Call(narrative, "SkipStory");
@@ -295,7 +297,7 @@ namespace Diceforge.Tests.BattleTermination
 
         private static IEnumerator CaptureNarrative(string name)
         {
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage3");
+            string directory = Path.GetFullPath("docs/Validation/DemoRCStage6/Campaign");
             Directory.CreateDirectory(directory); yield return null; yield return null;
             Component narrative = Find("UI.Dialogue.DemoNarrativeController");
             if ((bool)Runtime.Get(narrative, "IsStoryVisible"))
@@ -311,7 +313,7 @@ namespace Diceforge.Tests.BattleTermination
 
         private static IEnumerator Capture(string name)
         {
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage3");
+            string directory = Path.GetFullPath("docs/Validation/DemoRCStage6/Campaign");
             Directory.CreateDirectory(directory);
             yield return null;
             yield return null;

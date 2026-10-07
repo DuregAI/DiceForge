@@ -1,0 +1,182 @@
+{
+  "models": [
+    {
+      "id": "tish",
+      "path": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Tish.prefab",
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "materials": 1,
+      "vertices": 24604,
+      "triangles": 31420,
+      "positionDelta": 0.0,
+      "scaleDelta": 0.0,
+      "rotationDelta": 8.477091,
+      "idle": "Scene",
+      "walk": "CharacterWalk",
+      "modelScale": 0.52
+    },
+    {
+      "id": "luma",
+      "path": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Luma.prefab",
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "materials": 1,
+      "vertices": 25688,
+      "triangles": 32820,
+      "positionDelta": 0.0,
+      "scaleDelta": 0.0,
+      "rotationDelta": 8.477091,
+      "idle": "Scene",
+      "walk": "CharacterWalk",
+      "modelScale": 0.52
+    },
+    {
+      "id": "bum",
+      "path": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Bum.prefab",
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "materials": 1,
+      "vertices": 25481,
+      "triangles": 30628,
+      "positionDelta": 0.0,
+      "scaleDelta": 0.0,
+      "rotationDelta": 8.477091,
+      "idle": "Scene",
+      "walk": "CharacterWalk",
+      "modelScale": 0.52
+    },
+    {
+      "id": "ryzh",
+      "path": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Ryzh.prefab",
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "materials": 1,
+      "vertices": 23293,
+      "triangles": 30072,
+      "positionDelta": 0.0,
+      "scaleDelta": 0.0,
+      "rotationDelta": 8.477091,
+      "idle": "Scene",
+      "walk": "CharacterWalk",
+      "modelScale": 0.52
+    },
+    {
+      "id": "bark",
+      "path": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Bark.prefab",
+      "bones": [
+        "Root",
+        "Hips",
+        "Torso",
+        "Head",
+        "Arm.L",
+        "Arm.R",
+        "Leg.L",
+        "Leg.R"
+      ],
+      "materials": 1,
+      "vertices": 11687,
+      "triangles": 13984,
+      "positionDelta": 0.0,
+      "scaleDelta": 0.0,
+      "rotationDelta": 0.0,
+      "idle": "Scene",
+      "walk": "Scene",
+      "modelScale": 0.56
+    }
+  ],
+  "walkRotationBindings": 32,
+  "portraits": [
+    {
+      "id": "tish",
+      "sprite": "tish_neutral",
+      "rect": "(x:0.00, y:1086.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "luma",
+      "sprite": "luma_neutral",
+      "rect": "(x:362.00, y:1086.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "bum",
+      "sprite": "bum_neutral",
+      "rect": "(x:724.00, y:1086.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "koren",
+      "sprite": "koren_neutral",
+      "rect": "(x:0.00, y:724.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "pip",
+      "sprite": "pip_neutral",
+      "rect": "(x:362.00, y:724.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "fika",
+      "sprite": "fika_neutral",
+      "rect": "(x:724.00, y:724.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "mira",
+      "sprite": "mira_neutral",
+      "rect": "(x:0.00, y:362.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "una",
+      "sprite": "una_neutral",
+      "rect": "(x:362.00, y:362.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "shal",
+      "sprite": "shal_neutral",
+      "rect": "(x:724.00, y:362.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "kloch",
+      "sprite": "kloch_neutral",
+      "rect": "(x:0.00, y:0.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "ryzh",
+      "sprite": "ryzh_neutral",
+      "rect": "(x:362.00, y:0.00, width:362.00, height:362.00)"
+    },
+    {
+      "id": "bark",
+      "sprite": "bark_neutral",
+      "rect": "(x:724.00, y:0.00, width:362.00, height:362.00)"
+    }
+  ]
+}

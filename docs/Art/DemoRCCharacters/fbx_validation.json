@@ -1,0 +1,112 @@
+{
+  "blender": "5.2.1 LTS",
+  "passed": 5,
+  "total": 5,
+  "characters": [
+    {
+      "id": "tish",
+      "passed": true,
+      "triangles": 31484,
+      "bones": {
+        "Root": null,
+        "Hips": "Root",
+        "Torso": "Hips",
+        "Head": "Torso",
+        "Arm.L": "Torso",
+        "Arm.R": "Torso",
+        "Leg.L": "Hips",
+        "Leg.R": "Hips"
+      },
+      "mesh": "tish_LOD0",
+      "materials": 1,
+      "animation": "GoblinFriend_Rig|Scene",
+      "all_vertices_weighted": true,
+      "uv_layers": 1,
+      "external_textures_found": true
+    },
+    {
+      "id": "luma",
+      "passed": true,
+      "triangles": 32884,
+      "bones": {
+        "Root": null,
+        "Hips": "Root",
+        "Torso": "Hips",
+        "Head": "Torso",
+        "Arm.L": "Torso",
+        "Arm.R": "Torso",
+        "Leg.L": "Hips",
+        "Leg.R": "Hips"
+      },
+      "mesh": "luma_LOD0",
+      "materials": 1,
+      "animation": "GoblinFriend_Rig|Scene",
+      "all_vertices_weighted": true,
+      "uv_layers": 1,
+      "external_textures_found": true
+    },
+    {
+      "id": "bum",
+      "passed": true,
+      "triangles": 30736,
+      "bones": {
+        "Root": null,
+        "Hips": "Root",
+        "Torso": "Hips",
+        "Head": "Torso",
+        "Arm.L": "Torso",
+        "Arm.R": "Torso",
+        "Leg.L": "Hips",
+        "Leg.R": "Hips"
+      },
+      "mesh": "bum_LOD0",
+      "materials": 1,
+      "animation": "GoblinFriend_Rig|Scene",
+      "all_vertices_weighted": true,
+      "uv_layers": 1,
+      "external_textures_found": true
+    },
+    {
+      "id": "ryzh",
+      "passed": true,
+      "triangles": 30136,
+      "bones": {
+        "Root": null,
+        "Hips": "Root",
+        "Torso": "Hips",
+        "Head": "Torso",
+        "Arm.L": "Torso",
+        "Arm.R": "Torso",
+        "Leg.L": "Hips",
+        "Leg.R": "Hips"
+      },
+      "mesh": "ryzh_LOD0",
+      "materials": 1,
+      "animation": "GoblinFriend_Rig|Scene",
+      "all_vertices_weighted": true,
+      "uv_layers": 1,
+      "external_textures_found": true
+    },
+    {
+      "id": "bark",
+      "passed": true,
+      "triangles": 13984,
+      "bones": {
+        "Root": null,
+        "Hips": "Root",
+        "Torso": "Hips",
+        "Head": "Torso",
+        "Arm.L": "Torso",
+        "Arm.R": "Torso",
+        "Leg.L": "Hips",
+        "Leg.R": "Hips"
+      },
+      "mesh": "bark_LOD0",
+      "materials": 1,
+      "animation": "GoblinFriend_Rig|Scene",
+      "all_vertices_weighted": true,
+      "uv_layers": 1,
+      "external_textures_found": true
+    }
+  ]
+}

@@ -19,9 +19,13 @@ namespace Diceforge.UI.Dialogue
         private readonly HashSet<string> storySeen = new();
         private readonly HashSet<string> observedMoves = new();
         private UIDocument document;
-        private VisualElement root, story, hintPanel, helpPanel;
+        private VisualElement root, story, hintPanel, helpPanel, hintCharacter, hudRoot;
+        private Button hintClose, storyNext;
+        private VisualElement storyNextIcon;
+        private Vector2 layoutSize;
+        private Rect safeArea;
         private Label heading, storyText, hintText, speaker, page, saveError;
-        private Image art, portrait;
+        private Image art, backdrop, portrait, storyPortrait;
         private DemoStoryScene activeScene;
         private DemoDialogueEvent[] sequence;
         private DemoDialogueEvent hint;
@@ -86,10 +90,28 @@ namespace Diceforge.UI.Dialogue
             heading = root.Q<Label>("storyHeading"); storyText = root.Q<Label>("storyText"); page = root.Q<Label>("storyPage");
             hintText = root.Q<Label>("hintText"); speaker = root.Q<Label>("hintSpeaker");
             saveError = root.Q<Label>("demoSaveError"); art = root.Q<Image>("storyArt"); portrait = root.Q<Image>("hintPortrait");
-            root.Q<Button>("storyNext").clicked += AdvanceStory;
+            backdrop = root.Q<Image>("storyBackdrop");
+            storyPortrait = root.Q<Image>("storyPortrait"); hintCharacter = root.Q("demoHintCharacter");
+            hudRoot = GetComponent<DioramaHud>().Document.rootVisualElement.Q("woodlandRoot");
+            var dock = hudRoot.Q("demoDialogueDock");
+            if (dock == null) throw new InvalidOperationException("The demo HUD dialogue dock is missing.");
+            hintPanel.styleSheets.Add(Resources.Load<StyleSheet>("DemoNarrativeShared"));
+            dock.Add(hintPanel);
+            hudRoot.Q("demoActionSurface").RegisterCallback<GeometryChangedEvent>(_ => RefreshLayout());
+            hintClose = hintPanel.Q<Button>("hintSkip"); hintClose.clicked += () => SkipHint(false);
+            storyNext = root.Q<Button>("storyNext"); storyNext.clicked += AdvanceStory;
+            DemoUiIcons.Attach(hintClose, DemoUiIcon.Close);
+            DemoUiIcons.Attach(root.Q<Button>("helpClose"), DemoUiIcon.Close);
+            DemoUiIcons.Attach(root.Q<Button>("demoHelpButton"), DemoUiIcon.Help);
+            storyNextIcon = DemoUiIcons.Attach(storyNext, DemoUiIcon.Next);
+            story.RegisterCallback<ClickEvent>(evt =>
+            {
+                if (evt.target is VisualElement target && (target is Button || target.GetFirstAncestorOfType<Button>() != null)) return;
+                AdvanceStory();
+            });
+            root.RegisterCallback<GeometryChangedEvent>(_ => RefreshLayout());
             root.Q<Button>("storySkip").clicked += SkipStory;
             root.Q<Button>("demoHelpButton").clicked += OpenHelp;
-            root.Q<Button>("hintSkip").clicked += () => SkipHint(false);
             root.Q<Button>("hideGuidance").clicked += () => SkipHint(true);
             root.Q<Button>("helpClose").clicked += () => helpPanel.style.display = DisplayStyle.None;
             root.Q<Button>("replayStory").clicked += ReplayStory;
@@ -124,7 +146,13 @@ namespace Diceforge.UI.Dialogue
         private void Update()
         {
             if (!initialized || root == null || learning == null || battle == null || battle.PresentationState == null) return;
-            root.EnableInClassList("portrait", Screen.height > Screen.width);
+            bool portraitLayout = Screen.height > Screen.width;
+            root.EnableInClassList("portrait", portraitLayout);
+            if (layoutSize != new Vector2(Screen.width, Screen.height) || safeArea != Screen.safeArea) RefreshLayout();
+            hudRoot.EnableInClassList("narrative-modal", IsStoryVisible);
+            float breath = DioramaBoard.ReducedMotion ? 0 : Mathf.Sin(Time.unscaledTime * 1.6f) * 1.4f;
+            portrait.style.translate = new Translate(0, breath, 0);
+            storyPortrait.style.translate = new Translate(0, breath, 0);
             string current = PlayerPrefs.GetString("ui.language", "en");
             if (current != language) { language = current; RefreshLanguage(); }
             if (IsStoryVisible && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true) SkipStory();
@@ -142,26 +170,31 @@ namespace Diceforge.UI.Dialogue
 
         private void RefreshLanguage()
         {
-            var font = Resources.Load<Font>("Localization/RobotoSlab");
-            if (font != null) root.style.unityFontDefinition = FontDefinition.FromFont(font);
-            root.Q<Button>("storyNext").text = T("Дальше", "Next");
-            root.Q<Button>("storySkip").text = T("Пропустить сцену", "Skip scene");
-            root.Q<Button>("demoHelpButton").text = T("Подсказка", "Help");
-            root.Q<Button>("hintSkip").text = T("Закрыть", "Close");
+            var font = Resources.Load<Font>("Localization/Nunito");
+            if (font != null)
+            {
+                root.style.unityFontDefinition = FontDefinition.FromFont(font);
+                hintPanel.style.unityFontDefinition = FontDefinition.FromFont(font);
+            }
+            storyNext.tooltip = T("Дальше", "Next");
+            root.Q<Button>("storySkip").text = T("Пропустить", "Skip");
+            root.Q<Button>("demoHelpButton").tooltip = T("Подсказки", "Help");
+            hintClose.tooltip = T("Закрыть реплику", "Dismiss dialogue");
+            root.Q<Label>("helpHeading").text = T("Подсказки", "Help");
             root.Q<Button>("hideGuidance").text = T("Скрыть обучение", "Hide guidance");
-            root.Q<Button>("helpClose").text = T("Закрыть справку", "Close help");
+            root.Q<Button>("helpClose").tooltip = T("Закрыть справку", "Close help");
             root.Q<Button>("replayStory").text = T("Повторить историю", "Replay story");
             root.Q<Button>("guidanceOn").text = T("Включить обучение", "Enable guidance");
             root.Q<Button>("retryDemoSave").text = T("Повторить сохранение", "Retry save");
             if (hint != null) RenderHint();
             if (IsStoryVisible) RenderStory();
-            BuildHelp();
+            BuildHelp(); RefreshSaveStatus(); RefreshLayout();
         }
 
         private void PlayScene(int index)
         {
             activeScene = catalog.Scene(index); sequence = null; frame = line = 0;
-            IsModal = true; hintPanel.style.display = DisplayStyle.None; helpPanel.style.display = DisplayStyle.None;
+            IsModal = true; SetHintVisible(false); helpPanel.style.display = DisplayStyle.None;
             story.style.display = DisplayStyle.Flex; RenderStory();
         }
         private void PlayLines(string kind)
@@ -169,36 +202,66 @@ namespace Diceforge.UI.Dialogue
             sequence = catalog.events.Where(e => e.id.StartsWith(Prefix + kind, StringComparison.Ordinal)).OrderBy(e => e.id).ToArray();
             activeScene = null; line = 0; frame = 0;
             if (sequence.Length == 0) { sequence = null; IsModal = false; return; }
-            IsModal = true; story.style.display = DisplayStyle.Flex; RenderStory();
+            IsModal = true; SetHintVisible(false); story.style.display = DisplayStyle.Flex; RenderStory();
         }
         private void RenderStory()
         {
-            root.Q<Button>("demoHelpButton").SetEnabled(false);
-            root.Q<Button>("storyNext").Focus();
+            root.Q<Button>("demoHelpButton").style.display = DisplayStyle.None;
+            hudRoot.AddToClassList("narrative-modal");
+            storyNext.Focus();
+            story.EnableInClassList("sequence", activeScene == null);
             art.style.display = activeScene == null ? DisplayStyle.None : DisplayStyle.Flex;
+            backdrop.style.display = activeScene == null ? DisplayStyle.None : DisplayStyle.Flex;
+            bool last;
             if (activeScene != null)
             {
                 var current = activeScene.frames[frame];
+                var currentLine = current.lines[line];
                 art.image = activeScene.art;
-                art.sourceRect = new Rect(activeScene.art.width * frame / 3f, 0, activeScene.art.width / 3f, activeScene.art.height);
-                art.scaleMode = ScaleMode.ScaleToFit;
+                float frameWidth = activeScene.art.width / (float)activeScene.frames.Length;
+                float insetX = frameWidth * .02f, insetY = activeScene.art.height * .04f;
+                art.sourceRect = new Rect(frameWidth * frame + insetX, insetY, frameWidth - insetX * 2, activeScene.art.height - insetY * 2);
+                backdrop.image = activeScene.art;
+                // Reuse the quiet upper scenery behind the complete foreground frame.
+                backdrop.sourceRect = new Rect(frameWidth * frame + insetX, insetY, frameWidth - insetX * 2, activeScene.art.height * .32f);
+                backdrop.scaleMode = ScaleMode.ScaleAndCrop;
+                backdrop.tintColor = new Color(.32f, .38f, .31f, 1);
+                art.scaleMode = Screen.height > Screen.width ? ScaleMode.ScaleAndCrop : ScaleMode.ScaleToFit;
                 art.MarkDirtyRepaint();
-                heading.text = activeScene.title + " · " + current.title;
-                storyText.text = string.Join("\n\n", current.lines.Select(l => catalog.Speaker(l.speakerId, Russian) + ":\n" + l.ru));
-                page.text = (frame + 1) + " / 3";
+                storyPortrait.style.display = DisplayStyle.None;
+                heading.text = catalog.Speaker(currentLine.speakerId, Russian);
+                heading.tooltip = activeScene.Title(Russian) + " · " + current.Title(Russian);
+                storyText.text = currentLine.Text(Russian);
+                page.text = (frame + 1) + " / " + activeScene.frames.Length;
+                last = frame == activeScene.frames.Length - 1 && line == current.lines.Length - 1;
             }
             else
             {
                 var current = sequence[line];
                 heading.text = catalog.Speaker(current.speakerId, Russian);
-                storyText.text = current.Text(Russian); page.text = (line + 1) + " / " + sequence.Length;
+                heading.tooltip = string.Empty;
+                storyText.text = current.Text(Russian);
+                page.text = (line + 1) + " / " + sequence.Length;
+                storyPortrait.sprite = Profile(current.speakerId);
+                storyPortrait.scaleMode = ScaleMode.ScaleToFit;
+                storyPortrait.style.display = storyPortrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
+                last = line == sequence.Length - 1;
             }
+            storyNext.text = last ? T("Продолжить", "Continue") : string.Empty;
+            if (last) storyNextIcon.RemoveFromHierarchy();
+            else if (storyNextIcon.parent == null) storyNext.Add(storyNextIcon);
+            storyNext.EnableInClassList("continue", last);
         }
         public void AdvanceStory()
         {
             if (!IsStoryVisible) return;
-            if (activeScene != null && ++frame < activeScene.frames.Length) { RenderStory(); return; }
-            if (sequence != null && ++line < sequence.Length) { RenderStory(); return; }
+            if (activeScene != null)
+            {
+                if (++line < activeScene.frames[frame].lines.Length) { RenderStory(); return; }
+                line = 0;
+                if (++frame < activeScene.frames.Length) { RenderStory(); return; }
+            }
+            else if (sequence != null && ++line < sequence.Length) { RenderStory(); return; }
             SkipStory();
         }
         public void SkipStory()
@@ -207,8 +270,11 @@ namespace Diceforge.UI.Dialogue
             if (activeScene != null) storySeen.Add(activeScene.id);
             else if (sequence != null && sequence.Length > 0 && sequence[0].id.StartsWith(Prefix + "V", StringComparison.Ordinal)) CompletionLinesSeen = true;
             activeScene = null; sequence = null; IsModal = false;
-            story.style.display = DisplayStyle.None; Save();
+            story.style.display = DisplayStyle.None;
+            hudRoot.RemoveFromClassList("narrative-modal"); Save();
             root.Q<Button>("demoHelpButton").SetEnabled(true);
+            root.Q<Button>("demoHelpButton").style.display = DisplayStyle.Flex;
+            SetHintVisible(hint != null);
         }
         public void ReplayStory()
         {
@@ -218,7 +284,7 @@ namespace Diceforge.UI.Dialogue
         public IEnumerator PlayCompletion(MatchResult result)
         {
             if (!initialized) yield break;
-            hint = null; hintPanel.style.display = DisplayStyle.None; helpPanel.style.display = DisplayStyle.None;
+            hint = null; SetHintVisible(false); helpPanel.style.display = DisplayStyle.None;
             if (result.Winner != PlayerId.A || !CompletionLinesSeen)
                 PlayLines(result.Winner == PlayerId.A ? "V" : "F");
             while (IsModal) yield return null;
@@ -274,19 +340,21 @@ namespace Diceforge.UI.Dialogue
         private void Show(DemoDialogueEvent e, bool persist)
         {
             if (e == null) return;
-            hint = e; learning.State.pendingHintId = e.id; hintPanel.style.display = DisplayStyle.Flex;
+            hint = e; learning.State.pendingHintId = e.id; SetHintVisible(true);
             RenderHint(); if (persist) Save();
         }
         private void RenderHint()
         {
-            speaker.text = hint.speakerId == "luma" && level <= 2 ? T("Совет Лумы", "Luma's note") : catalog.Speaker(hint.speakerId, Russian);
+            speaker.text = hint.speakerId == "luma" && level <= 2 ? T("Совет Лумы", "Jo's advice") : catalog.Speaker(hint.speakerId, Russian);
             hintText.text = hint.Text(Russian);
-            portrait.sprite = Array.Find(catalog.speakers, s => s.id == hint.speakerId)?.neutralPortrait;
-            portrait.style.display = portrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
+            portrait.sprite = Profile(hint.speakerId);
+            portrait.scaleMode = ScaleMode.ScaleToFit;
+            portrait.style.scale = new Scale(new Vector3(hint.speakerId == "luma" ? -1 : 1, 1, 1));
+            hintCharacter.style.display = portrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
         }
         public void SkipHint(bool all)
         {
-            learning.Skip(all); hint = null; hintPanel.style.display = DisplayStyle.None; Save();
+            learning.Skip(all); hint = null; SetHintVisible(false); Save();
         }
         public void OpenHelp()
         {
@@ -353,7 +421,39 @@ namespace Diceforge.UI.Dialogue
             if (hint == null) Evaluate("step_offer_ready");
             if (learning.UnassistedMoves >= 3 && hint != null && DemoLearningPolicy.IsAutomaticInstruction(level, int.TryParse(hint.id?.Substring(hint.id.Length - 2), out int n) ? n : 0)) ClearHint();
         }
-        private void ClearHint() { hint = null; learning.State.pendingHintId = null; if (hintPanel != null) hintPanel.style.display = DisplayStyle.None; }
+        private void ClearHint() { hint = null; learning.State.pendingHintId = null; SetHintVisible(false); }
+        private Sprite Profile(string speakerId)
+        {
+            var character = Array.Find(catalog.speakers, s => s.id == speakerId);
+            return character != null && character.dialogueProfile != null ? character.dialogueProfile : character?.neutralPortrait;
+        }
+        private void SetHintVisible(bool visible)
+        {
+            if (hintPanel != null) hintPanel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (hintCharacter != null) hintCharacter.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            hudRoot?.EnableInClassList("has-dialogue", visible);
+        }
+        private void RefreshLayout()
+        {
+            if (root?.panel == null) return;
+            layoutSize = new Vector2(Screen.width, Screen.height); safeArea = Screen.safeArea;
+            float width = root.resolvedStyle.width, height = root.resolvedStyle.height;
+            if (width <= 0 || height <= 0 || float.IsNaN(width) || float.IsNaN(height)) return;
+            bool portraitLayout = height > width;
+            root.EnableInClassList("portrait", portraitLayout);
+            float scaleX = width / Mathf.Max(1, Screen.width), scaleY = height / Mathf.Max(1, Screen.height);
+            float left = safeArea.xMin * scaleX + 16, right = (Screen.width - safeArea.xMax) * scaleX + 16;
+            float top = (Screen.height - safeArea.yMax) * scaleY + 16, bottom = safeArea.yMin * scaleY + 16;
+            var nav = root.Q("storyNavigation"); nav.style.left = left; nav.style.right = right; nav.style.top = top;
+            var dialogue = root.Q("storyDialogue"); dialogue.style.left = left; dialogue.style.right = right; dialogue.style.bottom = bottom;
+            var help = root.Q<Button>("demoHelpButton"); help.style.top = top; help.style.right = right + 106;
+            hintCharacter.style.right = right;
+            float surfaceHeight = hudRoot.Q("demoActionSurface").worldBound.height;
+            hintCharacter.style.bottom = portraitLayout ? bottom + Mathf.Max(0, surfaceHeight - 24) : bottom;
+            hintCharacter.style.width = portraitLayout ? 180 : 250;
+            hintCharacter.style.height = portraitLayout ? 245 : Mathf.Min(360, height * .52f);
+            if (IsStoryVisible) RenderStory();
+        }
         private void Restarted()
         {
             generation++; StopAllCoroutines(); opening = null;

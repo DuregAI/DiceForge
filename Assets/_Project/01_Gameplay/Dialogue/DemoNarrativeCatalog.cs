@@ -18,7 +18,7 @@ namespace Diceforge.Dialogue
 
     [Serializable] public sealed class DemoDialogueEvent
     {
-        public string id, levelId, speakerId, kind, domainEvent, helpTopic, speakerLabelRu;
+        public string id, levelId, speakerId, kind, domainEvent, helpTopic, speakerLabelRu, speakerLabelEn;
         public string ru, en;
         public int priority;
         public string Text(bool russian) => russian || string.IsNullOrWhiteSpace(en) ? ru : en;
@@ -27,18 +27,25 @@ namespace Diceforge.Dialogue
     {
         public string id, ru, en;
         public Sprite neutralPortrait;
+        public Sprite dialogueProfile;
         public string Name(bool russian) => russian ? ru : en;
     }
     [Serializable] public sealed class DemoStoryScene
     {
-        public string id, title;
+        public string id, title, titleEn;
         public Texture2D art;
         public DemoStoryFrame[] frames;
+        public string Title(bool russian) => russian || string.IsNullOrWhiteSpace(titleEn) ? title : titleEn;
     }
     [Serializable] public sealed class DemoStoryFrame
     {
-        public string id, title;
+        public string id, title, titleEn;
         public DemoStoryLine[] lines;
+        public string Title(bool russian) => russian || string.IsNullOrWhiteSpace(titleEn) ? title : titleEn;
     }
-    [Serializable] public sealed class DemoStoryLine { public string id, speakerId, ru; }
+    [Serializable] public sealed class DemoStoryLine
+    {
+        public string id, speakerId, ru, en;
+        public string Text(bool russian) => russian || string.IsNullOrWhiteSpace(en) ? ru : en;
+    }
 }

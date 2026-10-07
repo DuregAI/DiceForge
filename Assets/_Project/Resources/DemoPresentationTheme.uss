@@ -1,0 +1,14 @@
+:root {
+    --demo-surface: #F8F3E6;
+    --demo-text: #263F36;
+    --demo-muted: #687165;
+    --demo-speaker: #43877A;
+    --demo-neutral: #F0EADA;
+    --demo-neutral-hover: #E8E1CF;
+    --demo-edge: #DDD4BD;
+    --demo-accent: #E9B955;
+    --demo-accent-hover: #EBC476;
+    --demo-accent-edge: #BF9446;
+    --demo-focus: #99702B;
+}
+.demo-service-icon { width: 24px; height: 24px; flex-shrink: 0; }
