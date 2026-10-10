@@ -20,5 +20,6 @@ MonoBehaviour:
   - tish
   - luma
   - bum
+  tishPrefab: {fileID: 2353434921886858189, guid: 891dbe95ccda2a046adf2031bd194c73, type: 3}
   bumPrefab: {fileID: 665225114892378097, guid: 2c00243addb317541a5cbe84eb6e67bf, type: 3}
   hazardPrefab: {fileID: 9096054118216909582, guid: 2a7d00e423ee9d24bb77cf30cd1c5070, type: 3}

@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "duration": 43.23,
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes",
+      "Status": "Passed",
+      "Duration": 48.8480175,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

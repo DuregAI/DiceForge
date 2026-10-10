@@ -18,3 +18,6 @@ MonoBehaviour:
   title: Gate by the house
   heroIds:
   - tish
+  tishPrefab: {fileID: 2353434921886858189, guid: 891dbe95ccda2a046adf2031bd194c73, type: 3}
+  bumPrefab: {fileID: 0}
+  hazardPrefab: {fileID: 0}

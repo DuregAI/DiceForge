@@ -13,6 +13,7 @@ namespace Diceforge.GameModes
         public string levelId;
         public string title;
         public string[] heroIds = Array.Empty<string>();
+        public GameObject tishPrefab;
         public GameObject bumPrefab;
         public GameObject hazardPrefab;
 
