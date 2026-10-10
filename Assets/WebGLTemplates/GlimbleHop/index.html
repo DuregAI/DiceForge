@@ -22,6 +22,8 @@
   </main>
   <script src="TemplateData/loading.js"></script>
   <script>
+    const canvas = document.getElementById('unity-canvas');
+    canvas.addEventListener('wheel', event => event.preventDefault(), { passive: false });
     const config = {
       arguments: [],
       autoSyncPersistentDataPath: true,
@@ -46,7 +48,7 @@
     const loader = document.createElement('script');
     loader.src = "Build/{{{ LOADER_FILENAME }}}";
     loader.onload = () => {
-      Promise.resolve().then(() => createUnityInstance(document.getElementById('unity-canvas'), config, GlimbleHopLoading.progress))
+      Promise.resolve().then(() => createUnityInstance(canvas, config, GlimbleHopLoading.progress))
         .then(GlimbleHopLoading.complete).catch(GlimbleHopLoading.fail);
     };
     loader.onerror = () => GlimbleHopLoading.fail('Unable to download the game loader.');

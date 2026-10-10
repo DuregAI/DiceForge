@@ -31,9 +31,31 @@ namespace Diceforge.View
         private bool _hasPlacement;
         private IBoardGeometry _geometry;
         private bool _diorama;
+        private bool _hopPresentation;
+        private Transform _hopVisual;
         private float presentationJumpHeight = .32f;
         public void SetJumpHeight(float height) => presentationJumpHeight = Mathf.Max(0, height);
         public void SetGeometry(IBoardGeometry geometry) { _geometry = geometry; _diorama = geometry is DioramaBoard; }
+        public void SetHopPresentation(bool enabled)
+        {
+            _hopPresentation = enabled;
+            if (!enabled || _hopVisual != null || tokenRoot == null) return;
+            // Keep the logical root, collider, formation scale and Animator's bone paths untouched.
+            Transform model = _animationController?.Animator != null ? _animationController.Animator.transform : tokenRoot.Find("Model");
+            if (model == null || model == tokenRoot) return;
+            while (model.parent != tokenRoot && model.parent != null) model = model.parent;
+            if (model.parent != tokenRoot) return;
+            _hopVisual = new GameObject("Hop presentation").transform;
+            _hopVisual.SetParent(tokenRoot, false);
+            model.SetParent(_hopVisual, false);
+        }
+
+        private void ResetHopVisual()
+        {
+            if (_hopVisual == null) return;
+            _hopVisual.localScale = Vector3.one;
+            _hopVisual.localRotation = Quaternion.identity;
+        }
         public void MoveToWorld(Vector3 destination, int resolvedCellId, float duration)
         {
             CancelAllMovement();
@@ -175,26 +197,49 @@ namespace Diceforge.View
         private IEnumerator MoveRoutine(Vector3 targetPosition, int targetCellId, float duration)
         {
             Vector3 startPosition = tokenRoot.position;
+            Quaternion startRotation = tokenRoot.rotation;
+            Quaternion targetRotation = startRotation;
+            bool polishedHop = _diorama && _hopPresentation;
 
             if (rotateAlongPath)
             {
                 Vector3 flatDirection = targetPosition - startPosition;
                 flatDirection.y = 0f;
                 if (flatDirection.sqrMagnitude > 0.0001f)
-                    tokenRoot.rotation = Quaternion.LookRotation(flatDirection.normalized, Vector3.up);
+                    targetRotation = Quaternion.LookRotation(flatDirection.normalized, Vector3.up);
             }
+            if (!polishedHop) tokenRoot.rotation = targetRotation;
 
             float elapsed = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                tokenRoot.position = Vector3.Lerp(startPosition, targetPosition, t);
-                if (_diorama && !DioramaBoard.ReducedMotion) tokenRoot.position += Vector3.up * (Mathf.Sin(t * Mathf.PI) * presentationJumpHeight);
+                if (polishedHop && !DioramaBoard.ReducedMotion)
+                {
+                    DioramaHopMotion.Sample(t, out float progress, out float lift, out Vector3 scale, out float lean);
+                    tokenRoot.position = Vector3.Lerp(startPosition, targetPosition, progress) + Vector3.up * (lift * presentationJumpHeight);
+                    tokenRoot.rotation = Quaternion.Slerp(startRotation, targetRotation, Mathf.SmoothStep(0f, 1f, t / .4f));
+                    if (_hopVisual != null)
+                    {
+                        _hopVisual.localScale = scale;
+                        _hopVisual.localRotation = Quaternion.Euler(lean, 0f, 0f);
+                    }
+                }
+                else
+                {
+                    ResetHopVisual();
+                    tokenRoot.position = Vector3.Lerp(startPosition, targetPosition, t);
+                    tokenRoot.rotation = targetRotation;
+                    if (_diorama && !DioramaBoard.ReducedMotion)
+                        tokenRoot.position += Vector3.up * (Mathf.Sin(t * Mathf.PI) * presentationJumpHeight);
+                }
                 yield return null;
             }
 
             tokenRoot.position = targetPosition;
+            tokenRoot.rotation = targetRotation;
+            ResetHopVisual();
             currentCellId = targetCellId;
             _moveRoutine = null;
 
@@ -326,6 +371,7 @@ namespace Diceforge.View
 
             StopCoroutine(_moveRoutine);
             _moveRoutine = null;
+            ResetHopVisual();
             if (!_suppressStopAtMoveEnd)
                 EndMovementVisuals();
         }
@@ -345,6 +391,7 @@ namespace Diceforge.View
             }
 
             _suppressStopAtMoveEnd = false;
+            ResetHopVisual();
             _movementVisualsRefCount = 0;
             _animationController?.SetMoving(false);
         }

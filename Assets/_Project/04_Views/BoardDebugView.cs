@@ -26,7 +26,8 @@ namespace Diceforge.View
         private DioramaBoard _diorama;
         private BattleDebugController _battle;
         private Vector2 _touchStart;
-        public void ConfigureGeometry(DioramaBoard board) { _diorama=board; _battle=FindAnyObjectByType<BattleDebugController>(); }
+        private DioramaCameraController _dioramaCamera;
+        public void ConfigureGeometry(DioramaBoard board) { _diorama=board; _battle=FindAnyObjectByType<BattleDebugController>(); _dioramaCamera=board.GetComponent<DioramaCameraController>(); }
 
         public event Action<int> OnCellClicked;
 
@@ -261,33 +262,54 @@ namespace Diceforge.View
             DisableLegacyStoneVisuals();
         }
 
+        public int? DioramaHoverCell { get; private set; }
         private void UpdateDioramaInput()
         {
+            DioramaHoverCell = null;
             if (!_cellSelectionEnabled || Diceforge.Transitions.ScreenTransition.IsBusy || DioramaHud.BlocksGameplay) return;
             if (_camera == null) _camera = Camera.main;
             if (_camera == null) return;
+            if (_dioramaCamera == null && _battle?.DemoLevel != null)
+                _dioramaCamera = _diorama.GetComponent<DioramaCameraController>();
+            bool cameraOwnsTaps = _battle?.DemoLevel != null && _dioramaCamera != null
+                && _dioramaCamera.isActiveAndEnabled && _dioramaCamera.HasHomePose;
+            if (cameraOwnsTaps && _dioramaCamera.IsGestureActive)
+            {
+                DioramaHoverCell = null;
+                _diorama.Preview(null, null, -1);
+                return;
+            }
             Vector2 pos = default; bool pressed = false;
             if(Mouse.current!=null)
             {
                 var hover=Mouse.current.position.ReadValue();
                 if (!DioramaHud.IsOverInterface(hover))
                 {
-                    if (TryPickDiorama(hover, out int hoverCell, out _)) _battle.PreviewPresentationCell(_diorama, hoverCell);
-                    else _diorama.Preview(null, null, -1);
+                    if (TryPickDiorama(hover, out int hoverCell, out _))
+                    {
+                        if (_battle?.DemoLevel != null) DioramaHoverCell = hoverCell;
+                        else _battle.PreviewPresentationCell(_diorama, hoverCell);
+                    }
+                    else if (_battle?.DemoLevel == null) _diorama.Preview(null, null, -1);
                 }
             }
-            var touch = Touchscreen.current;
-            if (touch != null)
+            if (cameraOwnsTaps)
+                pressed = _dioramaCamera.TryConsumeTap(out pos);
+            else
             {
-                if (touch.primaryTouch.press.wasPressedThisFrame) _touchStart=touch.primaryTouch.position.ReadValue();
-                if (touch.primaryTouch.press.wasReleasedThisFrame)
+                var touch = Touchscreen.current;
+                if (touch != null)
                 {
-                    pos=touch.primaryTouch.position.ReadValue();
-                    pressed=Vector2.Distance(pos,_touchStart)<20 && !DioramaHud.IsOverInterface(_touchStart);
+                    if (touch.primaryTouch.press.wasPressedThisFrame) _touchStart=touch.primaryTouch.position.ReadValue();
+                    if (touch.primaryTouch.press.wasReleasedThisFrame)
+                    {
+                        pos=touch.primaryTouch.position.ReadValue();
+                        pressed=Vector2.Distance(pos,_touchStart)<20 && !DioramaHud.IsOverInterface(_touchStart);
+                    }
                 }
+                if (!pressed && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                { pos=Mouse.current.position.ReadValue(); pressed=true; }
             }
-            if (!pressed && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-            { pos=Mouse.current.position.ReadValue(); pressed=true; }
             if (!pressed || DioramaHud.IsOverInterface(pos)) return;
             if(!TryPickDiorama(pos,out int cell,out string token))return;
             _lastClickedPlayerATokenName=token;

@@ -89,7 +89,7 @@ namespace Diceforge.View
         public int LocalPlayerBorneOffCount => _runner?.State?.GetBorneOff(localPlayer) ?? 0;
         public PlayerId CurrentPlayer => _runner?.State?.CurrentPlayer ?? localPlayer;
         public GameState PresentationState => _runner?.State;
-        public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating() && DemoNarrative?.IsModal != true;
+        public bool PresentationCanInteract => _runner?.State != null && IsHumanTurn() && !IsMatchEnded && !IsBoardAnimating() && !DioramaHud.BlocksGameplay && DemoNarrative?.IsModal != true;
         public bool PresentationIsAnimating => IsBoardAnimating();
         public bool PresentationIsHumanTurn => _runner?.State != null && IsHumanTurn() && !IsMatchEnded;
         public bool PresentationHasLegalMove => _runner?.State != null && !IsMatchEnded && HasLegalMove();
@@ -100,25 +100,33 @@ namespace Diceforge.View
         public void PresentationReroll() => HandleRerollClicked();
         public bool PresentationCanReroll => CanUseReroll() && !IsBoardAnimating();
         public Move? PreviewMove(int cell) => SelectMoveForCell(cell);
+        private int blockedPreviewCell = -1, blockedPreviewStep, blockedPreviewTurn, blockedPreviewHazard;
+        private string blockedPreviewHero;
         public void PreviewPresentationCell(DioramaBoard geometry, int cell, string heroId = null)
         {
             var move = PreviewMove(cell);
-            if (move.HasValue) { geometry.Preview(move, PresentationState, cell); return; }
+            if (move.HasValue) { blockedPreviewCell = -1; geometry.Preview(move, PresentationState, cell); return; }
             if (DemoLevel != null && PresentationSelectedDie.HasValue && PresentationState.GetStonesAt(PlayerId.A, cell) > 0)
             {
                 int step = PresentationDice[PresentationSelectedDie.Value];
                 if (cell + step < 8 && PresentationState.GetStonesAt(PlayerId.B, cell + step) > 0)
                 {
                     geometry.PreviewBlocked(cell, step, PresentationState);
-                    OnDemoBlockedPreview?.Invoke(heroId);
+                    bool changed = blockedPreviewCell != cell || blockedPreviewStep != step || blockedPreviewHero != heroId
+                        || blockedPreviewTurn != PresentationState.TurnIndex || blockedPreviewHazard != PresentationState.TrailHazardCell;
+                    blockedPreviewCell = cell; blockedPreviewStep = step; blockedPreviewHero = heroId;
+                    blockedPreviewTurn = PresentationState.TurnIndex; blockedPreviewHazard = PresentationState.TrailHazardCell;
+                    if (changed) OnDemoBlockedPreview?.Invoke(heroId);
                     return;
                 }
             }
+            blockedPreviewCell = -1;
             geometry.Preview(null, null, -1);
         }
         public void RefreshPresentation() => UpdateUI();
         public Diceforge.GameModes.DemoLevelDefinition DemoLevel => _externalPreset?.demoLevel;
         public string SelectedHeroId { get; private set; }
+        public int? HoveredDemoCell => boardView?.DioramaHoverCell;
         public string DemoInputFeedback => _lastHumanInputFeedback;
         public bool IsPassingTrailTurn { get; private set; }
         public bool TryGetHero(string heroId, out int cell, out string tokenName, out bool exited)
@@ -486,6 +494,7 @@ namespace Diceforge.View
         {
             matchGeneration++;
             IsPassingTrailTurn = false;
+            blockedPreviewCell = -1;
             SelectedHeroId = null;
             _lastHumanInputFeedback = string.Empty;
             RewardSession = new BattleRewardSession(_externalPreset != null ? _externalPreset.modeId : MatchService.ActivePreset?.modeId);
@@ -867,7 +876,7 @@ namespace Diceforge.View
                 return;
 
             int direction = 0;
-            float scrollY = mouse.scroll.ReadValue().y;
+            float scrollY = DemoLevel == null ? mouse.scroll.ReadValue().y : 0f;
             if (scrollY > 0.01f)
                 direction = -1;
             else if (scrollY < -0.01f)

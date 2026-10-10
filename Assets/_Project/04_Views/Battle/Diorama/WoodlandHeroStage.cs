@@ -18,6 +18,9 @@ namespace Diceforge.View
         private bool initialized;
         private Material waterInstance;
         private Camera view;
+        private DioramaBoard gameplayBoard;
+        private Volume stageVolume;
+        private bool gameplayGradePrepared;
         private int width, height;
         private bool previousFog;
         private FogMode previousFogMode;
@@ -52,7 +55,8 @@ namespace Diceforge.View
             var fill=new GameObject("Cool woodland fill");fill.transform.SetParent(transform,false);
             fill.transform.rotation=Quaternion.Euler(35,140,0);var bounce=fill.AddComponent<Light>();
             bounce.type=LightType.Directional;bounce.color=new Color(.60f,.77f,1);bounce.intensity=fillIntensity;bounce.shadows=LightShadows.None;
-            var volume=gameObject.AddComponent<Volume>();volume.isGlobal=true;volume.priority=30;volume.sharedProfile=grade;
+            stageVolume=gameObject.AddComponent<Volume>();stageVolume.isGlobal=true;stageVolume.priority=30;stageVolume.sharedProfile=grade;
+            gameplayBoard=FindAnyObjectByType<DioramaBoard>();
             view=Camera.main;
             if(view!=null){view.GetUniversalAdditionalCameraData().renderPostProcessing=true;view.backgroundColor=new Color(.30f,.38f,.29f);}
             if(water!=null)
@@ -64,7 +68,7 @@ namespace Diceforge.View
         }
         private void LateUpdate()
         {
-            if(width!=Screen.width || height!=Screen.height)Frame();
+            if(width!=Screen.width || height!=Screen.height || (!gameplayGradePrepared && gameplayBoard != null && gameplayBoard.GetComponent<DioramaCameraController>()?.HasHomePose == true))Frame();
             if(waterInstance!=null && !DioramaBoard.ReducedMotion)
                 waterInstance.SetTextureOffset("_BumpMap",new Vector2(Time.time*.019f,Time.time*.011f));
         }
@@ -72,6 +76,16 @@ namespace Diceforge.View
         {
             width=Screen.width;height=Screen.height;
             if(view==null)return;
+            var gameplayCamera = FindAnyObjectByType<DioramaCameraController>();
+            if(gameplayCamera != null && gameplayCamera.HasHomePose)
+            {
+                if (!gameplayGradePrepared && stageVolume != null && stageVolume.sharedProfile != null)
+                {
+                    if (stageVolume.profile.TryGet<DepthOfField>(out var depth)) depth.mode.Override(DepthOfFieldMode.Off);
+                    gameplayGradePrepared = true;
+                }
+                return;
+            }
             view.transform.rotation=Quaternion.Euler(47,0,0);
             view.orthographicSize=Mathf.Max(cameraSize,cameraSize*1.19f/Mathf.Max(.3f,view.aspect));
             view.orthographic=!perspectiveShowcase;
@@ -81,6 +95,12 @@ namespace Diceforge.View
         private void OnDestroy()
         {
             if(waterInstance!=null)Destroy(waterInstance);
+            if(stageVolume != null && stageVolume.HasInstantiatedProfile())
+            {
+                var instance = stageVolume.profile;
+                foreach (var component in instance.components) if (component != null) Destroy(component);
+                Destroy(instance);
+            }
             if(!initialized)return;
             if(pipelineOverride!=null)QualitySettings.renderPipeline=previousPipeline;
             RenderSettings.fog=previousFog;RenderSettings.fogMode=previousFogMode;RenderSettings.fogColor=previousFogColor;

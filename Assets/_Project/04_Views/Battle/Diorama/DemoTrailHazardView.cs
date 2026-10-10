@@ -12,6 +12,7 @@ namespace Diceforge.View
         private StonesTokensView heroes;
         private GameObject figure;
         private LineRenderer nextStep;
+        private Material arrowMaterial;
         private Coroutine movement;
         public bool IsAnimating { get; private set; }
         public int PresentedCell { get; private set; } = -1;
@@ -35,9 +36,14 @@ namespace Diceforge.View
             var arrow = new GameObject("HazardNextStep");
             arrow.transform.SetParent(board.transform, false);
             nextStep = arrow.AddComponent<LineRenderer>();
-            nextStep.sharedMaterial = board.landscapeRoot.GetComponentInChildren<DioramaCell>().highlight.sharedMaterial;
-            nextStep.widthMultiplier = .045f;
-            nextStep.startColor = nextStep.endColor = new Color(1, .76f, .3f);
+            arrowMaterial = new Material(Resources.Load<Material>("DemoMovePreviewMaterial"));
+            arrowMaterial.SetColor("_BaseColor", new Color(.725f, .424f, .306f));
+            nextStep.sharedMaterial = arrowMaterial;
+            nextStep.widthMultiplier = .035f;
+            nextStep.numCapVertices = 4;
+            nextStep.numCornerVertices = 3;
+            nextStep.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            nextStep.startColor = nextStep.endColor = new Color(.725f, .424f, .306f);
             nextStep.positionCount = 5;
             runner.OnMatchStarted += ResetPresentation;
             runner.OnTrailHazardMoved += HandleMove;
@@ -96,6 +102,8 @@ namespace Diceforge.View
             Vector3 start = board.CellPosition(PresentedCell) + Vector3.up * .08f;
             Vector3 end = (PresentedCell < 7 ? board.CellPosition(PresentedCell + 1) : board.ExitPosition(0)) + Vector3.up * .08f;
             Vector3 direction = (end - start).normalized;
+            start = Vector3.Lerp(start, end, .40f);
+            end -= direction * .16f;
             Vector3 side = Vector3.Cross(direction, Vector3.up) * .12f;
             nextStep.SetPositions(new[] { start, end, end - direction * .22f + side, end, end - direction * .22f - side });
         }
@@ -114,6 +122,7 @@ namespace Diceforge.View
             IsAnimating = false;
             if (figure != null) Destroy(figure);
             if (nextStep != null) Destroy(nextStep.gameObject);
+            if (arrowMaterial != null) Destroy(arrowMaterial);
         }
         private void OnDestroy() => Unbind();
     }

@@ -1,7 +1,7 @@
 #demoNarrativeRoot { flex-grow: 1; color: var(--demo-text); font-size: 20px; }
 Button { background-color: var(--demo-neutral); color: var(--demo-text); border-color: var(--demo-edge); border-width: 1px; border-radius: 16px; padding: 8px 16px; min-height: 44px; font-size: 17px; }
 Button:hover { background-color: var(--demo-neutral-hover); }
-Button:focus { border-color: var(--demo-focus); border-width: 2px; }
+Button:focus { border-color: var(--demo-focus); }
 Button:active { background-color: var(--demo-neutral-hover); }
 .help-button { position: absolute; right: 118px; top: 16px; width: 44px; height: 44px; padding: 0; background-color: var(--demo-surface); border-width: 2px; border-color: transparent; border-radius: 22px; align-items: center; justify-content: center; }
 .hint-copy { display: none; flex-shrink: 0; }
@@ -19,19 +19,19 @@ Button:active { background-color: var(--demo-neutral-hover); }
 .story-nav { position: absolute; left: 24px; right: 24px; top: 18px; flex-direction: row; align-items: center; justify-content: space-between; }
 #storyPage { font-size: 20px; color: var(--demo-surface); -unity-font-style: bold; text-shadow: 0 1px 3px rgba(17, 35, 28, .85); }
 .story-skip { min-width: 100px; background-color: var(--demo-surface); font-size: 17px; }
-.story-dialogue { position: absolute; left: 24px; right: 24px; bottom: 22px; flex-direction: row; align-items: center; background-color: var(--demo-surface); border-radius: 20px; border-width: 1px; border-bottom-width: 2px; border-color: var(--demo-edge); padding: 20px 24px; min-height: 110px; }
+.story-dialogue { position: absolute; left: 24px; right: 24px; bottom: 22px; flex-direction: row; align-items: center; background-color: var(--demo-surface); border-radius: 24px; border-width: 1px; border-color: var(--demo-edge); padding: 20px 24px; min-height: 110px; }
 .story-copy { flex-grow: 1; flex-shrink: 1; margin-right: 16px; }
 .story-heading { flex-grow: 0; margin-bottom: 7px; font-size: 20px; }
 .story-text { white-space: normal; font-size: 27px; color: var(--demo-text); margin: 0; padding: 0; }
 .story-next { background-color: transparent; color: var(--demo-muted); min-width: 52px; min-height: 48px; border-color: transparent; align-items: center; justify-content: center; padding: 0 10px; }
 .story-next.continue { border-color: var(--demo-accent-edge); border-width: 2px; background-color: var(--demo-accent); color: var(--demo-text); font-size: 19px; padding: 10px 18px; }
 .help-overlay { align-items: center; justify-content: center; background-color: rgba(17, 35, 28, .65); }
-.help-card { width: 86%; max-width: 760px; max-height: 80%; padding: 22px; background-color: var(--demo-surface); border-radius: 20px; border-width: 1px; border-bottom-width: 2px; border-color: var(--demo-edge); }
+.help-card { width: 88%; max-width: 580px; max-height: 84%; padding: 26px; background-color: var(--demo-surface); border-radius: 24px; border-width: 1px; border-color: var(--demo-edge); }
 .help-header { flex-direction: row; align-items: center; margin-bottom: 10px; }
 #helpTopics { flex-grow: 0; flex-shrink: 1; max-height: 360px; margin-bottom: 14px; }
-.help-topic { white-space: normal; margin-bottom: 6px; font-size: 18px; -unity-text-align: middle-left; padding: 9px 14px; border-radius: 12px; }
-.help-actions { flex-direction: row; flex-wrap: wrap; }
-.help-actions Button { margin: 4px 6px 0 0; font-size: 15px; }
+.help-topic { white-space: normal; margin: 0 0 8px; min-height: 52px; font-size: 18px; -unity-text-align: middle-left; padding: 12px 16px; border-radius: 14px; background-color: rgb(253, 250, 241); }
+.help-actions { flex-direction: row; flex-wrap: wrap; padding-top: 10px; border-top-width: 1px; border-top-color: var(--demo-edge); }
+.help-actions Button { margin: 4px 6px 0 0; font-size: 15px; background-color: transparent; border-color: transparent; color: var(--demo-speaker); }
 .save-message { display: none; position: absolute; bottom: 12px; left: 12px; width: 340px; padding: 14px; background-color: var(--demo-surface); border-radius: 18px; }
 .save-message Label { white-space: normal; }
 .portrait .hint-text { font-size: 18px; }
@@ -51,3 +51,9 @@ Button:active { background-color: var(--demo-neutral-hover); }
 .dismiss-button:hover, .story-next:hover { background-color: var(--demo-neutral); }
 .portrait #helpTopics { max-height: 520px; }
 #helpHeading { color: var(--demo-text); }
+
+.help-subtitle { margin: 0 0 20px; padding: 0; white-space: normal; font-size: 16px; color: var(--demo-muted); }
+.help-empty { white-space: normal; color: var(--demo-muted); font-size: 17px; margin-bottom: 16px; }
+.help-actions Button:hover { background-color: var(--demo-neutral); }
+.portrait .help-card { padding: 20px; }
+.portrait .help-topic { font-size: 17px; }

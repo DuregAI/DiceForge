@@ -1,0 +1,42 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="WorldSelection.uss" />
+  <ui:VisualElement name="worldSelectionRoot" class="world-selection world-hidden">
+    <ui:VisualElement class="world-wash" picking-mode="Ignore" />
+    <ui:VisualElement name="worldSafeContent" class="world-content">
+      <ui:VisualElement class="world-logo" picking-mode="Ignore" />
+      <ui:Button name="worldHome" class="world-home" tooltip="Home" />
+      <ui:VisualElement class="world-heading">
+        <ui:Label name="worldTitle" text="New worlds await" class="world-title" />
+        <ui:Label name="worldSubtitle" text="Woodland Trail complete. Your adventure continues!" class="world-subtitle" />
+      </ui:VisualElement>
+      <ui:VisualElement name="worldRouteLeft" class="world-route world-route-left" picking-mode="Ignore" />
+      <ui:VisualElement name="worldRouteRight" class="world-route world-route-right" picking-mode="Ignore" />
+      <ui:ScrollView name="worldScroll" class="world-scroll" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
+        <ui:VisualElement class="world-islands">
+          <ui:VisualElement name="woodlandWorld" class="world-card">
+            <ui:VisualElement class="world-art"><ui:Image name="worldIsland0" class="world-island" picking-mode="Ignore" /></ui:VisualElement>
+            <ui:VisualElement class="world-details">
+              <ui:Label name="woodlandName" text="Woodland Trail" class="world-name" />
+              <ui:VisualElement name="worldCompletedPlate" class="world-completed-plate"><ui:VisualElement name="worldCheckIcon" class="world-check-icon" picking-mode="Ignore" /><ui:Label name="worldCompleted" text="6 / 6" class="world-completed" /></ui:VisualElement>
+            </ui:VisualElement>
+          </ui:VisualElement>
+          <ui:VisualElement name="mushroomWorld" class="world-card world-upcoming">
+            <ui:VisualElement class="world-art"><ui:Image name="worldIsland1" class="world-island" picking-mode="Ignore" /><ui:VisualElement class="world-soon"><ui:VisualElement name="mushroomLock" class="world-lock" picking-mode="Ignore" /><ui:Label name="mushroomSoon" text="Coming soon" /></ui:VisualElement></ui:VisualElement>
+            <ui:VisualElement class="world-details"><ui:Label name="mushroomName" text="Mushroom Hollow" class="world-name" /></ui:VisualElement>
+          </ui:VisualElement>
+          <ui:VisualElement name="frostyWorld" class="world-card world-upcoming">
+            <ui:VisualElement class="world-art"><ui:Image name="worldIsland2" class="world-island" picking-mode="Ignore" /><ui:VisualElement class="world-soon"><ui:VisualElement name="frostyLock" class="world-lock" picking-mode="Ignore" /><ui:Label name="frostySoon" text="Coming soon" /></ui:VisualElement></ui:VisualElement>
+            <ui:VisualElement class="world-details"><ui:Label name="frostyName" text="Frosty Pass" class="world-name" /></ui:VisualElement>
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:ScrollView>
+      <ui:VisualElement class="world-actions">
+        <ui:Button name="worldReplay" text="Play again" class="world-action world-replay" />
+        <ui:Button name="worldWebsite" text="Visit website" class="world-action world-secondary" />
+        <ui:Button name="worldReview" text="Write a review" class="world-action world-secondary" />
+      </ui:VisualElement>
+      <ui:Label name="worldError" class="world-error world-hidden" />
+      <ui:Label name="worldFooter" text="Thank you for completing the first chapter!" class="world-footer" />
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

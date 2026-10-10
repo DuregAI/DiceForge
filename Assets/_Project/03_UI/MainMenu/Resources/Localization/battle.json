@@ -62,5 +62,7 @@
 {"en":"Cancel","ru":"Отмена","zh":"取消"},
 {"en":"End this match in defeat?","ru":"Завершить партию поражением?","zh":"认输并结束对局？"},
 {"en":"Return to game","ru":"Вернуться к игре","zh":"返回游戏"},
-{"en":"Yes, surrender","ru":"Да, сдаться","zh":"确认认输"}
+{"en":"Yes, surrender","ru":"Да, сдаться","zh":"确认认输"},
+{"en":"1 · Step","ru":"1 · Шаг","zh":""},
+{"en":"2 · Friend","ru":"2 · Друг","zh":""}
 ]}

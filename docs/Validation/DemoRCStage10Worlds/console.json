@@ -1,0 +1,492 @@
+{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {
+      "tail": "50",
+      "level": "warn"
+    },
+    "result": {
+      "entries": [
+        {
+          "seq": 2733,
+          "timestampUtc": "2026-10-09T05:01:00.4958044Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(393,56): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2734,
+          "timestampUtc": "2026-10-09T05:01:00.4958044Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoNarrativePresentationTests.cs(599,56): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2735,
+          "timestampUtc": "2026-10-09T05:01:00.4958044Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\BattleDebugController.cs(34,34): warning CS0618: 'BoardDebugView' is obsolete: 'Not used any more?'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2736,
+          "timestampUtc": "2026-10-09T05:01:00.4958044Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\MainMenu\\MenuCharacterMotion.cs(67,22): warning CS0618: 'MeshWriteData.uvRegion' is obsolete: 'Texture coordinates are now automatically remapped by the renderer. You are no longer required to remap the UV coordinates in the provided rectangle.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2737,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\MainMenu\\Audio\\MenuAudioBinder.cs(38,68): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2738,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\MainMenu\\Audio\\MenuAudioBinder.cs(38,38): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2739,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Map\\MapController.cs(604,9): warning CS0618: 'IStyle.unityBackgroundScaleMode' is obsolete: 'unityBackgroundScaleMode is deprecated. Use background-* properties instead.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2740,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Map\\MapController.cs(643,9): warning CS0618: 'IStyle.unityBackgroundScaleMode' is obsolete: 'unityBackgroundScaleMode is deprecated. Use background-* properties instead.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2741,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Debug\\DebugUiVisibilityController.cs(45,92): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2742,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Debug\\DebugUiVisibilityController.cs(45,24): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2743,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\DioramaLighting.cs(36,78): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2744,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\DioramaLighting.cs(36,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2745,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\BattleSceneBootstrapper.cs(146,37): warning CS0618: 'BoardDebugView' is obsolete: 'Not used any more?'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2746,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\DioramaBoard.cs(78,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2747,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\DioramaBoard.cs(78,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2748,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\BattleDebugController.cs(173,42): warning CS0618: 'BoardDebugView' is obsolete: 'Not used any more?'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2749,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\WoodlandHeroStage.cs(44,59): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2750,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\Diorama\\WoodlandHeroStage.cs(44,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2751,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\04_Views\\Battle\\BattleDebugController.cs(285,42): warning CS0618: 'BoardDebugView' is obsolete: 'Not used any more?'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2752,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Battle\\DioramaHud.cs(548,62): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2753,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\03_UI\\Battle\\DioramaHud.cs(548,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2754,
+          "timestampUtc": "2026-10-09T05:01:00.4968067Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\_Project\\01_Gameplay\\Progression\\PlayerProfile.cs(28,40): warning UAC1015: Field 'upgrades' is a dictionary type 'System.Collections.Generic.Dictionary<string, int>' but is missing [SerializeField]. Unity's dictionary serialization backend skips dictionary fields without [SerializeField], even when the field is public. Add [SerializeField] to serialize this field, or [NonSerialized] to make the intent explicit. Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/Manual/script-serialization-analyzer.html#uac1015)",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2774,
+          "timestampUtc": "2026-10-09T05:01:47.706316Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2794,
+          "timestampUtc": "2026-10-09T05:01:53.3181088Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2810,
+          "timestampUtc": "2026-10-09T05:01:57.8627626Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2832,
+          "timestampUtc": "2026-10-09T05:02:02.7368092Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2862,
+          "timestampUtc": "2026-10-09T05:02:08.4588088Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2870,
+          "timestampUtc": "2026-10-09T05:02:08.5171521Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "BoardLayoutTokenMover is missing BoardLayout reference.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BoardLayoutTokenMover:TryGetCellWorldPosition (int,UnityEngine.Vector3&,int&) (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:301)\nDiceforge.View.BoardLayoutTokenMover:SnapTo (int) (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:111)\nDiceforge.View.BoardLayoutTokenMover:Start () (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:99)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2897,
+          "timestampUtc": "2026-10-09T05:02:14.6330125Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2927,
+          "timestampUtc": "2026-10-09T05:02:20.9970443Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2937,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCheckpointFlowTests.cs(30,66): warning CS0618: 'Object.FindFirstObjectByType(Type)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2938,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(41,86): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2939,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(40,51): warning CS0618: 'Object.FindObjectsByType(Type, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType(Type) or FindObjectsByType(Type, FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2940,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCheckpointFlowTests.cs(40,86): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2941,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCheckpointFlowTests.cs(39,51): warning CS0618: 'Object.FindObjectsByType(Type, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType(Type) or FindObjectsByType(Type, FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2942,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCheckpointFlowTests.cs(85,86): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2943,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCheckpointFlowTests.cs(84,51): warning CS0618: 'Object.FindObjectsByType(Type, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType(Type) or FindObjectsByType(Type, FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2944,
+          "timestampUtc": "2026-10-09T05:03:54.1540406Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(95,86): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2945,
+          "timestampUtc": "2026-10-09T05:03:54.1555429Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(94,51): warning CS0618: 'Object.FindObjectsByType(Type, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType(Type) or FindObjectsByType(Type, FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2946,
+          "timestampUtc": "2026-10-09T05:03:54.1555429Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(101,66): warning CS0618: 'Object.FindFirstObjectByType(Type)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2947,
+          "timestampUtc": "2026-10-09T05:03:54.1555429Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoCampaignFlowTests.cs(408,56): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2948,
+          "timestampUtc": "2026-10-09T05:03:54.1555429Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Assets\\Tests\\BattleRunner\\DemoNarrativePresentationTests.cs(599,56): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 2968,
+          "timestampUtc": "2026-10-09T05:04:24.3620176Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 2988,
+          "timestampUtc": "2026-10-09T05:04:29.9819815Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3004,
+          "timestampUtc": "2026-10-09T05:04:34.5650287Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3026,
+          "timestampUtc": "2026-10-09T05:04:39.5145093Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3056,
+          "timestampUtc": "2026-10-09T05:04:45.3440252Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3064,
+          "timestampUtc": "2026-10-09T05:04:45.4023401Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "BoardLayoutTokenMover is missing BoardLayout reference.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BoardLayoutTokenMover:TryGetCellWorldPosition (int,UnityEngine.Vector3&,int&) (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:301)\nDiceforge.View.BoardLayoutTokenMover:SnapTo (int) (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:111)\nDiceforge.View.BoardLayoutTokenMover:Start () (at Assets/_Project/04_Views/Battle/BoardLayoutTokenMover.cs:99)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3091,
+          "timestampUtc": "2026-10-09T05:04:51.5727106Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3121,
+          "timestampUtc": "2026-10-09T05:04:58.1947117Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nDiceforge.View.BattleDebugController:EnsureRunnerInitialized () (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:158)\nDiceforge.View.BattleDebugController:StartFromPreset (GameModePreset) (at Assets/_Project/04_Views/Battle/BattleDebugController.cs:292)\nDiceforge.View.BattleSceneBootstrapper:Awake () (at Assets/_Project/04_Views/Battle/BattleSceneBootstrapper.cs:150)\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 3130,
+      "session": "6d0c97e9e8904cc5aabe07bc4f6e5390",
+      "returned": 50,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 0,
+        "warn": 179,
+        "log": 1341
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-09T05:06:15.4926232Z",
+        "ageMs": 216,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 8,
+        "consoleLogs": 169,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Backforge\\Diceforge\\DiceForge"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

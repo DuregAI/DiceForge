@@ -497,6 +497,7 @@ namespace Diceforge.View
                 mover.SetLayout(_layout);
                 mover.SetPositionTilemap(_positionTilemap);
                 mover.SetGeometry(_geometry);
+                mover.SetHopPresentation(demoLevel != null && player == PlayerId.A);
 
                 if (_geometry is DioramaBoard)
                 {

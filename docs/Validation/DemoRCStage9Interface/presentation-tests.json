@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "duration": 13.12,
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible",
+      "Status": "Passed",
+      "Duration": 18.3938808,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

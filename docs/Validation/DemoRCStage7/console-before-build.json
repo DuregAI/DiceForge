@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "command": "command console_status",
+  "data": {
+    "command": "console_status",
+    "parameters": {},
+    "result": {
+      "entries": [],
+      "cursor": 196587,
+      "session": "79e3aca2e6034519afd692fd37e2cdf6",
+      "returned": 0,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 503,
+        "warn": 744,
+        "log": 753
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-10-07T20:03:34.9031307Z",
+        "ageMs": 21,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 22,
+        "consoleLogs": 32,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Backforge\\Diceforge\\DiceForge"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

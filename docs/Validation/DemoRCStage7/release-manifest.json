@@ -1,0 +1,72 @@
+{
+  "version": "0.3.2-release",
+  "productName": "GlimbleHop",
+  "target": "WebGL",
+  "developmentBuild": false,
+  "buildResult": "Succeeded",
+  "buildId": "build_da5385986bd2",
+  "buildTimeMs": 444265,
+  "buildErrors": 0,
+  "buildWarnings": 22,
+  "buildPath": "C:\\Backforge\\Diceforge\\DiceForge\\Builds\\Glimblehop-0.3.2-release",
+  "zipPath": "C:\\Backforge\\Diceforge\\DiceForge\\Builds\\Glimblehop-0.3.2-release.zip",
+  "zipBytes": 119464412,
+  "zipSha256": "cf71b79a7ddc64e726ab53ed581cfe626fa3d2ad790858e961fb76cd967da0d6",
+  "files": [
+    {
+      "path": "Build/Glimblehop-0.3.2-release.data.br",
+      "bytes": 110519473,
+      "sha256": "d4a0ff40f215925b6c3311f2a512a7ffedc71dfc5bf6bfbb0f6e86898812e406"
+    },
+    {
+      "path": "Build/Glimblehop-0.3.2-release.framework.js.br",
+      "bytes": 73315,
+      "sha256": "258d4be50ca2f7aef93a489871f240870334f30e7dfe44861f66082cec5b0973"
+    },
+    {
+      "path": "Build/Glimblehop-0.3.2-release.loader.js",
+      "bytes": 27675,
+      "sha256": "f33f062e1c6e18d463b78a5642d95e49a4f0047fdd937ee6f2a929b017fed754"
+    },
+    {
+      "path": "Build/Glimblehop-0.3.2-release.wasm.br",
+      "bytes": 8006702,
+      "sha256": "e0481ba69578fd1cc6fcea1873e0fee9428111682a7b23d43afec4ea7e424923"
+    },
+    {
+      "path": "index.html",
+      "bytes": 2126,
+      "sha256": "4db110b18549227ffe4deadce0f13a5fa0ade54c8cd3b9fdc6aa79a175f20acd"
+    },
+    {
+      "path": "TemplateData/forest.webp",
+      "bytes": 163468,
+      "sha256": "6e6926bf7fd652bb8df38689fdc71e8de32652805469b55eb239798bbf2f732f"
+    },
+    {
+      "path": "TemplateData/loading-garden-portrait.webp",
+      "bytes": 276904,
+      "sha256": "5530aea3645d5565771f7e4ebd5d39d066a45d9cc038859010abc1f163e168d7"
+    },
+    {
+      "path": "TemplateData/loading-garden.webp",
+      "bytes": 271528,
+      "sha256": "44f6fb42e7e2147907596d191b290b5f8c8f7a20562203ef30d8ba6cd04daabf"
+    },
+    {
+      "path": "TemplateData/loading.css",
+      "bytes": 4729,
+      "sha256": "2750af52aede66bf117d7f4050f1511c533b3754158d7a613a6d3cb98501f030"
+    },
+    {
+      "path": "TemplateData/loading.js",
+      "bytes": 9270,
+      "sha256": "a331b9c609c735c764223b1a3ed4fd939d90a35956a2042ecb45b6eecc765a24"
+    },
+    {
+      "path": "TemplateData/logo.webp",
+      "bytes": 107688,
+      "sha256": "3337f22c497d562d11780d3e323b1805d0dd3cb46b85269ad5c74df74c8d5ecb"
+    }
+  ]
+}

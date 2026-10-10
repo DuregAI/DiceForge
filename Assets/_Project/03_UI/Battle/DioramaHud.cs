@@ -7,7 +7,7 @@ namespace Diceforge.View
 {
     public sealed class DioramaHud : MonoBehaviour
     {
-        public static bool BlocksGameplay => instance != null && (instance.paused || instance.battle?.DemoNarrative?.IsModal == true);
+        public static bool BlocksGameplay => instance != null && (instance.paused || instance.battle?.DemoNarrative?.IsModal == true || instance.battle?.DemoNarrative?.IsHelpVisible == true);
         private static DioramaHud instance;
         public static void SetResultVisible(bool visible)
         {
@@ -119,7 +119,7 @@ namespace Diceforge.View
             if (demoFont == null) return;
             var definition = new StyleFontDefinition(FontDefinition.FromFont(demoFont));
             panel.style.unityFontDefinition = definition;
-            foreach (string className in new[] { "hud-header", "bottom-bar" })
+            foreach (string className in new[] { "hud-header", "bottom-bar", "pause-window" })
             {
                 var section = panel.Q(className: className);
                 if (section == null) continue;
@@ -155,8 +155,8 @@ namespace Diceforge.View
                 heroButtons.Add(heroId, button);
                 button.RegisterCallback<PointerEnterEvent>(_ => previewHero = heroId);
                 button.RegisterCallback<FocusInEvent>(_ => previewHero = heroId);
-                button.RegisterCallback<PointerLeaveEvent>(_ => { previewHero = null; board.Preview(null, null, -1); });
-                button.RegisterCallback<FocusOutEvent>(_ => { previewHero = null; board.Preview(null, null, -1); });
+                button.RegisterCallback<PointerLeaveEvent>(_ => previewHero = null);
+                button.RegisterCallback<FocusOutEvent>(_ => previewHero = null);
             }
             var restart = root.Q<Button>("restartTrail");
             restart.RemoveFromClassList("hidden");
@@ -360,15 +360,32 @@ namespace Diceforge.View
                 battle.PresentationSelectedDie.HasValue,battle.PresentationDice?.Count ?? 0);
             if (battle.DemoLevel != null && can)
                 hintKey = string.IsNullOrEmpty(battle.DemoInputFeedback)
-                    ? state.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential && battle.PresentationDice.Count == 1
-                        ? "One more action. Choose a friend." : "Choose a step, then a friend." : battle.DemoInputFeedback;
+                    ? battle.PresentationSelectedDie.HasValue
+                        ? state.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential && battle.PresentationDice.Count == 1
+                            ? "One more action. Choose a friend." : "Choose a friend."
+                        : "Choose a step, then a friend." : battle.DemoInputFeedback;
             if (battle.IsPassingTrailTurn) hintKey = "No steps available. Starting a new turn.";
             SetText(hint,localization.T(hintKey));
             if (battle.DemoLevel != null)
                 panel.EnableInClassList("has-input-feedback", !string.IsNullOrEmpty(battle.DemoInputFeedback));
             RefreshDemoControls(can && !paused);
-            if (can && !paused && previewHero != null && battle.TryGetHero(previewHero, out int previewCell, out _, out bool left) && !left)
-                battle.PreviewPresentationCell(board, previewCell, previewHero);
+            if (battle.DemoLevel != null)
+            {
+                string routeHero = previewHero;
+                if (routeHero == null && battle.HoveredDemoCell.HasValue)
+                    foreach (string id in battle.DemoLevel.heroIds)
+                        if (battle.TryGetHero(id, out int hoveredCell, out _, out bool arrived) && !arrived &&
+                            hoveredCell == battle.HoveredDemoCell.Value) { routeHero = id; break; }
+                routeHero ??= battle.SelectedHeroId;
+                if (string.IsNullOrEmpty(routeHero) || !battle.TryGetHero(routeHero, out _, out _, out bool routeExited) || routeExited)
+                    foreach (string id in battle.DemoLevel.heroIds)
+                        if (battle.TryGetHero(id, out _, out _, out bool arrived) && !arrived) { routeHero = id; break; }
+                var cameraControl = board.GetComponent<DioramaCameraController>();
+                if (can && !paused && cameraControl?.IsGestureActive != true && battle.DemoNarrative?.IsHelpVisible != true &&
+                    routeHero != null && battle.TryGetHero(routeHero, out int routeCell, out _, out bool left) && !left)
+                    battle.PreviewPresentationCell(board, routeCell, routeHero);
+                else board.Preview(null, null, -1);
+            }
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;
             string signature=can+":"+state.CurrentPlayer+":"+battle.PresentationSelectedDie+":";

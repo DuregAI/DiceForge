@@ -31,9 +31,11 @@ namespace Diceforge.UI.Dialogue
         private DemoDialogueEvent hint;
         private int frame, line, level, generation, previousHazard;
         private string language;
-        private bool started, initialized, sawBlocked;
+        private bool started, initialized, sawBlocked, helpVisible;
+        private Diceforge.UI.ModalDismiss helpDismiss;
         private Coroutine opening;
         public bool IsModal { get; private set; }
+        public bool IsHelpVisible => helpVisible;
         public bool IsStoryVisible => IsModal && (activeScene != null || sequence != null);
         public string StoryId => activeScene?.id;
         public int StoryFrame => frame;
@@ -42,6 +44,8 @@ namespace Diceforge.UI.Dialogue
         public bool SavePending { get; private set; }
         public bool Ready => started;
         public bool CompletionLinesSeen { get; private set; }
+        [Serializable] private sealed class WorldTeaserScript { public DemoDialogueEvent[] lines; }
+        public bool IsWorldTeaserVisible => IsStoryVisible && sequence != null && sequence.Length > 0 && sequence[0].id == "WORLD_TEASER_01";
         public DemoLearningState ExportLearning() => JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(learning.State));
         public DemoCompletionProgress ExportCompletion() => new DemoCompletionProgress { learning = ExportLearning(), storySeen = storySeen.ToArray() };
         private bool Russian => PlayerPrefs.GetString("ui.language", "en") == "ru";
@@ -112,9 +116,10 @@ namespace Diceforge.UI.Dialogue
             root.RegisterCallback<GeometryChangedEvent>(_ => RefreshLayout());
             root.Q<Button>("storySkip").clicked += SkipStory;
             root.Q<Button>("demoHelpButton").clicked += OpenHelp;
-            root.Q<Button>("hideGuidance").clicked += () => SkipHint(true);
-            root.Q<Button>("helpClose").clicked += () => helpPanel.style.display = DisplayStyle.None;
-            root.Q<Button>("replayStory").clicked += ReplayStory;
+            root.Q<Button>("hideGuidance").clicked += () => { SkipHint(true); CloseHelp(); };
+            root.Q<Button>("helpClose").clicked += CloseHelp;
+            helpDismiss = new Diceforge.UI.ModalDismiss(helpPanel, root.Q("helpCard"), CloseHelp);
+            root.Q<Button>("replayStory").clicked += () => { CloseHelp(); ReplayStory(); };
             root.Q<Button>("guidanceOn").clicked += () => { learning.State.guidanceHidden = false; Save(); OpenHelp(); };
             root.Q<Button>("retryDemoSave").clicked += () => { Save(); battle.DemoCheckpoint?.RetrySave(); };
             initialized = true; language = null;
@@ -155,7 +160,12 @@ namespace Diceforge.UI.Dialogue
             storyPortrait.style.translate = new Translate(0, breath, 0);
             string current = PlayerPrefs.GetString("ui.language", "en");
             if (current != language) { language = current; RefreshLanguage(); }
-            if (IsStoryVisible && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true) SkipStory();
+            if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true)
+            {
+                if (IsHelpVisible) CloseHelp();
+                else if (IsStoryVisible) SkipStory();
+            }
+            root.Q<Button>("demoHelpButton").SetEnabled(!IsModal && !battle.IsMatchEnded && !battle.PresentationIsAnimating && (!DioramaHud.BlocksGameplay || IsHelpVisible));
             if (started && !battle.PresentationIsAnimating && !IsModal && !DioramaHud.BlocksGameplay)
             {
                 int hazard = battle.PresentationState.TrailHazardCell;
@@ -180,7 +190,8 @@ namespace Diceforge.UI.Dialogue
             root.Q<Button>("storySkip").text = T("Пропустить", "Skip");
             root.Q<Button>("demoHelpButton").tooltip = T("Подсказки", "Help");
             hintClose.tooltip = T("Закрыть реплику", "Dismiss dialogue");
-            root.Q<Label>("helpHeading").text = T("Подсказки", "Help");
+            root.Q<Label>("helpHeading").text = T("На этой тропе", "On this trail");
+            root.Q<Label>("helpSubtitle").text = T("Выбери тему — Лума подскажет, что делать.", "Choose a topic for Jo’s advice.");
             root.Q<Button>("hideGuidance").text = T("Скрыть обучение", "Hide guidance");
             root.Q<Button>("helpClose").tooltip = T("Закрыть справку", "Close help");
             root.Q<Button>("replayStory").text = T("Повторить историю", "Replay story");
@@ -194,7 +205,7 @@ namespace Diceforge.UI.Dialogue
         private void PlayScene(int index)
         {
             activeScene = catalog.Scene(index); sequence = null; frame = line = 0;
-            IsModal = true; SetHintVisible(false); helpPanel.style.display = DisplayStyle.None;
+            IsModal = true; SetHintVisible(false); SetHelpVisible(false);
             story.style.display = DisplayStyle.Flex; RenderStory();
         }
         private void PlayLines(string kind)
@@ -247,7 +258,7 @@ namespace Diceforge.UI.Dialogue
                 storyPortrait.style.display = storyPortrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
                 last = line == sequence.Length - 1;
             }
-            storyNext.text = last ? T("Продолжить", "Continue") : string.Empty;
+            storyNext.text = last ? IsWorldTeaserVisible ? T("К новым мирам", "Explore worlds") : T("Продолжить", "Continue") : string.Empty;
             if (last) storyNextIcon.RemoveFromHierarchy();
             else if (storyNextIcon.parent == null) storyNext.Add(storyNextIcon);
             storyNext.EnableInClassList("continue", last);
@@ -284,7 +295,7 @@ namespace Diceforge.UI.Dialogue
         public IEnumerator PlayCompletion(MatchResult result)
         {
             if (!initialized) yield break;
-            hint = null; SetHintVisible(false); helpPanel.style.display = DisplayStyle.None;
+            hint = null; SetHintVisible(false); SetHelpVisible(false);
             if (result.Winner != PlayerId.A || !CompletionLinesSeen)
                 PlayLines(result.Winner == PlayerId.A ? "V" : "F");
             while (IsModal) yield return null;
@@ -294,9 +305,12 @@ namespace Diceforge.UI.Dialogue
                 { PlayScene(level); while (IsModal) yield return null; }
                 if (level == 6)
                 {
-                    // The final result stays readable after either Next or Skip closes the wedding scene.
-                    Show(new DemoDialogueEvent { speakerId = "luma", ru = "Общий свет вернулся. Свадьба состоялась.",
-                        en = "The shared light is back. The wedding took place." }, false);
+                    sequence = JsonUtility.FromJson<WorldTeaserScript>(Resources.Load<TextAsset>("WorldSelection/WorldTeaser").text).lines;
+                    activeScene = null; line = frame = 0;
+                    IsModal = true; SetHintVisible(false); SetHelpVisible(false);
+                    story.style.display = DisplayStyle.Flex;
+                    RenderStory();
+                    while (IsModal) yield return null;
                 }
             }
         }
@@ -358,8 +372,43 @@ namespace Diceforge.UI.Dialogue
         }
         public void OpenHelp()
         {
-            if (!initialized || IsModal) return;
-            learning.Help(); BuildHelp(); helpPanel.style.display = DisplayStyle.Flex;
+            if (!initialized || IsModal || battle.IsMatchEnded || battle.PresentationIsAnimating || (DioramaHud.BlocksGameplay && !IsHelpVisible)) return;
+            learning.Help(); BuildHelp(); SetHelpVisible(true);
+            root.Q<Button>("helpClose").Focus();
+        }
+        private void SetHelpVisible(bool visible)
+        {
+            helpVisible = visible;
+            if (helpPanel != null) helpPanel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+        public void CloseHelp()
+        {
+            SetHelpVisible(false);
+            root?.Q<Button>("demoHelpButton")?.Focus();
+        }
+        private string HelpTopicTitle(string topic)
+        {
+            return topic switch
+            {
+                "direction" => T("Куда идти", "Which way to go"),
+                "input_order" or "step_choice" => T("Как выбрать шаг", "Choosing a step"),
+                "goal" or "party_goal" => T("Цель тропы", "Your goal"),
+                "guided_start" => T("С чего начать", "Getting started"),
+                "change_choice" => T("Как поменять шаг", "Changing your step"),
+                "overshoot" or "exit" or "independent_exit" => T("Как выйти с тропы", "Reaching the exit"),
+                "step_distribution" or "step_split" => T("Как распределить шаги", "Sharing the steps"),
+                "hero_order" or "choose_friend" => T("Кого отправить вперёд", "Choosing a friend"),
+                "party_progress" or "last_friend" => T("Как собрать всех друзей", "Bringing everyone home"),
+                "identify_shared_heroes" or "shared_cell" => T("Друзья на одной плите", "Friends on one tile"),
+                "move_bum" => T("Прыжок Бума", "Boom’s jump"),
+                "turn_end" or "opponent_schedule" => T("Когда идёт Рыж", "When Rusty moves"),
+                "same_hero_twice" => T("Два шага одного друга", "One friend, two steps"),
+                "summary" => T("Коротко о правилах", "Rules at a glance"),
+                "outlines" => T("Подсветка маршрута", "Route highlights"),
+                "text" => T("Текст подсказок", "Hint text"),
+                "motion" => T("Меньше движения", "Reduced motion"),
+                _ => T("Совет Лумы", "Jo’s advice")
+            };
         }
         private void BuildHelp()
         {
@@ -369,9 +418,17 @@ namespace Diceforge.UI.Dialogue
             {
                 int number = int.Parse(e.id.Substring(e.id.Length - 2));
                 if (!DemoLearningPolicy.Eligible(level, number, c, sawBlocked)) continue;
-                var button = new Button(() => { learning.Help(); Show(e, false); helpPanel.style.display = DisplayStyle.None; });
-                button.text = e.Text(Russian); button.AddToClassList("help-topic"); topics.Add(button);
+                var button = new Button(() => { learning.Help(); Show(e, false); CloseHelp(); hintClose?.Focus(); });
+                button.text = HelpTopicTitle(e.helpTopic); button.tooltip = e.Text(Russian);
+                button.AddToClassList("help-topic"); topics.Add(button);
             }
+            if (topics.childCount == 0)
+            {
+                var empty = new Label(T("Здесь всё просто: выбери шаг, затем друга.", "Choose a step, then a friend. You’re ready to go."));
+                empty.AddToClassList("help-empty"); topics.Add(empty);
+            }
+            root.Q<Button>("guidanceOn").style.display = learning.State.guidanceHidden ? DisplayStyle.Flex : DisplayStyle.None;
+            root.Q<Button>("hideGuidance").style.display = learning.State.guidanceHidden ? DisplayStyle.None : DisplayStyle.Flex;
         }
         private void StepSelected()
         {
@@ -447,8 +504,9 @@ namespace Diceforge.UI.Dialogue
             var nav = root.Q("storyNavigation"); nav.style.left = left; nav.style.right = right; nav.style.top = top;
             var dialogue = root.Q("storyDialogue"); dialogue.style.left = left; dialogue.style.right = right; dialogue.style.bottom = bottom;
             var help = root.Q<Button>("demoHelpButton"); help.style.top = top; help.style.right = right + 106;
-            hintCharacter.style.right = right;
-            float surfaceHeight = hudRoot.Q("demoActionSurface").worldBound.height;
+            var surface = hudRoot.Q("demoActionSurface");
+            hintCharacter.style.right = portraitLayout ? right : Mathf.Max(right, root.worldBound.xMax - surface.worldBound.xMax + 16);
+            float surfaceHeight = surface.worldBound.height;
             hintCharacter.style.bottom = portraitLayout ? bottom + Mathf.Max(0, surfaceHeight - 24) : bottom;
             hintCharacter.style.width = portraitLayout ? 180 : 250;
             hintCharacter.style.height = portraitLayout ? 245 : Mathf.Min(360, height * .52f);
@@ -456,7 +514,7 @@ namespace Diceforge.UI.Dialogue
         }
         private void Restarted()
         {
-            generation++; StopAllCoroutines(); opening = null;
+            generation++; StopAllCoroutines(); opening = null; SetHelpVisible(false);
             if (story != null) story.style.display = DisplayStyle.None;
             activeScene = null; sequence = null; IsModal = false; ClearHint();
             learning.Restart(); previousHazard = battle.PresentationState.TrailHazardCell; sawBlocked = false;
@@ -496,6 +554,7 @@ namespace Diceforge.UI.Dialogue
         }
         private void OnDestroy()
         {
+            helpDismiss?.Dispose();
             if (battle == null) return;
             battle.OnHumanMoveApplied -= MoveApplied; battle.OnDemoStepSelected -= StepSelected;
             battle.OnDemoInputRejected -= InputRejected; battle.OnDemoBlockedPreview -= BlockedPreview; battle.OnDemoRestarted -= Restarted;

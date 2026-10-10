@@ -44,6 +44,7 @@ namespace Diceforge.View
         private bool _isVisible;
         private bool _lastRestartVisibleState = true;
         private MenuLocalization localization;
+        private WorldSelectionView worlds;
         private string _languagePreference;
         private string T(string source) => localization != null ? localization.T(source) : source;
 
@@ -148,6 +149,8 @@ namespace Diceforge.View
 
         private void OnDisable()
         {
+            worlds?.Dispose();
+            worlds = null;
             localization?.Dispose();
             localization = null;
             backdropDismiss?.Dispose();
@@ -256,6 +259,15 @@ namespace Diceforge.View
 
         private void ShowSimpleOutcome(PostBattleRewardOutcome outcome)
         {
+            if (outcome.Won && battleController?.DemoLevel?.levelId == "L6" && DemoWorldProgress.IsWoodlandComplete)
+            {
+                _overlayRoot.style.display = DisplayStyle.None;
+                document.sortingOrder = 30;
+                worlds ??= new WorldSelectionView(_root, ReplayWorld, LeaveWorlds);
+                worlds.Show();
+                _isVisible = true;
+                return;
+            }
             if (_resultLabel != null)
                 _resultLabel.text = T(battleController?.DemoLevel != null
                     ? outcome.Won ? "Trail complete" : "Let's try again"
@@ -266,6 +278,19 @@ namespace Diceforge.View
                 : outcome.Won ? "The battle is won." : "A new attempt awaits."));
             SetNavigationButtonsReady(true, outcome);
             _isVisible = true;
+        }
+
+        private void ReplayWorld()
+        {
+            MapFlowRuntime.ClearRunContext();
+            MapFlowRuntime.RequestReturnToMap();
+            Diceforge.Transitions.ScreenTransition.LoadScene("MainMenu");
+        }
+
+        private void LeaveWorlds()
+        {
+            MapFlowRuntime.ClearRunContext();
+            Diceforge.Transitions.ScreenTransition.LoadScene("MainMenu");
         }
 
         private void HideProgressionPresentation()
@@ -395,6 +420,7 @@ namespace Diceforge.View
         {
             StopPresentationRoutine();
             DioramaHud.SetResultVisible(false);
+            worlds?.Hide();
 
             if (_overlayRoot != null)
             {

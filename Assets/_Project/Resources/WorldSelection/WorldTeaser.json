@@ -1,0 +1,22 @@
+{
+  "lines": [
+    {
+      "id": "WORLD_TEASER_01",
+      "speakerId": "tish",
+      "ru": "Лума, смотри… В грибной долине зажёгся огонёк.",
+      "en": "Jo, look… A light just appeared in Mushroom Hollow."
+    },
+    {
+      "id": "WORLD_TEASER_02",
+      "speakerId": "luma",
+      "ru": "Странно. Корень говорил, что там давно никто не живёт.",
+      "en": "That’s strange. Koren said nobody had lived there for years."
+    },
+    {
+      "id": "WORLD_TEASER_03",
+      "speakerId": "bum",
+      "ru": "Тогда кто сейчас машет нам из окна?..",
+      "en": "Then who’s waving at us from that window?.."
+    }
+  ]
+}

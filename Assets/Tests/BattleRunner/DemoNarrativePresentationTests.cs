@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
@@ -23,6 +26,9 @@ namespace Diceforge.Tests.BattleTermination
         private object gameViewSizeGroup;
         private int originalSizeIndex;
         private readonly List<int> addedResolutionIndices = new();
+        private readonly List<InputDevice> temporarilyDisabledDevices = new();
+        private Mouse testMouse, originalMouse;
+        private Touchscreen testTouchscreen, originalTouchscreen;
         private static Type Transition => Type.GetType("Diceforge.Transitions.ScreenTransition, Diceforge.Transitions", true);
 
         [UnitySetUp]
@@ -75,6 +81,7 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTearDown]
         public IEnumerator TearDown()
         {
+            RestoreTestInput();
             if (gameView != null)
             {
                 Runtime.Call(gameView, "SizeSelectionCallback", originalSizeIndex, null);
@@ -101,19 +108,7 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTest]
         public IEnumerator StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible()
         {
-            Runtime.Static("Map.MapFlowRuntime", "RequestReturnToMap");
-            Transition.GetMethod("LoadScene").Invoke(null, new object[] { "MainMenu", null, null });
-            yield return Until(() => SceneManager.GetActiveScene().name == "MainMenu" && Find("Map.MapFlowOrchestrator") != null,
-                "The main menu did not load.");
-            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The menu transition did not finish.");
-            Component map = Find("Map.MapFlowOrchestrator");
-            Runtime.Call(map, "StartChapter", "Chapter1");
-            yield return Until(() => Find("MapController") != null && !(bool)Runtime.Get(Find("MapController"), "IsHeroTravelling"),
-                "Map travel did not finish.");
-            Runtime.Call(map, "OnNodeSelected", "C1_01");
-            yield return Until(() => SceneManager.GetActiveScene().name == "Battle" && Find("View.DioramaHud") != null &&
-                Find("View.BattleDebugController") != null, "The first campaign level did not launch.");
-            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The battle transition did not finish.");
+            yield return LaunchFirstTrail();
 
             Component battle = Find("View.BattleDebugController");
             yield return Until(() => Runtime.Get(battle, "DemoNarrative") != null &&
@@ -186,6 +181,58 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo("L01_T02"));
             yield return CapturePresentations(narrative, "L1-hint-Jo", dock.Q<Label>("hintSpeaker"), "Jo's advice", "Совет Лумы");
 
+            Runtime.Call(narrative, "OpenHelp");
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsHelpVisible"), "Help did not open.");
+            Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.False, "Help must block gameplay, including programmatic/keyboard input.");
+            int evidenceBeforeHelp = (int)Runtime.Get(narrative, "EvidenceCount");
+            Runtime.Call(battle, "MovePresentationHero", "tish");
+            yield return null;
+            Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.False);
+            Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(evidenceBeforeHelp));
+            Assert.That(root.Q("helpTopics").Query<Button>().ToList().Count, Is.GreaterThan(0));
+            Assert.That(root.Q<Button>("guidanceOn").resolvedStyle.display, Is.EqualTo(DisplayStyle.None));
+            yield return CapturePresentations(narrative, "L1-help", root.Q<Label>("helpHeading"), "On this trail", "На этой тропе");
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var topic = root.Q("helpTopics").Q<Button>();
+                submit.target = topic; topic.SendEvent(submit);
+            }
+            yield return Until(() => !(bool)Runtime.Get(narrative, "IsHelpVisible"), "Choosing a help topic must close the sheet.");
+            Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.True);
+            Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.Not.Null);
+            Runtime.Call(narrative, "OpenHelp");
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var hide = root.Q<Button>("hideGuidance"); submit.target = hide; hide.SendEvent(submit);
+            }
+            yield return Until(() => !(bool)Runtime.Get(narrative, "IsHelpVisible"), "Hiding guidance must also close help.");
+            Runtime.Call(narrative, "OpenHelp");
+            yield return null;
+            Assert.That(root.Q<Button>("guidanceOn").resolvedStyle.display, Is.EqualTo(DisplayStyle.Flex));
+            Assert.That(root.Q<Button>("hideGuidance").resolvedStyle.display, Is.EqualTo(DisplayStyle.None));
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var enable = root.Q<Button>("guidanceOn"); submit.target = enable; enable.SendEvent(submit);
+            }
+            yield return null;
+            Assert.That(root.Q<Button>("guidanceOn").resolvedStyle.display, Is.EqualTo(DisplayStyle.None));
+            Runtime.Call(narrative, "CloseHelp");
+
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var pause = hud.rootVisualElement.Q<Button>("pause"); submit.target = pause; pause.SendEvent(submit);
+            }
+            yield return Until(() => Time.timeScale == 0, "Pause must stop the gameplay clock.");
+            Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.False);
+            Runtime.Call(narrative, "OpenHelp");
+            Assert.That(Runtime.Get(narrative, "IsHelpVisible"), Is.False, "Help must not stack over Pause.");
+            yield return CapturePresentations(narrative, "L1-pause", hud.rootVisualElement.Q<Label>(className: "pause-title"), "Paused", "Пауза");
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var resume = hud.rootVisualElement.Q<Button>("resume"); submit.target = resume; resume.SendEvent(submit);
+            }
+            yield return Until(() => Time.timeScale == 1 && (bool)Runtime.Get(battle, "PresentationCanInteract"), "Resume must restore the gameplay clock and input.");
+
             // Complete the short trail so the real victory sequence exercises the same renderer.
             for (int move = 0; move < 8; move++)
             {
@@ -203,6 +250,207 @@ namespace Diceforge.Tests.BattleTermination
             AssertStory(narrative, root, 0, 1, "Jo", "The trail leads to the stream. Look at Fika's drawing.");
         }
 
+        [UnityTest]
+        public IEnumerator RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero()
+        {
+            int resolution = FindOrAddResolution(1280, 720);
+            Runtime.Call(gameView, "SizeSelectionCallback", resolution, null);
+            gameView.Focus(); gameView.Repaint();
+            yield return Until(() => Screen.width == 1280 && Screen.height == 720, "The camera test needs a real landscape Game View.");
+            yield return LaunchFirstTrail();
+            Component battle = Find("View.BattleDebugController");
+            yield return Until(() => Runtime.Get(battle, "DemoNarrative") != null &&
+                (bool)Runtime.Get(Runtime.Get(battle, "DemoNarrative"), "IsStoryVisible"), "The opening comic did not appear.");
+            object narrative = Runtime.Get(battle, "DemoNarrative");
+            Runtime.Call(narrative, "SkipStory");
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible") && Runtime.Get(narrative, "StoryId") == null,
+                "The level introduction did not appear.");
+            Runtime.Call(narrative, "SkipStory");
+            yield return Until(() => (bool)Runtime.Get(narrative, "Ready") && (bool)Runtime.Get(battle, "PresentationCanInteract"),
+                "The level did not become ready for real input.");
+            Component orbit = Find("View.DioramaCameraController");
+            Assert.That(orbit, Is.Not.Null);
+            yield return Until(() => (bool)Runtime.Get(orbit, "HasHomePose"), "The inspection camera did not receive its home pose.");
+            for (int settle = 0; settle < 4; settle++) yield return null;
+            PrepareTestInput();
+            yield return null;
+            Camera camera = Camera.main;
+            object runner = Runtime.Field(battle, "_runner");
+            int initialCell = HeroCell(battle, out Transform hero);
+            Vector3 initialPosition = hero.position;
+            int initialLogCount = (int)Runtime.Get(Runtime.Get(runner, "Log"), "Count");
+            int initialEvidence = (int)Runtime.Get(narrative, "EvidenceCount");
+            Vector2 start = HeroScreenPoint(camera, hero);
+            Assert.That((bool)Runtime.Static("View.DioramaHud", "IsOverInterface", start), Is.False);
+            QueueMouse(start, true);
+            yield return null;
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            Assert.That(Runtime.Get(orbit, "IsGestureActive"), Is.True, "Mouse press should be held for inspection or release tapping.");
+            Vector2 drag = start + new Vector2(170f, 32f);
+            QueueMouse(drag, true);
+            yield return Until(() => Quaternion.Angle(camera.transform.rotation, Quaternion.Euler(50f, 0f, 0f)) > 2f,
+                "The real mouse drag did not rotate the camera.");
+            for (int settle = 0; settle < 4; settle++) yield return null;
+            AssertTrailFitsVisibleViewport(((UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document")).rootVisualElement);
+            yield return CaptureStage7("camera-orbit-en-landscape");
+            QueueMouse(drag, false);
+            yield return null;
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            yield return WaitForCameraHome(orbit);
+
+            // The actual hover binding should show the newly authored dotted route.
+            QueueMouse(HeroScreenPoint(camera, hero), false);
+            yield return Until(() => Find("View.DioramaMovePreview") != null &&
+                (int)Runtime.Get(Find("View.DioramaMovePreview"), "DashCount") > 0 &&
+                ((Renderer)Runtime.Field(Find("View.DioramaMovePreview"), "routeRenderer")).enabled,
+                "Hovering the hero did not display the dotted movement preview.");
+            yield return CaptureStage7("dotted-route-en-landscape");
+
+            Component board = Find("View.DioramaBoard");
+            Vector2 center = camera.WorldToScreenPoint((Vector3)Runtime.Call(board, "CellPosition", 3));
+            Vector2 fingerA = center + Vector2.left * 45f, fingerB = center + Vector2.right * 45f;
+            Assert.That((bool)Runtime.Static("View.DioramaHud", "IsOverInterface", fingerA), Is.False);
+            Assert.That((bool)Runtime.Static("View.DioramaHud", "IsOverInterface", fingerB), Is.False);
+            QueueTouch(41, TouchPhase.Began, fingerA); QueueTouch(42, TouchPhase.Began, fingerB);
+            yield return null;
+            QueueTouch(41, TouchPhase.Moved, center + Vector2.left * 90f);
+            QueueTouch(42, TouchPhase.Moved, center + Vector2.right * 90f);
+            yield return Until(() => (float)Runtime.Field(orbit, "currentZoom") > 1.05f,
+                "The real pinch did not request inspection zoom.");
+            Assert.That((float)Runtime.Get(orbit, "EffectiveZoom"), Is.LessThanOrEqualTo(1.18f));
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            QueueTouch(41, TouchPhase.Ended, center + Vector2.left * 90f);
+            QueueTouch(42, TouchPhase.Ended, center + Vector2.right * 90f);
+            yield return null;
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            Assert.That(Runtime.Get(orbit, "IsGestureActive"), Is.False);
+            yield return WaitForCameraHome(orbit);
+
+            Runtime.Call(narrative, "OpenHelp");
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsHelpVisible"), "Help did not open.");
+            yield return null;
+            Quaternion helpRotation = camera.transform.rotation;
+            Vector3 helpPosition = camera.transform.position;
+            Vector2 helpPoint = new Vector2(20f, Screen.height * .52f);
+            QueueMouse(helpPoint, true); yield return null;
+            QueueMouse(helpPoint + Vector2.right * 120f, true);
+            for (int settle = 0; settle < 5; settle++) yield return null;
+            Assert.That(Runtime.Get(orbit, "IsGestureActive"), Is.False, "Help must block camera gestures.");
+            Assert.That(Quaternion.Angle(camera.transform.rotation, helpRotation), Is.LessThan(.01f), "Help must freeze idle camera sway.");
+            Assert.That(Vector3.Distance(camera.transform.position, helpPosition), Is.LessThan(.005f));
+            QueueMouse(helpPoint + Vector2.right * 120f, false); yield return null;
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            var narrativeRoot = ((UIDocument)Runtime.Field(narrative, "document")).rootVisualElement;
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                submit.target = narrativeRoot.Q<Button>("helpClose");
+                narrativeRoot.Q<Button>("helpClose").SendEvent(submit);
+            }
+            yield return Until(() => !(bool)Runtime.Get(narrative, "IsHelpVisible"), "Help did not close.");
+            for (int settle = 0; settle < 3; settle++) yield return null;
+            yield return Until(() => Time.unscaledTime - (float)Runtime.Field(orbit, "lastTouchTime") > .2f,
+                "The post-touch mouse arbitration window did not expire.");
+
+            // The same hero remains playable: down never moves, then release applies exactly one step.
+            start = HeroScreenPoint(camera, hero);
+            QueueMouse(start, false); yield return null;
+            QueueMouse(start, true); yield return null;
+            AssertNoGestureMove(battle, narrative, runner, hero, initialCell, initialPosition, initialLogCount, initialEvidence);
+            QueueMouse(start, false); yield return null;
+            yield return Until(() => !(bool)Runtime.Get(battle, "PresentationIsAnimating") &&
+                (int)Runtime.Get(narrative, "EvidenceCount") == initialEvidence + 1, "The release tap did not apply one real move.");
+            Assert.That(HeroCell(battle, out _), Is.EqualTo(initialCell + 1));
+            Assert.That(Runtime.Get(Runtime.Get(runner, "Log"), "Count"), Is.EqualTo(initialLogCount + 1));
+            Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(initialEvidence + 1));
+        }
+
+        private IEnumerator LaunchFirstTrail()
+        {
+            Runtime.Static("Map.MapFlowRuntime", "RequestReturnToMap");
+            Transition.GetMethod("LoadScene").Invoke(null, new object[] { "MainMenu", null, null });
+            yield return Until(() => SceneManager.GetActiveScene().name == "MainMenu" && Find("Map.MapFlowOrchestrator") != null,
+                "The main menu did not load.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The menu transition did not finish.");
+            Component map = Find("Map.MapFlowOrchestrator");
+            Runtime.Call(map, "StartChapter", "Chapter1");
+            yield return Until(() => Find("MapController") != null && !(bool)Runtime.Get(Find("MapController"), "IsHeroTravelling"),
+                "Map travel did not finish.");
+            Runtime.Call(map, "OnNodeSelected", "C1_01");
+            yield return Until(() => SceneManager.GetActiveScene().name == "Battle" && Find("View.DioramaHud") != null &&
+                Find("View.BattleDebugController") != null, "The first campaign level did not launch.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The battle transition did not finish.");
+        }
+
+        private void PrepareTestInput()
+        {
+            originalMouse = Mouse.current; originalTouchscreen = Touchscreen.current;
+            foreach (InputDevice device in InputSystem.devices.ToArray())
+            {
+                if (!(device is Mouse || device is Touchscreen) || !device.enabled) continue;
+                temporarilyDisabledDevices.Add(device);
+                InputSystem.DisableDevice(device);
+            }
+            testMouse = InputSystem.AddDevice<Mouse>("DemoInspectionTestMouse");
+            testTouchscreen = InputSystem.AddDevice<Touchscreen>("DemoInspectionTestTouchscreen");
+            testMouse.MakeCurrent(); testTouchscreen.MakeCurrent();
+        }
+
+        private void RestoreTestInput()
+        {
+            if (testMouse?.added == true) InputSystem.RemoveDevice(testMouse);
+            if (testTouchscreen?.added == true) InputSystem.RemoveDevice(testTouchscreen);
+            testMouse = null; testTouchscreen = null;
+            foreach (InputDevice device in temporarilyDisabledDevices) if (device.added) InputSystem.EnableDevice(device);
+            temporarilyDisabledDevices.Clear();
+            if (originalMouse?.added == true) originalMouse.MakeCurrent();
+            if (originalTouchscreen?.added == true) originalTouchscreen.MakeCurrent();
+            originalMouse = null; originalTouchscreen = null;
+        }
+
+        private void QueueMouse(Vector2 position, bool pressed) => InputSystem.QueueStateEvent(testMouse,
+            new MouseState { position = position }.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left, pressed));
+
+        private void QueueTouch(int id, TouchPhase phase, Vector2 position) => InputSystem.QueueStateEvent(testTouchscreen,
+            new TouchState { touchId = id, phase = phase, position = position });
+
+        private static int HeroCell(Component battle, out Transform hero)
+        {
+            object[] arguments = { "tish", -1, null, false };
+            Assert.That((bool)battle.GetType().GetMethod("TryGetHero").Invoke(battle, arguments), Is.True);
+            hero = GameObject.Find((string)arguments[2])?.transform;
+            Assert.That(hero, Is.Not.Null, "Tish's real presentation is missing.");
+            return (int)arguments[1];
+        }
+
+        private static Vector2 HeroScreenPoint(Camera camera, Transform hero) => camera.WorldToScreenPoint(hero.position + Vector3.up * .45f);
+
+        private static void AssertNoGestureMove(Component battle, object narrative, object runner, Transform hero,
+            int cell, Vector3 position, int logCount, int evidence)
+        {
+            Assert.That(HeroCell(battle, out _), Is.EqualTo(cell), "An inspection gesture moved the logical hero.");
+            Assert.That(Vector3.Distance(hero.position, position), Is.LessThan(.001f), "An inspection gesture started hero movement.");
+            Assert.That(Runtime.Get(Runtime.Get(runner, "Log"), "Count"), Is.EqualTo(logCount), "An inspection gesture applied a move.");
+            Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(evidence), "An inspection gesture created learning evidence.");
+        }
+
+        private static IEnumerator WaitForCameraHome(Component orbit) => Until(() =>
+            Mathf.Abs((float)Runtime.Field(orbit, "currentYaw")) < .001f &&
+            Mathf.Abs((float)Runtime.Field(orbit, "currentPitch")) < .001f &&
+            Mathf.Abs((float)Runtime.Field(orbit, "currentZoom") - 1f) < .00001f, "The inspection camera did not return home.");
+
+        private static IEnumerator CaptureStage7(string name)
+        {
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoPresentationCaptureDirectory", "docs/Validation/DemoRCStage7"));
+            Directory.CreateDirectory(directory);
+            string path = Path.Combine(directory, name + ".png");
+            if (File.Exists(path)) File.Delete(path);
+            ScreenCapture.CaptureScreenshot(path);
+            yield return Until(() => File.Exists(path) && new FileInfo(path).Length > 24, "The inspection screenshot was not written.");
+            byte[] bytes = File.ReadAllBytes(path);
+            Assert.That(PngDimension(bytes, 16), Is.EqualTo(Screen.width));
+            Assert.That(PngDimension(bytes, 20), Is.EqualTo(Screen.height));
+        }
+
         private static IEnumerator ChangeStoryLanguage(object narrative, VisualElement root, string language,
             int frame, int line, string speaker, string text)
         {
@@ -217,7 +465,7 @@ namespace Diceforge.Tests.BattleTermination
             int frame = (int)Runtime.Get(narrative, "StoryFrame"), line = (int)Runtime.Field(narrative, "line");
             string hint = (string)Runtime.Get(narrative, "PendingHintId");
             string storyId = (string)Runtime.Get(narrative, "StoryId");
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage6");
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoPresentationCaptureDirectory", "docs/Validation/DemoRCStage7"));
             Directory.CreateDirectory(directory);
             foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280) })
             {
@@ -231,12 +479,28 @@ namespace Diceforge.Tests.BattleTermination
                     PlayerPrefs.SetString("ui.language", language);
                     yield return Until(() => visibleSpeaker.text == (language == "ru" ? russianSpeaker : englishSpeaker),
                         "The captured presentation did not refresh its language.");
-                    for (int settle = 0; settle < 4; settle++) yield return null;
+                    int settledFrame = Time.frameCount + 4;
+                    yield return Until(() => Time.frameCount >= settledFrame, "The player loop must settle the resized UI and camera fit.");
                     var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
                     AssertHudLanguage(hud.rootVisualElement, language == "ru");
+                    Assert.That(hud.rootVisualElement.Q<Label>("stepCaption").text, Is.EqualTo(language == "ru" ? "1 · Шаг" : "1 · Step"));
+                    Assert.That(hud.rootVisualElement.Q<Label>("friendCaption").text, Is.EqualTo(language == "ru" ? "2 · Друг" : "2 · Friend"));
+                    if (visibleSpeaker.name == "helpHeading")
+                    {
+                        var card = ((VisualElement)Runtime.Field(narrative, "root")).Q("helpCard");
+                        Assert.That(card.worldBound.xMin, Is.GreaterThanOrEqualTo(0));
+                        Assert.That(card.worldBound.yMin, Is.GreaterThanOrEqualTo(0));
+                        Assert.That(card.worldBound.xMax, Is.LessThanOrEqualTo(hud.rootVisualElement.worldBound.xMax));
+                        Assert.That(card.worldBound.yMax, Is.LessThanOrEqualTo(hud.rootVisualElement.worldBound.yMax));
+                        AssertInteractable(card.Q<Button>("helpClose"));
+                        foreach (var topic in card.Q("helpTopics").Query<Button>().ToList())
+                            Assert.That(topic.text.Length, Is.LessThan(50), "Help topics must use concise headings in both languages.");
+                    }
                     if (visibleSpeaker.name == "hintSpeaker")
                     {
                         AssertHintStyles(hud.rootVisualElement.Q("demoDialogueDock"));
+                        ScreenCapture.CaptureScreenshot(Path.Combine(directory, "layout-check-" + language + "-" + resolution.x + ".png"));
+                        yield return null;
                         AssertTrailFitsVisibleViewport(hud.rootVisualElement);
                     }
                     Assert.That(Runtime.Get(narrative, "StoryFrame"), Is.EqualTo(frame), "Changing orientation must retain the frame.");
@@ -291,6 +555,7 @@ namespace Diceforge.Tests.BattleTermination
             VisualElement header = hud.Q(className: "hud-header");
             VisualElement actions = hud.Q("demoActionSurface");
             Assert.That(camera, Is.Not.Null, "The diorama camera is missing.");
+            Assert.That(camera.orthographic, Is.True, "The art showcase must not replace gameplay projection on resize.");
             Assert.That(board, Is.Not.Null, "The logical trail presentation is missing.");
             Assert.That(header, Is.Not.Null);
             Assert.That(actions, Is.Not.Null);

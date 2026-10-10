@@ -39,6 +39,7 @@ public class MainMenuController : MonoBehaviour
     private bool feedbackSending;
     private TextField feedbackNameField;
     private PlayerFeedbackWindow campaignRating;
+    private Diceforge.View.WorldSelectionView worlds;
     private string T(string source) => localization?.T(source) ?? source;
     private readonly List<IDisposable> modalBindings = new();
     private readonly Dictionary<VisualElement, IVisualElementScheduledItem> panelHideJobs = new();
@@ -262,6 +263,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        worlds?.Dispose();
         SpacetimeDbLocalDevRuntime.RemoveFeedbackCompletion(HandleFeedbackCompleted);
         campaignRating?.Dispose();
         campaignRating = null;
@@ -950,6 +952,16 @@ public class MainMenuController : MonoBehaviour
     {
         ShowPanelImmediately("MenuPanel");
         audioManager?.EnsureMusicForContext(MusicContext.Map);
+        if (Diceforge.View.DemoWorldProgress.IsWoodlandComplete)
+        {
+            Diceforge.Map.MapFlowRuntime.ClearRunContext();
+            GetComponent<MapController>()?.Hide();
+            worlds ??= new Diceforge.View.WorldSelectionView(root,
+                () => { worlds.Hide(); OpenMapChapterImmediately(); },
+                () => { worlds.Hide(); audioManager?.EnsureMusicForContext(MusicContext.Menu); });
+            worlds.Show();
+            return;
+        }
         mapFlowOrchestrator?.StartChapter(defaultChapterId);
         campaignRating ??= new PlayerFeedbackWindow(root);
         root.schedule.Execute(() =>

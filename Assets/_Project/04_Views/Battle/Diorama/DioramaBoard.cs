@@ -36,24 +36,27 @@ namespace Diceforge.View
         private Rect? demoGameplayViewport;
         private GameObject trailExit;
         private TextMesh blockedSign;
+        private DioramaMovePreview demoPreview;
+        private DioramaCameraController orbitCamera;
+        private readonly List<Vector3> cameraPlayablePoints = new(36);
         public void ConfigureTrail(bool enabled)
         {
             trailMode = enabled;
-            if (enabled && trailExit == null && cells != null && cells.Length > 0)
-            {
-                trailExit = Instantiate(cells[0].highlight.gameObject, transform);
-                trailExit.name = "TrailExit";
-                trailExit.transform.localScale *= 1.2f;
-                trailExit.SetActive(true);
-                trailExit.GetComponent<Renderer>().enabled = true;
-            }
-            if (trailExit != null) trailExit.SetActive(enabled);
+            if (enabled) EnsureTrailPresentation();
+            if (orbitCamera != null) orbitCamera.enabled = enabled;
+            if (!enabled && demoPreview != null) { demoPreview.Hide(); demoPreview.SetAvailableCells(cells, null); }
+            if (trailExit != null) trailExit.SetActive(false);
             FitCamera();
             RefreshTrailExit();
         }
         private void RefreshTrailExit()
         {
-            if (trailExit != null) trailExit.transform.position = ExitPosition(0) + Vector3.up * .04f;
+            if (demoPreview != null) demoPreview.SetExitMarker(ExitPosition(0), trailMode);
+        }
+        private void EnsureTrailPresentation()
+        {
+            if (demoPreview == null) demoPreview = gameObject.AddComponent<DioramaMovePreview>();
+            if (orbitCamera == null) orbitCamera = gameObject.AddComponent<DioramaCameraController>();
         }
         public void Initialize()
         {
@@ -112,15 +115,57 @@ namespace Diceforge.View
         {
             if (cameraView == null) return;
             Bounds bounds = WorldBounds;
+            if (trailMode)
+            {
+                bounds = new Bounds(CellPosition(layout.cellIds[0]), Vector3.zero);
+                for (int i = 0; i < layout.cellIds.Length; i++) IncludeTrailCameraBounds(ref bounds, CellPosition(layout.cellIds[i]));
+                IncludeTrailCameraBounds(ref bounds, ExitPosition(0));
+            }
             float halfWidth = bounds.extents.x + .4f;
-            float halfHeight = bounds.extents.z * Mathf.Sin(50*Mathf.Deg2Rad) + .60f;
+            float halfHeight = bounds.extents.z * Mathf.Sin(50*Mathf.Deg2Rad)
+                + (trailMode ? bounds.extents.y * Mathf.Cos(50*Mathf.Deg2Rad) + .2f : .60f);
             Rect viewport = trailMode && demoGameplayViewport.HasValue ? demoGameplayViewport.Value : new Rect(0, 0, 1, 1);
             float freeHeight = trailMode && demoGameplayViewport.HasValue ? viewport.height : IsPortrait ? .69f : .74f;
-            cameraView.orthographicSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect * viewport.width)) * 1.04f;
+            float homeSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect * viewport.width)) * 1.04f;
             float verticalOffset = trailMode && demoGameplayViewport.HasValue ? 1 - viewport.center.y * 2 : -.09f;
-            Vector3 target = bounds.center + cameraView.transform.up * (cameraView.orthographicSize * verticalOffset);
-            cameraView.transform.position = target - cameraView.transform.forward*25;
+            Quaternion rotation = trailMode ? Quaternion.Euler(50, 0, 0) : cameraView.transform.rotation;
+            Vector3 target = bounds.center + rotation * Vector3.up * (homeSize * verticalOffset);
+            Vector3 position = target - rotation * Vector3.forward * 25;
+            if (trailMode)
+            {
+                EnsureTrailPresentation();
+                cameraPlayablePoints.Clear();
+                for (int i = 0; i < layout.cellIds.Length; i++) AddCameraTileBounds(CellPosition(layout.cellIds[i]));
+                AddCameraTileBounds(ExitPosition(0));
+                orbitCamera.SetGameplayViewport(viewport, cameraPlayablePoints);
+                orbitCamera.SetHomePose(cameraView, bounds.center, position, rotation, homeSize);
+            }
+            else
+            {
+                cameraView.orthographicSize = homeSize;
+                cameraView.transform.SetPositionAndRotation(position, rotation);
+            }
         }
+        private static void IncludeTrailCameraBounds(ref Bounds bounds, Vector3 center)
+        {
+            bounds.Encapsulate(center + new Vector3(-.5f, 0f, -.5f));
+            bounds.Encapsulate(center + new Vector3(.5f, 1.1f, .5f));
+        }
+        private void AddCameraTileBounds(Vector3 center)
+        {
+            const float edge = .43f;
+            cameraPlayablePoints.Add(center + new Vector3(-edge, 0, -edge));
+            cameraPlayablePoints.Add(center + new Vector3(edge, 0, -edge));
+            cameraPlayablePoints.Add(center + new Vector3(edge, 0, edge));
+            cameraPlayablePoints.Add(center + new Vector3(-edge, 0, edge));
+        }
+        private void LateUpdate()
+        {
+            if (!trailMode || cameraView == null) return;
+            foreach (var badge in badges.Values)
+                if (badge != null && badge.gameObject.activeSelf) badge.transform.rotation = cameraView.transform.rotation;
+        }
+
         public Vector3 CellPosition(int id)
         {
             var positions = IsPortrait ? layout.portrait : layout.landscape;
@@ -149,6 +194,7 @@ namespace Diceforge.View
         public void Highlight(IReadOnlyCollection<int> ids)
         {
             if(cells==null)return;
+            if (trailMode) { EnsureTrailPresentation(); demoPreview.SetAvailableCells(cells, ids); return; }
             foreach(var c in cells) { bool on=false; if(ids!=null)foreach(int id in ids)if(id==c.cellId){on=true;break;} c.Highlight(on); }
         }
         public void Preview(Move? move,GameState state,int cell)
@@ -156,7 +202,7 @@ namespace Diceforge.View
             if (blockedSign != null) blockedSign.gameObject.SetActive(false);
             if(!move.HasValue || state==null)
             {
-                if(preview!=null)preview.enabled=false;if(landingRim!=null)landingRim.SetActive(false);return;
+                if(preview!=null)preview.enabled=false;if(landingRim!=null)landingRim.SetActive(false);demoPreview?.Hide();return;
             }
             var value=move.Value;
             var path=BoardPathRules.GetPathInfo(state.Rules,state.CurrentPlayer);
@@ -173,10 +219,17 @@ namespace Diceforge.View
                 for(int i=0;i<=steps;i++)
                 {
                     destination=(value.FromCell+path.MoveDir*i+layout.cellIds.Length*2)%layout.cellIds.Length;
-                    points.Add(CellPosition(destination) + (trailMode && steps > 1 && !ReducedMotion
-                        ? Vector3.up * (Mathf.Sin(i / (float)steps * Mathf.PI) * .75f) : Vector3.zero));
+                    points.Add(CellPosition(destination) + (trailMode && steps > 1
+                        ? Vector3.up * (Mathf.Sin(i / (float)steps * Mathf.PI) * .4f) : Vector3.zero));
                 }
                 if(value.Kind==MoveKind.BearOff)points.Add(ExitPosition((int)state.CurrentPlayer));
+            }
+            if (trailMode)
+            {
+                EnsureTrailPresentation();
+                Vector3 landing = value.Kind == MoveKind.BearOff ? ExitPosition((int)state.CurrentPlayer) : CellPosition(destination);
+                demoPreview.Show(points, landing);
+                return;
             }
             if(preview==null)
             {
@@ -211,6 +264,11 @@ namespace Diceforge.View
         public void PreviewBlocked(int from, int step, GameState state)
         {
             Preview(Move.MoveStone(from, step), state, from + step);
+            if (trailMode)
+            {
+                demoPreview.Show(previewPoints, CellPosition(from + step), true);
+                return;
+            }
             if (preview != null) preview.startColor = preview.endColor = new Color(1, .48f, .32f);
             if (blockedSign == null)
             {

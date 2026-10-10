@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "duration": 0.44,
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash",
+      "Status": "Passed",
+      "Duration": 5.2299214,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

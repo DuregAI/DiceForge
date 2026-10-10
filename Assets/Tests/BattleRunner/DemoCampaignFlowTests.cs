@@ -24,12 +24,19 @@ namespace Diceforge.Tests.BattleTermination
         private bool hadLanguage;
         private UnityEngine.Random.State randomState;
         private readonly List<string> storyOrder = new();
+        private int savedCaptureRate;
+        private UnityEditor.EditorWindow gameView;
+        private object gameViewSizeGroup;
+        private int originalSizeIndex;
+        private readonly List<int> addedResolutionIndices = new();
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
             yield return new EnterPlayMode();
             yield return null;
+            savedCaptureRate = Time.captureFramerate;
+            if (UnityEditor.SessionState.GetBool("DemoHopCaptureFrames", false)) Time.captureFramerate = 30;
             foreach (UnityEngine.Object client in UnityEngine.Object.FindObjectsByType(
                 Runtime.Type("Integrations.SpacetimeDb.SpacetimeDbLocalDevRuntime"), FindObjectsSortMode.None))
                 UnityEngine.Object.DestroyImmediate(((Component)client).gameObject);
@@ -68,6 +75,14 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTearDown]
         public IEnumerator TearDown()
         {
+            if (gameView != null)
+            {
+                Runtime.Call(gameView, "SizeSelectionCallback", originalSizeIndex, null);
+                foreach (int index in addedResolutionIndices.OrderByDescending(i => i))
+                    Runtime.Call(gameViewSizeGroup, "RemoveCustomSize", index);
+                gameView.Repaint();
+                yield return null;
+            }
             foreach (var pair in savedProfileFields) pair.Key.SetValue(null, pair.Value);
             savedProfileFields.Clear();
             Runtime.Static("Progression.ProfileService", "RebuildCache");
@@ -75,6 +90,7 @@ namespace Diceforge.Tests.BattleTermination
             if (hadLanguage) PlayerPrefs.SetString("ui.language", originalLanguage);
             else PlayerPrefs.DeleteKey("ui.language");
             UnityEngine.Random.state = randomState;
+            Time.captureFramerate = savedCaptureRate;
             foreach (UnityEngine.Object client in UnityEngine.Object.FindObjectsByType(
                 Runtime.Type("Integrations.SpacetimeDb.SpacetimeDbLocalDevRuntime"), FindObjectsSortMode.None))
                 UnityEngine.Object.DestroyImmediate(((Component)client).gameObject);
@@ -102,12 +118,22 @@ namespace Diceforge.Tests.BattleTermination
                 (int)Runtime.Call(Runtime.Get(battle, "PresentationState"), "GetStonesAt", Runtime.Player(1), 4) > 0;
             var dice = ((IEnumerable)Runtime.Get(battle, "PresentationDice")).Cast<int>().ToArray();
             Runtime.Call(battle, "SelectPresentationDie", Array.IndexOf(dice, step));
+            string frames = Path.Combine(UnityEditor.SessionState.GetString("DemoCampaignCaptureDirectory", "docs/Validation/DemoRCStage7/Campaign"), "HopFrames");
+            bool captureHop = UnityEditor.SessionState.GetBool("DemoHopCaptureFrames", false) && !Directory.Exists(frames);
+            int frame = 0;
+            if (captureHop)
+            {
+                Directory.CreateDirectory(frames);
+                ScreenCapture.CaptureScreenshot(Path.Combine(frames, "frame-" + frame++.ToString("D3") + ".png"));
+                yield return null;
+            }
             Runtime.Call(battle, "MovePresentationHero", hero);
             Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.EqualTo(true));
             float deadline = Time.realtimeSinceStartup + 15;
             while ((bool)Runtime.Get(battle, "PresentationIsAnimating") && Time.realtimeSinceStartup < deadline)
             {
                 if (jumpOverBark) Assert.That(Runtime.Get(mover, "CurrentCellId"), Is.Not.EqualTo(4), "A jump must not land on the occupied intermediate cell.");
+                if (captureHop) ScreenCapture.CaptureScreenshot(Path.Combine(frames, "frame-" + frame++.ToString("D3") + ".png"));
                 yield return null;
             }
             Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.EqualTo(false));
@@ -146,6 +172,26 @@ namespace Diceforge.Tests.BattleTermination
                 int results = 0;
                 Runtime.Observe(battle, "OnMatchEnded", _ => results++);
 
+                if (UnityEditor.SessionState.GetBool("DemoInterfaceCaptureLayouts", false))
+                {
+                    foreach (string locale in new[] { "en", "ru" })
+                    {
+                        PlayerPrefs.SetString("ui.language", locale);
+                        int settledFrame = Time.frameCount + 4;
+                        yield return Until(() => Time.frameCount >= settledFrame, "HUD locale and geometry did not settle.");
+                        Assert.That(hud.rootVisualElement.Q<Label>("friendCaption").text, Is.EqualTo(locale == "ru" ? "2 · Друг" : "2 · Friend"));
+                        var surface = hud.rootVisualElement.Q("demoActionSurface");
+                        foreach (var button in hud.rootVisualElement.Q("demoHeroes").Query<Button>().ToList()
+                            .Concat(hud.rootVisualElement.Q("moves").Query<Button>().ToList()))
+                        {
+                            Assert.That(button.worldBound.height, Is.GreaterThanOrEqualTo(44f));
+                            Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(surface.worldBound.xMin));
+                            Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(surface.worldBound.xMax));
+                            Assert.That(button.worldBound.yMax, Is.LessThanOrEqualTo(surface.worldBound.yMax));
+                        }
+                        yield return Capture("level-0" + level + "-" + locale + "-hud");
+                    }
+                }
                 if (level >= 4)
                 {
                     yield return Capture("level-0" + level + "-start");
@@ -176,8 +222,16 @@ namespace Diceforge.Tests.BattleTermination
                             CollectionAssert.AreEqual(new[] { 1, 2 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
                             object board = Find("View.DioramaBoard");
                             Runtime.Set(Find("View.BoardDebugView"), "_cellSelectionEnabled", false);
-                            Runtime.Call(board, "PreviewBlocked", 2, 2, Runtime.Get(battle, "PresentationState"));
+                            int blockedPreviews = 0;
+                            Runtime.Observe(battle, "OnDemoBlockedPreview", _ => blockedPreviews++);
+                            Runtime.Call(battle, "PreviewPresentationCell", board, 1, null);
+                            for (int preview = 0; preview < 5; preview++)
+                                Runtime.Call(battle, "PreviewPresentationCell", board, 2, "tish");
+                            Assert.That(blockedPreviews, Is.EqualTo(1), "A persistent blocked preview must notify learning once per selection.");
                             yield return Capture("level-04-blocked-landing");
+                            Component previewView = Find("View.DioramaMovePreview");
+                            Assert.That(Runtime.Get(previewView, "IsVisible"), Is.True);
+                            Assert.That(Runtime.Get(previewView, "IsBlocked"), Is.True);
                             Runtime.Call(board, "Preview", null, null, -1);
                             Runtime.Call(battle, "RefreshPresentation");
                         }
@@ -224,7 +278,202 @@ namespace Diceforge.Tests.BattleTermination
             CollectionAssert.AreEqual(new[] { "S00", "S01", "S02", "S03", "S04", "S05", "S06" }, storyOrder);
             Assert.That(((IList)Runtime.Field(Profile, "demoLearning")).Count, Is.EqualTo(6));
             Assert.That(((IList)Runtime.Field(Profile, "demoStorySeen")).Count, Is.EqualTo(7));
+            yield return VerifyWorldSelectionAndReplay();
         }
+
+        private IEnumerator VerifyWorldSelectionAndReplay()
+        {
+            Component result = Find("View.ResultOverlayView");
+            var document = (UIDocument)Runtime.Field(result, "document");
+            var worlds = document.rootVisualElement.Q("worldSelectionRoot");
+            Assert.That(worlds, Is.Not.Null, "L6 victory must reveal the world selector.");
+            Assert.That(worlds.ClassListContains("world-hidden"), Is.False);
+            Assert.That(worlds.Q<Button>("worldIslandAction1"), Is.Not.Null);
+            Assert.That(worlds.Q<Button>("worldIslandAction2"), Is.Not.Null);
+            gameView = UnityEditor.EditorWindow.GetWindow(EditorType("UnityEditor.GameView"));
+            originalSizeIndex = (int)Runtime.Get(gameView, "selectedSizeIndex");
+            Type sizesType = EditorType("UnityEditor.GameViewSizes");
+            object sizes = sizesType.GetProperty("instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetValue(null);
+            gameViewSizeGroup = Runtime.Get(sizes, "currentGroup");
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoWorldCaptureDirectory", "docs/Validation/DemoRCStage10Worlds"));
+            Directory.CreateDirectory(directory);
+            foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280) })
+            {
+                Runtime.Call(gameView, "SizeSelectionCallback", FindOrAddResolution(resolution.x, resolution.y), null);
+                gameView.Focus(); gameView.Repaint();
+                yield return Until(() => Screen.width == resolution.x && Screen.height == resolution.y, "World selector did not resize.");
+                foreach (string locale in new[] { "en", "ru" })
+                {
+                    PlayerPrefs.SetString("ui.language", locale);
+                    yield return Until(() => worlds.Q<Label>("mushroomSoon").text == (locale == "ru" ? "Скоро" : "Coming soon"), "World captions did not localize.");
+                    int targetFrame = Time.frameCount + 5;
+                    yield return Until(() => Time.frameCount >= targetFrame, "World layout did not settle.");
+                    Assert.That(worlds.Q<Label>("frostySoon").text, Is.EqualTo(locale == "ru" ? "Скоро" : "Coming soon"));
+                    foreach (string name in new[] { "worldHome", "worldReplay", "worldWebsite", "worldReview", "worldIslandAction0", "worldIslandAction1", "worldIslandAction2" })
+                    {
+                        var button = worlds.Q<Button>(name);
+                        Assert.That(button.worldBound.height, Is.GreaterThanOrEqualTo(44));
+                        Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(worlds.worldBound.xMin));
+                        Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(worlds.worldBound.xMax));
+                        var picked = button.panel.Pick(button.worldBound.center);
+                        Assert.That(picked == button || button.Contains(picked), Is.True, name + " must be reachable without an overlapping panel.");
+                    }
+                    string path = Path.Combine(directory, "worlds-" + locale + "-" + resolution.x + ".png");
+                    ScreenCapture.CaptureScreenshot(path);
+                    int capturedFrame = Time.frameCount + 2;
+                    yield return Until(() => Time.frameCount >= capturedFrame && File.Exists(path), "World screenshot was not written.");
+                    byte[] image = File.ReadAllBytes(path);
+                    Assert.That(PngDimension(image, 16), Is.EqualTo(resolution.x));
+                    Assert.That(PngDimension(image, 20), Is.EqualTo(resolution.y));
+                    if (locale == "ru" && resolution.x == 1280)
+                    {
+                        var view = Runtime.Field(result, "worlds");
+                        var atmosphere = Runtime.Field(view, "atmosphere");
+                        int framesBefore = (int)Runtime.Get(atmosphere, "AnimationFrames");
+                        var positionBefore = worlds.Q<Image>("worldIsland0").style.translate.value;
+                        yield return new WaitForSecondsRealtime(.4f);
+                        Assert.That((int)Runtime.Get(atmosphere, "AnimationFrames"), Is.GreaterThan(framesBefore));
+                        Assert.That(worlds.Q<Image>("worldIsland0").style.translate.value, Is.Not.EqualTo(positionBefore), "Visible islands must move.");
+                        for (int world = 0; world < 3; world++) Assert.That(worlds.Q("worldWeather" + world), Is.Not.Null);
+                        if (UnityEditor.SessionState.GetBool("DemoWorldMotionCapture", false))
+                        {
+                            var motionDirectory = Path.Combine(directory, "Motion");
+                            Directory.CreateDirectory(motionDirectory);
+                            for (int frame = 0; frame < 24; frame++)
+                            {
+                                ScreenCapture.CaptureScreenshot(Path.Combine(motionDirectory, "frame-" + frame.ToString("000") + ".png"));
+                                yield return new WaitForSecondsRealtime(.1f);
+                            }
+                        }
+                    }
+                    if (resolution.y > resolution.x)
+                    {
+                        var scroll = worlds.Q<ScrollView>("worldScroll");
+                        scroll.ScrollTo(worlds.Q("frostyName"));
+                        int scrolledFrame = Time.frameCount + 3;
+                        yield return Until(() => Time.frameCount >= scrolledFrame, "World scroll did not settle.");
+                        Assert.That(worlds.Q("frostyName").worldBound.yMax, Is.LessThanOrEqualTo(scroll.worldBound.yMax + 2), "The last island must be reachable in portrait.");
+                        ScreenCapture.CaptureScreenshot(Path.Combine(directory, "worlds-" + locale + "-portrait-scrolled.png"));
+                        int captureScrollFrame = Time.frameCount + 2;
+                        yield return Until(() => Time.frameCount >= captureScrollFrame, "Scrolled screenshot did not finish.");
+                        scroll.scrollOffset = Vector2.zero;
+                    }
+                }
+            }
+            object worldView = Runtime.Field(result, "worlds");
+            string openedUrl = null;
+            Runtime.Set(worldView, "OpenExternalUrl", new Action<string>(url => openedUrl = url));
+            Click(worlds.Q<Button>("worldWebsite"));
+            Assert.That(openedUrl, Is.EqualTo("https://glimblehop.com/"));
+            string beforeReview = JsonUtility.ToJson(Profile);
+            Click(worlds.Q<Button>("worldReview"));
+            yield return null;
+            Assert.That(worlds.Q("FeedbackModal").resolvedStyle.display, Is.EqualTo(DisplayStyle.Flex));
+            Assert.That(worlds.Q<Button>("rating5"), Is.Not.Null);
+            int reviewFrame = Time.frameCount + 3;
+            yield return Until(() => Time.frameCount >= reviewFrame, "Review layout did not settle.");
+            var reviewModal = worlds.Q("FeedbackModal");
+            var reviewViewport = reviewModal.Q<ScrollView>().contentViewport.worldBound;
+            foreach (var star in reviewModal.Query<Button>(className: "pf-star-button").ToList())
+            {
+                Assert.That(star.worldBound.xMin, Is.GreaterThanOrEqualTo(reviewViewport.xMin));
+                Assert.That(star.worldBound.xMax, Is.LessThanOrEqualTo(reviewViewport.xMax));
+            }
+            foreach (string name in new[] { "btnFeedbackSubmit", "btnFeedbackCancel" })
+            {
+                var action = reviewModal.Q<Button>(name);
+                var picked = action.panel.Pick(action.worldBound.center);
+                Assert.That(picked == action || action.Contains(picked), Is.True, name + " must stay visible without scrolling.");
+            }
+            ScreenCapture.CaptureScreenshot(Path.Combine(directory, "review-ru-portrait.png"));
+            reviewFrame = Time.frameCount + 2;
+            yield return Until(() => Time.frameCount >= reviewFrame, "Review screenshot did not finish.");
+            Click(worlds.Q<Button>("btnFeedbackCancel"));
+            Assert.That(JsonUtility.ToJson(Profile), Is.EqualTo(beforeReview));
+            foreach (string island in new[] { "worldIslandAction1", "worldIslandAction2" })
+            {
+                Click(worlds.Q<Button>(island));
+                yield return null;
+                Assert.That(worlds.Q("FeedbackModal").resolvedStyle.display, Is.EqualTo(DisplayStyle.Flex));
+                Click(worlds.Q<Button>("btnFeedbackCancel"));
+                Assert.That(JsonUtility.ToJson(Profile), Is.EqualTo(beforeReview), "Future islands must not reset progress.");
+            }
+            var worldAtmosphere = Runtime.Field(worldView, "atmosphere");
+            Runtime.Call(worldView, "Hide");
+            int hiddenFrames = (int)Runtime.Get(worldAtmosphere, "AnimationFrames");
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That((int)Runtime.Get(worldAtmosphere, "AnimationFrames"), Is.EqualTo(hiddenFrames), "Hidden world screens must stop animating.");
+            Runtime.Call(worldView, "Show");
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That((int)Runtime.Get(worldAtmosphere, "AnimationFrames"), Is.GreaterThan(hiddenFrames));
+            Click(worlds.Q<Button>("worldHome"));
+            yield return Until(() => SceneManager.GetActiveScene().name == "MainMenu", "Home did not leave the world selector.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "Home transition did not finish.");
+            Runtime.Static("Progression.ProfileService", "Load");
+            var menu = (Component)UnityEngine.Object.FindAnyObjectByType(Type.GetType("MainMenuController, Assembly-CSharp", true));
+            Runtime.Call(menu, "OpenMapChapterImmediately");
+            worlds = ((VisualElement)Runtime.Field(menu, "root")).Q("worldSelectionRoot");
+            Assert.That(worlds.ClassListContains("world-hidden"), Is.False, "Saved completion must reopen world selection.");
+            int receipts = ((IList)Runtime.Field(Profile, "progressionReceipts")).Count;
+            string profileBeforeFailure = JsonUtility.ToJson(Profile);
+            string currencies = Amounts("currencies");
+            string inventory = Amounts("inventory");
+            string hero = JsonUtility.ToJson(Runtime.Field(Profile, "hero"));
+            object store = Runtime.Type("Progression.ProfileService").GetField("_store", Runtime.Members).GetValue(null);
+            Runtime.Set(store, "Checkpoint", new Action<string>(stage => { if (stage == "BeforeReplace") throw new IOException("Injected replay save failure."); }));
+            Click(worlds.Q<Button>("worldReplay"));
+            Assert.That(worlds.Q("worldError").ClassListContains("world-hidden"), Is.False);
+            Assert.That(JsonUtility.ToJson(Profile), Is.EqualTo(profileBeforeFailure), "Failed replay must preserve the completed profile.");
+            Runtime.Set(store, "Checkpoint", null);
+            Click(worlds.Q<Button>("worldIslandAction0"));
+            Assert.That(worlds.ClassListContains("world-hidden"), Is.True);
+            Runtime.Static("Progression.ProfileService", "Load");
+            object state = Runtime.Field(((IList)Runtime.Field(Profile, "chapters"))[0], "state");
+            Assert.That(Runtime.Field(state, "currentNodeId"), Is.EqualTo("C1_01"));
+            Assert.That(Runtime.Call(state, "IsCompleted", "C1_06"), Is.EqualTo(false));
+            Assert.That(((IList)Runtime.Field(Profile, "progressionReceipts")).Count, Is.EqualTo(receipts));
+            Assert.That(((IList)Runtime.Field(Profile, "demoStorySeen")).Count, Is.Zero);
+            Assert.That(((IList)Runtime.Field(Profile, "demoLearning")).Count, Is.Zero);
+            Assert.That(Amounts("currencies"), Is.EqualTo(currencies));
+            Assert.That(Amounts("inventory"), Is.EqualTo(inventory));
+            Assert.That(JsonUtility.ToJson(Runtime.Field(Profile, "hero")), Is.EqualTo(hero));
+            Component map = Find("Map.MapFlowOrchestrator");
+            Runtime.Call(map, "OnNodeSelected", "C1_01");
+            yield return Until(() => SceneManager.GetActiveScene().name == "Battle" && Find("View.DioramaHud") != null, "Replay did not launch the first level.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "Replay transition did not finish.");
+            yield return Until(() => (bool)Runtime.Get(Runtime.Get(Find("View.BattleDebugController"), "DemoNarrative"), "IsStoryVisible"), "Replay did not restore the opening story.");
+        }
+
+        private static string Amounts(string field) => string.Join("|", ((IEnumerable)Runtime.Field(Profile, field)).Cast<object>().Select(item => JsonUtility.ToJson(item)));
+        private static int PngDimension(byte[] bytes, int offset) =>
+            bytes[offset] << 24 | bytes[offset + 1] << 16 | bytes[offset + 2] << 8 | bytes[offset + 3];
+
+        private static void Click(Button button)
+        {
+            using var evt = NavigationSubmitEvent.GetPooled();
+            evt.target = button;
+            button.SendEvent(evt);
+        }
+
+        private int FindOrAddResolution(int width, int height)
+        {
+            int count = (int)Runtime.Call(gameViewSizeGroup, "GetTotalCount");
+            for (int index = 0; index < count; index++)
+            {
+                object size = Runtime.Call(gameViewSizeGroup, "GetGameViewSize", index);
+                if ((int)Runtime.Get(size, "width") == width && (int)Runtime.Get(size, "height") == height &&
+                    Runtime.Get(size, "sizeType").ToString() == "FixedResolution") return index;
+            }
+            object fixedResolution = Enum.Parse(EditorType("UnityEditor.GameViewSizeType"), "FixedResolution");
+            object added = Activator.CreateInstance(EditorType("UnityEditor.GameViewSize"), Runtime.Members, null,
+                new object[] { fixedResolution, width, height, "Demo RC validation " + width + "x" + height }, null);
+            Runtime.Call(gameViewSizeGroup, "AddCustomSize", added);
+            addedResolutionIndices.Add(count);
+            return count;
+        }
+
+        private static Type EditorType(string name) => AppDomain.CurrentDomain.GetAssemblies()
+            .Select(assembly => assembly.GetType(name, false)).First(type => type != null);
 
         private IEnumerator DismissOpening(Component battle, int level)
         {
@@ -262,19 +511,41 @@ namespace Diceforge.Tests.BattleTermination
                 Assert.That(((IList)Runtime.Field(Profile, "progressionReceipts")).Count, Is.EqualTo(0));
                 Assert.That(Runtime.Field(Profile, "demoGuidanceHidden"), Is.EqualTo(true));
                 Runtime.Call(narrative, "OpenHelp"); yield return CaptureNarrative("L1-help");
-                var doc = (UIDocument)Runtime.Field(narrative, "document");
-                doc.rootVisualElement.Q("demoHelp").style.display = DisplayStyle.None;
+                Runtime.Call(narrative, "CloseHelp");
             }
         }
 
         private IEnumerator FinishStoryAndResult(Component battle, Func<bool> ready, int level)
         {
-            var narrative = Runtime.Get(battle, "DemoNarrative"); float deadline = Time.realtimeSinceStartup + 25;
+            var narrative = Runtime.Get(battle, "DemoNarrative"); float deadline = Time.realtimeSinceStartup + 45;
+            bool teaserSeen = false;
             while (!ready() && Time.realtimeSinceStartup < deadline)
             {
                 if ((bool)Runtime.Get(narrative, "IsStoryVisible"))
                 {
                     Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.False, "Story must wait for the last movement.");
+                    if ((bool)Runtime.Get(narrative, "IsWorldTeaserVisible"))
+                    {
+                        teaserSeen = true;
+                        Assert.That(ready(), Is.False, "World selection must wait for the cliffhanger.");
+                        Assert.That(level, Is.EqualTo(6));
+                        var next = (Button)Runtime.Field(narrative, "storyNext");
+                        PlayerPrefs.SetString("ui.language", "en");
+                        yield return new WaitForSecondsRealtime(.25f);
+                        yield return CaptureNarrative("cliffhanger-en");
+                        Click(next);
+                        Assert.That(Runtime.Field(narrative, "line"), Is.EqualTo(1));
+                        PlayerPrefs.SetString("ui.language", "ru");
+                        yield return new WaitForSecondsRealtime(.25f);
+                        Assert.That(Runtime.Field(narrative, "line"), Is.EqualTo(1));
+                        Click(next);
+                        Assert.That(next.text, Is.EqualTo("К новым мирам"));
+                        yield return CaptureNarrative("cliffhanger-ru");
+                        Assert.That(ready(), Is.False);
+                        Click(next);
+                        yield return null;
+                        continue;
+                    }
                     string scene = (string)Runtime.Get(narrative, "StoryId");
                     if (scene != null)
                     {
@@ -291,13 +562,14 @@ namespace Diceforge.Tests.BattleTermination
                 }
                 yield return null;
             }
+            if (level == 6) Assert.That(teaserSeen, Is.True, "The final level must show the cliffhanger.");
             Assert.That(ready(), Is.True, "Result must finalize exactly once after closing the story.");
             Assert.That((int)Runtime.Get(narrative, "EvidenceCount"), Is.GreaterThan(0));
         }
 
         private static IEnumerator CaptureNarrative(string name)
         {
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage6/Campaign");
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoCampaignCaptureDirectory", "docs/Validation/DemoRCStage7/Campaign"));
             Directory.CreateDirectory(directory); yield return null; yield return null;
             Component narrative = Find("UI.Dialogue.DemoNarrativeController");
             if ((bool)Runtime.Get(narrative, "IsStoryVisible"))
@@ -313,10 +585,19 @@ namespace Diceforge.Tests.BattleTermination
 
         private static IEnumerator Capture(string name)
         {
-            string directory = Path.GetFullPath("docs/Validation/DemoRCStage6/Campaign");
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoCampaignCaptureDirectory", "docs/Validation/DemoRCStage7/Campaign"));
             Directory.CreateDirectory(directory);
             yield return null;
             yield return null;
+            var document = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
+            Rect surface = document.rootVisualElement.Q("demoActionSurface").worldBound;
+            Rect meta = document.rootVisualElement.Q(className: "demo-meta").worldBound;
+            foreach (Button button in document.rootVisualElement.Query<Button>(className: "demo-hero").ToList())
+            {
+                Rect bounds = button.worldBound;
+                Assert.That(bounds.yMin, Is.GreaterThanOrEqualTo(meta.yMax - .5f), "Hero controls overlap the action metadata.");
+                Assert.That(bounds.yMax, Is.LessThanOrEqualTo(surface.yMax + .5f), "Hero controls must stay inside their action surface.");
+            }
             ScreenCapture.CaptureScreenshot(Path.Combine(directory, name + ".png"));
             yield return null;
             yield return null;

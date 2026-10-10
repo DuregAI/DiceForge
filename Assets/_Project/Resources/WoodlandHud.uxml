@@ -37,8 +37,14 @@
         <ui:Label name="actionsRemaining" class="demo-selected-hero hidden" picking-mode="Ignore" />
       </ui:VisualElement>
       <ui:VisualElement class="action-row" picking-mode="Ignore">
-        <ui:VisualElement name="moves" class="moves" picking-mode="Ignore" />
-        <ui:VisualElement name="demoHeroes" class="demo-heroes hidden" />
+        <ui:VisualElement class="demo-step-group" picking-mode="Ignore">
+          <ui:Label name="stepCaption" text="1 · Step" class="demo-control-caption" picking-mode="Ignore" />
+          <ui:VisualElement name="moves" class="moves" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="demo-hero-group" picking-mode="Ignore">
+          <ui:Label name="friendCaption" text="2 · Friend" class="demo-control-caption" picking-mode="Ignore" />
+          <ui:VisualElement name="demoHeroes" class="demo-heroes hidden" picking-mode="Ignore" />
+        </ui:VisualElement>
       </ui:VisualElement>
       <ui:Label name="selectedHero" class="demo-selected-hero hidden" picking-mode="Ignore" />
       <ui:VisualElement class="bottom-line" picking-mode="Ignore">

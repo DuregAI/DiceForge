@@ -14,12 +14,13 @@
       <ui:Label name="hintText" class="hint-text" picking-mode="Ignore" />
     </ui:VisualElement>
     <ui:VisualElement name="demoHelp" class="help-overlay">
-      <ui:VisualElement class="help-card">
+      <ui:VisualElement name="helpCard" class="help-card">
         <ui:VisualElement class="help-header" picking-mode="Ignore">
           <ui:Label name="helpHeading" class="speaker" />
-          <ui:Button name="helpClose" text="×" class="dismiss-button" tooltip="Close help" />
+          <ui:Button name="helpClose" text="×" class="dismiss-button df-modal-close-icon" tooltip="Close help" />
         </ui:VisualElement>
-        <ui:ScrollView name="helpTopics" />
+        <ui:Label name="helpSubtitle" class="help-subtitle" picking-mode="Ignore" />
+        <ui:ScrollView name="helpTopics" horizontal-scroller-visibility="Hidden" />
         <ui:VisualElement class="help-actions">
           <ui:Button name="guidanceOn" text="Enable guidance" />
           <ui:Button name="hideGuidance" text="Hide guidance" />

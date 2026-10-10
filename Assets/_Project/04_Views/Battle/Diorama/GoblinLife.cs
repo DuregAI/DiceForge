@@ -33,7 +33,7 @@ namespace Diceforge.View
             if (moving && reaction != null)
                 return;
             if (moving)
-                animator.CrossFadeInFixedTime("Walk", .12f);
+                animator.CrossFadeInFixedTime("Walk", .12f, 0);
             else if (DioramaBoard.ReducedMotion)
                 animator.Play("Idle", 0, 0f);
             else
@@ -45,6 +45,10 @@ namespace Diceforge.View
             if (animator == null || animator.runtimeAnimatorController == null || DioramaBoard.ReducedMotion)
                 return;
 
+            // Gameplay controllers may expose only Idle/Walk; reactions are optional.
+            if (!animator.HasState(0, Animator.StringToHash(state)))
+                return;
+
             if (reaction != null)
                 StopCoroutine(reaction);
             reaction = StartCoroutine(PlayReaction(state, seconds));
@@ -52,10 +56,10 @@ namespace Diceforge.View
 
         private IEnumerator PlayReaction(string state, float seconds)
         {
-            animator.CrossFadeInFixedTime(state, .06f);
+            animator.CrossFadeInFixedTime(state, .06f, 0);
             yield return new WaitForSeconds(Mathf.Max(.05f, seconds));
             if (animator != null)
-                animator.CrossFadeInFixedTime(mover != null && mover.IsAnimating ? "Walk" : "Idle", .12f);
+                animator.CrossFadeInFixedTime(mover != null && mover.IsAnimating ? "Walk" : "Idle", .12f, 0);
             reaction = null;
         }
 

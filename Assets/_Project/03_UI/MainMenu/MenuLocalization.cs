@@ -24,7 +24,7 @@ internal sealed class MenuLocalization : IDisposable
         this.changed = changed;
         string saved = PlayerPrefs.GetString(PreferenceKey, "en");
         Language = saved == "ru" ? 1 : 0;
-        foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map", "battle", "result" })
+        foreach (var catalogName in new[] { "menu", "legal", "tutorial", "map", "battle", "result", "worlds" })
         {
             var asset = Resources.Load<TextAsset>("Localization/" + catalogName);
             if (asset != null)

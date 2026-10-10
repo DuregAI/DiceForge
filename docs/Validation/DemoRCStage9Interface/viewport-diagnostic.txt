@@ -1,0 +1,1 @@
+viewport=(x:0.03, y:0.45, width:0.94, height:0.40) camera=(0.48, 18.39, -17.76) size=8,192635 bounds=Center: (0.00, 0.00, 0.00), Extents: (4.90, 1.00, 3.70) header=(x:11.81, y:11.81, width:381.38, height:85.50) actions=(x:11.81, y:410.63, width:381.38, height:297.56) root=(x:0.00, y:0.00, width:405.00, height:720.00) logical=720

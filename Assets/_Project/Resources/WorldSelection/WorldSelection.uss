@@ -1,0 +1,98 @@
+.world-selection { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgb(247, 243, 227); background-image: url("WorldBackgroundV2.png"); background-size: cover; color: rgb(35, 51, 24); -unity-font-definition: url("project://database/Assets/_Project/03_UI/MainMenu/Resources/Localization/Nunito.ttf"); }
+.world-selection.world-hidden, .world-selection .world-hidden { display: none; }
+.world-wash { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(253, 247, 234, .12); }
+.world-content { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.world-logo { position: absolute; left: 1.5%; top: 1.5%; width: 22%; height: 14%; background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/logo.png"); background-size: contain; background-repeat: no-repeat; background-position: center; }
+.world-home { position: absolute; right: 1.8%; top: 3%; width: 72px; height: 72px; min-width: 48px; min-height: 48px; margin: 0; padding: 0; border-width: 0; border-color: rgb(209, 183, 142); border-radius: 29px; background-color: transparent; color: rgb(112, 70, 34); }
+.world-home:hover { scale: 1.04 1.04; }
+.world-home:focus { border-width: 1px; border-color: rgb(72, 109, 53); }
+.world-home .world-home-glyph { width: 100%; height: 100%; }
+.world-heading { position: absolute; left: 28%; right: 11%; top: 3%; height: 17%; align-items: center; }
+.world-title, .world-name, .world-action, .world-soon Label, .world-completed { -unity-font-definition: url("GlimbleRoundBlack.ttf"); -unity-font-style: normal; }
+.world-title { margin: 0; padding: 0; font-size: 48px; -unity-text-align: middle-center; white-space: normal; flex-shrink: 0; }
+.world-subtitle { margin: 0; padding: 0; color: rgb(95, 105, 52); font-size: 18px; -unity-text-align: middle-center; white-space: normal; }
+.world-route { position: absolute; width: 13%; height: 10%; top: 32%; }
+.world-route-left { left: 28%; }
+.world-route-right { left: 61%; }
+.world-scroll { position: absolute; left: 0; right: 0; top: 20%; bottom: 20%; }
+.world-scroll .unity-scroll-view__content-viewport { flex-grow: 1; }
+.world-scroll .unity-scroll-view__content-container { height: 100%; }
+.world-islands { height: 100%; flex-direction: row; align-items: stretch; }
+.world-card { height: 100%; flex-grow: 1; flex-basis: 0; min-width: 0; align-items: center; margin: 0 4px; }
+.world-art { width: 100%; height: 74%; flex-shrink: 0; align-items: center; justify-content: center; }
+.world-island { width: 100%; height: 100%; }
+.world-details { width: 100%; height: 26%; align-items: center; flex-shrink: 0; }
+.world-name { height: 70%; width: 95%; margin: 0; padding: 0 8px 3px; background-image: none; text-shadow: 0 2px 3px rgb(255, 250, 230); color: rgb(35, 50, 20); font-size: 25px; -unity-text-align: middle-center; white-space: nowrap; flex-shrink: 0; }
+.world-soon { position: absolute; bottom: 7%; min-height: 42px; padding: 5px 19px; border-radius: 26px; border-width: 2px; border-color: rgb(221, 193, 149); background-color: rgb(255, 243, 211); flex-direction: row; align-items: center; justify-content: center; color: rgb(110, 67, 32); }
+.world-soon Label { margin: 0; padding: 0; font-size: 18px; }
+.world-lock { width: 21px; height: 25px; margin-right: 10px; }
+.world-completed-plate { height: 38px; flex-shrink: 0; width: 46%; background-size: contain; background-repeat: no-repeat; background-position: center; flex-direction: row; align-items: center; justify-content: center; }
+.world-completed { color: rgb(255, 250, 226); font-size: 21px; margin: 0; padding: 0; }
+.world-check-icon { width: 25px; height: 25px; margin-right: 10px; color: rgb(194, 244, 93); }
+.world-actions { position: absolute; left: 0; right: 0; top: 79%; bottom: 7.5%; flex-direction: row; align-items: center; }
+.world-selection .world-action { flex-grow: 1; flex-basis: 0; min-width: 0; height: 100%; min-height: 48px; margin: 0 12px; padding: 5px 26px 0; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: transparent; border-width: 0; color: rgb(94, 51, 15); font-size: 26px; -unity-text-align: middle-center; }
+.world-selection .world-secondary { height: 90%; color: rgb(73, 83, 42); padding-top: 0; }
+.world-selection .world-action:hover { -unity-background-image-tint-color: rgb(255, 247, 215); scale: 1.025 1.025; }
+.world-selection .world-action:focus { -unity-background-image-tint-color: rgb(255, 250, 235); }
+.world-selection .world-action:active { scale: 0.985 0.985; }
+.world-footer { -unity-font-style: bold; text-shadow: 0 1px 2px rgb(255, 250, 229); position: absolute; left: 10%; right: 10%; bottom: 3%; margin: 0; padding: 0; font-size: 18px; color: rgb(48, 62, 24); -unity-text-align: middle-center; white-space: normal; }
+.world-error { position: absolute; left: 10%; right: 10%; bottom: 8%; margin: 0; padding: 4px 10px; border-radius: 8px; background-color: rgb(255, 248, 229); color: rgb(144, 63, 39); font-size: 15px; white-space: normal; -unity-text-align: middle-center; }
+.world-portrait .world-logo { left: 2%; top: 1%; width: 34%; height: 8%; }
+.world-portrait .world-home { top: 2%; right: 3%; }
+.world-portrait .world-heading { left: 4%; right: 4%; top: 10%; height: 11%; }
+.world-portrait .world-title { font-size: 30px; }
+.world-portrait .world-subtitle { font-size: 16px; }
+.world-portrait .world-route { display: none; }
+.world-portrait .world-scroll { top: 22%; bottom: 24%; }
+.world-portrait .world-islands { height: auto; flex-direction: column; align-items: stretch; }
+.world-portrait .world-scroll .unity-scroll-view__content-container { height: auto; }
+.world-portrait .world-card { flex-direction: row; height: 195px; flex-basis: auto; flex-grow: 0; align-items: center; margin: 0 8px 10px; }
+.world-portrait .world-art { width: 48%; height: 100%; }
+.world-portrait .world-details { flex-grow: 1; flex-basis: 0; min-width: 0; height: 100px; justify-content: center; }
+.world-portrait .world-name { font-size: 21px; height: 60px; width: 100%; padding: 0 18px 3px; }
+.world-portrait .world-completed-plate { height: 36px; width: 58%; }
+.world-portrait .world-soon { min-height: 34px; padding: 3px 12px; bottom: 4%; }
+.world-portrait .world-soon Label { font-size: 15px; }
+.world-portrait .world-lock { width: 16px; height: 20px; margin-right: 6px; }
+.world-portrait .world-actions { top: auto; bottom: 7%; height: 16%; flex-wrap: wrap; justify-content: center; }
+.world-selection.world-portrait .world-replay { flex-basis: 68%; flex-grow: 0; height: 57%; margin: 0 12%; font-size: 25px; }
+.world-selection.world-portrait .world-secondary { flex-basis: 42%; height: 40%; margin: 0 2%; padding: 0 15px; font-size: 18px; }
+.world-portrait .world-footer { font-size: 15px; bottom: 2%; }
+.world-portrait .world-error { bottom: 22%; }
+
+
+.world-selection .pf-window { width: 580px; height: 570px; max-width: 92%; max-height: 90%; padding: 26px; background-image: none; background-color: rgb(255, 248, 230); border-width: 2px; border-color: rgb(209, 183, 142); border-radius: 24px; color: rgb(55, 67, 31); }
+.world-selection .pf-title { font-size: 28px; margin: 0 36px 8px; -unity-font-definition: url("GlimbleRoundBlack.ttf"); }
+.world-selection .pf-subtitle { font-size: 16px; margin: 0 4px 10px; }
+.world-selection .pf-input { font-size: 17px; margin: 0 4px 10px; min-width: 0; }
+.world-selection .pf-input > .unity-base-field__label { font-size: 16px; white-space: normal; margin-bottom: 4px; }
+.world-selection .pf-input > .unity-base-field__input { min-height: 38px; padding: 7px; }
+.world-selection .pf-message > .unity-base-field__input { height: 90px; }
+.world-selection .pf-star-button { width: 48px; height: 48px; flex-shrink: 1; min-width: 36px; padding: 5px; margin: 3px; }
+.world-selection .pf-stars { margin-bottom: 6px; }
+.world-selection .pf-status { font-size: 14px; margin: 0 4px 6px; }
+.world-selection .pf-actions { flex-shrink: 0; margin-top: 8px; }
+.world-selection .pf-button { min-height: 48px; font-size: 18px; border-radius: 22px; border-width: 1px; border-color: rgb(197, 163, 105); background-image: none; background-color: rgb(249, 232, 195); }
+.world-selection .pf-primary { background-color: rgb(247, 193, 75); }
+.world-selection .df-window-close-icon { width: 36px; height: 36px; min-width: 36px; min-height: 36px; padding: 4px; top: 12px; right: 12px; background-image: none; background-color: transparent; border-width: 0; color: rgb(98, 72, 39); }
+
+.world-selection .pf-scroll .unity-scroller--vertical { width: 10px; min-width: 10px; }
+.world-selection .pf-scroll .unity-scroller__low-button, .world-selection .pf-scroll .unity-scroller__high-button { display: none; }
+.world-selection .pf-scroll .unity-base-slider__tracker { background-color: rgb(235, 225, 201); border-width: 0; width: 4px; }
+.world-selection .pf-scroll .unity-base-slider__dragger { background-color: rgb(169, 169, 127); border-width: 0; border-radius: 4px; width: 8px; }
+
+.world-title { display: none; }
+.world-curved-title { width: 100%; height: 80px; flex-shrink: 0; overflow: visible; }
+.world-title-letter { position: absolute; margin: 0; padding: 0; white-space: nowrap; -unity-text-align: middle-center; -unity-font-definition: url("GlimbleRoundBlack.ttf"); color: rgb(32, 43, 15); text-shadow: 0 2px 0 rgb(255, 247, 222); -unity-text-outline-width: 0.35px; -unity-text-outline-color: rgb(32, 43, 15); }
+.world-weather { position: absolute; left: 32%; top: 0; width: 52%; height: 56%; overflow: visible; }
+.world-cloud { position: absolute; width: 100%; height: 44%; top: 0; left: 0; }
+.world-cloud-trailing { position: absolute; width: 32%; height: 19%; top: 9%; left: 10%; opacity: 0.85; }
+.world-portrait .world-weather { left: 32%; top: 0; width: 52%; height: 58%; }
+.world-portrait .world-name { height: 64px; }
+.world-portrait .world-completed-plate { height: 36px; }
+.world-portrait .world-heading { top: 9%; height: 12%; }
+
+.world-selection .world-island-action { position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; border-width: 2px; border-color: transparent; border-radius: 30px; background-color: transparent; background-image: none; }
+.world-selection .world-island-action:hover { background-color: rgba(255, 249, 219, 0.06); }
+.world-selection .world-island-action:focus { border-color: rgba(105, 127, 56, 0.65); }
+.world-selection .world-island-action:active { background-color: rgba(255, 249, 219, 0.12); }

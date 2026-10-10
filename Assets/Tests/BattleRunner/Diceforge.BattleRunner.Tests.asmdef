@@ -1,6 +1,6 @@
 {
     "name": "Diceforge.BattleRunner.Tests",
-    "references": [],
+    "references": ["Unity.InputSystem"],
     "optionalUnityReferences": ["TestAssemblies"],
     "includePlatforms": ["Editor"],
     "autoReferenced": false
