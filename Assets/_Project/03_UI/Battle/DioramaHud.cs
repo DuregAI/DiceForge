@@ -392,7 +392,10 @@ namespace Diceforge.View
             if (battle.DemoLevel != null) signature += paused + ":";
             if(battle.PresentationDice!=null)foreach(int value in battle.PresentationDice)signature+=value+",";
             if (battle.DemoLevel != null && battle.PresentationIsAnimating)
+            {
                 foreach (var button in dice.Children()) button.SetEnabled(false);
+                diceSignature = null;
+            }
             else if(signature!=diceSignature)
             {
                 diceSignature=signature;dice.Clear();

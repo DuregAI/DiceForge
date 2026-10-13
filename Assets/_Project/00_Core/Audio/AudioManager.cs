@@ -84,6 +84,9 @@ namespace Diceforge.Audio
             if (sfxSource != null)
                 _voiceSource.outputAudioMixerGroup = sfxSource.outputAudioMixerGroup;
 
+            if (defaultUiClickClip != null && defaultUiClickClip.loadState == AudioDataLoadState.Unloaded)
+                defaultUiClickClip.LoadAudioData();
+
             ApplyVolumes();
         }
 
@@ -270,6 +273,7 @@ namespace Diceforge.Audio
 
         public void PlayUiClick(AudioClip clipOverride = null)
         {
+            if (IsMuted) return;
             bool isDefaultClick = clipOverride == null || clipOverride == defaultUiClickClip;
             if (isDefaultClick && _lastUiClickFrame == Time.frameCount) return;
             if (isDefaultClick) _lastUiClickFrame = Time.frameCount;
@@ -286,7 +290,7 @@ namespace Diceforge.Audio
                 return;
             }
 
-            sfxSource.PlayOneShot(clip, Mathf.Clamp01(SfxVolume));
+            sfxSource.PlayOneShot(clip);
         }
 
         public void PlayGameSfx(AudioClip clip, float gain = 1f)

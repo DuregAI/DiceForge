@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-11 04:34:09Z" end-time="2026-10-11 04:34:11Z" duration="1,297281">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="157" result="Passed" start-time="2026-10-11 04:34:09Z" end-time="2026-10-11 04:34:11Z" duration="1.297281" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1102" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="79" result="Passed" start-time="2026-10-11 04:34:10Z" end-time="2026-10-11 04:34:11Z" duration="1.180953" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16740" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1103" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="79" result="Passed" start-time="2026-10-11 04:34:10Z" end-time="2026-10-11 04:34:11Z" duration="1.173107" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1104" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="79" result="Passed" start-time="2026-10-11 04:34:10Z" end-time="2026-10-11 04:34:11Z" duration="1.172081" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1105" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="79" result="Passed" start-time="2026-10-11 04:34:10Z" end-time="2026-10-11 04:34:11Z" duration="1.171206" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1079" name="DemoNarrativePresentationTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-11 04:33:47Z" end-time="2026-10-11 04:34:00Z" duration="12.629235" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1082" name="ThirdLevelStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.ThirdLevelStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" methodname="ThirdLevelStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="802110205" result="Passed" start-time="2026-10-11 04:33:42Z" end-time="2026-10-11 04:34:00Z" duration="17.400207" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791693229091 session=381caff4827a4a059e2e3098bf694db1 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=0
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+[UnitAnimationController] Token 'Tish(Clone)' animator='Model' controller='Tish' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[UnitAnimationController] Token 'GoblinFriend_Blue(Clone)' animator='Model' controller='GoblinFriend_Gameplay' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791693231135 session=381caff4827a4a059e2e3098bf694db1 payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791693231185 session=381caff4827a4a059e2e3098bf694db1 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T8
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T9
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791693239902 session=381caff4827a4a059e2e3098bf694db1 payload={sessionStartUnixMsUtc=1791693226209, sessionEndUnixMsUtc=1791693239902, durationSeconds=13.693, buildVersion=0.3.7-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=2560, screenHeight=1200, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=6367, totalSampledSeconds=17.029, averageFps=373.888, minimumWindowFps=0.283, averageFrameTimeMs=2.675, worstSpikeMs=3532.928}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1099" name="ServerConnectionRecoveryTests" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-11 04:34:10Z" end-time="2026-10-11 04:34:11Z" duration="1.160197" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1101" name="FinalHandshakeTimeoutStopsAndCancelsItsParser" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.FinalHandshakeTimeoutStopsAndCancelsItsParser" methodname="FinalHandshakeTimeoutStopsAndCancelsItsParser" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" seed="2042485113" result="Passed" start-time="2026-10-11 04:34:00Z" end-time="2026-10-11 04:34:05Z" duration="5.179975" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (1/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Server unavailable after 23 attempts; connections stopped.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791693245128 session=ecbf00bc15224a1880d0ce30496e096d payload={sessionStartUnixMsUtc=1791693243708, sessionEndUnixMsUtc=1791693245128, durationSeconds=1.42, buildVersion=0.3.7-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=2560, screenHeight=1200, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=12, totalSampledSeconds=4.855, averageFps=2.472, minimumWindowFps=0.279, averageFrameTimeMs=404.587, worstSpikeMs=3580.983}
+]]></output>
+              </test-case>
+              <test-case id="1100" name="TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" methodname="TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" seed="1602137031" result="Passed" start-time="2026-10-11 04:34:05Z" end-time="2026-10-11 04:34:11Z" duration="5.872728" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (1/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (2/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (3/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (4/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (5/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (6/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (7/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (8/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (9/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (10/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (11/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (12/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (13/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (14/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (15/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (16/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (17/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (18/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (19/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (20/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (21/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (22/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (23/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[SpacetimeDb] Connect failed: simulated failure
+[SpacetimeDb] Server unavailable after 23 attempts; connections stopped.
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791693251031 session=bf957f4b8e984eda93cbc78c4b1df139 payload={sessionStartUnixMsUtc=1791693248827, sessionEndUnixMsUtc=1791693251031, durationSeconds=2.204, buildVersion=0.3.7-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=2560, screenHeight=1200, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=15, totalSampledSeconds=5.572, averageFps=2.692, minimumWindowFps=0.285, averageFrameTimeMs=371.448, worstSpikeMs=3514.065}
+Saving results to: docs/Validation/ConnectionRecovery/test-results.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

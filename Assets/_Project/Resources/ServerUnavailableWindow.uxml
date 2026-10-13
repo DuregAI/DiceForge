@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="ServerUnavailableWindow.uss" />
+    <ui:VisualElement name="serverUnavailableOverlay" class="server-unavailable-overlay">
+        <ui:VisualElement class="server-unavailable-window">
+            <ui:ScrollView class="server-unavailable-scroll">
+                <ui:Label name="serverUnavailableTitle" class="server-unavailable-title" />
+                <ui:Label name="serverUnavailableMessage" class="server-unavailable-message" />
+                <ui:Button name="serverUnavailableClose" class="server-unavailable-close" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

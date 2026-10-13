@@ -364,7 +364,62 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(initialEvidence + 1));
         }
 
-        private IEnumerator LaunchFirstTrail()
+        [UnityTest]
+        public IEnumerator ThirdLevelStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish()
+        {
+            yield return LaunchFirstTrail(3);
+            Component battle = Find("View.BattleDebugController");
+            yield return Until(() => Runtime.Get(battle, "DemoNarrative") != null, "The level narrative is missing.");
+            object narrative = Runtime.Get(battle, "DemoNarrative");
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible"), "The opening story did not appear.");
+            Runtime.Call(narrative, "SkipStory");
+            yield return null;
+            if ((bool)Runtime.Get(narrative, "IsStoryVisible")) Runtime.Call(narrative, "SkipStory");
+            yield return Until(() => (bool)Runtime.Get(narrative, "Ready") && (bool)Runtime.Get(battle, "PresentationCanInteract"),
+                "The third level did not allow input.");
+            var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
+            // Step 1 preserves the default selected index and repeats the same [1, 2]
+            // offer after the jump. Previously this left the existing buttons disabled.
+            bool captured = false;
+            foreach (string hero in new[] { "tish", "luma" })
+            {
+                foreach (int step in new[] { 1, 2, 1, 2, 2 })
+                {
+                    yield return null;
+                    var choices = hud.rootVisualElement.Q("moves").Query<Button>().ToList();
+                    Assert.That(choices.Count, Is.EqualTo(2));
+                    foreach (var choice in choices) AssertInteractable(choice);
+                    Button selected = choices[step - 1];
+                    using (var submit = NavigationSubmitEvent.GetPooled())
+                    {
+                        submit.target = selected;
+                        selected.SendEvent(submit);
+                    }
+                    yield return null;
+                    if (!captured)
+                    {
+                        Directory.CreateDirectory("docs/Validation/ConnectionRecovery");
+                        ScreenCapture.CaptureScreenshot("docs/Validation/ConnectionRecovery/third-level-after-step-selection.png");
+                        captured = true;
+                        yield return null;
+                    }
+                    var friend = hud.rootVisualElement.Q<Button>("hero_" + hero);
+                    AssertInteractable(friend);
+                    using (var submit = NavigationSubmitEvent.GetPooled())
+                    {
+                        submit.target = friend;
+                        friend.SendEvent(submit);
+                    }
+                    yield return Until(() => (bool)Runtime.Get(battle, "PresentationIsAnimating"), "The UI did not start the move.");
+                    yield return Until(() => !(bool)Runtime.Get(battle, "PresentationIsAnimating"), "The jump did not settle.");
+                    yield return null;
+                }
+            }
+            Assert.That(Runtime.Get(battle, "IsMatchEnded"), Is.True);
+            Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(2));
+        }
+
+        private IEnumerator LaunchFirstTrail(int level = 1)
         {
             Runtime.Static("Map.MapFlowRuntime", "RequestReturnToMap");
             Transition.GetMethod("LoadScene").Invoke(null, new object[] { "MainMenu", null, null });
@@ -372,10 +427,20 @@ namespace Diceforge.Tests.BattleTermination
                 "The main menu did not load.");
             yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The menu transition did not finish.");
             Component map = Find("Map.MapFlowOrchestrator");
+            if (level != 1)
+            {
+                object profile = Runtime.Type("Progression.ProfileService").GetProperty("Current").GetValue(null);
+                object chapter = ((IList)Runtime.Field(profile, "chapters"))[0];
+                object state = Runtime.Field(chapter, "state");
+                for (int previous = 1; previous < level; previous++)
+                    Runtime.Call(state, "MarkCompleted", "C1_" + previous.ToString("00"));
+                Runtime.Set(state, "currentNodeId", "C1_" + level.ToString("00"));
+                Runtime.Call(state, "Unlock", "C1_" + level.ToString("00"));
+            }
             Runtime.Call(map, "StartChapter", "Chapter1");
             yield return Until(() => Find("MapController") != null && !(bool)Runtime.Get(Find("MapController"), "IsHeroTravelling"),
                 "Map travel did not finish.");
-            Runtime.Call(map, "OnNodeSelected", "C1_01");
+            Runtime.Call(map, "OnNodeSelected", "C1_" + level.ToString("00"));
             yield return Until(() => SceneManager.GetActiveScene().name == "Battle" && Find("View.DioramaHud") != null &&
                 Find("View.BattleDebugController") != null, "The first campaign level did not launch.");
             yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The battle transition did not finish.");
@@ -622,7 +687,7 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(button.worldBound.height, Is.GreaterThan(0));
             VisualElement picked = button.panel.Pick(button.worldBound.center);
             Assert.That(picked == button || picked?.GetFirstAncestorOfType<Button>() == button, Is.True,
-                button.name + " is covered by another visual element.");
+                button.name + " is covered by " + picked?.GetType().Name + " '" + picked?.name + "'.");
         }
 
         private static Component Find(string type) => (Component)UnityEngine.Object.FindAnyObjectByType(

@@ -1,0 +1,49 @@
+.server-unavailable-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(24, 30, 18, 0.75);
+}
+.server-unavailable-window {
+    width: 580px;
+    max-width: 94%;
+    max-height: 90%;
+    padding: 28px;
+    background-color: rgb(255, 247, 224);
+    border-width: 3px;
+    border-color: rgb(173, 138, 83);
+    border-radius: 18px;
+    color: rgb(65, 43, 25);
+}
+.server-unavailable-scroll {
+    flex-shrink: 1;
+    min-height: 0;
+}
+.server-unavailable-title {
+    font-size: 30px;
+    -unity-font-style: bold;
+    white-space: normal;
+    margin-bottom: 16px;
+}
+.server-unavailable-message {
+    font-size: 22px;
+    white-space: normal;
+    margin-bottom: 24px;
+}
+.server-unavailable-close {
+    min-height: 56px;
+    font-size: 23px;
+    white-space: normal;
+    background-color: rgb(224, 181, 104);
+    border-width: 2px;
+    border-color: rgb(145, 103, 48);
+    border-radius: 12px;
+    color: rgb(56, 36, 21);
+}
+.server-unavailable-close:hover, .server-unavailable-close:focus {
+    background-color: rgb(242, 199, 120);
+}
