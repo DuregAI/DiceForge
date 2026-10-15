@@ -198,3 +198,15 @@
 #TutorialRoot Label { color: rgb(65,43,25); -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; }
 #TutorialRoot .tutorial-header-row { background-color: rgb(245,221,177); border-color: rgb(174,132,75); }
 #TutorialRoot Button { background-color: rgb(245,221,177); color: rgb(65,43,25); border-color: rgb(174,132,75); }
+
+#resultOverlayRoot .result-overlay-panel,
+#levelUpOverlay .level-up-panel,
+#chestRewardOverlay .chest-reward-panel,
+#serverUnavailableOverlay .server-unavailable-window,
+#DialoguePanel .df-dialogue-window,
+#trail-overlay .trail-panel,
+#worldSelectionRoot .world-details {
+ -unity-slice-left: 360; -unity-slice-right: 260;
+ -unity-slice-top: 220; -unity-slice-bottom: 280;
+ -unity-slice-scale: .22px;
+}

@@ -155,7 +155,7 @@ namespace Diceforge.View
             _runner.OnMoveApplied += HandleMoveApplied;
             _runner.OnMatchEnded += HandleMatchEnded;
 
-            Debug.LogWarning("[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.", this);
+
         }
 
         private void EnsureBoardViewControllerResolved()
@@ -184,7 +184,6 @@ namespace Diceforge.View
                 hud = GetComponentInChildren<DebugHudUITK>(true);
 
             RegisterHudCallbacks();
-            ProfileService.ProfileChanged += HandleProfileChanged;
         }
 
         private void OnEnable()

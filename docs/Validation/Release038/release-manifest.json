@@ -1,0 +1,20 @@
+{
+  "version": "0.3.8-release",
+  "archive": "Builds\\Glimblehop-0.3.8-release.zip",
+  "bytes": 141724444,
+  "sha256": "dc7fb37aad193cac25ebc8e2bbf10bab6e2e70f135d405dbfae82f7a198f6fd7",
+  "build": "Succeeded",
+  "errors": 0,
+  "browserChecked": [
+    "menu",
+    "map",
+    "level1 narrative",
+    "gameplay controls",
+    "reload"
+  ],
+  "limitations": [
+    "No physical mobile device check",
+    "No live feedback submission",
+    "No complete six-level browser playthrough"
+  ]
+}

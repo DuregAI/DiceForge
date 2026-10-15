@@ -48,3 +48,6 @@
 #demoNarrativeRoot .story-copy { min-width: 0; }
 #demoNarrativeRoot .story-next { flex-shrink: 0; }
 #demoNarrativeRoot .save-message { right: 12px; width: auto; max-width: 340px; }
+
+#woodlandRoot.demo-mode.portrait .top-bar { min-height: 72px; flex-shrink: 0; }
+#woodlandRoot.demo-mode.portrait .score-panel { min-height: 32px; flex-shrink: 0; }
