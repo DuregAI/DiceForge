@@ -20,7 +20,7 @@ namespace Diceforge.Tests.BattleTermination
         private static UnityEngine.Object Preset(int level) => AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(
             $"Assets/_Project/05_Gameplay_Data/GameModes/GM_Level_{level:00}.asset");
 
-        internal static object Runner(int level, out object rules)
+        internal static object Runner(int level, out object rules, bool legacyHazard = false)
         {
             var preset = Preset(level);
             Assert.That(preset, Is.Not.Null);
@@ -30,6 +30,13 @@ namespace Diceforge.Tests.BattleTermination
             object bag = service.GetMethod("BuildBagConfig", Runtime.Members).Invoke(null,
                 new[] { Runtime.Field(preset, "diceBagA"), rules, "A" });
             object setup = Runtime.Static("Core.SetupConfig", "FromPreset", Runtime.Field(preset, "setupPreset"));
+            if (legacyHazard)
+            {
+                Runtime.Set(rules, "totalStonesPerPlayer", 3);
+                Runtime.Set(rules, "soloTrailHazard", Enum.ToObject(Runtime.Type("Core.SoloTrailHazard"), level == 5 ? 2 : 1));
+                Runtime.Set(rules, "soloTrailHazardStartCell", level == 5 ? 3 : 4);
+                setup = null;
+            }
             var runner = Runtime.New("Core.BattleRunner");
             Runtime.Call(runner, "Init", rules, bag, null, 12345, setup);
             return runner;
@@ -51,7 +58,7 @@ namespace Diceforge.Tests.BattleTermination
         [TestCase(6, false)] [TestCase(6, true)]
         public void AuthoringRoutesRunOnTheSavedCampaignPresets(int index, bool minimal)
         {
-            var book = JsonUtility.FromJson<Book>(File.ReadAllText("docs/DemoRC/v0.1/data/levels.json"));
+            var book = JsonUtility.FromJson<Book>(File.ReadAllText("docs/DemoRC/v0.2/levels.json"));
             Level level = book.levels.Single(x => x.id == "L" + index);
             Step[] route = minimal ? level.balance.minimalReplay : level.balance.manualReplay;
             object runner = Runner(index, out object rules);
@@ -60,7 +67,7 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Runtime.Call(state, "GetStonesAt", Runtime.Player(1), 7), Is.EqualTo(0));
             int ended = 0;
             Runtime.Observe(runner, "OnMatchEnded", _ => ended++);
-            var positions = new Dictionary<string, int> { ["tish"] = 0, ["luma"] = 0, ["bum"] = 0 };
+            var positions = new Dictionary<string, int> { ["tish"] = index == 1 ? 4 : 0, ["luma"] = 0, ["bum"] = 0, ["scratchy"] = 0 };
             foreach (Step action in route)
             {
                 Assert.That((int)Runtime.Get(state, "TurnIndex"), Is.EqualTo(action.turn - 1));
@@ -70,7 +77,7 @@ namespace Diceforge.Tests.BattleTermination
             }
             Assert.That(Runtime.Get(runner, "MatchEnded"), Is.EqualTo(true));
             Assert.That(Runtime.Get(state, "Winner"), Is.EqualTo(Runtime.Player(0)));
-            Assert.That(Runtime.Get(state, "BorneOffA"), Is.EqualTo(index >= 4 ? 3 : index == 3 ? 2 : 1));
+            Assert.That(Runtime.Get(state, "BorneOffA"), Is.EqualTo(Runtime.Field(rules, "totalStonesPerPlayer")));
             Assert.That(ended, Is.EqualTo(1));
         }
 
@@ -106,7 +113,7 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void FirstFriendMayExitWhileTheOtherIsAtTheStart()
         {
-            object runner = Runner(3, out _);
+            object runner = Runner(4, out _);
             object state = Runtime.Get(runner, "State");
             foreach (int from in new[] { 0, 2, 4, 6 }) Assert.That(Apply(runner, from, 2), Is.True);
             Assert.That(Runtime.Get(state, "BorneOffA"), Is.EqualTo(1));
@@ -119,7 +126,7 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam()
         {
-            object runner = Runner(3, out object rules);
+            object runner = Runner(4, out object rules);
             Runtime.Set(rules, "maxTurns", 1);
             Assert.That(Apply(runner, 0, 1), Is.True);
             object result = Runtime.Get(runner, "MatchResult");
@@ -135,13 +142,13 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void NamedLumaMovesFromSharedCellWithoutMovingTish()
         {
-            object runner = Runner(3, out _);
+            object runner = Runner(5, out _);
             var host = new GameObject("Demo token test");
             var units = new GameObject("Demo units");
             try
             {
                 var view = host.AddComponent(Runtime.Type("View.StonesTokensView"));
-                var preset = Preset(3);
+                var preset = Preset(5);
                 object map = Runtime.Field(preset, "mapConfig");
                 var red = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/05_Gameplay_Data/Battle/Diorama/Goblin_Red.prefab");
                 var blue = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/05_Gameplay_Data/Battle/Diorama/Goblin_Blue.prefab");

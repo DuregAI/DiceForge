@@ -6,6 +6,7 @@
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
     <Style src="project://database/Assets/_Project/03_UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=433aa71b50974ae1a70e531afc4e3cb3&amp;type=3#MainMenu"/>
     <Style src="project://database/Assets/_Project/03_UI/Audio/NowPlaying/NowPlayingView.uss?fileID=7433441132597879392&amp;guid=d444f4b622dfa9c4d91b3c1faec5ba88&amp;type=3#NowPlayingView"/>
+    <Style src="../../../Resources/WoodlandWindows.uss"/>
     <ui:VisualElement name="NowPlayingRoot" class="nowplaying-root">
         <ui:VisualElement name="NowPlayingPanel" class="nowplaying-panel is-closed vote-neutral" style="width: 320px;">
             <ui:VisualElement class="header-row">
@@ -25,7 +26,7 @@
                 <ui:Label name="LikesCountLabel" text="Likes: 0" class="likes-count-label"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SettingsPanel" class="settings-overlay">
+        <ui:VisualElement name="SettingsPanel" class="woodland-modal settings-overlay">
             <ui:VisualElement name="SettingsWindow" class="settings-window" style="padding-bottom: 124px; padding-top: 34px; padding-right: 164px; padding-left: 180px; justify-content: space-evenly; -unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); font-size: 30px; height: 843px; max-width: 828px; width: 828px; opacity: 1;">
                 <ui:Label text="SETTINGS" name="Tittle" class="panel-title" style="-unity-font-definition: url(&quot;project://database/Assets/_Project/07_Art/Fonts/LuckiestGuy-Regular.ttf?fileID=12800000&amp;guid=3cf501bc73dc1144aa7910d77ab93b5f&amp;type=3#LuckiestGuy-Regular&quot;); color: rgb(255, 230, 160); font-size: 64px; -unity-text-align: lower-center; -unity-font-style: bold; -unity-text-outline-width: 4px; padding-top: 12px;"/>
                 <ui:VisualElement name="MusicBlock" enabled="true" class="settings-block" style="-unity-text-outline-width: 2px; text-shadow: 5px 5px 0 rgb(3, 3, 3); padding-top: 52px;">
@@ -53,9 +54,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="FeedbackModal" class="player-modal-overlay">
-            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window">
-                <ui:Label text="Send Feedback" class="panel-title df-label"/>
+        <ui:VisualElement name="FeedbackModal" class="woodland-modal player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window woodland-window">
+                <ui:Label text="Send Feedback" class="panel-title df-label woodland-title"/>
                 <ui:Label text="Player name" class="df-label feedback-field-label"/>
                 <ui:TextField name="feedbackNameField" max-length="23" class="df-input feedback-name-field"/>
                 <ui:Label text="Category" class="df-label feedback-field-label"/>

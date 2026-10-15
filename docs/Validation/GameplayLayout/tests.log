@@ -1,0 +1,6 @@
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible | Passed | 
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible | Failed |   Header icons must share a baseline.
+  Expected: 28.0f +/- 1
+  But was:  30.0f
+
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible | Passed | 

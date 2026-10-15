@@ -15,16 +15,16 @@ MonoBehaviour:
   rulesetId: level_04
   displayName: Level 04
   maxRounds: 1
-  maxUnitsPerSide: 3
+  maxUnitsPerSide: 2
   allowReroll: 0
   actionsPerTurn: 1
   gameMode: 2
   soloTrailStepOfferMode: 2
-  soloTrailHazard: 1
+  soloTrailHazard: 0
   soloTrailHazardStartCell: 4
   boardSize: 8
   homeSize: 2
-  totalStonesPerPlayer: 3
+  totalStonesPerPlayer: 2
   dieMin: 1
   dieMax: 2
   startCellA: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   moveDirB: -1
   allowHitSingleStone: 0
   blockIfOpponentAnyStone: 1
-  maxTurns: 64
+  maxTurns: 60
   randomSeed: 12345
   verboseLog: 0
   headRules:

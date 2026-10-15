@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11,8626868">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="161" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.862687" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1107" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.737177" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="33572" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1108" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.723006" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1109" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.721845" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1110" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.720864" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1084" name="DemoNarrativePresentationTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-15 02:48:24Z" end-time="2026-10-15 02:48:35Z" duration="11.716281" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1085" name="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" methodname="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="105641479" result="Passed" start-time="2026-10-15 02:48:19Z" end-time="2026-10-15 02:48:35Z" duration="16.330419" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792032505576 session=97d54869a0c14c62af7b0db8567bb971 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792032507610 session=97d54869a0c14c62af7b0db8567bb971 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792032507663 session=97d54869a0c14c62af7b0db8567bb971 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T2
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T3
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792032515570 session=97d54869a0c14c62af7b0db8567bb971 payload={sessionStartUnixMsUtc=1792032502917, sessionEndUnixMsUtc=1792032515570, durationSeconds=12.653, buildVersion=0.3.8-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=5138, totalSampledSeconds=15.952, averageFps=322.082, minimumWindowFps=0.291, averageFrameTimeMs=3.105, worstSpikeMs=3434.768}
+Saving results to: docs/Validation/GameplayLayout\latest-results.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

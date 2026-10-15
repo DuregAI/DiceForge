@@ -1,0 +1,1516 @@
+{
+  "sourceVersion": "0.2",
+  "events": [
+    {
+      "id": "L01_I01",
+      "levelId": "L1",
+      "speakerId": "tish",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ещё один узел — и указатель снова цел. Кто там шуршит?",
+      "en": "One more knot and the sign is fixed. Who is rustling over there?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_I02",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Тиш! Пс-с… Сюда, за кусты! Я кое-что видел!",
+      "en": "Tish! Psst… Over here, behind the bushes! I saw something!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_V01",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Вот ты где! Я Царап. Обычно меня сначала слышат.",
+      "en": "There you are! I am Scratchy. People usually hear me first.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_F01",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_R01",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_R02",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T01",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T02",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T03",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T04",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "Это место занято. Выбери другой шаг или друга.",
+      "en": "That spot is occupied. Choose a different step or friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T05",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже у флажка! Теперь доведи второго.",
+      "en": "One friend has arrived! Now bring the other one.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T06",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T07",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L01_T08",
+      "levelId": "L1",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "Шаг 2 переносит друга через одну плиту. Проверь, куда он приземлится.",
+      "en": "Step 2 jumps over one tile. Check where your friend will land.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_I01",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Теперь пройдём всю тропу. Я знаю короткие шаги и длинные!",
+      "en": "Now for the whole trail. I know short steps and long ones!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_I02",
+      "levelId": "L2",
+      "speakerId": "tish",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Показывай дорогу. Только колокольчик не потеряй.",
+      "en": "Lead the way. Just do not lose your bell.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_V01",
+      "levelId": "L2",
+      "speakerId": "tish",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Вся тропа позади. И ни одного потерянного колокольчика.",
+      "en": "The whole trail is behind us. And not a single bell lost.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_F01",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_R01",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_R02",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T01",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T02",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T03",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T04",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "Это место занято. Выбери другой шаг или друга.",
+      "en": "That spot is occupied. Choose a different step or friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T05",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже у флажка! Теперь доведи второго.",
+      "en": "One friend has arrived! Now bring the other one.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T06",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T07",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L02_T08",
+      "levelId": "L2",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "Шаг 2 переносит друга через одну плиту. Проверь, куда он приземлится.",
+      "en": "Step 2 jumps over one tile. Check where your friend will land.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_I01",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Стой! Эта плита треснула. На неё лучше не наступать.",
+      "en": "Wait! That tile is cracked. Better not step on it.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_I02",
+      "levelId": "L3",
+      "speakerId": "tish",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Зато следующая целая. Перепрыгну с соседней!",
+      "en": "But the next one is sound. I will jump across from the tile beside it!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_V01",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Вот это прыжок! Треснувшая плита даже не шелохнулась.",
+      "en": "What a jump! The cracked tile did not even stir.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_F01",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_R01",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_R02",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T01",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T02",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T03",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T04",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "На треснувшую плиту приземляться нельзя. Подойди к соседней и выбери шаг 2.",
+      "en": "You cannot land on the cracked tile. Get to the tile beside it and choose step 2.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T05",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже у флажка! Теперь доведи второго.",
+      "en": "One friend has arrived! Now bring the other one.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T06",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T07",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи Тиша до флажка.",
+      "en": "Bring Tish to the flag.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L03_T08",
+      "levelId": "L3",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "На треснувшую плиту нельзя встать, но через неё можно прыгнуть.",
+      "en": "You cannot stand on the cracked tile, but you can jump over it.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_I01",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "До флажка наперегонки? Колокольчик считает честно!",
+      "en": "Race you to the flag? My bell keeps an honest score!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_I02",
+      "levelId": "L4",
+      "speakerId": "tish",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Договорились! Кто первый, тот выбирает следующую тропу.",
+      "en": "Deal! The first one there picks the next trail.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_F01",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_R01",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_R02",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T01",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи обоих до флажка. Кто придёт первым?",
+      "en": "Bring both friends to the flag. Who will arrive first?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T02",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T03",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T04",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "Это место занято. Выбери другой шаг или друга.",
+      "en": "That spot is occupied. Choose a different step or friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T05",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже у флажка! Теперь доведи второго.",
+      "en": "One friend has arrived! Now bring the other one.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T06",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T07",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи обоих до флажка. Кто придёт первым?",
+      "en": "Bring both friends to the flag. Who will arrive first?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_T08",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "Шаг 2 переносит друга через одну плиту. Проверь, куда он приземлится.",
+      "en": "Step 2 jumps over one tile. Check where your friend will land.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_I01",
+      "levelId": "L5",
+      "speakerId": "luma",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Слышала ваш звон издалека. Тиш, теперь со мной наперегонки!",
+      "en": "I heard that bell from far away. Tish, race me this time!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_I02",
+      "levelId": "L5",
+      "speakerId": "tish",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Посмотрим, кто первым доберётся до флажка!",
+      "en": "Let us see who reaches the flag first!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_F01",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_R01",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_R02",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T01",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи обоих до флажка. Кто придёт первым?",
+      "en": "Bring both friends to the flag. Who will arrive first?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T02",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T03",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T04",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "Это место занято. Выбери другой шаг или друга.",
+      "en": "That spot is occupied. Choose a different step or friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T05",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже у флажка! Теперь доведи второго.",
+      "en": "One friend has arrived! Now bring the other one.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T06",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T07",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи обоих до флажка. Кто придёт первым?",
+      "en": "Bring both friends to the flag. Who will arrive first?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L05_T08",
+      "levelId": "L5",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "Шаг 2 переносит друга через одну плиту. Проверь, куда он приземлится.",
+      "en": "Step 2 jumps over one tile. Check where your friend will land.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_I01",
+      "levelId": "L6",
+      "speakerId": "bum",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Я принёс перекус. Куда мы все так спешим?",
+      "en": "I brought snacks. Where is everyone rushing?",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_I02",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "level_intro",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "За перевалом мелькнула птица с янтарной линзой. Покажу!",
+      "en": "A bird with an amber lens flew beyond the ridge. I will show you!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_V01",
+      "levelId": "L6",
+      "speakerId": "bum",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Все здесь. Можно передохнуть — и посмотреть, куда летела птица.",
+      "en": "Everyone is here. We can rest, then see where that bird went.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_F01",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "soft_failure",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ничего, попробуем ещё раз. Я подожду!",
+      "en": "No worries. Let us try again. I will wait!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_R01",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Продолжим с того места, где остановились.",
+      "en": "Let us carry on from where we stopped.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_R02",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "return",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Новая попытка! Выбери шаг, затем друга.",
+      "en": "A fresh start! Choose a step, then a friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T01",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_offer_ready",
+      "helpTopic": "",
+      "ru": "Доведи всех троих до флажка. Друзья выходят по очереди.",
+      "en": "Bring all three friends to the flag. Each friend exits separately.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T02",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "step_selected",
+      "helpTopic": "",
+      "ru": "Теперь нажми друга на плите или его имя внизу.",
+      "en": "Now tap a friend on the tile or their name below.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T03",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "legal_move_applied",
+      "helpTopic": "",
+      "ru": "Получилось! Снова выбери шаг и продолжай.",
+      "en": "That worked! Choose another step and keep going.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T04",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "illegal_destination_previewed",
+      "helpTopic": "",
+      "ru": "Это место занято. Выбери другой шаг или друга.",
+      "en": "That spot is occupied. Choose a different step or friend.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T05",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "hero_exited",
+      "helpTopic": "",
+      "ru": "Один уже дошёл. Доведём остальных!",
+      "en": "One friend has arrived. Bring the others!",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T06",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "input_order",
+      "ru": "Сначала выбери число шага, затем друга. Подсветка покажет место посадки.",
+      "en": "Choose a step value, then a friend. The highlight shows the landing spot.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T07",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "goal",
+      "ru": "Доведи всех троих до флажка. Друзья выходят по очереди.",
+      "en": "Bring all three friends to the flag. Each friend exits separately.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L06_T08",
+      "levelId": "L6",
+      "speakerId": "scratchy",
+      "kind": "tutorial",
+      "domainEvent": "help_requested",
+      "helpTopic": "step_choice",
+      "ru": "Шаг 2 переносит друга через одну плиту. Проверь, куда он приземлится.",
+      "en": "Step 2 jumps over one tile. Check where your friend will land.",
+      "priority": 80,
+      "firstFinisherId": ""
+    },
+    {
+      "id": "L04_V01",
+      "levelId": "L4",
+      "speakerId": "tish",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Я первый! Но следующую тропу всё равно выбираем вместе.",
+      "en": "I am first! But we are still choosing the next trail together.",
+      "priority": 80,
+      "firstFinisherId": "tish"
+    },
+    {
+      "id": "L04_V02",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ладно, шустрый! В следующий раз посмотрим.",
+      "en": "All right, speedy! We will see next time.",
+      "priority": 80,
+      "firstFinisherId": "tish"
+    },
+    {
+      "id": "L04_V03",
+      "levelId": "L4",
+      "speakerId": "scratchy",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Дзинь! Царап у флажка первым!",
+      "en": "Ding! Scratchy reaches the flag first!",
+      "priority": 80,
+      "firstFinisherId": "scratchy"
+    },
+    {
+      "id": "L04_V04",
+      "levelId": "L4",
+      "speakerId": "tish",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "С таким колокольчиком финиш точно не пропустишь.",
+      "en": "With that bell, nobody could miss your finish.",
+      "priority": 80,
+      "firstFinisherId": "scratchy"
+    },
+    {
+      "id": "L05_V01",
+      "levelId": "L5",
+      "speakerId": "tish",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Я первый! Но следующую тропу всё равно выбираем вместе.",
+      "en": "I am first! But we are still choosing the next trail together.",
+      "priority": 80,
+      "firstFinisherId": "tish"
+    },
+    {
+      "id": "L05_V02",
+      "levelId": "L5",
+      "speakerId": "luma",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Ладно, шустрый! В следующий раз посмотрим.",
+      "en": "All right, speedy! We will see next time.",
+      "priority": 80,
+      "firstFinisherId": "tish"
+    },
+    {
+      "id": "L05_V03",
+      "levelId": "L5",
+      "speakerId": "luma",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Я первая! Знание тропы тоже считается.",
+      "en": "I am first! Knowing the trail counts too.",
+      "priority": 80,
+      "firstFinisherId": "luma"
+    },
+    {
+      "id": "L05_V04",
+      "levelId": "L5",
+      "speakerId": "tish",
+      "kind": "level_success",
+      "domainEvent": "",
+      "helpTopic": "",
+      "ru": "Считается. Но реванш за мной!",
+      "en": "It does. But I want a rematch!",
+      "priority": 80,
+      "firstFinisherId": "luma"
+    },
+    {
+      "id": "G_E01",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Сначала выбери шаг, затем героя на тропе.",
+      "en": "First choose a step, then a hero on the trail.",
+      "priority": 75
+    },
+    {
+      "id": "G_E02",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Выбери героя на плите с обводкой. Имя на портрете поможет его найти.",
+      "en": "Choose a hero on an outlined tile. Their portrait and name can help you find them.",
+      "priority": 75
+    },
+    {
+      "id": "G_E03",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Этот друг уже дошёл. Выбери того, кто ещё на тропе.",
+      "en": "That friend is already through. Choose someone still on the trail.",
+      "priority": 75
+    },
+    {
+      "id": "G_E04",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "На месте посадки кто-то стоит. Шаг не потрачен: выбери другой доступный ход.",
+      "en": "The landing is occupied. Your step is unused. Choose another available move.",
+      "priority": 75
+    },
+    {
+      "id": "G_E05",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "step_selected",
+      "ru": "Для этого шага сейчас нет доступного героя. Проверь другой шаг на панели.",
+      "en": "No hero can use this step right now. Check another step.",
+      "priority": 75
+    },
+    {
+      "id": "G_E06",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "no_legal_moves",
+      "ru": "Сейчас ни один шаг не ведёт на свободную посадку. Ход завершится, и мы проверим следующие шаги.",
+      "en": "No step has a clear landing right now. The turn will end, then we'll check the next steps.",
+      "priority": 75
+    },
+    {
+      "id": "G_E07",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Подождём, пока друг закончит шаг. Потом выберем следующий.",
+      "en": "Let our friend finish moving. Then choose the next step.",
+      "priority": 75
+    },
+    {
+      "id": "G_E08",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Сейчас идёт Рыж. После его шага снова выберем наши.",
+      "en": "Rusty is moving now. After his step, we'll choose ours again.",
+      "priority": 75
+    },
+    {
+      "id": "G_E09",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Этот шаг уже завершён. Выбери один из шагов, которые сейчас доступны.",
+      "en": "That step is finished. Choose one that's available now.",
+      "priority": 75
+    },
+    {
+      "id": "G_E10",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "global_feedback",
+      "domainEvent": "input_rejected",
+      "ru": "Этому другу выбранного шага ещё не хватает до выхода. Можно пройти дальше по тропе.",
+      "en": "This step won't take that friend to the exit yet. You can move farther along the trail.",
+      "priority": 75
+    },
+    {
+      "id": "G_A01",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "tutorial_skip_requested",
+      "ru": "Хорошо, продолжай своим темпом. Подсказки можно снова открыть в справке.",
+      "en": "Keep going at your own pace. You can open the hints again in Help.",
+      "priority": 80
+    },
+    {
+      "id": "G_A02",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "pause_opened",
+      "ru": "Передышка разрешена даже героям. Продолжим, когда будешь готов.",
+      "en": "Even heroes can take a break. We'll continue when you're ready.",
+      "priority": 80
+    },
+    {
+      "id": "G_A03",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "help_requested",
+      "ru": "Что посмотрим: шаги, выбор друга, свободную посадку или выход?",
+      "en": "What shall we look at: steps, choosing a friend, clear landings, or the exit?",
+      "priority": 80
+    },
+    {
+      "id": "G_A04",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "help_requested",
+      "ru": "Обводка и значок показывают доступный ход. Цвет помогает, но имя и форма тоже подскажут.",
+      "en": "Outlines and icons show available moves. Color helps, and so do names and shapes.",
+      "priority": 80
+    },
+    {
+      "id": "G_A05",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "help_requested",
+      "ru": "Реплика остаётся, пока ты её не закроешь. Размер текста можно настроить.",
+      "en": "The line stays until you close it. You can adjust the text size.",
+      "priority": 80
+    },
+    {
+      "id": "G_A06",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "language_changed",
+      "ru": "Продолжим с той же подсказки на выбранном языке.",
+      "en": "We'll continue from the same hint in your chosen language.",
+      "priority": 80
+    },
+    {
+      "id": "G_A07",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "help_requested",
+      "ru": "Можно уменьшить движение. Порядок шагов и подсказки останутся теми же.",
+      "en": "You can reduce motion. The steps and hints will stay the same.",
+      "priority": 80
+    },
+    {
+      "id": "G_R01",
+      "levelId": "GLOBAL",
+      "speakerId": "scratchy",
+      "kind": "accessibility_or_recovery",
+      "domainEvent": "resume_failed",
+      "ru": "Этот участок не удалось продолжить. Начни его снова; мы покажем краткую подсказку.",
+      "en": "This trail couldn't be resumed. Start it again; we'll show a short hint.",
+      "priority": 80
+    }
+  ],
+  "speakers": [
+    {
+      "id": "tish",
+      "ru": "Тиш",
+      "en": "Tish"
+    },
+    {
+      "id": "luma",
+      "ru": "Лума",
+      "en": "Jo"
+    },
+    {
+      "id": "bum",
+      "ru": "Бум",
+      "en": "Boom"
+    },
+    {
+      "id": "koren",
+      "ru": "дед Корень",
+      "en": "Grandpa Koren"
+    },
+    {
+      "id": "pip",
+      "ru": "Пип",
+      "en": "Pip"
+    },
+    {
+      "id": "fika",
+      "ru": "Фика",
+      "en": "Fika"
+    },
+    {
+      "id": "mira",
+      "ru": "Мира",
+      "en": "Mira"
+    },
+    {
+      "id": "una",
+      "ru": "Уна",
+      "en": "Una"
+    },
+    {
+      "id": "shal",
+      "ru": "Шал",
+      "en": "Shal"
+    },
+    {
+      "id": "kloch",
+      "ru": "Клоч",
+      "en": "Kloch"
+    },
+    {
+      "id": "ryzh",
+      "ru": "Рыж",
+      "en": "Rusty"
+    },
+    {
+      "id": "bark",
+      "ru": "Жук-коряжник",
+      "en": "Bark"
+    },
+    {
+      "id": "scratchy",
+      "ru": "Царап",
+      "en": "Scratchy"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "S00",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S00.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S00.1a",
+              "speakerId": "tish",
+              "ru": "Указатель готов. Теперь бы найти верёвку…",
+              "en": "The sign is fixed. Now, where is that string…"
+            },
+            {
+              "id": "S00.1b",
+              "speakerId": "scratchy",
+              "ru": "Тиш… Эй, Тиш! За кустами!",
+              "en": "Tish… Hey, Tish! Behind the bushes!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S01",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S01.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S01.1a",
+              "speakerId": "scratchy",
+              "ru": "Я бежал за блеском над деревьями и зацепился за куст.",
+              "en": "I chased a sparkle above the trees and got caught in a bush."
+            },
+            {
+              "id": "S01.1b",
+              "speakerId": "tish",
+              "ru": "Сначала выберемся на тропу. Потом расскажешь.",
+              "en": "Let us get onto the trail first. Then tell me all about it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S02.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S02.1a",
+              "speakerId": "scratchy",
+              "ru": "Слышишь? Впереди ручей. Только плиты там старые.",
+              "en": "Hear that? There is a stream ahead. The tiles there are old though."
+            },
+            {
+              "id": "S02.1b",
+              "speakerId": "tish",
+              "ru": "Тогда посмотрим под ноги.",
+              "en": "Then we will watch our step."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S03.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S03.1a",
+              "speakerId": "scratchy",
+              "ru": "Ты ловко прыгаешь. А быстро умеешь?",
+              "en": "You jump well. Can you be quick too?"
+            },
+            {
+              "id": "S03.1b",
+              "speakerId": "tish",
+              "ru": "До флажка? Давай!",
+              "en": "To the flag? You are on!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S04.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S04.1a",
+              "speakerId": "luma",
+              "ru": "Вот вы где! По вашему звону можно рисовать карту.",
+              "en": "There you are! I could draw a map by following that bell."
+            },
+            {
+              "id": "S04.1b",
+              "speakerId": "scratchy",
+              "ru": "Лума, теперь твоя очередь!",
+              "en": "Jo, it is your turn now!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S05.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S05.1a",
+              "speakerId": "bum",
+              "ru": "Я вас догнал. И перекус почти не помял.",
+              "en": "I caught up. And the snacks are almost uncrushed."
+            },
+            {
+              "id": "S05.1b",
+              "speakerId": "scratchy",
+              "ru": "Тогда дальше вместе. Я видел, куда полетела птица.",
+              "en": "Then let us go together. I saw which way the bird flew."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "Лесная встреча",
+      "titleEn": "A woodland encounter",
+      "frames": [
+        {
+          "id": "S06.1",
+          "title": "Встреча",
+          "titleEn": "Encounter",
+          "lines": [
+            {
+              "id": "S06.1a",
+              "speakerId": "tish",
+              "ru": "За грибной долиной что-то блестит. Это линза?",
+              "en": "Something is shining beyond Mushroom Hollow. Is that the lens?"
+            },
+            {
+              "id": "S06.1b",
+              "speakerId": "luma",
+              "ru": "Отсюда не разглядеть. Наш путь только начинается.",
+              "en": "It is too far to tell. Our journey is only beginning."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

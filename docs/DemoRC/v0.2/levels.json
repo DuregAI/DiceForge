@@ -1,0 +1,801 @@
+{
+  "sourceVersion": "0.2",
+  "levels": [
+    {
+      "id": "L1",
+      "titleRu": "Шорох в кустах",
+      "title": "A rustle in the bushes",
+      "heroIds": [
+        "tish"
+      ],
+      "startCell": 4,
+      "friendlyRace": false,
+      "hazard": 0,
+      "stepMode": 1,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 4
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 4
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "L2",
+      "titleRu": "По лесной тропе",
+      "title": "Along the woodland trail",
+      "heroIds": [
+        "tish"
+      ],
+      "startCell": 0,
+      "friendlyRace": false,
+      "hazard": 0,
+      "stepMode": 2,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 1
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 4
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 8,
+            "hero": "tish",
+            "step": 1,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "L3",
+      "titleRu": "Треснувшая плита",
+      "title": "The cracked tile",
+      "heroIds": [
+        "tish"
+      ],
+      "startCell": 0,
+      "friendlyRace": false,
+      "hazard": 3,
+      "stepMode": 2,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 1
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 7,
+            "hero": "tish",
+            "step": 1,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 3
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 5
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "L4",
+      "titleRu": "Перегонки с Царапом",
+      "title": "A race with Scratchy",
+      "heroIds": [
+        "tish",
+        "scratchy"
+      ],
+      "startCell": 0,
+      "friendlyRace": true,
+      "hazard": 0,
+      "stepMode": 2,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 1
+          },
+          {
+            "turn": 3,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 4,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 4
+          },
+          {
+            "turn": 6,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 7,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 8,
+            "hero": "scratchy",
+            "step": 1,
+            "from": 7
+          },
+          {
+            "turn": 9,
+            "hero": "tish",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 10,
+            "hero": "tish",
+            "step": 1,
+            "from": 1
+          },
+          {
+            "turn": 11,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 12,
+            "hero": "tish",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 13,
+            "hero": "tish",
+            "step": 1,
+            "from": 4
+          },
+          {
+            "turn": 14,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 15,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 16,
+            "hero": "tish",
+            "step": 1,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 2
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 6
+          },
+          {
+            "turn": 5,
+            "hero": "scratchy",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 6,
+            "hero": "scratchy",
+            "step": 2,
+            "from": 2
+          },
+          {
+            "turn": 7,
+            "hero": "scratchy",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 8,
+            "hero": "scratchy",
+            "step": 2,
+            "from": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "L5",
+      "titleRu": "Кто быстрее, Лума?",
+      "title": "A race with Jo",
+      "heroIds": [
+        "tish",
+        "luma"
+      ],
+      "startCell": 0,
+      "friendlyRace": true,
+      "hazard": 0,
+      "stepMode": 0,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 1,
+            "hero": "luma",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 2,
+            "hero": "luma",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 3,
+            "hero": "luma",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 3,
+            "hero": "luma",
+            "step": 2,
+            "from": 7
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 4,
+            "hero": "tish",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "tish",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 6,
+            "hero": "tish",
+            "step": 2,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 3
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 6
+          },
+          {
+            "turn": 3,
+            "hero": "luma",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "L6",
+      "titleRu": "Огонёк за перевалом",
+      "title": "A light beyond the ridge",
+      "heroIds": [
+        "tish",
+        "luma",
+        "bum"
+      ],
+      "startCell": 0,
+      "friendlyRace": false,
+      "hazard": 0,
+      "stepMode": 0,
+      "balance": {
+        "manualReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 7
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 7
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 9,
+            "hero": "bum",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 9,
+            "hero": "bum",
+            "step": 2,
+            "from": 7
+          }
+        ],
+        "minimalReplay": [
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 2,
+            "from": 0
+          },
+          {
+            "turn": 1,
+            "hero": "tish",
+            "step": 1,
+            "from": 2
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 2,
+            "from": 3
+          },
+          {
+            "turn": 2,
+            "hero": "tish",
+            "step": 1,
+            "from": 5
+          },
+          {
+            "turn": 3,
+            "hero": "tish",
+            "step": 2,
+            "from": 6
+          },
+          {
+            "turn": 3,
+            "hero": "luma",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 4,
+            "hero": "luma",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 5,
+            "hero": "luma",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 6,
+            "hero": "luma",
+            "step": 2,
+            "from": 7
+          },
+          {
+            "turn": 6,
+            "hero": "bum",
+            "step": 1,
+            "from": 0
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 2,
+            "from": 1
+          },
+          {
+            "turn": 7,
+            "hero": "bum",
+            "step": 1,
+            "from": 3
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 2,
+            "from": 4
+          },
+          {
+            "turn": 8,
+            "hero": "bum",
+            "step": 1,
+            "from": 6
+          },
+          {
+            "turn": 9,
+            "hero": "bum",
+            "step": 2,
+            "from": 7
+          }
+        ]
+      }
+    }
+  ]
+}

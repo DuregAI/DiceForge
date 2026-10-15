@@ -2,21 +2,21 @@
   "lines": [
     {
       "id": "WORLD_TEASER_01",
-      "speakerId": "tish",
-      "ru": "Лума, смотри… В грибной долине зажёгся огонёк.",
-      "en": "Jo, look… A light just appeared in Mushroom Hollow."
+      "speakerId": "scratchy",
+      "ru": "Дзинь… А вот тот огонёк я раньше не видел.",
+      "en": "Ding… I have never seen that little light before."
     },
     {
       "id": "WORLD_TEASER_02",
       "speakerId": "luma",
-      "ru": "Странно. Корень говорил, что там давно никто не живёт.",
-      "en": "That’s strange. Koren said nobody had lived there for years."
+      "ru": "След ведёт в грибную долину. Линза всё ещё где-то впереди.",
+      "en": "The trail leads into Mushroom Hollow. The lens is still somewhere ahead."
     },
     {
       "id": "WORLD_TEASER_03",
-      "speakerId": "bum",
-      "ru": "Тогда кто сейчас машет нам из окна?..",
-      "en": "Then who’s waving at us from that window?.."
+      "speakerId": "tish",
+      "ru": "Тогда продолжим вместе.",
+      "en": "Then we will carry on together."
     }
   ]
 }

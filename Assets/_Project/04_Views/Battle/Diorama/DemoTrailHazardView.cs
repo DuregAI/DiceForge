@@ -26,7 +26,7 @@ namespace Diceforge.View
             if (runner == null || level == null || board == null || runner.Rules.soloTrailHazard == SoloTrailHazard.None) return;
             if (level.hazardPrefab == null) throw new System.InvalidOperationException($"Demo {level.levelId} has no hazard figure.");
             figure = Instantiate(level.hazardPrefab, board.transform);
-            figure.name = runner.Rules.soloTrailHazard == SoloTrailHazard.Ryzh ? "Ryzh" : "Bark";
+            figure.name = runner.Rules.soloTrailHazard.ToString();
             if (runner.Rules.soloTrailHazard == SoloTrailHazard.Ryzh)
             {
                 figure.transform.localScale *= .65f;

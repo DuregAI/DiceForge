@@ -101,6 +101,13 @@ namespace Diceforge.View
         private void RefreshHudLocalization()
         {
             localization?.Refresh();
+            settingsLocalization?.Refresh();
+            if (settingsPanel != null)
+            {
+                settingsPanel.Q<Label>("lblAboutVersion").text = $"{localization.T("Version")} {Application.version}";
+                if (settingsMute != null && audioManager != null)
+                    settingsMute.tooltip = localization.T(audioManager.IsMuted ? "Unmute audio" : "Mute audio");
+            }
             OnHudLocaleChanged();
         }
 
@@ -204,7 +211,8 @@ namespace Diceforge.View
             var state = battle.PresentationState;
             hazard.EnableInClassList("hidden", state.Rules.soloTrailHazard == SoloTrailHazard.None);
             if (state.Rules.soloTrailHazard != SoloTrailHazard.None && !battle.PresentationIsAnimating)
-                SetText(hazard, localization.T(state.Rules.soloTrailHazard == SoloTrailHazard.Bark ? "Bark blocks the landing. Jump over him."
+                SetText(hazard, localization.T(state.Rules.soloTrailHazard == SoloTrailHazard.CrackedTile ? "The cracked tile cannot hold you. Jump over it."
+                    : state.Rules.soloTrailHazard == SoloTrailHazard.Bark ? "Bark blocks the landing. Jump over him."
                     : state.TrailHazardCell >= 0 ? "Rusty moves after both steps." : "Rusty has stepped aside. The trail is clear."));
             root.Q<Button>("surrender").text = localization.T("Leave trail");
             root.Q<Label>("leaveTitle").text = localization.T("Leave trail?");

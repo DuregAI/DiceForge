@@ -17,7 +17,7 @@ namespace Diceforge.Core
         Alternatives = 2
     }
 
-    public enum SoloTrailHazard : byte { None = 0, Bark = 1, Ryzh = 2 }
+    public enum SoloTrailHazard : byte { None = 0, Bark = 1, Ryzh = 2, CrackedTile = 3 }
 
     [Serializable]
     public sealed class HeadRuleEntry

@@ -34,6 +34,8 @@ namespace Diceforge.View
 
         public void SetMoving(bool isMoving)
         {
+            // Diorama characters have one owner for locomotion and optional reactions.
+            if (GetComponent<GoblinLife>()?.isActiveAndEnabled == true) return;
             if (animator == null || _isMoving == isMoving)
                 return;
 

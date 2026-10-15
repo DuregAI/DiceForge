@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:Style src="FirstTrailPlayHud.uss" />
+    <ui:Style src="WoodlandInterface.uss" />
     <ui:VisualElement name="trail-overlay" picking-mode="Ignore">
         <ui:VisualElement name="trail-top" class="trail-panel">
             <ui:Label text="ЛЕСНАЯ ТРОПИНКА" class="trail-title" />

@@ -65,6 +65,7 @@ namespace Diceforge.View
         }
 
         public int CurrentCellId => currentCellId;
+        public bool UsesHopAnimation => _diorama && _hopPresentation;
         public bool IsAnimating => _moveRoutine != null || _moveStepsRoutine != null;
 
         public void SetVisualOffset(Vector3 offset)
@@ -88,7 +89,7 @@ namespace Diceforge.View
                 tokenRoot = transform;
 
             _animationController = GetComponent<UnitAnimationController>() ?? GetComponentInChildren<UnitAnimationController>(true);
-            if (_animationController == null)
+            if (_animationController == null && GetComponent<GoblinLife>() == null && GetComponentInChildren<Animator>(true) != null)
                 _animationController = gameObject.AddComponent<UnitAnimationController>();
         }
 

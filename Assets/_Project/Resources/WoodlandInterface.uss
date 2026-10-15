@@ -1,0 +1,200 @@
+/* Shared woodland materials; screen styles retain layout and interaction. */
+#PlayerInfoModal .player-modal-window,
+#AvatarSelectionModal .player-modal-window,
+#AvatarShopPlaceholderModal .player-modal-window,
+#TutorialReplayConfirmModal .player-modal-window,
+#RenameConfirmModal .player-modal-window,
+#RenamePlayerModal .player-modal-window,
+#UpgradeShopPanel .upgrade-shop-window,
+#ChestShopPanel .chest-shop-window,
+#ChestOpenPanel .chest-open-window,
+#resultOverlayRoot .result-overlay-panel,
+#levelUpOverlay .level-up-panel,
+#chestRewardOverlay .chest-reward-panel,
+#serverUnavailableOverlay .server-unavailable-window,
+#DialoguePanel .df-dialogue-window,
+#woodlandRoot .pause-window,
+#demoNarrativeRoot .help-card {
+ background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel-refined.png");
+ background-size: 100% 100%; background-color: transparent;
+ border-width: 0; border-radius: 0;
+ -unity-slice-left: 180; -unity-slice-right: 180; -unity-slice-top: 220; -unity-slice-bottom: 180; -unity-slice-scale: .4;
+ padding: 70px 48px 48px;
+ color: rgb(65,43,25);
+}
+#PlayerInfoModal Label,
+#AvatarSelectionModal Label,
+#AvatarShopPlaceholderModal Label,
+#TutorialReplayConfirmModal Label,
+#RenameConfirmModal Label,
+#RenamePlayerModal Label,
+#UpgradeShopPanel Label,
+#ChestShopPanel Label,
+#ChestOpenPanel Label,
+#resultOverlayRoot Label,
+#levelUpOverlay Label,
+#chestRewardOverlay Label,
+#serverUnavailableOverlay Label,
+#DialoguePanel Label,
+#worldSelectionRoot Label,
+#woodlandRoot Label,
+#demoNarrativeRoot Label,
+#MapRoot Label,
+#trail-overlay Label {
+ color: rgb(65,43,25); text-shadow: 0 0 0 transparent; -unity-text-outline-width: 0;
+ -unity-font-definition: url("../03_UI/MainMenu/Resources/Localization/Nunito.ttf");
+}
+#PlayerInfoModal Button,
+#AvatarSelectionModal Button,
+#AvatarShopPlaceholderModal Button,
+#TutorialReplayConfirmModal Button,
+#RenameConfirmModal Button,
+#RenamePlayerModal Button,
+#UpgradeShopPanel Button,
+#ChestShopPanel Button,
+#ChestOpenPanel Button,
+#resultOverlayRoot Button,
+#levelUpOverlay Button,
+#chestRewardOverlay Button,
+#serverUnavailableOverlay Button,
+#DialoguePanel Button,
+#worldSelectionRoot Button,
+#woodlandRoot Button,
+#demoNarrativeRoot Button,
+#MapRoot Button,
+#trail-overlay Button {
+ background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+ background-size: 100% 100%; background-color: transparent; border-width: 0; border-radius: 0;
+ -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48; -unity-slice-scale: .5;
+ color: rgb(65,43,25); -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent;
+ -unity-font-definition: url("../03_UI/MainMenu/Resources/Localization/Nunito.ttf");
+}
+#woodlandRoot .pause-primary,
+#woodlandRoot .demo-hero.selected,
+#woodlandRoot .move-token.selected,
+#worldSelectionRoot .world-replay,
+#resultOverlayRoot #backToMenuButton,
+#levelUpOverlay Button,
+#chestRewardOverlay Button,
+#DialoguePanel #DialogueNext,
+#MapRoot #MapContinueButton {
+ background-image: url("../07_Art/UI/GlimblehopMenu/button-primary.png");
+ -unity-slice-left: 100; -unity-slice-right: 100; -unity-slice-top: 76; -unity-slice-bottom: 76;
+ color: rgb(255,248,225);
+}
+#woodlandRoot .hud-header,
+#woodlandRoot #demoActionSurface,
+#demoNarrativeRoot #storyDialogue,
+#trail-overlay .trail-panel,
+#worldSelectionRoot .world-details {
+ background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+ background-size: 100% 100%; background-color: transparent; border-width: 0; border-radius: 0;
+ -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48; -unity-slice-scale: .5;
+}
+#woodlandRoot .demo-control-caption, #demoNarrativeRoot .speaker { color: rgb(85,109,41); }
+#woodlandRoot #hint { color: rgb(65,43,25); }
+#demoNarrativeRoot #storyPage { color: rgb(255,248,225); text-shadow: 0 1px 3px rgb(65,43,25); }
+#demoNarrativeRoot #hintSkip, #demoNarrativeRoot #helpClose { background-image: none; color: rgb(65,43,25); }
+#woodlandRoot #pause, #woodlandRoot #settings, #demoNarrativeRoot #demoHelpButton {
+ background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+}
+#PlayerInfoModal Button:hover,
+#AvatarSelectionModal Button:hover,
+#AvatarShopPlaceholderModal Button:hover,
+#TutorialReplayConfirmModal Button:hover,
+#RenameConfirmModal Button:hover,
+#RenamePlayerModal Button:hover,
+#UpgradeShopPanel Button:hover,
+#ChestShopPanel Button:hover,
+#ChestOpenPanel Button:hover,
+#resultOverlayRoot Button:hover,
+#levelUpOverlay Button:hover,
+#chestRewardOverlay Button:hover,
+#serverUnavailableOverlay Button:hover,
+#DialoguePanel Button:hover,
+#worldSelectionRoot Button:hover,
+#woodlandRoot Button:hover,
+#demoNarrativeRoot Button:hover,
+#MapRoot Button:hover,
+#trail-overlay Button:hover { -unity-background-image-tint-color: rgb(255,245,213); }
+#PlayerInfoModal Button:disabled,
+#AvatarSelectionModal Button:disabled,
+#AvatarShopPlaceholderModal Button:disabled,
+#TutorialReplayConfirmModal Button:disabled,
+#RenameConfirmModal Button:disabled,
+#RenamePlayerModal Button:disabled,
+#UpgradeShopPanel Button:disabled,
+#ChestShopPanel Button:disabled,
+#ChestOpenPanel Button:disabled,
+#resultOverlayRoot Button:disabled,
+#levelUpOverlay Button:disabled,
+#chestRewardOverlay Button:disabled,
+#serverUnavailableOverlay Button:disabled,
+#DialoguePanel Button:disabled,
+#worldSelectionRoot Button:disabled,
+#woodlandRoot Button:disabled,
+#demoNarrativeRoot Button:disabled,
+#MapRoot Button:disabled,
+#trail-overlay Button:disabled { opacity: .5; }
+
+#woodlandRoot .hud-header, #woodlandRoot #demoActionSurface,
+#demoNarrativeRoot #storyDialogue, #trail-overlay .trail-panel,
+#worldSelectionRoot .world-details {
+ background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel-refined.png");
+ -unity-slice-left: 180; -unity-slice-right: 180; -unity-slice-top: 220; -unity-slice-bottom: 180; -unity-slice-scale: .15;
+}
+#woodlandRoot .top-bar { background-color: transparent; border-width: 0; }
+#woodlandRoot .demo-dialogue-dock { border-color: rgb(173,135,80); }
+#woodlandRoot .hud-actions Button, #demoNarrativeRoot #demoHelpButton {
+ -unity-slice-left: 0; -unity-slice-right: 0; -unity-slice-top: 0; -unity-slice-bottom: 0;
+}
+#PlayerInfoModal .player-modal-window, #AvatarSelectionModal .player-modal-window,
+#AvatarShopPlaceholderModal .player-modal-window, #RenamePlayerModal .player-modal-window,
+#RenameConfirmModal .player-modal-window, #TutorialReplayConfirmModal .player-modal-window {
+ width: 760px; min-width: 0; max-width: 94%; max-height: 94%; padding: 90px 64px 64px;
+}
+#PlayerInfoModal Label, #AvatarSelectionModal Label, #RenamePlayerModal Label,
+#RenameConfirmModal Label, #TutorialReplayConfirmModal Label { font-size: 26px; }
+#PlayerInfoModal .player-modal-actions Button, #AvatarSelectionModal .player-modal-actions Button,
+#RenamePlayerModal .player-modal-actions Button, #RenameConfirmModal .player-modal-actions Button,
+#TutorialReplayConfirmModal .player-modal-actions Button { min-height: 72px; min-width: 150px; font-size: 26px; }
+#ChestShopPanel .chest-shop-content, #ChestOpenPanel .chest-open-content,
+#UpgradeShopPanel .upgrade-shop-content { background-image: none; background-color: transparent; border-width: 0; }
+#ChestShopPanel .chest-shop-card, #ChestOpenPanel .chest-open-section,
+#UpgradeShopPanel .upgrade-list { background-image: none; background-color: rgb(245,221,177); border-color: rgb(174,132,75); }
+#ChestShopPanel .chest-shop-title, #ChestOpenPanel .chest-open-title,
+#UpgradeShopPanel .upgrade-shop-title { font-size: 36px; }
+#ChestShopPanel .chest-shop-card-title { font-size: 26px; }
+#ChestShopPanel .chest-shop-card-subtitle, #ChestShopPanel .chest-shop-price-label { font-size: 22px; }
+#PlayerInfoModal .player-avatar-button, #AvatarSelectionModal .avatar-choice { background-image: none; background-color: transparent; }
+#woodlandRoot .move-token, #woodlandRoot .move-token.selected {
+ background-image: url("../07_Art/UI/WoodlandBattle/move-token.png"); background-size: contain;
+ -unity-slice-left: 0; -unity-slice-right: 0; -unity-slice-top: 0; -unity-slice-bottom: 0; color: rgb(65,43,25);
+}
+#woodlandRoot .move-token.selected { -unity-background-image-tint-color: rgb(204,229,149); }
+
+#PlayerInfoModal Button.df-modal-close-icon,
+#AvatarSelectionModal Button.df-modal-close-icon,
+#AvatarShopPlaceholderModal Button.df-modal-close-icon,
+#TutorialReplayConfirmModal Button.df-modal-close-icon,
+#RenameConfirmModal Button.df-modal-close-icon,
+#RenamePlayerModal Button.df-modal-close-icon,
+#UpgradeShopPanel Button.df-modal-close-icon,
+#ChestShopPanel Button.df-modal-close-icon,
+#ChestOpenPanel Button.df-modal-close-icon {
+ background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=2110562698&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_normal");
+ background-size: contain; -unity-slice-left: 0; -unity-slice-right: 0; -unity-slice-top: 0; -unity-slice-bottom: 0;
+ width: 84px; height: 84px; min-width: 84px; min-height: 84px; right: 20px; top: 26px;
+}
+
+#resultOverlayRoot .result-overlay-stage, #resultOverlayRoot .result-overlay-content,
+#levelUpOverlay .level-up-shell, #chestRewardOverlay .chest-reward-shell {
+ background-image: none; background-color: transparent; border-color: rgb(174,132,75);
+}
+#AvatarSelectionModal .avatar-selection-grid, #PlayerInfoModal .player-info-stats {
+ background-image: none; background-color: transparent;
+}
+#RenamePlayerModal TextField { background-color: rgb(255,239,205); border-color: rgb(174,132,75); color: rgb(65,43,25); }
+#TutorialRoot Label { color: rgb(65,43,25); -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; }
+#TutorialRoot .tutorial-header-row { background-color: rgb(245,221,177); border-color: rgb(174,132,75); }
+#TutorialRoot Button { background-color: rgb(245,221,177); color: rgb(65,43,25); border-color: rgb(174,132,75); }

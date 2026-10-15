@@ -26,7 +26,7 @@ namespace Diceforge.Tests.BattleTermination
         [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)] [TestCase(5)] [TestCase(6)]
         public void EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(int index)
         {
-            var book = JsonUtility.FromJson<Book>(File.ReadAllText("docs/DemoRC/v0.1/data/levels.json"));
+            var book = JsonUtility.FromJson<Book>(File.ReadAllText("docs/DemoRC/v0.2/levels.json"));
             Step[] route = book.levels.Single(l => l.id == "L" + index).balance.manualReplay;
             object original = DemoCampaignTests.Runner(index, out _);
             object resumed = DemoCampaignTests.Runner(index, out _);
@@ -66,7 +66,7 @@ namespace Diceforge.Tests.BattleTermination
                 c => Runtime.Set(c, "orderedBagCursor", 0),
                 c => Runtime.Set(c, "remainingDice", new[] { 2 }),
                 c => Runtime.Set(c, "selectedDieIndex", 999),
-                c => Runtime.Set(c, "trailHazardCell", -1),
+                c => Runtime.Set(c, "trailHazardCell", 4),
                 c => Runtime.Set(c, "finished", true),
                 c => Runtime.Set(c, "headMovesUsed", 999)
             };
@@ -81,7 +81,7 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [Test]
-        public void TimeoutRestoresAsDrawWithoutAdvancingRyzhAgain()
+        public void TimeoutRestoresAsDrawWithoutAdvancingTurnAgain()
         {
             object original = DemoCampaignTests.Runner(5, out object rules);
             Runtime.Set(rules, "maxTurns", 1);
@@ -92,7 +92,7 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Restore(target, Capture(original), out string error), Is.True, error);
             Assert.That(Snapshot(target), Is.EqualTo(Snapshot(original)));
             Assert.That(Runtime.Get(Runtime.Get(target, "MatchResult"), "Winner"), Is.Null);
-            Assert.That(Runtime.Get(Runtime.Get(target, "State"), "TrailHazardCell"), Is.EqualTo(3));
+            Assert.That(Runtime.Get(Runtime.Get(target, "State"), "TrailHazardCell"), Is.EqualTo(-1));
         }
 
         [Test]

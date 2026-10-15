@@ -169,6 +169,7 @@ namespace Diceforge.Core
                 case SoloTrailHazard.None:
                     return c.trailHazardCell == -1 && !c.trailHazardYielded ? null : "This level has no trail hazard.";
                 case SoloTrailHazard.Bark:
+                case SoloTrailHazard.CrackedTile:
                     return c.trailHazardCell == Rules.soloTrailHazardStartCell && !c.trailHazardYielded
                         ? null : "The stationary trail hazard has moved.";
                 case SoloTrailHazard.Ryzh:

@@ -8,6 +8,7 @@
     <Style src="project://database/Assets/_Project/03_UI/Player/PlayerPanel.uss?fileID=7433441132597879392&amp;guid=895f9e64e7fe479fb01aab1ab602fe35&amp;type=3#PlayerPanel"/>
     <Style src="GlimblehopMenu.uss"/>
     <Style src="JoTutorial.uss"/>
+    <ui:Style src="../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="Root" class="gh-core-menu">
         <ui:VisualElement name="Center" enabled="true">
             <ui:VisualElement name="MenuPanel" enabled="true" class="panel is-visible">
@@ -60,10 +61,10 @@
                 <ui:Button name="JoNext" class="gh-button gh-primary jo-next"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="LegalPanel" class="settings-overlay gh-legal-overlay">
-            <ui:VisualElement class="gh-legal-window">
-                <ui:Button name="btnCloseLegal" text="×" tooltip="Close legal information" class="gh-settings-close"/>
-                <ui:Label text="LEGAL" class="gh-settings-title"/>
+        <ui:VisualElement name="LegalPanel" class="woodland-modal settings-overlay gh-legal-overlay">
+            <ui:VisualElement class="gh-legal-window woodland-window">
+                <ui:Button name="btnCloseLegal" text="×" tooltip="Close legal information" class="woodland-close gh-settings-close"/>
+                <ui:Label text="LEGAL" class="gh-settings-title woodland-title"/>
                 <ui:ScrollView class="gh-legal-scroll" mode="Vertical">
                     <ui:Label text="TERMS OF USE" class="gh-section-heading"/>
                     <ui:Label text="You may install and play a lawfully obtained copy of Glimblehop for personal, non-commercial use, subject to applicable law and the distribution platform's terms. The game is licensed, not sold. Rights in the game and its content remain with their respective owners." class="gh-legal-body"/>
@@ -308,9 +309,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="FeedbackModal" class="player-modal-overlay">
-            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window">
-                <ui:Label text="Send Feedback" class="panel-title df-label"/>
+        <ui:VisualElement name="FeedbackModal" class="woodland-modal player-modal-overlay">
+            <ui:VisualElement class="player-modal-window player-modal-dialog df-surface feedback-modal-window woodland-window">
+                <ui:Label text="Send Feedback" class="panel-title df-label woodland-title"/>
                 <ui:Label text="Player name" class="df-label feedback-field-label"/>
                 <ui:TextField name="feedbackNameField" max-length="23" class="df-input feedback-name-field"/>
                 <ui:Label text="Category" class="df-label feedback-field-label"/>
@@ -351,7 +352,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="AvatarShopPlaceholderModal" class="player-modal-overlay">
             <ui:VisualElement class="player-modal-window player-modal-dialog df-surface avatar-shop-placeholder-window">
-                <ui:Label text="Avatar Shop" class="panel-title df-label"/>
+                <ui:Label text="Avatar Shop" class="panel-title df-label woodland-title"/>
                 <ui:Label name="avatarShopPlaceholderText" text="More avatars are coming soon. This entry point is ready for future cosmetic unlocks." class="player-confirm-text df-label avatar-shop-placeholder-text"/>
                 <ui:VisualElement class="player-modal-actions">
                     <ui:Button name="btnCloseAvatarShopPlaceholder" text="Close" class="df-button df-interactive"/>

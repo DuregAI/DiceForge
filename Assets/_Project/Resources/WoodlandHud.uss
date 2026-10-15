@@ -292,8 +292,8 @@ Button:disabled { opacity: .58; }
 .demo-mode .pause:focus, .demo-mode .settings:focus { border-color: var(--demo-focus); }
 .demo-mode .pause:active, .demo-mode .settings:active { background-color: var(--demo-neutral-hover); scale: 1 1; }
 .demo-mode .demo-hazard-hint { align-self: flex-start; max-width: 650px; margin: 8px 164px 0 12px; font-size: 15px; color: var(--demo-surface); -unity-text-align: middle-left; text-shadow: 0 1px 3px rgba(18, 38, 30, .85); }
-.demo-mode .bottom-bar { align-self: center; align-items: stretch; width: 100%; min-width: 0; max-width: 980px; padding: 20px 24px; background-image: none; background-color: var(--demo-surface); border-radius: 24px; border-width: 1px; border-color: var(--demo-edge); color: var(--demo-text); }
-.demo-mode.has-dialogue .bottom-bar { padding-right: 270px; }
+.demo-mode .bottom-bar { align-self: center; align-items: stretch; width: 100%; min-width: 0; max-width: 900px; padding: 14px 20px; background-image: none; background-color: var(--demo-surface); border-radius: 24px; border-width: 1px; border-color: var(--demo-edge); color: var(--demo-text); }
+.demo-mode.has-dialogue .bottom-bar { padding-right: 240px; }
 .demo-mode.has-dialogue .demo-dialogue-dock { display: flex; margin-bottom: 16px; padding-bottom: 14px; border-bottom-width: 1px; border-bottom-color: var(--demo-edge); }
 .demo-mode .demo-meta { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 14px; flex-shrink: 0; }
 .demo-mode .demo-step-rule { margin: 0 12px 0 0; font-size: 14px; color: var(--demo-muted); -unity-text-align: middle-left; }

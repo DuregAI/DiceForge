@@ -16,6 +16,14 @@ namespace Diceforge.GameModes
         public GameObject tishPrefab;
         public GameObject bumPrefab;
         public GameObject hazardPrefab;
+        public DemoCharacterCatalog characters;
+        public bool friendlyRace;
+
+        public GameObject HeroPrefab(string id)
+        {
+            var character = characters != null ? characters.Find(id) : null;
+            return character?.gameplayPrefab;
+        }
 
         public void Validate(RulesetConfig rules)
         {
@@ -26,7 +34,7 @@ namespace Diceforge.GameModes
                 throw new InvalidOperationException($"Demo level '{levelId}' hero count does not match its rules.");
             var ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (string id in heroIds)
-                if (!ids.Add(id ?? string.Empty) || (id != "tish" && id != "luma" && id != "bum"))
+                if (!ids.Add(id ?? string.Empty) || (id != "tish" && id != "luma" && id != "bum" && id != "scratchy"))
                     throw new InvalidOperationException($"Demo level '{levelId}' contains an unknown or repeated hero '{id}'.");
             if (rules.startCellA != 0 || rules.moveDirA != 1 || rules.allowHitSingleStone || !rules.blockIfOpponentAnyStone || rules.allowReroll)
                 throw new InvalidOperationException($"Demo level '{levelId}' requires forward movement, blocking and no hits or rerolls.");
@@ -40,6 +48,7 @@ namespace Diceforge.GameModes
             "tish" => "Tish",
             "luma" => "Jo",
             "bum" => "Boom",
+            "scratchy" => "Scratchy",
             _ => string.Empty
         };
     }

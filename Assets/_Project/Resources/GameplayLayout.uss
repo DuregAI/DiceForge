@@ -1,0 +1,50 @@
+/* Gameplay overrides follow the shared material theme. Keep frame corners fixed
+   while the content wraps; these selectors do not affect profile or shops. */
+#woodlandRoot .hud-header,
+#woodlandRoot #demoActionSurface,
+#demoNarrativeRoot #storyDialogue,
+#woodlandRoot .pause-window,
+#demoNarrativeRoot .help-card {
+    -unity-slice-left: 360; -unity-slice-right: 260;
+    -unity-slice-top: 220; -unity-slice-bottom: 280;
+}
+#woodlandRoot .hud-header { -unity-slice-scale: .12px; }
+#woodlandRoot #demoActionSurface,
+#demoNarrativeRoot #storyDialogue { -unity-slice-scale: .15px; }
+#woodlandRoot Button, #demoNarrativeRoot Button { -unity-slice-scale: .22px; }
+#woodlandRoot .hud-header { padding: 18px 20px 12px; }
+#woodlandRoot.demo-mode .top-bar { margin-right: 152px; padding: 0; }
+#woodlandRoot .hud-actions { right: 16px; top: 16px; }
+#demoNarrativeRoot #demoHelpButton { margin: 0; }
+#woodlandRoot.demo-mode #demoActionSurface { padding: 26px 24px 22px; }
+#woodlandRoot.demo-mode.has-dialogue #demoActionSurface { padding-right: 240px; }
+#woodlandRoot.demo-mode.portrait #demoActionSurface { padding: 26px 22px 22px; }
+#woodlandRoot.demo-mode .demo-step-group { flex-shrink: 1; min-width: 0; max-width: 100%; }
+#woodlandRoot.demo-mode .moves { flex-wrap: wrap; flex-shrink: 1; }
+#woodlandRoot.demo-mode .move-token {
+    background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-size: 100% 100%;
+    -unity-slice-left: 48; -unity-slice-right: 48;
+    -unity-slice-top: 48; -unity-slice-bottom: 48;
+    -unity-slice-scale: .22px;
+    -unity-text-align: middle-center;
+    margin-bottom: 8px; scale: 1 1;
+}
+#woodlandRoot.demo-mode .move-token.selected { -unity-background-image-tint-color: rgb(204,229,149); }
+#woodlandRoot.demo-mode .demo-hero { white-space: normal; max-width: 100%; height: 52px; padding-top: 0; padding-bottom: 0; }
+#woodlandRoot .pause-window {
+    width: 420px; min-width: 0; max-width: 100%; max-height: 100%;
+    padding: 44px 30px 30px; -unity-slice-scale: .22px;
+}
+#woodlandRoot .pause-title { background-image: none; min-height: 44px; padding: 0; }
+#woodlandRoot .pause-window .unity-scroll-view__content-container { flex-shrink: 0; }
+#woodlandRoot .pause-toggle { flex-shrink: 0; }
+#woodlandRoot .pause-toggle .unity-toggle__label { white-space: normal; flex-shrink: 1; min-width: 0; }
+#demoNarrativeRoot .help-card { padding: 44px 30px 30px; -unity-slice-scale: .22px; max-height: 94%; }
+#demoNarrativeRoot .help-header, #demoNarrativeRoot .help-actions { flex-shrink: 0; }
+#demoNarrativeRoot .help-actions Button { white-space: normal; min-height: 44px; max-width: 100%; }
+#demoNarrativeRoot #helpTopics { min-height: 0; flex-shrink: 1; }
+#demoNarrativeRoot #storyDialogue { padding: 28px 28px 24px; }
+#demoNarrativeRoot .story-copy { min-width: 0; }
+#demoNarrativeRoot .story-next { flex-shrink: 0; }
+#demoNarrativeRoot .save-message { right: 12px; width: auto; max-width: 340px; }

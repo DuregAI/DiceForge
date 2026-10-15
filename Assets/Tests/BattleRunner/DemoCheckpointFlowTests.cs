@@ -182,37 +182,37 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [UnityTest]
-        public IEnumerator MidTurnL5ResumeKeepsNamesAndOneHazardAdvanceThenRestartAndRejectsChangedScenario()
+        public IEnumerator MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario()
         {
             SeedLevel(5);
             yield return Launch(5);
             Component battle = Find("View.BattleDebugController");
             yield return Opening(battle);
             yield return Move(battle, "luma", 2);
-            Hero(battle, "luma", 2); Hero(battle, "tish", 0); Hero(battle, "bum", 0);
+            Hero(battle, "luma", 2); Hero(battle, "tish", 0);
             string operation = Operation(battle);
             string attempt = (string)Runtime.Field(Runtime.Call(Narrative(battle), "ExportLearning"), "attemptId");
             CollectionAssert.AreEqual(new[] { 1 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(3));
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             yield return Launch(5);
             battle = Find("View.BattleDebugController");
             yield return Opening(battle);
             Assert.That(Runtime.Get(Checkpoint(battle), "Resumed"), Is.EqualTo(true));
             Assert.That(Operation(battle), Is.EqualTo(operation));
             Assert.That(Runtime.Field(Runtime.Call(Narrative(battle), "ExportLearning"), "attemptId"), Is.EqualTo(attempt));
-            Hero(battle, "luma", 2); Hero(battle, "tish", 0); Hero(battle, "bum", 0);
+            Hero(battle, "luma", 2); Hero(battle, "tish", 0);
             CollectionAssert.AreEqual(new[] { 1 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(3));
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             int hazards = 0;
             Runtime.Observe(Runtime.Field(battle, "_runner"), "OnTrailHazardMoved", _ => hazards++);
             yield return Move(battle, "tish", 1);
-            Assert.That(hazards, Is.EqualTo(1));
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(4));
+            Assert.That(hazards, Is.Zero);
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             Assert.That(Runtime.Get(Board(battle), "TurnIndex"), Is.EqualTo(1));
             Runtime.Call(battle, "RestartMatch");
             yield return null; yield return null;
-            Hero(battle, "luma", 0); Hero(battle, "tish", 0); Hero(battle, "bum", 0);
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(3));
+            Hero(battle, "luma", 0); Hero(battle, "tish", 0);
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             Assert.That(Runtime.Get(Board(battle), "TurnIndex"), Is.EqualTo(0));
             Assert.That(Operation(battle), Is.Not.EqualTo(operation));
             Assert.That(Runtime.Field(Runtime.Field(Saved, "battle"), "turnIndex"), Is.EqualTo(0));
@@ -229,7 +229,7 @@ namespace Diceforge.Tests.BattleTermination
             yield return Opening(battle);
             Assert.That(Runtime.Get(Checkpoint(battle), "ResumeFailed"), Is.EqualTo(true));
             Assert.That(Runtime.Get(Checkpoint(battle), "Resumed"), Is.EqualTo(false));
-            Hero(battle, "luma", 0); Hero(battle, "tish", 0); Hero(battle, "bum", 0);
+            Hero(battle, "luma", 0); Hero(battle, "tish", 0);
             Assert.That(Runtime.Get(Board(battle), "TurnIndex"), Is.EqualTo(0));
             Assert.That(JsonUtility.ToJson(((IList)Runtime.Field(Profile, "chapters"))[0]), Is.EqualTo(progress));
             object before = JsonUtility.FromJson(storySeen, Runtime.Type("Progression.PlayerProfile"));
@@ -240,19 +240,20 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTest]
         public IEnumerator IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward()
         {
-            SeedLevel(3);
-            yield return Launch(3);
+            SeedLevel(4);
+            yield return Launch(4);
             Component battle = Find("View.BattleDebugController");
             yield return Opening(battle);
             string operation = Operation(battle);
-            for (int i = 0; i < 4; i++) yield return Move(battle, "luma", 2);
-            Hero(battle, "luma", -1, true); Hero(battle, "tish", 0);
+            for (int i = 0; i < 4; i++) yield return Move(battle, "scratchy", 2);
+            Hero(battle, "scratchy", -1, true); Hero(battle, "tish", 0);
             Assert.That(Runtime.Get(Board(battle), "IsFinished"), Is.EqualTo(false));
-            yield return Launch(3);
+            yield return Launch(4);
             battle = Find("View.BattleDebugController");
             yield return Opening(battle);
-            Hero(battle, "luma", -1, true); Hero(battle, "tish", 0);
+            Hero(battle, "scratchy", -1, true); Hero(battle, "tish", 0);
             Assert.That(Operation(battle), Is.EqualTo(operation));
+            Assert.That(Runtime.Get(Narrative(battle), "FirstFinisherId"), Is.EqualTo("scratchy"));
             for (int i = 0; i < 3; i++) yield return Move(battle, "tish", 2);
             SelectMove(battle, "tish", 2);
             yield return Until(() => (bool)Runtime.Get(Board(battle), "IsFinished"), "Last exit was not applied.");
@@ -261,11 +262,12 @@ namespace Diceforge.Tests.BattleTermination
                 "An unfinished presentation must keep the preceding checkpoint.");
             // Immediate unload models interruption before the animation can settle or save.
             SceneManager.LoadScene("MainMenu");
-            yield return Launch(3);
+            yield return Launch(4);
             battle = Find("View.BattleDebugController");
             yield return Opening(battle);
-            Hero(battle, "luma", -1, true); Hero(battle, "tish", 6);
+            Hero(battle, "scratchy", -1, true); Hero(battle, "tish", 6);
             Assert.That(Operation(battle), Is.EqualTo(operation));
+            Assert.That(Runtime.Get(Narrative(battle), "FirstFinisherId"), Is.EqualTo("scratchy"));
             Assert.That(Receipts, Is.Zero);
             yield return Move(battle, "tish", 2);
             yield return Until(() => (bool)Runtime.Field(Runtime.Field(Saved, "battle"), "finished") &&
@@ -273,15 +275,16 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(Receipts, Is.Zero);
             Assert.That(Runtime.Get(Narrative(battle), "StoryId"), Is.Null, "Success lines must precede the comic.");
             Runtime.Call(Narrative(battle), "SkipStory");
-            yield return Until(() => (string)Runtime.Get(Narrative(battle), "StoryId") == "S03", "Completion comic did not appear.");
+            yield return Until(() => (string)Runtime.Get(Narrative(battle), "StoryId") == "S04", "Completion comic did not appear.");
             Assert.That(Runtime.Field(Saved, "completionLinesSeen"), Is.EqualTo(true));
-            yield return Launch(3);
+            yield return Launch(4);
             battle = Find("View.BattleDebugController");
-            yield return Until(() => (string)Runtime.Get(Narrative(battle), "StoryId") == "S03", "Finished resume did not return to its comic.");
+            yield return Until(() => (string)Runtime.Get(Narrative(battle), "StoryId") == "S04", "Finished resume did not return to its comic.");
             Assert.That(Runtime.Get(Checkpoint(battle), "Resumed"), Is.EqualTo(true));
             Assert.That(Runtime.Get(Board(battle), "IsFinished"), Is.EqualTo(true));
-            Hero(battle, "luma", -1, true); Hero(battle, "tish", -1, true);
+            Hero(battle, "scratchy", -1, true); Hero(battle, "tish", -1, true);
             Assert.That(Operation(battle), Is.EqualTo(operation));
+            Assert.That(Runtime.Get(Narrative(battle), "FirstFinisherId"), Is.EqualTo("scratchy"));
             Assert.That(Receipts, Is.Zero);
             Runtime.Call(Narrative(battle), "SkipStory");
             yield return Until(() => Receipts == 1, "Result did not commit after the resumed comic.");
@@ -318,20 +321,20 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(JsonUtility.ToJson(Saved), Is.EqualTo(previous));
             object disk = Runtime.Call(testStore, "Load");
             Assert.That(JsonUtility.ToJson(Runtime.Field(disk, "demoCheckpoint")), Is.EqualTo(previous));
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(4));
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             Assert.That(Receipts, Is.Zero);
             Runtime.Set(testStore, "Checkpoint", null);
             Runtime.Call(Checkpoint(battle), "RetrySave");
             Assert.That(Runtime.Get(Checkpoint(battle), "SavePending"), Is.EqualTo(false));
             Assert.That(Runtime.Field(Runtime.Field(Saved, "battle"), "turnIndex"), Is.EqualTo(1));
-            Assert.That(Runtime.Field(Runtime.Field(Saved, "battle"), "trailHazardCell"), Is.EqualTo(4));
+            Assert.That(Runtime.Field(Runtime.Field(Saved, "battle"), "trailHazardCell"), Is.EqualTo(-1));
             yield return Launch(5);
             battle = Find("View.BattleDebugController");
             yield return Opening(battle);
             Assert.That(Runtime.Get(Checkpoint(battle), "Resumed"), Is.EqualTo(true));
-            Hero(battle, "tish", 2); Hero(battle, "luma", 1); Hero(battle, "bum", 0);
+            Hero(battle, "tish", 2); Hero(battle, "luma", 1);
             Assert.That(Runtime.Get(Board(battle), "TurnIndex"), Is.EqualTo(1));
-            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(4));
+            Assert.That(Runtime.Get(Board(battle), "TrailHazardCell"), Is.EqualTo(-1));
             CollectionAssert.AreEqual(new[] { 1, 2 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
             Assert.That(Receipts, Is.Zero);
             object[] reset = { 1L, null };

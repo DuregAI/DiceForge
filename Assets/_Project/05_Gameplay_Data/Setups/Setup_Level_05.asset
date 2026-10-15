@@ -15,4 +15,7 @@ MonoBehaviour:
   setupId: level_05
   displayName: Level 05
   boardSize: 8
-  unitPlacements: []
+  unitPlacements:
+  - player: 0
+    cellIndex: 0
+    count: 2

@@ -90,7 +90,23 @@ internal sealed class MenuLocalization : IDisposable
         {
             var panel = root.name == scope ? root : root.Q(scope);
             if (panel == null) continue;
-            var font = russianFont;
+            bool sharedSettings = scope == "SettingsPanel" || scope == "FeedbackModal" || scope == "LegalPanel";
+            var font = sharedSettings ? Resources.Load<Font>("Localization/Nunito") : russianFont;
+            if (sharedSettings)
+            {
+                var definition = new StyleFontDefinition(FontDefinition.FromFont(font));
+                panel.style.unityFontDefinition = definition;
+                panel.Query<TextElement>().ForEach(element =>
+                {
+                    bool heading = element.ClassListContains("woodland-title");
+                    element.style.unityFontDefinition = heading
+                        ? Language == 0 ? new StyleFontDefinition(StyleKeyword.Null)
+                            : new StyleFontDefinition(FontDefinition.FromFont(russianFont))
+                        : definition;
+                    element.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(StyleKeyword.Null);
+                });
+                continue;
+            }
             panel.style.unityFontDefinition = Language == 0 ? new StyleFontDefinition(StyleKeyword.Null) : new StyleFontDefinition(FontDefinition.FromFont(font));
             // A font assigned to a label in USS overrides the panel's inherited font.
             // Assign the bundled font on each text element: player builds must not rely on OS fallbacks.

@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:VisualElement name="SettingsPanel" class="settings-overlay gh-settings-overlay">
-        <ui:VisualElement name="SettingsWindow" class="gh-settings-window">
-            <ui:Button name="btnCloseSettings" text="×" tooltip="Close settings" class="gh-settings-close df-modal-close df-modal-close-icon"/>
-            <ui:Label text="SETTINGS" class="gh-settings-title"/>
+    <ui:VisualElement name="SettingsPanel" class="woodland-modal settings-overlay gh-settings-overlay">
+        <ui:VisualElement name="SettingsWindow" class="gh-settings-window woodland-window">
+            <ui:Button name="btnCloseSettings" text="×" tooltip="Close settings" class="woodland-close gh-settings-close df-modal-close df-modal-close-icon"/>
+            <ui:Label text="SETTINGS" class="gh-settings-title woodland-title"/>
             <ui:VisualElement name="SettingsSoundBlock" class="gh-sound-block">
                 <ui:Button name="btnSettingsMute" class="gh-speaker" tooltip="Mute audio"/>
                 <ui:VisualElement name="SettingsAudioControls" class="gh-audio-controls">

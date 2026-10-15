@@ -64,5 +64,14 @@
 {"en":"Return to game","ru":"Вернуться к игре","zh":"返回游戏"},
 {"en":"Yes, surrender","ru":"Да, сдаться","zh":"确认认输"},
 {"en":"1 · Step","ru":"1 · Шаг","zh":""},
-{"en":"2 · Friend","ru":"2 · Друг","zh":""}
+{"en":"2 · Friend","ru":"2 · Друг","zh":""},
+{"en":"Scratchy","ru":"Царап","zh":""},
+{"en":"Choose a friend.","ru":"Выбери друга.","zh":""},
+{"en":"The cracked tile cannot hold you. Jump over it.","ru":"Треснувшая плита не выдержит. Перепрыгни её.","zh":""},
+{"en":"A rustle in the bushes","ru":"Шорох в кустах","zh":""},
+{"en":"Along the woodland trail","ru":"По лесной тропе","zh":""},
+{"en":"The cracked tile","ru":"Треснувшая плита","zh":""},
+{"en":"A race with Scratchy","ru":"Перегонки с Царапом","zh":""},
+{"en":"A race with Jo","ru":"Кто быстрее, Лума?","zh":""},
+{"en":"A light beyond the ridge","ru":"Огонёк за перевалом","zh":""}
 ]}

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/Resources/UI/LevelUp/LevelUpWindowView.uss"/>
+    <ui:Style src="../../WoodlandInterface.uss" />
     <ui:VisualElement name="levelUpOverlay" class="level-up-overlay">
         <ui:VisualElement name="levelUpBackdrop" class="level-up-backdrop"/>
         <ui:VisualElement name="levelUpBackdropGlow" class="level-up-backdrop-glow"/>

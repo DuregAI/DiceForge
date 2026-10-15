@@ -64,18 +64,33 @@ namespace Diceforge.Tests.BattleTermination
         {
             var catalog = Resources.Load("DemoRC/Narrative");
             var events = ((IEnumerable)Runtime.Field(catalog, "events")).Cast<object>().ToArray();
-            Assert.That(events.Length, Is.EqualTo(138));
-            Assert.That(events.Select(e => (string)Runtime.Field(e, "id")).Distinct().Count(), Is.EqualTo(138));
+            Assert.That(events.Length, Is.EqualTo(108));
+            Assert.That(events.Select(e => (string)Runtime.Field(e, "id")).Distinct().Count(), Is.EqualTo(108));
             Assert.That(events.All(e => !string.IsNullOrWhiteSpace((string)Runtime.Field(e, "ru"))), Is.True);
             foreach (object scene in (IEnumerable)Runtime.Field(catalog, "scenes"))
             {
-                Assert.That(Runtime.Field(scene, "art"), Is.Not.Null);
-                Assert.That(((IList)Runtime.Field(scene, "frames")).Count, Is.EqualTo(3));
+                Assert.That(Runtime.Field(scene, "art"), Is.Null);
+                Assert.That(((IList)Runtime.Field(scene, "frames")).Count, Is.EqualTo(1));
             }
             Assert.That(((IList)Runtime.Field(catalog, "scenes")).Count, Is.EqualTo(7));
             object untranslated = events.Single(e => (string)Runtime.Field(e, "id") == "L01_I01");
-            Assert.That(Runtime.Call(untranslated, "Text", false), Is.EqualTo(Runtime.Field(untranslated, "ru")));
+            Assert.That(Runtime.Call(untranslated, "Text", false), Is.EqualTo(Runtime.Field(untranslated, "en")));
         }
+        [TestCase("tish", "scratchy")] [TestCase("scratchy", "tish")]
+        [TestCase("tish", "luma")] [TestCase("luma", "tish")]
+        public void RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(string first, string second)
+        {
+            var state = State(); var policy = Runtime.New("Core.DemoLearningPolicy", state);
+            Runtime.Call(policy, "RecordFinish", first, false);
+            Assert.That(Runtime.Field(state, "firstFinisherId"), Is.Null.Or.Empty);
+            Runtime.Call(policy, "RecordFinish", first, true);
+            Runtime.Call(policy, "RecordFinish", second, true);
+            var loaded = JsonUtility.FromJson(JsonUtility.ToJson(state), state.GetType());
+            Assert.That(Runtime.Field(loaded, "firstFinisherId"), Is.EqualTo(first));
+            Runtime.Call(policy, "Restart");
+            Assert.That(Runtime.Field(state, "firstFinisherId"), Is.Null.Or.Empty);
+        }
+
         [Test]
         public void ResumeKeepsAttemptEvidencePendingHintAndErrorBudget()
         {

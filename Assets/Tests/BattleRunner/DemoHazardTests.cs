@@ -13,7 +13,7 @@ namespace Diceforge.Tests.BattleTermination
         [TestCase(4)] [TestCase(6)]
         public void BarkBlocksOnlyLandingAndNeverMoves(int level)
         {
-            object runner = DemoCampaignTests.Runner(level, out _);
+            object runner = DemoCampaignTests.Runner(level, out _, true);
             int events = 0;
             Runtime.Observe(runner, "OnTrailHazardMoved", _ => events++);
             Assert.That(Hazard(runner), Is.EqualTo(4));
@@ -34,7 +34,7 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void RyzhMovesOnceAfterBothActionsAndNeverTakesATurn()
         {
-            object runner = DemoCampaignTests.Runner(5, out _);
+            object runner = DemoCampaignTests.Runner(5, out _, true);
             int events = 0;
             Runtime.Observe(runner, "OnTrailHazardMoved", _ => events++);
             Assert.That(Move(runner, 0, 2), Is.True);
@@ -52,7 +52,7 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning()
         {
-            object runner = DemoCampaignTests.Runner(5, out _);
+            object runner = DemoCampaignTests.Runner(5, out _, true);
             Assert.That(Move(runner, 0, 1), Is.True);
             Assert.That(Move(runner, 0, 2), Is.True);
             Assert.That(Move(runner, 1, 2), Is.True);
@@ -76,7 +76,7 @@ namespace Diceforge.Tests.BattleTermination
         [Test]
         public void UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh()
         {
-            object runner = DemoCampaignTests.Runner(5, out _);
+            object runner = DemoCampaignTests.Runner(5, out _, true);
             object state = State(runner);
             // Advance the authored rival through its turn event, then arrange a reachable remainder.
             Move(runner, 0, 2);

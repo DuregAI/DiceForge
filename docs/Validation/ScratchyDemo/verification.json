@@ -1,0 +1,219 @@
+{
+  "tests": 53,
+  "passed": 53,
+  "failed": 0,
+  "results": {
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.CaptureAndRestoreOwnTheirArrayCopies": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(1)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(2)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(3)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(4)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(5)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(6)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.MalformedCheckpointNeverPartiallyChangesTheRunner": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.TimeoutRestoresAsDrawWithoutAdvancingTurnAgain": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AlternativesRefreshBothChoicesAfterExactlyOneAction": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.FirstFriendMayExitWhileTheOtherIsAtTheStart": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.InvalidSelectedStepPreservesTheOtherLegalChoice": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.NamedLumaMovesFromSharedCellWithoutMovingTish": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCampaignTests.SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(4)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(6)": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhMovesOnceAfterBothActionsAndNeverTakesATurn": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoHazardTests.UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.L6HasOnlyOneAutomaticInstruction": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.LearningSerializationKeepsKnowledgeWithoutInterfaceCache": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(\"tish\",\"scratchy\")": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(\"scratchy\",\"tish\")": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(\"tish\",\"luma\")": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(\"luma\",\"tish\")": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.RepeatedErrorDeduplicatesAndCapsAtTwoPerReason": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.ResumeKeepsAttemptEvidencePendingHintAndErrorBudget": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.SkipAndPassNeverProduceEvidence": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoLearningTests.ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests.EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved": {
+      "result": "Passed",
+      "source": "core-campaign-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish": {
+      "result": "Passed",
+      "source": "presentation-final-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero": {
+      "result": "Passed",
+      "source": "presentation-first-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible": {
+      "result": "Passed",
+      "source": "settings-final-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery": {
+      "result": "Passed",
+      "source": "presentation-first-results.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash": {
+      "result": "Passed",
+      "source": "presentation-first-results.xml"
+    }
+  }
+}

@@ -20,6 +20,7 @@ namespace Diceforge.Dialogue
     {
         public string id, levelId, speakerId, kind, domainEvent, helpTopic, speakerLabelRu, speakerLabelEn;
         public string ru, en;
+        public string firstFinisherId;
         public int priority;
         public string Text(bool russian) => russian || string.IsNullOrWhiteSpace(en) ? ru : en;
     }

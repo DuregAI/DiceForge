@@ -62,6 +62,9 @@ namespace Diceforge.Progression
                 if (hero.exited) { if (hero.cell != -1) return false; exited++; }
                 else { if (hero.cell < 0 || hero.cell >= counts.Length) return false; counts[hero.cell]++; }
             }
+            if (preset.demoLevel.sourceVersion == "0.2" &&
+                (exited == 0 ? !string.IsNullOrEmpty(learning.firstFinisherId)
+                    : !heroes.Any(h => h.exited && h.id == learning.firstFinisherId))) return false;
             return battle.cellsA != null && counts.SequenceEqual(battle.cellsA) && exited == battle.borneOffA &&
                 (string.IsNullOrEmpty(selectedHeroId) || heroes.Any(h => h.id == selectedHeroId));
         }

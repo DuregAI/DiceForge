@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
   <ui:Style src="DemoPresentationTheme.uss" />
   <ui:Style src="DemoNarrativeShared.uss" />
+    <ui:Style src="WoodlandInterface.uss" />
+  <ui:Style src="GameplayLayout.uss" />
   <ui:VisualElement name="demoNarrativeRoot" picking-mode="Ignore">
     <ui:Button name="demoHelpButton" text="?" class="help-button" tooltip="Help" />
     <ui:VisualElement name="demoHintCharacter" class="hint-character" picking-mode="Ignore">

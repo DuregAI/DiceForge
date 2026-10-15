@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:Style src="ServerUnavailableWindow.uss" />
+    <ui:Style src="WoodlandInterface.uss" />
     <ui:VisualElement name="serverUnavailableOverlay" class="server-unavailable-overlay">
         <ui:VisualElement class="server-unavailable-window">
             <ui:ScrollView class="server-unavailable-scroll">

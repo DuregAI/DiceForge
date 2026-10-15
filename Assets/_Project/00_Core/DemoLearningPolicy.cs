@@ -12,6 +12,7 @@ namespace Diceforge.Core
     public sealed class DemoLearningState
     {
         public string levelId, attemptId, pendingHintId;
+        public string firstFinisherId;
         public int boardRevision;
         public int moves, unaidedMoves;
         public bool sawBlocked;
@@ -58,20 +59,37 @@ namespace Diceforge.Core
             State.attemptId = Guid.NewGuid().ToString("N"); State.boardRevision = 0; State.pendingHintId = null;
             Moves = UnassistedMoves = 0; errorCounts.Clear(); errorKeys.Clear();
             State.sawBlocked = false; State.errorCounts.Clear(); State.errorKeys.Clear();
+            State.firstFinisherId = null;
         }
         public void Help() => UnassistedMoves = 0;
         public bool ObserveMove(bool hasMove, bool positionChanged, string hero, int from, int step, bool exited, bool jumped)
         {
             if (!hasMove || !positionChanged) return false;
+            RecordFinish(hero, exited);
             Moves++; UnassistedMoves++; State.boardRevision++; State.pendingHintId = null;
             Master("choose_origin"); Master("step_value");
             if (step == 2) Master("choose_distance");
-            if (hero == "luma" || hero == "bum") Master("choose_friend");
+            if (hero == "luma" || hero == "bum" || hero == "scratchy") Master("choose_friend");
             if (exited) Master("individual_exit");
             if (jumped) Master("free_landing");
             return true;
         }
         private void Master(string skill) { if (!State.masteredSkills.Contains(skill)) State.masteredSkills.Add(skill); }
+        public void RecordFinish(string hero, bool exited)
+        {
+            if (exited && string.IsNullOrEmpty(State.firstFinisherId) && !string.IsNullOrEmpty(hero))
+                State.firstFinisherId = hero;
+        }
+
+        public static bool EligibleRevised(int number, DemoLearningContext c) => number switch
+        {
+            1 => c.moves == 0,
+            2 => c.selectedStep > 0,
+            3 => c.moves == 1,
+            4 => c.blocked || c.rejection == DemoInputRejection.BlockedDestination,
+            5 => c.exited == 1 && c.active > 0,
+            _ => true
+        };
         public bool CanNarrateError(DemoInputRejection reason, string stepInstance, string hero)
         {
             string key = State.boardRevision + ":" + reason + ":" + stepInstance + ":" + hero;

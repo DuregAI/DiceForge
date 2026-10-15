@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
   <ui:Style src="DemoPresentationTheme.uss" />
   <ui:Style src="WoodlandHud.uss" />
+    <ui:Style src="WoodlandInterface.uss" />
+  <ui:Style src="GameplayLayout.uss" />
   <ui:VisualElement name="woodlandRoot" picking-mode="Ignore">
     <ui:VisualElement class="hud-header" picking-mode="Ignore">
       <ui:Label name="demoTitle" class="demo-title hidden" picking-mode="Ignore" />
@@ -53,7 +55,7 @@
       </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="pauseOverlay" class="overlay pause-overlay hidden">
-      <ui:VisualElement name="pauseWindow" class="menu pause-window">
+      <ui:ScrollView name="pauseWindow" class="menu pause-window" horizontal-scroller-visibility="Hidden">
         <ui:VisualElement name="pauseMain">
           <ui:Label text="Paused" class="menu-title pause-title" />
           <ui:Button name="resume" text="Resume" class="pause-action pause-primary" />
@@ -71,7 +73,7 @@
           <ui:Button name="cancelSurrender" text="Cancel" class="pause-action pause-primary" />
           <ui:Button name="acceptSurrender" text="Yes, surrender" class="pause-action pause-surrender" />
         </ui:VisualElement>
-      </ui:VisualElement>
+      </ui:ScrollView>
     </ui:VisualElement>
   </ui:VisualElement>
 </ui:UXML>

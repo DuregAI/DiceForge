@@ -1,14 +1,14 @@
 :root {
-    --demo-surface: #F8F3E6;
-    --demo-text: #263F36;
-    --demo-muted: #687165;
-    --demo-speaker: #43877A;
-    --demo-neutral: #F0EADA;
+    --demo-surface: #FFEAC7;
+    --demo-text: #412B19;
+    --demo-muted: #775B3B;
+    --demo-speaker: #556D29;
+    --demo-neutral: #F4D7A1;
     --demo-neutral-hover: #E8E1CF;
-    --demo-edge: #DDD4BD;
-    --demo-accent: #E9B955;
+    --demo-edge: #B58B53;
+    --demo-accent: #79943B;
     --demo-accent-hover: #EBC476;
-    --demo-accent-edge: #BF9446;
+    --demo-accent-edge: #536A29;
     --demo-focus: #99702B;
 }
 .demo-service-icon { width: 24px; height: 24px; flex-shrink: 0; }

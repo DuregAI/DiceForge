@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="ChestOpenView.uss" />
+    <ui:Style src="../../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="ChestOpenPanel" class="settings-overlay chest-open-overlay">
         <ui:VisualElement class="chest-open-window">
             <ui:Label name="chestOpenTitle" text="Chest" class="panel-title chest-open-title" />

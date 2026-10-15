@@ -486,6 +486,8 @@ namespace Diceforge.View
                     demoLevel.heroIds[index] == "tish" && demoLevel.tishPrefab != null) heroPrefab = demoLevel.tishPrefab;
                 if (player == PlayerId.A && demoLevel != null && index < demoLevel.heroIds.Length &&
                     demoLevel.heroIds[index] == "bum" && demoLevel.bumPrefab != null) heroPrefab = demoLevel.bumPrefab;
+                if (player == PlayerId.A && demoLevel != null && index < demoLevel.heroIds.Length)
+                    heroPrefab = demoLevel.HeroPrefab(demoLevel.heroIds[index]) ?? heroPrefab;
                 GameObject instance = Instantiate(heroPrefab, _unitsRoot);
                 instance.name = $"{prefix}_{index:D2}";
 

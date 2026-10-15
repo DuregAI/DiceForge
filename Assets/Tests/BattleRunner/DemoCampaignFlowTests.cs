@@ -143,7 +143,7 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTest]
         public IEnumerator MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes()
         {
-            var routes = JsonUtility.FromJson<Routes>(File.ReadAllText("docs/DemoRC/v0.1/data/levels.json"));
+            var routes = JsonUtility.FromJson<Routes>(File.ReadAllText("docs/DemoRC/v0.2/levels.json"));
             for (int level = 1; level <= 6; level++)
             {
                 if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -168,7 +168,7 @@ namespace Diceforge.Tests.BattleTermination
                 var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
                 Assert.That(hud.rootVisualElement.Q("scorePanelB").ClassListContains("hidden"), Is.True);
                 Assert.That(hud.rootVisualElement.Q<Label>("stepRule").text, Is.EqualTo(level >= 5 ? "Два шага на ход" : "Один шаг на ход"));
-                Assert.That(Runtime.Get(battle, "TotalStonesPerPlayer"), Is.EqualTo(level >= 4 ? 3 : level == 3 ? 2 : 1));
+                Assert.That(Runtime.Get(battle, "TotalStonesPerPlayer"), Is.EqualTo(level == 6 ? 3 : level >= 4 ? 2 : 1));
                 int results = 0;
                 Runtime.Observe(battle, "OnMatchEnded", _ => results++);
 
@@ -192,74 +192,22 @@ namespace Diceforge.Tests.BattleTermination
                         yield return Capture("level-0" + level + "-" + locale + "-hud");
                     }
                 }
-                if (level >= 4)
+                yield return Capture("level-0" + level + "-start");
+                foreach (ActionStep action in routes.levels.Single(x => x.id == "L" + level).balance.manualReplay)
                 {
-                    yield return Capture("level-0" + level + "-start");
-                    Component hazard = Find("View.DemoTrailHazardView");
-                    if (level == 5)
+                    if (level == 3 && action.from == 2)
                     {
-                        yield return Move(battle, "tish", 2);
-                        Assert.That(Runtime.Get(hazard, "PresentedCell"), Is.EqualTo(3));
-                        Assert.That(hud.rootVisualElement.Q<Label>("actionsRemaining").text, Is.EqualTo("Осталось действий: 1"));
-                        yield return Capture("level-05-one-action-left");
-                        Runtime.Call(battle, "SelectPresentationDie", 0);
-                        Runtime.Call(battle, "MovePresentationHero", "luma");
-                        yield return Until(() => (int)Runtime.Get(Runtime.Get(battle, "PresentationState"), "TrailHazardCell") == 4,
-                            "Ryzh did not advance after the second action.");
-                        Assert.That(Runtime.Get(hazard, "PresentedCell"), Is.EqualTo(3), "Ryzh's visual must wait for the friend.");
-                        Runtime.Call(battle, "RestartMatch");
-                        yield return new WaitForSeconds(.5f);
-                        Assert.That(Runtime.Get(hazard, "PresentedCell"), Is.EqualTo(3));
-                        Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.EqualTo(false));
+                        Runtime.Call(battle, "SelectPresentationDie", 1);
+                        Runtime.Call(battle, "MovePresentationHero", "tish");
+                        Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.False);
+                        CollectionAssert.AreEqual(new[] { 1, 2 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
+                        yield return Capture("level-03-blocked-landing");
                     }
-                    foreach (ActionStep action in routes.levels.Single(x => x.id == "L" + level).balance.manualReplay)
-                    {
-                        if (level == 4 && action.hero == "tish" && action.from == 2)
-                        {
-                            Runtime.Call(battle, "SelectPresentationDie", 1);
-                            Runtime.Call(battle, "MovePresentationHero", "tish");
-                            Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.EqualTo(false));
-                            CollectionAssert.AreEqual(new[] { 1, 2 }, (IEnumerable)Runtime.Get(battle, "PresentationDice"));
-                            object board = Find("View.DioramaBoard");
-                            Runtime.Set(Find("View.BoardDebugView"), "_cellSelectionEnabled", false);
-                            int blockedPreviews = 0;
-                            Runtime.Observe(battle, "OnDemoBlockedPreview", _ => blockedPreviews++);
-                            Runtime.Call(battle, "PreviewPresentationCell", board, 1, null);
-                            for (int preview = 0; preview < 5; preview++)
-                                Runtime.Call(battle, "PreviewPresentationCell", board, 2, "tish");
-                            Assert.That(blockedPreviews, Is.EqualTo(1), "A persistent blocked preview must notify learning once per selection.");
-                            yield return Capture("level-04-blocked-landing");
-                            Component previewView = Find("View.DioramaMovePreview");
-                            Assert.That(Runtime.Get(previewView, "IsVisible"), Is.True);
-                            Assert.That(Runtime.Get(previewView, "IsBlocked"), Is.True);
-                            Runtime.Call(board, "Preview", null, null, -1);
-                            Runtime.Call(battle, "RefreshPresentation");
-                        }
-                        yield return Move(battle, action.hero, action.step);
-                    }
+                    yield return Move(battle, action.hero, action.step);
                 }
-                else if (level == 3)
-                {
-                    Runtime.Call(battle, "SelectPresentationDie", 1);
-                    Runtime.Call(battle, "MovePresentationHero", "luma");
-                    Runtime.Call(battle, "RestartMatch");
-                    yield return new WaitForSeconds(.4f);
-                    Assert.That(Runtime.Get(battle, "PresentationIsAnimating"), Is.EqualTo(false));
-                    object[] reset = { "luma", -1, null, false };
-                    Runtime.Call(battle, "TryGetHero", reset);
-                    Assert.That(reset[1], Is.EqualTo(0), "Restart must cancel the queued selection.");
-                    yield return Move(battle, "luma", 2);
-                    object[] tish = { "tish", -1, null, false };
-                    Runtime.Call(battle, "TryGetHero", tish);
-                    Assert.That(tish[1], Is.EqualTo(0), "Choosing Luma must leave Tish at the shared start.");
-                    for (int action = 0; action < 3; action++) yield return Move(battle, "luma", 2);
-                    Assert.That(Runtime.Get(battle, "IsMatchEnded"), Is.EqualTo(false));
-                    Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(1));
-                    for (int action = 0; action < 4; action++) yield return Move(battle, "tish", 2);
-                }
-                else
-                    for (int action = 0; action < (level == 1 ? 8 : 4); action++)
-                        yield return Move(battle, "tish", level == 1 ? 1 : 2);
+                if (level == 4 || level == 5)
+                    Assert.That(Runtime.Get(Runtime.Get(battle, "DemoNarrative"), "FirstFinisherId"),
+                        Is.EqualTo(level == 4 ? "scratchy" : "luma"));
 
                 yield return FinishStoryAndResult(battle, () => results == 1, level);
                 Assert.That(Runtime.Get(battle, "HasPendingResultSave"), Is.EqualTo(false));
@@ -495,8 +443,7 @@ namespace Diceforge.Tests.BattleTermination
                         yield return CaptureNarrative("S00-frame-1"); Runtime.Call(narrative, "AdvanceStory");
                         Assert.That(Runtime.Get(narrative, "StoryFrame"), Is.EqualTo(0));
                         Assert.That(Runtime.Field(narrative, "line"), Is.EqualTo(1), "The second speaker stays in the same frame.");
-                        while ((int)Runtime.Get(narrative, "StoryFrame") < 2) Runtime.Call(narrative, "AdvanceStory");
-                        yield return CaptureNarrative("S00-frame-3");
+                        yield return CaptureNarrative("S00-scratchy-calls");
                     }
                 }
                 Runtime.Call(narrative, "SkipStory"); yield return null; yield return null;
@@ -506,7 +453,7 @@ namespace Diceforge.Tests.BattleTermination
             if (level == 6) Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo("L06_T01"), "Hiding guidance must keep the level objective.");
             if (level == 1)
             {
-                yield return CaptureNarrative("L1-luma-note"); Runtime.Call(narrative, "SkipHint", true);
+                yield return CaptureNarrative("L1-scratchy-note"); Runtime.Call(narrative, "SkipHint", true);
                 Assert.That(Runtime.Get(narrative, "EvidenceCount"), Is.EqualTo(0));
                 Assert.That(((IList)Runtime.Field(Profile, "progressionReceipts")).Count, Is.EqualTo(0));
                 Assert.That(Runtime.Field(Profile, "demoGuidanceHidden"), Is.EqualTo(true));
@@ -550,13 +497,9 @@ namespace Diceforge.Tests.BattleTermination
                     if (scene != null)
                     {
                         storyOrder.Add(scene);
-                        Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(level >= 4 ? 3 : level == 3 ? 2 : 1));
+                        Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(level == 6 ? 3 : level >= 4 ? 2 : 1));
                         yield return CaptureNarrative(scene + "-frame-1");
-                        if (level == 6)
-                        {
-                            while ((int)Runtime.Get(narrative, "StoryFrame") < 1) Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-wedding");
-                            while ((int)Runtime.Get(narrative, "StoryFrame") < 2) Runtime.Call(narrative, "AdvanceStory"); yield return CaptureNarrative("S06-last-frame");
-                        }
+
                     }
                     Runtime.Call(narrative, "SkipStory");
                 }

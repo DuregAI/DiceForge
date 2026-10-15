@@ -4,6 +4,7 @@
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Typography.uss"/>
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Spacing.uss"/>
     <Style src="project://database/Assets/_Project/03_UI/_Theme/Components.uss"/>
+    <ui:Style src="../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="DialoguePanel" class="df-dialogue-overlay">
         <ui:VisualElement class="df-dialogue-window df-surface">
             <ui:VisualElement class="df-dialogue-header">

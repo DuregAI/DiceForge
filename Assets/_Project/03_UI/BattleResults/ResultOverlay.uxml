@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="ResultOverlay.uss" />
+    <ui:Style src="../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="resultOverlayRoot" class="result-overlay-root" style="display: none;">
         <ui:Image name="resultFxBackLayer" class="result-overlay-fx result-overlay-fx-back" />
         <ui:VisualElement name="resultPanel" class="result-overlay-panel">

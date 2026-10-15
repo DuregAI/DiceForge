@@ -1,0 +1,19 @@
+Woodland settings refinement — 2026-10-14
+Source asset: Assets/_Project/07_Art/UI/GlimblehopMenu/settings-panel.png
+Derived asset: Assets/_Project/07_Art/UI/GlimblehopMenu/settings-panel-refined.png
+Generation: built-in imagegen edit, transparent background. Original retained.
+Generation output: exec-406299f7-257a-43ae-a4e7-2a16f524a6d6.png
+
+Art direction: preserve warm sculpted storybook wood, orthographic rounded rectangle and corner leaves.
+Reduce perimeter divisions and remove interior plank seams/knots. Quiet pale birch center for readable labels.
+No text, controls, or background baked into texture. Existing green Done, wood secondary buttons,
+speaker and close sprites retained. Nunito for labels, display heading only.
+
+Integration: Resources/SharedSettingsPanel.uss is the shared settings skin.
+GlimblehopMenu.uss retains legal styling but no longer overrides shared settings.
+MenuLocalization uses the display heading font in English and bundled RobotoSlab in Russian.
+All original settings bindings and control IDs retained.
+
+Validation: real Unity Game View captures at 1280x720 and 720x1280, English/Russian,
+both MainMenu and Battle; existing presentation test extended to check menu and settings bounds.
+See latest-results.xml and settings screenshots for actual outcome.

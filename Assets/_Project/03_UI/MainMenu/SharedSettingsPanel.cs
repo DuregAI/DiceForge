@@ -23,6 +23,10 @@ internal static class SharedSettingsPanel
 
         overlay.RemoveFromHierarchy();
         parent.Add(overlay);
+        var theme = Resources.Load<StyleSheet>("DemoPresentationTheme");
+        if (theme != null && !parent.styleSheets.Contains(theme)) parent.styleSheets.Add(theme);
+        var windows = Resources.Load<StyleSheet>("WoodlandWindows");
+        if (windows != null && !parent.styleSheets.Contains(windows)) parent.styleSheets.Add(windows);
         if (!parent.styleSheets.Contains(style)) parent.styleSheets.Add(style);
         return overlay;
     }

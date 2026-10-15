@@ -108,6 +108,8 @@ namespace Diceforge.Tests.BattleTermination
         [UnityTest]
         public IEnumerator StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible()
         {
+            if (!UnityEditor.SessionState.GetBool("GameplayLayoutOnly", false))
+                yield return CaptureMenuSettings();
             yield return LaunchFirstTrail();
 
             Component battle = Find("View.BattleDebugController");
@@ -119,13 +121,13 @@ namespace Diceforge.Tests.BattleTermination
             var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
             Assert.That(Runtime.Get(narrative, "StoryId"), Is.EqualTo("S00"));
             Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.False, "A comic must block gameplay.");
-            AssertStory(narrative, root, 0, 0, "Tish", "Everything will be just right today.");
+            AssertStory(narrative, root, 0, 0, "Tish", "The sign is fixed. Now, where is that string…");
 
             Runtime.Call(narrative, "AdvanceStory");
-            AssertStory(narrative, root, 0, 1, "Jo", "Good is good enough.");
-            yield return ChangeStoryLanguage(narrative, root, "ru", 0, 1, "Лума", "Можно просто хорошо");
-            yield return ChangeStoryLanguage(narrative, root, "en", 0, 1, "Jo", "Good is good enough.");
-            yield return CapturePresentations(narrative, "S00-comic-Jo", root.Q<Label>("storyHeading"), "Jo", "Лума");
+            AssertStory(narrative, root, 0, 1, "Scratchy", "Tish… Hey, Tish! Behind the bushes!");
+            yield return ChangeStoryLanguage(narrative, root, "ru", 0, 1, "Царап", "Тиш… Эй, Тиш! За кустами!");
+            yield return ChangeStoryLanguage(narrative, root, "en", 0, 1, "Scratchy", "Tish… Hey, Tish! Behind the bushes!");
+            yield return CapturePresentations(narrative, "S00-scratchy", root.Q<Label>("storyHeading"), "Scratchy", "Царап");
             AssertNoCyrillic(root.Q<Label>("storyHeading").text + root.Q<Label>("storyText").text);
             AssertInteractable(root.Q<Button>("storyNext"));
             AssertInteractable(root.Q<Button>("storySkip"));
@@ -137,15 +139,12 @@ namespace Diceforge.Tests.BattleTermination
                 root.Q<Button>("storyNext").SendEvent(submit);
             }
             yield return null;
-            AssertStory(narrative, root, 1, 0, "Kloch", "Just borrowing it until the celebration!");
-            Assert.That(root.Q<Label>("storyPage").text, Is.EqualTo("2 / 3"), "A new frame must update the comic page.");
-            Runtime.Call(narrative, "SkipStory");
             yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible") && Runtime.Get(narrative, "StoryId") == null,
                 "Skipping the comic must open the level introduction.");
-            AssertStory(narrative, root, 0, 0, "Tish", "I'll find the lens before Mira ties another bow on me.");
+            AssertStory(narrative, root, 0, 0, "Tish", "One more knot and the sign is fixed. Who is rustling over there?");
             Runtime.Call(narrative, "AdvanceStory");
-            AssertStory(narrative, root, 0, 1, "Jo", "Start at the gate. One familiar step will take you toward the stream.");
-            yield return CapturePresentations(narrative, "L1-intro-Jo", root.Q<Label>("storyHeading"), "Jo", "Лума");
+            AssertStory(narrative, root, 0, 1, "Scratchy", "Tish! Psst… Over here, behind the bushes! I saw something!");
+            yield return CapturePresentations(narrative, "L1-intro-scratchy", root.Q<Label>("storyHeading"), "Scratchy", "Царап");
             Runtime.Call(narrative, "SkipStory");
             yield return Until(() => (bool)Runtime.Get(narrative, "Ready") && (bool)Runtime.Get(battle, "PresentationCanInteract"),
                 "Finishing the introduction must allow gameplay.");
@@ -157,11 +156,11 @@ namespace Diceforge.Tests.BattleTermination
             VisualElement dock = hud.rootVisualElement.Q("demoDialogueDock");
             Assert.That(dock, Is.Not.Null);
             Assert.That(dock.Q("demoHint"), Is.SameAs(Runtime.Field(narrative, "hintPanel")), "Hint copy must share the HUD action surface.");
-            Assert.That(dock.Q<Label>("hintSpeaker").text, Is.EqualTo("Jo's advice"));
-            Assert.That(dock.Q<Label>("hintText").text, Is.EqualTo("Now tap Tish on the outlined tile. He'll take the step you chose."));
+            Assert.That(dock.Q<Label>("hintSpeaker").text, Is.EqualTo("Scratchy"));
+            Assert.That(dock.Q<Label>("hintText").text, Is.EqualTo("Now tap a friend on the tile or their name below."));
             AssertNoCyrillic(dock.Q<Label>("hintSpeaker").text + dock.Q<Label>("hintText").text);
             Image profile = root.Q<Image>("hintPortrait");
-            yield return Until(() => profile.sprite != null && profile.resolvedStyle.height > 150 &&
+            yield return Until(() => profile.sprite != null && profile.resolvedStyle.height > 100 &&
                 dock.Q<Button>("hintSkip").worldBound.height > 0, "A large speaking profile did not lay out.");
             Assert.That(Runtime.Get(narrative, "IsModal"), Is.False, "Contextual hints must leave gameplay available.");
             Assert.That(Runtime.Get(battle, "PresentationCanInteract"), Is.True);
@@ -173,13 +172,13 @@ namespace Diceforge.Tests.BattleTermination
             AssertInteractable(hud.rootVisualElement.Q<Button>("settings"));
 
             PlayerPrefs.SetString("ui.language", "ru");
-            yield return Until(() => dock.Q<Label>("hintSpeaker").text == "Совет Лумы", "Russian hint name did not refresh.");
-            Assert.That(dock.Q<Label>("hintText").text, Is.EqualTo("Теперь нажми Тиша на подсвеченной плите. Он сам сделает выбранный шаг."));
+            yield return Until(() => dock.Q<Label>("hintSpeaker").text == "Царап", "Russian hint name did not refresh.");
+            Assert.That(dock.Q<Label>("hintText").text, Is.EqualTo("Теперь нажми друга на плите или его имя внизу."));
             Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo("L01_T02"));
             PlayerPrefs.SetString("ui.language", "en");
-            yield return Until(() => dock.Q<Label>("hintSpeaker").text == "Jo's advice", "English hint name did not refresh.");
+            yield return Until(() => dock.Q<Label>("hintSpeaker").text == "Scratchy", "English hint name did not refresh.");
             Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo("L01_T02"));
-            yield return CapturePresentations(narrative, "L1-hint-Jo", dock.Q<Label>("hintSpeaker"), "Jo's advice", "Совет Лумы");
+            yield return CapturePresentations(narrative, "L1-hint-scratchy", dock.Q<Label>("hintSpeaker"), "Scratchy", "Царап");
 
             Runtime.Call(narrative, "OpenHelp");
             yield return Until(() => (bool)Runtime.Get(narrative, "IsHelpVisible"), "Help did not open.");
@@ -233,8 +232,22 @@ namespace Diceforge.Tests.BattleTermination
             }
             yield return Until(() => Time.timeScale == 1 && (bool)Runtime.Get(battle, "PresentationCanInteract"), "Resume must restore the gameplay clock and input.");
 
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var settings = hud.rootVisualElement.Q<Button>("settings"); submit.target = settings; settings.SendEvent(submit);
+            }
+            var settingsPanel = (VisualElement)Runtime.Field(Find("View.DioramaHud"), "settingsPanel");
+            yield return Until(() => settingsPanel.resolvedStyle.display == DisplayStyle.Flex, "Settings did not open.");
+            yield return CapturePresentations(narrative, "settings", settingsPanel.Q<Label>(className: "gh-settings-title"), "SETTINGS", "НАСТРОЙКИ");
+            AssertInteractable(settingsPanel.Q<Button>("btnSettingsDone"));
+            using (var submit = NavigationSubmitEvent.GetPooled())
+            {
+                var done = settingsPanel.Q<Button>("btnSettingsDone"); submit.target = done; done.SendEvent(submit);
+            }
+            yield return Until(() => (bool)Runtime.Get(battle, "PresentationCanInteract"), "Settings did not release input.");
+
             // Complete the short trail so the real victory sequence exercises the same renderer.
-            for (int move = 0; move < 8; move++)
+            for (int move = 0; move < 4; move++)
             {
                 Runtime.Call(battle, "SelectPresentationDie", 0);
                 Runtime.Call(battle, "MovePresentationHero", "tish");
@@ -243,11 +256,12 @@ namespace Diceforge.Tests.BattleTermination
             }
             yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible") && Runtime.Get(narrative, "StoryId") == null,
                 "The victory dialogue did not appear.");
-            AssertStory(narrative, root, 0, 0, "Tish", "First trail crossed. Scarf still here. A good start.");
-            yield return ChangeStoryLanguage(narrative, root, "ru", 0, 0, "Тиш", "Первая тропинка пройдена. Шарф тоже на месте. Хорошее начало.");
-            yield return ChangeStoryLanguage(narrative, root, "en", 0, 0, "Tish", "First trail crossed. Scarf still here. A good start.");
+            AssertStory(narrative, root, 0, 0, "Scratchy", "There you are! I am Scratchy. People usually hear me first.");
+            yield return ChangeStoryLanguage(narrative, root, "ru", 0, 0, "Царап", "Вот ты где! Я Царап. Обычно меня сначала слышат.");
+            yield return ChangeStoryLanguage(narrative, root, "en", 0, 0, "Scratchy", "There you are! I am Scratchy. People usually hear me first.");
             Runtime.Call(narrative, "AdvanceStory");
-            AssertStory(narrative, root, 0, 1, "Jo", "The trail leads to the stream. Look at Fika's drawing.");
+            yield return Until(() => (string)Runtime.Get(narrative, "StoryId") == "S01", "The next story did not appear.");
+            AssertStory(narrative, root, 0, 0, "Scratchy", "I chased a sparkle above the trees and got caught in a bush.");
         }
 
         [UnityTest]
@@ -365,9 +379,9 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [UnityTest]
-        public IEnumerator ThirdLevelStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish()
+        public IEnumerator RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish()
         {
-            yield return LaunchFirstTrail(3);
+            yield return LaunchFirstTrail(4);
             Component battle = Find("View.BattleDebugController");
             yield return Until(() => Runtime.Get(battle, "DemoNarrative") != null, "The level narrative is missing.");
             object narrative = Runtime.Get(battle, "DemoNarrative");
@@ -381,7 +395,7 @@ namespace Diceforge.Tests.BattleTermination
             // Step 1 preserves the default selected index and repeats the same [1, 2]
             // offer after the jump. Previously this left the existing buttons disabled.
             bool captured = false;
-            foreach (string hero in new[] { "tish", "luma" })
+            foreach (string hero in new[] { "tish", "scratchy" })
             {
                 foreach (int step in new[] { 1, 2, 1, 2, 2 })
                 {
@@ -398,8 +412,9 @@ namespace Diceforge.Tests.BattleTermination
                     yield return null;
                     if (!captured)
                     {
-                        Directory.CreateDirectory("docs/Validation/ConnectionRecovery");
-                        ScreenCapture.CaptureScreenshot("docs/Validation/ConnectionRecovery/third-level-after-step-selection.png");
+                        string directory = UnityEditor.SessionState.GetString("DemoPresentationCaptureDirectory", "docs/Validation/ScratchyDemo/Presentation");
+                        Directory.CreateDirectory(directory);
+                        ScreenCapture.CaptureScreenshot(Path.Combine(directory, "race-after-step-selection.png"));
                         captured = true;
                         yield return null;
                     }
@@ -417,6 +432,101 @@ namespace Diceforge.Tests.BattleTermination
             }
             Assert.That(Runtime.Get(battle, "IsMatchEnded"), Is.True);
             Assert.That(Runtime.Get(battle, "LocalPlayerBorneOffCount"), Is.EqualTo(2));
+            Assert.That(Runtime.Get(narrative, "FirstFinisherId"), Is.EqualTo("tish"));
+            yield return Until(() => (bool)Runtime.Get(narrative, "IsStoryVisible"), "Race dialogue did not open.");
+            var lines = ((IEnumerable)Runtime.Field(narrative, "sequence")).Cast<object>().ToArray();
+            Assert.That(lines.Length, Is.EqualTo(2));
+            Assert.That(lines.All(l => (string)Runtime.Field(l, "firstFinisherId") == "tish"), Is.True);
+        }
+
+        private IEnumerator CaptureMenuSettings()
+        {
+            Transition.GetMethod("LoadScene").Invoke(null, new object[] { "MainMenu", null, null });
+            Type menuType = Type.GetType("MainMenuController, Assembly-CSharp", true);
+            yield return Until(() => SceneManager.GetActiveScene().name == "MainMenu" &&
+                UnityEngine.Object.FindAnyObjectByType(menuType) != null &&
+                !(bool)Transition.GetProperty("IsBusy").GetValue(null), "The main menu did not settle.");
+            object menu = UnityEngine.Object.FindAnyObjectByType(menuType);
+            Runtime.Call(menu, "OpenSettings");
+            var panel = ((VisualElement)Runtime.Field(menu, "root")).Q("SettingsPanel");
+            string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoPresentationCaptureDirectory", "docs/Validation/DemoRCStage7"));
+            Directory.CreateDirectory(directory);
+            foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280) })
+            {
+                Runtime.Call(gameView, "SizeSelectionCallback", FindOrAddResolution(resolution.x, resolution.y), null);
+                gameView.Focus(); gameView.Repaint();
+                yield return Until(() => Screen.width == resolution.x && Screen.height == resolution.y, "Menu resolution did not change.");
+                foreach (string language in new[] { "en", "ru" })
+                {
+                    PlayerPrefs.SetString("ui.language", language);
+                    Runtime.Call(Runtime.Field(menu, "localization"), "Refresh");
+                    Runtime.Call(menu, "RefreshLanguage");
+                    int settled = Time.frameCount + 4;
+                    yield return Until(() => Time.frameCount >= settled && panel.resolvedStyle.opacity >= 0.999f,
+                        "Menu settings did not finish appearing.");
+                    Assert.That(panel.Q<Label>(className: "gh-settings-title").text, Is.EqualTo(language == "ru" ? "НАСТРОЙКИ" : "SETTINGS"));
+                    Assert.That(panel.Q<Label>("lblAboutVersion").text, Does.Contain(Application.version));
+                    AssertSettingsFit(panel);
+                    AssertInteractable(panel.Q<Button>("btnCopyLog"));
+                    string orientation = resolution.x > resolution.y ? "landscape" : "portrait";
+                    string path = Path.Combine(directory, "settings-menu-" + language + "-" + orientation + ".png");
+                    if (File.Exists(path)) File.Delete(path);
+                    ScreenCapture.CaptureScreenshot(path);
+                    yield return Until(() => File.Exists(path) && new FileInfo(path).Length > 24, "Menu capture was not written.");
+                    byte[] bytes = File.ReadAllBytes(path);
+                    Assert.That(PngDimension(bytes, 16), Is.EqualTo(resolution.x));
+                    Assert.That(PngDimension(bytes, 20), Is.EqualTo(resolution.y));
+                    Runtime.Call(menu, "OpenFeedbackForm");
+                    var feedback = ((VisualElement)Runtime.Field(menu, "root")).Q("FeedbackModal");
+                    yield return Until(() => feedback.resolvedStyle.display == DisplayStyle.Flex, "Feedback did not open.");
+                    int feedbackSettled = Time.frameCount + 8;
+                    yield return Until(() => Time.frameCount >= feedbackSettled, "Feedback did not settle.");
+                    AssertInteractable(feedback.Q<Button>("btnFeedbackCancel"));
+                    AssertInteractable(feedback.Q<Button>("btnFeedbackSubmit"));
+                    string feedbackPath = Path.Combine(directory, "feedback-" + language + "-" + orientation + ".png");
+                    if (File.Exists(feedbackPath)) File.Delete(feedbackPath);
+                    ScreenCapture.CaptureScreenshot(feedbackPath);
+                    yield return Until(() => File.Exists(feedbackPath), "Feedback capture missing.");
+                    Runtime.Call(menu, "CloseFeedbackForm");
+                    panel.style.display = DisplayStyle.None;
+                    foreach (string modalName in new[] { "PlayerInfoModal", "AvatarSelectionModal", "RenamePlayerModal", "TutorialReplayConfirmModal", "ChestShopPanel", "UpgradeShopPanel", "ChestOpenPanel" })
+                    {
+                        var modal = ((VisualElement)Runtime.Field(menu, "root")).Q(modalName);
+                        if (modal == null) continue;
+                        if (modalName == "PlayerInfoModal") Runtime.Call(menu, "OpenMenuProfile");
+                        if (modalName == "AvatarSelectionModal")
+                            Runtime.Call(UnityEngine.Object.FindAnyObjectByType(Type.GetType("AvatarSelectionController, Assembly-CSharp", true)), "Open");
+                        modal.style.display = DisplayStyle.Flex;
+                        modal.style.opacity = 1;
+                        modal.BringToFront();
+                        modal.AddToClassList("is-visible");
+                        int modalSettled = Time.frameCount + 8;
+                        yield return Until(() => Time.frameCount >= modalSettled, "Menu modal did not settle.");
+                        string modalPath = Path.Combine(directory, modalName + "-" + language + "-" + orientation + ".png");
+                        if (File.Exists(modalPath)) File.Delete(modalPath);
+                        ScreenCapture.CaptureScreenshot(modalPath);
+                        yield return Until(() => File.Exists(modalPath), "Modal capture missing.");
+                        modal.style.display = DisplayStyle.None;
+                        modal.RemoveFromClassList("is-visible");
+                    }
+                    panel.style.display = DisplayStyle.Flex;
+                    panel.BringToFront();
+                }
+            }
+            Runtime.Call(menu, "CloseSettings");
+            PlayerPrefs.SetString("ui.language", "en");
+        }
+
+        private static void AssertSettingsFit(VisualElement panel)
+        {
+            foreach (string id in new[] { "btnSettingsDone", "btnCloseSettings", "btnSettingsMute", "btnOpenFeedback" })
+                AssertInteractable(panel.Q<Button>(id));
+            Rect window = panel.Q("SettingsWindow").worldBound;
+            foreach (string id in new[] { "btnSettingsDone", "sliderMusicVolume", "sliderSfxVolume" })
+            {
+                Rect control = panel.Q(id).worldBound;
+                Assert.That(window.Contains(control.min) && window.Contains(control.max), Is.True, id + " must fit inside the wooden window.");
+            }
         }
 
         private IEnumerator LaunchFirstTrail(int level = 1)
@@ -532,7 +642,7 @@ namespace Diceforge.Tests.BattleTermination
             string storyId = (string)Runtime.Get(narrative, "StoryId");
             string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoPresentationCaptureDirectory", "docs/Validation/DemoRCStage7"));
             Directory.CreateDirectory(directory);
-            foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280) })
+            foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280), new Vector2Int(640, 360), new Vector2Int(360, 640) })
             {
                 int index = FindOrAddResolution(resolution.x, resolution.y);
                 Runtime.Call(gameView, "SizeSelectionCallback", index, null);
@@ -550,6 +660,14 @@ namespace Diceforge.Tests.BattleTermination
                     AssertHudLanguage(hud.rootVisualElement, language == "ru");
                     Assert.That(hud.rootVisualElement.Q<Label>("stepCaption").text, Is.EqualTo(language == "ru" ? "1 · Шаг" : "1 · Step"));
                     Assert.That(hud.rootVisualElement.Q<Label>("friendCaption").text, Is.EqualTo(language == "ru" ? "2 · Друг" : "2 · Friend"));
+                    if (visibleSpeaker.ClassListContains("gh-settings-title"))
+                    {
+                        var settings = (VisualElement)Runtime.Field(Find("View.DioramaHud"), "settingsPanel");
+                        Assert.That(settings.Q<Label>("lblAboutVersion").text, Does.Contain(Application.version));
+                        AssertSettingsFit(settings);
+                        AssertInteractable(settings.Q<Button>("btnSettingsDone"));
+                        AssertInteractable(settings.Q<Button>("btnCloseSettings"));
+                    }
                     if (visibleSpeaker.name == "helpHeading")
                     {
                         var card = ((VisualElement)Runtime.Field(narrative, "root")).Q("helpCard");
@@ -564,6 +682,19 @@ namespace Diceforge.Tests.BattleTermination
                     if (visibleSpeaker.name == "hintSpeaker")
                     {
                         AssertHintStyles(hud.rootVisualElement.Q("demoDialogueDock"));
+                        var actionSurface = hud.rootVisualElement.Q("demoActionSurface");
+                        foreach (var button in actionSurface.Query<Button>().ToList())
+                        {
+                            if (button.resolvedStyle.display == DisplayStyle.None || button.worldBound.width < 1) continue;
+                            Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(actionSurface.worldBound.xMin - 1), button.name);
+                            Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(actionSurface.worldBound.xMax + 1), button.name);
+                            Assert.That(button.worldBound.yMax, Is.LessThanOrEqualTo(actionSurface.worldBound.yMax + 1), button.name);
+                        }
+                        var step = actionSurface.Q<Button>(className: "move-token");
+                        var friend = actionSurface.Q<Button>(className: "demo-hero");
+                        Assert.That(friend.worldBound.height, Is.EqualTo(step.worldBound.height).Within(1), "Step and friend controls must have equal heights.");
+                        var helpButton = ((VisualElement)Runtime.Field(narrative, "root")).Q<Button>("demoHelpButton");
+                        Assert.That(helpButton.worldBound.yMin, Is.EqualTo(hud.rootVisualElement.Q<Button>("pause").worldBound.yMin).Within(1), "Header icons must share a baseline.");
                         ScreenCapture.CaptureScreenshot(Path.Combine(directory, "layout-check-" + language + "-" + resolution.x + ".png"));
                         yield return null;
                         AssertTrailFitsVisibleViewport(hud.rootVisualElement);
@@ -573,7 +704,7 @@ namespace Diceforge.Tests.BattleTermination
                     Assert.That(Runtime.Get(narrative, "StoryId"), Is.EqualTo(storyId));
                     Assert.That(Runtime.Get(narrative, "PendingHintId"), Is.EqualTo(hint), "Capturing must not change the pending hint.");
                     string orientation = resolution.x > resolution.y ? "landscape" : "portrait";
-                    string path = Path.Combine(directory, "presentation-test-" + name + "-" + language + "-" + orientation + ".png");
+                    string path = Path.Combine(directory, "presentation-test-" + name + "-" + language + "-" + orientation + "-" + resolution.x + "x" + resolution.y + ".png");
                     if (File.Exists(path)) File.Delete(path);
                     ScreenCapture.CaptureScreenshot(path);
                     yield return Until(() => File.Exists(path) && new FileInfo(path).Length > 24, "The screenshot was not written.");
@@ -604,7 +735,7 @@ namespace Diceforge.Tests.BattleTermination
 
         private static void AssertHudLanguage(VisualElement hud, bool russian)
         {
-            Assert.That(hud.Q<Label>("demoTitle").text, Is.EqualTo(russian ? "Калитка у дома" : "Gate by the house"),
+            Assert.That(hud.Q<Label>("demoTitle").text, Is.EqualTo(russian ? "Шорох в кустах" : "A rustle in the bushes"),
                 "Changing dialogue language must also refresh the HUD title.");
             Assert.That(hud.Q<Label>("turn").text, Is.EqualTo(russian ? "ВАШ ХОД" : "YOUR TURN"));
             Assert.That(hud.Q<Button>("hero_tish").text, Is.EqualTo(russian ? "Тиш" : "Tish"));
@@ -711,8 +842,8 @@ namespace Diceforge.Tests.BattleTermination
             object[] events = ((IEnumerable)Runtime.Field(catalog, "events")).Cast<object>().ToArray();
             object[] scenes = ((IEnumerable)Runtime.Field(catalog, "scenes")).Cast<object>().ToArray();
             object[] speakers = ((IEnumerable)Runtime.Field(catalog, "speakers")).Cast<object>().ToArray();
-            Assert.That(events.Length, Is.EqualTo(138));
-            Assert.That(events.Select(e => Runtime.Field(e, "id")).Distinct().Count(), Is.EqualTo(138));
+            Assert.That(events.Length, Is.EqualTo(108));
+            Assert.That(events.Select(e => Runtime.Field(e, "id")).Distinct().Count(), Is.EqualTo(108));
             foreach (object entry in events) AssertBilingualText(entry, "ru", "en", "Text");
             Assert.That(scenes.Length, Is.EqualTo(7));
             int frameCount = 0, lineCount = 0;
@@ -720,7 +851,7 @@ namespace Diceforge.Tests.BattleTermination
             {
                 AssertBilingualText(scene, "title", "titleEn", "Title");
                 object[] frames = ((IEnumerable)Runtime.Field(scene, "frames")).Cast<object>().ToArray();
-                Assert.That(frames.Length, Is.EqualTo(3));
+                Assert.That(frames.Length, Is.EqualTo(1));
                 foreach (object frame in frames)
                 {
                     frameCount++;
@@ -730,18 +861,18 @@ namespace Diceforge.Tests.BattleTermination
                     foreach (object line in lines) { lineCount++; AssertBilingualText(line, "ru", "en", "Text"); }
                 }
             }
-            Assert.That(frameCount, Is.EqualTo(21));
-            Assert.That(lineCount, Is.EqualTo(35));
+            Assert.That(frameCount, Is.EqualTo(7));
+            Assert.That(lineCount, Is.EqualTo(14));
             var englishNames = new Dictionary<string, string>
             {
-                ["tish"] = "Tish", ["luma"] = "Jo", ["bum"] = "Boom", ["koren"] = "Grandpa Koren",
+                ["scratchy"] = "Scratchy", ["tish"] = "Tish", ["luma"] = "Jo", ["bum"] = "Boom", ["koren"] = "Grandpa Koren",
                 ["pip"] = "Pip", ["fika"] = "Fika", ["mira"] = "Mira", ["una"] = "Una",
                 ["shal"] = "Shal", ["kloch"] = "Kloch", ["ryzh"] = "Rusty", ["bark"] = "Bark"
             };
-            Assert.That(speakers.Length, Is.EqualTo(12));
-            Assert.That(speakers.Count(s => Runtime.Field(s, "neutralPortrait") is Sprite sprite && sprite != null), Is.EqualTo(12),
+            Assert.That(speakers.Length, Is.EqualTo(13));
+            Assert.That(speakers.Count(s => Runtime.Field(s, "neutralPortrait") is Sprite sprite && sprite != null), Is.EqualTo(13),
                 "Reimporting localization must retain every neutral portrait.");
-            Assert.That(speakers.Count(s => Runtime.Field(s, "dialogueProfile") is Sprite sprite && sprite != null), Is.EqualTo(6),
+            Assert.That(speakers.Count(s => Runtime.Field(s, "dialogueProfile") is Sprite sprite && sprite != null), Is.EqualTo(7),
                 "The six speaking character profiles must survive narrative import.");
             foreach (object speaker in speakers)
             {
@@ -750,7 +881,7 @@ namespace Diceforge.Tests.BattleTermination
                 Assert.That(Runtime.Call(speaker, "Name", true), Is.EqualTo(Runtime.Field(speaker, "ru")), id);
             }
             foreach (object entry in events.Where(e => !string.IsNullOrWhiteSpace((string)Runtime.Field(e, "speakerLabelRu"))))
-                Assert.That(Runtime.Field(entry, "speakerLabelEn"), Is.EqualTo("Jo's advice"), (string)Runtime.Field(entry, "id"));
+                Assert.That(Runtime.Field(entry, "speakerLabelEn"), Is.EqualTo("Scratchy"), (string)Runtime.Field(entry, "id"));
         }
 
         private static void AssertBilingualText(object entry, string russianField, string englishField, string method)

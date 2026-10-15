@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac46751b99e3ee0e22d8de068926d8d, type: 3}
   m_Name: Demo_Level_03
   m_EditorClassIdentifier: 
-  sourceVersion: 0.1
-  sourceId: docs/DemoRC/v0.1/data/levels.json#L3
+  sourceVersion: 0.2
+  sourceId: docs/DemoRC/v0.2/levels.json#L3
   levelId: L3
-  title: Bridge of two friends
+  title: The cracked tile
   heroIds:
   - tish
-  - luma
   tishPrefab: {fileID: 2353434921886858189, guid: 891dbe95ccda2a046adf2031bd194c73, type: 3}
   bumPrefab: {fileID: 0}
-  hazardPrefab: {fileID: 0}
+  hazardPrefab: {fileID: 7595435288803476012, guid: b41ffef18faf3e8408ab70a98c2d3a7f, type: 3}
+  characters: {fileID: 11400000, guid: bf1d8c9aa042b8a478dc48e404568dbf, type: 2}
+  friendlyRace: 0

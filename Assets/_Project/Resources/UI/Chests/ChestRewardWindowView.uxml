@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/Resources/UI/Chests/ChestRewardWindowView.uss"/>
+    <ui:Style src="../../WoodlandInterface.uss" />
     <ui:VisualElement name="chestRewardOverlay" class="chest-reward-overlay">
         <ui:VisualElement name="chestRewardBackdrop" class="chest-reward-backdrop"/>
         <ui:VisualElement name="chestRewardBackdropGlow" class="chest-reward-backdrop-glow"/>

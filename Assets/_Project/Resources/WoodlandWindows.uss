@@ -1,0 +1,79 @@
+.woodland-modal .woodland-window {
+    width: 760px; height: 800px; max-width: 94%; max-height: 94%;
+    padding: 112px 68px 66px; overflow: visible;
+    background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel-refined.png");
+    background-size: 100% 100%; background-color: transparent;
+    -unity-slice-left: 360; -unity-slice-right: 260;
+    -unity-slice-top: 220; -unity-slice-bottom: 280;
+    -unity-slice-scale: .55px;
+    border-width: 0; border-radius: 0; color: rgb(65, 43, 25);
+    scale: 1 1; translate: 0 0;
+}
+.woodland-modal .woodland-title {
+    font-size: 44px; margin: 0 36px 24px; flex-shrink: 0;
+    -unity-text-align: middle-center; -unity-font-style: bold;
+    -unity-font-definition: url("../07_Art/Fonts/LuckiestGuy-Regular.ttf");
+    color: rgb(77, 48, 26);
+}
+.woodland-modal .woodland-close , .woodland-modal .df-modal-close {
+    position: absolute; right: 26px; top: 54px;
+    width: 84px; height: 84px; min-width: 84px; min-height: 84px;
+    margin: 0; padding: 0; border-width: 0; background-color: transparent;
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=2110562698&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_normal");
+    background-size: contain; background-repeat: no-repeat; background-position: center;
+    color: transparent; text-shadow: 0 0 0 transparent; -unity-text-outline-width: 0;
+}
+.woodland-modal .woodland-close:hover , .woodland-modal .df-modal-close:hover {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-1020008357&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_hover");
+}
+.woodland-modal .woodland-close:active , .woodland-modal .df-modal-close:active {
+    background-image: url("project://database/Assets/_Project/07_Art/UI/GlimblehopMenu/close-button-states.png?fileID=-715846277&guid=3a62b22a14bb044479f548df7f99d40b&type=3#close_pressed");
+}
+.woodland-modal .gh-button {
+    background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+    background-color: transparent; background-size: 100% 100%; border-width: 0;
+    padding: 8px 18px; color: rgb(56, 36, 21);
+    -unity-font-style: bold; -unity-text-align: middle-center;
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48;
+    -unity-slice-bottom: 48; -unity-slice-scale: 0.48;
+    text-shadow: 0 0 0 transparent;
+}
+.woodland-modal .gh-primary {
+    width: 76%; height: 92px; min-height: 92px; align-self: center;
+    font-size: 32px; margin: 0; flex-shrink: 0; -unity-slice-scale: 0.60;
+    background-image: url("../07_Art/UI/GlimblehopMenu/button-primary.png");
+    color: rgb(255, 248, 225); text-shadow: 0 2px 2px rgb(53, 39, 20);
+    -unity-slice-left: 100; -unity-slice-right: 100;
+    -unity-slice-top: 76; -unity-slice-bottom: 76;
+}
+.woodland-modal Button:hover { background-color: transparent; -unity-background-image-tint-color: rgb(255, 248, 227); }
+.woodland-modal Button:focus { -unity-background-image-tint-color: rgb(232, 255, 200); }
+.woodland-modal Button:active { scale: 0.97 0.97; }
+.woodland-modal Button:disabled { opacity: 0.55; }
+.woodland-modal { background-color: rgba(24, 30, 18, .65); }
+#FeedbackModal .woodland-window { width: 800px; height: 940px; }
+#LegalPanel .woodland-window { width: 820px; height: 940px; }
+#FeedbackModal .woodland-title, #LegalPanel .woodland-title { font-size: 44px; margin: 0 36px 24px; }
+#FeedbackModal .feedback-field-label { font-size: 26px; margin: 8px 0; color: rgb(74, 47, 24); -unity-text-align: middle-left; }
+#FeedbackModal .feedback-modal-actions { flex-direction: row; margin: 12px 0 0; flex-shrink: 0; }
+#FeedbackModal .feedback-modal-actions .gh-button { width: auto; flex-basis: 0; flex-grow: 1; height: 84px; min-height: 84px; font-size: 28px; margin: 0; }
+#FeedbackModal .feedback-modal-actions .gh-primary { margin-right: 16px; align-self: auto; }
+#FeedbackModal .feedback-name-field, #FeedbackModal .feedback-dropdown { width: 100%; min-height: 62px; height: 62px; margin: 0; padding: 0; flex-shrink: 0; }
+#FeedbackModal .feedback-name-field .unity-base-text-field__input,
+#FeedbackModal .feedback-dropdown .unity-base-field__input,
+#FeedbackModal .feedback-message-field .unity-base-text-field__input {
+    background-color: rgb(255, 239, 205); border-width: 2px; border-color: rgb(157, 117, 61);
+    border-radius: 12px; padding: 10px 14px; color: rgb(64, 43, 25); font-size: 26px;
+}
+#FeedbackModal .feedback-message-field { min-height: 140px; margin: 0; padding: 0; flex-grow: 1; flex-shrink: 1; }
+#FeedbackModal .feedback-status-label { font-size: 22px; min-height: 30px; margin: 12px 0 0; }
+#FeedbackModal .woodland-window { min-width: 0; max-width: 94%; }
+#FeedbackModal .df-label { -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; color: rgb(74, 47, 24); }
+#FeedbackModal .feedback-field-label { -unity-text-align: middle-left; }
+#FeedbackModal .feedback-name-field, #FeedbackModal .feedback-dropdown { flex-grow: 0; flex-direction: column; border-width: 0; background-color: transparent; }
+#FeedbackModal .feedback-name-field .unity-base-text-field__input { width: 100%; min-height: 0; height: 100%; }
+#FeedbackModal .feedback-dropdown .unity-popup-field__text { color: rgb(64, 43, 25); background-color: transparent; font-size: 26px; }
+#FeedbackModal .feedback-message-field { border-width: 0; background-color: transparent; }
+#FeedbackModal .feedback-message-field .unity-base-text-field__input { white-space: normal; -unity-text-align: upper-left; }
+.woodland-modal .df-modal-close-icon { -unity-slice-left: 0; -unity-slice-right: 0; -unity-slice-top: 0; -unity-slice-bottom: 0; }
+#FeedbackModal .feedback-field-label { width: 100%; align-self: stretch; }

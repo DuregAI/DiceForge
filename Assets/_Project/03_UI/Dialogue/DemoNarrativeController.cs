@@ -60,13 +60,15 @@ namespace Diceforge.UI.Dialogue
             var profile = ProfileService.Current;
             profile.demoLearning ??= new(); profile.demoStorySeen ??= new();
             var saved = profile.demoLearning.Find(s => s.levelId == battle.DemoLevel.levelId);
+            bool sameNarrative = profile.demoNarrativeVersion == catalog.sourceVersion;
+            if (!sameNarrative) saved = null;
             if (battle.DemoCheckpoint?.Resumed == true) saved = battle.DemoCheckpoint.Restored.learning;
             learning = new DemoLearningPolicy(saved == null ? new DemoLearningState { levelId = battle.DemoLevel.levelId }
                 : JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(saved)), battle.DemoCheckpoint?.Resumed == true);
             sawBlocked = learning.State.sawBlocked;
             CompletionLinesSeen = battle.DemoCheckpoint?.Restored?.completionLinesSeen == true;
             learning.State.guidanceHidden = profile.demoGuidanceHidden;
-            foreach (string id in profile.demoStorySeen) storySeen.Add(id);
+            if (sameNarrative) foreach (string id in profile.demoStorySeen) storySeen.Add(id);
             battle.OnHumanMoveApplied += MoveApplied;
             battle.OnDemoStepSelected += StepSelected;
             battle.OnDemoInputRejected += InputRejected;
@@ -148,6 +150,8 @@ namespace Diceforge.UI.Dialogue
         }
 
         private string Prefix => "L" + level.ToString("00") + "_";
+        private bool Revised => catalog.sourceVersion == "0.2";
+        public string FirstFinisherId => learning?.State.firstFinisherId;
         private void Update()
         {
             if (!initialized || root == null || learning == null || battle == null || battle.PresentationState == null) return;
@@ -210,7 +214,8 @@ namespace Diceforge.UI.Dialogue
         }
         private void PlayLines(string kind)
         {
-            sequence = catalog.events.Where(e => e.id.StartsWith(Prefix + kind, StringComparison.Ordinal)).OrderBy(e => e.id).ToArray();
+            sequence = catalog.events.Where(e => e.id.StartsWith(Prefix + kind, StringComparison.Ordinal) &&
+                (string.IsNullOrEmpty(e.firstFinisherId) || e.firstFinisherId == FirstFinisherId)).OrderBy(e => e.id).ToArray();
             activeScene = null; line = 0; frame = 0;
             if (sequence.Length == 0) { sequence = null; IsModal = false; return; }
             IsModal = true; SetHintVisible(false); story.style.display = DisplayStyle.Flex; RenderStory();
@@ -220,14 +225,17 @@ namespace Diceforge.UI.Dialogue
             root.Q<Button>("demoHelpButton").style.display = DisplayStyle.None;
             hudRoot.AddToClassList("narrative-modal");
             storyNext.Focus();
-            story.EnableInClassList("sequence", activeScene == null);
-            art.style.display = activeScene == null ? DisplayStyle.None : DisplayStyle.Flex;
-            backdrop.style.display = activeScene == null ? DisplayStyle.None : DisplayStyle.Flex;
+            bool hasArt = activeScene != null && activeScene.art != null;
+            story.EnableInClassList("sequence", !hasArt);
+            art.style.display = hasArt ? DisplayStyle.Flex : DisplayStyle.None;
+            backdrop.style.display = hasArt ? DisplayStyle.Flex : DisplayStyle.None;
             bool last;
             if (activeScene != null)
             {
                 var current = activeScene.frames[frame];
                 var currentLine = current.lines[line];
+                if (hasArt)
+                {
                 art.image = activeScene.art;
                 float frameWidth = activeScene.art.width / (float)activeScene.frames.Length;
                 float insetX = frameWidth * .02f, insetY = activeScene.art.height * .04f;
@@ -240,6 +248,13 @@ namespace Diceforge.UI.Dialogue
                 art.scaleMode = Screen.height > Screen.width ? ScaleMode.ScaleAndCrop : ScaleMode.ScaleToFit;
                 art.MarkDirtyRepaint();
                 storyPortrait.style.display = DisplayStyle.None;
+                }
+                else
+                {
+                    storyPortrait.sprite = Profile(currentLine.speakerId);
+                    storyPortrait.scaleMode = ScaleMode.ScaleToFit;
+                    storyPortrait.style.display = storyPortrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
+                }
                 heading.text = catalog.Speaker(currentLine.speakerId, Russian);
                 heading.tooltip = activeScene.Title(Russian) + " · " + current.Title(Russian);
                 storyText.text = currentLine.Text(Russian);
@@ -340,7 +355,7 @@ namespace Diceforge.UI.Dialogue
             {
                 int number = int.Parse(e.id.Substring(e.id.Length - 2));
                 bool instruction = DemoLearningPolicy.IsAutomaticInstruction(level, number) && !(level == 6 && number == 1);
-                if (!string.IsNullOrEmpty(e.helpTopic) || !DemoLearningPolicy.Eligible(level, number, c, sawBlocked)) continue;
+                if (!string.IsNullOrEmpty(e.helpTopic) || !Eligible(number, c)) continue;
                 // L6 only shows its goal automatically; familiar rules remain in contextual help.
                 if (level == 6 && number != 1 && number != 3) continue;
                 if (ShowOnce(e, instruction)) break;
@@ -351,6 +366,9 @@ namespace Diceforge.UI.Dialogue
             if (e == null || !learning.ShowOnce(e.id, instruction)) return false;
             Show(e, true); return true;
         }
+        private bool Eligible(int number, DemoLearningContext context) => Revised
+            ? DemoLearningPolicy.EligibleRevised(number, context)
+            : DemoLearningPolicy.Eligible(level, number, context, sawBlocked);
         private void Show(DemoDialogueEvent e, bool persist)
         {
             if (e == null) return;
@@ -359,7 +377,7 @@ namespace Diceforge.UI.Dialogue
         }
         private void RenderHint()
         {
-            speaker.text = hint.speakerId == "luma" && level <= 2 ? T("Совет Лумы", "Jo's advice") : catalog.Speaker(hint.speakerId, Russian);
+            speaker.text = !Revised && hint.speakerId == "luma" && level <= 2 ? T("Совет Лумы", "Jo's advice") : catalog.Speaker(hint.speakerId, Russian);
             hintText.text = hint.Text(Russian);
             portrait.sprite = Profile(hint.speakerId);
             portrait.scaleMode = ScaleMode.ScaleToFit;
@@ -417,7 +435,7 @@ namespace Diceforge.UI.Dialogue
             foreach (var e in catalog.events.Where(e => e.levelId == battle.DemoLevel.levelId && !string.IsNullOrEmpty(e.helpTopic)))
             {
                 int number = int.Parse(e.id.Substring(e.id.Length - 2));
-                if (!DemoLearningPolicy.Eligible(level, number, c, sawBlocked)) continue;
+                if (!Eligible(number, c)) continue;
                 var button = new Button(() => { learning.Help(); Show(e, false); CloseHelp(); hintClose?.Focus(); });
                 button.text = HelpTopicTitle(e.helpTopic); button.tooltip = e.Text(Russian);
                 button.AddToClassList("help-topic"); topics.Add(button);
@@ -450,7 +468,7 @@ namespace Diceforge.UI.Dialogue
             if (!learning.CanNarrateError(reason, instance, hero)) return;
             var c = Context(); c.rejection = reason; c.hero = hero;
             var specific = catalog.events.Where(e => e.levelId == battle.DemoLevel.levelId && e.domainEvent == "input_rejected" && e.kind == "tutorial")
-                .FirstOrDefault(e => DemoLearningPolicy.Eligible(level, int.Parse(e.id.Substring(e.id.Length - 2)), c, sawBlocked));
+                .FirstOrDefault(e => Eligible(int.Parse(e.id.Substring(e.id.Length - 2)), c));
             string fallback = reason switch { DemoInputRejection.NoStepSelected => "G_E01", DemoInputRejection.EmptyOrigin or DemoInputRejection.UnknownTarget => "G_E02",
                 DemoInputRejection.HeroAlreadyExited => "G_E03", DemoInputRejection.BlockedDestination => "G_E04", DemoInputRejection.MovementAnimation => "G_E07", _ => "G_E09" };
             Show(specific ?? catalog.Find(fallback), true);
@@ -459,6 +477,7 @@ namespace Diceforge.UI.Dialogue
         {
             if (!record.Move.HasValue || record.ApplyResult == ApplyResult.Illegal || !initialized) return;
             string hero = battle.SelectedHeroId;
+            learning.RecordFinish(hero, record.Move.Value.Kind == MoveKind.BearOff);
             if (!observedMoves.Add(record.TurnIndex + ":" + hero + ":" + record.FromCell + ":" + record.PipUsed)) return;
             int hazard = battle.PresentationState.TrailHazardCell;
             ClearHint(); StartCoroutine(AfterMove(record, hero, hazard, generation));
@@ -481,6 +500,8 @@ namespace Diceforge.UI.Dialogue
         private void ClearHint() { hint = null; learning.State.pendingHintId = null; SetHintVisible(false); }
         private Sprite Profile(string speakerId)
         {
+            var definition = battle.DemoLevel.characters?.Find(speakerId);
+            if (definition?.dialogueProfile != null) return definition.dialogueProfile;
             var character = Array.Find(catalog.speakers, s => s.id == speakerId);
             return character != null && character.dialogueProfile != null ? character.dialogueProfile : character?.neutralPortrait;
         }
@@ -503,13 +524,13 @@ namespace Diceforge.UI.Dialogue
             float top = (Screen.height - safeArea.yMax) * scaleY + 16, bottom = safeArea.yMin * scaleY + 16;
             var nav = root.Q("storyNavigation"); nav.style.left = left; nav.style.right = right; nav.style.top = top;
             var dialogue = root.Q("storyDialogue"); dialogue.style.left = left; dialogue.style.right = right; dialogue.style.bottom = bottom;
-            var help = root.Q<Button>("demoHelpButton"); help.style.top = top; help.style.right = right + 106;
+            var help = root.Q<Button>("demoHelpButton"); help.style.top = top + 12; help.style.right = right + 118;
             var surface = hudRoot.Q("demoActionSurface");
             hintCharacter.style.right = portraitLayout ? right : Mathf.Max(right, root.worldBound.xMax - surface.worldBound.xMax + 16);
             float surfaceHeight = surface.worldBound.height;
             hintCharacter.style.bottom = portraitLayout ? bottom + Mathf.Max(0, surfaceHeight - 24) : bottom;
-            hintCharacter.style.width = portraitLayout ? 180 : 250;
-            hintCharacter.style.height = portraitLayout ? 245 : Mathf.Min(360, height * .52f);
+            hintCharacter.style.width = portraitLayout ? 100 : 220;
+            hintCharacter.style.height = portraitLayout ? 128 : Mathf.Min(300, height * .42f);
             if (IsStoryVisible) RenderStory();
         }
         private void Restarted()
@@ -526,6 +547,11 @@ namespace Diceforge.UI.Dialogue
         private void Save()
         {
             var candidate = ProfileService.Snapshot(); candidate.demoLearning ??= new(); candidate.demoStorySeen ??= new();
+            if (candidate.demoNarrativeVersion != catalog.sourceVersion)
+            {
+                candidate.demoLearning.Clear(); candidate.demoStorySeen.Clear();
+                candidate.demoNarrativeVersion = catalog.sourceVersion;
+            }
             candidate.demoLearning.RemoveAll(s => s.levelId == learning.State.levelId);
             candidate.demoLearning.Add(JsonUtility.FromJson<DemoLearningState>(JsonUtility.ToJson(learning.State)));
             candidate.demoGuidanceHidden = learning.State.guidanceHidden;

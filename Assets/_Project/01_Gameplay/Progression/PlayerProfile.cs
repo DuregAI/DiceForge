@@ -15,6 +15,7 @@ namespace Diceforge.Progression
         public bool tutorialCompleted;
         public List<Diceforge.Core.DemoLearningState> demoLearning = new();
         public List<string> demoStorySeen = new();
+        public string demoNarrativeVersion;
         public bool demoGuidanceHidden;
         public DemoCheckpoint demoCheckpoint;
         // JsonUtility recreates inline reference objects for null; absence needs an explicit marker.

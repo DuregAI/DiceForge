@@ -5,6 +5,7 @@
     <Style src="../_Theme/Spacing.uss"/>
     <Style src="../_Theme/Components.uss"/>
     <Style src="../Dialogue/DialogueView.uss"/>
+    <ui:Style src="../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="TutorialRoot" class="tutorial-root">
         <ui:VisualElement class="tutorial-header-row">
             <ui:Label text="Tutorial" class="tutorial-title df-label"/>

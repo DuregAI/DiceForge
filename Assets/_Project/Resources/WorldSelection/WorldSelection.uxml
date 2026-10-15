@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
   <ui:Style src="WorldSelection.uss" />
+    <ui:Style src="../WoodlandInterface.uss" />
   <ui:VisualElement name="worldSelectionRoot" class="world-selection world-hidden">
     <ui:VisualElement class="world-wash" picking-mode="Ignore" />
     <ui:VisualElement name="worldSafeContent" class="world-content">

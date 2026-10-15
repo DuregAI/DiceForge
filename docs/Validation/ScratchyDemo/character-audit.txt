@@ -1,0 +1,23 @@
+Character intake audit
+tish | Assets/_Project/07_Art/Characters/TishTripo/Tish.prefab | triangles=51895 | material slots=1 | states=Idle,Walk | approved=False
+  Review geometry budget in the target WebGL build.
+  Missing authored state: Selected
+  Missing authored state: Jump
+  Missing authored state: Land
+  Missing authored state: Victory
+luma | Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Luma.prefab | triangles=32820 | material slots=1 | states=Idle,Walk,Selected,Victory,Hit,Return | approved=False
+  Missing authored state: Jump
+  Missing authored state: Land
+  Reused clip (verify intentional): Idle,Selected,Victory,Hit,Return
+bum | Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Bum.prefab | triangles=30628 | material slots=1 | states=Idle,Walk,Selected,Victory,Hit,Return | approved=False
+  Missing authored state: Jump
+  Missing authored state: Land
+  Reused clip (verify intentional): Idle,Selected,Victory,Hit,Return
+scratchy | Assets/_Project/07_Art/Characters/Scratchy/ScratchyStandee.prefab | triangles=0 | material slots=1 | states= | approved=False
+  PROTOTYPE: no skinned model; not production 3D.
+  Missing authored state: Idle
+  Missing authored state: Walk
+  Missing authored state: Selected
+  Missing authored state: Jump
+  Missing authored state: Land
+  Missing authored state: Victory

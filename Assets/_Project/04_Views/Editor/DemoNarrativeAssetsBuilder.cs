@@ -37,6 +37,11 @@ namespace Diceforge.View.Editor
         [MenuItem("Diceforge/Demo RC/Import story and dialogue")]
         public static void Import()
         {
+            if (File.Exists("docs/DemoRC/v0.2/narrative.json"))
+            {
+                ScratchyDemoBuilder.Build();
+                return;
+            }
             if (Application.isPlaying) throw new InvalidOperationException("Import narrative outside Play Mode.");
             const string target = "Assets/_Project/Resources/DemoRC";
             const string source = "docs/DemoRC/v0.1";

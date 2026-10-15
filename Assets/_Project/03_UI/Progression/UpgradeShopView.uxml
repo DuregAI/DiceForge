@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="../../Resources/WoodlandInterface.uss" />
     <ui:VisualElement name="UpgradeShopPanel" class="settings-overlay">
         <ui:VisualElement class="upgrade-shop-window">
             <ui:Label text="UPGRADES" class="panel-title" />

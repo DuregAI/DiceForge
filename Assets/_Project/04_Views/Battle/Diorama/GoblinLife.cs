@@ -30,15 +30,20 @@ namespace Diceforge.View
                 return;
 
             wasMoving = moving;
-            if (moving && reaction != null)
-                return;
+            if (reaction != null) { StopCoroutine(reaction); reaction = null; }
             if (moving)
-                animator.CrossFadeInFixedTime("Walk", .12f, 0);
+                animator.CrossFadeInFixedTime(MovingState(), .12f, 0);
+            else if (!DioramaBoard.ReducedMotion && mover.UsesHopAnimation && HasState("Land"))
+                reaction = StartCoroutine(PlayReaction("Land", .18f));
             else if (DioramaBoard.ReducedMotion)
                 animator.Play("Idle", 0, 0f);
             else
                 animator.CrossFadeInFixedTime("Idle", .18f, 0, Random.value);
         }
+
+        private bool HasState(string state) => animator != null && animator.runtimeAnimatorController != null &&
+            animator.HasState(0, Animator.StringToHash(state));
+        private string MovingState() => mover != null && mover.UsesHopAnimation && HasState("Jump") ? "Jump" : "Walk";
 
         public void React(string state, float seconds)
         {
@@ -59,7 +64,7 @@ namespace Diceforge.View
             animator.CrossFadeInFixedTime(state, .06f, 0);
             yield return new WaitForSeconds(Mathf.Max(.05f, seconds));
             if (animator != null)
-                animator.CrossFadeInFixedTime(mover != null && mover.IsAnimating ? "Walk" : "Idle", .12f, 0);
+                animator.CrossFadeInFixedTime(mover != null && mover.IsAnimating ? MovingState() : "Idle", .12f, 0);
             reaction = null;
         }
 

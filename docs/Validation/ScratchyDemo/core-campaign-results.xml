@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="48" result="Passed" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14,4318767">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="161" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14.431877" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1107" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14.398198" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="30652" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1108" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14.390025" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1109" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14.388779" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1110" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:32Z" duration="14.387307" total="48" passed="48" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1024" name="DemoBattleCheckpointTests" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.200112" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1034" name="CaptureAndRestoreOwnTheirArrayCopies" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.CaptureAndRestoreOwnTheirArrayCopies" methodname="CaptureAndRestoreOwnTheirArrayCopies" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="2085190655" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.082792" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1031" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.100460" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1025" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(1)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(1)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="278040685" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.017335" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1026" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(2)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(2)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="852147169" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.011676" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1027" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(3)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(3)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1055494757" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.010276" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1028" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(4)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(4)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="125934455" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.019701" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1029" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(5)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(5)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="1345965883" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.014498" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1030" name="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(6)" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult(6)" methodname="EachAuthoredActionResumesWithIdenticalFutureStepsHazardsAndResult" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="653373224" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.022262" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1032" name="MalformedCheckpointNeverPartiallyChangesTheRunner" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.MalformedCheckpointNeverPartiallyChangesTheRunner" methodname="MalformedCheckpointNeverPartiallyChangesTheRunner" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="949230796" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.003211" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+              </test-case>
+              <test-case id="1033" name="TimeoutRestoresAsDrawWithoutAdvancingTurnAgain" fullname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests.TimeoutRestoresAsDrawWithoutAdvancingTurnAgain" methodname="TimeoutRestoresAsDrawWithoutAdvancingTurnAgain" classname="Diceforge.Tests.BattleTermination.DemoBattleCheckpointTests" runstate="Runnable" seed="385160255" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:46:57Z" duration="0.002045" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1035" name="DemoCampaignFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-14 02:47:02Z" end-time="2026-10-14 02:48:26Z" duration="84.030402" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1036" name="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" methodname="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" seed="57194476" result="Passed" start-time="2026-10-14 02:46:57Z" end-time="2026-10-14 02:48:26Z" duration="89.196578" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946024020 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946026062 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946026121 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T2
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T3
+[Diceforge] Match end. Winner: A  Turns: 3
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946031687 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8, winner=A, endReason=Win, turnIndex=3}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946032559 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_02, map=Map_Level_02
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_02 modeId=level_02 rulesetId=level_02 setupId=level_02 cells=8 startA=0 startB=7 mapId=level_02 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946034500 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946034551 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946042342 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946043213 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946045148 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946045199 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] This landing is unavailable. Choose another step or friend.
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] Match end. Winner: A  Turns: 6
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946052450 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8, winner=A, endReason=Win, turnIndex=6}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946053324 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946055259 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946055314 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T8
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T9
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T10
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T11
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T12
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T13
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T14
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T15
+[Diceforge] Match end. Winner: A  Turns: 15
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946068813 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8, winner=A, endReason=Win, turnIndex=15}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946069682 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946071617 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946071671 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] Match end. Winner: A  Turns: 5
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946082367 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8, winner=A, endReason=Win, turnIndex=5}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946083237 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_06, map=Map_Level_06
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_06 modeId=level_06 rulesetId=level_06 setupId=level_06 cells=8 startA=0 startB=7 mapId=level_06 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946085172 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946085224 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T7
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T8
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T8
+[Diceforge] Match end. Winner: A  Turns: 8
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946100912 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8, winner=A, endReason=Win, turnIndex=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946103194 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946105122 session=191af4c244b8421182b00e1a7c0d7edc payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946105178 session=191af4c244b8421182b00e1a7c0d7edc payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791946106335 session=191af4c244b8421182b00e1a7c0d7edc payload={sessionStartUnixMsUtc=1791946021247, sessionEndUnixMsUtc=1791946106335, durationSeconds=85.088, buildVersion=0.3.8-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=15, battlesStartedCount=7, battlesEndedCount=6, sampleWindowSeconds=3, totalFrames=32602, totalSampledSeconds=88.709, averageFps=367.517, minimumWindowFps=0.26, averageFrameTimeMs=2.721, worstSpikeMs=3841.487}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1037" name="DemoCampaignTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.165860" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1051" name="AlternativesRefreshBothChoicesAfterExactlyOneAction" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AlternativesRefreshBothChoicesAfterExactlyOneAction" methodname="AlternativesRefreshBothChoicesAfterExactlyOneAction" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="643849337" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.004339" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1050" name="AuthoringRoutesRunOnTheSavedCampaignPresets" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.148034" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1038" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="843703713" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.006699" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1039" name="AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(1,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="522699819" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001434" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1040" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="448287893" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001474" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1041" name="AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(2,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1415317749" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001332" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1042" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="393643181" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.002921" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1043" name="AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(3,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1039828348" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001323" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+                </test-case>
+                <test-case id="1044" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="215925820" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.004555" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1045" name="AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(4,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="144292614" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.003810" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1046" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1788202197" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.004723" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1047" name="AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(5,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="817747587" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.003281" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+                </test-case>
+                <test-case id="1048" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,False)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="2012301679" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.011103" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+]]></output>
+                </test-case>
+                <test-case id="1049" name="AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.AuthoringRoutesRunOnTheSavedCampaignPresets(6,True)" methodname="AuthoringRoutesRunOnTheSavedCampaignPresets" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1454707273" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001929" asserts="0">
+                  <properties />
+                  <output><![CDATA[Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1053" name="FirstFriendMayExitWhileTheOtherIsAtTheStart" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.FirstFriendMayExitWhileTheOtherIsAtTheStart" methodname="FirstFriendMayExitWhileTheOtherIsAtTheStart" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="839025115" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001229" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+              </test-case>
+              <test-case id="1052" name="InvalidSelectedStepPreservesTheOtherLegalChoice" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.InvalidSelectedStepPreservesTheOtherLegalChoice" methodname="InvalidSelectedStepPreservesTheOtherLegalChoice" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1259168074" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.001826" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+]]></output>
+              </test-case>
+              <test-case id="1055" name="NamedLumaMovesFromSharedCellWithoutMovingTish" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.NamedLumaMovesFromSharedCellWithoutMovingTish" methodname="NamedLumaMovesFromSharedCellWithoutMovingTish" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="1476421199" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.004864" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+]]></output>
+              </test-case>
+              <test-case id="1054" name="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" fullname="Diceforge.Tests.BattleTermination.DemoCampaignTests.SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" methodname="SoloTimeoutHasNoWinnerAndResetRestoresTheWholeTeam" classname="Diceforge.Tests.BattleTermination.DemoCampaignTests" runstate="Runnable" seed="751231425" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:26Z" duration="0.002610" asserts="0">
+                <properties />
+                <output><![CDATA[Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1056" name="DemoCheckpointFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-14 02:49:17Z" end-time="2026-10-14 02:49:31Z" duration="14.128622" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1059" name="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" methodname="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="1699929639" result="Passed" start-time="2026-10-14 02:48:26Z" end-time="2026-10-14 02:48:42Z" duration="15.607790" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946113144 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946115226 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946115288 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946118934 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946120889 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946120944 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791946122119 session=f7a6c5cfd1bd4776afba8eb06259f4f5 payload={sessionStartUnixMsUtc=1791946110418, sessionEndUnixMsUtc=1791946122119, durationSeconds=11.701, buildVersion=0.3.8-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=5, battlesStartedCount=2, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=5386, totalSampledSeconds=15.143, averageFps=355.679, minimumWindowFps=0.279, averageFrameTimeMs=2.812, worstSpikeMs=3578.738}
+]]></output>
+              </test-case>
+              <test-case id="1058" name="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" methodname="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="402942440" result="Passed" start-time="2026-10-14 02:48:42Z" end-time="2026-10-14 02:49:12Z" duration="30.467142" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946128657 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946130700 session=edc3eae248304889b52dc9c1f049f9ac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946130756 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946135905 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946137842 session=edc3eae248304889b52dc9c1f049f9ac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946137895 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946141473 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946142265 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946144187 session=edc3eae248304889b52dc9c1f049f9ac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946144236 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946147507 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946149437 session=edc3eae248304889b52dc9c1f049f9ac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946149486 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1791946150630 session=edc3eae248304889b52dc9c1f049f9ac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946151489 session=edc3eae248304889b52dc9c1f049f9ac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791946152630 session=edc3eae248304889b52dc9c1f049f9ac payload={sessionStartUnixMsUtc=1791946125967, sessionEndUnixMsUtc=1791946152630, durationSeconds=26.663, buildVersion=0.3.8-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=MainMenu, scenesLoadedCount=11, battlesStartedCount=4, battlesEndedCount=1, sampleWindowSeconds=3, totalFrames=14312, totalSampledSeconds=30.12, averageFps=475.165, minimumWindowFps=0.278, averageFrameTimeMs=2.105, worstSpikeMs=3593.127}
+]]></output>
+              </test-case>
+              <test-case id="1057" name="MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" methodname="MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="861764455" result="Passed" start-time="2026-10-14 02:49:12Z" end-time="2026-10-14 02:49:31Z" duration="19.000200" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946158755 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946160785 session=a69e37d62000491aadb8367012d3c38d payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946160840 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946163746 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946165681 session=a69e37d62000491aadb8367012d3c38d payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946165734 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946168490 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+[BattleDebugController] BattleRunner was lazily initialized. Check scene execution order/references.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1791946170429 session=a69e37d62000491aadb8367012d3c38d payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1791946170478 session=a69e37d62000491aadb8367012d3c38d payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1791946171630 session=a69e37d62000491aadb8367012d3c38d payload={sessionStartUnixMsUtc=1791946156526, sessionEndUnixMsUtc=1791946171630, durationSeconds=15.104, buildVersion=0.3.8-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=7, battlesStartedCount=3, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=8752, totalSampledSeconds=18.562, averageFps=471.489, minimumWindowFps=0.278, averageFrameTimeMs=2.121, worstSpikeMs=3594.858}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1060" name="DemoHazardTests" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-14 02:49:31Z" end-time="2026-10-14 02:49:32Z" duration="0.116434" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1063" name="BarkBlocksOnlyLandingAndNeverMoves" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-14 02:49:31Z" end-time="2026-10-14 02:49:32Z" duration="0.108588" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1061" name="BarkBlocksOnlyLandingAndNeverMoves(4)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(4)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="857531189" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.005017" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1062" name="BarkBlocksOnlyLandingAndNeverMoves(6)" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.BarkBlocksOnlyLandingAndNeverMoves(6)" methodname="BarkBlocksOnlyLandingAndNeverMoves" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="2099477916" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001785" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1064" name="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" methodname="RyzhMovesOnceAfterBothActionsAndNeverTakesATurn" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="1499896438" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000947" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" methodname="RyzhYieldsPermanentlyToAFriendWithoutBearingOffOrWinning" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="1662173981" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000929" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" fullname="Diceforge.Tests.BattleTermination.DemoHazardTests.UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" methodname="UnplayableRemainderRequiresOneExplicitPassWhichMovesRyzh" classname="Diceforge.Tests.BattleTermination.DemoHazardTests" runstate="Runnable" seed="1341680428" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001014" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1067" name="DemoLearningTests" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.111516" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1069" name="DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" methodname="DifferentLegalChoiceCountsAndRestartKeepsKnowledgeAndGuidance" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1995678221" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001292" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="L6HasOnlyOneAutomaticInstruction" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.L6HasOnlyOneAutomaticInstruction" methodname="L6HasOnlyOneAutomaticInstruction" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1670764056" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000292" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1080" name="LearningSerializationKeepsKnowledgeWithoutInterfaceCache" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.LearningSerializationKeepsKnowledgeWithoutInterfaceCache" methodname="LearningSerializationKeepsKnowledgeWithoutInterfaceCache" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="155835113" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000262" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" methodname="NarrativeCatalogHasAllAuthoredEventsAndSevenCompleteScenes" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="858494174" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001873" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1078" name="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.097991" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1074" name="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;tish&quot;,&quot;scratchy&quot;)" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;tish&quot;,&quot;scratchy&quot;)" methodname="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="250064428" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001210" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;scratchy&quot;,&quot;tish&quot;)" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;scratchy&quot;,&quot;tish&quot;)" methodname="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="91161442" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000145" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1076" name="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;tish&quot;,&quot;luma&quot;)" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;tish&quot;,&quot;luma&quot;)" methodname="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="576976532" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000178" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1077" name="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;luma&quot;,&quot;tish&quot;)" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart(&quot;luma&quot;,&quot;tish&quot;)" methodname="RaceKeepsFirstFinisherThroughSaveAndClearsOnRestart" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="438899868" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1070" name="RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" methodname="RepeatedErrorDeduplicatesAndCapsAtTwoPerReason" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1995850292" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.001683" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1079" name="ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" methodname="ResumeKeepsAttemptEvidencePendingHintAndErrorBudget" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1111993869" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000513" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="SkipAndPassNeverProduceEvidence" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.SkipAndPassNeverProduceEvidence" methodname="SkipAndPassNeverProduceEvidence" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="2116449673" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000395" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" fullname="Diceforge.Tests.BattleTermination.DemoLearningTests.ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" methodname="ThreeUnaidedMovesFadeOnlyInstructionsAndHelpResetsStreak" classname="Diceforge.Tests.BattleTermination.DemoLearningTests" runstate="Runnable" seed="1336087106" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.000373" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1088" name="DemoNarrativeCatalogTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.014618" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1089" name="EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" fullname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests.EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" methodname="EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" classname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" runstate="Runnable" seed="996808396" result="Passed" start-time="2026-10-14 02:49:32Z" end-time="2026-10-14 02:49:32Z" duration="0.013327" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: docs/Validation/ScratchyDemo/latest-results.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
