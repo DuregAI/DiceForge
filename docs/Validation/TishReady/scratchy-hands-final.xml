@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 15:10:27Z" end-time="2026-10-20 15:10:28Z" duration="0,6091487">
+  <test-suite type="TestSuite" id="1226" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="168" result="Passed" start-time="2026-10-20 15:10:27Z" end-time="2026-10-20 15:10:28Z" duration="0.609149" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1115" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.502165" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1116" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.500993" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1117" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.393008" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1118" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.392456" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1106" name="RuntimeServiceRecoveryTests" fullname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" classname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.283999" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1107" name="ScratchyClothHandsKeepTheirShapeInEveryDialogueClip" fullname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.ScratchyClothHandsKeepTheirShapeInEveryDialogueClip" methodname="ScratchyClothHandsKeepTheirShapeInEveryDialogueClip" classname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" runstate="Runnable" seed="920773067" result="Passed" start-time="2026-10-20 15:10:28Z" end-time="2026-10-20 15:10:28Z" duration="0.283384" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\scratchy-hands-final.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

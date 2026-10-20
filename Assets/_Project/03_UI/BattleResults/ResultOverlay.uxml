@@ -1,9 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="ResultOverlay.uss" />
     <ui:Style src="../../Resources/WoodlandInterface.uss" />
+    <ui:Style src="ResultLayout.uss" />
     <ui:VisualElement name="resultOverlayRoot" class="result-overlay-root" style="display: none;">
         <ui:Image name="resultFxBackLayer" class="result-overlay-fx result-overlay-fx-back" />
-        <ui:VisualElement name="resultPanel" class="result-overlay-panel">
+        <ui:ScrollView name="resultPanel" class="result-overlay-panel" horizontal-scroller-visibility="Hidden">
             <ui:VisualElement name="resultPanelContent" class="result-overlay-content">
                 <ui:Label name="resultLabel" text="Victory" class="result-overlay-title" />
                 <ui:Label name="resultSummaryLabel" text="Rewards" class="result-overlay-summary" />
@@ -24,7 +25,7 @@
                     <ui:Button name="backToMenuButton" text="Back to menu" class="result-overlay-button" />
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
+        </ui:ScrollView>
         <ui:Image name="resultFxFrontLayer" class="result-overlay-fx result-overlay-fx-front" />
     </ui:VisualElement>
 </ui:UXML>

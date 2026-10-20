@@ -49,5 +49,40 @@
 #demoNarrativeRoot .story-next { flex-shrink: 0; }
 #demoNarrativeRoot .save-message { right: 12px; width: auto; max-width: 340px; }
 
-#woodlandRoot.demo-mode.portrait .top-bar { min-height: 72px; flex-shrink: 0; }
+#woodlandRoot.demo-mode.portrait .top-bar { min-height: 0; flex-shrink: 0; }
 #woodlandRoot.demo-mode.portrait .score-panel { min-height: 32px; flex-shrink: 0; }
+
+#woodlandRoot.demo-mode .demo-title { white-space: normal; min-width: 0; }
+#woodlandRoot.demo-mode .demo-meta Label { white-space: normal; flex-shrink: 1; }
+#woodlandRoot.demo-mode .demo-hero.selected {
+ background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
+ -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48;
+ -unity-background-image-tint-color: rgb(197,221,146); color: rgb(44,59,22);
+}
+#woodlandRoot #pause, #woodlandRoot #settings,
+#demoNarrativeRoot #demoHelpButton, #demoNarrativeRoot #helpClose,
+#woodlandRoot #hintSkip, #demoNarrativeRoot #storyNext {
+ background-image: none; background-color: rgb(104,65,32);
+ border-width: 2px; border-color: rgb(224,180,100); border-radius: 28px;
+ color: rgb(255,241,200); padding: 0; align-items: center; justify-content: center;
+}
+#woodlandRoot #pause:hover, #woodlandRoot #settings:hover,
+#demoNarrativeRoot #demoHelpButton:hover, #demoNarrativeRoot #helpClose:hover,
+#woodlandRoot #hintSkip:hover, #demoNarrativeRoot #storyNext:hover { background-color: rgb(137,87,40); }
+#woodlandRoot #pause:focus, #woodlandRoot #settings:focus,
+#demoNarrativeRoot #demoHelpButton:focus, #demoNarrativeRoot #helpClose:focus,
+#woodlandRoot #hintSkip:focus, #demoNarrativeRoot #storyNext:focus { border-color: rgb(255,244,213); }
+#woodlandRoot #pause:active, #woodlandRoot #settings:active,
+#demoNarrativeRoot #demoHelpButton:active, #demoNarrativeRoot #helpClose:active,
+#woodlandRoot #hintSkip:active, #demoNarrativeRoot #storyNext:active { scale: .94 .94; }
+#demoNarrativeRoot #storyNext.continue { padding: 8px 20px; }
+
+/* Put the complete friend roster on its own row on narrow screens. */
+#woodlandRoot.demo-mode.narrow.multiple-heroes .action-row { flex-direction: column; align-items: stretch; }
+#woodlandRoot.demo-mode.narrow.multiple-heroes .demo-step-group { width: 100%; margin-right: 0; }
+#woodlandRoot.demo-mode.narrow.multiple-heroes .demo-hero-group { width: 100%; flex-basis: auto; flex-grow: 0; }
+#woodlandRoot.demo-mode.narrow.multiple-heroes .demo-hero { flex-grow: 1; flex-shrink: 1; min-width: 0; padding-left: 8px; padding-right: 8px; }
+
+#woodlandRoot.demo-mode .move-token:disabled,
+#woodlandRoot.demo-mode .demo-hero:disabled { opacity: 1; }
+#demoNarrativeRoot #demoHelpButton:disabled { opacity: .85; }

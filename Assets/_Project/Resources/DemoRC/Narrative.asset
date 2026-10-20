@@ -25,6 +25,7 @@ MonoBehaviour:
     ru: "\u0415\u0449\u0451 \u043E\u0434\u0438\u043D \u0443\u0437\u0435\u043B \u2014 \u0438 \u0443\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C \u0441\u043D\u043E\u0432\u0430 \u0446\u0435\u043B. \u041A\u0442\u043E \u0442\u0430\u043C \u0448\u0443\u0440\u0448\u0438\u0442?"
     en: One more knot and the sign is fixed. Who is rustling over there?
     firstFinisherId: 
+    gesture: Doubt
     priority: 80
   - id: L01_I02
     levelId: L1
@@ -37,6 +38,7 @@ MonoBehaviour:
     ru: "\u0422\u0438\u0448! \u041F\u0441-\u0441\u2026 \u0421\u044E\u0434\u0430, \u0437\u0430 \u043A\u0443\u0441\u0442\u044B! \u042F \u043A\u043E\u0435-\u0447\u0442\u043E \u0432\u0438\u0434\u0435\u043B!"
     en: "Tish! Psst\u2026 Over here, behind the bushes! I saw something!"
     firstFinisherId: 
+    gesture: Greet
     priority: 80
   - id: L01_V01
     levelId: L1
@@ -49,6 +51,7 @@ MonoBehaviour:
     ru: "\u0412\u043E\u0442 \u0442\u044B \u0433\u0434\u0435! \u042F \u0426\u0430\u0440\u0430\u043F. \u041E\u0431\u044B\u0447\u043D\u043E \u043C\u0435\u043D\u044F \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0441\u043B\u044B\u0448\u0430\u0442."
     en: There you are! I am Scratchy. People usually hear me first.
     firstFinisherId: 
+    gesture: Greet
     priority: 80
   - id: L01_F01
     levelId: L1
@@ -61,6 +64,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_R01
     levelId: L1
@@ -73,6 +77,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_R02
     levelId: L1
@@ -85,6 +90,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T01
     levelId: L1
@@ -97,6 +103,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T02
     levelId: L1
@@ -109,6 +116,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T03
     levelId: L1
@@ -121,6 +129,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T04
     levelId: L1
@@ -133,6 +142,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E \u043C\u0435\u0441\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u043E. \u0412\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0430."
     en: That spot is occupied. Choose a different step or friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T05
     levelId: L1
@@ -145,6 +155,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0444\u043B\u0430\u0436\u043A\u0430! \u0422\u0435\u043F\u0435\u0440\u044C \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E."
     en: One friend has arrived! Now bring the other one.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T06
     levelId: L1
@@ -157,6 +168,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T07
     levelId: L1
@@ -169,6 +181,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L01_T08
     levelId: L1
@@ -181,6 +194,7 @@ MonoBehaviour:
     ru: "\u0428\u0430\u0433 2 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0434\u0440\u0443\u0433\u0430 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C, \u043A\u0443\u0434\u0430 \u043E\u043D \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0442\u0441\u044F."
     en: Step 2 jumps over one tile. Check where your friend will land.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_I01
     levelId: L2
@@ -193,6 +207,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043F\u0440\u043E\u0439\u0434\u0451\u043C \u0432\u0441\u044E \u0442\u0440\u043E\u043F\u0443. \u042F \u0437\u043D\u0430\u044E \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0435 \u0448\u0430\u0433\u0438 \u0438 \u0434\u043B\u0438\u043D\u043D\u044B\u0435!"
     en: Now for the whole trail. I know short steps and long ones!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_I02
     levelId: L2
@@ -205,6 +220,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0439 \u0434\u043E\u0440\u043E\u0433\u0443. \u0422\u043E\u043B\u044C\u043A\u043E \u043A\u043E\u043B\u043E\u043A\u043E\u043B\u044C\u0447\u0438\u043A \u043D\u0435 \u043F\u043E\u0442\u0435\u0440\u044F\u0439."
     en: Lead the way. Just do not lose your bell.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_V01
     levelId: L2
@@ -217,6 +233,7 @@ MonoBehaviour:
     ru: "\u0412\u0441\u044F \u0442\u0440\u043E\u043F\u0430 \u043F\u043E\u0437\u0430\u0434\u0438. \u0418 \u043D\u0438 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0435\u0440\u044F\u043D\u043D\u043E\u0433\u043E \u043A\u043E\u043B\u043E\u043A\u043E\u043B\u044C\u0447\u0438\u043A\u0430."
     en: The whole trail is behind us. And not a single bell lost.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_F01
     levelId: L2
@@ -229,6 +246,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_R01
     levelId: L2
@@ -241,6 +259,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_R02
     levelId: L2
@@ -253,6 +272,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T01
     levelId: L2
@@ -265,6 +285,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T02
     levelId: L2
@@ -277,6 +298,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T03
     levelId: L2
@@ -289,6 +311,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T04
     levelId: L2
@@ -301,6 +324,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E \u043C\u0435\u0441\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u043E. \u0412\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0430."
     en: That spot is occupied. Choose a different step or friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T05
     levelId: L2
@@ -313,6 +337,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0444\u043B\u0430\u0436\u043A\u0430! \u0422\u0435\u043F\u0435\u0440\u044C \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E."
     en: One friend has arrived! Now bring the other one.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T06
     levelId: L2
@@ -325,6 +350,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T07
     levelId: L2
@@ -337,6 +363,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L02_T08
     levelId: L2
@@ -349,6 +376,7 @@ MonoBehaviour:
     ru: "\u0428\u0430\u0433 2 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0434\u0440\u0443\u0433\u0430 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C, \u043A\u0443\u0434\u0430 \u043E\u043D \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0442\u0441\u044F."
     en: Step 2 jumps over one tile. Check where your friend will land.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_I01
     levelId: L3
@@ -361,6 +389,7 @@ MonoBehaviour:
     ru: "\u0421\u0442\u043E\u0439! \u042D\u0442\u0430 \u043F\u043B\u0438\u0442\u0430 \u0442\u0440\u0435\u0441\u043D\u0443\u043B\u0430. \u041D\u0430 \u043D\u0435\u0451 \u043B\u0443\u0447\u0448\u0435 \u043D\u0435 \u043D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u044C."
     en: Wait! That tile is cracked. Better not step on it.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_I02
     levelId: L3
@@ -373,6 +402,7 @@ MonoBehaviour:
     ru: "\u0417\u0430\u0442\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0446\u0435\u043B\u0430\u044F. \u041F\u0435\u0440\u0435\u043F\u0440\u044B\u0433\u043D\u0443 \u0441 \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u0439!"
     en: But the next one is sound. I will jump across from the tile beside it!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_V01
     levelId: L3
@@ -385,6 +415,7 @@ MonoBehaviour:
     ru: "\u0412\u043E\u0442 \u044D\u0442\u043E \u043F\u0440\u044B\u0436\u043E\u043A! \u0422\u0440\u0435\u0441\u043D\u0443\u0432\u0448\u0430\u044F \u043F\u043B\u0438\u0442\u0430 \u0434\u0430\u0436\u0435 \u043D\u0435 \u0448\u0435\u043B\u043E\u0445\u043D\u0443\u043B\u0430\u0441\u044C."
     en: What a jump! The cracked tile did not even stir.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_F01
     levelId: L3
@@ -397,6 +428,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_R01
     levelId: L3
@@ -409,6 +441,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_R02
     levelId: L3
@@ -421,6 +454,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T01
     levelId: L3
@@ -433,6 +467,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T02
     levelId: L3
@@ -445,6 +480,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T03
     levelId: L3
@@ -457,6 +493,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T04
     levelId: L3
@@ -469,6 +506,7 @@ MonoBehaviour:
     ru: "\u041D\u0430 \u0442\u0440\u0435\u0441\u043D\u0443\u0432\u0448\u0443\u044E \u043F\u043B\u0438\u0442\u0443 \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u044F\u0442\u044C\u0441\u044F \u043D\u0435\u043B\u044C\u0437\u044F. \u041F\u043E\u0434\u043E\u0439\u0434\u0438 \u043A \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u0439 \u0438 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 2."
     en: You cannot land on the cracked tile. Get to the tile beside it and choose step 2.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T05
     levelId: L3
@@ -481,6 +519,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0444\u043B\u0430\u0436\u043A\u0430! \u0422\u0435\u043F\u0435\u0440\u044C \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E."
     en: One friend has arrived! Now bring the other one.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T06
     levelId: L3
@@ -493,6 +532,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T07
     levelId: L3
@@ -505,6 +545,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0422\u0438\u0448\u0430 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430."
     en: Bring Tish to the flag.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L03_T08
     levelId: L3
@@ -517,6 +558,7 @@ MonoBehaviour:
     ru: "\u041D\u0430 \u0442\u0440\u0435\u0441\u043D\u0443\u0432\u0448\u0443\u044E \u043F\u043B\u0438\u0442\u0443 \u043D\u0435\u043B\u044C\u0437\u044F \u0432\u0441\u0442\u0430\u0442\u044C, \u043D\u043E \u0447\u0435\u0440\u0435\u0437 \u043D\u0435\u0451 \u043C\u043E\u0436\u043D\u043E \u043F\u0440\u044B\u0433\u043D\u0443\u0442\u044C."
     en: You cannot stand on the cracked tile, but you can jump over it.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_I01
     levelId: L4
@@ -529,6 +571,7 @@ MonoBehaviour:
     ru: "\u0414\u043E \u0444\u043B\u0430\u0436\u043A\u0430 \u043D\u0430\u043F\u0435\u0440\u0435\u0433\u043E\u043D\u043A\u0438? \u041A\u043E\u043B\u043E\u043A\u043E\u043B\u044C\u0447\u0438\u043A \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \u0447\u0435\u0441\u0442\u043D\u043E!"
     en: Race you to the flag? My bell keeps an honest score!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_I02
     levelId: L4
@@ -541,6 +584,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u043B\u0438\u0441\u044C! \u041A\u0442\u043E \u043F\u0435\u0440\u0432\u044B\u0439, \u0442\u043E\u0442 \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0442 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u0442\u0440\u043E\u043F\u0443."
     en: Deal! The first one there picks the next trail.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_F01
     levelId: L4
@@ -553,6 +597,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_R01
     levelId: L4
@@ -565,6 +610,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_R02
     levelId: L4
@@ -577,6 +623,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T01
     levelId: L4
@@ -589,6 +636,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u043E\u0431\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u041A\u0442\u043E \u043F\u0440\u0438\u0434\u0451\u0442 \u043F\u0435\u0440\u0432\u044B\u043C?"
     en: Bring both friends to the flag. Who will arrive first?
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T02
     levelId: L4
@@ -601,6 +649,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T03
     levelId: L4
@@ -613,6 +662,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T04
     levelId: L4
@@ -625,6 +675,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E \u043C\u0435\u0441\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u043E. \u0412\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0430."
     en: That spot is occupied. Choose a different step or friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T05
     levelId: L4
@@ -637,6 +688,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0444\u043B\u0430\u0436\u043A\u0430! \u0422\u0435\u043F\u0435\u0440\u044C \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E."
     en: One friend has arrived! Now bring the other one.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T06
     levelId: L4
@@ -649,6 +701,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T07
     levelId: L4
@@ -661,6 +714,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u043E\u0431\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u041A\u0442\u043E \u043F\u0440\u0438\u0434\u0451\u0442 \u043F\u0435\u0440\u0432\u044B\u043C?"
     en: Bring both friends to the flag. Who will arrive first?
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_T08
     levelId: L4
@@ -673,6 +727,7 @@ MonoBehaviour:
     ru: "\u0428\u0430\u0433 2 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0434\u0440\u0443\u0433\u0430 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C, \u043A\u0443\u0434\u0430 \u043E\u043D \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0442\u0441\u044F."
     en: Step 2 jumps over one tile. Check where your friend will land.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_I01
     levelId: L5
@@ -685,6 +740,7 @@ MonoBehaviour:
     ru: "\u0421\u043B\u044B\u0448\u0430\u043B\u0430 \u0432\u0430\u0448 \u0437\u0432\u043E\u043D \u0438\u0437\u0434\u0430\u043B\u0435\u043A\u0430. \u0422\u0438\u0448, \u0442\u0435\u043F\u0435\u0440\u044C \u0441\u043E \u043C\u043D\u043E\u0439 \u043D\u0430\u043F\u0435\u0440\u0435\u0433\u043E\u043D\u043A\u0438!"
     en: I heard that bell from far away. Tish, race me this time!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_I02
     levelId: L5
@@ -697,6 +753,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C, \u043A\u0442\u043E \u043F\u0435\u0440\u0432\u044B\u043C \u0434\u043E\u0431\u0435\u0440\u0451\u0442\u0441\u044F \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430!"
     en: Let us see who reaches the flag first!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_F01
     levelId: L5
@@ -709,6 +766,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_R01
     levelId: L5
@@ -721,6 +779,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_R02
     levelId: L5
@@ -733,6 +792,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T01
     levelId: L5
@@ -745,6 +805,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u043E\u0431\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u041A\u0442\u043E \u043F\u0440\u0438\u0434\u0451\u0442 \u043F\u0435\u0440\u0432\u044B\u043C?"
     en: Bring both friends to the flag. Who will arrive first?
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T02
     levelId: L5
@@ -757,6 +818,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T03
     levelId: L5
@@ -769,6 +831,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T04
     levelId: L5
@@ -781,6 +844,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E \u043C\u0435\u0441\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u043E. \u0412\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0430."
     en: That spot is occupied. Choose a different step or friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T05
     levelId: L5
@@ -793,6 +857,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0443 \u0444\u043B\u0430\u0436\u043A\u0430! \u0422\u0435\u043F\u0435\u0440\u044C \u0434\u043E\u0432\u0435\u0434\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E."
     en: One friend has arrived! Now bring the other one.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T06
     levelId: L5
@@ -805,6 +870,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T07
     levelId: L5
@@ -817,6 +883,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u043E\u0431\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u041A\u0442\u043E \u043F\u0440\u0438\u0434\u0451\u0442 \u043F\u0435\u0440\u0432\u044B\u043C?"
     en: Bring both friends to the flag. Who will arrive first?
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L05_T08
     levelId: L5
@@ -829,6 +896,7 @@ MonoBehaviour:
     ru: "\u0428\u0430\u0433 2 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0434\u0440\u0443\u0433\u0430 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C, \u043A\u0443\u0434\u0430 \u043E\u043D \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0442\u0441\u044F."
     en: Step 2 jumps over one tile. Check where your friend will land.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_I01
     levelId: L6
@@ -841,6 +909,7 @@ MonoBehaviour:
     ru: "\u042F \u043F\u0440\u0438\u043D\u0451\u0441 \u043F\u0435\u0440\u0435\u043A\u0443\u0441. \u041A\u0443\u0434\u0430 \u043C\u044B \u0432\u0441\u0435 \u0442\u0430\u043A \u0441\u043F\u0435\u0448\u0438\u043C?"
     en: I brought snacks. Where is everyone rushing?
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_I02
     levelId: L6
@@ -853,6 +922,7 @@ MonoBehaviour:
     ru: "\u0417\u0430 \u043F\u0435\u0440\u0435\u0432\u0430\u043B\u043E\u043C \u043C\u0435\u043B\u044C\u043A\u043D\u0443\u043B\u0430 \u043F\u0442\u0438\u0446\u0430 \u0441 \u044F\u043D\u0442\u0430\u0440\u043D\u043E\u0439 \u043B\u0438\u043D\u0437\u043E\u0439. \u041F\u043E\u043A\u0430\u0436\u0443!"
     en: A bird with an amber lens flew beyond the ridge. I will show you!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_V01
     levelId: L6
@@ -865,6 +935,7 @@ MonoBehaviour:
     ru: "\u0412\u0441\u0435 \u0437\u0434\u0435\u0441\u044C. \u041C\u043E\u0436\u043D\u043E \u043F\u0435\u0440\u0435\u0434\u043E\u0445\u043D\u0443\u0442\u044C \u2014 \u0438 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C, \u043A\u0443\u0434\u0430 \u043B\u0435\u0442\u0435\u043B\u0430 \u043F\u0442\u0438\u0446\u0430."
     en: Everyone is here. We can rest, then see where that bird went.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_F01
     levelId: L6
@@ -877,6 +948,7 @@ MonoBehaviour:
     ru: "\u041D\u0438\u0447\u0435\u0433\u043E, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0435\u043C \u0435\u0449\u0451 \u0440\u0430\u0437. \u042F \u043F\u043E\u0434\u043E\u0436\u0434\u0443!"
     en: No worries. Let us try again. I will wait!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_R01
     levelId: L6
@@ -889,6 +961,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430, \u0433\u0434\u0435 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0438\u0441\u044C."
     en: Let us carry on from where we stopped.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_R02
     levelId: L6
@@ -901,6 +974,7 @@ MonoBehaviour:
     ru: "\u041D\u043E\u0432\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430! \u0412\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430."
     en: A fresh start! Choose a step, then a friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T01
     levelId: L6
@@ -913,6 +987,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u0414\u0440\u0443\u0437\u044C\u044F \u0432\u044B\u0445\u043E\u0434\u044F\u0442 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u0438."
     en: Bring all three friends to the flag. Each friend exits separately.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T02
     levelId: L6
@@ -925,6 +1000,7 @@ MonoBehaviour:
     ru: "\u0422\u0435\u043F\u0435\u0440\u044C \u043D\u0430\u0436\u043C\u0438 \u0434\u0440\u0443\u0433\u0430 \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0438\u043B\u0438 \u0435\u0433\u043E \u0438\u043C\u044F \u0432\u043D\u0438\u0437\u0443."
     en: Now tap a friend on the tile or their name below.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T03
     levelId: L6
@@ -937,6 +1013,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C! \u0421\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433 \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439."
     en: That worked! Choose another step and keep going.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T04
     levelId: L6
@@ -949,6 +1026,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E \u043C\u0435\u0441\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u043E. \u0412\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0430."
     en: That spot is occupied. Choose a different step or friend.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T05
     levelId: L6
@@ -961,6 +1039,7 @@ MonoBehaviour:
     ru: "\u041E\u0434\u0438\u043D \u0443\u0436\u0435 \u0434\u043E\u0448\u0451\u043B. \u0414\u043E\u0432\u0435\u0434\u0451\u043C \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u044B\u0445!"
     en: One friend has arrived. Bring the others!
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T06
     levelId: L6
@@ -973,6 +1052,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0447\u0438\u0441\u043B\u043E \u0448\u0430\u0433\u0430, \u0437\u0430\u0442\u0435\u043C \u0434\u0440\u0443\u0433\u0430. \u041F\u043E\u0434\u0441\u0432\u0435\u0442\u043A\u0430 \u043F\u043E\u043A\u0430\u0436\u0435\u0442 \u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0441\u0430\u0434\u043A\u0438."
     en: Choose a step value, then a friend. The highlight shows the landing spot.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T07
     levelId: L6
@@ -985,6 +1065,7 @@ MonoBehaviour:
     ru: "\u0414\u043E\u0432\u0435\u0434\u0438 \u0432\u0441\u0435\u0445 \u0442\u0440\u043E\u0438\u0445 \u0434\u043E \u0444\u043B\u0430\u0436\u043A\u0430. \u0414\u0440\u0443\u0437\u044C\u044F \u0432\u044B\u0445\u043E\u0434\u044F\u0442 \u043F\u043E \u043E\u0447\u0435\u0440\u0435\u0434\u0438."
     en: Bring all three friends to the flag. Each friend exits separately.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L06_T08
     levelId: L6
@@ -997,6 +1078,7 @@ MonoBehaviour:
     ru: "\u0428\u0430\u0433 2 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0434\u0440\u0443\u0433\u0430 \u0447\u0435\u0440\u0435\u0437 \u043E\u0434\u043D\u0443 \u043F\u043B\u0438\u0442\u0443. \u041F\u0440\u043E\u0432\u0435\u0440\u044C, \u043A\u0443\u0434\u0430 \u043E\u043D \u043F\u0440\u0438\u0437\u0435\u043C\u043B\u0438\u0442\u0441\u044F."
     en: Step 2 jumps over one tile. Check where your friend will land.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: L04_V01
     levelId: L4
@@ -1009,6 +1091,7 @@ MonoBehaviour:
     ru: "\u042F \u043F\u0435\u0440\u0432\u044B\u0439! \u041D\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u0442\u0440\u043E\u043F\u0443 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u043C \u0432\u043C\u0435\u0441\u0442\u0435."
     en: I am first! But we are still choosing the next trail together.
     firstFinisherId: tish
+    gesture: 
     priority: 80
   - id: L04_V02
     levelId: L4
@@ -1021,6 +1104,7 @@ MonoBehaviour:
     ru: "\u041B\u0430\u0434\u043D\u043E, \u0448\u0443\u0441\u0442\u0440\u044B\u0439! \u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0440\u0430\u0437 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C."
     en: All right, speedy! We will see next time.
     firstFinisherId: tish
+    gesture: 
     priority: 80
   - id: L04_V03
     levelId: L4
@@ -1033,6 +1117,7 @@ MonoBehaviour:
     ru: "\u0414\u0437\u0438\u043D\u044C! \u0426\u0430\u0440\u0430\u043F \u0443 \u0444\u043B\u0430\u0436\u043A\u0430 \u043F\u0435\u0440\u0432\u044B\u043C!"
     en: Ding! Scratchy reaches the flag first!
     firstFinisherId: scratchy
+    gesture: 
     priority: 80
   - id: L04_V04
     levelId: L4
@@ -1045,6 +1130,7 @@ MonoBehaviour:
     ru: "\u0421 \u0442\u0430\u043A\u0438\u043C \u043A\u043E\u043B\u043E\u043A\u043E\u043B\u044C\u0447\u0438\u043A\u043E\u043C \u0444\u0438\u043D\u0438\u0448 \u0442\u043E\u0447\u043D\u043E \u043D\u0435 \u043F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0448\u044C."
     en: With that bell, nobody could miss your finish.
     firstFinisherId: scratchy
+    gesture: 
     priority: 80
   - id: L05_V01
     levelId: L5
@@ -1057,6 +1143,7 @@ MonoBehaviour:
     ru: "\u042F \u043F\u0435\u0440\u0432\u044B\u0439! \u041D\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u0442\u0440\u043E\u043F\u0443 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u043C \u0432\u043C\u0435\u0441\u0442\u0435."
     en: I am first! But we are still choosing the next trail together.
     firstFinisherId: tish
+    gesture: 
     priority: 80
   - id: L05_V02
     levelId: L5
@@ -1069,6 +1156,7 @@ MonoBehaviour:
     ru: "\u041B\u0430\u0434\u043D\u043E, \u0448\u0443\u0441\u0442\u0440\u044B\u0439! \u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0440\u0430\u0437 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C."
     en: All right, speedy! We will see next time.
     firstFinisherId: tish
+    gesture: 
     priority: 80
   - id: L05_V03
     levelId: L5
@@ -1081,6 +1169,7 @@ MonoBehaviour:
     ru: "\u042F \u043F\u0435\u0440\u0432\u0430\u044F! \u0417\u043D\u0430\u043D\u0438\u0435 \u0442\u0440\u043E\u043F\u044B \u0442\u043E\u0436\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044F."
     en: I am first! Knowing the trail counts too.
     firstFinisherId: luma
+    gesture: 
     priority: 80
   - id: L05_V04
     levelId: L5
@@ -1093,6 +1182,7 @@ MonoBehaviour:
     ru: "\u0421\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044F. \u041D\u043E \u0440\u0435\u0432\u0430\u043D\u0448 \u0437\u0430 \u043C\u043D\u043E\u0439!"
     en: It does. But I want a rematch!
     firstFinisherId: luma
+    gesture: 
     priority: 80
   - id: G_E01
     levelId: GLOBAL
@@ -1105,6 +1195,7 @@ MonoBehaviour:
     ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438 \u0448\u0430\u0433, \u0437\u0430\u0442\u0435\u043C \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
     en: First choose a step, then a hero on the trail.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E02
     levelId: GLOBAL
@@ -1117,6 +1208,7 @@ MonoBehaviour:
     ru: "\u0412\u044B\u0431\u0435\u0440\u0438 \u0433\u0435\u0440\u043E\u044F \u043D\u0430 \u043F\u043B\u0438\u0442\u0435 \u0441 \u043E\u0431\u0432\u043E\u0434\u043A\u043E\u0439. \u0418\u043C\u044F \u043D\u0430 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0435 \u043F\u043E\u043C\u043E\u0436\u0435\u0442 \u0435\u0433\u043E \u043D\u0430\u0439\u0442\u0438."
     en: Choose a hero on an outlined tile. Their portrait and name can help you find them.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E03
     levelId: GLOBAL
@@ -1129,6 +1221,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E\u0442 \u0434\u0440\u0443\u0433 \u0443\u0436\u0435 \u0434\u043E\u0448\u0451\u043B. \u0412\u044B\u0431\u0435\u0440\u0438 \u0442\u043E\u0433\u043E, \u043A\u0442\u043E \u0435\u0449\u0451 \u043D\u0430 \u0442\u0440\u043E\u043F\u0435."
     en: That friend is already through. Choose someone still on the trail.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E04
     levelId: GLOBAL
@@ -1141,6 +1234,7 @@ MonoBehaviour:
     ru: "\u041D\u0430 \u043C\u0435\u0441\u0442\u0435 \u043F\u043E\u0441\u0430\u0434\u043A\u0438 \u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u0438\u0442. \u0428\u0430\u0433 \u043D\u0435 \u043F\u043E\u0442\u0440\u0430\u0447\u0435\u043D: \u0432\u044B\u0431\u0435\u0440\u0438 \u0434\u0440\u0443\u0433\u043E\u0439 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0445\u043E\u0434."
     en: The landing is occupied. Your step is unused. Choose another available move.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E05
     levelId: GLOBAL
@@ -1153,6 +1247,7 @@ MonoBehaviour:
     ru: "\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0448\u0430\u0433\u0430 \u0441\u0435\u0439\u0447\u0430\u0441 \u043D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u0433\u0435\u0440\u043E\u044F. \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u0448\u0430\u0433 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438."
     en: No hero can use this step right now. Check another step.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E06
     levelId: GLOBAL
@@ -1165,6 +1260,7 @@ MonoBehaviour:
     ru: "\u0421\u0435\u0439\u0447\u0430\u0441 \u043D\u0438 \u043E\u0434\u0438\u043D \u0448\u0430\u0433 \u043D\u0435 \u0432\u0435\u0434\u0451\u0442 \u043D\u0430 \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443. \u0425\u043E\u0434 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0441\u044F, \u0438 \u043C\u044B \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u043C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0435 \u0448\u0430\u0433\u0438."
     en: No step has a clear landing right now. The turn will end, then we'll check the next steps.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E07
     levelId: GLOBAL
@@ -1177,6 +1273,7 @@ MonoBehaviour:
     ru: "\u041F\u043E\u0434\u043E\u0436\u0434\u0451\u043C, \u043F\u043E\u043A\u0430 \u0434\u0440\u0443\u0433 \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0442 \u0448\u0430\u0433. \u041F\u043E\u0442\u043E\u043C \u0432\u044B\u0431\u0435\u0440\u0435\u043C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439."
     en: Let our friend finish moving. Then choose the next step.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E08
     levelId: GLOBAL
@@ -1189,6 +1286,7 @@ MonoBehaviour:
     ru: "\u0421\u0435\u0439\u0447\u0430\u0441 \u0438\u0434\u0451\u0442 \u0420\u044B\u0436. \u041F\u043E\u0441\u043B\u0435 \u0435\u0433\u043E \u0448\u0430\u0433\u0430 \u0441\u043D\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0435\u043C \u043D\u0430\u0448\u0438."
     en: Rusty is moving now. After his step, we'll choose ours again.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E09
     levelId: GLOBAL
@@ -1201,6 +1299,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E\u0442 \u0448\u0430\u0433 \u0443\u0436\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D. \u0412\u044B\u0431\u0435\u0440\u0438 \u043E\u0434\u0438\u043D \u0438\u0437 \u0448\u0430\u0433\u043E\u0432, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0441\u0435\u0439\u0447\u0430\u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B."
     en: That step is finished. Choose one that's available now.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_E10
     levelId: GLOBAL
@@ -1213,6 +1312,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E\u043C\u0443 \u0434\u0440\u0443\u0433\u0443 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0448\u0430\u0433\u0430 \u0435\u0449\u0451 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0434\u043E \u0432\u044B\u0445\u043E\u0434\u0430. \u041C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0439\u0442\u0438 \u0434\u0430\u043B\u044C\u0448\u0435 \u043F\u043E \u0442\u0440\u043E\u043F\u0435."
     en: This step won't take that friend to the exit yet. You can move farther along the trail.
     firstFinisherId: 
+    gesture: 
     priority: 75
   - id: G_A01
     levelId: GLOBAL
@@ -1225,6 +1325,7 @@ MonoBehaviour:
     ru: "\u0425\u043E\u0440\u043E\u0448\u043E, \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439 \u0441\u0432\u043E\u0438\u043C \u0442\u0435\u043C\u043F\u043E\u043C. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043C\u043E\u0436\u043D\u043E \u0441\u043D\u043E\u0432\u0430 \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u0441\u043F\u0440\u0430\u0432\u043A\u0435."
     en: Keep going at your own pace. You can open the hints again in Help.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A02
     levelId: GLOBAL
@@ -1237,6 +1338,7 @@ MonoBehaviour:
     ru: "\u041F\u0435\u0440\u0435\u0434\u044B\u0448\u043A\u0430 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0430 \u0434\u0430\u0436\u0435 \u0433\u0435\u0440\u043E\u044F\u043C. \u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C, \u043A\u043E\u0433\u0434\u0430 \u0431\u0443\u0434\u0435\u0448\u044C \u0433\u043E\u0442\u043E\u0432."
     en: Even heroes can take a break. We'll continue when you're ready.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A03
     levelId: GLOBAL
@@ -1249,6 +1351,7 @@ MonoBehaviour:
     ru: "\u0427\u0442\u043E \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C: \u0448\u0430\u0433\u0438, \u0432\u044B\u0431\u043E\u0440 \u0434\u0440\u0443\u0433\u0430, \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0441\u0430\u0434\u043A\u0443 \u0438\u043B\u0438 \u0432\u044B\u0445\u043E\u0434?"
     en: 'What shall we look at: steps, choosing a friend, clear landings, or the exit?'
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A04
     levelId: GLOBAL
@@ -1261,6 +1364,7 @@ MonoBehaviour:
     ru: "\u041E\u0431\u0432\u043E\u0434\u043A\u0430 \u0438 \u0437\u043D\u0430\u0447\u043E\u043A \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u044E\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0439 \u0445\u043E\u0434. \u0426\u0432\u0435\u0442 \u043F\u043E\u043C\u043E\u0433\u0430\u0435\u0442, \u043D\u043E \u0438\u043C\u044F \u0438 \u0444\u043E\u0440\u043C\u0430 \u0442\u043E\u0436\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0436\u0443\u0442."
     en: Outlines and icons show available moves. Color helps, and so do names and shapes.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A05
     levelId: GLOBAL
@@ -1273,6 +1377,7 @@ MonoBehaviour:
     ru: "\u0420\u0435\u043F\u043B\u0438\u043A\u0430 \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F, \u043F\u043E\u043A\u0430 \u0442\u044B \u0435\u0451 \u043D\u0435 \u0437\u0430\u043A\u0440\u043E\u0435\u0448\u044C. \u0420\u0430\u0437\u043C\u0435\u0440 \u0442\u0435\u043A\u0441\u0442\u0430 \u043C\u043E\u0436\u043D\u043E \u043D\u0430\u0441\u0442\u0440\u043E\u0438\u0442\u044C."
     en: The line stays until you close it. You can adjust the text size.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A06
     levelId: GLOBAL
@@ -1285,6 +1390,7 @@ MonoBehaviour:
     ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u043C \u0441 \u0442\u043E\u0439 \u0436\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043D\u0430 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C \u044F\u0437\u044B\u043A\u0435."
     en: We'll continue from the same hint in your chosen language.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_A07
     levelId: GLOBAL
@@ -1297,6 +1403,7 @@ MonoBehaviour:
     ru: "\u041C\u043E\u0436\u043D\u043E \u0443\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435. \u041F\u043E\u0440\u044F\u0434\u043E\u043A \u0448\u0430\u0433\u043E\u0432 \u0438 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043E\u0441\u0442\u0430\u043D\u0443\u0442\u0441\u044F \u0442\u0435\u043C\u0438 \u0436\u0435."
     en: You can reduce motion. The steps and hints will stay the same.
     firstFinisherId: 
+    gesture: 
     priority: 80
   - id: G_R01
     levelId: GLOBAL
@@ -1309,6 +1416,7 @@ MonoBehaviour:
     ru: "\u042D\u0442\u043E\u0442 \u0443\u0447\u0430\u0441\u0442\u043E\u043A \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C. \u041D\u0430\u0447\u043D\u0438 \u0435\u0433\u043E \u0441\u043D\u043E\u0432\u0430; \u043C\u044B \u043F\u043E\u043A\u0430\u0436\u0435\u043C \u043A\u0440\u0430\u0442\u043A\u0443\u044E \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0443."
     en: This trail couldn't be resumed. Start it again; we'll show a short hint.
     firstFinisherId: 
+    gesture: 
     priority: 80
   scenes:
   - id: S00
@@ -1324,10 +1432,12 @@ MonoBehaviour:
         speakerId: tish
         ru: "\u0423\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C \u0433\u043E\u0442\u043E\u0432. \u0422\u0435\u043F\u0435\u0440\u044C \u0431\u044B \u043D\u0430\u0439\u0442\u0438 \u0432\u0435\u0440\u0451\u0432\u043A\u0443\u2026"
         en: "The sign is fixed. Now, where is that string\u2026"
+        gesture: 
       - id: S00.1b
         speakerId: scratchy
         ru: "\u0422\u0438\u0448\u2026 \u042D\u0439, \u0422\u0438\u0448! \u0417\u0430 \u043A\u0443\u0441\u0442\u0430\u043C\u0438!"
         en: "Tish\u2026 Hey, Tish! Behind the bushes!"
+        gesture: Greet
   - id: S01
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1341,10 +1451,12 @@ MonoBehaviour:
         speakerId: scratchy
         ru: "\u042F \u0431\u0435\u0436\u0430\u043B \u0437\u0430 \u0431\u043B\u0435\u0441\u043A\u043E\u043C \u043D\u0430\u0434 \u0434\u0435\u0440\u0435\u0432\u044C\u044F\u043C\u0438 \u0438 \u0437\u0430\u0446\u0435\u043F\u0438\u043B\u0441\u044F \u0437\u0430 \u043A\u0443\u0441\u0442."
         en: I chased a sparkle above the trees and got caught in a bush.
+        gesture: Doubt
       - id: S01.1b
         speakerId: tish
         ru: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0435\u043C\u0441\u044F \u043D\u0430 \u0442\u0440\u043E\u043F\u0443. \u041F\u043E\u0442\u043E\u043C \u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0435\u0448\u044C."
         en: Let us get onto the trail first. Then tell me all about it.
+        gesture: Agree
   - id: S02
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1358,10 +1470,12 @@ MonoBehaviour:
         speakerId: scratchy
         ru: "\u0421\u043B\u044B\u0448\u0438\u0448\u044C? \u0412\u043F\u0435\u0440\u0435\u0434\u0438 \u0440\u0443\u0447\u0435\u0439. \u0422\u043E\u043B\u044C\u043A\u043E \u043F\u043B\u0438\u0442\u044B \u0442\u0430\u043C \u0441\u0442\u0430\u0440\u044B\u0435."
         en: Hear that? There is a stream ahead. The tiles there are old though.
+        gesture: Doubt
       - id: S02.1b
         speakerId: tish
         ru: "\u0422\u043E\u0433\u0434\u0430 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C \u043F\u043E\u0434 \u043D\u043E\u0433\u0438."
         en: Then we will watch our step.
+        gesture: Agree
   - id: S03
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1375,10 +1489,12 @@ MonoBehaviour:
         speakerId: scratchy
         ru: "\u0422\u044B \u043B\u043E\u0432\u043A\u043E \u043F\u0440\u044B\u0433\u0430\u0435\u0448\u044C. \u0410 \u0431\u044B\u0441\u0442\u0440\u043E \u0443\u043C\u0435\u0435\u0448\u044C?"
         en: You jump well. Can you be quick too?
+        gesture: Laugh
       - id: S03.1b
         speakerId: tish
         ru: "\u0414\u043E \u0444\u043B\u0430\u0436\u043A\u0430? \u0414\u0430\u0432\u0430\u0439!"
         en: To the flag? You are on!
+        gesture: Agree
   - id: S04
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1392,10 +1508,12 @@ MonoBehaviour:
         speakerId: luma
         ru: "\u0412\u043E\u0442 \u0432\u044B \u0433\u0434\u0435! \u041F\u043E \u0432\u0430\u0448\u0435\u043C\u0443 \u0437\u0432\u043E\u043D\u0443 \u043C\u043E\u0436\u043D\u043E \u0440\u0438\u0441\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u0440\u0442\u0443."
         en: There you are! I could draw a map by following that bell.
+        gesture: Greet
       - id: S04.1b
         speakerId: scratchy
         ru: "\u041B\u0443\u043C\u0430, \u0442\u0435\u043F\u0435\u0440\u044C \u0442\u0432\u043E\u044F \u043E\u0447\u0435\u0440\u0435\u0434\u044C!"
         en: Jo, it is your turn now!
+        gesture: Laugh
   - id: S05
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1409,10 +1527,12 @@ MonoBehaviour:
         speakerId: bum
         ru: "\u042F \u0432\u0430\u0441 \u0434\u043E\u0433\u043D\u0430\u043B. \u0418 \u043F\u0435\u0440\u0435\u043A\u0443\u0441 \u043F\u043E\u0447\u0442\u0438 \u043D\u0435 \u043F\u043E\u043C\u044F\u043B."
         en: I caught up. And the snacks are almost uncrushed.
+        gesture: Greet
       - id: S05.1b
         speakerId: scratchy
         ru: "\u0422\u043E\u0433\u0434\u0430 \u0434\u0430\u043B\u044C\u0448\u0435 \u0432\u043C\u0435\u0441\u0442\u0435. \u042F \u0432\u0438\u0434\u0435\u043B, \u043A\u0443\u0434\u0430 \u043F\u043E\u043B\u0435\u0442\u0435\u043B\u0430 \u043F\u0442\u0438\u0446\u0430."
         en: Then let us go together. I saw which way the bird flew.
+        gesture: Agree
   - id: S06
     title: "\u041B\u0435\u0441\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430"
     titleEn: A woodland encounter
@@ -1426,10 +1546,12 @@ MonoBehaviour:
         speakerId: tish
         ru: "\u0417\u0430 \u0433\u0440\u0438\u0431\u043D\u043E\u0439 \u0434\u043E\u043B\u0438\u043D\u043E\u0439 \u0447\u0442\u043E-\u0442\u043E \u0431\u043B\u0435\u0441\u0442\u0438\u0442. \u042D\u0442\u043E \u043B\u0438\u043D\u0437\u0430?"
         en: Something is shining beyond Mushroom Hollow. Is that the lens?
+        gesture: Doubt
       - id: S06.1b
         speakerId: luma
         ru: "\u041E\u0442\u0441\u044E\u0434\u0430 \u043D\u0435 \u0440\u0430\u0437\u0433\u043B\u044F\u0434\u0435\u0442\u044C. \u041D\u0430\u0448 \u043F\u0443\u0442\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F."
         en: It is too far to tell. Our journey is only beginning.
+        gesture: Agree
   speakers:
   - id: tish
     ru: "\u0422\u0438\u0448"

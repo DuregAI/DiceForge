@@ -32,18 +32,27 @@ namespace Diceforge.View
             wasMoving = moving;
             if (reaction != null) { StopCoroutine(reaction); reaction = null; }
             if (moving)
-                animator.CrossFadeInFixedTime(MovingState(), .12f, 0);
+                BlendTo(MovingState(), .12f);
             else if (!DioramaBoard.ReducedMotion && mover.UsesHopAnimation && HasState("Land"))
                 reaction = StartCoroutine(PlayReaction("Land", .18f));
             else if (DioramaBoard.ReducedMotion)
                 animator.Play("Idle", 0, 0f);
             else
-                animator.CrossFadeInFixedTime("Idle", .18f, 0, Random.value);
+                BlendTo("Idle", .18f);
         }
 
         private bool HasState(string state) => animator != null && animator.runtimeAnimatorController != null &&
             animator.HasState(0, Animator.StringToHash(state));
-        private string MovingState() => mover != null && mover.UsesHopAnimation && HasState("Jump") ? "Jump" : "Walk";
+        private string MovingState() => mover != null && mover.UsesHopAnimation
+            ? HasState("Jump") ? "Jump" : "Idle" : "Walk";
+
+        private void BlendTo(string state, float duration)
+        {
+            if (!HasState(state)) return;
+            if (animator.IsInTransition(0) ? animator.GetNextAnimatorStateInfo(0).IsName(state)
+                : animator.GetCurrentAnimatorStateInfo(0).IsName(state)) return;
+            animator.CrossFadeInFixedTime(state, duration, 0, 0f);
+        }
 
         public void React(string state, float seconds)
         {

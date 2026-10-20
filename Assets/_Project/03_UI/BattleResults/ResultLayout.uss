@@ -1,0 +1,39 @@
+#resultOverlayRoot { padding: 20px; }
+#resultOverlayRoot .result-overlay-panel {
+ width: 520px; min-width: 0; max-width: 100%; min-height: 0; max-height: 94%;
+ padding: 42px 30px 30px; overflow: hidden;
+ -unity-slice-left: 360; -unity-slice-right: 260;
+ -unity-slice-top: 220; -unity-slice-bottom: 280; -unity-slice-scale: .22px;
+}
+#resultOverlayRoot .result-overlay-content { padding: 0; flex-grow: 0; min-width: 0; }
+#resultOverlayRoot .result-overlay-title {
+ align-self: center; width: 100%; max-width: 420px;
+ background-size: 100% 100%; background-repeat: no-repeat;
+ color: rgb(255,244,209); text-shadow: 0 2px 1px rgb(55,32,16);
+ font-size: 30px; min-height: 76px; padding: 16px 30px; margin: 0 0 16px;
+ white-space: normal; -unity-font-style: bold;
+}
+#resultOverlayRoot .result-overlay-summary {
+ color: rgb(65,43,25); white-space: normal; font-size: 19px; margin: 0 8px 20px;
+}
+#resultOverlayRoot .result-overlay-rewards-container { background-color: rgb(249,228,188); }
+#resultOverlayRoot .result-overlay-button {
+ align-self: center; width: 300px; max-width: 100%; flex-grow: 0; flex-shrink: 0;
+ background-size: 100% 100%; background-repeat: no-repeat;
+ min-height: 54px; margin: 6px 0; padding: 10px 24px;
+ font-size: 20px; white-space: normal; -unity-slice-scale: .22px;
+}
+#resultOverlayRoot #backToMenuButton { color: rgb(255,246,219); -unity-font-style: bold; }
+#resultOverlayRoot .result-overlay-button:focus { border-width: 2px; border-color: rgb(97,121,44); }
+#resultOverlayRoot.compact-result { padding: 8px; }
+#resultOverlayRoot.compact-result .result-overlay-panel { padding: 26px 14px 18px; max-height: 100%; -unity-slice-scale: .12px; }
+#resultOverlayRoot.compact-result .result-overlay-title {
+ font-size: 20px; min-height: 58px; padding: 10px 12px; margin-bottom: 10px; -unity-slice-scale: .3px;
+}
+#resultOverlayRoot.compact-result .result-overlay-summary { font-size: 16px; margin: 0 4px 12px; }
+#resultOverlayRoot.compact-result .result-overlay-button { font-size: 18px; min-height: 48px; padding: 8px 12px; }
+#resultOverlayRoot .unity-scroller--vertical { width: 12px; margin-left: 6px; }
+#resultOverlayRoot .unity-scroller--vertical .unity-scroller__low-button,
+#resultOverlayRoot .unity-scroller--vertical .unity-scroller__high-button { display: none; }
+#resultOverlayRoot .unity-scroller--vertical .unity-base-slider__tracker { background-color: rgb(202,165,110); border-radius: 6px; }
+#resultOverlayRoot .unity-scroller--vertical .unity-base-slider__dragger { background-color: rgb(118,87,46); border-width: 0; border-radius: 6px; }

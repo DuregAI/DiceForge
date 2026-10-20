@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1,4362818">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="164" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.436282" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1111" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="86" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.299838" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1112" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="86" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.291582" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1113" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="86" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.290080" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1114" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="86" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.289136" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1106" name="RuntimeServiceRecoveryTests" fullname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" classname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-19 17:34:15Z" end-time="2026-10-19 17:34:16Z" duration="1.286466" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1107" name="AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources" fullname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources" methodname="AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources" classname="Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests" runstate="Runnable" seed="322800855" result="Passed" start-time="2026-10-19 17:34:09Z" end-time="2026-10-19 17:34:16Z" duration="7.286645" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792431256349 session=5defe56496c74c9091303310a4c939cc payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionStarted ts=1792431256457 session=0b72fcd32e7946e4b4eabd4c1dc0a5e3 payload={sessionStartUnixMsUtc=1792431256457, appVersion=0.4.1-release, unityVersion=6000.6.0f1, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , cpuCoreCount=32, gpuName=NVIDIA GeForce RTX 4080 SUPER, systemMemoryMb=64617, graphicsMemoryMb=16045, screenWidth=1920, screenHeight=1080, fullscreenMode=Windowed, refreshRateHz=184.999, targetFrameRate=-1, vSyncCount=0}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792431256489 session=0b72fcd32e7946e4b4eabd4c1dc0a5e3 payload={sessionStartUnixMsUtc=1792431256457, sessionEndUnixMsUtc=1792431256489, durationSeconds=0.032, buildVersion=0.4.1-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=MainMenu, scenesLoadedCount=2, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=3, totalSampledSeconds=0.047, averageFps=63.903, minimumWindowFps=63.903, averageFrameTimeMs=15.649, worstSpikeMs=39.035}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\service-recovery.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

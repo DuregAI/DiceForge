@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0,6975364">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="163" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.697536" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1109" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="85" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.561565" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42048" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1110" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="85" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.552983" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1111" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="85" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.551468" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1112" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="85" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.550067" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1090" name="DioramaCameraGestureTests" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.049114" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1096" name="HudReframingDoesNotSnapAndConvergesWithoutOvershoot" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.HudReframingDoesNotSnapAndConvergesWithoutOvershoot" methodname="HudReframingDoesNotSnapAndConvergesWithoutOvershoot" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1975163468" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.024445" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1095" name="IdleCameraRemainsStillWithAndWithoutReducedMotion" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.IdleCameraRemainsStillWithAndWithoutReducedMotion" methodname="IdleCameraRemainsStillWithAndWithoutReducedMotion" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1678024911" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.001867" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1094" name="MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" methodname="MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1823624347" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.001556" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1092" name="OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" methodname="OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="143639156" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.002082" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1091" name="TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" methodname="TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1064237935" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.001026" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1093" name="ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" methodname="ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1150352012" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:26Z" duration="0.000757" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1097" name="DioramaHopPresentationTests" fullname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests" classname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-16 02:25:42Z" end-time="2026-10-16 02:25:42Z" duration="0.501337" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1099" name="HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery" fullname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery" methodname="HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery" classname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests" runstate="Runnable" seed="47035473" result="Passed" start-time="2026-10-16 02:25:26Z" end-time="2026-10-16 02:25:32Z" duration="5.675217" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792117531991 session=c377aaf81f4b48608497c58521ba8757 payload={sessionStartUnixMsUtc=1792117530266, sessionEndUnixMsUtc=1792117531991, durationSeconds=1.725, buildVersion=0.4.0-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=68, totalSampledSeconds=5.203, averageFps=13.07, minimumWindowFps=0.272, averageFrameTimeMs=76.512, worstSpikeMs=3676.356}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+]]></output>
+              </test-case>
+              <test-case id="1100" name="InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash" fullname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash" methodname="InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash" classname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests" runstate="Runnable" seed="563644435" result="Passed" start-time="2026-10-16 02:25:32Z" end-time="2026-10-16 02:25:37Z" duration="5.211203" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792117537222 session=ac71f1e41116441fb00d2ab5ec05bda2 payload={sessionStartUnixMsUtc=1792117535801, sessionEndUnixMsUtc=1792117537222, durationSeconds=1.421, buildVersion=0.4.0-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=18, totalSampledSeconds=4.857, averageFps=3.706, minimumWindowFps=0.279, averageFrameTimeMs=269.817, worstSpikeMs=3579.328}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+]]></output>
+              </test-case>
+              <test-case id="1098" name="TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding" fullname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding" methodname="TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding" classname="Diceforge.Tests.BattleTermination.DioramaHopPresentationTests" runstate="Runnable" seed="282942985" result="Passed" start-time="2026-10-16 02:25:37Z" end-time="2026-10-16 02:25:42Z" duration="5.327371" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792117542558 session=a20d6643a58b41d4a17871fcaf5dfb36 payload={sessionStartUnixMsUtc=1792117541020, sessionEndUnixMsUtc=1792117542558, durationSeconds=1.538, buildVersion=0.4.0-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=84, totalSampledSeconds=4.971, averageFps=16.899, minimumWindowFps=0.279, averageFrameTimeMs=59.174, worstSpikeMs=3578.48}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+Saving results to: docs/Validation/MotionPolish\latest-results.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

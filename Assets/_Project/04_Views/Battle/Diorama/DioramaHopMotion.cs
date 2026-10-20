@@ -20,9 +20,9 @@ namespace Diceforge.View
             {
                 float flight = (t - .12f) / .72f;
                 progress = Mathf.SmoothStep(0f, 1f, flight);
-                lift = 4f * flight * (1f - flight);
+                lift = 4f * progress * (1f - progress);
                 compression = .045f * Mathf.Sin(flight * Mathf.PI) - .06f * Mathf.Pow(1f - flight, 5f);
-                lean = 6f * Mathf.Sin(flight * Mathf.PI);
+                lean = 6f * Mathf.Sin(progress * Mathf.PI);
             }
             else
             {

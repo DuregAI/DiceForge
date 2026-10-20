@@ -1,0 +1,10 @@
+Glimblehop character dossiers — structural validation
+16 unique character IDs match the canon; 16 source records and combined records.
+16 individual HTML + 16 Markdown dossiers, gallery and combined text present.
+48 biography paragraphs, 96 emotion entries, 96 dialogue/action examples.
+All motivation, voice, relationship and production-status fields checked.
+16 PNG sheets: 1536 x 1024; signatures, all chunk CRCs and IEND checked.
+198 local HTML references and fragment targets checked; no missing target.
+PASS
+
+Browser QA: gallery and Jo dossier rendered; emotion anchor and table checked. Search Jo=1, zzz=0 with empty-state message, clear=16. Narrow mobile viewport not separately tested.

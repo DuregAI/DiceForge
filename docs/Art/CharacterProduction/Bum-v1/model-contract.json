@@ -1,0 +1,55 @@
+{
+  "characterId": "bum",
+  "englishName": "Boom",
+  "status": "integrated candidate; author art approval pending",
+  "source": "approved Canon-v1/Dossiers/art/bum.png",
+  "identityLocks": [
+    "broad stocky adult goblin",
+    "ochre vest, cream knit shirt, brown shorts, large backpack and bedroll",
+    "anatomical RIGHT hand and forearm below elbow are stone",
+    "right upper arm and entire left arm remain flesh",
+    "matte grey rounded articulated stone plates, faint turquoise veins",
+    "both pointed ears intact; no bite notch",
+    "four digits including thumb"
+  ],
+  "runtimeTarget": {
+    "rig": "Generic",
+    "bones": 65,
+    "textureMax": 2048,
+    "trianglesMax": 30000,
+    "dialogueHeight": 1.4,
+    "boardHeight": 1.5,
+    "rootMotion": false,
+    "locomotion": "existing hops"
+  },
+  "rigChecks": [
+    "stone plates rigid within each articulated segment",
+    "no backpack deformation from arms",
+    "no left/right mirroring",
+    "planted feet and shared endpoint poses"
+  ],
+  "actual": {
+    "vertices": 6410,
+    "triangles": 12195,
+    "bones": 65,
+    "clips": [
+      "Idle_Scene",
+      "Dialogue_Talk",
+      "Dialogue_Listen",
+      "Dialogue_Laugh",
+      "Dialogue_Greet",
+      "Dialogue_Doubt",
+      "Dialogue_Agree"
+    ],
+    "facialShapes": [
+      "Blink",
+      "LookLeft",
+      "LookRight",
+      "BrowRaise",
+      "MouthOpen",
+      "Smile",
+      "BrowConcern"
+    ]
+  },
+  "tripoAssetId": "a1c3d0b3-bf3e-414a-9236-d67a7edc6c46"
+}

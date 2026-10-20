@@ -42,7 +42,7 @@ namespace Diceforge.View
             RenderSettings.ambientGroundColor=new Color(.23f,.18f,.12f);
             var ambient=new SphericalHarmonicsL2();ambient.AddAmbientLight(new Color(.36f,.41f,.43f));RenderSettings.ambientProbe=ambient;
             foreach(var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
-                if(light.type==LightType.Directional)
+                if(light.type==LightType.Directional && light.gameObject.layer!=30)
                 {
                     light.transform.rotation=Quaternion.Euler(48,-38,0);
                     light.color=new Color(1,.91f,.76f);light.intensity=sunIntensity;

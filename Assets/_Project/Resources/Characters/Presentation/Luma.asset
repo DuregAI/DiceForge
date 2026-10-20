@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee22c09b702b14d921de0a790864d0, type: 3}
+  m_Name: Luma
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.CharacterPresentationProfile
+  characterId: luma
+  bodyMaterial: {fileID: 2100000, guid: fe856586d012b28488b5e72393aaf2c7, type: 2}
+  eyeMaterial: {fileID: 2100000, guid: 7461cbb9ef2e51645b6f58f9c8062626, type: 2}
+  idleSpeed: 0.94
+  listenSpeed: 0.94
+  talkSpeed: 0.96
+  greetSpeed: 0.95
+  agreeSpeed: 0.98
+  laughSpeed: 1
+  doubtSpeed: 0.94
+  blendSeconds: 0.24
+  greetSeconds: 2.8
+  agreeSeconds: 1.5
+  laughSeconds: 2.5
+  doubtSeconds: 2.7
+  blinkMin: 3.5
+  blinkMax: 6.2
+  gazeAmount: 25
+  gazeSpeed: 58
+  speechFrequency: 14
+  speechAmount: 55
+  expressionAmount: 58

@@ -1,0 +1,202 @@
+{
+  "date": "2026-10-21",
+  "pipeline": [
+    "approved identity",
+    "single front A-pose image",
+    "private Tripo P2.0 generation",
+    "texture export 2K",
+    "Blender front/side/back audit",
+    "mesh cleanup before rig",
+    "Generic rig",
+    "idle/dialogue clips",
+    "Unity staging",
+    "shared-light comparison",
+    "full campaign and responsive UI checks",
+    "device profiling and release"
+  ],
+  "common": {
+    "units": "meters",
+    "pivot": "ground between feet",
+    "up": "Y in Unity",
+    "forward": "Z in Unity",
+    "rootMotion": false,
+    "runtimeTextureMax": 2048,
+    "materialsMax": 2,
+    "trianglesMax": 30000,
+    "mapHero": "keep current 2D runner",
+    "boardLocomotion": "existing hop trajectory; no walking clip"
+  },
+  "characters": [
+    {
+      "id": "tish",
+      "status": "v05 presentation and dialogue polish integrated; final art/device review pending",
+      "workspace": "C:\\Backforge\\Tripo3D\\work\\tish_v03",
+      "completed": [
+        "Generic rig",
+        "seven idle/dialogue clips",
+        "seven independent facial shapes",
+        "dialogue and board prefab integration",
+        "matte 2K material",
+        "ground pivot and scale",
+        "six-level campaign and existing hop behavior verified",
+        "satchel and loose strap skin weights repaired; no arm influence",
+        "extra back bag removed",
+        "audio reload recovery verified",
+        "shared matte body and glossy eye materials",
+        "isolated forward portrait lighting and ACES grade",
+        "individual idle, speech, gaze and gesture tempo",
+        "smooth dialogue interruption and bounded reactions",
+        "thirteen Unity checks passed including six-level campaign"
+      ],
+      "remaining": [
+        "final art review",
+        "WebGL/device profiling",
+        "audio lip sync if needed"
+      ],
+      "liveCatalogApplied": true,
+      "presentationWorkspace": "C:\\Backforge\\Tripo3D\\work\\cast_v05\\sources"
+    },
+    {
+      "id": "luma",
+      "englishName": "Jo",
+      "status": "v05 presentation and dialogue polish integrated; final art/device review pending",
+      "workspace": "C:\\Backforge\\Tripo3D\\work\\luma_v02",
+      "liveCatalogApplied": true,
+      "completed": [
+        "Generic rig",
+        "seven idle/dialogue clips",
+        "seven independent facial shapes",
+        "dialogue and board prefab integration",
+        "matte 2K material",
+        "ground pivot and scale",
+        "six-level campaign and existing hop behavior verified",
+        "back hair depth and thickness",
+        "hand/satchel skin weights separated",
+        "shared matte body and glossy eye materials",
+        "isolated forward portrait lighting and ACES grade",
+        "individual idle, speech, gaze and gesture tempo",
+        "smooth dialogue interruption and bounded reactions",
+        "thirteen Unity checks passed including six-level campaign"
+      ],
+      "remaining": [
+        "final art review",
+        "WebGL/device profiling",
+        "audio lip sync if needed"
+      ],
+      "futureWardrobe": {
+        "status": "deferred_by_user",
+        "priority": "after core demo character integration",
+        "request": "Give Luma a choice of outfits and a main outfit visibly different from Tish.",
+        "identityLocks": [
+          "same Jo face, freckles, long dark waves and side braid",
+          "both ears intact and visible",
+          "left hip satchel; no backpack"
+        ],
+        "designDirection": [
+          "different cut and silhouette, not a recolor of Tish brown tunic and shorts",
+          "explore cream linen blouse with forest green layered wrap/skirt",
+          "consider blue river outfit and practical moss-green scout variant",
+          "keep warm natural fabrics and leather within the shared forest art style"
+        ],
+        "technicalNotes": [
+          "separate clothing meshes on the same skeleton",
+          "preserve character head/skin and facial blendshapes",
+          "check skirt/leg, satchel/arm and braid/shoulder clearance in all gestures",
+          "clothing selection UI is a later task; hidden profile/shop stay untouched"
+        ]
+      },
+      "presentationWorkspace": "C:\\Backforge\\Tripo3D\\work\\cast_v05\\sources"
+    },
+    {
+      "id": "bum",
+      "englishName": "Boom",
+      "status": "v05 presentation and dialogue polish integrated; final art/device review pending",
+      "reference": "Canon-v1/Dossiers/art/bum.png",
+      "identityLocks": [
+        "broad adult silhouette",
+        "ochre vest and large backpack",
+        "only anatomical right hand and forearm are stone",
+        "matte river stone with subtle turquoise veins",
+        "left arm remains normal",
+        "both ears intact"
+      ],
+      "rigNotes": [
+        "separate stone region for weights/material review",
+        "rigid stone plates; avoid soft rubber fingers",
+        "keep elbow motion and hand contact readable"
+      ],
+      "workspace": "C:\\Backforge\\Tripo3D\\work\\bum_v01",
+      "liveCatalogApplied": true,
+      "completed": [
+        "private Tripo P2.0 model and Mixamo rig",
+        "Blender skin weights repaired",
+        "seven planted idle/dialogue clips",
+        "seven independent facial shapes",
+        "dialogue and board prefab integration",
+        "matte 2K material",
+        "ground pivot and scale",
+        "anatomical right stone hand and forearm; left-hand greeting",
+        "backpack attached to torso",
+        "shared matte body and glossy eye materials",
+        "isolated forward portrait lighting and ACES grade",
+        "individual idle, speech, gaze and gesture tempo",
+        "smooth dialogue interruption and bounded reactions",
+        "thirteen Unity checks passed including six-level campaign",
+        "607 vest vertices reattached to torso; compact left-hand greeting"
+      ],
+      "remaining": [
+        "final art review",
+        "WebGL/device profiling",
+        "audio lip sync if needed"
+      ],
+      "presentationWorkspace": "C:\\Backforge\\Tripo3D\\work\\cast_v05\\sources"
+    },
+    {
+      "id": "scratchy",
+      "status": "v05 presentation and dialogue polish integrated; final art/device review pending",
+      "reference": "Canon-v1/Dossiers/art/scratchy.png",
+      "identityLocks": [
+        "stitched burlap body",
+        "amber eyes",
+        "patchwork hair and leaves",
+        "olive scarf",
+        "one brass bell"
+      ],
+      "rigNotes": [
+        "Generic skeleton adapted to cloth silhouette",
+        "separate bell attachment",
+        "restrained cloth squash",
+        "avoid inventing goblin anatomy",
+        "race and dialogue gestures remain readable"
+      ],
+      "workspace": "C:\\Backforge\\Tripo3D\\work\\scratchy_v02",
+      "liveCatalogApplied": true,
+      "completed": [
+        "private Tripo P2.0 model and Mixamo rig",
+        "Blender skin weights repaired",
+        "seven planted idle/dialogue clips",
+        "seven independent facial shapes",
+        "dialogue and board prefab integration",
+        "matte 2K material",
+        "ground pivot and scale",
+        "head and yarn separated from shoulder weights",
+        "single centered bell with BellSwing bone",
+        "cloth palms and fingers preserve their shape in all seven clips",
+        "sleeve and wrist weights rebuilt; cloth panels separated from arms",
+        "shared matte body and glossy eye materials",
+        "isolated forward portrait lighting and ACES grade",
+        "individual idle, speech, gaze and gesture tempo",
+        "smooth dialogue interruption and bounded reactions",
+        "thirteen Unity checks passed including six-level campaign"
+      ],
+      "remaining": [
+        "final art review",
+        "WebGL/device profiling",
+        "audio lip sync if needed"
+      ],
+      "presentationWorkspace": "C:\\Backforge\\Tripo3D\\work\\cast_v05\\sources"
+    }
+  ],
+  "presentationRevision": "cast_v05",
+  "presentationReview": "C:\\Backforge\\Tripo3D\\work\\cast_v05\\index.html"
+}

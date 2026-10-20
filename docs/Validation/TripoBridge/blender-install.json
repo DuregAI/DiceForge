@@ -1,0 +1,9 @@
+{
+  "blender": "5.2.1 LTS",
+  "module": "Tripo3d_Blender_Bridge",
+  "version": "1.0.34",
+  "installedPath": "C:\\Users\\tehno\\AppData\\Roaming\\Blender Foundation\\Blender\\5.2\\scripts\\addons\\Tripo3d_Blender_Bridge",
+  "enabled": true,
+  "preferencesSaved": true,
+  "listen": "127.0.0.1:60600"
+}

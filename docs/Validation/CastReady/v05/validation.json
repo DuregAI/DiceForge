@@ -1,0 +1,209 @@
+{
+  "revision": "cast_v05",
+  "date": "2026-10-21",
+  "unity": "6000.6.0f1",
+  "scope": [
+    "shared character materials and isolated portrait lighting",
+    "individual dialogue timing and smooth interruption"
+  ],
+  "tests": {
+    "passed": 13,
+    "failed": 0,
+    "completedUtc": "2026-10-20 17:39:25Z",
+    "cases": [
+      {
+        "name": "CastHasDistinctTemposSeparateEyesAndIdleOnlyBoardControllers",
+        "result": "Passed"
+      },
+      {
+        "name": "NewLinesCancelOldGesturesAndTimedReactionsReturnSmoothly",
+        "result": "Passed"
+      },
+      {
+        "name": "PortraitLightIgnoresWorldSunAndForwardControlActuallyResponds",
+        "result": "Passed"
+      },
+      {
+        "name": "PortraitTonemappingPreservesTransparentBackground",
+        "result": "Passed"
+      },
+      {
+        "name": "MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes",
+        "result": "Passed"
+      },
+      {
+        "name": "HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery",
+        "result": "Passed"
+      },
+      {
+        "name": "InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash",
+        "result": "Passed"
+      },
+      {
+        "name": "TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding",
+        "result": "Passed"
+      },
+      {
+        "name": "AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources",
+        "result": "Passed"
+      },
+      {
+        "name": "BothHeroesSpeakAndReturnToListeningAndRespectReducedMotion",
+        "result": "Passed"
+      },
+      {
+        "name": "ClosedEyelidsKeepTheirFrontFacesVisibleWithBackfaceCulling",
+        "result": "Passed"
+      },
+      {
+        "name": "ScratchyClothHandsKeepTheirShapeInEveryDialogueClip",
+        "result": "Passed"
+      },
+      {
+        "name": "TishFacialAccentsBlinkAndReactWithoutConsumingGameplayRandom",
+        "result": "Passed"
+      }
+    ]
+  },
+  "renderVerification": {
+    "isolatedWorldSunMeanRgbDifference": 0.0,
+    "positiveControlWorldSunMeanRgbDifference": 0.04127112162139161,
+    "transparentCornerAlpha": 0.0,
+    "opaqueCharacterFraction": 0.3525136311848958,
+    "portraitRenderer": "dedicated URP forward renderer at index 1; project renderer index 0 unchanged",
+    "grade": {
+      "tonemapping": "ACES",
+      "exposure": 0.25,
+      "saturation": -3
+    },
+    "bodySmoothness": {
+      "tish": 0.16,
+      "luma": 0.16,
+      "bum": 0.13,
+      "scratchy": 0.1
+    },
+    "eyesSmoothness": 0.52,
+    "materialsPerCharacter": 2
+  },
+  "animation": {
+    "profiles": {
+      "tish": {
+        "idleSpeed": 1.0,
+        "listenSpeed": 1.0,
+        "talkSpeed": 1.02,
+        "greetSpeed": 1.06,
+        "agreeSpeed": 1.08,
+        "laughSpeed": 1.03,
+        "doubtSpeed": 1.0,
+        "blendSeconds": 0.2,
+        "greetSeconds": 2.8,
+        "agreeSeconds": 1.5,
+        "laughSeconds": 2.5,
+        "doubtSeconds": 2.7,
+        "blinkMin": 3.1,
+        "blinkMax": 5.6,
+        "gazeAmount": 30.0,
+        "gazeSpeed": 70.0,
+        "speechFrequency": 15.5,
+        "speechAmount": 62.0,
+        "expressionAmount": 65.0
+      },
+      "luma": {
+        "idleSpeed": 0.94,
+        "listenSpeed": 0.94,
+        "talkSpeed": 0.96,
+        "greetSpeed": 0.95,
+        "agreeSpeed": 0.98,
+        "laughSpeed": 1.0,
+        "doubtSpeed": 0.94,
+        "blendSeconds": 0.24,
+        "greetSeconds": 2.8,
+        "agreeSeconds": 1.5,
+        "laughSeconds": 2.5,
+        "doubtSeconds": 2.7,
+        "blinkMin": 3.5,
+        "blinkMax": 6.2,
+        "gazeAmount": 25.0,
+        "gazeSpeed": 58.0,
+        "speechFrequency": 14.0,
+        "speechAmount": 55.0,
+        "expressionAmount": 58.0
+      },
+      "bum": {
+        "idleSpeed": 0.83,
+        "listenSpeed": 0.86,
+        "talkSpeed": 0.88,
+        "greetSpeed": 0.84,
+        "agreeSpeed": 0.86,
+        "laughSpeed": 0.9,
+        "doubtSpeed": 0.85,
+        "blendSeconds": 0.3,
+        "greetSeconds": 3.5,
+        "agreeSeconds": 1.8,
+        "laughSeconds": 2.8,
+        "doubtSeconds": 3.0,
+        "blinkMin": 4.0,
+        "blinkMax": 6.8,
+        "gazeAmount": 19.0,
+        "gazeSpeed": 45.0,
+        "speechFrequency": 12.5,
+        "speechAmount": 48.0,
+        "expressionAmount": 50.0
+      },
+      "scratchy": {
+        "idleSpeed": 1.08,
+        "listenSpeed": 1.04,
+        "talkSpeed": 1.1,
+        "greetSpeed": 1.1,
+        "agreeSpeed": 1.12,
+        "laughSpeed": 1.12,
+        "doubtSpeed": 1.06,
+        "blendSeconds": 0.18,
+        "greetSeconds": 2.7,
+        "agreeSeconds": 1.3,
+        "laughSeconds": 2.2,
+        "doubtSeconds": 2.2,
+        "blinkMin": 2.8,
+        "blinkMax": 4.6,
+        "gazeAmount": 34.0,
+        "gazeSpeed": 85.0,
+        "speechFrequency": 17.0,
+        "speechAmount": 58.0,
+        "expressionAmount": 68.0
+      }
+    },
+    "newLines": "smoothly cancel previous gesture; stable line IDs avoid restarts",
+    "reactionBudget": "one-shot gestures return to speaking/listening before long source clips end",
+    "facial": "blended expressions, independent blink and gaze, stylized speech during gestures",
+    "bumVestVerticesReboundToTorso": 607,
+    "bumGreeting": "compact left-hand greeting",
+    "scratchyHands": "previous cloth hand repair preserved; all seven clips checked"
+  },
+  "evidence": {
+    "gestures": "gestures/",
+    "campaign": "Campaign/",
+    "lighting": "lighting/",
+    "alpha": "portrait-alpha.png",
+    "sources": "sources/",
+    "testResults": "validation/cast-polish.xml",
+    "runtimeMovie": {
+      "frames": 264,
+      "fps": 24,
+      "seconds": 11,
+      "source": "Unity runtime: character profiles, facial motion and dialogue transitions",
+      "file": "cast-performance-unity.mp4"
+    }
+  },
+  "preserved": [
+    "2D Tish runner on world map",
+    "existing board hop movement",
+    "hidden profile and shop",
+    "Luma future wardrobe deferred"
+  ],
+  "limitations": [
+    "final artistic approval pending",
+    "speech is not audio lip sync",
+    "device profiling and release optimization remain later steps",
+    "WebGL v04 build was not rebuilt for v05; no publishing"
+  ]
+}

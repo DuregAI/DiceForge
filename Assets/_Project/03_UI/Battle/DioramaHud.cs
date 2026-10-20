@@ -142,6 +142,7 @@ namespace Diceforge.View
         {
             if (battle.DemoLevel == null) return;
             panel.AddToClassList("demo-mode");
+            panel.EnableInClassList("multiple-heroes", battle.DemoLevel.heroIds.Length > 1);
             demoTitle = root.Q<Label>("demoTitle");
             root.Q(className: "top-bar").Insert(0, demoTitle);
             stepRule = root.Q<Label>("stepRule");
@@ -406,31 +407,46 @@ namespace Diceforge.View
             }
             else if(signature!=diceSignature)
             {
-                diceSignature=signature;dice.Clear();
-                if(battle.PresentationDice!=null)for(int i=0;i<battle.PresentationDice.Count;i++)
+                int count = battle.PresentationDice?.Count ?? 0;
+                if (battle.DemoLevel != null && count == 0 && !battle.IsMatchEnded)
                 {
-                    int index=i;
-                    var button=new Button(()=>{battle.SelectPresentationDie(index);Diceforge.Audio.AudioManager.Instance?.PlayUiClick();})
-                    {
-                        text=battle.DemoLevel == null ? battle.PresentationDice[i].ToString()
-                            : string.Format(localization.T("Step {0}"), battle.PresentationDice[i])
-                    };
-                    var marker=new VisualElement{pickingMode=PickingMode.Ignore};
-                    marker.AddToClassList("token-marker");
-                    AttachTeamIcon(marker,state.CurrentPlayer);
-                    button.Add(marker);
-                    bool available = can && (battle.DemoLevel == null || !paused);
-                    button.AddToClassList("move-token");
-                    button.EnableInClassList("selected",i==battle.PresentationSelectedDie);
-                    button.EnableInClassList("available",available);
-                    button.SetEnabled(available);
-                    dice.Add(button);
+                    foreach (var button in dice.Children()) button.SetEnabled(false);
                 }
-                ApplyDemoFont();
+                else
+                {
+                    diceSignature=signature;
+                    if (battle.DemoLevel == null) dice.Clear();
+                    while (dice.childCount > count) dice.RemoveAt(dice.childCount - 1);
+                    for(int i=0;i<count;i++)
+                    {
+                        int index=i;
+                        var button = i < dice.childCount ? (Button)dice[i] : null;
+                        if (button == null)
+                        {
+                            button = new Button(() => { battle.SelectPresentationDie(index); Diceforge.Audio.AudioManager.Instance?.PlayUiClick(); });
+                            var marker = new VisualElement { pickingMode = PickingMode.Ignore };
+                            marker.AddToClassList("token-marker");
+                            AttachTeamIcon(marker, state.CurrentPlayer);
+                            button.Add(marker);
+                            dice.Add(button);
+                        }
+                        button.text = battle.DemoLevel == null ? battle.PresentationDice[i].ToString()
+                            : string.Format(localization.T("Step {0}"), battle.PresentationDice[i]);
+                        bool available = can && (battle.DemoLevel == null || !paused);
+                        button.AddToClassList("move-token");
+                        button.EnableInClassList("selected",i==battle.PresentationSelectedDie);
+                        button.EnableInClassList("available",available);
+                        button.SetEnabled(available);
+                    }
+                    ApplyDemoFont();
+                }
             }
             UpdateLayout();
             RefreshDemoBoardViewport();
         }
+        private Rect pendingBoardViewport;
+        private int stableViewportFrames;
+
         private void RefreshDemoBoardViewport()
         {
             if (battle.DemoLevel == null || panel.ClassListContains("narrative-modal") || logicalWidth <= 0 || logicalHeight <= 0) return;
@@ -441,8 +457,18 @@ namespace Diceforge.View
             if (bottom <= top) return;
             float left = panel.resolvedStyle.paddingLeft / logicalWidth;
             float right = panel.resolvedStyle.paddingRight / logicalWidth;
-            board.SetDemoGameplayViewport(new Rect(left, 1 - bottom / logicalHeight,
-                1 - left - right, (bottom - top) / logicalHeight));
+            var viewport = new Rect(left, 1 - bottom / logicalHeight,
+                1 - left - right, (bottom - top) / logicalHeight);
+            if (Mathf.Abs(viewport.x - pendingBoardViewport.x) * logicalWidth > .5f ||
+                Mathf.Abs(viewport.y - pendingBoardViewport.y) * logicalHeight > .5f ||
+                Mathf.Abs(viewport.height - pendingBoardViewport.height) * logicalHeight > .5f ||
+                Mathf.Abs(viewport.width - pendingBoardViewport.width) * logicalWidth > .5f)
+            {
+                pendingBoardViewport = viewport;
+                stableViewportFrames = 0;
+                return;
+            }
+            if (++stableViewportFrames == 2) board.SetDemoGameplayViewport(pendingBoardViewport);
         }
         private void UpdateLayout()
         {

@@ -1,0 +1,3 @@
+Latest unique tests: Passed=6; Failed=0.
+Full six-level campaign and four display sizes passed.
+See validation-summary.json for final reports; tests.xml retains the first overly strict service log assertion, corrected and passed in service-recovery.xml.

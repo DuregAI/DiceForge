@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee22c09b702b14d921de0a790864d0, type: 3}
+  m_Name: Tish
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.CharacterPresentationProfile
+  characterId: tish
+  bodyMaterial: {fileID: 2100000, guid: 3830c976cc019b341b9b77a438284886, type: 2}
+  eyeMaterial: {fileID: 2100000, guid: 42d04bf921b6a294bb0ed22ca4b31792, type: 2}
+  idleSpeed: 1
+  listenSpeed: 1
+  talkSpeed: 1.02
+  greetSpeed: 1.06
+  agreeSpeed: 1.08
+  laughSpeed: 1.03
+  doubtSpeed: 1
+  blendSeconds: 0.2
+  greetSeconds: 2.8
+  agreeSeconds: 1.5
+  laughSeconds: 2.5
+  doubtSeconds: 2.7
+  blinkMin: 3.1
+  blinkMax: 5.6
+  gazeAmount: 30
+  gazeSpeed: 70
+  speechFrequency: 15.5
+  speechAmount: 62
+  expressionAmount: 65

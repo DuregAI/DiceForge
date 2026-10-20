@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee22c09b702b14d921de0a790864d0, type: 3}
+  m_Name: Bum
+  m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.CharacterPresentationProfile
+  characterId: bum
+  bodyMaterial: {fileID: 2100000, guid: 5431309d6f9c515489d45464a509ce49, type: 2}
+  eyeMaterial: {fileID: 2100000, guid: 82b5169bb55fca74991c56a282c937a1, type: 2}
+  idleSpeed: 0.83
+  listenSpeed: 0.86
+  talkSpeed: 0.88
+  greetSpeed: 0.84
+  agreeSpeed: 0.86
+  laughSpeed: 0.9
+  doubtSpeed: 0.85
+  blendSeconds: 0.3
+  greetSeconds: 3.5
+  agreeSeconds: 1.8
+  laughSeconds: 2.8
+  doubtSeconds: 3
+  blinkMin: 4
+  blinkMax: 6.8
+  gazeAmount: 19
+  gazeSpeed: 45
+  speechFrequency: 12.5
+  speechAmount: 48
+  expressionAmount: 50

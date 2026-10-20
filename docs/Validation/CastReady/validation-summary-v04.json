@@ -1,0 +1,309 @@
+{
+  "date": "2026-10-20",
+  "characters": {
+    "Tish": {
+      "vertices": 14049,
+      "triangles": 27000,
+      "bones": 65,
+      "blendshapes": {
+        "Blink": 0.08000224052667106,
+        "LookLeft": 0.007000003003863904,
+        "LookRight": 0.006999999365885713,
+        "BrowRaise": 0.007000028989367429,
+        "MouthOpen": 0.027040844549118887,
+        "Smile": 0.005055720483701429,
+        "BrowConcern": 0.004126966074927964
+      },
+      "clips": {
+        "Dialogue_Agree": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Idle_Scene": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      },
+      "satchelRigidVertices": 1073,
+      "satchelArmWeight": 0,
+      "satchelHipLocalDeviation": 0
+    },
+    "Luma": {
+      "vertices": 7825,
+      "triangles": 15128,
+      "bones": 65,
+      "blendshapes": {
+        "Blink": 0.06700270391268807,
+        "LookLeft": 0.0040000024960601364,
+        "LookRight": 0.0040000006770714545,
+        "BrowRaise": 0.0049999952074699415,
+        "MouthOpen": 0.02437929337488715,
+        "Smile": 0.0050825528369089264,
+        "BrowConcern": 0.003269136021004089
+      },
+      "clips": {
+        "Dialogue_Agree": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Idle_Scene": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      },
+      "satchelRigidVertices": 0,
+      "satchelArmWeight": 0,
+      "satchelHipLocalDeviation": 0
+    },
+    "Bum": {
+      "vertices": 6410,
+      "triangles": 12195,
+      "bones": 65,
+      "blendshapes": [
+        "Blink",
+        "LookLeft",
+        "LookRight",
+        "BrowRaise",
+        "MouthOpen",
+        "Smile",
+        "BrowConcern"
+      ],
+      "clips": {
+        "Idle_Scene": {
+          "frames": 369,
+          "seconds": 15.333333333333334,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "frames": 120,
+          "seconds": 4.958333333333333,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "frames": 423,
+          "seconds": 17.583333333333332,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "frames": 135,
+          "seconds": 5.583333333333333,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "frames": 85,
+          "seconds": 3.5,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "frames": 411,
+          "seconds": 17.083333333333332,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Agree": {
+          "frames": 97,
+          "seconds": 4.0,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      }
+    },
+    "Scratchy": {
+      "vertices": 6397,
+      "triangles": 11984,
+      "bones": 66,
+      "blendshapes": [
+        "Blink",
+        "LookLeft",
+        "LookRight",
+        "BrowRaise",
+        "MouthOpen",
+        "Smile",
+        "BrowConcern"
+      ],
+      "clips": {
+        "Idle_Scene": {
+          "frames": 369,
+          "seconds": 15.333333333333334,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "frames": 120,
+          "seconds": 4.958333333333333,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "frames": 423,
+          "seconds": 17.583333333333332,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "frames": 135,
+          "seconds": 5.583333333333333,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "frames": 85,
+          "seconds": 3.5,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "frames": 411,
+          "seconds": 17.083333333333332,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Agree": {
+          "frames": 97,
+          "seconds": 4.0,
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      },
+      "sourceRevision": "v02",
+      "handRepair": {
+        "palmsPreservedInAllSevenClips": true,
+        "reference": "C:\\Backforge\\Tripo3D\\work\\scratchy_v02\\scratchy-hands-final.xml"
+      }
+    }
+  },
+  "unity": {
+    "avatarsValid": true,
+    "dialogueHeightMeters": 1.25,
+    "boardHeights": {
+      "tish": 1.36,
+      "luma": 1.32
+    },
+    "mapHero": "original 2D atlas",
+    "locomotion": "existing hop driver; idle-only board controllers",
+    "facialSpeech": "stylized speech accents, not audio/phoneme lip sync",
+    "normals": "original body winding preserved; new hair inner surfaces and eyelids face correctly under backface culling",
+    "visualProof": [
+      "luma-unity-neutral.png",
+      "luma-unity-speech.png",
+      "luma-unity-blink.png",
+      "tish-unity-neutral.png",
+      "tish-unity-speech.png",
+      "tish-unity-blink.png"
+    ]
+  },
+  "tests": {
+    "passed": 9,
+    "failed": 0,
+    "cases": {
+      "Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes": {
+        "result": "Passed",
+        "source": "tests.xml"
+      },
+      "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery": {
+        "result": "Passed",
+        "source": "hop-regression.xml"
+      },
+      "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash": {
+        "result": "Passed",
+        "source": "tests.xml"
+      },
+      "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding": {
+        "result": "Passed",
+        "source": "tests.xml"
+      },
+      "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources": {
+        "result": "Passed",
+        "source": "tests.xml"
+      },
+      "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.BothHeroesSpeakAndReturnToListeningAndRespectReducedMotion": {
+        "result": "Passed",
+        "source": "scratchy-hand-repair.xml"
+      },
+      "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.ClosedEyelidsKeepTheirFrontFacesVisibleWithBackfaceCulling": {
+        "result": "Passed",
+        "source": "scratchy-hand-repair.xml"
+      },
+      "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.TishFacialAccentsBlinkAndReactWithoutConsumingGameplayRandom": {
+        "result": "Passed",
+        "source": "scratchy-hand-repair.xml"
+      },
+      "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.ScratchyClothHandsKeepTheirShapeInEveryDialogueClip": {
+        "result": "Passed",
+        "source": "scratchy-hands-final.xml"
+      }
+    },
+    "note": "Initial hop test expected the removed GoblinFriend_Rig/Root path. It now validates every actual imported transform binding and passed on rerun. Full six-level campaign passed."
+  },
+  "passed": 8,
+  "failed": 0,
+  "currentCampaign": true,
+  "deviceProfiled": false,
+  "castVersion": "v04",
+  "preserved": [
+    "Original 2D overview-map runner",
+    "Existing gameplay hop motion",
+    "Hidden profile/store untouched",
+    "Luma wardrobe variants deferred by user"
+  ],
+  "webglBuild": {
+    "status": "succeeded",
+    "output": "C:/Backforge/Builds/Glimblehop-Cast-v04-WebGL",
+    "development": true,
+    "published": false,
+    "deviceProfiled": false,
+    "errors": 0,
+    "warnings": 4,
+    "durationSeconds": 301.5923698,
+    "totalSizeMB": 370.58,
+    "limitation": "Uncompressed development build for inspection. Release compression, download budget and on-device browser performance remain to be measured.",
+    "sourceRevision": "Scratchy_v02"
+  },
+  "artApproval": "pending author review",
+  "facialLimitation": "Stylized speech accent; no audio phoneme lip sync."
+}

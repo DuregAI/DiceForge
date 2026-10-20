@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-20",
+  "characters": {
+    "Tish": {
+      "vertices": 14049,
+      "triangles": 27000,
+      "bones": 65,
+      "blendshapes": {
+        "Blink": 0.08000224052667106,
+        "LookLeft": 0.007000003003863904,
+        "LookRight": 0.006999999365885713,
+        "BrowRaise": 0.007000028989367429,
+        "MouthOpen": 0.027040844549118887,
+        "Smile": 0.005055720483701429,
+        "BrowConcern": 0.004126966074927964
+      },
+      "clips": {
+        "Dialogue_Agree": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Idle_Scene": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      },
+      "satchelRigidVertices": 1073,
+      "satchelArmWeight": 0,
+      "satchelHipLocalDeviation": 0
+    },
+    "Luma": {
+      "vertices": 7825,
+      "triangles": 15128,
+      "bones": 65,
+      "blendshapes": {
+        "Blink": 0.06700270391268807,
+        "LookLeft": 0.0040000024960601364,
+        "LookRight": 0.0040000006770714545,
+        "BrowRaise": 0.0049999952074699415,
+        "MouthOpen": 0.02437929337488715,
+        "Smile": 0.0050825528369089264,
+        "BrowConcern": 0.003269136021004089
+      },
+      "clips": {
+        "Dialogue_Agree": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Doubt": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Greet": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Laugh": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Listen": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Dialogue_Talk": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        },
+        "Idle_Scene": {
+          "footDrift": 0,
+          "endpointPosition": 0.0
+        }
+      },
+      "satchelRigidVertices": 0,
+      "satchelArmWeight": 0,
+      "satchelHipLocalDeviation": 0
+    }
+  },
+  "unity": {
+    "avatarsValid": true,
+    "dialogueHeightMeters": 1.25,
+    "boardHeights": {
+      "tish": 1.36,
+      "luma": 1.32
+    },
+    "mapHero": "original 2D atlas",
+    "locomotion": "existing hop driver; idle-only board controllers",
+    "facialSpeech": "stylized speech accents, not audio/phoneme lip sync",
+    "normals": "original body winding preserved; new hair inner surfaces and eyelids face correctly under backface culling",
+    "visualProof": [
+      "luma-unity-neutral.png",
+      "luma-unity-speech.png",
+      "luma-unity-blink.png",
+      "tish-unity-neutral.png",
+      "tish-unity-speech.png",
+      "tish-unity-blink.png"
+    ]
+  },
+  "tests": {
+    "Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes": "Passed",
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery": "Passed",
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash": "Passed",
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding": "Passed",
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources": "Passed",
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.BothHeroesSpeakAndReturnToListeningAndRespectReducedMotion": "Passed",
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.ClosedEyelidsKeepTheirFrontFacesVisibleWithBackfaceCulling": "Passed",
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.TishFacialAccentsBlinkAndReactWithoutConsumingGameplayRandom": "Passed"
+  },
+  "passed": 8,
+  "failed": 0,
+  "currentCampaign": true,
+  "deviceProfiled": false
+}

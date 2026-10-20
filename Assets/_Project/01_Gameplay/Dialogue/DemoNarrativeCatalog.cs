@@ -21,6 +21,7 @@ namespace Diceforge.Dialogue
         public string id, levelId, speakerId, kind, domainEvent, helpTopic, speakerLabelRu, speakerLabelEn;
         public string ru, en;
         public string firstFinisherId;
+        public string gesture;
         public int priority;
         public string Text(bool russian) => russian || string.IsNullOrWhiteSpace(en) ? ru : en;
     }
@@ -47,6 +48,7 @@ namespace Diceforge.Dialogue
     [Serializable] public sealed class DemoStoryLine
     {
         public string id, speakerId, ru, en;
+        public string gesture;
         public string Text(bool russian) => russian || string.IsNullOrWhiteSpace(en) ? ru : en;
     }
 }

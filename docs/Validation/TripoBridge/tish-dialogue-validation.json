@@ -1,0 +1,101 @@
+{
+  "avatarValid": true,
+  "rig": "Generic",
+  "bones": 65,
+  "feet": 4,
+  "rootMotion": false,
+  "heightMeters": 1.24999988,
+  "groundOffsetMeters": -1.86264515e-8,
+  "clips": [
+    {
+      "name": "Dialogue_Doubt",
+      "length": 17.083334,
+      "loop": false,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 179.986969
+    },
+    {
+      "name": "Dialogue_Greet",
+      "length": 3.5,
+      "loop": false,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 179.912766
+    },
+    {
+      "name": "Dialogue_Laugh",
+      "length": 5.58333349,
+      "loop": false,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 67.84904
+    },
+    {
+      "name": "Dialogue_Listen",
+      "length": 17.583334,
+      "loop": true,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 62.7952728
+    },
+    {
+      "name": "Dialogue_Talk",
+      "length": 4.95833349,
+      "loop": true,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 1.88486439e-7,
+      "maxBoneMotionDegrees": 165.628159
+    },
+    {
+      "name": "Idle_Scene",
+      "length": 15.333334,
+      "loop": true,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 71.28648
+    },
+    {
+      "name": "Dialogue_Agree",
+      "length": 4,
+      "loop": false,
+      "footDriftMeters": 0,
+      "endpointDistanceMeters": 0,
+      "maxBoneMotionDegrees": 179.239273
+    }
+  ],
+  "transitions": [
+    {
+      "request": "Idle_Scene",
+      "passed": true
+    },
+    {
+      "request": "Dialogue_Listen",
+      "passed": true
+    },
+    {
+      "request": "Dialogue_Talk",
+      "passed": true
+    },
+    {
+      "request": "Greet",
+      "entered": true,
+      "returnedToTalk": true
+    },
+    {
+      "request": "Agree",
+      "entered": true,
+      "returnedToTalk": true
+    },
+    {
+      "request": "Laugh",
+      "entered": true,
+      "returnedToTalk": true
+    },
+    {
+      "request": "Doubt",
+      "entered": true,
+      "returnedToTalk": true
+    }
+  ]
+}

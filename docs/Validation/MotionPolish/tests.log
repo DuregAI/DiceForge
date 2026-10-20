@@ -1,0 +1,18 @@
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.HudReframingDoesNotSnapAndConvergesWithoutOvershoot | Passed | 
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.IdleCameraRemainsStillWithAndWithoutReducedMotion | Passed | 
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport | Passed | 
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit | Passed | 
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero | Passed | 
+Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture | Passed | 
+Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery | Passed | 
+Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash | Passed | 
+Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding | Passed | 
+Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes | Passed | 
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible | Failed |   Expected string length 46 but was 22. Strings differ at index 0.
+  Expected: "Теперь нажми друга на плите или его имя внизу."
+  But was:  "Доведи Тиша до флажка."
+  -----------^
+
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero | Passed | 
+Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible | Passed | 
+Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes | Passed | 

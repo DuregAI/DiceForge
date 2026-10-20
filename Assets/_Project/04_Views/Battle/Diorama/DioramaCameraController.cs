@@ -18,6 +18,11 @@ namespace Diceforge.View
         private Quaternion homeRotation;
         private float homeSize;
         private bool hasHomePose;
+        private bool reframing;
+        private Vector3 targetHomePosition;
+        private float targetHomeSize;
+        private Rect targetGameplayViewport;
+        public bool IsReframing => reframing;
         private bool pointerHeld, pointerAllowed, pointerDragged, pointerIsTouch, pinching;
         private bool suppressUntilRelease, suppressTap;
         private int pointerTouchId, tapFrame = -1;
@@ -48,12 +53,33 @@ namespace Diceforge.View
             homeRotation = rotation;
             homeSize = orthographicSize;
             hasHomePose = true;
+            reframing = false;
             if (battle == null) battle = FindAnyObjectByType<BattleDebugController>();
             if (!changed) return;
             CancelGesture();
             suppressUntilRelease = AnyPointerHeld();
             ResetOffsets();
             ApplyPose(0f, 0f);
+        }
+
+        public void ReframeHomePose(Camera camera, Vector3 pivot, Vector3 position, Quaternion rotation,
+            float orthographicSize, Rect viewport, IReadOnlyList<Vector3> points)
+        {
+            if (!hasHomePose || boardCamera != camera || (homePivot - pivot).sqrMagnitude > .000001f ||
+                Quaternion.Angle(homeRotation, rotation) > .01f || DioramaBoard.ReducedMotion ||
+                Diceforge.Transitions.ScreenTransition.IsCovered)
+            {
+                SetGameplayViewport(viewport, points);
+                SetHomePose(camera, pivot, position, rotation, orthographicSize);
+                return;
+            }
+            targetHomePosition = position;
+            targetHomeSize = orthographicSize;
+            targetGameplayViewport = viewport;
+            playablePoints = points;
+            reframing = true;
+            CancelGesture();
+            suppressUntilRelease |= AnyPointerHeld();
         }
 
         /// <summary>World-space trail edges and exit bounds, inside the normalized area between HUD and action panel.</summary>
@@ -279,9 +305,22 @@ namespace Diceforge.View
             if (Mathf.Abs(currentYaw) < .001f) currentYaw = 0f;
             if (Mathf.Abs(currentPitch) < .001f) currentPitch = 0f;
             if (Mathf.Abs(currentZoom - 1f) < .00001f) currentZoom = 1f;
-            float idleWeight = allowIdle && !reducedMotion && !IsGestureActive
-                ? 1f - Mathf.Clamp01(Mathf.Abs(currentYaw) / 3f + Mathf.Abs(currentPitch) / 2f + (currentZoom - 1f) * 6f) : 0f;
-            ApplyPose(Mathf.Sin(elapsed * .43f) * .18f * idleWeight, Mathf.Sin(elapsed * .31f) * .10f * idleWeight);
+            if (reframing)
+            {
+                float frameBlend = reducedMotion ? 1f : 1f - Mathf.Exp(-Mathf.Clamp(deltaTime, 0f, .1f) * 12f);
+                homePosition = Vector3.Lerp(homePosition, targetHomePosition, frameBlend);
+                homeSize = Mathf.Lerp(homeSize, targetHomeSize, frameBlend);
+                gameplayViewport = new Rect(Vector2.Lerp(gameplayViewport.position, targetGameplayViewport.position, frameBlend),
+                    Vector2.Lerp(gameplayViewport.size, targetGameplayViewport.size, frameBlend));
+                if ((homePosition - targetHomePosition).sqrMagnitude < .000001f && Mathf.Abs(homeSize - targetHomeSize) < .0001f)
+                {
+                    homePosition = targetHomePosition;
+                    homeSize = targetHomeSize;
+                    gameplayViewport = targetGameplayViewport;
+                    reframing = false;
+                }
+            }
+            ApplyPose(0f, 0f);
         }
 
         private void ApplyPose(float idleYaw, float idlePitch)

@@ -25,6 +25,7 @@ namespace Diceforge.UI.Dialogue
         private Vector2 layoutSize;
         private Rect safeArea;
         private Label heading, storyText, hintText, speaker, page, saveError;
+        private Diceforge.Map.TishModelPresenter tishPresenter;
         private Image art, backdrop, portrait, storyPortrait;
         private DemoStoryScene activeScene;
         private DemoDialogueEvent[] sequence;
@@ -222,6 +223,7 @@ namespace Diceforge.UI.Dialogue
         }
         private void RenderStory()
         {
+            tishPresenter?.Hide();
             root.Q<Button>("demoHelpButton").style.display = DisplayStyle.None;
             hudRoot.AddToClassList("narrative-modal");
             storyNext.Focus();
@@ -273,6 +275,17 @@ namespace Diceforge.UI.Dialogue
                 storyPortrait.style.display = storyPortrait.sprite == null ? DisplayStyle.None : DisplayStyle.Flex;
                 last = line == sequence.Length - 1;
             }
+            var currentSpeaker = activeScene != null ? activeScene.frames[frame].lines[line].speakerId : sequence[line].speakerId;
+            if (currentSpeaker == "tish" || currentSpeaker == "luma" || currentSpeaker == "bum" || currentSpeaker == "scratchy")
+            {
+                tishPresenter ??= gameObject.AddComponent<Diceforge.Map.TishModelPresenter>();
+                string presentationKey = activeScene != null ? activeScene.frames[frame].lines[line].id : sequence[line].id;
+                if (tishPresenter.Show(storyPortrait, true, currentSpeaker, presentationKey))
+                {
+                    string gesture = activeScene != null ? activeScene.frames[frame].lines[line].gesture : sequence[line].gesture;
+                    tishPresenter.PlayGesture(gesture);
+                }
+            }
             storyNext.text = last ? IsWorldTeaserVisible ? T("К новым мирам", "Explore worlds") : T("Продолжить", "Continue") : string.Empty;
             if (last) storyNextIcon.RemoveFromHierarchy();
             else if (storyNextIcon.parent == null) storyNext.Add(storyNextIcon);
@@ -292,6 +305,7 @@ namespace Diceforge.UI.Dialogue
         }
         public void SkipStory()
         {
+            tishPresenter?.Hide();
             if (!IsStoryVisible) return;
             if (activeScene != null) storySeen.Add(activeScene.id);
             else if (sequence != null && sequence.Length > 0 && sequence[0].id.StartsWith(Prefix + "V", StringComparison.Ordinal)) CompletionLinesSeen = true;

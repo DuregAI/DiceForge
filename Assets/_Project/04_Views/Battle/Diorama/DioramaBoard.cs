@@ -34,6 +34,7 @@ namespace Diceforge.View
         private Sprite badgeSprite;
         private bool trailMode;
         private Rect? demoGameplayViewport;
+        private bool viewportNeedsSnap = true;
         private GameObject trailExit;
         private TextMesh blockedSign;
         private DioramaMovePreview demoPreview;
@@ -76,7 +77,7 @@ namespace Diceforge.View
                 cameraView.GetUniversalAdditionalCameraData().SetRenderer(0);
             }
             foreach (var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
-                if (light.type == LightType.Directional)
+                if (light.type == LightType.Directional && light.gameObject.layer != 30)
                 {
                     light.transform.rotation = Quaternion.Euler(48,-35,0);
                     light.color = new Color(1,.89f,.69f); light.intensity = 1.65f;
@@ -96,6 +97,7 @@ namespace Diceforge.View
         {
             bool portrait = !landscapeOnly && Screen.height > Screen.width;
             bool changed = force || portrait != IsPortrait;
+            viewportNeedsSnap = true;
             IsPortrait = portrait; screenWidth = Screen.width; screenHeight = Screen.height;
             landscapeRoot.SetActive(!portrait); portraitRoot.SetActive(portrait);
             cells = (portrait ? portraitRoot : landscapeRoot).GetComponentsInChildren<DioramaCell>();
@@ -109,9 +111,10 @@ namespace Diceforge.View
             if (!trailMode || viewport.width <= 0 || viewport.height <= 0) return;
             if (demoGameplayViewport.HasValue && demoGameplayViewport.Value == viewport) return;
             demoGameplayViewport = viewport;
-            FitCamera();
+            FitCamera(!viewportNeedsSnap);
+            viewportNeedsSnap = false;
         }
-        private void FitCamera()
+        private void FitCamera(bool smooth = false)
         {
             if (cameraView == null) return;
             Bounds bounds = WorldBounds;
@@ -137,8 +140,13 @@ namespace Diceforge.View
                 cameraPlayablePoints.Clear();
                 for (int i = 0; i < layout.cellIds.Length; i++) AddCameraTileBounds(CellPosition(layout.cellIds[i]));
                 AddCameraTileBounds(ExitPosition(0));
-                orbitCamera.SetGameplayViewport(viewport, cameraPlayablePoints);
-                orbitCamera.SetHomePose(cameraView, bounds.center, position, rotation, homeSize);
+                if (smooth)
+                    orbitCamera.ReframeHomePose(cameraView, bounds.center, position, rotation, homeSize, viewport, cameraPlayablePoints);
+                else
+                {
+                    orbitCamera.SetGameplayViewport(viewport, cameraPlayablePoints);
+                    orbitCamera.SetHomePose(cameraView, bounds.center, position, rotation, homeSize);
+                }
             }
             else
             {

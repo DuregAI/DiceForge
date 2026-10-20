@@ -36,7 +36,7 @@ MonoBehaviour:
     dialogueProfile: {fileID: -517942236, guid: 7464167d8227e7142884dbd48aa1dbb2, type: 3}
     identityColor: {r: 0.78, g: 0.54, b: 0.22, a: 1}
     productionApproved: 0
-    artNotes: Candidate; check identity against the canonical cast before production approval.
+    artNotes: Rigged Tripo candidate; seven dialogue clips and seven facial accents; visual approval pending.
   - id: scratchy
     nameRu: "\u0426\u0430\u0440\u0430\u043F"
     nameEn: Scratchy
@@ -44,4 +44,4 @@ MonoBehaviour:
     dialogueProfile: {fileID: 21300000, guid: 37bdfbe4139c9be469b1bc35f3e8d7af, type: 3}
     identityColor: {r: 0.58, g: 0.4, b: 0.27, a: 1}
     productionApproved: 0
-    artNotes: Temporary 2D standee. Replace with reviewed rigged Tripo export.
+    artNotes: Rigged Tripo candidate; seven dialogue clips and seven facial accents; visual approval pending.

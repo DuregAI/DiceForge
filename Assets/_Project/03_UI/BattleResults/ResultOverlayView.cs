@@ -72,6 +72,8 @@ namespace Diceforge.View
 
             _overlayRoot = _root.Q<VisualElement>("resultOverlayRoot");
             _panel = _root.Q<VisualElement>("resultPanel");
+            _root.RegisterCallback<GeometryChangedEvent>(OnResultGeometryChanged);
+            UpdateResultLayout(_root.contentRect);
             _fxBackLayer = _root.Q<Image>("resultFxBackLayer");
             _fxFrontLayer = _root.Q<Image>("resultFxFrontLayer");
             _resultLabel = _root.Q<Label>("resultLabel");
@@ -114,6 +116,13 @@ namespace Diceforge.View
             if (battleController != null && battleController.IsMatchEnded) ShowResult();
         }
 
+        private void OnResultGeometryChanged(GeometryChangedEvent evt) => UpdateResultLayout(evt.newRect);
+
+        private void UpdateResultLayout(Rect bounds)
+        {
+            _overlayRoot?.EnableInClassList("compact-result", bounds.width < 600 || bounds.height < 400);
+        }
+
         private void InitializeProgressionPresentation()
         {
             _levelUpPresenter = GetComponent<LevelUpWindowPresenter>() ?? gameObject.AddComponent<LevelUpWindowPresenter>();
@@ -149,6 +158,7 @@ namespace Diceforge.View
 
         private void OnDisable()
         {
+            _root?.UnregisterCallback<GeometryChangedEvent>(OnResultGeometryChanged);
             worlds?.Dispose();
             worlds = null;
             localization?.Dispose();

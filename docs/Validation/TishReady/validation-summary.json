@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-20",
+  "unity": "6000.6.0f1",
+  "passed": [
+    "MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes",
+    "HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery",
+    "InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash",
+    "TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding",
+    "AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources"
+  ],
+  "campaignReport": "tests.xml",
+  "serviceRecoveryFinalReport": "service-recovery.xml",
+  "rerunNote": "The first service-recovery attempt rejected a normal diagnostics Log via NoUnexpectedReceived. Removed that overly strict assertion; focused rerun passed. The campaign and three hop tests passed on their first complete run.",
+  "verified": [
+    "all six demo levels",
+    "map-to-battle transitions",
+    "profile save idempotency using isolated test profile",
+    "new Tish board prefab",
+    "idle continuity during hops",
+    "contact recovery",
+    "pause and reduced-motion behavior",
+    "small-screen result actions",
+    "final story and replay",
+    "RU/EN HUD at 1280x720, 720x1280, 640x360, 360x640",
+    "facial blink and greeting brow motion",
+    "facial RNG independent of gameplay RNG",
+    "facial reduced-motion reset"
+  ],
+  "notVerified": [
+    "WebGL device profiling",
+    "production build delivery",
+    "new Luma model integration"
+  ],
+  "latestResults": {
+    "Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes": {
+      "result": "Passed",
+      "report": "responsive-campaign.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery": {
+      "result": "Passed",
+      "report": "tests.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.InterruptedHopResetsBodyAndReducedMotionHasNoLiftOrSquash": {
+      "result": "Passed",
+      "report": "tests.xml"
+    },
+    "Diceforge.Tests.BattleTermination.DioramaHopPresentationTests.TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding": {
+      "result": "Passed",
+      "report": "tests.xml"
+    },
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.AudioAndDiagnosticsRecoverTheirServicesWithoutDuplicatingSources": {
+      "result": "Passed",
+      "report": "service-recovery.xml"
+    },
+    "Diceforge.Tests.BattleTermination.RuntimeServiceRecoveryTests.TishFacialAccentsBlinkAndReactWithoutConsumingGameplayRandom": {
+      "result": "Passed",
+      "report": "facial-motion.xml"
+    }
+  },
+  "latestUniqueTestsPassed": 6,
+  "latestUniqueTestsFailed": 0,
+  "responsiveCampaignReport": "responsive-campaign.xml",
+  "facialMotionReport": "facial-motion.xml"
+}

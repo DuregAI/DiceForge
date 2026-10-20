@@ -1,0 +1,150 @@
+{
+  "schema": "glimblehop.character-model-contract.v1",
+  "characterId": "tish",
+  "version": "v01",
+  "status": "v03_integrated_pending_final_art_and_device_review",
+  "productionApproved": false,
+  "referenceFront": "tish-front-tripo-v1.png",
+  "referenceTurnaround": "tish-turnaround-v1.png",
+  "anatomy": {
+    "rightEar": "bite notch",
+    "leftEar": "intact",
+    "handDigitsIncludingThumb": 4,
+    "satchel": "right hip",
+    "strap": "left shoulder to right hip"
+  },
+  "target": {
+    "unityHeightBeforeBoardGroupScale": 1.25,
+    "heightMeasurement": "floor to top of hair in reference pose",
+    "up": "Y",
+    "forward": "Z",
+    "pivot": "ground between feet",
+    "pose": "A",
+    "armAngleFromBodyDegrees": 35,
+    "rootMotion": false,
+    "rigFirstPass": "Generic"
+  },
+  "budget": {
+    "trianglesMin": 15000,
+    "trianglesMax": 30000,
+    "materialsMax": 2,
+    "texturePixelsMax": 2048,
+    "needsWebGLProfiling": true
+  },
+  "animations": [
+    {
+      "name": "Idle",
+      "loop": true
+    },
+    {
+      "name": "Walk",
+      "loop": true
+    },
+    {
+      "name": "Jump",
+      "loop": false
+    },
+    {
+      "name": "Land",
+      "loop": false
+    },
+    {
+      "name": "Selected",
+      "loop": false
+    },
+    {
+      "name": "Victory",
+      "loop": false
+    }
+  ],
+  "intake": {
+    "unityFolder": "Assets/_Project/07_Art/Characters/Incoming/Tripo",
+    "autoPlaceInScene": false,
+    "autoApplyToCatalog": false
+  },
+  "openItems": [
+    "Final art review of fingers and hair",
+    "Confirm matte material response on target devices",
+    "WebGL/device profiling",
+    "Lip sync if needed"
+  ],
+  "animationCandidate": {
+    "date": "2026-10-19",
+    "status": "historical_v01_superseded_by_current_version",
+    "rig": "Generic",
+    "bones": 65,
+    "rootMotion": false,
+    "folder": "Assets/_Project/07_Art/Characters/Incoming/Tripo/TishDialogue_v01",
+    "prefab": "Tish_Dialogue_Preview.prefab",
+    "controller": "Tish_Dialogue.controller",
+    "loops": [
+      "Idle_Scene",
+      "Dialogue_Listen",
+      "Dialogue_Talk"
+    ],
+    "gestures": [
+      "Dialogue_Greet",
+      "Dialogue_Agree",
+      "Dialogue_Laugh",
+      "Dialogue_Doubt"
+    ],
+    "controllerParameter": "DialogueMode: 0=Idle, 1=Listen, 2=Talk; triggers Greet/Agree/Laugh/Doubt",
+    "facialAnimation": false,
+    "gameplayLocomotionReady": false,
+    "textureSize": 2048,
+    "heightMeters": 1.25,
+    "validationReport": "docs/Validation/TripoBridge/tish-dialogue-validation.json",
+    "workspace": "C:/Backforge/Tripo3D/work/tish_v01/animation"
+  },
+  "polishV02": {
+    "date": "2026-10-20",
+    "workspace": "C:/Backforge/Tripo3D/work/tish_v02",
+    "removedExtraBackBag": true,
+    "hairSmoothed": true,
+    "facialShapes": [
+      "Blink",
+      "LookLeft",
+      "LookRight",
+      "BrowRaise"
+    ],
+    "facialRuntime": "TishFaceMotion",
+    "mapHero": "2D atlas unchanged",
+    "boardMovement": "existing hops with Idle only",
+    "validation": "docs/Validation/TishReady/validation-summary.json",
+    "webglDeviceProfiled": false
+  },
+  "currentVersion": "v03",
+  "current": {
+    "workspace": "C:\\Backforge\\Tripo3D\\work\\tish_v03",
+    "vertices": 14049,
+    "triangles": 27000,
+    "bones": 65,
+    "facialShapes": [
+      "Blink",
+      "LookLeft",
+      "LookRight",
+      "BrowRaise",
+      "MouthOpen",
+      "Smile",
+      "BrowConcern"
+    ],
+    "animations": [
+      "Dialogue_Agree",
+      "Dialogue_Doubt",
+      "Dialogue_Greet",
+      "Dialogue_Laugh",
+      "Dialogue_Listen",
+      "Dialogue_Talk",
+      "Idle_Scene"
+    ],
+    "rootMotion": false,
+    "rig": "Generic",
+    "textureMax": 2048,
+    "dialogueHeightMeters": 1.25,
+    "validation": "docs/Validation/CastReady/validation-summary.json",
+    "satchelRigidVertices": 1073,
+    "torsoStrapVertices": 148,
+    "satchelArmWeight": 0,
+    "satchelHipLocalDeviationMeters": 0
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "port": 60600,
+  "passed": true,
+  "importTest": true,
+  "events": [
+    {
+      "type": "handshake_ack",
+      "payload": {
+        "success": true,
+        "clientName": "Blender",
+        "dccVersion": "5.2.1 LTS",
+        "pluginVersion": "1.0.0",
+        "protocolVersion": "1.0.0"
+      }
+    },
+    {
+      "type": "pong"
+    },
+    {
+      "type": "file_transfer_ack",
+      "payload": {
+        "success": true,
+        "fileId": "0537e246-16d2-401e-86a7-9e4d061afbdb",
+        "fileIndex": 0
+      }
+    },
+    {
+      "type": "file_transfer_complete",
+      "payload": {
+        "fileId": "0537e246-16d2-401e-86a7-9e4d061afbdb",
+        "status": "importing",
+        "message": "File transfer complete, importing model..."
+      }
+    },
+    {
+      "type": "import_complete",
+      "payload": {
+        "fileId": "0537e246-16d2-401e-86a7-9e4d061afbdb",
+        "success": true,
+        "message": "Model imported successfully"
+      }
+    }
+  ]
+}

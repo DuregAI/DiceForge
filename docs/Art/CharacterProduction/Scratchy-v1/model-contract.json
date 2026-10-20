@@ -1,0 +1,54 @@
+{
+  "characterId": "scratchy",
+  "status": "integrated candidate; author art approval pending",
+  "source": "approved Canon-v1/Dossiers/art/scratchy.png",
+  "identityLocks": [
+    "living burlap rag creature; no goblin ears or green skin",
+    "amber eyes, sewn rosy cheek patches",
+    "chunky cream, terracotta, ochre and moss yarn hair",
+    "olive scarf and ONE brass bell",
+    "patchwork cloth body, short legs, brown stitched boots",
+    "rounded cloth mittens with sewn thumb; no invented human fingers"
+  ],
+  "runtimeTarget": {
+    "rig": "Generic adapted to cloth silhouette",
+    "textureMax": 2048,
+    "trianglesMax": 30000,
+    "dialogueHeight": 1.15,
+    "boardHeight": 1.25,
+    "rootMotion": false,
+    "locomotion": "existing hops"
+  },
+  "rigChecks": [
+    "hair belongs to head/torso, not arms",
+    "bell attached separately for secondary motion",
+    "restrained cloth squash",
+    "closed eyelids face outward for Unity culling"
+  ],
+  "actual": {
+    "vertices": 6397,
+    "triangles": 11984,
+    "bones": 66,
+    "clips": [
+      "Idle_Scene",
+      "Dialogue_Talk",
+      "Dialogue_Listen",
+      "Dialogue_Laugh",
+      "Dialogue_Greet",
+      "Dialogue_Doubt",
+      "Dialogue_Agree"
+    ],
+    "facialShapes": [
+      "Blink",
+      "LookLeft",
+      "LookRight",
+      "BrowRaise",
+      "MouthOpen",
+      "Smile",
+      "BrowConcern"
+    ]
+  },
+  "tripoAssetId": "fb2999db-359b-44db-8e79-aaabcc4494dd",
+  "sourceRevision": "Scratchy_v02",
+  "handBinding": "Preserve sewn mitten fingers; three same-side arm joints, no human finger influences; neutral cloth wrists."
+}

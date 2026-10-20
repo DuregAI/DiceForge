@@ -1,0 +1,16 @@
+Motion and interface stability — 2026-10-16
+
+Changes:
+- GoblinLife.cs: a character without a Jump clip keeps its continuous Idle pose during procedural hops; no in-air run transition or random idle restart on landing.
+- DioramaHopMotion.cs: smooth lift and lean at takeoff and landing.
+- StonesTokensView.cs: preserve demo facing between moves; give longer jumps more time.
+- DioramaHud.cs: reuse step controls and retain them during turn handoff; wait for stable UI geometry before updating the camera viewport.
+- DioramaBoard.cs / DioramaCameraController.cs: smoothly reframe after HUD changes; stable camera at rest; immediate fitting only for initial setup, orientation changes, covered transitions and reduced motion.
+- GameplayLayout.uss: preserve control opacity while movement temporarily blocks input.
+- WoodlandMapView.cs: reveal map stage only after its initial scale is known.
+- WoodlandSpriteHeroPresenter.cs: preserve facing when stopping and avoid clearing an already bound sprite presentation.
+- DioramaCameraGestureTests.cs, DioramaHopPresentationTests.cs, DemoNarrativePresentationTests.cs: regression coverage for stationary/smooth camera, native Tish idle continuity, and stable control identity.
+
+Validation: 12 distinct tests passed across motion-tests.xml (9), interface-tests.xml (2), campaign-tests.xml (1). Campaign covers all six levels; interface captures cover 1280x720, 720x1280, 640x360 and 360x640 in English/Russian. Real mouse/touch gestures, input blocking, pause, results, save and replay passed. Final/HopFrames contains the final in-game hop sequence; representative takeoff, flight and landing frames were visually reviewed. No Unity console errors after final run. git diff --check passed.
+
+Tish still uses a procedural whole-body hop combined with his existing idle animation; no new authored skeletal Jump clip was created. No distribution build was generated for these changes.

@@ -174,23 +174,32 @@ namespace Diceforge.Tests.BattleTermination
 
                 if (UnityEditor.SessionState.GetBool("DemoInterfaceCaptureLayouts", false))
                 {
-                    foreach (string locale in new[] { "en", "ru" })
+                    EnsureGameView();
+                    foreach (var resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280), new Vector2Int(640, 360), new Vector2Int(360, 640) })
                     {
-                        PlayerPrefs.SetString("ui.language", locale);
-                        int settledFrame = Time.frameCount + 4;
-                        yield return Until(() => Time.frameCount >= settledFrame, "HUD locale and geometry did not settle.");
-                        Assert.That(hud.rootVisualElement.Q<Label>("friendCaption").text, Is.EqualTo(locale == "ru" ? "2 · Друг" : "2 · Friend"));
-                        var surface = hud.rootVisualElement.Q("demoActionSurface");
-                        foreach (var button in hud.rootVisualElement.Q("demoHeroes").Query<Button>().ToList()
-                            .Concat(hud.rootVisualElement.Q("moves").Query<Button>().ToList()))
+                        Runtime.Call(gameView, "SizeSelectionCallback", FindOrAddResolution(resolution.x, resolution.y), null);
+                        gameView.Focus(); gameView.Repaint();
+                        yield return Until(() => Screen.width == resolution.x && Screen.height == resolution.y, "HUD resolution did not change.");
+                        foreach (string locale in new[] { "en", "ru" })
                         {
-                            Assert.That(button.worldBound.height, Is.GreaterThanOrEqualTo(44f));
-                            Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(surface.worldBound.xMin));
-                            Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(surface.worldBound.xMax));
-                            Assert.That(button.worldBound.yMax, Is.LessThanOrEqualTo(surface.worldBound.yMax));
+                            PlayerPrefs.SetString("ui.language", locale);
+                            int settledFrame = Time.frameCount + 4;
+                            yield return Until(() => Time.frameCount >= settledFrame, "HUD locale and geometry did not settle.");
+                            Assert.That(hud.rootVisualElement.Q<Label>("friendCaption").text, Is.EqualTo(locale == "ru" ? "2 · Друг" : "2 · Friend"));
+                            var surface = hud.rootVisualElement.Q("demoActionSurface");
+                            foreach (var button in hud.rootVisualElement.Q("demoHeroes").Query<Button>().ToList()
+                                .Concat(hud.rootVisualElement.Q("moves").Query<Button>().ToList()))
+                            {
+                                Assert.That(button.worldBound.height, Is.GreaterThanOrEqualTo(44f));
+                                Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(surface.worldBound.xMin));
+                                Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(surface.worldBound.xMax));
+                                Assert.That(button.worldBound.yMax, Is.LessThanOrEqualTo(surface.worldBound.yMax));
+                            }
+                            yield return Capture("level-0" + level + "-" + locale + "-hud-" + resolution.x + "x" + resolution.y);
                         }
-                        yield return Capture("level-0" + level + "-" + locale + "-hud");
                     }
+                    Runtime.Call(gameView, "SizeSelectionCallback", originalSizeIndex, null);
+                    yield return null; yield return null;
                 }
                 yield return Capture("level-0" + level + "-start");
                 foreach (ActionStep action in routes.levels.Single(x => x.id == "L" + level).balance.manualReplay)
@@ -210,6 +219,35 @@ namespace Diceforge.Tests.BattleTermination
                         Is.EqualTo(level == 4 ? "scratchy" : "luma"));
 
                 yield return FinishStoryAndResult(battle, () => results == 1, level);
+                if (level < 6 && UnityEditor.SessionState.GetBool("DemoInterfaceCaptureLayouts", false))
+                {
+                    yield return new WaitForSecondsRealtime(.3f);
+                    var resultView = Find("View.ResultOverlayView");
+                    var resultDoc = (UIDocument)Runtime.Field(resultView, "document");
+                    var title = resultDoc.rootVisualElement.Q<Label>("resultLabel");
+                    Assert.That(title.resolvedStyle.color.r, Is.GreaterThan(.9f), "Result title must be light on its dark plaque.");
+                    yield return CaptureNarrative("result-level-" + level);
+                    if (level == 4)
+                    {
+                        foreach (var resolution in new[] { new Vector2Int(640, 360), new Vector2Int(360, 640) })
+                        {
+                            Runtime.Call(gameView, "SizeSelectionCallback", FindOrAddResolution(resolution.x, resolution.y), null);
+                            gameView.Focus(); gameView.Repaint();
+                            yield return Until(() => Screen.width == resolution.x && Screen.height == resolution.y, "Result resolution did not change.");
+                            yield return new WaitForSecondsRealtime(.2f);
+                            var scroll = resultDoc.rootVisualElement.Q<ScrollView>("resultPanel");
+                            var back = resultDoc.rootVisualElement.Q<Button>("backToMenuButton");
+                            scroll.ScrollTo(back);
+                            yield return null; yield return null;
+                            var picked = back.panel.Pick(back.worldBound.center);
+                            Assert.That(picked == back || back.Contains(picked), Is.True, "Result action must remain reachable on small screens.");
+                            yield return CaptureNarrative("result-" + resolution.x + "x" + resolution.y);
+                        }
+                        Runtime.Call(gameView, "SizeSelectionCallback", originalSizeIndex, null);
+                        yield return null; yield return null;
+                    }
+
+                }
                 Assert.That(Runtime.Get(battle, "HasPendingResultSave"), Is.EqualTo(false));
                 object session = Runtime.Get(battle, "RewardSession");
                 Assert.That(Runtime.Get(session, "Outcome"), Is.Not.Null);
@@ -238,11 +276,7 @@ namespace Diceforge.Tests.BattleTermination
             Assert.That(worlds.ClassListContains("world-hidden"), Is.False);
             Assert.That(worlds.Q<Button>("worldIslandAction1"), Is.Not.Null);
             Assert.That(worlds.Q<Button>("worldIslandAction2"), Is.Not.Null);
-            gameView = UnityEditor.EditorWindow.GetWindow(EditorType("UnityEditor.GameView"));
-            originalSizeIndex = (int)Runtime.Get(gameView, "selectedSizeIndex");
-            Type sizesType = EditorType("UnityEditor.GameViewSizes");
-            object sizes = sizesType.GetProperty("instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetValue(null);
-            gameViewSizeGroup = Runtime.Get(sizes, "currentGroup");
+            EnsureGameView();
             string directory = Path.GetFullPath(UnityEditor.SessionState.GetString("DemoWorldCaptureDirectory", "docs/Validation/DemoRCStage10Worlds"));
             Directory.CreateDirectory(directory);
             foreach (Vector2Int resolution in new[] { new Vector2Int(1280, 720), new Vector2Int(720, 1280) })
@@ -401,6 +435,16 @@ namespace Diceforge.Tests.BattleTermination
             using var evt = NavigationSubmitEvent.GetPooled();
             evt.target = button;
             button.SendEvent(evt);
+        }
+
+        private void EnsureGameView()
+        {
+            if (gameView != null) return;
+            gameView = UnityEditor.EditorWindow.GetWindow(EditorType("UnityEditor.GameView"));
+            originalSizeIndex = (int)Runtime.Get(gameView, "selectedSizeIndex");
+            Type sizesType = EditorType("UnityEditor.GameViewSizes");
+            object sizes = sizesType.GetProperty("instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).GetValue(null);
+            gameViewSizeGroup = Runtime.Get(sizes, "currentGroup");
         }
 
         private int FindOrAddResolution(int width, int height)

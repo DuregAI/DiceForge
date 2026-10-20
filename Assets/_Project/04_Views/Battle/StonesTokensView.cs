@@ -355,7 +355,7 @@ namespace Diceforge.View
                     identity.cellId = assignment.Location == TokenLocation.Cell ? assignment.Cell : -1;
                     if (!show) { token.mover.CancelAllMovement(); continue; }
                     token.mover.SetVisualOffset(diorama.FormationOffset(index3d, Mathf.Min(3,count3d)));
-                    token.root.transform.rotation = Quaternion.Euler(0,180,0);
+                    if (demoLevel == null || !wasActive) token.root.transform.rotation = Quaternion.Euler(0,180,0);
                     if (assignment.Id == animatedId && wasActive) continue;
                     if (assignment.Location == TokenLocation.Bar) token.mover.SnapToWorld(diorama.WaitingPosition(assignment.Player));
                     else token.mover.SnapTo(assignment.Cell);
@@ -397,7 +397,7 @@ namespace Diceforge.View
             if (demoLevel != null && _geometry is DioramaBoard)
             {
                 token.mover.SetJumpHeight((record.PipUsed ?? 1) >= 2 ? .75f : .32f);
-                token.mover.MoveToWorld(_geometry.CellPosition(record.ToCell.Value), record.ToCell.Value, DioramaBoard.ReducedMotion ? .08f : .5f);
+                token.mover.MoveToWorld(_geometry.CellPosition(record.ToCell.Value), record.ToCell.Value, DioramaBoard.ReducedMotion ? .08f : (record.PipUsed ?? 1) >= 2 ? .66f : .52f);
                 return;
             }
             if (record.Move.Value.Kind != MoveKind.EnterFromBar && record.FromCell.HasValue &&

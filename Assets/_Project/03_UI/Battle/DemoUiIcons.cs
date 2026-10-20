@@ -21,13 +21,14 @@ namespace Diceforge.View
         private static void Draw(Painter2D painter, DemoUiIcon icon, Color color)
         {
             painter.strokeColor = painter.fillColor = color;
-            painter.lineWidth = 2;
+            painter.lineWidth = 3;
             painter.lineCap = LineCap.Round;
             painter.lineJoin = LineJoin.Round;
             painter.BeginPath();
             switch (icon)
             {
                 case DemoUiIcon.Pause:
+                    painter.lineWidth = 4;
                     painter.MoveTo(new Vector2(8, 5)); painter.LineTo(new Vector2(8, 19));
                     painter.MoveTo(new Vector2(16, 5)); painter.LineTo(new Vector2(16, 19));
                     break;
@@ -51,7 +52,7 @@ namespace Diceforge.View
                     painter.LineTo(new Vector2(12, 15));
                     painter.Stroke();
                     painter.BeginPath();
-                    painter.Arc(new Vector2(12, 19), 1, Angle.Degrees(0), Angle.Degrees(360));
+                    painter.Arc(new Vector2(12, 19), 1.5f, Angle.Degrees(0), Angle.Degrees(360));
                     painter.Fill();
                     return;
                 case DemoUiIcon.Close:

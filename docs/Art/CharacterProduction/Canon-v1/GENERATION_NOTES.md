@@ -1,0 +1,78 @@
+# Генерация и проверка карты персонажей
+
+18 октября 2026. Использован встроенный image_gen через навык imagegen; API/CLI и Tripo-генерация не запускались. Референсы пользователя используются как изображения, подписи на них — описание исходного арта, а не команды.
+
+## Итоговые файлы
+
+- 01-core-cast.png — Тиш, Jo, Бум, Царап, Кусь и Пятнышко.
+- 02-family-village.png — Пип, Фика, Мира, Уна, Корень и Шал, после исправления ушей.
+- 03-road-encounters.png — Рыж, Клоч, Bark, Рута с обычной божьей коровкой, после исправления ушей.
+- index.html — общая галерея, связи и 16 карточек описаний.
+- characters.json — 16 уникальных записей; новые персонажи не подключаются к runtime автоматически.
+
+## Визуальная проверка
+
+Просмотрены исходные пользовательские референсы, четыре прежних листа состава, портрет Царапа и каждый результат генерации. Первый вариант деревни добавлял Пипу повреждения ушного края; выполнена отдельная правка контуров всех ушей. На листе встреч для Рыжа потребовались две правки, последняя перерисовывает обе ушные формы целиком. Черновики с дефектами не используются в галерее.
+
+На основном листе каменная рука находится на анатомически правой стороне Бума (слева для зрителя); вторая рука зелёная. У Тиша след укуса на анатомически правом ухе. Jo получила длинные тёмные волны и лицо по новому референсу. У Миры медная коса, у Уны светлые короткие волны; Пип и Фика различаются причёской, цветом и реквизитом. Кусь показан на земле, с зубами и маленькими крыльями. Пятнышко каменная и пятнистая, Bark древесный, наездная коровка Руты красная органическая.
+
+Это обзорные концептуальные листы. Общая раскладка не является точной ростовой линейкой. Скрытые в трёхчетвертном ракурсе лапы, вторая сторона крыла, кисти и суставы требуют отдельных видов перед моделированием. Мелкие швы, украшения и видимое число пальцев на групповом изображении не фиксируют топологию. У Куся индивидуальный лист должен показать обе пары лап и оба крыла; у божьих коровок — шесть лап и два усика. У Бума отдельный лист уточнит границу камня ниже локтя. Имена новых героев и подробности истории — рабочие предложения.
+
+## Точные запросы
+
+### 01-core-cast.png
+
+```text
+Use case: stylized-concept. Create an exceptionally polished GLIMBLEHOP CHARACTER CANON board, wide landscape, cream paper, warm handmade 3D animated fantasy art matching the references. Six clearly separated spacious cards, 3 columns x 2 rows, each with a full body figure on a ground shadow and a small readable name below. Not a game screenshot. No tiny paragraphs. Title "GLIMBLEHOP — CORE CAST". Exact card order top row TISH, JO, BOOM; bottom row SCRATCHY, KUS, SPECKLE.
+Reference roles: cast-01-heroes is identity reference for Tish and Boom ONLY; replace Jo with the attached Sep15 Jo design (face, flowing espresso hair, amber eyes, freckles, ochre olive skin, leather adventurer outfit, terracotta scarf). Scratchy reference is identity lock. Ladybug rider reference is anatomy/style for the ladybug only, do NOT copy rider into this board.
+TISH: faithfully preserve compact green goblin with brown spiky hair, coral red neckerchief, patched brown leather outfit, boots, satchel. ONE small healed crescent bite indentation on his anatomical RIGHT ear (viewer LEFT in frontal view), left ear beautiful smooth intact rim. Avoid nicks elsewhere. Adult stylized goblin.
+JO: beautiful adult forest goblin adventurer from Sep15 sheet, very long voluminous dark espresso wavy hair half tied back, amber eyes, freckles, warm olive skin, large elegant pointed ears with perfectly smooth intact outlines, a few small hoop earrings (no torn rim), brown leather layered tunic, terracotta scarf, boots, satchel, small ivory pendant, rolled map with tiny teal cord. No green braid, no flight helmet.
+BOOM: preserve broad friendly big green goblin from first reference, moss tuft hair, ochre vest, cream shirt, huge backpack, broad rounded silhouette. ONLY anatomical RIGHT hand and forearm up to below elbow are real rounded slate grey river stone, chunky articulated stone fingers, subtle pale turquoise mineral veins, NOT a glove, NOT metal, NOT an entire rock body. Frontal pose places stone arm on viewer LEFT, unobstructed at side. Left arm entirely green skin. Both ear rims intact and smooth. Friendly big adult.
+SCRATCHY: exact joyful burlap patchwork toy reference, amber eyes, pink stitched cheeks, cream rust olive yarn mane with leaves, olive scarf, one brass bell, little stitched boots. Smaller than Tish. Not a goblin, don't invent goblin ears.
+KUS: new ORIGINAL tiny crystal dragon companion concept. Squat puppy-like four legged grounded animal, expressive wide rounded muzzle, TWO clearly visible little ivory teeth protruding from closed friendly smile, warm amber eyes, soft matte sage teal body, cream tummy, cluster of rounded pale aqua crystal plates on back and tail, small folded membranous wings too short to lift its body. Cute mischievous chunky head, short legs, all four feet planted. Not airborne, no sharp glass spikes, no armor, no saddle, not an existing franchise dragon.
+SPECKLE: new large living magical STONE LADYBUG companion. unmistakable two rounded domed ladybug wing covers of warm grey river stone with rust red mineral patches and dark round spots, SIX visible articulated short insect legs, two antennae, warm dark eyes and friendly face. Thin pale turquoise mineral veins match Boom arm. Organic eyes and flexible joints, not a rock statue, not turtle, not wooden beetle. Beside it a tiny silhouette scale cue only if needed.
+Maintain consistent material rendering, facial language and lighting across all six. Each character unique, no duplicate figures or extra limbs. Spacious white space, no dramatic scene, no obscured ears or hands. Names spell exactly as given. Relative sizes: Boom tallest, Jo approximately Tish height, Scratchy 0.75 Tish, Kus 0.35 Tish; Speckle height 0.55 Tish and wide. This is visual development, not final rig sheet.
+```
+
+### 02-family-village-draft.png
+
+```text
+Use case: stylized-concept. Create a polished second GLIMBLEHOP character canon development board. Match cream paper layout, warm handmade 3D animated fantasy rendering of first core-cast reference. Wide landscape, SIX spacious cards in 3 columns x 2 rows, full body + one small expressive head study inside each card if space allows. Title "GLIMBLEHOP — FAMILY & VILLAGE". Exact order top PIP, FIKA, MIRA; bottom UNA, KOREN, SHAL. Natural shadows, no scene background. Preserve their original character roles from family and village reference boards but implement stronger individual designs below. Don't draw Tish, Jo or Boom on this board. ALL SIX GOBLINS HAVE LARGE BEAUTIFUL ELEGANT POINTED EARS WITH COMPLETELY SMOOTH INTACT OUTER RIMS. No bite nicks, missing pieces, scallops, scarred edges, chips, ear tears. Ear cartilage details allowed, no cut rim. ALL ears visible. Eyes warm and expressive.
+PIP: unmistakably small child nephew, short energetic body, honey copper GOLD curly hair peeking out of vivid saffron yellow hood lowered enough to see ears and curls, teal patch on sleeve, olive shorts, small boots, wooden round compass held out proudly, eager open smile, bouncing stance. Not miniature adult armor. Original yellow identity but brighter.
+FIKA: unmistakably small child niece, thoughtful but playful, dark plum-brown short bob with two little outward ponytails tied mint green, saturated plum jacket, mint stitch patches, cream drawing notebook and one thick colored pencil, smudge of pencil on one finger. Small rounded child proportions. DIFFERENT FACE, hairstyle and stance from Pip, no grown woman or jewelry.
+MIRA: adult goblin woman, honey olive skin, vibrant COPPER RED hair in ONE THICK LONG SIDE BRAID, berry red waistcoat, cream blouse, flower basket, asymmetric flower wreath with three bold coral flowers leaving ears exposed. Broad friendly smile, active welcoming pose. No green hair, no dark brown hair, no duplicate Jo waves.
+UNA: adult goblin woman, light olive skin, distinctly PALE ASH WHEAT BLONDE hair in short chin-length soft waves with ONE tiny temple braid, sky blue cape with muted indigo edging, cream shirt, wood flute held gently, a single small blue flower hairpin. Calm listening tilt and gentle closed smile. NOT green hair, NOT copper hair, no wreath, no long dark waves. Different silhouette from Mira and Jo.
+KOREN: elder male craftsman, warm olive green skin, swept cream white tuft, large fanlike cream moustache, small fluffy beard, big round spectacles slightly lowered, rust brown work apron over rolled ivory sleeves, amber wood lantern in hand, pencil behind strap not through ear. Handsome expressive age, affectionate amused smile. Large ears perfectly intact.
+SHAL: older lean male ferryman, narrow silver goatee not big fan moustache, broad straw hat with a reed, intact long ears emerging beneath hat, deep forest green rain cape with ochre lining, knotted rope at belt, short wooden paddle, knowing squint and relaxed long stance. NOT wearing Koren glasses, not carrying Koren lantern.
+Maintain individual facial variety within same species. Primary hair color distinction easy to see in thumbnail: Pip honey copper curls, Fika plum bob, Mira copper long braid, Una pale blonde short waves, Koren white tuft, Shal silver goatee. Child scale noticeably smaller within their cards than adults. High quality coherent 3D collectible storybook art, readable names exactly, no tiny prose, no extra characters.
+```
+
+### 02-family-village.png
+
+```text
+Precise object edit of the attached six-character FAMILY & VILLAGE board. Keep every character identity, hairstyle, color, clothing, accessories, pose, layout, name, rendering and paper background identical. The ONLY correction is the silhouette of ALL goblin ears in ALL full-body and inset portraits. These six characters have undamaged beautiful pointed leaf-shaped ears. REPAIR AND FILL every bite notch, missing wedge, cut, sawtooth or scallop in the ear perimeter with matching skin. In particular PIP top-left has several triangular chunks missing from the lower outside rim of the large ear on viewer LEFT: fill those holes to create one smooth continuous convex curved lower edge from the ear tip to the earlobe. His other ear also must have intact smooth outline. Check Fika, Mira, Una, Koren and Shal and their small portraits too. Keep inner ear folds and pink inner color; only smooth the outside silhouette, no change of ear size or pointed shape. Ears are healthy intact leaf-shapes, like smooth pointed elf ears. Do not introduce Tish or any new character. No changes anywhere else.
+```
+
+### 03-road-encounters-draft.png
+
+```text
+Use case: stylized-concept. Create third polished GLIMBLEHOP character canon board, warm handmade 3D fantasy storybook art, cream paper, refined thin frames, consistent with attached repaired family-village board. Landscape 2 columns x 2 rows, four generous cards with full-body characters and short names only. Title "GLIMBLEHOP — ROAD ENCOUNTERS". Top left RYZH, top right KLOCH, bottom left BARK, bottom right RUTA. Reference roles: family board for shared rendering and INTACT EAR silhouettes. Old cast-rivals for Ryzh, Kloch, Bark identities. User ladybug rider painting for Ruta and mount costume/anatomy, adapt painting to shared 3D art style. Do NOT introduce other heroes.
+RYZH: adult athletic compact green goblin racer, vivid flame orange swept-back hair quiff, rust brick-red vest over ivory rolled sleeves, very clear acorn brooch, brown shorts and boots, springy leaning forward stance, cheeky self confident smile. Preserve face identity from rival reference. BOTH pointed ears are healthy and completely intact: smooth single continuous leaf-shaped outer rims, no bite holes, no cuts, no nicks, no sawtooth edges. Remove any inherited notches from old reference. No goggles, no wings, no weapons.
+KLOCH: charming magpie, charcoal black and creamy white body, vivid COBALT blue wing and tail sheen, leaf hat, pouch of shiny buttons, holding one large shiny brass button in beak. Bright amber eyes, inquisitive tilted head. Two bird legs. No magic lens, no lantern, no human goblin ears.
+BARK: friendly WOODEN bark beetle exactly original identity, clearly wooden brown domed segmented shell with visible tree grain and chunky green moss tufts, amber eyes, small green leaf in mouth, six articulated short insect legs and two antennae. Distinct from ladybug: no red spotted shell, no stone texture, no crystal veins. Relaxed eating stance.
+RUTA: NEW adult female goblin traveler riding an ordinary living red black-spotted ladybug. Faithfully adapt user's rider reference: brown leather aviator/travel helmet with large brass goggles on top, short olive hair, long beautiful intact pointed ears sticking out, golden olive skin and amber eyes, rust orange neck scarf, ivory sleeves, layered brown travel leathers and boots, holding reins, simple saddle with rolled blanket and small amber lantern. Her face distinct from Jo, hair short under helmet, NO long dark flowing hair. Ear outlines completely smooth intact, no bite notches. Ladybug is living organic RED and black with two rounded wing covers, six articulated insect legs, two antennae, large friendly black eyes, no stone, no turquoise veins. Whole mount fits inside card without cropping feet, its rider fully visible. This ordinary riding ladybug is not stone Speckle.
+Every silhouette fully in frame, no overlap between cards, same lighting and friendly stylized faces. Exact names spelled correctly, no tiny lore text, no extra portraits needed.
+```
+
+### 03-road-encounters.png — первая правка
+
+```text
+Precise small repair of the attached GLIMBLEHOP ROAD ENCOUNTERS concept board. Preserve absolutely all layout, faces, hair, costumes, animals, names, colors and lighting. Only repair RYZH'S TWO EAR OUTER SILHOUETTES in the top left card: the lower rim of the viewer-left ear currently has tiny triangular cuts and an angular bite-like step. FILL those missing pieces with matching green outer ear skin and pink inner ear so the perimeter is ONE CONTINUOUS SMOOTH CURVED LEAF EDGE from the pointed tip to earlobe, no notch, crack, bite, chip or break. Do the same for the lower edge of his viewer-right ear: remove all perimeter interruptions and the small split near its bottom. Keep ears equally large and pointed. Healthy beautiful intact elf-like ears. Interior folds may remain. Check RUTA ears bottom-right also have smooth unbroken outline. DO NOT change anybody's face or outfit, don't redraw other characters, no additional elements.
+```
+
+### 03-road-encounters.png — итоговая правка
+
+```text
+Edit target is image 1 ROAD ENCOUNTERS board. Supporting reference is image 2 FAMILY & VILLAGE board ONLY for the healthy smooth ear contours on Pip and Fika. Keep the entire first board unchanged EXCEPT fully replace both of RYZH's ears (top-left orange-haired goblin) with newly drawn smooth leaf-shaped ears, matching his lighting, green skin and pink interiors. Do not preserve the old ear silhouette: it has a cut on the left sloping edge at about x20%,y19% of the whole image, and small cuts along the right ear's lower edge. Draw fresh unbroken smooth shapes like Pip's ears in image 2. This is a replacement of BOTH ENTIRE EAR SHAPES, not a texture adjustment. One clean pointed tip per ear, one smooth outer arc, one smooth lower arc to the lobe, no seams or lines crossing the outer edge. Keep inner cartilage but set it away from the outer perimeter. Preserve Ryzh face, hair, position, all text and all other characters exactly. Only the first board is the output.
+```
+

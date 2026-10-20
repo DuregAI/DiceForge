@@ -1,0 +1,124 @@
+{
+  "characterId": "luma",
+  "englishName": "Jo",
+  "version": "v01",
+  "date": "2026-10-20",
+  "status": "v02_integrated_pending_final_art_and_device_review",
+  "productionApproved": false,
+  "reference": "luma-front-tripo-v1.png",
+  "sourceAsset": "98b0f3d9-8c48-4162-95ba-79ef651ce189",
+  "sourceModel": "Smart Mesh P2.0",
+  "privacy": "Private",
+  "creditsGeometry": 100,
+  "creditsTexture": 30,
+  "appearance": {
+    "hair": "long dark chocolate waves and a side braid; major sculpted masses",
+    "ears": "both intact",
+    "eyes": "amber",
+    "face": "freckles, closed-mouth kind neutral expression",
+    "clothes": "stitched brown leather tunic, terracotta scarf, sturdy boots",
+    "satchel": "left hip, strap from right shoulder",
+    "backpack": false,
+    "mapProp": "separate future prop, excluded from model's hands",
+    "digitsIncludingThumb": 4
+  },
+  "target": {
+    "heightMeters": 1.25,
+    "rig": "Generic",
+    "rootMotion": false,
+    "textureMax": 2048,
+    "trianglesMax": 30000
+  },
+  "intake": {
+    "autoApplyToCatalog": false,
+    "folder": "Assets/_Project/07_Art/Characters/Incoming/Tripo/Luma_v02"
+  },
+  "checksBeforeIntegration": [
+    "front/side/back identity",
+    "hair clear of arms and ears",
+    "no generated extra back bag",
+    "finger separation and skin weights",
+    "matching Tish material response",
+    "planted feet and consistent scale",
+    "dialogue clips retargeted and reviewed"
+  ],
+  "meshReport": "C:/Backforge/Tripo3D/work/luma_v01/mesh-report.json",
+  "actual": {
+    "vertices": 7825,
+    "triangles": 15128,
+    "materials": 1,
+    "texture": 2048,
+    "rigged": true,
+    "bones": 65,
+    "clips": 7,
+    "facialShapes": 7
+  },
+  "openItems": [
+    "Final art review of hair silhouette, fingers and earring clearance",
+    "WebGL/device profiling",
+    "Audio phoneme lip sync if needed"
+  ],
+  "currentVersion": "v02",
+  "current": {
+    "workspace": "C:\\Backforge\\Tripo3D\\work\\luma_v02",
+    "vertices": 7825,
+    "triangles": 15128,
+    "bones": 65,
+    "facialShapes": [
+      "Blink",
+      "LookLeft",
+      "LookRight",
+      "BrowRaise",
+      "MouthOpen",
+      "Smile",
+      "BrowConcern"
+    ],
+    "animations": [
+      "Dialogue_Agree",
+      "Dialogue_Doubt",
+      "Dialogue_Greet",
+      "Dialogue_Laugh",
+      "Dialogue_Listen",
+      "Dialogue_Talk",
+      "Idle_Scene"
+    ],
+    "rootMotion": false,
+    "rig": "Generic",
+    "textureMax": 2048,
+    "dialogueHeightMeters": 1.25,
+    "validation": "docs/Validation/CastReady/validation-summary.json",
+    "hair": "back volume sculpted; thin regions thickened; weights isolated from arms",
+    "livePrefab": "Assets/_Project/07_Art/DemoRCCharacters/Prefabs/Luma.prefab",
+    "dialoguePrefab": "Assets/_Project/Resources/Characters/LumaDialogue.prefab"
+  },
+  "creditsRig": 20,
+  "firstCandidateActual": {
+    "vertices": 5540,
+    "triangles": 9888,
+    "materials": 1,
+    "texture": 2048,
+    "rigged": false
+  },
+  "futureWardrobe": {
+    "status": "deferred_by_user",
+    "priority": "after core demo character integration",
+    "request": "Give Luma a choice of outfits and a main outfit visibly different from Tish.",
+    "identityLocks": [
+      "same Jo face, freckles, long dark waves and side braid",
+      "both ears intact and visible",
+      "left hip satchel; no backpack"
+    ],
+    "designDirection": [
+      "different cut and silhouette, not a recolor of Tish brown tunic and shorts",
+      "explore cream linen blouse with forest green layered wrap/skirt",
+      "consider blue river outfit and practical moss-green scout variant",
+      "keep warm natural fabrics and leather within the shared forest art style"
+    ],
+    "technicalNotes": [
+      "separate clothing meshes on the same skeleton",
+      "preserve character head/skin and facial blendshapes",
+      "check skirt/leg, satchel/arm and braid/shoulder clearance in all gestures",
+      "clothing selection UI is a later task; hidden profile/shop stay untouched"
+    ]
+  }
+}

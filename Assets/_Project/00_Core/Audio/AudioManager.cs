@@ -65,20 +65,28 @@ namespace Diceforge.Audio
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
 
-            _storage = new PlayerMusicPrefsStorage();
-            _selector = new MusicSelector();
-            _prefs = _storage.LoadOrCreate();
+            InitializeRuntimeState();
+        }
+
+        private void InitializeRuntimeState()
+        {
+            // Plain C# services are lost on script reload while the component survives.
+            _storage ??= new PlayerMusicPrefsStorage();
+            _selector ??= new MusicSelector();
+            _prefs ??= _storage.LoadOrCreate();
 
             if (musicSource == null)
                 musicSource = GetComponent<AudioSource>();
 
-            _otherMusicSource = gameObject.AddComponent<AudioSource>();
+            if (_otherMusicSource == null)
+                _otherMusicSource = gameObject.AddComponent<AudioSource>();
             _otherMusicSource.playOnAwake = false;
             _otherMusicSource.spatialBlend = 0f;
             if (musicSource != null)
                 _otherMusicSource.outputAudioMixerGroup = musicSource.outputAudioMixerGroup;
 
-            _voiceSource = gameObject.AddComponent<AudioSource>();
+            if (_voiceSource == null)
+                _voiceSource = gameObject.AddComponent<AudioSource>();
             _voiceSource.playOnAwake = false;
             _voiceSource.spatialBlend = 0f;
             if (sfxSource != null)
@@ -92,6 +100,9 @@ namespace Diceforge.Audio
 
         private void OnEnable()
         {
+            if (Instance != null && Instance != this) return;
+            Instance = this;
+            InitializeRuntimeState();
             if (_playbackWatcher == null)
                 _playbackWatcher = StartCoroutine(PlaybackWatcher());
         }
@@ -201,6 +212,8 @@ namespace Diceforge.Audio
 
         public bool TryPlayNext(bool userInitiated = true)
         {
+            if (_selector == null || _storage == null || _prefs == null)
+                InitializeRuntimeState();
             if (TryPlayFromHistoryOffset(1, userInitiated))
                 return true;
 

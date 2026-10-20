@@ -11,7 +11,8 @@
       "ru": "Ещё один узел — и указатель снова цел. Кто там шуршит?",
       "en": "One more knot and the sign is fixed. Who is rustling over there?",
       "priority": 80,
-      "firstFinisherId": ""
+      "firstFinisherId": "",
+      "gesture": "Doubt"
     },
     {
       "id": "L01_I02",
@@ -23,7 +24,8 @@
       "ru": "Тиш! Пс-с… Сюда, за кусты! Я кое-что видел!",
       "en": "Tish! Psst… Over here, behind the bushes! I saw something!",
       "priority": 80,
-      "firstFinisherId": ""
+      "firstFinisherId": "",
+      "gesture": "Greet"
     },
     {
       "id": "L01_V01",
@@ -35,7 +37,8 @@
       "ru": "Вот ты где! Я Царап. Обычно меня сначала слышат.",
       "en": "There you are! I am Scratchy. People usually hear me first.",
       "priority": 80,
-      "firstFinisherId": ""
+      "firstFinisherId": "",
+      "gesture": "Greet"
     },
     {
       "id": "L01_F01",
@@ -1350,7 +1353,8 @@
               "id": "S00.1b",
               "speakerId": "scratchy",
               "ru": "Тиш… Эй, Тиш! За кустами!",
-              "en": "Tish… Hey, Tish! Behind the bushes!"
+              "en": "Tish… Hey, Tish! Behind the bushes!",
+              "gesture": "Greet"
             }
           ]
         }
@@ -1370,13 +1374,15 @@
               "id": "S01.1a",
               "speakerId": "scratchy",
               "ru": "Я бежал за блеском над деревьями и зацепился за куст.",
-              "en": "I chased a sparkle above the trees and got caught in a bush."
+              "en": "I chased a sparkle above the trees and got caught in a bush.",
+              "gesture": "Doubt"
             },
             {
               "id": "S01.1b",
               "speakerId": "tish",
               "ru": "Сначала выберемся на тропу. Потом расскажешь.",
-              "en": "Let us get onto the trail first. Then tell me all about it."
+              "en": "Let us get onto the trail first. Then tell me all about it.",
+              "gesture": "Agree"
             }
           ]
         }
@@ -1396,13 +1402,15 @@
               "id": "S02.1a",
               "speakerId": "scratchy",
               "ru": "Слышишь? Впереди ручей. Только плиты там старые.",
-              "en": "Hear that? There is a stream ahead. The tiles there are old though."
+              "en": "Hear that? There is a stream ahead. The tiles there are old though.",
+              "gesture": "Doubt"
             },
             {
               "id": "S02.1b",
               "speakerId": "tish",
               "ru": "Тогда посмотрим под ноги.",
-              "en": "Then we will watch our step."
+              "en": "Then we will watch our step.",
+              "gesture": "Agree"
             }
           ]
         }
@@ -1422,13 +1430,15 @@
               "id": "S03.1a",
               "speakerId": "scratchy",
               "ru": "Ты ловко прыгаешь. А быстро умеешь?",
-              "en": "You jump well. Can you be quick too?"
+              "en": "You jump well. Can you be quick too?",
+              "gesture": "Laugh"
             },
             {
               "id": "S03.1b",
               "speakerId": "tish",
               "ru": "До флажка? Давай!",
-              "en": "To the flag? You are on!"
+              "en": "To the flag? You are on!",
+              "gesture": "Agree"
             }
           ]
         }
@@ -1448,13 +1458,15 @@
               "id": "S04.1a",
               "speakerId": "luma",
               "ru": "Вот вы где! По вашему звону можно рисовать карту.",
-              "en": "There you are! I could draw a map by following that bell."
+              "en": "There you are! I could draw a map by following that bell.",
+              "gesture": "Greet"
             },
             {
               "id": "S04.1b",
               "speakerId": "scratchy",
               "ru": "Лума, теперь твоя очередь!",
-              "en": "Jo, it is your turn now!"
+              "en": "Jo, it is your turn now!",
+              "gesture": "Laugh"
             }
           ]
         }
@@ -1474,13 +1486,15 @@
               "id": "S05.1a",
               "speakerId": "bum",
               "ru": "Я вас догнал. И перекус почти не помял.",
-              "en": "I caught up. And the snacks are almost uncrushed."
+              "en": "I caught up. And the snacks are almost uncrushed.",
+              "gesture": "Greet"
             },
             {
               "id": "S05.1b",
               "speakerId": "scratchy",
               "ru": "Тогда дальше вместе. Я видел, куда полетела птица.",
-              "en": "Then let us go together. I saw which way the bird flew."
+              "en": "Then let us go together. I saw which way the bird flew.",
+              "gesture": "Agree"
             }
           ]
         }
@@ -1500,13 +1514,15 @@
               "id": "S06.1a",
               "speakerId": "tish",
               "ru": "За грибной долиной что-то блестит. Это линза?",
-              "en": "Something is shining beyond Mushroom Hollow. Is that the lens?"
+              "en": "Something is shining beyond Mushroom Hollow. Is that the lens?",
+              "gesture": "Doubt"
             },
             {
               "id": "S06.1b",
               "speakerId": "luma",
               "ru": "Отсюда не разглядеть. Наш путь только начинается.",
-              "en": "It is too far to tell. Our journey is only beginning."
+              "en": "It is too far to tell. Our journey is only beginning.",
+              "gesture": "Agree"
             }
           ]
         }

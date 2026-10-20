@@ -38,6 +38,7 @@ namespace Diceforge.Map
             Root.AddToClassList("woodland-map");
             Root.styleSheets.Add(styleSheet);
             Stage = Element("WoodlandMapStage", "wm-stage", Root);
+            Stage.style.visibility = Visibility.Hidden;
             var scenery = Element("WoodlandMapScenery", "wm-scenery", Stage);
             scenery.pickingMode = PickingMode.Ignore;
             water = new WoodlandWaterElement(waterSettings);
@@ -67,6 +68,7 @@ namespace Diceforge.Map
             var title = Element("WoodlandTitlePlaque", "wm-title-plaque", Stage);
             Label("WoodlandChapter", "wm-chapter", "CHAPTER 1", title);
             Label("WoodlandTitle", "wm-title", "WOODLAND TRAIL", title);
+            HeroImage.BringToFront();
             var back = new Button(() => BackRequested?.Invoke()) { name = "WoodlandBack", tooltip = "Back to menu" };
             back.AddToClassList("wm-back");
             Stage.Add(back);
@@ -178,12 +180,7 @@ namespace Diceforge.Map
             if (index < 0 || index >= nodes.Length) throw new ArgumentOutOfRangeException(nameof(index));
             float left = nodes[index].style.left.value.value;
             float top = nodes[index].style.top.value.value;
-            // Upper clearings sit beside the title. Stand next to their stone, below the plaque.
-            bool upperClearing = top < 290f;
-            float sideOffset = left > ReferenceWidth * .7f ? -79f : 115f;
-            float heroLeft = left + (upperClearing ? sideOffset : 18f);
-            float heroTop = upperClearing ? 184f : top - 103f;
-            return new Vector2(heroLeft + 72f, heroTop + 135f);
+            return new Vector2(left + 90f, top + 32f);
         }
 
         public void SetHeroGroundPosition(Vector2 position)
@@ -211,6 +208,7 @@ namespace Diceforge.Map
             // Transform origin is explicitly top-left: terrain and all controls share one transform.
             Stage.style.left = (width - ReferenceWidth * scale) * .5f;
             Stage.style.top = (height - ReferenceHeight * scale) * .5f;
+            Stage.style.visibility = Visibility.Visible;
         }
 
         private static VisualElement Element(string name, string className, VisualElement parent)

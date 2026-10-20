@@ -36,7 +36,6 @@
 #chestRewardOverlay Label,
 #serverUnavailableOverlay Label,
 #DialoguePanel Label,
-#worldSelectionRoot Label,
 #woodlandRoot Label,
 #demoNarrativeRoot Label,
 #MapRoot Label,
@@ -58,7 +57,6 @@
 #chestRewardOverlay Button,
 #serverUnavailableOverlay Button,
 #DialoguePanel Button,
-#worldSelectionRoot Button,
 #woodlandRoot Button,
 #demoNarrativeRoot Button,
 #MapRoot Button,
@@ -72,7 +70,6 @@
 #woodlandRoot .pause-primary,
 #woodlandRoot .demo-hero.selected,
 #woodlandRoot .move-token.selected,
-#worldSelectionRoot .world-replay,
 #resultOverlayRoot #backToMenuButton,
 #levelUpOverlay Button,
 #chestRewardOverlay Button,
@@ -85,8 +82,7 @@
 #woodlandRoot .hud-header,
 #woodlandRoot #demoActionSurface,
 #demoNarrativeRoot #storyDialogue,
-#trail-overlay .trail-panel,
-#worldSelectionRoot .world-details {
+#trail-overlay .trail-panel {
  background-image: url("../07_Art/UI/GlimblehopMenu/button-secondary.png");
  background-size: 100% 100%; background-color: transparent; border-width: 0; border-radius: 0;
  -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48; -unity-slice-scale: .5;
@@ -112,7 +108,6 @@
 #chestRewardOverlay Button:hover,
 #serverUnavailableOverlay Button:hover,
 #DialoguePanel Button:hover,
-#worldSelectionRoot Button:hover,
 #woodlandRoot Button:hover,
 #demoNarrativeRoot Button:hover,
 #MapRoot Button:hover,
@@ -131,15 +126,14 @@
 #chestRewardOverlay Button:disabled,
 #serverUnavailableOverlay Button:disabled,
 #DialoguePanel Button:disabled,
-#worldSelectionRoot Button:disabled,
 #woodlandRoot Button:disabled,
 #demoNarrativeRoot Button:disabled,
 #MapRoot Button:disabled,
 #trail-overlay Button:disabled { opacity: .5; }
-
-#woodlandRoot .hud-header, #woodlandRoot #demoActionSurface,
-#demoNarrativeRoot #storyDialogue, #trail-overlay .trail-panel,
-#worldSelectionRoot .world-details {
+#woodlandRoot .hud-header,
+#woodlandRoot #demoActionSurface,
+#demoNarrativeRoot #storyDialogue,
+#trail-overlay .trail-panel {
  background-image: url("../07_Art/UI/GlimblehopMenu/settings-panel-refined.png");
  -unity-slice-left: 180; -unity-slice-right: 180; -unity-slice-top: 220; -unity-slice-bottom: 180; -unity-slice-scale: .15;
 }
@@ -198,14 +192,12 @@
 #TutorialRoot Label { color: rgb(65,43,25); -unity-text-outline-width: 0; text-shadow: 0 0 0 transparent; }
 #TutorialRoot .tutorial-header-row { background-color: rgb(245,221,177); border-color: rgb(174,132,75); }
 #TutorialRoot Button { background-color: rgb(245,221,177); color: rgb(65,43,25); border-color: rgb(174,132,75); }
-
 #resultOverlayRoot .result-overlay-panel,
 #levelUpOverlay .level-up-panel,
 #chestRewardOverlay .chest-reward-panel,
 #serverUnavailableOverlay .server-unavailable-window,
 #DialoguePanel .df-dialogue-window,
-#trail-overlay .trail-panel,
-#worldSelectionRoot .world-details {
+#trail-overlay .trail-panel {
  -unity-slice-left: 360; -unity-slice-right: 260;
  -unity-slice-top: 220; -unity-slice-bottom: 280;
  -unity-slice-scale: .22px;

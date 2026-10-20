@@ -249,7 +249,10 @@ namespace Diceforge.Tests.BattleTermination
             // Complete the short trail so the real victory sequence exercises the same renderer.
             for (int move = 0; move < 4; move++)
             {
+                var stepBeforeSelection = hud.rootVisualElement.Q("moves").Q<Button>();
                 Runtime.Call(battle, "SelectPresentationDie", 0);
+                yield return null; yield return null;
+                Assert.That(hud.rootVisualElement.Q("moves").Q<Button>(), Is.SameAs(stepBeforeSelection), "Selecting a step must preserve its UI element and focus.");
                 Runtime.Call(battle, "MovePresentationHero", "tish");
                 yield return Until(() => !(bool)Runtime.Get(battle, "PresentationIsAnimating"), "Tish's movement did not finish.");
                 yield return null;

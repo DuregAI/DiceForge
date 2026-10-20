@@ -33,7 +33,7 @@ namespace Diceforge.View
                 var renderer=target.GetComponent<Renderer>();
                 if(renderer!=null){renderer.lightmapIndex=binding.index;renderer.lightmapScaleOffset=binding.scaleOffset;}
             }
-            foreach(var light in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))if(light.type==LightType.Directional)
+            foreach(var light in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))if(light.type==LightType.Directional && light.gameObject.layer!=30)
             {
 #if UNITY_EDITOR
                 light.lightmapBakeType=LightmapBakeType.Mixed;

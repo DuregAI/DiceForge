@@ -19,6 +19,7 @@ namespace Diceforge.Map
         public void Show(Image target)
         {
             if (target == null) throw new ArgumentNullException(nameof(target));
+            if (image == target && loaded) return;
             StopPresentation();
             if (!loaded)
             {
@@ -41,7 +42,7 @@ namespace Diceforge.Map
         {
             if (moving != isMoving) startedAt = Time.unscaledTime;
             moving = isMoving;
-            if (image != null) image.style.scale = new Scale(new Vector3(faceLeft ? -1f : 1f, 1f, 1f));
+            if (image != null && isMoving) image.style.scale = new Scale(new Vector3(faceLeft ? -1f : 1f, 1f, 1f));
         }
 
         private void Update()

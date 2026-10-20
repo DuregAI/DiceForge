@@ -46,6 +46,32 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [UnityTest]
+        public IEnumerator TishHopDoesNotBlendIntoRunningOrRestartIdleAtLanding()
+        {
+            Object.DestroyImmediate(hero);
+            hero = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/07_Art/Characters/TishTripo/Tish.prefab"));
+            mover = hero.GetComponent(Runtime.Type("View.BoardLayoutTokenMover"));
+            Runtime.Call(mover, "SetGeometry", board.GetComponent(Runtime.Type("View.DioramaBoard")));
+            Runtime.Call(mover, "SetHopPresentation", true);
+            Runtime.Call(mover, "SnapToWorld", Vector3.zero, 0);
+            var animator = hero.GetComponentInChildren<Animator>();
+            for (int frame = 0; frame < 3; frame++) yield return null;
+            float previousPhase = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            Runtime.Call(mover, "MoveToWorld", Vector3.right * 2f, 2, .66f);
+            for (int frame = 0; frame < 70; frame++)
+            {
+                yield return null;
+                var state = animator.GetCurrentAnimatorStateInfo(0);
+                Assert.That(state.IsName("Idle"), Is.True, "Tish has no authored jump: his run clip must not displace the body in mid-air.");
+                Assert.That(animator.IsInTransition(0), Is.False);
+                Assert.That(state.normalizedTime, Is.GreaterThanOrEqualTo(previousPhase), "Landing must not jump to a random idle pose.");
+                previousPhase = state.normalizedTime;
+            }
+            Assert.That(Runtime.Get(mover, "IsAnimating"), Is.False);
+            Assert.That(Vector3.Distance(hero.transform.position, Vector3.right * 2f), Is.LessThan(.0001f));
+        }
+
+        [UnityTest]
         public IEnumerator HopKeepsFormationScalePausesAndCommitsDestinationAfterContactRecovery()
         {
             var visual = hero.transform.Find("Hop presentation");
@@ -54,7 +80,11 @@ namespace Diceforge.Tests.BattleTermination
             Runtime.Call(life, "React", "UnsupportedTestReaction", .2f);
             Assert.That(Runtime.Field(life, "reaction"), Is.Null, "An unavailable reaction must leave movement animation free.");
             var animator = hero.GetComponentInChildren<Animator>();
-            Assert.That(animator.transform.Find("GoblinFriend_Rig/Root"), Is.Not.Null, "Wrapping the model must preserve Animator bone paths.");
+            var bindings = AnimationUtility.GetCurveBindings(animator.runtimeAnimatorController.animationClips[0]);
+            Assert.That(bindings.Length, Is.GreaterThan(0), "The board idle must animate the imported skeleton.");
+            foreach (var binding in bindings)
+                if (binding.type == typeof(Transform) && !string.IsNullOrEmpty(binding.path))
+                    Assert.That(animator.transform.Find(binding.path), Is.Not.Null, "Wrapping the model must preserve Animator bone path: " + binding.path);
             Runtime.Call(mover, "SetVisualOffset", new Vector3(.1f, 0f, .2f));
             Runtime.Call(mover, "MoveToWorld", Vector3.right * 2f, 2, .6f);
             for (int frame = 0; frame < 18; frame++) yield return null;

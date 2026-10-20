@@ -1,0 +1,11 @@
+Gameplay UI polish — 2026-10-16
+
+Changes: compact portrait header, separate friend row for multiple heroes on narrow screens, stronger vector service icons with consistent contrast and interaction states, visible selected hero, responsive result window with cream title and reachable actions.
+
+Validation:
+- MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes: Passed after final result-layout changes. Six levels, English/Russian, HUD captures and control bounds at 1280x720, 720x1280, 640x360, 360x640. Result action picking verified at 640x360 and 360x640. Includes saving, world selection and replay checks.
+- StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible: Passed after final gameplay-layout changes. Four render sizes, two languages, story/hint continuity and HUD input bounds.
+- Final Unity console: no errors. Git diff --check: no whitespace errors.
+- Visually reviewed narrow multi-hero HUD, both small result layouts, wide HUD and restored world-selection art.
+
+This validates the Editor source. The distribution archive has not been rebuilt for this UI update.

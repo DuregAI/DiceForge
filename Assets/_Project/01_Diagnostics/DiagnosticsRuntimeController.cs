@@ -89,7 +89,7 @@ namespace Diceforge.Diagnostics
         private readonly List<IDiagnosticsSessionSummarySink> _sessionSummarySinks = new List<IDiagnosticsSessionSummarySink>(1);
         private readonly Queue<string> _recentEventLines = new Queue<string>(MaxRecentEvents);
         private bool _initialized;
-        private bool _sceneLoadedSubscribed;
+        [NonSerialized] private bool _sceneLoadedSubscribed;
         private bool _shutdownRecorded;
         private bool _overlayVisible;
         private DiagnosticsOptions _options;
@@ -154,6 +154,7 @@ namespace Diceforge.Diagnostics
 
         private void OnEnable()
         {
+            InitializeIfNeeded();
             SubscribeSceneLoaded();
         }
 
@@ -331,7 +332,8 @@ namespace Diceforge.Diagnostics
 
         private void InitializeIfNeeded()
         {
-            if (_initialized)
+            if (_initialized && _performanceSampler != null && _options != null &&
+                _eventQueue != null && _transport != null && _sessionSnapshot != null)
                 return;
 
             _options = new DiagnosticsOptions();

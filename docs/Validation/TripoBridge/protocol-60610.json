@@ -1,0 +1,45 @@
+{
+  "port": 60610,
+  "passed": true,
+  "importTest": true,
+  "events": [
+    {
+      "type": "handshake_ack",
+      "payload": {
+        "success": true,
+        "clientName": "Unity",
+        "dccVersion": "6000.6.0f1",
+        "pluginVersion": "1.0.0",
+        "protocolVersion": "1.0.0"
+      }
+    },
+    {
+      "type": "pong"
+    },
+    {
+      "type": "file_transfer_ack",
+      "payload": {
+        "success": true,
+        "fileId": "996463c4-2b9b-4ea7-98cc-f48fef0266b2",
+        "fileIndex": 0,
+        "code": 0
+      }
+    },
+    {
+      "type": "file_transfer_complete",
+      "payload": {
+        "fileId": "996463c4-2b9b-4ea7-98cc-f48fef0266b2",
+        "status": "importing",
+        "message": "File transfer complete, importing model..."
+      }
+    },
+    {
+      "type": "import_complete",
+      "payload": {
+        "fileId": "996463c4-2b9b-4ea7-98cc-f48fef0266b2",
+        "success": true,
+        "message": "Model imported successfully"
+      }
+    }
+  ]
+}

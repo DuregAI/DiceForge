@@ -141,13 +141,34 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [Test]
-        public void ReducedMotionDisablesIdleCameraSway()
+        public void IdleCameraRemainsStillWithAndWithoutReducedMotion()
         {
             Runtime.Call(controller, "StepMotion", .02f, false, true, 4f);
-            Assert.That(Quaternion.Angle(camera.transform.rotation, homeRotation), Is.GreaterThan(.05f));
+            Assert.That(Quaternion.Angle(camera.transform.rotation, homeRotation), Is.LessThan(.001f));
             Runtime.Call(controller, "StepMotion", .02f, true, true, 4f);
             Assert.That(Quaternion.Angle(camera.transform.rotation, homeRotation), Is.LessThan(.001f));
             Assert.That(camera.transform.position, Is.EqualTo(homePosition));
+        }
+
+        [Test]
+        public void HudReframingDoesNotSnapAndConvergesWithoutOvershoot()
+        {
+            Vector3 destination = homePosition + homeRotation * Vector3.up * 2f;
+            Runtime.Call(controller, "ReframeHomePose", camera, Vector3.zero, destination, homeRotation, 7f,
+                new Rect(.05f, .3f, .9f, .5f), new Vector3[0]);
+            Assert.That(camera.orthographicSize, Is.EqualTo(5f));
+            Assert.That(camera.transform.position, Is.EqualTo(homePosition));
+            float lastSize = 5f;
+            for (int frame = 0; frame < 120; frame++)
+            {
+                Runtime.Call(controller, "StepMotion", 1f / 60f, false, false, frame / 60f);
+                Assert.That(camera.orthographicSize, Is.InRange(lastSize, 7.00001f));
+                Assert.That(camera.orthographicSize - lastSize, Is.LessThan(.4f));
+                lastSize = camera.orthographicSize;
+            }
+            Assert.That(camera.orthographicSize, Is.EqualTo(7f).Within(.0001f));
+            Assert.That(Vector3.Distance(camera.transform.position, destination), Is.LessThan(.001f));
+            Assert.That(Runtime.Get(controller, "IsReframing"), Is.False);
         }
 
         private void Begin(Vector2 point, bool allowed) => Runtime.Call(controller, "BeginPointer", point, allowed, false, -1);
