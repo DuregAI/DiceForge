@@ -12,7 +12,7 @@ namespace Diceforge.View.Editor
     /// <summary>Repeatable art review of the shipped prefab, with no player-save changes.</summary>
     public static class LivingForestReview
     {
-        public static void Capture(string output, float time = 3f, bool close = false)
+        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode before taking an art review.");
             var originalScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
@@ -29,10 +29,19 @@ namespace Diceforge.View.Editor
             try
             {
                 ShaderUtil.allowAsyncCompilation = false;
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.prefab");
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath ?? "Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.prefab");
                 var root = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
                 var board = root.GetComponent<DioramaBoard>();
                 board.landscapeRoot.SetActive(true); board.portraitRoot.SetActive(false);
+                if (foliageStudy)
+                {
+                    board.Initialize(); board.ConfigureTrail(true, 4, 1.15f);
+                    var hero = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/07_Art/Characters/TishTripo/Tish.prefab"), scene);
+                    hero.transform.position = board.CellPosition(4) + Vector3.up * .02f;
+                    hero.transform.localScale = Vector3.one * .78f; hero.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    hero.GetComponentInChildren<CharacterAppearance>()?.Apply(false);
+                    var mover = hero.GetComponent<BoardLayoutTokenMover>(); if (mover != null) mover.enabled = false;
+                }
                 var stage = root.GetComponent<WoodlandHeroStage>();
                 QualitySettings.renderPipeline = stage.pipelineOverride;
                 RenderSettings.fog = true; RenderSettings.fogMode = FogMode.Linear;
@@ -55,6 +64,12 @@ namespace Diceforge.View.Editor
                 camera.cullingMask = ~((1 << 5) | (1 << 30));
                 camera.transform.rotation = Quaternion.Euler(close ? 39 : 50, 0, 0);
                 camera.transform.position = (close ? new Vector3(1.7f, .3f, .6f) : new Vector3(0, .4f, .4f)) - camera.transform.forward * 25;
+                if (foliageStudy)
+                {
+                    camera.orthographicSize = 1.8f;
+                    camera.transform.rotation = Quaternion.Euler(42, 0, 0);
+                    camera.transform.position = new Vector3(-.15f, .3f, -.65f) - camera.transform.forward * 25;
+                }
                 var data = camera.GetUniversalAdditionalCameraData(); data.renderPostProcessing = true; data.SetRenderer(0);
                 data.requiresColorTexture = true; data.requiresDepthTexture = true;
                 root.GetComponentInChildren<LivingForestMotion>(true).Apply(time);
