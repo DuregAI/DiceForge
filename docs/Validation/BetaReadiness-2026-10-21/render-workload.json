@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-21",
+  "source": "FirstTrail8 prefab instantiated in Editor, enabled meshes in active hierarchy; full route before camera culling",
+  "meshTriangles": 931943,
+  "materialSubmissionsBeforeCulling": 470,
+  "oakAndFirTriangles": 301822,
+  "lodGroups": 0,
+  "desktopPipeline": "Assets/_Project/05_Gameplay_Data/Battle/WoodlandHero/HeroPipeline.asset",
+  "mobilePipeline": "Assets/_Project/05_Gameplay_Data/Battle/WoodlandHero/HeroPipeline.asset",
+  "stageOverride": "Assets/_Project/05_Gameplay_Data/Battle/WoodlandHero/HeroPipeline.asset",
+  "renderScale": 1,
+  "msaa": 4,
+  "shadowCascades": 4,
+  "shadowMapSize": 2048,
+  "planarReflectionPlanes": 2,
+  "reflectionDesktop": { "width": 512, "framesPerSecond": 12 },
+  "reflectionMobile": { "width": 256, "framesPerSecond": 6 },
+  "reflectionCameraMovement": "Captures every frame when the source pose or orthographic size changes, bypassing the stationary-view throttle.",
+  "limitations": [
+    "Triangle/submesh counts are potential workload, not actual post-culling draw calls.",
+    "No Player FPS, memory, thermal or physical mobile measurements have been taken.",
+    "The current Editor machine uses an RTX 4080 SUPER; Editor smoothness does not establish a phone budget."
+  ]
+}

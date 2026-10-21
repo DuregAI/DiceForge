@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Failed(Child)" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0,8125625">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="182" result="Failed" site="Child" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.812563" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1134" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="104" result="Failed" site="Child" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.677979" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1135" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="104" result="Failed" site="Child" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.663638" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1136" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="104" result="Failed" site="Child" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.654926" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1137" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="104" result="Failed" site="Child" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.645944" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1061" name="DemoCheckpointFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-21 02:00:38Z" end-time="2026-10-21 02:00:53Z" duration="15.005990" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1064" name="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" methodname="FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="2014397567" result="Passed" start-time="2026-10-21 01:59:34Z" end-time="2026-10-21 01:59:55Z" duration="20.030133" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792547985157 session=67e052897c804ec7bf3ed4619cc726a2 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792547987328 session=67e052897c804ec7bf3ed4619cc726a2 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792547987398 session=67e052897c804ec7bf3ed4619cc726a2 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792547991328 session=67e052897c804ec7bf3ed4619cc726a2 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792547993283 session=67e052897c804ec7bf3ed4619cc726a2 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792547993349 session=67e052897c804ec7bf3ed4619cc726a2 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792547994529 session=67e052897c804ec7bf3ed4619cc726a2 payload={sessionStartUnixMsUtc=1792547981197, sessionEndUnixMsUtc=1792547994529, durationSeconds=13.332, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=5, battlesStartedCount=2, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=6626, totalSampledSeconds=19.335, averageFps=342.698, minimumWindowFps=0.157, averageFrameTimeMs=2.918, worstSpikeMs=6383.494}
+]]></output>
+              </test-case>
+              <test-case id="1063" name="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" methodname="IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="924704273" result="Passed" start-time="2026-10-21 01:59:55Z" end-time="2026-10-21 02:00:30Z" duration="35.540665" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548004454 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548006620 session=7cf9c7a3500f416ba20cc27462af8126 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548006692 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T3
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548012449 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548014491 session=7cf9c7a3500f416ba20cc27462af8126 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548014562 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(2, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548018654 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548019455 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548021405 session=7cf9c7a3500f416ba20cc27462af8126 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548021494 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T7
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548024827 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548026777 session=7cf9c7a3500f416ba20cc27462af8126 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548026847 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792548028001 session=7cf9c7a3500f416ba20cc27462af8126 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548028896 session=7cf9c7a3500f416ba20cc27462af8126 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548030072 session=7cf9c7a3500f416ba20cc27462af8126 payload={sessionStartUnixMsUtc=1792548000968, sessionEndUnixMsUtc=1792548030072, durationSeconds=29.104, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=MainMenu, scenesLoadedCount=11, battlesStartedCount=4, battlesEndedCount=1, sampleWindowSeconds=3, totalFrames=15455, totalSampledSeconds=34.949, averageFps=442.219, minimumWindowFps=0.161, averageFrameTimeMs=2.261, worstSpikeMs=6210.12}
+]]></output>
+              </test-case>
+              <test-case id="1062" name="MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" fullname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" methodname="MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario" classname="Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests" runstate="Runnable" seed="1322738283" result="Passed" start-time="2026-10-21 02:00:30Z" end-time="2026-10-21 02:00:53Z" duration="23.049672" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548039729 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548041893 session=020cc69452b34676afa898f72bab7d83 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548041965 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 2)  Outcome=1, 2  Pip=2  T0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548045180 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548047153 session=020cc69452b34676afa898f72bab7d83 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548047219 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548050021 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548051982 session=020cc69452b34676afa898f72bab7d83 payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548052049 session=020cc69452b34676afa898f72bab7d83 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548053201 session=020cc69452b34676afa898f72bab7d83 payload={sessionStartUnixMsUtc=1792548036610, sessionEndUnixMsUtc=1792548053201, durationSeconds=16.591, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=7, battlesStartedCount=3, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=9102, totalSampledSeconds=22.522, averageFps=404.136, minimumWindowFps=0.158, averageFrameTimeMs=2.474, worstSpikeMs=6324.852}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1089" name="DemoNarrativePresentationTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-21 02:01:42Z" end-time="2026-10-21 02:01:55Z" duration="12.536670" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1092" name="RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" methodname="RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="140405576" result="Passed" start-time="2026-10-21 02:00:53Z" end-time="2026-10-21 02:01:16Z" duration="23.291498" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548063307 session=447bf0fdbb334350b1d6b7a58b148454 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548065480 session=447bf0fdbb334350b1d6b7a58b148454 payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548065546 session=447bf0fdbb334350b1d6b7a58b148454 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T8
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T9
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548076507 session=447bf0fdbb334350b1d6b7a58b148454 payload={sessionStartUnixMsUtc=1792548059755, sessionEndUnixMsUtc=1792548076507, durationSeconds=16.752, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=7108, totalSampledSeconds=22.752, averageFps=312.41, minimumWindowFps=0.157, averageFrameTimeMs=3.201, worstSpikeMs=6367.353}
+]]></output>
+              </test-case>
+              <test-case id="1091" name="RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" methodname="RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="31532766" result="Passed" start-time="2026-10-21 02:01:17Z" end-time="2026-10-21 02:01:34Z" duration="17.345414" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548086533 session=70392da267ea4eacb929b3a735937544 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548088695 session=70392da267ea4eacb929b3a735937544 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548088763 session=70392da267ea4eacb929b3a735937544 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548093893 session=70392da267ea4eacb929b3a735937544 payload={sessionStartUnixMsUtc=1792548082991, sessionEndUnixMsUtc=1792548093893, durationSeconds=10.902, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=5004, totalSampledSeconds=16.814, averageFps=297.614, minimumWindowFps=0.158, averageFrameTimeMs=3.36, worstSpikeMs=6310.617}
+]]></output>
+              </test-case>
+              <test-case id="1090" name="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" methodname="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="1459019501" result="Failed" start-time="2026-10-21 02:01:34Z" end-time="2026-10-21 02:01:55Z" duration="20.672194" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Tile 0 is outside the left edge.
+  Expected: greater than 4.0f
+  But was:  -44.1825943f
+]]></message>
+                  <stack-trace><![CDATA[at Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.AssertTrailFitsVisibleViewport (UnityEngine.UIElements.VisualElement hud) [0x00194] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\BattleRunner\DemoNarrativePresentationTests.cs:772
+at Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests+<CapturePresentations>d__34.MoveNext () [0x008ce] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\BattleRunner\DemoNarrativePresentationTests.cs:703
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@7a3849e09bd0\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548105229 session=0fb52f14d25f4dcd887234e4ee02e2a7 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548109722 session=0fb52f14d25f4dcd887234e4ee02e2a7 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548111733 session=0fb52f14d25f4dcd887234e4ee02e2a7 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548111808 session=0fb52f14d25f4dcd887234e4ee02e2a7 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548114584 session=0fb52f14d25f4dcd887234e4ee02e2a7 payload={sessionStartUnixMsUtc=1792548100454, sessionEndUnixMsUtc=1792548114584, durationSeconds=14.13, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=4, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=5855, totalSampledSeconds=20.136, averageFps=290.766, minimumWindowFps=0.157, averageFrameTimeMs=3.439, worstSpikeMs=6373.353}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1131" name="ServerConnectionRecoveryTests" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 02:02:11Z" end-time="2026-10-21 02:02:12Z" duration="0.600319" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1133" name="FinalHandshakeTimeoutStopsAndCancelsItsParser" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.FinalHandshakeTimeoutStopsAndCancelsItsParser" methodname="FinalHandshakeTimeoutStopsAndCancelsItsParser" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" seed="1327451431" result="Passed" start-time="2026-10-21 02:01:55Z" end-time="2026-10-21 02:02:03Z" duration="8.790527" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (1/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548123366 session=9af34629639b4c4a95e49957c952b021 payload={sessionStartUnixMsUtc=1792548121131, sessionEndUnixMsUtc=1792548123366, durationSeconds=2.235, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=12, totalSampledSeconds=8.212, averageFps=1.461, minimumWindowFps=0.157, averageFrameTimeMs=684.348, worstSpikeMs=6385.751}
+]]></output>
+              </test-case>
+              <test-case id="1132" name="TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" fullname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" methodname="TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink" classname="Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests" runstate="Runnable" seed="296265486" result="Passed" start-time="2026-10-21 02:02:03Z" end-time="2026-10-21 02:02:12Z" duration="8.671153" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[SpacetimeDb] Connecting to 'connection-recovery-test' at http://127.0.0.1:1 (1/23).
+SpacetimeDBClient: Connecting to ws://127.0.0.1:1 connection-recovery-test
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548132092 session=faad9dc14daf4d5c8e1643cb349a7021 payload={sessionStartUnixMsUtc=1792548129889, sessionEndUnixMsUtc=1792548132092, durationSeconds=2.203, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=12, totalSampledSeconds=8.126, averageFps=1.477, minimumWindowFps=0.159, averageFrameTimeMs=677.19, worstSpikeMs=6297.102}
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\beta-readiness-audit.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

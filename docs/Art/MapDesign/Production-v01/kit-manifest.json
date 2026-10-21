@@ -1,0 +1,241 @@
+[
+  {
+    "name": "Pine_A",
+    "triangles": 7628,
+    "materials": [
+      "ForestBark",
+      "ForestNeedle"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Pine_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Pine_B",
+    "triangles": 7628,
+    "materials": [
+      "ForestBark",
+      "ForestNeedle"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Pine_B.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Shrub_A",
+    "triangles": 1044,
+    "materials": [
+      "ForestBark",
+      "ForestLeaf"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Shrub_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Shrub_B",
+    "triangles": 1044,
+    "materials": [
+      "ForestBark",
+      "ForestLeaf"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Shrub_B.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Fern_A",
+    "triangles": 576,
+    "materials": [
+      "ForestLeaf"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Fern_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Reeds_A",
+    "triangles": 1100,
+    "materials": [
+      "ForestReed",
+      "ForestSeed"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Reeds_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Boulder_A",
+    "triangles": 320,
+    "materials": [
+      "ForestStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Boulder_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Boulder_B",
+    "triangles": 320,
+    "materials": [
+      "ForestStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Boulder_B.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Boulder_C",
+    "triangles": 320,
+    "materials": [
+      "ForestStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Boulder_C.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Lantern_A",
+    "triangles": 700,
+    "materials": [
+      "ForestMetal",
+      "ForestGlass",
+      "ForestFlame"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Lantern_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Flag_A",
+    "triangles": 192,
+    "materials": [
+      "ForestCloth"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Flag_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "ExitPost_A",
+    "triangles": 484,
+    "materials": [
+      "ForestWood",
+      "ForestReed"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\ExitPost_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "GrassTuft_A",
+    "triangles": 168,
+    "materials": [
+      "ForestReed"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\GrassTuft_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Ivy_A",
+    "triangles": 288,
+    "materials": [
+      "ForestReed",
+      "ForestLeaf"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Ivy_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "ExitStone_A",
+    "triangles": 320,
+    "materials": [
+      "ForestStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\ExitStone_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "Flowers_A",
+    "triangles": 546,
+    "materials": [
+      "ForestReed",
+      "ForestPetal",
+      "ForestPollen"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Flowers_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "BackdropBank_A",
+    "triangles": 1360,
+    "materials": [
+      "ForestLeaf",
+      "ForestStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\BackdropBank_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "CreekBed_A",
+    "triangles": 120,
+    "materials": [
+      "ForestSand"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\CreekBed_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "CreekPebbles_A",
+    "triangles": 3100,
+    "materials": [
+      "ForestWetStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\CreekPebbles_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "ShorePebbles_A",
+    "triangles": 2340,
+    "materials": [
+      "ForestWetStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\ShorePebbles_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "RiverSurface_A",
+    "triangles": 5760,
+    "materials": [
+      "ForestRiver"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\RiverSurface_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "RiverRocks_A",
+    "triangles": 80,
+    "materials": [
+      "ForestWetStone"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\RiverRocks_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "AsymmetricShelf_A",
+    "triangles": 1600,
+    "materials": [
+      "ForestSand"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\AsymmetricShelf_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "ForegroundBranch_A",
+    "triangles": 1985,
+    "materials": [
+      "OakBark",
+      "OakLeaves"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\ForegroundBranch_A.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  },
+  {
+    "name": "ForegroundBranch_B",
+    "triangles": 1985,
+    "materials": [
+      "OakBark",
+      "OakLeaves"
+    ],
+    "file": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\ForegroundBranch_B.fbx",
+    "pivot": "ground; Lantern suspension ring; Flag pole-side upper corner"
+  }
+]

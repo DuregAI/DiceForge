@@ -1,0 +1,17 @@
+{
+  "source": "Luma_v03.blend",
+  "texture": "Luma Forest Outfit BaseColor",
+  "selectedFaces": 1013,
+  "vertices": 7825,
+  "shapeKeys": 7,
+  "actions": [
+    "Dialogue_Agree",
+    "Dialogue_Doubt",
+    "Dialogue_Greet",
+    "Dialogue_Laugh",
+    "Dialogue_Listen",
+    "Dialogue_Talk",
+    "Idle_Scene"
+  ],
+  "fbxReexported": false
+}

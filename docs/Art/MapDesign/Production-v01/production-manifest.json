@@ -1,0 +1,186 @@
+{
+  "revision": "LivingForest beta v03",
+  "date": "2026-10-21",
+  "prefabs": 31,
+  "tripoCredits": 390,
+  "runtimeVideo": "../../../Validation/LivingForest/Beta-v03/living-forest-unity.mp4",
+  "assets": [
+    {
+      "name": "Pine_A",
+      "triangles": 7628,
+      "source": "Blender"
+    },
+    {
+      "name": "Pine_B",
+      "triangles": 7628,
+      "source": "Blender"
+    },
+    {
+      "name": "Shrub_A",
+      "triangles": 1044,
+      "source": "Blender"
+    },
+    {
+      "name": "Shrub_B",
+      "triangles": 1044,
+      "source": "Blender"
+    },
+    {
+      "name": "Fern_A",
+      "triangles": 576,
+      "source": "Blender"
+    },
+    {
+      "name": "Reeds_A",
+      "triangles": 1100,
+      "source": "Blender"
+    },
+    {
+      "name": "Boulder_A",
+      "triangles": 320,
+      "source": "Blender"
+    },
+    {
+      "name": "Boulder_B",
+      "triangles": 320,
+      "source": "Blender"
+    },
+    {
+      "name": "Boulder_C",
+      "triangles": 320,
+      "source": "Blender"
+    },
+    {
+      "name": "Lantern_A",
+      "triangles": 700,
+      "source": "Blender"
+    },
+    {
+      "name": "Flag_A",
+      "triangles": 192,
+      "source": "Blender"
+    },
+    {
+      "name": "ExitPost_A",
+      "triangles": 484,
+      "source": "Blender"
+    },
+    {
+      "name": "GrassTuft_A",
+      "triangles": 168,
+      "source": "Blender"
+    },
+    {
+      "name": "Ivy_A",
+      "triangles": 288,
+      "source": "Blender"
+    },
+    {
+      "name": "ExitStone_A",
+      "triangles": 320,
+      "source": "Blender"
+    },
+    {
+      "name": "Flowers_A",
+      "triangles": 546,
+      "source": "Blender"
+    },
+    {
+      "name": "BackdropBank_A",
+      "triangles": 1360,
+      "source": "Blender"
+    },
+    {
+      "name": "CreekBed_A",
+      "triangles": 120,
+      "source": "Blender"
+    },
+    {
+      "name": "CreekPebbles_A",
+      "triangles": 3100,
+      "source": "Blender"
+    },
+    {
+      "name": "ShorePebbles_A",
+      "triangles": 2340,
+      "source": "Blender"
+    },
+    {
+      "name": "RiverSurface_A",
+      "triangles": 5760,
+      "source": "Blender"
+    },
+    {
+      "name": "RiverRocks_A",
+      "triangles": 80,
+      "source": "Blender"
+    },
+    {
+      "name": "AsymmetricShelf_A",
+      "triangles": 1600,
+      "source": "Blender"
+    },
+    {
+      "name": "ForegroundBranch_A",
+      "triangles": 1985,
+      "source": "Blender"
+    },
+    {
+      "name": "ForegroundBranch_B",
+      "triangles": 1985,
+      "source": "Blender"
+    },
+    {
+      "name": "CanopyShrub_A",
+      "triangles": 2490,
+      "source": "Blender / approved oak texture"
+    },
+    {
+      "name": "CanopyShrub_B",
+      "triangles": 2490,
+      "source": "Blender / approved oak texture"
+    },
+    {
+      "name": "WaterImpactSpray_A",
+      "triangles": 56,
+      "source": "Blender / approved oak texture"
+    },
+    {
+      "name": "Oak_Tripo_A",
+      "triangles": 7301,
+      "source": "Tripo + Blender"
+    },
+    {
+      "name": "Fir_Tripo_A",
+      "triangles": 11728,
+      "source": "Tripo + Blender"
+    },
+    {
+      "name": "RockGarden_Tripo_A",
+      "triangles": 9109,
+      "source": "Tripo + Blender"
+    }
+  ],
+  "validation": {
+    "currentPolishPassed": 9,
+    "graphicsPreviousPassed": 20,
+    "campaignPassed": 1,
+    "campaignLevels": 6,
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "resolutions": [
+      "1280x720",
+      "720x1280",
+      "640x360",
+      "360x640"
+    ]
+  },
+  "staticDressing": {
+    "sourceRenderers": 356,
+    "combinedRenderers": 24,
+    "protectedObjects": 104
+  },
+  "remainingReleaseGate": "Profile a built Player on the target device; editor captures are not a performance benchmark."
+}

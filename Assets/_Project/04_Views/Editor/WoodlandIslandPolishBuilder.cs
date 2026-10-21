@@ -116,6 +116,7 @@ namespace Diceforge.View.Editor
                 AssertGeometry(board, layoutBefore, geometry);
                 Object.DestroyImmediate(oldArt.gameObject);
                 AssertGeometry(board, layoutBefore, geometry);
+                FirstTrailPresentationSetup.BindVisuals(board);
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath, out bool saved);
                 if (!saved)
                     throw new InvalidOperationException("Unity failed to save the polished island prefab.");

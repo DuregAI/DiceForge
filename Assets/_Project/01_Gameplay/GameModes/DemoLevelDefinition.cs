@@ -18,6 +18,9 @@ namespace Diceforge.GameModes
         public GameObject hazardPrefab;
         public DemoCharacterCatalog characters;
         public bool friendlyRace;
+        [Header("Trail presentation")]
+        [Range(0, 7)] public int firstVisibleCell;
+        [Range(1f, 1.3f)] public float cameraZoom = 1f;
 
         public GameObject HeroPrefab(string id)
         {
@@ -27,6 +30,8 @@ namespace Diceforge.GameModes
 
         public void Validate(RulesetConfig rules)
         {
+            if (firstVisibleCell < 0 || firstVisibleCell > 7 || cameraZoom < 1f || cameraZoom > 1.3f)
+                throw new InvalidOperationException($"Demo level '{levelId}' has invalid trail presentation settings.");
             if (rules == null || rules.gameMode != GameMode.SoloTrail || rules.boardSize != 8)
                 throw new InvalidOperationException($"Demo level '{levelId}' requires the eight-cell SoloTrail.");
             if (heroIds == null || heroIds.Length < 1 || heroIds.Length > 3 ||

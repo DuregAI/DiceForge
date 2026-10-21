@@ -77,7 +77,7 @@ namespace Diceforge.View
             foreach (var cell in cells)
             {
                 if (cell == null) continue;
-                bool available = Contains(ids, cell.cellId);
+                bool available = cell.gameObject.activeInHierarchy && Contains(ids, cell.cellId);
                 cell.available = available;
                 if (cell.highlight != null) cell.highlight.enabled = false;
                 if (!available) continue;

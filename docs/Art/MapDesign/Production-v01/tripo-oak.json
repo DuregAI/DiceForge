@@ -1,0 +1,19 @@
+{
+  "provider": "Tripo Studio P2.0",
+  "modelId": "b38b23a6-f8a6-45d3-88a3-de580026abdc",
+  "privacy": "Private",
+  "credits": {
+    "geometry": 100,
+    "texture": 30
+  },
+  "height": 2.65,
+  "leafFaces": 3575,
+  "triangles": 7301,
+  "texture": [
+    2048,
+    2048
+  ],
+  "textureFile": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Textures\\OakColor.jpg",
+  "split": "bark and leaves; height-weighted vertex wind mask",
+  "sourceZip": "C:/Users/tehno/Downloads/Glimblehop_Oak_v01.zip"
+}

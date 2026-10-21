@@ -1,0 +1,760 @@
+{
+  "First_Trail_Polished": {
+    "objects": 1105,
+    "triangles": 491313,
+    "tiles": [
+      {
+        "name": "TrailCell_00.003",
+        "location": [
+          -2.8499999046325684,
+          -1.0499999523162842,
+          0.0
+        ],
+        "dimensions": [
+          0.8748717904090881,
+          0.8079216480255127,
+          0.21093851327896118
+        ]
+      },
+      {
+        "name": "TrailCell_01.003",
+        "location": [
+          -1.9600000381469727,
+          -1.0199999809265137,
+          0.0
+        ],
+        "dimensions": [
+          0.8624204397201538,
+          0.8189023733139038,
+          0.20927204191684723
+        ]
+      },
+      {
+        "name": "TrailCell_02.003",
+        "location": [
+          -1.0800000429153442,
+          -0.800000011920929,
+          0.0
+        ],
+        "dimensions": [
+          0.8579393625259399,
+          0.8265714645385742,
+          0.2083803117275238
+        ]
+      },
+      {
+        "name": "TrailCell_03.003",
+        "location": [
+          -0.28999999165534973,
+          -0.36000001430511475,
+          0.0
+        ],
+        "dimensions": [
+          0.863653302192688,
+          0.8187789916992188,
+          0.20916792750358582
+        ]
+      },
+      {
+        "name": "TrailCell_04.003",
+        "location": [
+          0.3700000047683716,
+          0.23999999463558197,
+          0.0
+        ],
+        "dimensions": [
+          0.8645875453948975,
+          0.8185694217681885,
+          0.20945262908935547
+        ]
+      },
+      {
+        "name": "TrailCell_05.003",
+        "location": [
+          0.8799999952316284,
+          0.9800000190734863,
+          0.0
+        ],
+        "dimensions": [
+          0.8740427494049072,
+          0.8063205480575562,
+          0.21093712747097015
+        ]
+      },
+      {
+        "name": "TrailCell_06.003",
+        "location": [
+          1.7999999523162842,
+          1.3600000143051147,
+          0.0
+        ],
+        "dimensions": [
+          0.871347963809967,
+          0.8143270015716553,
+          0.20846036076545715
+        ]
+      },
+      {
+        "name": "TrailCell_07.003",
+        "location": [
+          2.8399999141693115,
+          1.3799999952316284,
+          0.0
+        ],
+        "dimensions": [
+          0.8639873266220093,
+          0.8144866228103638,
+          0.2066221386194229
+        ]
+      }
+    ],
+    "materials": [
+      "HeroBark.002",
+      "HeroEarth.002",
+      "HeroGold.002",
+      "HeroMoss.002",
+      "HeroPine.002",
+      "HeroRock.002",
+      "HeroTips.002",
+      "HeroWood.002",
+      "IslandFern",
+      "IslandGrass",
+      "IslandLimestone",
+      "IslandLimestoneDark",
+      "IslandLimestoneLight",
+      "IslandMushroom",
+      "IslandMushroomStem",
+      "ShoreLeaf.002",
+      "ShoreMoss.002",
+      "ShoreSand.002",
+      "ShoreStone.002",
+      "ShoreStoneCool.002",
+      "ShoreStoneLight.002",
+      "TrailCanvas.002",
+      "TrailCloth.002",
+      "TrailGround.002",
+      "TrailLake.002",
+      "TrailNeedles",
+      "TrailNeedlesDeep",
+      "TrailNeedlesLight",
+      "TrailSplash.002",
+      "TrailWater.002",
+      "TrailWood.002",
+      "TrialStone0.002",
+      "TrialStone1.002",
+      "WoodlandAtlas.002"
+    ],
+    "names": [
+      "Trail island.003",
+      "Creek bank.036",
+      "Creek bank.037",
+      "Creek bank.038",
+      "Creek bank.039",
+      "Creek bank.040",
+      "Creek bank.041",
+      "Creek bank.042",
+      "Creek bank.043",
+      "Creek bank.044",
+      "Creek bank.045",
+      "Creek bank.046",
+      "Creek bank.047",
+      "Little bridge plank.027",
+      "Little bridge plank.028",
+      "Little bridge plank.029",
+      "Little bridge plank.030",
+      "Little bridge plank.031",
+      "Little bridge plank.032",
+      "Little bridge plank.033",
+      "Little bridge plank.034",
+      "Little bridge plank.035",
+      "Bridge post.012",
+      "Bridge post.013",
+      "Bridge post.014",
+      "Bridge post.015",
+      "Bridge rail.006",
+      "Bridge rail.007",
+      "Small canvas tent.003",
+      "Tent ridge.003",
+      "Tent hem.006",
+      "Tent hem.007",
+      "Crate.002",
+      "Stump.002",
+      "Campfire stones.024",
+      "Campfire stones.025",
+      "Campfire stones.026",
+      "Campfire stones.027",
+      "Campfire stones.028",
+      "Campfire stones.029",
+      "Campfire stones.030",
+      "Campfire stones.031",
+      "Campfire log.003",
+      "Exit post.006",
+      "Exit post.007"
+    ]
+  },
+  "First_Trail_Reference_08": {
+    "objects": 1047,
+    "triangles": 536463,
+    "tiles": [
+      {
+        "name": "TrailCell_00",
+        "location": [
+          -2.8499999046325684,
+          -1.0499999523162842,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8629478216171265,
+          0.8002011179924011,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_01",
+        "location": [
+          -1.9600000381469727,
+          -1.0199999809265137,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8610448241233826,
+          0.8001174926757812,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_04",
+        "location": [
+          0.3700000047683716,
+          0.23999999463558197,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8614549040794373,
+          0.8000632524490356,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_05",
+        "location": [
+          0.8799999952316284,
+          0.9800000190734863,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8529174327850342,
+          0.8008215427398682,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_06",
+        "location": [
+          1.7999999523162842,
+          1.3600000143051147,
+          0.23999999463558197
+        ],
+        "dimensions": [
+          0.8639101982116699,
+          0.7996156215667725,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_07",
+        "location": [
+          2.8399999141693115,
+          1.3799999952316284,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8627743721008301,
+          0.804844081401825,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_02",
+        "location": [
+          -1.0800000429153442,
+          -0.800000011920929,
+          0.0
+        ],
+        "dimensions": [
+          0.8615409135818481,
+          0.8277184963226318,
+          0.21056467294692993
+        ]
+      },
+      {
+        "name": "TrailCell_03",
+        "location": [
+          -0.28999999165534973,
+          -0.36000001430511475,
+          0.0
+        ],
+        "dimensions": [
+          0.86727374792099,
+          0.8198903203010559,
+          0.21074077486991882
+        ]
+      }
+    ],
+    "materials": [
+      "HeroBark",
+      "HeroEarth",
+      "HeroGold",
+      "HeroMoss",
+      "HeroPine",
+      "HeroRock",
+      "HeroStone",
+      "HeroTips",
+      "HeroWood",
+      "ShoreLeaf",
+      "ShoreMoss",
+      "ShoreSand",
+      "ShoreStone",
+      "ShoreStoneCool",
+      "ShoreStoneLight",
+      "TrailCanvas",
+      "TrailCloth",
+      "TrailGround",
+      "TrailLake",
+      "TrailNeedles",
+      "TrailSplash",
+      "TrailWater",
+      "TrailWood",
+      "TrialStone0",
+      "TrialStone1",
+      "WoodlandAtlas"
+    ],
+    "names": [
+      "Trail island",
+      "Rocky edge",
+      "Rocky edge.001",
+      "Rocky edge.002",
+      "Rocky edge.003",
+      "Rocky edge.004",
+      "Rocky edge.005",
+      "Rocky edge.006",
+      "Rocky edge.007",
+      "Rocky edge.008",
+      "Rocky edge.009",
+      "Rocky edge.010",
+      "Rocky edge.011",
+      "Rocky edge.012",
+      "Rocky edge.013",
+      "Rocky edge.014",
+      "Rocky edge.025",
+      "TrailCell_00",
+      "TrailCell_01",
+      "TrailCell_04",
+      "TrailCell_05",
+      "TrailCell_06",
+      "TrailCell_07",
+      "Creek bank",
+      "Creek bank.001",
+      "Creek bank.002",
+      "Creek bank.003",
+      "Creek bank.004",
+      "Creek bank.005",
+      "Creek bank.006",
+      "Creek bank.007",
+      "Creek bank.008",
+      "Creek bank.009",
+      "Creek bank.010",
+      "Creek bank.011",
+      "Little bridge plank",
+      "Little bridge plank.001",
+      "Little bridge plank.002",
+      "Little bridge plank.003",
+      "Little bridge plank.004",
+      "Little bridge plank.005",
+      "Little bridge plank.006",
+      "Little bridge plank.007",
+      "Little bridge plank.008",
+      "Bridge post"
+    ]
+  },
+  "First_Trail_Reference_08.001": {
+    "objects": 1047,
+    "triangles": 536751,
+    "tiles": [
+      {
+        "name": "TrailCell_00.001",
+        "location": [
+          -2.8499999046325684,
+          -1.0499999523162842,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8629478216171265,
+          0.8002011179924011,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_01.001",
+        "location": [
+          -1.9600000381469727,
+          -1.0199999809265137,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8610448241233826,
+          0.8001174926757812,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_04.001",
+        "location": [
+          0.3700000047683716,
+          0.23999999463558197,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8614549040794373,
+          0.8000632524490356,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_05.001",
+        "location": [
+          0.8799999952316284,
+          0.9800000190734863,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8529174327850342,
+          0.8008215427398682,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_06.001",
+        "location": [
+          1.7999999523162842,
+          1.3600000143051147,
+          0.23999999463558197
+        ],
+        "dimensions": [
+          0.8639101982116699,
+          0.7996156215667725,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_07.001",
+        "location": [
+          2.8399999141693115,
+          1.3799999952316284,
+          0.11999999731779099
+        ],
+        "dimensions": [
+          0.8627743721008301,
+          0.804844081401825,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "TrailCell_02.001",
+        "location": [
+          -1.0800000429153442,
+          -0.800000011920929,
+          0.0
+        ],
+        "dimensions": [
+          0.8579393625259399,
+          0.8265714645385742,
+          0.2083803117275238
+        ]
+      },
+      {
+        "name": "TrailCell_03.001",
+        "location": [
+          -0.28999999165534973,
+          -0.36000001430511475,
+          0.0
+        ],
+        "dimensions": [
+          0.863653302192688,
+          0.8187789916992188,
+          0.20916792750358582
+        ]
+      }
+    ],
+    "materials": [
+      "HeroBark.001",
+      "HeroEarth.001",
+      "HeroGold.001",
+      "HeroMoss.001",
+      "HeroPine.001",
+      "HeroRock.001",
+      "HeroStone.001",
+      "HeroTips.001",
+      "HeroWood.001",
+      "ShoreLeaf.001",
+      "ShoreMoss.001",
+      "ShoreSand.001",
+      "ShoreStone.001",
+      "ShoreStoneCool.001",
+      "ShoreStoneLight.001",
+      "TrailCanvas.001",
+      "TrailCloth.001",
+      "TrailGround.001",
+      "TrailLake.001",
+      "TrailNeedles.001",
+      "TrailSplash.001",
+      "TrailWater.001",
+      "TrailWood.001",
+      "TrialStone0.001",
+      "TrialStone1.001",
+      "WoodlandAtlas.001"
+    ],
+    "names": [
+      "Trail island.001",
+      "Rocky edge.015",
+      "Rocky edge.016",
+      "Rocky edge.017",
+      "Rocky edge.018",
+      "Rocky edge.019",
+      "Rocky edge.020",
+      "Rocky edge.021",
+      "Rocky edge.022",
+      "Rocky edge.023",
+      "Rocky edge.024",
+      "Rocky edge.026",
+      "Rocky edge.027",
+      "Rocky edge.028",
+      "Rocky edge.029",
+      "Rocky edge.030",
+      "Rocky edge.041",
+      "TrailCell_00.001",
+      "TrailCell_01.001",
+      "TrailCell_04.001",
+      "TrailCell_05.001",
+      "TrailCell_06.001",
+      "TrailCell_07.001",
+      "Creek bank.012",
+      "Creek bank.013",
+      "Creek bank.014",
+      "Creek bank.015",
+      "Creek bank.016",
+      "Creek bank.017",
+      "Creek bank.018",
+      "Creek bank.019",
+      "Creek bank.020",
+      "Creek bank.021",
+      "Creek bank.022",
+      "Creek bank.023",
+      "Little bridge plank.009",
+      "Little bridge plank.010",
+      "Little bridge plank.011",
+      "Little bridge plank.012",
+      "Little bridge plank.013",
+      "Little bridge plank.014",
+      "Little bridge plank.015",
+      "Little bridge plank.016",
+      "Little bridge plank.017",
+      "Bridge post.004"
+    ]
+  },
+  "First_Trail_Reference_08.002": {
+    "objects": 1101,
+    "triangles": 544377,
+    "tiles": [
+      {
+        "name": "TrailCell_00.002",
+        "location": [
+          -2.8499999046325684,
+          -1.0499999523162842,
+          0.0
+        ],
+        "dimensions": [
+          0.8748717904090881,
+          0.8079216480255127,
+          0.21093851327896118
+        ]
+      },
+      {
+        "name": "TrailCell_01.002",
+        "location": [
+          -1.9600000381469727,
+          -1.0199999809265137,
+          0.0
+        ],
+        "dimensions": [
+          0.8624204397201538,
+          0.8189023733139038,
+          0.20927204191684723
+        ]
+      },
+      {
+        "name": "TrailCell_02.002",
+        "location": [
+          -1.0800000429153442,
+          -0.800000011920929,
+          0.0
+        ],
+        "dimensions": [
+          0.8579393625259399,
+          0.8265714645385742,
+          0.2083803117275238
+        ]
+      },
+      {
+        "name": "TrailCell_03.002",
+        "location": [
+          -0.28999999165534973,
+          -0.36000001430511475,
+          0.0
+        ],
+        "dimensions": [
+          0.863653302192688,
+          0.8187789916992188,
+          0.20916792750358582
+        ]
+      },
+      {
+        "name": "TrailCell_04.002",
+        "location": [
+          0.3700000047683716,
+          0.23999999463558197,
+          0.0
+        ],
+        "dimensions": [
+          0.8645875453948975,
+          0.8185694217681885,
+          0.20945262908935547
+        ]
+      },
+      {
+        "name": "TrailCell_05.002",
+        "location": [
+          0.8799999952316284,
+          0.9800000190734863,
+          0.0
+        ],
+        "dimensions": [
+          0.8740427494049072,
+          0.8063205480575562,
+          0.21093712747097015
+        ]
+      },
+      {
+        "name": "TrailCell_06.002",
+        "location": [
+          1.7999999523162842,
+          1.3600000143051147,
+          0.0
+        ],
+        "dimensions": [
+          0.8713480234146118,
+          0.8143270611763,
+          0.20846036076545715
+        ]
+      },
+      {
+        "name": "TrailCell_07.002",
+        "location": [
+          2.8399999141693115,
+          1.3799999952316284,
+          0.0
+        ],
+        "dimensions": [
+          0.8639873266220093,
+          0.8144866228103638,
+          0.2066221386194229
+        ]
+      }
+    ],
+    "materials": [
+      "HeroBark.002",
+      "HeroEarth.002",
+      "HeroGold.002",
+      "HeroMoss.002",
+      "HeroPine.002",
+      "HeroRock.002",
+      "HeroTips.002",
+      "HeroWood.002",
+      "ShoreLeaf.002",
+      "ShoreMoss.002",
+      "ShoreSand.002",
+      "ShoreStone.002",
+      "ShoreStoneCool.002",
+      "ShoreStoneLight.002",
+      "TrailCanvas.002",
+      "TrailCloth.002",
+      "TrailGround.002",
+      "TrailLake.002",
+      "TrailNeedles.002",
+      "TrailSplash.002",
+      "TrailWater.002",
+      "TrailWood.002",
+      "TrialStone0.002",
+      "TrialStone1.002",
+      "WoodlandAtlas.002"
+    ],
+    "names": [
+      "Trail island.002",
+      "Rocky edge.031",
+      "Rocky edge.032",
+      "Rocky edge.033",
+      "Rocky edge.034",
+      "Rocky edge.035",
+      "Rocky edge.036",
+      "Rocky edge.037",
+      "Rocky edge.038",
+      "Rocky edge.039",
+      "Rocky edge.040",
+      "Rocky edge.042",
+      "Rocky edge.043",
+      "Rocky edge.044",
+      "Rocky edge.045",
+      "Rocky edge.046",
+      "Rocky edge.057",
+      "Creek bank.024",
+      "Creek bank.025",
+      "Creek bank.026",
+      "Creek bank.027",
+      "Creek bank.028",
+      "Creek bank.029",
+      "Creek bank.030",
+      "Creek bank.031",
+      "Creek bank.032",
+      "Creek bank.033",
+      "Creek bank.034",
+      "Creek bank.035",
+      "Little bridge plank.018",
+      "Little bridge plank.019",
+      "Little bridge plank.020",
+      "Little bridge plank.021",
+      "Little bridge plank.022",
+      "Little bridge plank.023",
+      "Little bridge plank.024",
+      "Little bridge plank.025",
+      "Little bridge plank.026",
+      "Bridge post.008",
+      "Bridge post.009",
+      "Bridge post.010",
+      "Bridge post.011",
+      "Bridge rail.004",
+      "Bridge rail.005",
+      "Small canvas tent.002"
+    ]
+  },
+  "Scene": {
+    "objects": 3,
+    "triangles": 12,
+    "tiles": [],
+    "materials": [
+      "Material"
+    ],
+    "names": [
+      "Cube"
+    ]
+  }
+}

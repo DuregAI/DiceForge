@@ -1,0 +1,4 @@
+Enabled scenes: Assets/_Project/06_Scenes/MainMenu.unity, Assets/_Project/06_Scenes/Battle.unity
+Resources assets included: 112
+Prefab dependencies checked: 63
+Missing scripts: 0

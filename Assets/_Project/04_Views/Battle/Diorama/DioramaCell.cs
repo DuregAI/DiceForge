@@ -7,6 +7,13 @@ namespace Diceforge.View
         public int cellId;
         public Renderer highlight;
         public bool available;
+        public GameObject[] presentationObjects = System.Array.Empty<GameObject>();
+        public void SetPresentationVisible(bool visible)
+        {
+            gameObject.SetActive(visible);
+            foreach (var item in presentationObjects)
+                if (item != null) item.SetActive(visible);
+        }
         public void Highlight(bool enabled) { available = enabled; if (highlight != null) highlight.enabled = enabled; }
     }
     public sealed class DioramaToken : MonoBehaviour

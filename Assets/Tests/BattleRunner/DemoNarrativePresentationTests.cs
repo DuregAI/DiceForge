@@ -762,8 +762,12 @@ namespace Diceforge.Tests.BattleTermination
             float scaleY = hud.resolvedStyle.height / Screen.height;
             Assert.That(scaleX, Is.GreaterThan(0f));
             Assert.That(scaleY, Is.GreaterThan(0f));
-            for (int cell = 0; cell < 8; cell++)
+            int checkedCells = 0;
+            foreach (Component cellView in (Component[])Runtime.Field(board, "cells"))
             {
+                if (!cellView.gameObject.activeInHierarchy) continue;
+                int cell = (int)Runtime.Field(cellView, "cellId");
+                checkedCells++;
                 Vector3 world = (Vector3)Runtime.Call(board, "CellPosition", cell);
                 Vector3 screen = camera.WorldToScreenPoint(world);
                 Assert.That(screen.z, Is.GreaterThan(0f), "Tile " + cell + " is behind the camera.");
@@ -776,6 +780,8 @@ namespace Diceforge.Tests.BattleTermination
                 Assert.That(topDownY, Is.LessThan(actions.worldBound.yMin - margin),
                     "Tile " + cell + " is covered by dialogue or game actions.");
             }
+            Assert.That(checkedCells, Is.EqualTo(8 - (int)Runtime.Field(board, "firstVisibleTrailCell")),
+                "All remaining trail cells must participate in the viewport check.");
         }
 
         private int FindOrAddResolution(int width, int height)

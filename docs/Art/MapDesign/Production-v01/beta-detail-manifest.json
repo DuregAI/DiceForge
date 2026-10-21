@@ -1,0 +1,25 @@
+[
+  {
+    "name": "CanopyShrub_A",
+    "triangles": 2490,
+    "materials": [
+      "OakBark",
+      "OakLeaves"
+    ]
+  },
+  {
+    "name": "CanopyShrub_B",
+    "triangles": 2490,
+    "materials": [
+      "OakBark",
+      "OakLeaves"
+    ]
+  },
+  {
+    "name": "WaterImpactSpray_A",
+    "triangles": 56,
+    "materials": [
+      "ForestSpray"
+    ]
+  }
+]

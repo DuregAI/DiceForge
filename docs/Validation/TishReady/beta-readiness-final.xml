@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="1,0757969">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="183" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="1.075797" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1136" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="105" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="1.000761" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1137" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="105" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="0.988389" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1138" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="105" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="0.986947" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1139" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="105" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="0.985791" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1093" name="DemoNarrativeCatalogTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 02:05:37Z" end-time="2026-10-21 02:05:37Z" duration="0.172764" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1094" name="EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" fullname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests.EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" methodname="EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved" classname="Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests" runstate="Runnable" seed="1256160904" result="Passed" start-time="2026-10-21 02:05:37Z" end-time="2026-10-21 02:05:37Z" duration="0.053427" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1089" name="DemoNarrativePresentationTests" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-21 02:06:28Z" end-time="2026-10-21 02:06:44Z" duration="16.643176" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1092" name="RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" methodname="RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="2036766030" result="Passed" start-time="2026-10-21 02:05:37Z" end-time="2026-10-21 02:06:01Z" duration="23.691431" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548348680 session=29a59256be124d1ea3e93fefaff8a73c payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548350868 session=29a59256be124d1ea3e93fefaff8a73c payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548350939 session=29a59256be124d1ea3e93fefaff8a73c payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T8
+[Diceforge] A -> BearOff(6, 2)  Outcome=1, 2  Pip=2  T9
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548361044 session=29a59256be124d1ea3e93fefaff8a73c payload={sessionStartUnixMsUtc=1792548344665, sessionEndUnixMsUtc=1792548361044, durationSeconds=16.379, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=7167, totalSampledSeconds=23.053, averageFps=310.886, minimumWindowFps=0.141, averageFrameTimeMs=3.217, worstSpikeMs=7071.831}
+]]></output>
+              </test-case>
+              <test-case id="1091" name="RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" methodname="RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="232313798" result="Passed" start-time="2026-10-21 02:06:01Z" end-time="2026-10-21 02:06:19Z" duration="18.255820" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548371884 session=6a4594442b634b41bd086bb82df91510 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548374069 session=6a4594442b634b41bd086bb82df91510 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548374149 session=6a4594442b634b41bd086bb82df91510 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548379329 session=6a4594442b634b41bd086bb82df91510 payload={sessionStartUnixMsUtc=1792548367872, sessionEndUnixMsUtc=1792548379329, durationSeconds=11.457, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=4776, totalSampledSeconds=17.746, averageFps=269.136, minimumWindowFps=0.15, averageFrameTimeMs=3.716, worstSpikeMs=6663.461}
+]]></output>
+              </test-case>
+              <test-case id="1090" name="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" fullname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" methodname="StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible" classname="Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests" runstate="Runnable" seed="208044847" result="Passed" start-time="2026-10-21 02:06:19Z" end-time="2026-10-21 02:06:44Z" duration="24.951484" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548389609 session=749cf15174964b82ae9a99ab9864bad6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548394095 session=749cf15174964b82ae9a99ab9864bad6 payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792548396109 session=749cf15174964b82ae9a99ab9864bad6 payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792548396181 session=749cf15174964b82ae9a99ab9864bad6 payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T2
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T3
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548404313 session=749cf15174964b82ae9a99ab9864bad6 payload={sessionStartUnixMsUtc=1792548386062, sessionEndUnixMsUtc=1792548404313, durationSeconds=18.251, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=4, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=7606, totalSampledSeconds=24.447, averageFps=311.128, minimumWindowFps=0.152, averageFrameTimeMs=3.214, worstSpikeMs=6557.716}
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1115" name="ForestSceneLifecycleTests" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 02:06:53Z" end-time="2026-10-21 02:06:54Z" duration="0.951631" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1116" name="LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests.LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" methodname="LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" seed="1651584121" result="Passed" start-time="2026-10-21 02:06:44Z" end-time="2026-10-21 02:06:54Z" duration="9.530776" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548413782 session=9b2692ed363d431dbe743576fd1df58d payload={sessionStartUnixMsUtc=1792548411227, sessionEndUnixMsUtc=1792548413782, durationSeconds=2.555, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=16, totalSampledSeconds=8.839, averageFps=1.81, minimumWindowFps=0.149, averageFrameTimeMs=552.455, worstSpikeMs=6702.973}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\beta-readiness-final.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

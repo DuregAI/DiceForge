@@ -4,20 +4,21 @@
     background-color: rgba(24, 30, 18, 0.65);
 }
 #SettingsPanel.is-visible { display: flex; opacity: 1; }
+#SettingsPanel .gh-settings-window { height: 860px; }
 #SettingsPanel .gh-sound-block {
     flex-direction: row; align-items: center; flex-grow: 1;
-    min-height: 228px; margin: 0 0 24px;
+    min-height: 264px; margin: 0 0 20px;
 }
 #SettingsPanel .gh-audio-controls { flex-grow: 1; flex-shrink: 1; min-width: 0; }
-#SettingsPanel .gh-audio-controls.is-muted { opacity: 0.62; }
-#SettingsPanel .gh-audio-label { font-size: 28px; margin: 0 0 2px 8px; color: rgb(74, 47, 24); }
+#SettingsPanel .gh-audio-controls.is-muted .gh-slider { opacity: 0.62; }
+#SettingsPanel .gh-audio-label { font-size: 36px; margin: 0 0 2px 8px; color: rgb(74, 47, 24); }
 #SettingsPanel .gh-speaker {
     width: 96px; height: 96px; min-width: 96px; margin: 0 24px 0 0; padding: 0;
     background-image: url("../07_Art/UI/GlimblehopMenu/audio-on.png");
     background-size: contain; background-color: transparent; border-width: 0;
 }
 #SettingsPanel .gh-speaker.is-muted { background-image: url("../07_Art/UI/GlimblehopMenu/audio-off.png"); }
-#SettingsPanel .gh-slider { height: 68px; margin: 0 8px 14px; }
+#SettingsPanel .gh-slider { height: 76px; margin: 0 8px 14px; }
 #SettingsPanel .gh-slider .unity-base-slider__tracker {
     height: 18px; border-radius: 9px; overflow: hidden;
     background-color: rgb(184, 143, 88); border-width: 2px; border-color: rgb(123, 87, 43);
@@ -41,7 +42,7 @@
     font-size: 25px; margin: 0 4px;
 }
 #SettingsPanel .gh-settings-build { flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 16px 0 20px; flex-shrink: 0; }
-#SettingsPanel .gh-settings-build Label { font-size: 20px; color: rgb(113, 82, 47); margin: 0 6px; }
+#SettingsPanel .gh-settings-build Label { font-size: 28px; color: rgb(91, 62, 31); margin: 0 6px; }
 #SettingsPanel #copyLogTooltip { position: absolute; bottom: 222px; left: 68px; right: 68px; }
 
 #SettingsPanel .gh-slider .unity-base-slider__input { margin: 0; }

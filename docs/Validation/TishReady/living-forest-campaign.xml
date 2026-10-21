@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 19:16:31Z" end-time="2026-10-20 19:17:59Z" duration="87,9744448">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="174" result="Passed" start-time="2026-10-20 19:16:31Z" end-time="2026-10-20 19:17:59Z" duration="87.974445" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1124" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-20 19:16:31Z" end-time="2026-10-20 19:17:59Z" duration="87.849368" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1125" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-20 19:16:32Z" end-time="2026-10-20 19:17:59Z" duration="87.836497" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1126" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-20 19:16:32Z" end-time="2026-10-20 19:17:59Z" duration="87.831043" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1127" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-20 19:16:32Z" end-time="2026-10-20 19:17:59Z" duration="87.826150" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1040" name="DemoCampaignFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-20 19:16:32Z" end-time="2026-10-20 19:17:59Z" duration="87.819847" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1041" name="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" methodname="MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" seed="1175894451" result="Passed" start-time="2026-10-20 19:16:24Z" end-time="2026-10-20 19:17:59Z" duration="95.178531" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523793832 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523795973 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523796048 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(4, 1)  Outcome=1  Pip=1  T0
+[Diceforge] A -> Move(5, 1)  Outcome=1  Pip=1  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1  Pip=1  T2
+[Diceforge] A -> BearOff(7, 1)  Outcome=1  Pip=1  T3
+[Diceforge] Match end. Winner: A  Turns: 3
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523802435 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8, winner=A, endReason=Win, turnIndex=3}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523803326 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_02, map=Map_Level_02
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_02 modeId=level_02 rulesetId=level_02 setupId=level_02 cells=8 startA=0 startB=7 mapId=level_02 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_02 (Level 02), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523805273 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523805369 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] Match end. Winner: A  Turns: 7
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523813119 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_02, rulesetId=level_02, setupId=level_02, mapId=level_02, mapName=Map_Level_02, boardCellCount=8, winner=A, endReason=Win, turnIndex=7}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523814031 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_03, map=Map_Level_03
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_03 modeId=level_03 rulesetId=level_03 setupId=level_03 cells=8 startA=0 startB=7 mapId=level_03 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_03 (Level 03), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523815973 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523816044 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] This landing is unavailable. Choose another step or friend.
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] Match end. Winner: A  Turns: 6
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523823437 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_03, rulesetId=level_03, setupId=level_03, mapId=level_03, mapName=Map_Level_03, boardCellCount=8, winner=A, endReason=Win, turnIndex=6}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523824425 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_04, map=Map_Level_04
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_04 modeId=level_04 rulesetId=level_04 setupId=level_04 cells=8 startA=0 startB=7 mapId=level_04 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_04 (Level 04), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[UnitAnimationController] Token 'ScratchyStandee(Clone)' animator='Visual' controller='Scratchy_Board' hasIsMoving=False hasSpeed=False idleState=Idle walkState=Walk
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523826372 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523826445 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T8
+[Diceforge] A -> Move(1, 1)  Outcome=1, 2  Pip=1  T9
+[Diceforge] A -> Move(2, 1)  Outcome=1, 2  Pip=1  T10
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T11
+[Diceforge] A -> Move(4, 1)  Outcome=1, 2  Pip=1  T12
+[Diceforge] A -> Move(5, 1)  Outcome=1, 2  Pip=1  T13
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T14
+[Diceforge] A -> BearOff(7, 1)  Outcome=1, 2  Pip=1  T15
+[Diceforge] Match end. Winner: A  Turns: 15
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523840047 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_04, rulesetId=level_04, setupId=level_04, mapId=level_04, mapName=Map_Level_04, boardCellCount=8, winner=A, endReason=Win, turnIndex=15}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523840941 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_05, map=Map_Level_05
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_05 modeId=level_05 rulesetId=level_05 setupId=level_05 cells=8 startA=0 startB=7 mapId=level_05 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_05 (Level 05), placements=1
+[BattleRunner] Setup counts after placement: A=2, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=2 totalB=0 pooledA=2 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523842883 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523842963 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] Match end. Winner: A  Turns: 5
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523854229 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_05, rulesetId=level_05, setupId=level_05, mapId=level_05, mapName=Map_Level_05, boardCellCount=8, winner=A, endReason=Win, turnIndex=5}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523855122 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_06, map=Map_Level_06
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_06 modeId=level_06 rulesetId=level_06 setupId=level_06 cells=8 startA=0 startB=7 mapId=level_06 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523857067 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523857145 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T0
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T1
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T1
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T2
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T2
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T3
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T3
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T4
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T4
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T5
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T5
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T6
+[Diceforge] A -> Move(1, 2)  Outcome=1, 2  Pip=2  T6
+[Diceforge] A -> Move(3, 1)  Outcome=1, 2  Pip=1  T7
+[Diceforge] A -> Move(4, 2)  Outcome=1, 2  Pip=2  T7
+[Diceforge] A -> Move(6, 1)  Outcome=1, 2  Pip=1  T8
+[Diceforge] A -> BearOff(7, 2)  Outcome=1, 2  Pip=2  T8
+[Diceforge] Match end. Winner: A  Turns: 8
+[Diagnostics] Flush batch count=1
+  BattleEnded ts=1792523873807 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8, winner=A, endReason=Win, turnIndex=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523876121 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_01, map=Map_Level_01
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_01 modeId=level_01 rulesetId=level_01 setupId=level_01 cells=8 startA=0 startB=7 mapId=level_01 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_01 (Level 01), placements=1
+[BattleRunner] Setup counts after placement: A=1, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=1 totalB=0 pooledA=1 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792523878057 session=932568035ffe4392bbe1d1d2ba6fefac payload={modeId=level_01, rulesetId=level_01, setupId=level_01, mapId=level_01, mapName=Map_Level_01, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792523878138 session=932568035ffe4392bbe1d1d2ba6fefac payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792523879307 session=932568035ffe4392bbe1d1d2ba6fefac payload={sessionStartUnixMsUtc=1792523790133, sessionEndUnixMsUtc=1792523879307, durationSeconds=89.174, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=15, battlesStartedCount=7, battlesEndedCount=6, sampleWindowSeconds=3, totalFrames=34100, totalSampledSeconds=94.475, averageFps=360.941, minimumWindowFps=0.177, averageFrameTimeMs=2.771, worstSpikeMs=5641.39}
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\living-forest-campaign.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

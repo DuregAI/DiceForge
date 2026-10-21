@@ -1,0 +1,22 @@
+{
+  "localLinksChecked": 51,
+  "missingLinks": [],
+  "dimensions": [
+    1920,
+    1080
+  ],
+  "comparedFrames": [
+    24,
+    120
+  ],
+  "sameFixedCameraShot": true,
+  "regionalMeanAbsoluteRGBDifference": {
+    "tree": 9.68499128540305,
+    "reeds": 22.41614285714286,
+    "flag": 11.722460317460317,
+    "lantern": 6.775810353168843,
+    "water": 22.185166666666664,
+    "foreground": 2.2806327160493827
+  },
+  "note": "Positive rendered-motion check, not a frame-rate benchmark or a substitute for camera regression tests."
+}

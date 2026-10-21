@@ -23,3 +23,5 @@ MonoBehaviour:
   hazardPrefab: {fileID: 0}
   characters: {fileID: 11400000, guid: bf1d8c9aa042b8a478dc48e404568dbf, type: 2}
   friendlyRace: 0
+  firstVisibleCell: 4
+  cameraZoom: 1.15

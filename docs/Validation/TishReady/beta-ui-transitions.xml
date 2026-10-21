@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="26" result="Passed" total="26" passed="26" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:15Z" duration="1,7205439">
+  <test-suite type="TestSuite" id="1039" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:15Z" duration="1.720544" total="26" passed="26" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1011" name="Diceforge.Transitions.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.Transitions.Tests.dll" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:15Z" duration="1.609283" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="ScreenTransitionTests" fullname="ScreenTransitionTests" classname="ScreenTransitionTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:15Z" duration="1.606792" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1010" name="BlocksNavigationAndRestoresInputWithoutChangingEnabledState" fullname="ScreenTransitionTests.BlocksNavigationAndRestoresInputWithoutChangingEnabledState" methodname="BlocksNavigationAndRestoresInputWithoutChangingEnabledState" classname="ScreenTransitionTests" runstate="Runnable" seed="354532869" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:14Z" duration="0.155545" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1002" name="ChangesOnlyUnderCoverAndRejectsDuplicates" fullname="ScreenTransitionTests.ChangesOnlyUnderCoverAndRejectsDuplicates" methodname="ChangesOnlyUnderCoverAndRejectsDuplicates" classname="ScreenTransitionTests" runstate="Runnable" seed="852574103" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:14Z" duration="0.143269" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1007" name="DisablingServiceReleasesBlockAndAllowsNextTransition" fullname="ScreenTransitionTests.DisablingServiceReleasesBlockAndAllowsNextTransition" methodname="DisablingServiceReleasesBlockAndAllowsNextTransition" classname="ScreenTransitionTests" runstate="Runnable" seed="1822066659" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:14Z" duration="0.278323" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1006" name="FailureIsVisibleAndDismissalReleasesInput" fullname="ScreenTransitionTests.FailureIsVisibleAndDismissalReleasesInput" methodname="FailureIsVisibleAndDismissalReleasesInput" classname="ScreenTransitionTests" runstate="Runnable" seed="1780206819" result="Passed" start-time="2026-10-21 02:08:14Z" end-time="2026-10-21 02:08:15Z" duration="0.438927" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ScreenTransition] System.InvalidOperationException: injected
+  at ScreenTransitionTests+<>c.<FailureIsVisibleAndDismissalReleasesInput>b__12_0 () [0x00000] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\Transitions\ScreenTransitionTests.cs:98 
+  at Diceforge.Transitions.ScreenTransition+<Run>d__33.MoveNext () [0x000a0] in C:\Backforge\Diceforge\DiceForge\Assets\_Project\03_UI\Transitions\ScreenTransition.cs:119 
+]]></output>
+        </test-case>
+        <test-case id="1008" name="InvalidSceneDoesNotBeginNavigation" fullname="ScreenTransitionTests.InvalidSceneDoesNotBeginNavigation" methodname="InvalidSceneDoesNotBeginNavigation" classname="ScreenTransitionTests" runstate="Runnable" seed="418014832" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.025878" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1003" name="KeepsCoverUntilDestinationIsReady" fullname="ScreenTransitionTests.KeepsCoverUntilDestinationIsReady" methodname="KeepsCoverUntilDestinationIsReady" classname="ScreenTransitionTests" runstate="Runnable" seed="745109702" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.273900" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1009" name="ReducedMotionAndMissingTextureStillComplete" fullname="ScreenTransitionTests.ReducedMotionAndMissingTextureStillComplete" methodname="ReducedMotionAndMissingTextureStillComplete" classname="ScreenTransitionTests" runstate="Runnable" seed="1413386332" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.125561" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1004" name="WorksWhenTimeScaleIsZero" fullname="ScreenTransitionTests.WorksWhenTimeScaleIsZero" methodname="WorksWhenTimeScaleIsZero" classname="ScreenTransitionTests" runstate="Runnable" seed="844473042" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.126388" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1005" name="ZeroDurationsStillConcealMutation" fullname="ScreenTransitionTests.ZeroDurationsStillConcealMutation" methodname="ZeroDurationsStillConcealMutation" classname="ScreenTransitionTests" runstate="Runnable" seed="1641111931" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.006177" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1034" name="Diceforge.UI.Modals.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.UI.Modals.Tests.dll" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.066195" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1012" name="CampaignRatingTests" fullname="CampaignRatingTests" classname="CampaignRatingTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.039841" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="ParameterizedMethod" id="1016" name="RatingRequiresEveryAuthoredLevel" fullname="CampaignRatingTests.RatingRequiresEveryAuthoredLevel" classname="CampaignRatingTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.003274" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1014" name="RatingRequiresEveryAuthoredLevel(5,False)" fullname="CampaignRatingTests.RatingRequiresEveryAuthoredLevel(5,False)" methodname="RatingRequiresEveryAuthoredLevel" classname="CampaignRatingTests" runstate="Runnable" seed="1015067534" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.002063" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1015" name="RatingRequiresEveryAuthoredLevel(6,True)" fullname="CampaignRatingTests.RatingRequiresEveryAuthoredLevel(6,True)" methodname="RatingRequiresEveryAuthoredLevel" classname="CampaignRatingTests" runstate="Runnable" seed="167373659" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000186" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+        </test-suite>
+        <test-case id="1017" name="RatingWithoutCommentAndEscapedCommentsHaveStructuredPayloads" fullname="CampaignRatingTests.RatingWithoutCommentAndEscapedCommentsHaveStructuredPayloads" methodname="RatingWithoutCommentAndEscapedCommentsHaveStructuredPayloads" classname="CampaignRatingTests" runstate="Runnable" seed="1793953128" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.001370" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1013" name="ReopenedDraftShowsItsCategoryAfterLocalization" fullname="CampaignRatingTests.ReopenedDraftShowsItsCategoryAfterLocalization" methodname="ReopenedDraftShowsItsCategoryAfterLocalization" classname="CampaignRatingTests" runstate="Runnable" seed="966233924" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.033611" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1018" name="FeedbackDeliveryTests" fullname="FeedbackDeliveryTests" classname="FeedbackDeliveryTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.012762" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1025" name="Disconnection_CompletesFailureOnce_AndReleasesSlot" fullname="FeedbackDeliveryTests.Disconnection_CompletesFailureOnce_AndReleasesSlot" methodname="Disconnection_CompletesFailureOnce_AndReleasesSlot" classname="FeedbackDeliveryTests" runstate="Runnable" seed="1416916600" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.002208" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1024" name="DuplicateSubmission_DoesNotReplaceOriginalPendingItem" fullname="FeedbackDeliveryTests.DuplicateSubmission_DoesNotReplaceOriginalPendingItem" methodname="DuplicateSubmission_DoesNotReplaceOriginalPendingItem" classname="FeedbackDeliveryTests" runstate="Runnable" seed="210456711" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.001005" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1023" name="InFlightSubmission_StaysPendingUntilDeadline_ThenCompletesOnce" fullname="FeedbackDeliveryTests.InFlightSubmission_StaysPendingUntilDeadline_ThenCompletesOnce" methodname="InFlightSubmission_StaysPendingUntilDeadline_ThenCompletesOnce" classname="FeedbackDeliveryTests" runstate="Runnable" seed="357786030" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.002215" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1022" name="OfflineSubmission_FailsWithoutQueuingOrReportingSuccess" fullname="FeedbackDeliveryTests.OfflineSubmission_FailsWithoutQueuingOrReportingSuccess" methodname="OfflineSubmission_FailsWithoutQueuingOrReportingSuccess" classname="FeedbackDeliveryTests" runstate="Runnable" seed="1184758716" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000540" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1021" name="OnlyCommittedAcknowledgement_ReportsSuccess" fullname="FeedbackDeliveryTests.OnlyCommittedAcknowledgement_ReportsSuccess" classname="FeedbackDeliveryTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.004107" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1019" name="OnlyCommittedAcknowledgement_ReportsSuccess(&quot;Committed&quot;,&quot;Sent&quot;)" fullname="FeedbackDeliveryTests.OnlyCommittedAcknowledgement_ReportsSuccess(&quot;Committed&quot;,&quot;Sent&quot;)" methodname="OnlyCommittedAcknowledgement_ReportsSuccess" classname="FeedbackDeliveryTests" runstate="Runnable" seed="817328608" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.001687" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1020" name="OnlyCommittedAcknowledgement_ReportsSuccess(&quot;Failed&quot;,&quot;Failed&quot;)" fullname="FeedbackDeliveryTests.OnlyCommittedAcknowledgement_ReportsSuccess(&quot;Failed&quot;,&quot;Failed&quot;)" methodname="OnlyCommittedAcknowledgement_ReportsSuccess" classname="FeedbackDeliveryTests" runstate="Runnable" seed="380707132" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.001081" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SpacetimeDb] Feedback rejected: Failed("rejected")
+]]></output>
+          </test-case>
+        </test-suite>
+        <test-case id="1026" name="RemovedCompletion_DoesNotCallDisposedController" fullname="FeedbackDeliveryTests.RemovedCompletion_DoesNotCallDisposedController" methodname="RemovedCompletion_DoesNotCallDisposedController" classname="FeedbackDeliveryTests" runstate="Runnable" seed="1751309418" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000388" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1027" name="ModalDismissTests" fullname="ModalDismissTests" classname="ModalDismissTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.012504" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1028" name="BackdropClosesOnce" fullname="ModalDismissTests.BackdropClosesOnce" methodname="BackdropClosesOnce" classname="ModalDismissTests" runstate="Runnable" seed="1563745071" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.009212" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1033" name="DisposedBindingDoesNotClose" fullname="ModalDismissTests.DisposedBindingDoesNotClose" methodname="DisposedBindingDoesNotClose" classname="ModalDismissTests" runstate="Runnable" seed="1895814400" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000347" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1031" name="DragInDoesNotClose" fullname="ModalDismissTests.DragInDoesNotClose" methodname="DragInDoesNotClose" classname="ModalDismissTests" runstate="Runnable" seed="1084677059" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000299" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1030" name="DragOutDoesNotClose" fullname="ModalDismissTests.DragOutDoesNotClose" methodname="DragOutDoesNotClose" classname="ModalDismissTests" runstate="Runnable" seed="1782504342" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000279" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1032" name="RightClickDoesNotClose" fullname="ModalDismissTests.RightClickDoesNotClose" methodname="RightClickDoesNotClose" classname="ModalDismissTests" runstate="Runnable" seed="1426639006" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000275" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1029" name="WindowAndChildrenDoNotClose" fullname="ModalDismissTests.WindowAndChildrenDoNotClose" methodname="WindowAndChildrenDoNotClose" classname="ModalDismissTests" runstate="Runnable" seed="1932791061" result="Passed" start-time="2026-10-21 02:08:15Z" end-time="2026-10-21 02:08:15Z" duration="0.000280" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\beta-ui-transitions.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

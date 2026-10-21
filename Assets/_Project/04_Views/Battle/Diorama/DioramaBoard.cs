@@ -33,6 +33,8 @@ namespace Diceforge.View
         private readonly Dictionary<int, TextMesh> badges = new();
         private Sprite badgeSprite;
         private bool trailMode;
+        private int firstVisibleTrailCell;
+        private float trailCameraZoom = 1f;
         private Rect? demoGameplayViewport;
         private bool viewportNeedsSnap = true;
         private GameObject trailExit;
@@ -40,9 +42,12 @@ namespace Diceforge.View
         private DioramaMovePreview demoPreview;
         private DioramaCameraController orbitCamera;
         private readonly List<Vector3> cameraPlayablePoints = new(36);
-        public void ConfigureTrail(bool enabled)
+        public void ConfigureTrail(bool enabled, int firstVisibleCell = 0, float cameraZoom = 1f)
         {
             trailMode = enabled;
+            firstVisibleTrailCell = enabled ? Mathf.Clamp(firstVisibleCell, 0, 7) : 0;
+            trailCameraZoom = enabled ? Mathf.Clamp(cameraZoom, 1f, 1.3f) : 1f;
+            ApplyTrailVisibility();
             if (enabled) EnsureTrailPresentation();
             if (orbitCamera != null) orbitCamera.enabled = enabled;
             if (!enabled && demoPreview != null) { demoPreview.Hide(); demoPreview.SetAvailableCells(cells, null); }
@@ -100,7 +105,8 @@ namespace Diceforge.View
             viewportNeedsSnap = true;
             IsPortrait = portrait; screenWidth = Screen.width; screenHeight = Screen.height;
             landscapeRoot.SetActive(!portrait); portraitRoot.SetActive(portrait);
-            cells = (portrait ? portraitRoot : landscapeRoot).GetComponentsInChildren<DioramaCell>();
+            cells = (portrait ? portraitRoot : landscapeRoot).GetComponentsInChildren<DioramaCell>(true);
+            ApplyTrailVisibility();
             if(changed)(portrait?portraitLighting:landscapeLighting)?.Apply(portrait?portraitRoot:landscapeRoot);
             FitCamera();
             RefreshTrailExit();
@@ -120,9 +126,7 @@ namespace Diceforge.View
             Bounds bounds = WorldBounds;
             if (trailMode)
             {
-                bounds = new Bounds(CellPosition(layout.cellIds[0]), Vector3.zero);
-                for (int i = 0; i < layout.cellIds.Length; i++) IncludeTrailCameraBounds(ref bounds, CellPosition(layout.cellIds[i]));
-                IncludeTrailCameraBounds(ref bounds, ExitPosition(0));
+                bounds = TrailCameraBounds(firstVisibleTrailCell);
             }
             float halfWidth = bounds.extents.x + .4f;
             float halfHeight = bounds.extents.z * Mathf.Sin(50*Mathf.Deg2Rad)
@@ -130,6 +134,16 @@ namespace Diceforge.View
             Rect viewport = trailMode && demoGameplayViewport.HasValue ? demoGameplayViewport.Value : new Rect(0, 0, 1, 1);
             float freeHeight = trailMode && demoGameplayViewport.HasValue ? viewport.height : IsPortrait ? .69f : .74f;
             float homeSize = Mathf.Max(halfHeight/freeHeight, halfWidth / Mathf.Max(.2f,cameraView.aspect * viewport.width)) * 1.04f;
+            if (trailMode && trailCameraZoom > 1f)
+            {
+                // Crop the old path, but keep the opening zoom modest and all remaining landings visible.
+                Bounds fullTrail = TrailCameraBounds(0);
+                float fullHalfHeight = fullTrail.extents.z * Mathf.Sin(50 * Mathf.Deg2Rad)
+                    + fullTrail.extents.y * Mathf.Cos(50 * Mathf.Deg2Rad) + .2f;
+                float fullSize = Mathf.Max(fullHalfHeight / freeHeight,
+                    (fullTrail.extents.x + .4f) / Mathf.Max(.2f, cameraView.aspect * viewport.width)) * 1.04f;
+                homeSize = Mathf.Max(homeSize, fullSize / trailCameraZoom);
+            }
             float verticalOffset = trailMode && demoGameplayViewport.HasValue ? 1 - viewport.center.y * 2 : -.09f;
             Quaternion rotation = trailMode ? Quaternion.Euler(50, 0, 0) : cameraView.transform.rotation;
             Vector3 target = bounds.center + rotation * Vector3.up * (homeSize * verticalOffset);
@@ -138,7 +152,8 @@ namespace Diceforge.View
             {
                 EnsureTrailPresentation();
                 cameraPlayablePoints.Clear();
-                for (int i = 0; i < layout.cellIds.Length; i++) AddCameraTileBounds(CellPosition(layout.cellIds[i]));
+                for (int i = 0; i < layout.cellIds.Length; i++)
+                    if (layout.cellIds[i] >= firstVisibleTrailCell) AddCameraTileBounds(CellPosition(layout.cellIds[i]));
                 AddCameraTileBounds(ExitPosition(0));
                 if (smooth)
                     orbitCamera.ReframeHomePose(cameraView, bounds.center, position, rotation, homeSize, viewport, cameraPlayablePoints);
@@ -153,6 +168,20 @@ namespace Diceforge.View
                 cameraView.orthographicSize = homeSize;
                 cameraView.transform.SetPositionAndRotation(position, rotation);
             }
+        }
+        private void ApplyTrailVisibility()
+        {
+            if (cells == null) return;
+            foreach (var cell in cells)
+                cell.SetPresentationVisible(!trailMode || cell.cellId >= firstVisibleTrailCell);
+        }
+        private Bounds TrailCameraBounds(int firstCell)
+        {
+            var bounds = new Bounds(CellPosition(firstCell), Vector3.zero);
+            for (int i = 0; i < layout.cellIds.Length; i++)
+                if (layout.cellIds[i] >= firstCell) IncludeTrailCameraBounds(ref bounds, CellPosition(layout.cellIds[i]));
+            IncludeTrailCameraBounds(ref bounds, ExitPosition(0));
+            return bounds;
         }
         private static void IncludeTrailCameraBounds(ref Bounds bounds, Vector3 center)
         {

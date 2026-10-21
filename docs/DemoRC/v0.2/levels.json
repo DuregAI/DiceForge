@@ -9,6 +9,10 @@
         "tish"
       ],
       "startCell": 4,
+      "presentation": {
+        "firstVisibleCell": 4,
+        "cameraZoom": 1.15
+      },
       "friendlyRace": false,
       "hazard": 0,
       "stepMode": 1,

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Luma
   m_EditorClassIdentifier: Assembly-CSharp::Diceforge.View.CharacterPresentationProfile
   characterId: luma
-  bodyMaterial: {fileID: 2100000, guid: fe856586d012b28488b5e72393aaf2c7, type: 2}
+  bodyMaterial: {fileID: 2100000, guid: ed0d8bd073fe28f4c9d9e095e919c1c0, type: 2}
   eyeMaterial: {fileID: 2100000, guid: 7461cbb9ef2e51645b6f58f9c8062626, type: 2}
   idleSpeed: 0.94
   listenSpeed: 0.94

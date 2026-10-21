@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="16" result="Failed(Child)" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2,6101661">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="178" result="Failed" site="Child" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2.610166" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1129" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="100" result="Failed" site="Child" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2.453861" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1130" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="100" result="Failed" site="Child" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2.422996" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1131" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="100" result="Failed" site="Child" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2.420389" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1132" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="100" result="Failed" site="Child" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:08Z" duration="2.418134" total="16" passed="14" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1024" name="CastPresentationPolishTests" fullname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" classname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-20 21:18:05Z" end-time="2026-10-20 21:18:07Z" duration="2.079180" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1027" name="CastHasDistinctTemposSeparateEyesAndIdleOnlyBoardControllers" fullname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests.CastHasDistinctTemposSeparateEyesAndIdleOnlyBoardControllers" methodname="CastHasDistinctTemposSeparateEyesAndIdleOnlyBoardControllers" classname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" runstate="Runnable" seed="970180186" result="Passed" start-time="2026-10-20 21:17:58Z" end-time="2026-10-20 21:17:58Z" duration="0.123046" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1028" name="NewLinesCancelOldGesturesAndTimedReactionsReturnSmoothly" fullname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests.NewLinesCancelOldGesturesAndTimedReactionsReturnSmoothly" methodname="NewLinesCancelOldGesturesAndTimedReactionsReturnSmoothly" classname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" runstate="Runnable" seed="2068663760" result="Passed" start-time="2026-10-20 21:17:58Z" end-time="2026-10-20 21:18:07Z" duration="9.317202" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792531087039 session=182bb4699fe849c99767e5a04725b2d8 payload={sessionStartUnixMsUtc=1792531083724, sessionEndUnixMsUtc=1792531087039, durationSeconds=3.315, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=1372, totalSampledSeconds=8.727, averageFps=157.207, minimumWindowFps=0.174, averageFrameTimeMs=6.361, worstSpikeMs=5749.565}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+]]></output>
+              </test-case>
+              <test-case id="1026" name="PortraitLightIgnoresWorldSunAndForwardControlActuallyResponds" fullname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests.PortraitLightIgnoresWorldSunAndForwardControlActuallyResponds" methodname="PortraitLightIgnoresWorldSunAndForwardControlActuallyResponds" classname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" runstate="Runnable" seed="803107856" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.171679" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1025" name="PortraitTonemappingPreservesTransparentBackground" fullname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests.PortraitTonemappingPreservesTransparentBackground" methodname="PortraitTonemappingPreservesTransparentBackground" classname="Diceforge.Tests.BattleTermination.CastPresentationPolishTests" runstate="Runnable" seed="598754010" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.016915" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1095" name="DioramaCameraGestureTests" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.061786" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1101" name="HudReframingDoesNotSnapAndConvergesWithoutOvershoot" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.HudReframingDoesNotSnapAndConvergesWithoutOvershoot" methodname="HudReframingDoesNotSnapAndConvergesWithoutOvershoot" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1685869449" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.035904" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1100" name="IdleCameraRemainsStillWithAndWithoutReducedMotion" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.IdleCameraRemainsStillWithAndWithoutReducedMotion" methodname="IdleCameraRemainsStillWithAndWithoutReducedMotion" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="476569561" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.000686" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1099" name="MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" methodname="MaximumOrbitAndZoomKeepAllPlayableEdgesInsideTheHudViewport" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1728177555" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.001405" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1097" name="OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" methodname="OrbitAndPinchAreBoundedAndReleaseReturnsToTheOriginalFit" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="2127914833" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.001680" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1096" name="TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" methodname="TapIsReleasedOnceWhileDragPinchAndInterfaceStartsCannotMoveAHero" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="829124620" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.000733" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1098" name="ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" fullname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests.ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" methodname="ZoomKeepsTheIslandAtItsHudViewportAnchorAndOrientationResetCancelsTheGesture" classname="Diceforge.Tests.BattleTermination.DioramaCameraGestureTests" runstate="Runnable" seed="1014372376" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.000563" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1111" name="FirstTrailFramingTests" fullname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests" classname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.169231" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1114" name="MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings" fullname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests.MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings" classname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.163414" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1112" name="MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings(1.777778f)" fullname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests.MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings(1.777778f)" methodname="MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings" classname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests" runstate="Runnable" seed="1466585070" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.142970" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1113" name="MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings(0.5625f)" fullname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests.MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings(0.5625f)" methodname="MidTrailOpeningHidesOldSurfacesAndFitsAllRemainingLandings" classname="Diceforge.Tests.BattleTermination.FirstTrailFramingTests" runstate="Runnable" seed="2142307183" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:07Z" duration="0.018763" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1115" name="LivingForestTests" fullname="Diceforge.Tests.BattleTermination.LivingForestTests" classname="Diceforge.Tests.BattleTermination.LivingForestTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:08Z" duration="0.099372" total="4" passed="2" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1116" name="AuthoredTreeAxesAndPinnedWindMasksSurvivePrefabPlacement" fullname="Diceforge.Tests.BattleTermination.LivingForestTests.AuthoredTreeAxesAndPinnedWindMasksSurvivePrefabPlacement" methodname="AuthoredTreeAxesAndPinnedWindMasksSurvivePrefabPlacement" classname="Diceforge.Tests.BattleTermination.LivingForestTests" runstate="Runnable" seed="527441293" result="Passed" start-time="2026-10-20 21:18:07Z" end-time="2026-10-20 21:18:08Z" duration="0.021319" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1119" name="ForestShaderAssetsHaveNoCompileErrors" fullname="Diceforge.Tests.BattleTermination.LivingForestTests.ForestShaderAssetsHaveNoCompileErrors" methodname="ForestShaderAssetsHaveNoCompileErrors" classname="Diceforge.Tests.BattleTermination.LivingForestTests" runstate="Runnable" seed="183861900" result="Passed" start-time="2026-10-20 21:18:08Z" end-time="2026-10-20 21:18:08Z" duration="0.001995" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1118" name="PlanarReflectionBindsRealTexturesRestoresCullingAndReleasesOnDisable" fullname="Diceforge.Tests.BattleTermination.LivingForestTests.PlanarReflectionBindsRealTexturesRestoresCullingAndReleasesOnDisable" methodname="PlanarReflectionBindsRealTexturesRestoresCullingAndReleasesOnDisable" classname="Diceforge.Tests.BattleTermination.LivingForestTests" runstate="Runnable" seed="140700156" result="Failed" start-time="2026-10-20 21:18:08Z" end-time="2026-10-20 21:18:08Z" duration="0.063105" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at Diceforge.Tests.BattleTermination.LivingForestTests.PlanarReflectionBindsRealTexturesRestoresCullingAndReleasesOnDisable () [0x00229] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\BattleRunner\LivingForestTests.cs:113
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1117" name="ReducedMotionFreezesTheSharedClockAndRestoresLanternWithoutUsingGameplayRandom" fullname="Diceforge.Tests.BattleTermination.LivingForestTests.ReducedMotionFreezesTheSharedClockAndRestoresLanternWithoutUsingGameplayRandom" methodname="ReducedMotionFreezesTheSharedClockAndRestoresLanternWithoutUsingGameplayRandom" classname="Diceforge.Tests.BattleTermination.LivingForestTests" runstate="Runnable" seed="1657599234" result="Failed" start-time="2026-10-20 21:18:08Z" end-time="2026-10-20 21:18:08Z" duration="0.002756" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: less than 0.00100000005f
+  But was:  18.4058666f
+]]></message>
+                  <stack-trace><![CDATA[at Diceforge.Tests.BattleTermination.LivingForestTests.ReducedMotionFreezesTheSharedClockAndRestoresLanternWithoutUsingGameplayRandom () [0x001f5] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\BattleRunner\LivingForestTests.cs:66
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\living-forest-graphics.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

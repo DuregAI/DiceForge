@@ -1,0 +1,22 @@
+{
+  "provider": "Tripo Studio P2.0",
+  "modelId": "06c6d5c6-137c-4e9e-bd99-6b795818da0b",
+  "privacy": "Private",
+  "height": 0.92,
+  "credits": {
+    "geometry": 100,
+    "texture": 30
+  },
+  "leafFaces": 1900,
+  "triangles": 9109,
+  "texture": [
+    2048,
+    2048
+  ],
+  "sourceZip": "C:\\Users\\tehno\\Downloads\\Glimblehop_RockGarden_v01.zip",
+  "materials": [
+    "GardenBody",
+    "GardenLeaves"
+  ],
+  "model": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\RockGarden_Tripo_A.fbx"
+}

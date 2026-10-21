@@ -1,0 +1,415 @@
+{
+  "status": "concept only; not an approved Unity import",
+  "date": "2026-10-21",
+  "scope": "visual anchors for the two chapter-map concepts; gameplay supports are unchanged",
+  "preserveGameplay": {
+    "logicalSupports": 8,
+    "firstLevelVisibleIndices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "exitIsSeparateGoal": true,
+    "coordinateSource": "Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.asset"
+  },
+  "unityYConversion": "1 - y",
+  "reviewInstructions": "Final layered artwork must include exact anchors, pivots, bounds, route curves and overlap tests. Keep existing map data until background and routes can be updated together. These manually estimated points describe pictures, not runtime data.",
+  "variants": [
+    {
+      "id": "03-chapter-map-landscape.png",
+      "space": "normalized; origin top-left; y down",
+      "anchorsAreApproximate": true,
+      "centers": [
+        {
+          "node": 1,
+          "stoneVisualCenter": {
+            "x": 0.135,
+            "y": 0.705
+          },
+          "standingFootAnchor": {
+            "x": 0.135,
+            "y": 0.645
+          },
+          "state": "completed"
+        },
+        {
+          "node": 2,
+          "stoneVisualCenter": {
+            "x": 0.328,
+            "y": 0.511
+          },
+          "standingFootAnchor": {
+            "x": 0.328,
+            "y": 0.445
+          },
+          "state": "completed"
+        },
+        {
+          "node": 3,
+          "stoneVisualCenter": {
+            "x": 0.477,
+            "y": 0.622
+          },
+          "standingFootAnchor": {
+            "x": 0.477,
+            "y": 0.565
+          },
+          "state": "completed"
+        },
+        {
+          "node": 4,
+          "stoneVisualCenter": {
+            "x": 0.667,
+            "y": 0.54
+          },
+          "standingFootAnchor": {
+            "x": 0.667,
+            "y": 0.475
+          },
+          "state": "available-current"
+        },
+        {
+          "node": 5,
+          "stoneVisualCenter": {
+            "x": 0.575,
+            "y": 0.313
+          },
+          "standingFootAnchor": {
+            "x": 0.575,
+            "y": 0.255
+          },
+          "state": "locked"
+        },
+        {
+          "node": 6,
+          "stoneVisualCenter": {
+            "x": 0.792,
+            "y": 0.308
+          },
+          "standingFootAnchor": {
+            "x": 0.792,
+            "y": 0.246
+          },
+          "state": "locked"
+        }
+      ],
+      "routeSegments": [
+        {
+          "fromNode": 1,
+          "toNode": 2,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.135,
+            "y": 0.645
+          },
+          "p1": {
+            "x": 0.195,
+            "y": 0.585
+          },
+          "p2": {
+            "x": 0.225,
+            "y": 0.465
+          },
+          "p3": {
+            "x": 0.328,
+            "y": 0.445
+          }
+        },
+        {
+          "fromNode": 2,
+          "toNode": 3,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.328,
+            "y": 0.445
+          },
+          "p1": {
+            "x": 0.39,
+            "y": 0.48
+          },
+          "p2": {
+            "x": 0.395,
+            "y": 0.53
+          },
+          "p3": {
+            "x": 0.477,
+            "y": 0.565
+          }
+        },
+        {
+          "fromNode": 3,
+          "toNode": 4,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.477,
+            "y": 0.565
+          },
+          "p1": {
+            "x": 0.547,
+            "y": 0.58
+          },
+          "p2": {
+            "x": 0.62,
+            "y": 0.52
+          },
+          "p3": {
+            "x": 0.667,
+            "y": 0.475
+          }
+        },
+        {
+          "fromNode": 4,
+          "toNode": 5,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.667,
+            "y": 0.475
+          },
+          "p1": {
+            "x": 0.682,
+            "y": 0.355
+          },
+          "p2": {
+            "x": 0.6,
+            "y": 0.37
+          },
+          "p3": {
+            "x": 0.575,
+            "y": 0.255
+          }
+        },
+        {
+          "fromNode": 5,
+          "toNode": 6,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.575,
+            "y": 0.255
+          },
+          "p1": {
+            "x": 0.64,
+            "y": 0.31
+          },
+          "p2": {
+            "x": 0.715,
+            "y": 0.325
+          },
+          "p3": {
+            "x": 0.792,
+            "y": 0.246
+          }
+        }
+      ]
+    },
+    {
+      "id": "04-chapter-map-portrait.png",
+      "space": "normalized; origin top-left; y down",
+      "anchorsAreApproximate": true,
+      "centers": [
+        {
+          "node": 1,
+          "stoneVisualCenter": {
+            "x": 0.29,
+            "y": 0.765
+          },
+          "standingFootAnchor": {
+            "x": 0.29,
+            "y": 0.735
+          },
+          "state": "completed"
+        },
+        {
+          "node": 2,
+          "stoneVisualCenter": {
+            "x": 0.645,
+            "y": 0.594
+          },
+          "standingFootAnchor": {
+            "x": 0.645,
+            "y": 0.564
+          },
+          "state": "completed"
+        },
+        {
+          "node": 3,
+          "stoneVisualCenter": {
+            "x": 0.38,
+            "y": 0.506
+          },
+          "standingFootAnchor": {
+            "x": 0.38,
+            "y": 0.475
+          },
+          "state": "completed"
+        },
+        {
+          "node": 4,
+          "stoneVisualCenter": {
+            "x": 0.725,
+            "y": 0.45
+          },
+          "standingFootAnchor": {
+            "x": 0.725,
+            "y": 0.419
+          },
+          "state": "available-current"
+        },
+        {
+          "node": 5,
+          "stoneVisualCenter": {
+            "x": 0.444,
+            "y": 0.326
+          },
+          "standingFootAnchor": {
+            "x": 0.444,
+            "y": 0.296
+          },
+          "state": "locked"
+        },
+        {
+          "node": 6,
+          "stoneVisualCenter": {
+            "x": 0.748,
+            "y": 0.252
+          },
+          "standingFootAnchor": {
+            "x": 0.748,
+            "y": 0.222
+          },
+          "state": "locked"
+        }
+      ],
+      "routeSegments": [
+        {
+          "fromNode": 1,
+          "toNode": 2,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.29,
+            "y": 0.735
+          },
+          "p1": {
+            "x": 0.32,
+            "y": 0.67
+          },
+          "p2": {
+            "x": 0.5,
+            "y": 0.62
+          },
+          "p3": {
+            "x": 0.645,
+            "y": 0.564
+          }
+        },
+        {
+          "fromNode": 2,
+          "toNode": 3,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.645,
+            "y": 0.564
+          },
+          "p1": {
+            "x": 0.6,
+            "y": 0.53
+          },
+          "p2": {
+            "x": 0.45,
+            "y": 0.52
+          },
+          "p3": {
+            "x": 0.38,
+            "y": 0.475
+          }
+        },
+        {
+          "fromNode": 3,
+          "toNode": 4,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.38,
+            "y": 0.475
+          },
+          "p1": {
+            "x": 0.45,
+            "y": 0.455
+          },
+          "p2": {
+            "x": 0.65,
+            "y": 0.455
+          },
+          "p3": {
+            "x": 0.725,
+            "y": 0.419
+          }
+        },
+        {
+          "fromNode": 4,
+          "toNode": 5,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.725,
+            "y": 0.419
+          },
+          "p1": {
+            "x": 0.73,
+            "y": 0.37
+          },
+          "p2": {
+            "x": 0.52,
+            "y": 0.365
+          },
+          "p3": {
+            "x": 0.444,
+            "y": 0.296
+          }
+        },
+        {
+          "fromNode": 5,
+          "toNode": 6,
+          "curve": "cubic Bezier proposal, remeasure on final art",
+          "p0": {
+            "x": 0.444,
+            "y": 0.296
+          },
+          "p1": {
+            "x": 0.49,
+            "y": 0.27
+          },
+          "p2": {
+            "x": 0.65,
+            "y": 0.285
+          },
+          "p3": {
+            "x": 0.748,
+            "y": 0.222
+          }
+        }
+      ]
+    }
+  ],
+  "stateDesign": {
+    "locked": "muted value + small lock at upper right; number readable",
+    "available": "warm quiet rim + clear stone top; no pulsing ring",
+    "selectedPressed": "local light inset and indicator; 1–2 logical-pixel content press, no element rescale; not a separately rendered state in this first concept set",
+    "completed": "small green wood check at upper right; numeral unobstructed"
+  },
+  "uiHandoff": {
+    "minimumTouchTargetLogicalUnits": [
+      44,
+      44
+    ],
+    "stretchable": "neutral wood center only",
+    "separateElements": [
+      "leaves",
+      "figured end caps",
+      "corner carving",
+      "screws",
+      "icons",
+      "text",
+      "status badges"
+    ],
+    "portrait": "separate composition, all six nodes visible in concept; allow consistent map scroll only if real-device fit requires it"
+  }
+}

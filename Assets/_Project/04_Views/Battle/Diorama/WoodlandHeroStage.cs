@@ -12,9 +12,12 @@ namespace Diceforge.View
         public float cameraSize=4.65f;
         public float sunIntensity=2.15f;
         public float fillIntensity=.35f;
+        public Vector3 sunEuler = new Vector3(48, -38, 0);
+        public Vector3 fillEuler = new Vector3(35, 140, 0);
         public bool perspectiveShowcase;
         public UniversalRenderPipelineAsset pipelineOverride;
         private RenderPipelineAsset previousPipeline;
+        private bool ownsPipeline;
         private bool initialized;
         private Material waterInstance;
         private Camera view;
@@ -30,7 +33,12 @@ namespace Diceforge.View
         {
             initialized=true;
             previousPipeline=QualitySettings.renderPipeline;
-            if(pipelineOverride!=null)QualitySettings.renderPipeline=pipelineOverride;
+            gameplayBoard=GetComponent<DioramaBoard>();
+            // The board owns the gameplay pipeline and restores the menu's one.
+            // Capturing its override here creates a second, conflicting owner
+            // whose OnDestroy can put the forest pipeline back after the board.
+            ownsPipeline=gameplayBoard==null && pipelineOverride!=null;
+            if(ownsPipeline)QualitySettings.renderPipeline=pipelineOverride;
             LightmapSettings.lightmaps=System.Array.Empty<LightmapData>();
             previousFog=RenderSettings.fog;previousFogMode=RenderSettings.fogMode;previousFogColor=RenderSettings.fogColor;
             previousFogStart=RenderSettings.fogStartDistance;previousFogEnd=RenderSettings.fogEndDistance;
@@ -44,7 +52,7 @@ namespace Diceforge.View
             foreach(var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
                 if(light.type==LightType.Directional && light.gameObject.layer!=30)
                 {
-                    light.transform.rotation=Quaternion.Euler(48,-38,0);
+                    light.transform.rotation=Quaternion.Euler(sunEuler);
                     light.color=new Color(1,.91f,.76f);light.intensity=sunIntensity;
 #if UNITY_EDITOR
                     light.lightmapBakeType=LightmapBakeType.Realtime;
@@ -53,10 +61,10 @@ namespace Diceforge.View
                     light.shadows=LightShadows.Soft;light.shadowBias=.035f;light.shadowNormalBias=.15f;
                 }
             var fill=new GameObject("Cool woodland fill");fill.transform.SetParent(transform,false);
-            fill.transform.rotation=Quaternion.Euler(35,140,0);var bounce=fill.AddComponent<Light>();
+            fill.transform.rotation=Quaternion.Euler(fillEuler);var bounce=fill.AddComponent<Light>();
             bounce.type=LightType.Directional;bounce.color=new Color(.60f,.77f,1);bounce.intensity=fillIntensity;bounce.shadows=LightShadows.None;
             stageVolume=gameObject.AddComponent<Volume>();stageVolume.isGlobal=true;stageVolume.priority=30;stageVolume.sharedProfile=grade;
-            gameplayBoard=FindAnyObjectByType<DioramaBoard>();
+            if(gameplayBoard==null)gameplayBoard=FindAnyObjectByType<DioramaBoard>();
             view=Camera.main;
             if(view!=null){view.GetUniversalAdditionalCameraData().renderPostProcessing=true;view.backgroundColor=new Color(.30f,.38f,.29f);}
             if(water!=null)
@@ -102,7 +110,7 @@ namespace Diceforge.View
                 Destroy(instance);
             }
             if(!initialized)return;
-            if(pipelineOverride!=null)QualitySettings.renderPipeline=previousPipeline;
+            if(ownsPipeline)QualitySettings.renderPipeline=previousPipeline;
             RenderSettings.fog=previousFog;RenderSettings.fogMode=previousFogMode;RenderSettings.fogColor=previousFogColor;
             RenderSettings.fogStartDistance=previousFogStart;RenderSettings.fogEndDistance=previousFogEnd;
         }

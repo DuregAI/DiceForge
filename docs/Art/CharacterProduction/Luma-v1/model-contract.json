@@ -16,7 +16,7 @@
     "ears": "both intact",
     "eyes": "amber",
     "face": "freckles, closed-mouth kind neutral expression",
-    "clothes": "stitched brown leather tunic, terracotta scarf, sturdy boots",
+    "clothes": "deep teal woven tunic with ivory hem, muted berry scarf, brown leather belts, satchel and boots",
     "satchel": "left hip, strap from right shoulder",
     "backpack": false,
     "mapProp": "separate future prop, excluded from model's hands",
@@ -120,5 +120,28 @@
       "check skirt/leg, satchel/arm and braid/shoulder clearance in all gestures",
       "clothing selection UI is a later task; hidden profile/shop stay untouched"
     ]
+  },
+  "surfaceRepair": {
+    "date": "2026-10-21",
+    "sourceBlend": "C:/Backforge/Tripo3D/work/luma_v03/Luma_v03.blend",
+    "sourceFBX": "C:/Backforge/Tripo3D/work/luma_v03/Luma_v03.fbx",
+    "stableUnityAsset": "Assets/_Project/07_Art/Characters/Incoming/Tripo/Luma_v02/Luma_v02.fbx",
+    "outerHairPolygonsRestored": 1180,
+    "uvRigBlendshapesClipsPreserved": true,
+    "bodyCull": "Back",
+    "report": "docs/Validation/TishReady/living-forest-beta-v02.xml",
+    "review": "docs/Art/MapDesign/Production-v01/index.html"
+  },
+  "outfit": {
+    "version": "ForestOutfit-v01",
+    "date": "2026-10-21",
+    "method": "Blender Emit bake into the existing UV atlas; geometry/rig/FBX unchanged",
+    "texture": "Assets/_Project/07_Art/Characters/Incoming/Tripo/Luma_v02/Luma_ForestOutfit_BaseColor_2K.png",
+    "material": "Assets/_Project/07_Art/Characters/Incoming/Tripo/Luma_v02/Luma_ForestOutfit.mat",
+    "originalMaterialRetained": "Assets/_Project/07_Art/Characters/Incoming/Tripo/Luma_v02/Luma.mat",
+    "blenderSource": "C:\\Backforge\\Tripo3D\\work\\luma_outfit_v01\\Luma_ForestOutfit_v01.blend",
+    "sourceScripts": "docs/Art/CharacterProduction/Luma-v1/ForestOutfit-v01",
+    "fbxSha256": "bcca0a281d4b82da4c57fee7a9ef95788f485abc4622f3fc73a79dce94878ad7",
+    "review": "docs/Validation/LivingForest/Beta-v03"
   }
 }

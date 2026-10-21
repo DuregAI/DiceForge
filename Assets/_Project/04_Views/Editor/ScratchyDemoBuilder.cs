@@ -28,6 +28,12 @@ namespace Diceforge.View.Editor
             public string[] heroIds;
             public int startCell, stepMode, hazard;
             public bool friendlyRace;
+            public TrailPresentation presentation;
+        }
+        [Serializable] private sealed class TrailPresentation
+        {
+            public int firstVisibleCell;
+            public float cameraZoom = 1f;
         }
 
         [MenuItem("Diceforge/Demo RC/Apply Scratchy demo revision")]
@@ -97,6 +103,8 @@ namespace Diceforge.View.Editor
                 level.sourceVersion = "0.2"; level.sourceId = "docs/DemoRC/v0.2/levels.json#" + item.id;
                 level.title = item.title; level.heroIds = item.heroIds; level.characters = characters;
                 level.friendlyRace = item.friendlyRace; level.hazardPrefab = item.hazard == 3 ? cracked : null;
+                level.firstVisibleCell = item.presentation?.firstVisibleCell ?? 0;
+                level.cameraZoom = item.presentation?.cameraZoom ?? 1f;
                 rules.totalStonesPerPlayer = rules.maxUnitsPerSide = item.heroIds.Length;
                 rules.soloTrailStepOfferMode = (SoloTrailStepOfferMode)item.stepMode;
                 rules.actionsPerTurn = item.stepMode == 0 ? 2 : 1;

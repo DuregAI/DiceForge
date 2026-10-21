@@ -394,6 +394,7 @@ namespace Diceforge.View.Editor
             life.pennant = tiles.FirstOrDefault(item => item.name.StartsWith("Exit pennant", StringComparison.Ordinal));
             life.creek = art.GetComponentsInChildren<Renderer>()
                 .FirstOrDefault(item => item.name.StartsWith("Water creek flowing", StringComparison.Ordinal));
+            FirstTrailPresentationSetup.BindVisuals(board);
             var prefab = PrefabUtility.SaveAsPrefabAsset(root, Diorama + "/FirstTrail8.prefab");
             UnityEngine.Object.DestroyImmediate(root);
             return prefab;

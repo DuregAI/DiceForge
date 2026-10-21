@@ -1,0 +1,22 @@
+{
+  "provider": "Tripo Studio P2.0",
+  "modelId": "3858d44e-11dd-4e48-955a-c52e470745ef",
+  "privacy": "Private",
+  "height": 3.1,
+  "credits": {
+    "geometry": 100,
+    "texture": 30
+  },
+  "leafFaces": 5854,
+  "triangles": 11728,
+  "texture": [
+    2048,
+    2048
+  ],
+  "sourceZip": "C:\\Users\\tehno\\Downloads\\Glimblehop_Fir_v01.zip",
+  "materials": [
+    "FirBody",
+    "FirLeaves"
+  ],
+  "model": "C:\\Backforge\\Diceforge\\DiceForge\\Assets\\_Project\\07_Art\\LivingForest\\Models\\Fir_Tripo_A.fbx"
+}

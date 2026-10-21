@@ -1,0 +1,1 @@
+Passed=14; Failed=2; Skipped=0

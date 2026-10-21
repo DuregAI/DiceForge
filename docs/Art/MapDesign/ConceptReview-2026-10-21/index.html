@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glimblehop — концепты карты • 21 октября 2026</title>
+<style>
+:root{color-scheme:dark;--ink:#f1e6ce;--muted:#bcbaa9;--bg:#121b16;--panel:#1b2821;--line:#3c4d3e;--accent:#d6bb73}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:1440px;margin:auto;padding:36px clamp(18px,4vw,64px) 80px}h1{font-family:Georgia,serif;font-size:clamp(30px,4vw,53px);font-weight:500;line-height:1.15;max-width:1000px;margin:14px 0 22px}h2{font-size:27px;line-height:1.25;margin:0 0 13px}p{max-width:1050px;margin:10px 0 18px}.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}a{color:#ead498;text-underline-offset:4px}nav{display:flex;gap:13px 25px;flex-wrap:wrap;padding:8px 0 25px}nav a{font-size:15px}.notice{background:#29372a;border-left:3px solid var(--accent);padding:16px 20px;margin:20px 0 34px}.palette{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 36px}.swatch{display:flex;gap:9px;align-items:center;padding:7px 12px;background:var(--panel);font-size:14px;border:1px solid var(--line);border-radius:7px}.swatch i{width:20px;height:20px;border-radius:50%;display:block}.concept{margin:40px 0 60px;padding-top:23px;border-top:1px solid var(--line)}figure{margin:20px 0}figure>a{display:block}figure img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line);background:#25342b}figcaption{font-size:14px;color:var(--muted);margin-top:11px}.portrait{max-width:550px;margin-left:auto;margin-right:auto}.columns{display:grid;grid-template-columns:1fr 1fr;gap:26px}.card{background:var(--panel);padding:23px;border:1px solid var(--line);border-radius:9px}.card h3{margin:0 0 11px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:15px}.smallprint{font-size:14px;color:var(--muted)}details{border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin-top:28px}summary{cursor:pointer;color:var(--accent)}.preview-row{display:flex;align-items:flex-start;gap:25px;overflow:auto;padding:22px 0}.preview{flex:0 0 auto}.preview img{display:block;border:1px solid var(--line)}.preview p{font-size:13px;margin:8px 0}.preview.landscape img{width:640px;height:360px;object-fit:cover}.preview.vertical img{width:360px;height:640px;object-fit:cover}.rule{padding-left:15px;border-left:2px solid var(--line)}footer{margin-top:45px;color:var(--muted);font-size:14px}@media(max-width:720px){main{padding-top:24px}.columns{grid-template-columns:1fr}.concept{margin-bottom:40px}h2{font-size:23px}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">Glimblehop / Concept art / 21 октября 2026</div>
+<h1>Тёплый известняк и живая лесная тропа</h1>
+<p>Первая художественная подача: подтянуть игровую диораму к уровню персонажей, связать её с иллюстрированной картой главы и сохранить объёмный деревянный интерфейс.</p>
+<nav><a href="../BRIEF_RU.md">Исходное ТЗ</a><a href="README_RU.md">Решения и передача в Unity</a><a href="layout-proposal.json">Разметка концептов</a><a href="prompts.json">Промпты</a></nav>
+<div class="notice"><strong>Концепты для выбора направления.</strong> Это не готовые игровые ассеты и не внедрённые сцены. Лица, одежда и анатомия нарисованных героев не становятся новым каноном. В игре сохраняются утверждённые модели, 2D-Тиш карты и движение прыжками.</div>
+<div class="palette"><span class="swatch"><i style="background:#ead9ac"></i>Известняк</span><span class="swatch"><i style="background:#ad793d"></i>Земля</span><span class="swatch"><i style="background:#526435"></i>Мох</span><span class="swatch"><i style="background:#254b39"></i>Лес</span><span class="swatch"><i style="background:#428d94"></i>Река</span><span class="swatch"><i style="background:#bd8c3a"></i>Тёплый свет</span></div>
+<section class="concept" id="overview">
+<div class="eyebrow">01 / Общий образ</div><h2>Диорама как часть того же леса</h2>
+<p>Крупные формы деревьев, тяжёлый известняк, естественный берег и спокойная земля вокруг игрового пути. Выход отмечает короткая ткань и янтарный фонарь.</p>
+<figure><a href="01-forest-diorama-overview.png"><img src="01-forest-diorama-overview.png" alt="Общий концепт лесной диорамы с известняковой дорожкой, героями, рекой и выходом"></a><figcaption>Материалы, свет и композиция. Расстановка героев и перспектива опор условны: при реализации сохраняются восемь логических опор, их координаты и formation проекта.</figcaption></figure>
+</section>
+<section class="concept" id="first-level">
+<div class="eyebrow">02 / Первый уровень</div><h2>Тиш уже в середине пути</h2>
+<p>Четыре оставшиеся плиты, отдельная цель на земле, открытый силуэт героя. Позади — обычная лесная поляна; куст слева задаёт направление голоса Царапа.</p>
+<figure><a href="02-first-level-close.png"><img src="02-first-level-close.png" alt="Тиш стоит на первой из четырёх оставшихся плит, за четвёртой выход с флажком и фонарём"></a><figcaption>Проверено: 4 плиты + выход. Это образ пространства, а не фон для прямого наложения HUD: фактический кадр вписывается в свободную область реального Unity-интерфейса.</figcaption></figure>
+<p class="smallprint rule">Сохраняем уже внедрённые скрытие опор 0–3 и стартовое приближение. Не переносим возможные неточности ушей и одежды из генерации на модель Тиша.</p>
+</section>
+<section class="concept" id="chapter-landscape">
+<div class="eyebrow">03 / Карта главы • горизонталь</div><h2>Шесть узлов, один понятный маршрут</h2>
+<p>Компактнее заголовок, спокойнее площадки, цифры открыты. Галочки и замки сидят в общем углу. 2D-Тиш стоит на камне текущего уровня.</p>
+<figure><a href="03-chapter-map-landscape.png"><img src="03-chapter-map-landscape.png" alt="Горизонтальная карта главы с шестью узлами, деревянными панелями, водопадом и мостом"></a><figcaption>Проверено: ровно 6 узлов. 1–3 пройдены, 4 доступен, 5–6 закрыты; прогресс 3 / 6. Числа и надписи на финальном экспорте остаются отдельными живыми слоями.</figcaption></figure>
+</section>
+<section class="concept" id="chapter-portrait">
+<div class="eyebrow">04 / Карта главы • вертикаль</div><h2>Отдельная композиция для телефона</h2>
+<p>Последовательность поднимается от нижнего моста к верхней поляне. Все шесть узлов видны; прогресс и основное действие находятся внизу.</p>
+<figure class="portrait"><a href="04-chapter-map-portrait.png"><img src="04-chapter-map-portrait.png" alt="Вертикальная карта с шестью узлами змейкой снизу вверх, водопадом слева и кнопкой продолжить внизу"></a><figcaption>Вертикальный фон и маршрут нужно готовить вместе. Это самостоятельная компоновка, не обрезка горизонтальной карты.</figcaption></figure>
+</section>
+<div class="columns"><article class="card"><h3>Перенести в окружение</h3><p>Тёплую спокойную площадку опор; характерную толщину камня; асимметричные группы деревьев; плавное соединение берега с водой; локальный янтарный ориентир выхода. Вокруг игрового пути мелкий декор ещё сократить.</p></article><article class="card"><h3>Проверить на игровом кадре</h3><p>Прыжковую дугу, открытый HUD и диалоги, контакт ног, четыре оставшиеся опоры первого уровня, длинные русские/английские строки и safe areas. Камера не реагирует зумом на текст. Листья и фигурные торцы не тянутся.</p></article></div>
+<details><summary>Уменьшенные превью: 640 × 360 и 360 × 640</summary><p class="smallprint">Быстрая проверка иерархии концептов. Настоящие размеры нажатий, локализация и поведение UI проверяются отдельно в Unity и на устройстве.</p><div class="preview-row"><div class="preview landscape"><img src="03-chapter-map-landscape.png" alt="Уменьшенный горизонтальный концепт"><p>640 × 360 CSS-пикселей</p></div><div class="preview vertical"><img src="04-chapter-map-portrait.png" alt="Уменьшенный вертикальный концепт"><p>360 × 640 CSS-пикселей</p></div></div></details>
+<footer>Создано встроенным imagegen на основе ТЗ и актуальных изображений проекта. Изменены только файлы этой папки. Следующая итерация — точный paintover Unity-камеры с HUD и подготовка раздельных исходников после выбора направления.</footer>
+</main></body></html>

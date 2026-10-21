@@ -1,0 +1,57 @@
+{
+  "reports": {
+    "beta-readiness-final.xml": {
+      "passed": 5,
+      "failed": 0
+    },
+    "beta-ui-transitions.xml": {
+      "passed": 26,
+      "failed": 0
+    },
+    "beta-lifecycle-recovery-final.xml": {
+      "passed": 7,
+      "failed": 0
+    }
+  },
+  "uniqueTestsPassed": 37,
+  "failed": 0,
+  "testNames": [
+    "CampaignRatingTests.RatingRequiresEveryAuthoredLevel(5,False)",
+    "CampaignRatingTests.RatingRequiresEveryAuthoredLevel(6,True)",
+    "CampaignRatingTests.RatingWithoutCommentAndEscapedCommentsHaveStructuredPayloads",
+    "CampaignRatingTests.ReopenedDraftShowsItsCategoryAfterLocalization",
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.FailedCheckpointSaveLeavesPreviousDiskStateAndExplicitRetryStoresSettledTurn",
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.IndependentExitAndInterruptedFinalJumpResumeThroughStoryWithOneStableReward",
+    "Diceforge.Tests.BattleTermination.DemoCheckpointFlowTests.MidTurnL5ResumeKeepsNamesAndRemainingActionThenRestartAndRejectsChangedScenario",
+    "Diceforge.Tests.BattleTermination.DemoNarrativeCatalogTests.EveryAuthoredLineAndTitleHasEnglishAndSpeakerArtIsPreserved",
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RaceStepButtonsRecoverAfterEveryMoveAndBothFriendsCanFinish",
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.RealMouseDragAndTouchPinchInspectTheIslandWithoutMovingAHero",
+    "Diceforge.Tests.BattleTermination.DemoNarrativePresentationTests.StoryKeepsItsLineAcrossLanguagesAndHintLeavesActionsAccessible",
+    "Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests.LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder",
+    "Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests.StandaloneArtStageStillAppliesAndRestoresItsOwnPipeline",
+    "Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.FinalHandshakeTimeoutStopsAndCancelsItsParser",
+    "Diceforge.Tests.BattleTermination.ServerConnectionRecoveryTests.TwentyThreeFailuresStopAllRetriesAndReleaseEveryParserAndSink",
+    "FeedbackDeliveryTests.Disconnection_CompletesFailureOnce_AndReleasesSlot",
+    "FeedbackDeliveryTests.DuplicateSubmission_DoesNotReplaceOriginalPendingItem",
+    "FeedbackDeliveryTests.InFlightSubmission_StaysPendingUntilDeadline_ThenCompletesOnce",
+    "FeedbackDeliveryTests.OfflineSubmission_FailsWithoutQueuingOrReportingSuccess",
+    "FeedbackDeliveryTests.OnlyCommittedAcknowledgement_ReportsSuccess(\"Committed\",\"Sent\")",
+    "FeedbackDeliveryTests.OnlyCommittedAcknowledgement_ReportsSuccess(\"Failed\",\"Failed\")",
+    "FeedbackDeliveryTests.RemovedCompletion_DoesNotCallDisposedController",
+    "ModalDismissTests.BackdropClosesOnce",
+    "ModalDismissTests.DisposedBindingDoesNotClose",
+    "ModalDismissTests.DragInDoesNotClose",
+    "ModalDismissTests.DragOutDoesNotClose",
+    "ModalDismissTests.RightClickDoesNotClose",
+    "ModalDismissTests.WindowAndChildrenDoNotClose",
+    "ScreenTransitionTests.BlocksNavigationAndRestoresInputWithoutChangingEnabledState",
+    "ScreenTransitionTests.ChangesOnlyUnderCoverAndRejectsDuplicates",
+    "ScreenTransitionTests.DisablingServiceReleasesBlockAndAllowsNextTransition",
+    "ScreenTransitionTests.FailureIsVisibleAndDismissalReleasesInput",
+    "ScreenTransitionTests.InvalidSceneDoesNotBeginNavigation",
+    "ScreenTransitionTests.KeepsCoverUntilDestinationIsReady",
+    "ScreenTransitionTests.ReducedMotionAndMissingTextureStillComplete",
+    "ScreenTransitionTests.WorksWhenTimeScaleIsZero",
+    "ScreenTransitionTests.ZeroDurationsStillConcealMutation"
+  ]
+}

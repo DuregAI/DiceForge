@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="1,1354403">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="183" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="1.135440" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1136" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="105" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="1.007502" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1137" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="105" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="0.995424" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1138" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="105" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="0.994226" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1139" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="105" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="0.993334" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1115" name="ForestSceneLifecycleTests" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-21 02:03:38Z" end-time="2026-10-21 02:03:39Z" duration="0.989097" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1116" name="LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests.LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" methodname="LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" seed="983991270" result="Failed" start-time="2026-10-21 02:03:30Z" end-time="2026-10-21 02:03:39Z" duration="9.254512" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Pipeline leaked from component destruction order 0
+  Expected: same as <URP_2D_Battle (UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)>
+  But was:  <HeroPipeline (UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)>
+]]></message>
+                  <stack-trace><![CDATA[at Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests+<LeavingTheForestRestoresTheMenuPipelineRegardlessOfComponentDestructionOrder>d__1.MoveNext () [0x00157] in C:\Backforge\Diceforge\DiceForge\Assets\Tests\BattleRunner\ForestSceneLifecycleTests.cs:39
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@7a3849e09bd0\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792548219165 session=453e56566ec241a3be4bf6b5ac17f351 payload={sessionStartUnixMsUtc=1792548216645, sessionEndUnixMsUtc=1792548219165, durationSeconds=2.52, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=13, totalSampledSeconds=8.646, averageFps=1.504, minimumWindowFps=0.154, averageFrameTimeMs=665.053, worstSpikeMs=6508.214}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\forest-lifecycle-before.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

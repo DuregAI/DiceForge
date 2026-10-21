@@ -1,0 +1,15 @@
+{
+  "flippedOuterHairPolygons": 1180,
+  "vertices": 7825,
+  "uvPreserved": true,
+  "blendshapesPreserved": true,
+  "animationNames": [
+    "Dialogue_Agree",
+    "Dialogue_Doubt",
+    "Dialogue_Greet",
+    "Dialogue_Laugh",
+    "Dialogue_Listen",
+    "Dialogue_Talk",
+    "Idle_Scene"
+  ]
+}
