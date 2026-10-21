@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RoundedLeaves
-  m_Shader: {fileID: 4800000, guid: c8c31199f2fb6944c91a2fa4e42bb2c4, type: 3}
+  m_Shader: {fileID: 4800000, guid: aecf79a29ee85604e8bef6a2201fc351, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

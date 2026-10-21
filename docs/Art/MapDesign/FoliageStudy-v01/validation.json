@@ -1,0 +1,18 @@
+{
+  "source": "Unity captures + static asset inspection",
+  "cell_count": 8,
+  "cell_transforms_unchanged": true,
+  "shared_runtime_shader": true,
+  "verified_after_matches_captured_material": true,
+  "shader_and_CSharp_compile_errors_at_completed_import": 0,
+  "animation_runtime_recheck": "pending: Unity occupied by separate Incremental Player Build",
+  "web_build_verification": "not performed",
+  "scene_modified": "separate study prefab only",
+  "mesh": {
+    "leaves": 153,
+    "vertices": 9315,
+    "triangles": 12816,
+    "materials": 2,
+    "seed": 731
+  }
+}

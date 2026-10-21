@@ -26,9 +26,11 @@ namespace Diceforge.View.Editor
             var material = AssetDatabase.LoadAssetAtPath<Material>(Folder + "RoundedLeaves.mat");
             if (material == null)
             {
-                material = new Material(Shader.Find("Diceforge/Study Rounded Foliage"));
+                material = new Material(Shader.Find("Diceforge/Living Forest Foliage"));
                 AssetDatabase.CreateAsset(material, Folder + "RoundedLeaves.mat");
             }
+            // Reuse the visually verified runtime shader and its reduced-motion contract.
+            material.shader = Shader.Find("Diceforge/Living Forest Foliage");
             material.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(Folder + "LeafAlbedo.png"));
             material.SetColor("_BaseColor", new Color(.88f, .95f, .72f));
             material.SetFloat("_WindStrength", .025f); material.SetFloat("_AutoHeight", 0);
