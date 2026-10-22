@@ -12,7 +12,7 @@ namespace Diceforge.View.Editor
     /// <summary>Repeatable art review of the shipped prefab, with no player-save changes.</summary>
     public static class LivingForestReview
     {
-        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false, bool heroContour = false)
+        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false, bool heroContour = false, bool lakeReview = false, int imageWidth = 1600, bool saveReflections = true)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer) throw new InvalidOperationException("Finish Play Mode/player build before taking an art review.");
             var originalScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
@@ -72,22 +72,29 @@ namespace Diceforge.View.Editor
                     camera.transform.rotation = Quaternion.Euler(42, 0, 0);
                     camera.transform.position = new Vector3(-.15f, .3f, -.65f) - camera.transform.forward * 25;
                 }
+                if (lakeReview)
+                {
+                    camera.orthographicSize = 2.3f;
+                    camera.transform.rotation = Quaternion.Euler(50, 0, 0);
+                    camera.transform.position = new Vector3(2.2f, -.5f, -1.65f) - camera.transform.forward * 25;
+                }
                 var data = camera.GetUniversalAdditionalCameraData(); data.renderPostProcessing = true; data.SetRenderer(0);
                 data.requiresColorTexture = true; data.requiresDepthTexture = true;
                 root.GetComponentInChildren<LivingForestMotion>(true).Apply(time);
                 root.GetComponentInChildren<LivingForestForeground>(true)?.Frame(camera);
                 reflections = root.GetComponentInChildren<ForestWaterReflections>(true);
                 reflections.Capture(camera);
-                target = new RenderTexture(1600, 900, 24, RenderTextureFormat.ARGB32); target.Create();
-                image = new Texture2D(1600, 900, TextureFormat.RGB24, false);
+                int imageHeight = Mathf.RoundToInt(imageWidth * 9f / 16);
+                target = new RenderTexture(imageWidth, imageHeight, 24, RenderTextureFormat.ARGB32); target.Create();
+                image = new Texture2D(imageWidth, imageHeight, TextureFormat.RGB24, false);
                 camera.targetTexture = target;
                 // Editor shader variants and render-graph resources need a warm draw.
                 // Player builds compile these variants during the build, not at capture time.
                 camera.Render(); reflections.Capture(camera); camera.Render();
-                RenderTexture.active = target; image.ReadPixels(new Rect(0, 0, 1600, 900), 0, 0); image.Apply();
+                RenderTexture.active = target; image.ReadPixels(new Rect(0, 0, imageWidth, imageHeight), 0, 0); image.Apply();
                 Directory.CreateDirectory(Path.GetDirectoryName(output)); File.WriteAllBytes(output, image.EncodeToPNG());
                 var block = new MaterialPropertyBlock();
-                foreach (var plane in reflections.planes)
+                foreach (var plane in saveReflections ? reflections.planes : Array.Empty<ForestWaterReflections.Plane>())
                 {
                     plane.surface.GetPropertyBlock(block);
                     var reflection = block.GetTexture("_PlanarReflectionTex") as RenderTexture;

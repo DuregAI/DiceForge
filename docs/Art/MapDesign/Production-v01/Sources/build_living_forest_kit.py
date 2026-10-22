@@ -307,20 +307,21 @@ objects.append(obj)
 objects.append(small_stones('RiverRocks_A',[(x,z,.035,r,r*.8,r*.85) for x,z,r in rockCenters]))
 
 # An asymmetric submerged shore: coves, a shallow gravel bar and deeper pools.
-shelf=Mesh('AsymmetricShelf_A');verts=[];rings=[(.86,-.85),(1.05,-.92),(1.30,-1.12),(1.70,-1.75),(3.0,-3.7),(14,-5)]
+shelf=Mesh('AsymmetricShelf_A');verts=[];rings=[(.84,-.84),(1.02,-.91),(1.15,-1.02),(1.38,-1.34),(1.70,-2.05),(3.0,-3.7),(14,-5)]
 count=160
 for ring,(radius,z) in enumerate(rings):
     for i in range(count):
         a=i*math.tau/count
         irregular=1+.11*math.sin(a*3+.7)+.055*math.sin(a*7+1.9)+.045*math.cos(a*5-.3)
         # The front right gravel bar is deliberately unequal to the left bank.
-        bar=.22*math.exp(-((a-5.2)/.42)**2)
+        bar=.13*math.exp(-((a-5.2)/.42)**2)
         x=3.75*radius*irregular*math.cos(a)+.25*math.sin(a*2)
         zWorld=2.25*radius*(1+.08*math.cos(a*4))*math.sin(a)+.18*math.cos(a*3)
-        height=z+bar*(1 if ring<3 else .4)+(.035*math.sin(a*11) if ring<3 else 0)
+        height=min(-.82,z+bar*(1 if ring<4 else .3)+.018*math.sin(a*11))
         verts.append((-x,-zWorld,height))
 for j in range(len(rings)-1):
-    shelf.part(verts[j*count:(j+2)*count],[(i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count)],'ForestSand')
+    # Radial then tangent faces upward in Blender Z. The old winding hid the entire bed.
+    shelf.part(verts[j*count:(j+2)*count],[(i,i+count,(i+1)%count+count,(i+1)%count) for i in range(count)],'ForestSand')
 objects.append(shelf.finish())
 
 def foreground_branch(name,mirror):

@@ -164,6 +164,7 @@ namespace Diceforge.View.Editor
                 ConfigurePipeline(stage.pipelineOverride,true);
                 FirstTrailPresentationSetup.BindVisuals(board);
                 LivingForestStaticMeshes.Build(art,environment.transform,board);
+                LakeWaterSetup.ApplyShore(root);
                 for(int i=0;i<cells.Length;i++)if(cells[i].transform.localPosition!=anchors[i])throw new InvalidOperationException("A landing moved.");
                 if(EditorJsonUtility.ToJson(board.layout)!=geometry)throw new InvalidOperationException("Gameplay geometry changed.");
                 PrefabUtility.SaveAsPrefabAsset(root,Board);
@@ -314,6 +315,8 @@ namespace Diceforge.View.Editor
                 material.SetFloat("_FlowSpeed",name=="ForestRiver"?.82f:.22f);material.SetFloat("_River",name=="ForestRiver"?1:0);
                 // The lake writes no depth: equal transparent queues can cover the fall.
                 material.renderQueue=name=="ForestRiver"?2981:2980;
+                if(name=="ForestLake" && AssetDatabase.LoadAssetAtPath<Material>(LakeWaterSetup.Folder+"LakeBed.mat")!=null)
+                    LakeWaterSetup.ConfigureLake(material);
             }
             BuildGroundTexture();
         }

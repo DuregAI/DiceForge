@@ -31502,9 +31502,21 @@ PrefabInstance:
       value: AsymmetricShelf_A
       objectReference: {fileID: 0}
     - target: {fileID: 5391302005769515240, guid: f4de2c322487381479edd37297344c8c, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391302005769515240, guid: f4de2c322487381479edd37297344c8c, type: 3}
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5391302005769515240, guid: f4de2c322487381479edd37297344c8c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value:
+      objectReference: {fileID: 2100000, guid: a341bf9240ef9da439acd79687a984c6, type: 2}
+    - target: {fileID: 7869257315234268194, guid: f4de2c322487381479edd37297344c8c, type: 3}
+      propertyPath: m_Mesh
+      value:
+      objectReference: {fileID: 4300000, guid: db6cf1edaa138cb4883783ee78e1bfd8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

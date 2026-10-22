@@ -1,0 +1,9 @@
+{
+  "frames": 120,
+  "durationSeconds": 10,
+  "renderedFramesPerSecond": 12,
+  "fixedCamera": true,
+  "waterCropMeanAdjacentDifference": 0.168,
+  "waterCropMaxAdjacentDifference": 0.278,
+  "webPerformanceMeasured": false
+}

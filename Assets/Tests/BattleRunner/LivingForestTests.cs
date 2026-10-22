@@ -193,8 +193,15 @@ namespace Diceforge.Tests.BattleTermination
                     var surface = (Renderer)Runtime.Field(plane, "surface"); surface.GetPropertyBlock(block);
                     var texture = block.GetTexture("_PlanarReflectionTex") as RenderTexture;
                     Assert.That(texture, Is.Not.Null); Assert.That(texture.IsCreated(), Is.True);
+                    Assert.That(texture.useMipMap && texture.mipmapCount > 1, Is.True, "Rough lake reflections have real mip levels.");
+                    Assert.That(block.GetFloat("_PlanarReflectionMaxMip"), Is.GreaterThan(0));
                     Assert.That(block.GetFloat("_HasReflection"), Is.EqualTo(1)); textures.Add(texture);
                 }
+                int captures = (int)Runtime.Get(mirrors, "CaptureCount");
+                int mask = camera.cullingMask; camera.cullingMask = 0;
+                Runtime.Call(mirrors, "Capture", camera);
+                Assert.That((int)Runtime.Get(mirrors, "CaptureCount"), Is.EqualTo(captures), "Invisible water does not render reflection cameras.");
+                camera.cullingMask = mask;
                 mirrors.enabled = false;
                 Assert.That(textures.All(texture => texture == null || !texture.IsCreated()), Is.True);
                 foreach (var plane in planes)
@@ -210,6 +217,29 @@ namespace Diceforge.Tests.BattleTermination
                 Object.DestroyImmediate(root); Object.DestroyImmediate(cameraRoot);
                 QualitySettings.renderPipeline = pipeline; GL.invertCulling = culling;
             }
+        }
+
+        [Test]
+        public void LakeBedFacesUpAndShallowsStaySubmerged()
+        {
+            var root = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Board));
+            try
+            {
+                var bed = root.transform.Find("Living forest/AsymmetricShelf_A").GetComponentInChildren<MeshFilter>();
+                var collider = bed.gameObject.AddComponent<MeshCollider>(); collider.sharedMesh = bed.sharedMesh;
+                Assert.That(bed.sharedMesh.normals.All(n => bed.transform.TransformDirection(n).y > .2f), Is.True,
+                    "The old downward-wound bed disappeared under backface culling.");
+                var points = bed.sharedMesh.vertices.Select(bed.transform.TransformPoint).ToArray();
+                Assert.That(points.Max(v => v.y), Is.LessThan(-.80f), "No gravel bar protrudes above lake Y=-.73.");
+                Physics.SyncTransforms();
+                foreach (float z in new[] { -1.5f, -2.2f })
+                {
+                    Assert.That(collider.Raycast(new Ray(new Vector3(4.4f, 1, z), Vector3.down), out var hit, 5), Is.True);
+                    Assert.That(hit.point.y, Is.InRange(-3f, -.81f), "The visible shore has a reachable submerged bottom.");
+                }
+                Assert.That(points.Min(v => v.y), Is.LessThan(-4f), "Open water retains a deep region.");
+            }
+            finally { Object.DestroyImmediate(root); }
         }
 
         [Test]

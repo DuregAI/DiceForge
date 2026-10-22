@@ -1,0 +1,42 @@
+{
+  "appliedTo": "Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.prefab",
+  "uniqueChecksPassedAcrossRuns": 13,
+  "initialRun": {
+    "passed": 11,
+    "failed": 2
+  },
+  "focusedRetry": {
+    "passed": 3,
+    "failed": 0,
+    "campaignCaptureFramerate": 30
+  },
+  "webBuildTested": false,
+  "reflection": {
+    "desktopWidth": 512,
+    "stationaryRefreshRate": 12,
+    "mipmapped": true,
+    "cameraMovementRefresh": "every moved frame to avoid stale projection",
+    "visibleSurfacesOnly": true
+  },
+  "lake": {
+    "density": 2.1,
+    "roughness": 0.24,
+    "rippleStrength": 0.075,
+    "reflectionStrength": 0.64,
+    "minimumReflection": 0.23,
+    "causticStrength": 0.11
+  },
+  "bed": {
+    "vertices": 1120,
+    "triangles": 1920,
+    "allNormalsUp": true,
+    "highestY": -0.82,
+    "lakeSurfaceY": -0.73,
+    "albedoSize": 1024,
+    "causticTextureSize": 256
+  },
+  "limitations": [
+    "GPU frame time in a Web player has not been measured.",
+    "The first campaign run timed out waiting for a level-5 move; the deterministic 30fps rerun passed."
+  ]
+}

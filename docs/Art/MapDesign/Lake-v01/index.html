@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glimblehop — озеро</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#152925;color:#f4eedc;font:17px/1.6 system-ui,sans-serif}main{max-width:1280px;margin:auto;padding:36px 24px}h1{font:clamp(32px,5vw,58px)/1.12 Georgia,serif;margin:.3em 0}h2{font:28px Georgia,serif}p{max-width:900px;color:#c1d4ca}a{color:#e4c58a}.eyebrow{color:#94c5b7;font-size:12px;letter-spacing:.16em;text-transform:uppercase}.compare{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:#0d1d1a}.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.after{clip-path:inset(0 0 0 var(--split,50%))}.line{position:absolute;inset:0 auto 0 var(--split,50%);border-left:2px solid #fff0c7}.labels{display:flex;justify-content:space-between;margin:10px 0}input{width:100%;height:30px;accent-color:#d6b573}section{margin-top:36px;border-top:1px solid #3e5b50;padding-top:18px}figure{margin:20px 0}figure img{width:100%;border-radius:14px}figcaption{font-size:14px;color:#a5bfb1}.note{padding:18px 22px;background:#243d33;border-left:3px solid #d0b074;border-radius:6px}li{margin:8px 0}.links{display:flex;gap:22px;flex-wrap:wrap}
+</style>
+<main><div class="eyebrow">Glimblehop · Unity 6.6 · озеро v01</div>
+<h1>Прозрачный берег и глубина</h1>
+<p>Доработка действующего игрового уровня: асимметричное мелководье, песок и галька под водой, плавный переход к бирюзовой глубине, мягкие отражения и спокойная рябь.</p>
+<div class="labels"><span>До</span><span>После</span></div>
+<div class="compare" id="compare"><img src="before.png" alt="Озеро до исправлений"><img class="after" src="after.png" alt="Озеро после исправлений"><div class="line"></div></div>
+<label for="split">Сравнение из одной камеры</label><input id="split" type="range" min="0" max="100" value="50">
+<section><h2>Поверхность в движении</h2>
+<figure><img src="lake-motion.webp" alt="Десять секунд движения озера"><figcaption>10 секунд, 120 отрисованных кадров, 12 кадров/с. Фиксированная камера позволяет оценить движение воды; это художественный просмотр, а не замер FPS игры.</figcaption></figure>
+<p>Крупная рябь мягко искажает отражения. Световые узоры проявляются на освещённом мелководье. Белая пена сосредоточена у места впадения, её след постепенно затухает.</p></section>
+<section><h2>В игровой камере</h2><figure><img src="Campaign/level-01-start.png" alt="Первый уровень с интерфейсом"><figcaption>Прохождение кампании с игровым интерфейсом. Геометрия восьми точек прыжка сохранена.</figcaption></figure><div class="links"><a href="overview.png">Общий вид</a><a href="Campaign/level-05-start.png">Уровень с Лумой</a><a href="Campaign/level-06-start.png">Уровень 6</a></div></section>
+<section><h2>Что исправлено</h2><ul>
+<li>У старого дна все 1660 нормалей были обращены вниз. Новое дно смотрит вверх, имеет пологую прибрежную полку и песчано-галечную текстуру.</li>
+<li>Шейдер отдельно обрабатывает отсутствие данных глубины и проверяет смещённую выборку преломления, чтобы не затягивать надводные силуэты в воду.</li>
+<li>Шероховатость управляет размытием отражений через mip-уровни. Невидимые поверхности пропускают отражающий проход; движение камеры сохраняет своевременное обновление.</li>
+<li>Расчёт тумана выполняется по глубине пикселя, а не по четырём вершинам огромной водной плоскости.</li>
+<li>Убрана пунктирная береговая пена. Световые узоры на дне используют две текстурные выборки вместо процедурного поиска девяти соседей на каждом пикселе.</li>
+</ul></section>
+<section><h2>Проверки</h2><p>13 уникальных проверок пройдены с учётом повторного прогона. Проверены направление дна, погружение отмели, mip-уровни отражений, пропуск невидимой воды, освобождение ресурсов, восстановление освещения и прохождение шести уровней.</p>
+<p>В первом прогоне слишком узкий диапазон теста дна не учитывал склон глубиной 2,20 м; диапазон уточнён. Прохождение кампании впервые остановилось на ожидании анимации уровня 5; повторный прогон при фиксированных 30 кадрах/с прошёл. Эти результаты сохранены в обоих отчётах.</p>
+<div class="links"><a href="tests.xml">Первый прогон</a><a href="tests-final.xml">Повторный прогон</a><a href="validation.json">Параметры и ограничения</a><a href="motion-validation.json">Проверка движения</a></div>
+<p class="note">Web-сборка и GPU-замеры на целевых устройствах в этом проходе не выполнялись. Отражения и дополнительная текстура требуют отдельной проверки бюджета WebGL.</p></section>
+</main><script>document.getElementById('split').oninput=e=>document.getElementById('compare').style.setProperty('--split',e.target.value+'%');</script></html>
