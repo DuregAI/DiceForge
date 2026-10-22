@@ -12,9 +12,9 @@ namespace Diceforge.View.Editor
     /// <summary>Repeatable art review of the shipped prefab, with no player-save changes.</summary>
     public static class LivingForestReview
     {
-        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false)
+        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false, bool heroContour = false)
         {
-            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode before taking an art review.");
+            if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer) throw new InvalidOperationException("Finish Play Mode/player build before taking an art review.");
             var originalScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
             var originalPipeline = QualitySettings.renderPipeline;
             var originalTarget = RenderTexture.active;
@@ -41,19 +41,21 @@ namespace Diceforge.View.Editor
                     hero.transform.localScale = Vector3.one * .78f; hero.transform.rotation = Quaternion.Euler(0, 180, 0);
                     hero.GetComponentInChildren<CharacterAppearance>()?.Apply(false);
                     var mover = hero.GetComponent<BoardLayoutTokenMover>(); if (mover != null) mover.enabled = false;
+                    if (heroContour) DioramaStyleSetup.AddContour(hero);
                 }
                 var stage = root.GetComponent<WoodlandHeroStage>();
                 QualitySettings.renderPipeline = stage.pipelineOverride;
-                RenderSettings.fog = true; RenderSettings.fogMode = FogMode.Linear;
-                RenderSettings.fogColor = new Color(.30f, .38f, .29f);
-                RenderSettings.fogStartDistance = 27; RenderSettings.fogEndDistance = 43;
+                RenderSettings.fog = stage.fogEnabled; RenderSettings.fogMode = FogMode.Linear;
+                RenderSettings.fogColor = stage.fogColor;
+                RenderSettings.fogStartDistance = stage.fogStartDistance; RenderSettings.fogEndDistance = stage.fogEndDistance;
                 RenderSettings.ambientMode = AmbientMode.Trilight;
-                RenderSettings.ambientSkyColor = new Color(.57f, .66f, .74f);
-                RenderSettings.ambientEquatorColor = new Color(.43f, .47f, .34f);
-                RenderSettings.ambientGroundColor = new Color(.23f, .18f, .12f);
-                var ambient = new SphericalHarmonicsL2(); ambient.AddAmbientLight(new Color(.36f, .41f, .43f)); RenderSettings.ambientProbe = ambient;
-                AddLight("Forest review sun", stage.sunEuler, new Color(1, .91f, .76f), stage.sunIntensity, true);
-                AddLight("Forest review fill", stage.fillEuler, new Color(.60f, .77f, 1), stage.fillIntensity, false);
+                RenderSettings.ambientSkyColor = stage.ambientSkyColor;
+                RenderSettings.ambientEquatorColor = stage.ambientEquatorColor;
+                RenderSettings.ambientGroundColor = stage.ambientGroundColor;
+                var ambient = new SphericalHarmonicsL2(); ambient.AddAmbientLight(stage.ambientProbeColor); RenderSettings.ambientProbe = ambient;
+                var sun = AddLight("Forest review sun", stage.sunEuler, stage.sunColor, stage.sunIntensity, true);
+                sun.shadowStrength = stage.sunShadowStrength; sun.shadowBias = stage.sunShadowBias; sun.shadowNormalBias = stage.sunShadowNormalBias;
+                AddLight("Forest review fill", stage.fillEuler, stage.fillColor, stage.fillIntensity, false);
                 var volume = new GameObject("Forest review grade").AddComponent<Volume>();
                 volume.isGlobal = true; volume.priority = 100; volume.sharedProfile = stage.grade;
                 var camera = new GameObject("Forest review camera").AddComponent<Camera>();
@@ -111,13 +113,14 @@ namespace Diceforge.View.Editor
             }
         }
 
-        private static void AddLight(string name, Vector3 angles, Color color, float intensity, bool shadows)
+        private static Light AddLight(string name, Vector3 angles, Color color, float intensity, bool shadows)
         {
             var light = new GameObject(name).AddComponent<Light>();
             light.type = LightType.Directional; light.color = color; light.intensity = intensity;
             light.transform.rotation = Quaternion.Euler(angles);
             light.shadows = shadows ? LightShadows.Soft : LightShadows.None;
             light.shadowBias = .035f; light.shadowNormalBias = .15f;
+            return light;
         }
     }
 }

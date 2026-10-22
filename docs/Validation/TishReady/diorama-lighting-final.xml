@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1,3460129">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="185" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.346013" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1138" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="107" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.254453" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1139" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="107" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.241258" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1140" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="107" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.239929" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1141" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="107" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.238771" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1115" name="ForestSceneLifecycleTests" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-22 04:03:58Z" end-time="2026-10-22 04:03:59Z" duration="1.232926" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1117" name="ForestRestoresSharedLightingInEitherComponentDestructionOrder" fullname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests.ForestRestoresSharedLightingInEitherComponentDestructionOrder" methodname="ForestRestoresSharedLightingInEitherComponentDestructionOrder" classname="Diceforge.Tests.BattleTermination.ForestSceneLifecycleTests" runstate="Runnable" seed="1091339871" result="Passed" start-time="2026-10-22 04:03:47Z" end-time="2026-10-22 04:03:59Z" duration="11.703049" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792641838961 session=bbf90c723a2b44ee81c801a09ea72b31 payload={sessionStartUnixMsUtc=1792641835838, sessionEndUnixMsUtc=1792641838961, durationSeconds=3.123, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=2540, screenHeight=1178, lastSceneName=, scenesLoadedCount=1, battlesStartedCount=0, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=16, totalSampledSeconds=10.929, averageFps=1.464, minimumWindowFps=0.119, averageFrameTimeMs=683.075, worstSpikeMs=8371.137}
+[SpacetimeDb] Session summary queued; connection is not active yet.
+Saving results to: C:\Backforge\Diceforge\DiceForge\docs\Validation\TishReady\diorama-lighting-final.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-22",
+  "live_level": "FirstTrail8.prefab",
+  "anchors": 8,
+  "anchors_unchanged": true,
+  "default_outline": false,
+  "tone_strength": 0.2,
+  "ao_intensity": 0.38,
+  "ao_radius": 0.12,
+  "shadow_distance": 38,
+  "shadow_cascades": 2,
+  "shadow_map": 2048,
+  "shadow_strength": 0.8,
+  "soft_quality": "Medium",
+  "new_shaders_compile_errors": 0,
+  "web_build": "not run; platform profiling remains required",
+  "wind_render_different_times": {
+    "seconds": [
+      3,
+      5
+    ],
+    "changed_pixel_fraction": 0.24444444444444444,
+    "mean_absolute_channel_difference": 7.107306481481482
+  },
+  "tests": {
+    "unique_checks": 12,
+    "passed": 12,
+    "failed": 0,
+    "initial_run": "11 passed, 1 overly strict ambient SH equality assertion failed",
+    "focused_rerun": "1 passed after comparing native SH coefficients with tolerance 0.00001",
+    "campaign": "all six demo levels passed; runtime HUD captures saved",
+    "reports": [
+      "../../../Validation/TishReady/diorama-style.xml",
+      "../../../Validation/TishReady/diorama-lighting-final.xml"
+    ]
+  }
+}

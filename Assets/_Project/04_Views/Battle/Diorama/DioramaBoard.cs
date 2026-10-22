@@ -19,6 +19,8 @@ namespace Diceforge.View
         public bool landscapeOnly;
         private LightmapData[] previousLightmaps;
         private LightProbes previousProbes;
+        private LightmapsMode previousLightmapsMode;
+        private DioramaLightingState previousLighting;
         public event Action GeometryChanged;
         public bool IsPortrait { get; private set; }
         public static bool ReducedMotion { get; set; }
@@ -68,8 +70,10 @@ namespace Diceforge.View
         {
             if (configured) return;
             configured = true;
+            CaptureLightingState();
             previousPipeline = QualitySettings.renderPipeline;
             previousLightmaps=LightmapSettings.lightmaps;previousProbes=LightmapSettings.lightProbes;
+            previousLightmapsMode=LightmapSettings.lightmapsMode;
             QualitySettings.renderPipeline = Application.isMobilePlatform ? mobilePipeline : desktopPipeline;
             cameraView = Camera.main;
             if (cameraView != null)
@@ -356,6 +360,20 @@ namespace Diceforge.View
             }
         }
         private void ClearBadges(){foreach(var b in badges.Values)if(b!=null)Destroy(b.gameObject);badges.Clear();}
-        private void OnDestroy(){if(badgeSprite!=null)Destroy(badgeSprite);if(configured){QualitySettings.renderPipeline=previousPipeline;LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;}}
+        internal void CaptureLightingState()
+        {
+            if (previousLighting == null) previousLighting = new DioramaLightingState();
+        }
+        private void OnDestroy()
+        {
+            if(badgeSprite!=null)Destroy(badgeSprite);
+            if(configured)
+            {
+                QualitySettings.renderPipeline=previousPipeline;
+                LightmapSettings.lightmapsMode=previousLightmapsMode;
+                LightmapSettings.lightmaps=previousLightmaps;LightmapSettings.lightProbes=previousProbes;
+            }
+            previousLighting?.Restore();
+        }
     }
 }
