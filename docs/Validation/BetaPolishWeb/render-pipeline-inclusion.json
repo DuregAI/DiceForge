@@ -1,0 +1,10 @@
+{
+    "label": "GlimbleHopRuntimePipeline",
+    "defaultPipeline": "Assets/_Project/00_Rendering/URP/URP_2D_Battle.asset",
+    "currentQualityPipeline": "Assets/_Project/00_Rendering/URP/URP_2D_Battle.asset",
+    "included": [
+        "Assets/_Project/00_Rendering/URP/URP_2D_Battle.asset",
+        "Assets/_Project/05_Gameplay_Data/Battle/WoodlandHero/HeroPipeline.asset",
+        "Assets/_Project/07_Art/DioramaStyle/DioramaPipeline.asset"
+    ]
+}

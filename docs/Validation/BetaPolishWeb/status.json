@@ -1,16 +1,16 @@
 {
     "result": "Succeeded",
-    "startedUtc": "2026-10-22T17:44:01.8875025Z",
-    "finishedUtc": "2026-10-22T17:44:04.5577028Z",
+    "startedUtc": "2026-10-23T14:08:19.0853059Z",
+    "finishedUtc": "2026-10-23T14:21:24.7729393Z",
     "output": "C:/Backforge/Builds/GlimblehopBetaPolish",
     "unityVersion": "6000.6.0f1",
-    "productVersion": "0.4.3-release",
+    "productVersion": "0.4.5-release",
     "scenes": [
         "Assets/_Project/06_Scenes/MainMenu.unity",
         "Assets/_Project/06_Scenes/Battle.unity"
     ],
     "errors": 0,
-    "warnings": 1,
-    "bytes": 178601331,
-    "seconds": 2.6514235999999998
+    "warnings": 2,
+    "bytes": 179224677,
+    "seconds": 785.1190455
 }

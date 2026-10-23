@@ -81,6 +81,8 @@ MonoBehaviour:
       - rid: 6852985685364965392
       - rid: 6852985685364965394
       - rid: 8712630790384254976
+      - rid: 4601624893943185409
+      - rid: 4601624893943185410
       - rid: 4601624893943185413
       - rid: 4601624893943185415
       - rid: 4601624893943185417
@@ -431,8 +433,8 @@ MonoBehaviour:
       data:
         m_version: 0
         m_IncludeReferencedInScenes: 0
-        m_IncludeAssetsByLabel: 0
-        m_LabelToInclude: 
+        m_IncludeAssetsByLabel: 1
+        m_LabelToInclude: GlimbleHopRuntimePipeline
     - rid: 6852985685364965392
       type: {class: ShaderStrippingSetting, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
