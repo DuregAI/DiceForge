@@ -1,0 +1,108 @@
+{
+  "check": "FBX reimport with numeric LINEAR vertex colors",
+  "all_passed": true,
+  "meshes": [
+    {
+      "mesh": "RoundleafShrub_A_LOD0",
+      "triangles": 3384,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.9164
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "mesh": "RoundleafShrub_A_LOD1",
+      "triangles": 900,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.9164
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "mesh": "RoundleafShrub_B_LOD0",
+      "triangles": 3008,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.8337
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "mesh": "RoundleafShrub_B_LOD1",
+      "triangles": 796,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.83354
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "mesh": "ShoreBroadleaf_A_LOD0",
+      "triangles": 2632,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.76617
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    },
+    {
+      "mesh": "ShoreBroadleaf_A_LOD1",
+      "triangles": 704,
+      "uv_layers": 1,
+      "wind_red_range": [
+        0.0,
+        0.76617
+      ],
+      "degenerate_triangles": 0,
+      "material_slots": 2,
+      "unit_scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "passed": true
+    }
+  ]
+}

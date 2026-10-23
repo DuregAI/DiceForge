@@ -1,0 +1,38 @@
+{
+  "scope": "Uncompressed Web archive entries, not per-source-asset attribution",
+  "totalBytes": 241391983,
+  "entries": [
+    {
+      "file": "data.unity3d",
+      "bytes": 219905257
+    },
+    {
+      "file": "sharedassets0.resource",
+      "bytes": 11212315
+    },
+    {
+      "file": "Il2CppData/Metadata/global-metadata.dat",
+      "bytes": 8625542
+    },
+    {
+      "file": "Resources/unity default resources",
+      "bytes": 1631680
+    },
+    {
+      "file": "resources.resource",
+      "bytes": 7382
+    },
+    {
+      "file": "RuntimeInitializeOnLoads.json",
+      "bytes": 4826
+    },
+    {
+      "file": "ScriptingAssemblies.json",
+      "bytes": 4563
+    },
+    {
+      "file": "boot.config",
+      "bytes": 114
+    }
+  ]
+}

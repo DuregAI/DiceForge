@@ -12,7 +12,7 @@ namespace Diceforge.View.Editor
     /// <summary>Repeatable art review of the shipped prefab, with no player-save changes.</summary>
     public static class LivingForestReview
     {
-        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false, bool heroContour = false, bool lakeReview = false, int imageWidth = 1600, bool saveReflections = true)
+        public static void Capture(string output, float time = 3f, bool close = false, string prefabPath = null, bool foliageStudy = false, bool heroContour = false, bool lakeReview = false, int imageWidth = 1600, bool saveReflections = true, string chapterLevel = null)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer) throw new InvalidOperationException("Finish Play Mode/player build before taking an art review.");
             var originalScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
@@ -32,6 +32,7 @@ namespace Diceforge.View.Editor
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath ?? "Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.prefab");
                 var root = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
                 var board = root.GetComponent<DioramaBoard>();
+                root.GetComponentInChildren<TrailChapterDressing>(true)?.Apply(chapterLevel ?? "L01");
                 board.landscapeRoot.SetActive(true); board.portraitRoot.SetActive(false);
                 if (foliageStudy)
                 {

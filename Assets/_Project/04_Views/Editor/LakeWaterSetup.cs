@@ -90,13 +90,14 @@ namespace Diceforge.View.Editor
         {
             lake.SetColor("_ShallowColor", new Color(.30f, .85f, .83f));
             lake.SetColor("_DeepColor", new Color(.025f, .38f, .46f));
-            lake.SetColor("_FoamColor", new Color(.78f, .87f, .80f));
-            lake.SetFloat("_Density", 2.1f); lake.SetFloat("_WaveStrength", .075f);
-            lake.SetFloat("_FlowSpeed", .32f); lake.SetFloat("_Roughness", .24f);
+            lake.SetColor("_FoamColor", new Color(.92f, .97f, .92f));
+            lake.SetFloat("_Density", 2.1f); lake.SetFloat("_WaveStrength", .11f);
+            lake.SetFloat("_FlowSpeed", .48f); lake.SetFloat("_Roughness", .24f);
             lake.SetFloat("_ReflectionStrength", .64f); lake.SetFloat("_Refraction", .012f);
             lake.SetFloat("_OpenWaterDepth", 4); lake.SetFloat("_LakeRippleScale", 1.4f);
             lake.SetFloat("_LakeReflectionBlur", 1); lake.SetFloat("_LakeReflectionFloor", .23f);
-            lake.SetFloat("_LakeFoamAmount", .12f);
+            lake.SetFloat("_LakeFoamAmount", .34f);
+            lake.SetFloat("_LakeSurfaceFoam", .52f); lake.SetFloat("_LakeSunGlints", .8f);
             if (lake.HasProperty("_CausticMap"))
                 lake.SetTexture("_CausticMap", AssetDatabase.LoadAssetAtPath<Texture2D>(Folder + "LakeCaustics.png"));
             if (lake.HasProperty("_CausticStrength")) lake.SetFloat("_CausticStrength", .11f);

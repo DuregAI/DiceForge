@@ -141,6 +141,62 @@ namespace Diceforge.Tests.BattleTermination
         }
 
         [UnityTest]
+        public IEnumerator ThreeFriendsStayReadableWithCompactControlsAndHopMovement()
+        {
+            Time.captureFramerate = 30;
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                Runtime.Static("Map.MapFlowRuntime", "RequestReturnToMap");
+                Transition.GetMethod("LoadScene").Invoke(null, new object[] { "MainMenu", null, null });
+            }
+            yield return Until(() => SceneManager.GetActiveScene().name == "MainMenu" && Find("Map.MapFlowOrchestrator") != null,
+                "The menu did not load.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "Menu transition did not finish.");
+            var preset = UnityEditor.AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/_Project/05_Gameplay_Data/GameModes/GM_Level_06.asset");
+            Runtime.Static("Map.MapFlowRuntime", "StartNodeBattle", "Chapter1", "C1_06");
+            Runtime.Static("Battle.BattleLauncher", "Start", Runtime.New("Battle.BattleStartRequest", preset, Runtime.Field(preset, "mapConfig")));
+            yield return Until(() => SceneManager.GetActiveScene().name == "Battle" && Find("View.DioramaHud") != null,
+                "The three-friend level did not launch.");
+            yield return Until(() => !(bool)Transition.GetProperty("IsBusy").GetValue(null), "Battle transition did not finish.");
+            Component battle = Find("View.BattleDebugController");
+            yield return DismissOpening(battle, 6);
+            EnsureGameView();
+            Runtime.Call(gameView, "SizeSelectionCallback", FindOrAddResolution(1280, 720), null);
+            yield return Until(() => Screen.width == 1280 && Screen.height == 720, "Review resolution did not settle.");
+            var hud = (UIDocument)Runtime.Get(Find("View.DioramaHud"), "Document");
+            var friends = new List<GameObject>();
+            foreach (string id in new[] { "tish", "luma", "bum" })
+            {
+                object[] args = { id, 0, null, false };
+                Assert.That(Runtime.Call(battle, "TryGetHero", args), Is.True);
+                var actor = GameObject.Find((string)args[2]);
+                Assert.That(actor.activeInHierarchy, Is.True);
+                friends.Add(actor);
+            }
+            Assert.That(friends[1].transform.position.x - friends[0].transform.position.x, Is.GreaterThan(.3f));
+            Assert.That(friends[2].transform.position.x - friends[1].transform.position.x, Is.GreaterThan(.3f));
+            var badge = GameObject.Find("Count_1");
+            Assert.That(badge.transform.position.y - friends.Max(friend => friend.transform.position.y), Is.GreaterThan(1.2f));
+            yield return Capture("three-friends-guidance");
+            Runtime.Call(Runtime.Get(battle, "DemoNarrative"), "SkipHint", false);
+            yield return new WaitForSecondsRealtime(.5f);
+            var surface = hud.rootVisualElement.Q("demoActionSurface");
+            Assert.That(surface.worldBound.height / hud.rootVisualElement.worldBound.height, Is.LessThan(.28f));
+            foreach (var button in surface.Query<Button>().ToList())
+                if (button.resolvedStyle.display != DisplayStyle.None && button.worldBound.height > 0)
+                {
+                    Assert.That(button.worldBound.height, Is.GreaterThanOrEqualTo(44));
+                    Assert.That(button.worldBound.xMin, Is.GreaterThanOrEqualTo(surface.worldBound.xMin - 1));
+                    Assert.That(button.worldBound.xMax, Is.LessThanOrEqualTo(surface.worldBound.xMax + 1));
+                }
+            yield return Capture("three-friends-compact");
+            yield return Move(battle, "tish", 1);
+            Assert.That(Runtime.Get(friends[0].GetComponent(Runtime.Type("View.BoardLayoutTokenMover")), "UsesHopAnimation"), Is.True);
+            Assert.That(friends[0].transform.position.x, Is.GreaterThan(friends[1].transform.position.x));
+            Assert.That(GameObject.Find("Focused friend"), Is.Not.Null);
+        }
+
+        [UnityTest]
         public IEnumerator MapToAllSixLevelsSavesExactlyOnceAndKeepsNamedHeroes()
         {
             var routes = JsonUtility.FromJson<Routes>(File.ReadAllText("docs/DemoRC/v0.2/levels.json"));

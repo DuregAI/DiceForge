@@ -1,0 +1,29 @@
+{
+  "Tish": {
+    "source": "Assets\\_Project\\07_Art\\Characters\\Incoming\\Tripo\\TishDialogue_v01\\Tish_BaseColor_2K.jpg",
+    "normal": "Assets\\_Project\\07_Art\\Characters\\Finish\\Tish_Cloth_Normal.png",
+    "colourChanged": false,
+    "resolution": [
+      1024,
+      1024
+    ]
+  },
+  "Luma": {
+    "source": "Assets\\_Project\\07_Art\\Characters\\Incoming\\Tripo\\Luma_v02\\Luma_ForestOutfit_BaseColor_2K.png",
+    "normal": "Assets\\_Project\\07_Art\\Characters\\Finish\\Luma_Cloth_Normal.png",
+    "colourChanged": false,
+    "resolution": [
+      1024,
+      1024
+    ]
+  },
+  "Bum": {
+    "source": "Assets\\_Project\\07_Art\\Characters\\Incoming\\Tripo\\Bum_v01\\Bum_BaseColor_2K.jpg",
+    "normal": "Assets\\_Project\\07_Art\\Characters\\Finish\\Bum_Cloth_Normal.png",
+    "colourChanged": false,
+    "resolution": [
+      1024,
+      1024
+    ]
+  }
+}

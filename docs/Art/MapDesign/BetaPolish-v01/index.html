@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glimblehop · beta art finish</title>
+<style>
+:root{color-scheme:dark;font:16px/1.6 system-ui;background:#15221c;color:#eee9d7}body{max-width:1440px;margin:auto;padding:30px}h1{font-size:32px;line-height:1.2}h2{margin:28px 0 10px;font-size:22px}p{max-width:1000px;color:#c6d1bd}a{color:#e9c984}img{width:100%;display:block;border-radius:12px;background:#26352a}figure{margin:0}figcaption{padding:10px 0;color:#c6d1bd}.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}.cast{display:grid;grid-template-columns:360px 1fr;gap:30px;align-items:start}.tag{display:inline-block;border:1px solid #68774d;padding:4px 12px;border-radius:30px;color:#e0dca6}code{font-size:13px;color:#e9c984}li{margin:7px 0}@media(max-width:800px){.compare,.cast{grid-template-columns:1fr}body{padding:16px}}
+</style>
+<h1>Glimblehop · завершение графики беты</h1>
+<span class="tag">Живой production-prefab · Unity / URP</span>
+<p>Согласованный проход по растительности, поверхности острова и материалам персонажей. Уровни сохраняют общую диораму; флажки и небольшие растения у лагеря различаются. Игровые плиты и правила движения сохранены.</p>
+<h2>Остров: до и после</h2>
+<div class="compare"><figure><a href="before.png"><img src="before.png" alt="Остров до доработки"></a><figcaption>До: угловатые мелкие кусты, ровный край берега.</figcaption></figure><figure><a href="after.png"><img src="after.png" alt="Остров после доработки"></a><figcaption>После: округлая текстурированная листва, корни и береговые камни, более подробная земля и влажные нижние части скал.</figcaption></figure></div>
+<h2>Берег и материалы</h2>
+<a href="shore.png"><img src="shore.png" alt="Крупный план берега и плит"></a>
+<p>Пена, мелкая рябь и солнечные блики сохранены. У водопадной пены нарушена регулярная сетка шума. Земля получила повторяемый слой мелких камешков и normal map; камни — сдержанный рельеф и влажную полосу у воды.</p>
+<h2>Небольшие отличия уровней</h2>
+<a href="chapter05.png"><img src="chapter05.png" alt="Вариант пятого уровня"></a>
+<p>Шесть оттенков флажка и шесть вариантов небольших цветочных групп у лагеря. В отдельных вариантах добавлены прибрежные камыши. Эти детали не меняют маршрут.</p>
+<h2>Царап и ткани персонажей</h2>
+<div class="cast"><figure><img src="../../CharacterProduction/Finish-v01/scratchy-after.png" alt="Царап: обновлённые материалы"><figcaption>Blender: проверка новой цветовой карты.</figcaption></figure><div><p>Царап получил льняную основу, рыжую и оливковую пряжу, мягкие щёки и локальный материал латунного бубенчика. Исходные 2D-портреты сохранены.</p><p>У Тиша, Лумы и Бума снижена пластиковая гладкость и добавлен тонкий рельеф ткани. Глаза используют отдельные глянцевые материалы. Риги, геометрия и клипы анимации в этом проходе не изменялись.</p><p><a href="../../CharacterProduction/Finish-v01/scratchy-before.png">Царап до</a> · <a href="../../CharacterProduction/Finish-v01/scratchy-face-after.png">Лицо крупно</a></p></div></div>
+<h2>Набор растений</h2>
+<div class="compare"><figure><img src="Foliage/foliage-gallery-lod0.png" alt="Три модели растений LOD0"><figcaption>LOD0: 2632–3384 треугольника на растение.</figcaption></figure><figure><img src="Foliage/foliage-gallery-lod1.png" alt="Три модели растений LOD1"><figcaption>LOD1: 704–900 треугольников. UV, нормали и маски ветра включены.</figcaption></figure></div>
+<p>64 группы растений заменены в игровом prefab. Уменьшена плотность мелких пучков травы. Новые листья используют существующий шейдер мягкой листвы и общий ветер.</p>
+<h2>Повторное применение в редакторе</h2>
+<ol><li><code>Diceforge.View.Editor.BetaFoliageSetup.Build()</code> — импорт трёх растений и LOD.</li><li><code>Diceforge.Editor.CharacterFinishSetup.Apply()</code> — карты и материалы четырёх персонажей.</li><li><code>Diceforge.View.Editor.BetaWorldSetup.Build()</code> — подключение к FirstTrail8, берег и шесть вариантов декора.</li><li><code>Diceforge.EditorTools.BetaWebBuild.Build()</code> — WebGL-сборка в C:/Backforge/Builds/GlimblehopBetaPolish. Итог записывается в status.json; таймаут соединения с редактором сам по себе не отменяет сборку.</li></ol>
+<p><a href="../../../Validation/BetaPolishWeb/status.json">Результат WebGL-сборки</a> · <a href="../../../Validation/BetaPolishWeb/http-check.json">Проверка HTTP</a> · <a href="world-manifest.json">Контроль игровых плит</a></p>
+</html>

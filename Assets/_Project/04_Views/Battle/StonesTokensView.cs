@@ -350,7 +350,8 @@ namespace Diceforge.View
                     bool show = (assignment.Location != TokenLocation.BorneOff && index3d < 3) || assignment.Id == animatedId;
                     bool wasActive = token.root.activeSelf;
                     token.root.SetActive(show);
-                    token.root.transform.localScale=Vector3.one*(count3d<=1?.78f:count3d==2?.62f:.52f);
+                    token.root.transform.localScale=Vector3.one*(count3d<=1?.78f:
+                        demoLevel != null ? (count3d==2?.64f:.56f) : (count3d==2?.62f:.52f));
                     var identity = token.root.GetComponent<DioramaToken>();
                     identity.cellId = assignment.Location == TokenLocation.Cell ? assignment.Cell : -1;
                     if (!show) { token.mover.CancelAllMovement(); continue; }

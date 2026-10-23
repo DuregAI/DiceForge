@@ -1,0 +1,56 @@
+{
+  "checkedUtc": "2026-10-22T17:44:52.382756+00:00",
+  "url": "http://127.0.0.1:18123/",
+  "scope": "HTTP only; Unity rendering and runtime errors require browser validation",
+  "passed": true,
+  "files": [
+    {
+      "file": "Build/GlimblehopBetaPolish.data.br",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "contentEncoding": "br",
+      "bytes": 170329661,
+      "passed": true
+    },
+    {
+      "file": "Build/GlimblehopBetaPolish.framework.js.br",
+      "status": 200,
+      "contentType": "application/javascript",
+      "contentEncoding": "br",
+      "bytes": 73406,
+      "passed": true
+    },
+    {
+      "file": "Build/GlimblehopBetaPolish.loader.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "contentEncoding": "",
+      "bytes": 27675,
+      "passed": true
+    },
+    {
+      "file": "Build/GlimblehopBetaPolish.wasm.br",
+      "status": 200,
+      "contentType": "application/wasm",
+      "contentEncoding": "br",
+      "bytes": 7334892,
+      "passed": true
+    },
+    {
+      "file": "TemplateData/loading.css",
+      "status": 200,
+      "contentType": "text/css",
+      "contentEncoding": "",
+      "bytes": 4729,
+      "passed": true
+    },
+    {
+      "file": "TemplateData/loading.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "contentEncoding": "",
+      "bytes": 9270,
+      "passed": true
+    }
+  ]
+}

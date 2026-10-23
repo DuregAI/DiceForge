@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6,4572343">
+  <test-suite type="TestSuite" id="1000" name="GlimbleHop" fullname="GlimbleHop" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.457234" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1140" name="Diceforge.BattleRunner.Tests.dll" fullname="C:/Backforge/Diceforge/DiceForge/Library/ScriptAssemblies/Diceforge.BattleRunner.Tests.dll" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.426757" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1141" name="Diceforge" fullname="Diceforge" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.411527" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1142" name="Tests" fullname="Diceforge.Tests" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.410235" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1143" name="BattleTermination" fullname="Diceforge.Tests.BattleTermination" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.409352" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1040" name="DemoCampaignFlowTests" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-22 16:44:21Z" end-time="2026-10-22 16:44:27Z" duration="6.400253" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1041" name="ThreeFriendsStayReadableWithCompactControlsAndHopMovement" fullname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests.ThreeFriendsStayReadableWithCompactControlsAndHopMovement" methodname="ThreeFriendsStayReadableWithCompactControlsAndHopMovement" classname="Diceforge.Tests.BattleTermination.DemoCampaignFlowTests" runstate="Runnable" seed="762524058" result="Passed" start-time="2026-10-22 16:44:15Z" end-time="2026-10-22 16:44:27Z" duration="12.430012" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792687463013 session=38dd45e842794fe4b6a335ff1580ae7a payload={sceneName=MainMenu, buildIndex=0, loadMode=Single}
+[BattleLauncher] Loading battle scene with request: preset=GM_Level_06, map=Map_Level_06
+[BattleSceneBootstrapper] NewStart=True preset=GM_Level_06 modeId=level_06 rulesetId=level_06 setupId=level_06 cells=8 startA=0 startB=7 mapId=level_06 setupPlacements=1
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Red' controller='GoblinFriend_Gameplay'.
+[BattleSceneBootstrapper] Verified unit Animator on prefab 'GoblinFriend_Blue' controller='GoblinFriend_Gameplay'.
+Applying SetupPreset: level_06 (Level 06), placements=1
+[BattleRunner] Setup counts after placement: A=3, B=0
+[StonesTokensView] BuildTokensFromMatchState totalA=3 totalB=0 pooledA=3 pooledB=0
+[Diagnostics] Flush batch count=1
+  BattleStarted ts=1792687465088 session=38dd45e842794fe4b6a335ff1580ae7a payload={modeId=level_06, rulesetId=level_06, setupId=level_06, mapId=level_06, mapName=Map_Level_06, boardCellCount=8}
+[Diagnostics] Flush batch count=1
+  SceneLoaded ts=1792687465148 session=38dd45e842794fe4b6a335ff1580ae7a payload={sceneName=Battle, buildIndex=1, loadMode=Single}
+[Diceforge] A -> Move(0, 1)  Outcome=1, 2  Pip=1  T0
+[Diagnostics] Flush batch count=1
+  SessionEnded ts=1792687467272 session=38dd45e842794fe4b6a335ff1580ae7a payload={sessionStartUnixMsUtc=1792687459775, sessionEndUnixMsUtc=1792687467272, durationSeconds=7.497, buildVersion=0.4.3-release, platform=WindowsEditor, operatingSystem=Windows 11  (10.0.26300), cpuName=AMD Ryzen 9 7950X 16-Core Processor , gpuName=NVIDIA GeForce RTX 4080 SUPER, screenWidth=1920, screenHeight=1080, lastSceneName=Battle, scenesLoadedCount=3, battlesStartedCount=1, battlesEndedCount=0, sampleWindowSeconds=3, totalFrames=3585, totalSampledSeconds=11.915, averageFps=300.876, minimumWindowFps=0.215, averageFrameTimeMs=3.324, worstSpikeMs=4649.522}
+<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/tehno/AppData/LocalLow/BarabolaCompany/GlimbleHop\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

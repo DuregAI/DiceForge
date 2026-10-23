@@ -543,8 +543,8 @@ namespace Diceforge.UI.Dialogue
             hintCharacter.style.right = portraitLayout ? right : Mathf.Max(right, root.worldBound.xMax - surface.worldBound.xMax + 16);
             float surfaceHeight = surface.worldBound.height;
             hintCharacter.style.bottom = portraitLayout ? bottom + Mathf.Max(0, surfaceHeight - 24) : bottom;
-            hintCharacter.style.width = portraitLayout ? 100 : 220;
-            hintCharacter.style.height = portraitLayout ? 128 : Mathf.Min(300, height * .42f);
+            hintCharacter.style.width = portraitLayout ? 90 : 160;
+            hintCharacter.style.height = portraitLayout ? 116 : Mathf.Min(220, height * .32f);
             if (IsStoryVisible) RenderStory();
         }
         private void Restarted()

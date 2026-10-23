@@ -34,6 +34,10 @@ namespace Diceforge.View
         private readonly List<Vector3> previewPoints = new();
         private readonly Dictionary<int, TextMesh> badges = new();
         private Sprite badgeSprite;
+        private Transform focusedHero;
+        private string focusedHeroId;
+        private LineRenderer heroFocus;
+        private Material heroFocusMaterial;
         private bool trailMode;
         private int firstVisibleTrailCell;
         private float trailCameraZoom = 1f;
@@ -205,6 +209,8 @@ namespace Diceforge.View
             if (!trailMode || cameraView == null) return;
             foreach (var badge in badges.Values)
                 if (badge != null && badge.gameObject.activeSelf) badge.transform.rotation = cameraView.transform.rotation;
+            if (heroFocus != null && heroFocus.gameObject.activeSelf && focusedHero != null)
+                heroFocus.transform.position = focusedHero.position + Vector3.up * .026f;
         }
 
         public Vector3 CellPosition(int id)
@@ -217,7 +223,49 @@ namespace Diceforge.View
         public Vector3 FormationOffset(int slot, int count)
         {
             if(count<=1) return Vector3.zero;
+            if (trailMode)
+            {
+                if (count == 2) return new Vector3(slot == 0 ? -.25f : .25f, 0, -.04f);
+                return (slot % 3) switch
+                {
+                    0 => new Vector3(-.34f, 0, -.12f),
+                    1 => new Vector3(0, 0, .06f),
+                    _ => new Vector3(.34f, 0, -.12f)
+                };
+            }
             return (slot%3) switch { 0 => new Vector3(-.20f,0,-.10f), 1 => new Vector3(.20f,0,-.10f), _ => new Vector3(0,0,.21f) };
+        }
+        public void FocusHero(string heroId)
+        {
+            if (heroId != focusedHeroId || (heroId != null && focusedHero == null))
+            {
+                focusedHeroId = heroId; focusedHero = null;
+                if (heroId != null)
+                    foreach (var token in FindObjectsByType<DioramaToken>(FindObjectsSortMode.None))
+                        if (token.logicalId == heroId) { focusedHero = token.transform; break; }
+            }
+            bool visible = trailMode && focusedHero != null && focusedHero.gameObject.activeInHierarchy;
+            if (visible && heroFocus == null)
+            {
+                var template = Resources.Load<Material>("DemoMovePreviewMaterial");
+                if (template == null) return;
+                heroFocusMaterial = new Material(template) { name = "Selected friend amber" };
+                heroFocusMaterial.SetColor("_BaseColor", new Color(1, .84f, .36f, .95f));
+                var ring = new GameObject("Focused friend"); ring.transform.SetParent(transform, false);
+                heroFocus = ring.AddComponent<LineRenderer>(); heroFocus.sharedMaterial = heroFocusMaterial;
+                heroFocus.useWorldSpace = false; heroFocus.loop = true; heroFocus.positionCount = 48;
+                heroFocus.alignment = LineAlignment.TransformZ;
+                heroFocus.widthMultiplier = .028f;
+                heroFocus.shadowCastingMode = ShadowCastingMode.Off; heroFocus.receiveShadows = false;
+                // A horizontal ribbon with a stable width, independent of the hero's scale.
+                ring.transform.rotation = Quaternion.Euler(90, 0, 0);
+                for (int i = 0; i < 48; i++)
+                {
+                    float a = i * Mathf.PI * 2 / 48;
+                    heroFocus.SetPosition(i, new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * .22f);
+                }
+            }
+            if (heroFocus != null) heroFocus.gameObject.SetActive(visible);
         }
         public Vector3 WaitingPosition(int player) => transform.TransformPoint(new Vector3((player==0?-1:1)*.66f,.23f,0));
         public Vector3 ExitPosition(int player) => trailMode
@@ -346,12 +394,15 @@ namespace Diceforge.View
                     var backing = new GameObject("CountPlaque").AddComponent<SpriteRenderer>();
                     backing.transform.SetParent(go.transform, false);
                     backing.sprite = badgeSprite;
-                    backing.transform.localScale = new Vector3(.8f / badgeSprite.bounds.size.x, .36f / badgeSprite.bounds.size.y, 1f);
+                    backing.transform.localScale = new Vector3((trailMode ? .55f : .8f) / badgeSprite.bounds.size.x,
+                        (trailMode ? .25f : .36f) / badgeSprite.bounds.size.y, 1f);
                 }
                 badges.Add(key,badge);
             }
             badge.gameObject.SetActive(count>1);badge.text=count.ToString();
-            badge.transform.position=(cell<0?WaitingPosition(player):CellPosition(cell))+new Vector3(.38f,.86f,0);
+            badge.transform.position=(cell<0?WaitingPosition(player):CellPosition(cell))+
+                (trailMode ? new Vector3(0, 1.38f, 0) : new Vector3(.38f,.86f,0));
+            badge.characterSize = trailMode ? .035f : .045f;
             if(cameraView!=null)
             {
                 badge.transform.rotation=cameraView.transform.rotation;
@@ -366,6 +417,7 @@ namespace Diceforge.View
         }
         private void OnDestroy()
         {
+            if(heroFocusMaterial!=null)Destroy(heroFocusMaterial);
             if(badgeSprite!=null)Destroy(badgeSprite);
             if(configured)
             {

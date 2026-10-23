@@ -1,0 +1,203 @@
+{
+  "generator": "docs/Art/MapDesign/BetaPolish-v01/Foliage/build_foliage_beta.py",
+  "blender_version": "5.2.1 LTS",
+  "texture_reused_without_changes": "Assets/_Project/07_Art/FoliageStudy/LeafAlbedo.png",
+  "units": "meters; FBX -Z forward / Y up; root at ground contact",
+  "wind_colors": {
+    "r": "height^1.6 times leaf flexibility, stationary root",
+    "g": "per-leaf variation .2-.92",
+    "b": 0.5,
+    "a": 1
+  },
+  "vertex_color_export_space": "LINEAR (numeric masks; do not apply sRGB conversion)",
+  "runtime_shader": "Diceforge/Diorama/Soft Foliage; _AutoHeight=0; Cull Off; opaque geometry; existing LivingWind vertex contract",
+  "recommended_lod_thresholds": [
+    0.06,
+    0.006
+  ],
+  "assets": [
+    {
+      "name": "RoundleafShrub_A",
+      "seed": 1731,
+      "shape": "rounded upright crown",
+      "lods": [
+        {
+          "vertices": 2601,
+          "triangles": 3384,
+          "leaf_triangles": 2916,
+          "bounds_blender_xyz": [
+            [
+              -0.6059,
+              -0.6078,
+              -0.0031
+            ],
+            [
+              0.6399,
+              0.5978,
+              1.0043
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.9164
+          ],
+          "lod": 0,
+          "leaves": 81,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        },
+        {
+          "vertices": 768,
+          "triangles": 900,
+          "leaf_triangles": 720,
+          "bounds_blender_xyz": [
+            [
+              -0.6059,
+              -0.6078,
+              -0.0038
+            ],
+            [
+              0.6325,
+              0.5929,
+              1.0009
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.9164
+          ],
+          "lod": 1,
+          "leaves": 60,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "RoundleafShrub_B",
+      "seed": 5839,
+      "shape": "low asymmetric spreading crown",
+      "lods": [
+        {
+          "vertices": 2312,
+          "triangles": 3008,
+          "leaf_triangles": 2592,
+          "bounds_blender_xyz": [
+            [
+              -0.8555,
+              -0.7099,
+              -0.0053
+            ],
+            [
+              0.7225,
+              0.6453,
+              0.7074
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.8337
+          ],
+          "lod": 0,
+          "leaves": 72,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        },
+        {
+          "vertices": 679,
+          "triangles": 796,
+          "leaf_triangles": 636,
+          "bounds_blender_xyz": [
+            [
+              -0.8458,
+              -0.7099,
+              -0.0064
+            ],
+            [
+              0.7104,
+              0.6419,
+              0.7037
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.8335
+          ],
+          "lod": 1,
+          "leaves": 53,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ShoreBroadleaf_A",
+      "seed": 3179,
+      "shape": "layered broadleaf shore fans",
+      "lods": [
+        {
+          "vertices": 2023,
+          "triangles": 2632,
+          "leaf_triangles": 2268,
+          "bounds_blender_xyz": [
+            [
+              -0.7403,
+              -0.7066,
+              -0.0036
+            ],
+            [
+              0.5763,
+              0.5689,
+              0.5872
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.7662
+          ],
+          "lod": 0,
+          "leaves": 63,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        },
+        {
+          "vertices": 601,
+          "triangles": 704,
+          "leaf_triangles": 564,
+          "bounds_blender_xyz": [
+            [
+              -0.7338,
+              -0.7041,
+              -0.0043
+            ],
+            [
+              0.5703,
+              0.5618,
+              0.5835
+            ]
+          ],
+          "wind_red_range": [
+            0.0,
+            0.7662
+          ],
+          "lod": 1,
+          "leaves": 47,
+          "material_slots": [
+            "BetaFoliageLeaves",
+            "BetaFoliageBark"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,8 @@ Shader "Diceforge/Living Forest Water"
         _OpenWaterDepth("Depth when no lake bed is visible",Range(.1,8))=1.6
         _LakeRippleScale("Lake ripple frequency",Range(.25,2))=1
         _LakeFoamAmount("Quiet lake contact foam",Range(0,.5))=.14
+        _LakeSurfaceFoam("Scattered lake foam",Range(0,1))=.42
+        _LakeSunGlints("Lake sun glints",Range(0,2))=.65
         _LakeReflectionBlur("Lake reflection softness",Range(0,2))=1
         _LakeReflectionFloor("Lake minimum reflection",Range(0,.4))=.12
         _CausticMap("Shallow bed light pattern",2D)="black"{}
@@ -48,6 +50,7 @@ Shader "Diceforge/Living Forest Water"
             float _Density,_Roughness,_Refraction,_ReflectionStrength,_WaveStrength,_FlowSpeed,_River,_Still,_HasReflection;
             float _OpenWaterDepth,_LakeRippleScale,_LakeFoamAmount,_LakeReflectionBlur,_PlanarReflectionMaxMip;
             float _LakeReflectionFloor,_CausticStrength;
+            float _LakeSurfaceFoam,_LakeSunGlints;
             CBUFFER_END
             float _ForestTime,_ForestMotion;
             struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;half4 color:COLOR;};
@@ -133,7 +136,9 @@ Shader "Diceforge/Living Forest Water"
                     float fine=dot(q,float2(8.7,-6.2))+flow*1.1;
                     slopes=(float2(.925,.378)*cos(broadA)
                         +float2(-.387,.922)*cos(broadB)*.48
-                        +float2(.814,-.580)*cos(fine)*.10)*_WaveStrength;
+                        +float2(.814,-.580)*cos(fine)*.22)*_WaveStrength;
+                    slopes+=float2(cos(dot(q,float2(17.2,9.4))-flow*1.9),
+                        sin(dot(q,float2(-11.7,19.1))+flow*1.5))*_WaveStrength*.075;
                 }
                 float3 view=GetWorldSpaceNormalizeViewDir(i.world);
                 // The imported creek ribbon has downward-wound faces. Water is two-sided,
@@ -185,6 +190,18 @@ Shader "Diceforge/Living Forest Water"
                 float d=(ndh*ndh*(a2-1)+1);
                 float spec=min(6,a2/(PI*d*d+.00005))*.025;
                 color+=sun.color*spec*sun.shadowAttenuation;
+                if(_River<.5)
+                {
+                    // Small, sun-facing facets break up the broad reflected highlight.
+                    float2 glintSlope=float2(cos(dot(p,float2(23,11))+flow*1.7),
+                        sin(dot(p,float2(-18,27))-flow*1.4))*.19;
+                    float3 glintNormal=normalize(normal+float3(glintSlope.x,0,glintSlope.y));
+                    float sparkle=pow(saturate(dot(glintNormal,halfway)),64);
+                    float sparklePatches=smoothstep(.48,.73,Noise(p*9+float2(flow*.2,-flow*.13)));
+                    float broadSun=pow(ndh,18)*.16;
+                    color+=sun.color*(broadSun+sparkle*sparklePatches*.75)*_LakeSunGlints
+                        *sun.shadowAttenuation;
+                }
                 // Soft broken caustics belong on the sunlit shallow bed, not a bright wire grid.
                 float causticBreak=smoothstep(.25,.65,.5+.5*sin(bed.x*1.2+sin(bed.z*.7+t*.13)));
                 if(_River<.5 && hasBed && depth>0 && depth<1.5)
@@ -196,19 +213,26 @@ Shader "Diceforge/Living Forest Water"
                 if(_River>.5)foam=max(foam,Foam(i.uv,t,i.rapids));
                 else
                 {
-                    // Quiet water has sparse, broad contact patches instead of a dotted white rim.
-                    float shorePatches=smoothstep(.62,.82,Noise(p*4.2+float2(t*.018,-t*.012)));
-                    foam=hasBed?(1-smoothstep(.012,.11,eyeGap))*shorePatches*_LakeFoamAmount:0;
+                    float shorePatches=smoothstep(.36,.68,Noise(p*4.2+float2(t*.018,-t*.012)));
+                    foam=hasBed?(1-smoothstep(.012,.15,eyeGap))*shorePatches*_LakeFoamAmount:0;
+                    // Broken whitecaps drift across the entire lake in light, curved ribbons.
+                    float patch=Noise(p*1.35+float2(-flow*.04,flow*.08));
+                    float crest=pow(saturate(sin(dot(p,float2(3.5,9))+Noise(p*1.3)*3-flow*.7)),16);
+                    float flecks=smoothstep(.38,.72,Noise(p*float2(2.5,6)+float2(flow*.12,-flow*.3)));
+                    float surfaceFoam=crest*smoothstep(.43,.68,patch)*flecks*_LakeSurfaceFoam;
+                    foam=max(foam,surfaceFoam);
                     // The fall feeds an off-centre, widening foam plume. It drifts
                     // into the lake instead of expanding as perfectly round rings.
                     float downstream=-p.y-2.58;
                     float center=2.20+downstream*.36+.07*sin(downstream*3);
                     float width=.16+max(0,downstream)*.32;
                     float plume=exp(-pow((p.x-center)/width,2))*smoothstep(-.08,.10,downstream)
-                        *(1-smoothstep(.3,1.75,downstream));
-                    float curl=sin(downstream*8-t*1.2)*.55;
-                    float drifting=Noise(float2((p.x-center)*31+curl,downstream*20-t*3));
-                    foam=max(foam,plume*smoothstep(.52,.78,drifting)*.38);
+                        *(1-smoothstep(.4,2.1,downstream));
+                    float2 drift=float2(p.x-center,downstream);
+                    float2 warp=float2(Noise(drift*5+float2(t*.2,0)),Noise(drift*5+float2(7,-t*.3)))-.5;
+                    float2 foamUV=float2(dot(drift,float2(24,13)),dot(drift,float2(-16,27)))+warp*2.4-float2(0,t*3);
+                    float drifting=Noise(foamUV)*.65+Noise(foamUV*1.83+9)*.35;
+                    foam=max(foam,plume*smoothstep(.34,.70,drifting)*.78);
                     // A broken asymmetric boil ties the falling sheet to the lake.
                     float2 impact=float2((p.x-2.20)/.31,(p.y+2.72)/.28);
                     float churn=Noise(impact*5+float2(t*1.4,-t*2.8));

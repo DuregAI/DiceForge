@@ -202,6 +202,7 @@ namespace Diceforge.View
                 pair.Value.EnableInClassList("available", can && found && !exited);
                 pair.Value.EnableInClassList("arrived", presentedExited.Contains(pair.Key));
                 pair.Value.EnableInClassList("selected", battle.SelectedHeroId == pair.Key);
+                pair.Value.EnableInClassList("previewed", previewHero == pair.Key);
             }
             var actions = root.Q<Label>("actionsRemaining");
             bool sequential = battle.PresentationState.Rules.soloTrailStepOfferMode == SoloTrailStepOfferMode.Sequential;
@@ -392,8 +393,11 @@ namespace Diceforge.View
                 var cameraControl = board.GetComponent<DioramaCameraController>();
                 if (can && !paused && cameraControl?.IsGestureActive != true && battle.DemoNarrative?.IsHelpVisible != true &&
                     routeHero != null && battle.TryGetHero(routeHero, out int routeCell, out _, out bool left) && !left)
+                {
+                    board.FocusHero(routeHero);
                     battle.PreviewPresentationCell(board, routeCell, routeHero);
-                else board.Preview(null, null, -1);
+                }
+                else { board.FocusHero(null); board.Preview(null, null, -1); }
             }
             bool showReroll=can && battle.PresentationCanReroll;
             reroll.style.display=showReroll?DisplayStyle.Flex:DisplayStyle.None;

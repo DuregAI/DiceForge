@@ -1,0 +1,26 @@
+{
+  "revision": "Finish-v01",
+  "source": "Assets\\_Project\\07_Art\\Characters\\Incoming\\Tripo\\Scratchy_v01\\Scratchy_BaseColor_2K.jpg",
+  "vertices": 6397,
+  "polygons": 7612,
+  "hairTexels": 996502,
+  "flaxTexels": 1424925,
+  "bellTexels": 6957,
+  "atlasSize": [
+    2048,
+    2048
+  ],
+  "geometryChanged": false,
+  "preserved": [
+    "rig",
+    "blendshapes",
+    "animations",
+    "one bell",
+    "portrait art"
+  ],
+  "outputs": [
+    "Scratchy_Flax_BaseColor.png",
+    "Scratchy_Surface.png",
+    "Scratchy_Weave_Normal.png"
+  ]
+}

@@ -53,6 +53,7 @@ namespace Diceforge.View
             stonesTokensView?.SetDemoLevel(level);
             if (_diorama != null) _diorama.ConfigureTrail(level != null, level != null ? level.firstVisibleCell : 0,
                 level != null ? level.cameraZoom : 1f);
+            _diorama?.GetComponentInChildren<TrailChapterDressing>(true)?.Apply(level?.levelId);
         }
         public string HeroForToken(string tokenName) => stonesTokensView?.HeroForToken(tokenName);
         public void RestoreDemoHeroes(Diceforge.Progression.DemoHeroCheckpoint[] heroes) => stonesTokensView.RestoreDemoHeroes(heroes, _runner.State);

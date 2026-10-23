@@ -35,12 +35,14 @@ Material:
     m_Floats:
     - _CausticStrength: 0.11
     - _Density: 2.1
-    - _FlowSpeed: 0.32
+    - _FlowSpeed: 0.48
     - _HasReflection: 0
-    - _LakeFoamAmount: 0.12
+    - _LakeFoamAmount: 0.34
     - _LakeReflectionBlur: 1
     - _LakeReflectionFloor: 0.23
     - _LakeRippleScale: 1.4
+    - _LakeSunGlints: 0.8
+    - _LakeSurfaceFoam: 0.52
     - _OpenWaterDepth: 4
     - _PlanarReflectionMaxMip: 0
     - _ReflectionStrength: 0.64
@@ -48,10 +50,10 @@ Material:
     - _River: 0
     - _Roughness: 0.24
     - _Still: 0
-    - _WaveStrength: 0.075
+    - _WaveStrength: 0.11
     m_Colors:
     - _DeepColor: {r: 0.025, g: 0.38, b: 0.46, a: 1}
-    - _FoamColor: {r: 0.78, g: 0.87, b: 0.8, a: 1}
+    - _FoamColor: {r: 0.92, g: 0.97, b: 0.92, a: 1}
     - _ShallowColor: {r: 0.3, g: 0.85, b: 0.83, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

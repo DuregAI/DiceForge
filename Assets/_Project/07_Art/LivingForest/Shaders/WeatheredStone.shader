@@ -8,6 +8,7 @@ Shader "Diceforge/Weathered Forest Stone"
         _Scale("Grain scale",Float)=5
         _Smoothness("Smoothness",Range(0,1))=.16
         _Relief("Fine relief",Range(0,.5))=.12
+        _ShoreWetness("Wet shoreline band",Range(0,1))=0
     }
     SubShader
     {
@@ -16,7 +17,7 @@ Shader "Diceforge/Weathered Forest Stone"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
         CBUFFER_START(UnityPerMaterial)
         half4 _BaseColor,_MossColor;
-        float _MossAmount,_Scale,_Smoothness,_Relief;
+        float _MossAmount,_Scale,_Smoothness,_Relief,_ShoreWetness;
         CBUFFER_END
         struct A { float4 positionOS:POSITION;float3 normalOS:NORMAL;UNITY_VERTEX_INPUT_INSTANCE_ID };
         struct V { float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;half3 normal:TEXCOORD1;float fog:TEXCOORD2; };
@@ -43,10 +44,11 @@ Shader "Diceforge/Weathered Forest Stone"
             #pragma multi_compile_instancing
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             // The forest renderer applies contact AO after opaques. Sampling a second
             // AO texture here also leaks stale camera data into planar reflections.
             #pragma multi_compile _ _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             half4 Frag(V i):SV_Target
             {
                 float3 p=i.world*_Scale;
@@ -58,6 +60,8 @@ Shader "Diceforge/Weathered Forest Stone"
                 half3 stone=_BaseColor.rgb*(.78+broad*.32+grain*.10);
                 stone*=1-fissure*.25;stone*=.97+.06*pore;
                 half3 albedo=lerp(stone,_MossColor.rgb*(.75+grain*.5),moss);
+                float wet=(1-smoothstep(-.76,-.40,i.world.y+Noise(i.world*9)*.05))*_ShoreWetness;
+                albedo*=1-wet*.24;
                 float3 normal=normalize((float3)i.normal);
                 // Screen-space surface gradient adds grain without changing the landing mesh.
                 float height=grain*.010-fissure*.008;
@@ -69,11 +73,30 @@ Shader "Diceforge/Weathered Forest Stone"
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.world));
                 float diffuse=saturate(dot(normal,sun.direction));
                 half3 color=albedo*(SampleSH(normal)+sun.color*(diffuse*sun.shadowAttenuation+.075));
+                #if defined(_ADDITIONAL_LIGHTS)
+                    InputData inputData=(InputData)0;
+                    inputData.positionWS=i.world;
+                    inputData.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
+                    #if USE_CLUSTER_LIGHT_LOOP
+                        [loop] for(uint lightIndex=0;lightIndex<min(URP_FP_DIRECTIONAL_LIGHTS_COUNT,MAX_VISIBLE_LIGHTS);lightIndex++)
+                        {
+                            CLUSTER_LIGHT_LOOP_SUBTRACTIVE_LIGHT_CHECK
+                            Light fill=GetAdditionalLight(lightIndex,i.world);
+                            color+=albedo*fill.color*saturate(dot(normal,fill.direction))*fill.distanceAttenuation*fill.shadowAttenuation;
+                        }
+                    #endif
+                    uint count=GetAdditionalLightsCount();
+                    LIGHT_LOOP_BEGIN(count)
+                        Light fill=GetAdditionalLight(lightIndex,i.world);
+                        color+=albedo*fill.color*saturate(dot(normal,fill.direction))*fill.distanceAttenuation*fill.shadowAttenuation;
+                    LIGHT_LOOP_END
+                #endif
                 float3 view=GetWorldSpaceNormalizeViewDir(i.world);
                 float gloss=lerp(24,96,_Smoothness);
                 float spec=pow(saturate(dot(normal,SafeNormalize(view+sun.direction))),gloss)*.025*(1-moss);
                 color+=sun.color*spec*sun.shadowAttenuation;
-                return half4(MixFog(color,i.fog),1);
+                float fog=ComputeFogFactorZ0ToFar(max(-TransformWorldToView(i.world).z-_ProjectionParams.y,0));
+                return half4(MixFog(color,fog),1);
             }
             ENDHLSL
         }
