@@ -1,4 +1,5 @@
 using System.Collections;
+using Diceforge.Audio;
 using Diceforge.Map;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -201,6 +202,9 @@ namespace Diceforge.View
             Quaternion startRotation = tokenRoot.rotation;
             Quaternion targetRotation = startRotation;
             bool polishedHop = _diorama && _hopPresentation;
+            bool audibleMove = (targetPosition - startPosition).sqrMagnitude > .0001f;
+            bool launched = false, landed = false;
+            float nextFootstep = 0;
 
             if (rotateAlongPath)
             {
@@ -216,6 +220,19 @@ namespace Diceforge.View
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
+                if (audibleMove)
+                {
+                    bool hopping = _diorama && !DioramaBoard.ReducedMotion;
+                    if (hopping)
+                    {
+                        if (!launched && t >= (polishedHop ? .12f : 0f))
+                        { WoodlandSfx.Play(WoodlandCue.Jump); launched = true; }
+                        if (!landed && t >= (polishedHop ? .84f : 1f))
+                        { WoodlandSfx.Play(WoodlandCue.Land); landed = true; }
+                    }
+                    else if (elapsed >= nextFootstep)
+                    { WoodlandSfx.Play(WoodlandCue.Footstep); nextFootstep = elapsed + .30f; }
+                }
                 if (polishedHop && !DioramaBoard.ReducedMotion)
                 {
                     DioramaHopMotion.Sample(t, out float progress, out float lift, out Vector3 scale, out float lean);

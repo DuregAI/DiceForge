@@ -7,11 +7,13 @@ namespace Diceforge.UI
     /// <summary>Dismiss only a click that starts and ends on the backdrop, never a drag from inside.</summary>
     public sealed class ModalDismiss : IDisposable
     {
+        public static event Action<bool> VisibilityChanged;
         private readonly VisualElement overlay;
         private readonly VisualElement window;
         private readonly Action close;
         private Button generatedClose;
         private int pointer = -1;
+        private bool wasVisible;
 
         public ModalDismiss(VisualElement overlay, VisualElement window, Action close)
         {
@@ -24,6 +26,8 @@ namespace Diceforge.UI
             overlay.RegisterCallback<PointerDownEvent>(OnDown, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerUpEvent>(OnUp, TrickleDown.TrickleDown);
             overlay.RegisterCallback<PointerCancelEvent>(OnCancel);
+            overlay.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            overlay.RegisterCallback<DetachFromPanelEvent>(OnDetach);
             if (close != null && window.Q<Button>(className: "df-modal-close-icon") == null)
             {
                 generatedClose = new Button(close) { name = overlay.name + "CloseIcon", tooltip = "Close" };
@@ -33,6 +37,18 @@ namespace Diceforge.UI
                 window.Add(generatedClose);
             }
         }
+
+        private void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+            bool visible = overlay.panel != null && overlay.layout.width > 1 && overlay.layout.height > 1;
+            for (var element = overlay; visible && element != null; element = element.parent)
+                visible = element.resolvedStyle.display != DisplayStyle.None && element.resolvedStyle.visibility == Visibility.Visible;
+            if (visible == wasVisible) return;
+            wasVisible = visible;
+            VisibilityChanged?.Invoke(visible);
+        }
+
+        private void OnDetach(DetachFromPanelEvent evt) => wasVisible = false;
 
         public static ModalDismiss BindButton(VisualElement root, string overlayName, string buttonName)
         {
@@ -84,6 +100,8 @@ namespace Diceforge.UI
             overlay.UnregisterCallback<PointerDownEvent>(OnDown, TrickleDown.TrickleDown);
             overlay.UnregisterCallback<PointerUpEvent>(OnUp, TrickleDown.TrickleDown);
             overlay.UnregisterCallback<PointerCancelEvent>(OnCancel);
+            overlay.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            overlay.UnregisterCallback<DetachFromPanelEvent>(OnDetach);
             generatedClose?.RemoveFromHierarchy();
         }
     }

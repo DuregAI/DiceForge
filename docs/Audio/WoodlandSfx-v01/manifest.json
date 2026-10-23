@@ -1,0 +1,217 @@
+{
+  "sampleRate": 44100,
+  "channels": 1,
+  "encoding": "PCM16",
+  "source": "Original procedural synthesis; no voices or external recordings.",
+  "clips": [
+    {
+      "name": "window_open_01",
+      "auditionStartSeconds": 0.4,
+      "durationSeconds": 0.27,
+      "peakDbfs": -10.75,
+      "rmsDbfs": -22.58,
+      "clippedSamples": 0,
+      "sha256": "5a041adbf8acacd10745afecaf685ea51956686a3e72d7b039efa9b48799c513"
+    },
+    {
+      "name": "window_close_01",
+      "auditionStartSeconds": 1.05,
+      "durationSeconds": 0.22,
+      "peakDbfs": -12.04,
+      "rmsDbfs": -23.65,
+      "clippedSamples": 0,
+      "sha256": "deef8a37c76b0ce4e50d45cef7d6d230571a05ba3823fdbb21612650bd3af6fa"
+    },
+    {
+      "name": "window_open_02",
+      "auditionStartSeconds": 1.65,
+      "durationSeconds": 0.27,
+      "peakDbfs": -10.75,
+      "rmsDbfs": -22.84,
+      "clippedSamples": 0,
+      "sha256": "a68eeff37547420b9bda4c800c8fb5b988ea23e63773363b27dab5ec48786ffa"
+    },
+    {
+      "name": "window_close_02",
+      "auditionStartSeconds": 2.3,
+      "durationSeconds": 0.22,
+      "peakDbfs": -12.04,
+      "rmsDbfs": -24.23,
+      "clippedSamples": 0,
+      "sha256": "8f0e4eabc4818bf06f1cea8387e4a825b3f08c0325f7cfcb5764070ac1488fe7"
+    },
+    {
+      "name": "transition_close_01",
+      "auditionStartSeconds": 2.9,
+      "durationSeconds": 0.42,
+      "peakDbfs": -12.4,
+      "rmsDbfs": -28.2,
+      "clippedSamples": 0,
+      "sha256": "1549c107bfc73acbf2edb5f5e799930738c2cce6c9b1b354fa7c3c0c977bba91"
+    },
+    {
+      "name": "transition_open_01",
+      "auditionStartSeconds": 3.7,
+      "durationSeconds": 0.48,
+      "peakDbfs": -12.4,
+      "rmsDbfs": -26.84,
+      "clippedSamples": 0,
+      "sha256": "36f299dd8c3e31e57a9628a60d642ad12f4ae9787b5ff5c1bdd826a9157c26a0"
+    },
+    {
+      "name": "jump_01",
+      "auditionStartSeconds": 4.56,
+      "durationSeconds": 0.19,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -23.27,
+      "clippedSamples": 0,
+      "sha256": "1634c7e83cd6425d0ea945fb87b5fe709648fa2fdf97f0c97a4cb23c4fda82a5"
+    },
+    {
+      "name": "land_01",
+      "auditionStartSeconds": 5.13,
+      "durationSeconds": 0.21,
+      "peakDbfs": -7.33,
+      "rmsDbfs": -20.72,
+      "clippedSamples": 0,
+      "sha256": "d62d53c8336f9884bc7c44748f2fff9d702ea1f5740b461ecc1273e082cd31a0"
+    },
+    {
+      "name": "jump_02",
+      "auditionStartSeconds": 5.72,
+      "durationSeconds": 0.198,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -23.55,
+      "clippedSamples": 0,
+      "sha256": "9807368f3304b51dfdef9e3041da5e9b2951102b738b45c25dd3858210165b1d"
+    },
+    {
+      "name": "land_02",
+      "auditionStartSeconds": 6.298,
+      "durationSeconds": 0.21,
+      "peakDbfs": -7.33,
+      "rmsDbfs": -20.57,
+      "clippedSamples": 0,
+      "sha256": "271a6dc8d417b96b5b702571f0435290a6188c131881a86efc85fefb6a3a8b51"
+    },
+    {
+      "name": "jump_03",
+      "auditionStartSeconds": 6.888,
+      "durationSeconds": 0.206,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -23.83,
+      "clippedSamples": 0,
+      "sha256": "faf990dfd85b400b7cd2aa6efb3a83e67a37b08d9a24791723401fd09d608e97"
+    },
+    {
+      "name": "land_03",
+      "auditionStartSeconds": 7.474,
+      "durationSeconds": 0.21,
+      "peakDbfs": -7.33,
+      "rmsDbfs": -20.17,
+      "clippedSamples": 0,
+      "sha256": "dfcfb65f3185f61444d7f92f4cdf5dffd6515e5e54a6ccbf554350b69e529988"
+    },
+    {
+      "name": "footstep_01",
+      "auditionStartSeconds": 8.064,
+      "durationSeconds": 0.14,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -24.77,
+      "clippedSamples": 0,
+      "sha256": "e86bb7d1013cc23ef0c06748f2c8452bda33df45d009ec7a1a82ef9672cd03a1"
+    },
+    {
+      "name": "footstep_02",
+      "auditionStartSeconds": 8.584,
+      "durationSeconds": 0.14,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -24.81,
+      "clippedSamples": 0,
+      "sha256": "2fe45e1c3f05fedaa20fd46ecbce8b58f30126c1639749a0c6e00eecc4bfdbdf"
+    },
+    {
+      "name": "footstep_03",
+      "auditionStartSeconds": 9.104,
+      "durationSeconds": 0.14,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -24.06,
+      "clippedSamples": 0,
+      "sha256": "4620ad788ab6bc1f438fa998c358f6b41f0700d70a38b1294f29d7c636526622"
+    },
+    {
+      "name": "footstep_04",
+      "auditionStartSeconds": 9.624,
+      "durationSeconds": 0.14,
+      "peakDbfs": -11.06,
+      "rmsDbfs": -24.37,
+      "clippedSamples": 0,
+      "sha256": "ff2aaf92c18cbc4692a10bc720effd5b95059b4a362548211d1c1ea27d001f29"
+    },
+    {
+      "name": "level_complete_01",
+      "auditionStartSeconds": 10.144,
+      "durationSeconds": 1.18,
+      "peakDbfs": -6.38,
+      "rmsDbfs": -18.78,
+      "clippedSamples": 0,
+      "sha256": "493fccfaa270842166694b962a1ca89a7ec482fff1c23a74840470258c958b83"
+    },
+    {
+      "name": "retry_01",
+      "auditionStartSeconds": 11.704,
+      "durationSeconds": 0.67,
+      "peakDbfs": -9.37,
+      "rmsDbfs": -21.33,
+      "clippedSamples": 0,
+      "sha256": "6a220cf100669b39d8b42a9d40891d74c1911a1d1bb18c627fea246bb3b65bcb"
+    },
+    {
+      "name": "token_exit_01",
+      "auditionStartSeconds": 12.754,
+      "durationSeconds": 0.34,
+      "peakDbfs": -9.9,
+      "rmsDbfs": -21.37,
+      "clippedSamples": 0,
+      "sha256": "0ba81b6f026b3b87842cef1258f58208cbacee60c44a239fce1c8568b923436b"
+    },
+    {
+      "name": "token_hit_01",
+      "auditionStartSeconds": 13.474,
+      "durationSeconds": 0.21,
+      "peakDbfs": -8.87,
+      "rmsDbfs": -22.06,
+      "clippedSamples": 0,
+      "sha256": "36c5618d541b0fe71b626bc45dd00a8c75f48c18dfd5764844dafb5cd3062818"
+    },
+    {
+      "name": "dice_roll_01",
+      "auditionStartSeconds": 14.064,
+      "durationSeconds": 0.35,
+      "peakDbfs": -9.37,
+      "rmsDbfs": -22.33,
+      "clippedSamples": 0,
+      "sha256": "57cd3ef1b57364646e5441b9ea75f833150e40a0db31304c3aae13228647193a"
+    },
+    {
+      "name": "token_hit_02",
+      "auditionStartSeconds": 14.794,
+      "durationSeconds": 0.21,
+      "peakDbfs": -8.87,
+      "rmsDbfs": -22.24,
+      "clippedSamples": 0,
+      "sha256": "9e94a613e1de62a0f025a3b918ad08c0862634620f02b1124db97da008517157"
+    },
+    {
+      "name": "dice_roll_02",
+      "auditionStartSeconds": 15.384,
+      "durationSeconds": 0.35,
+      "peakDbfs": -9.37,
+      "rmsDbfs": -22.27,
+      "clippedSamples": 0,
+      "sha256": "ad3df5b3e1182334bd07d96699bf94ed5919169aad0b2b09a513fd854456eec2"
+    }
+  ],
+  "auditionDurationSeconds": 16.114,
+  "clippedSamples": 0
+}

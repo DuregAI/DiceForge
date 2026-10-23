@@ -509,6 +509,7 @@ namespace Diceforge.View
 
         private void HandleTurnStarted(GameState state)
         {
+            Diceforge.Audio.WoodlandSfx.Play(Diceforge.Audio.WoodlandCue.DiceRoll);
             _elapsed = 0f;
             _rerollUsedThisTurn = false;
             _pendingAnimatedTokenName = null;
@@ -538,7 +539,12 @@ namespace Diceforge.View
         private void HandleMatchEnded(MatchResult result)
         {
             if (FindAnyObjectByType<DioramaBoard>() != null) resultPresentation = StartCoroutine(FinishAfterPresentation(result));
-            else FinalizeMatchResult(result);
+            else
+            {
+                Diceforge.Audio.WoodlandSfx.Play(result.Winner == localPlayer
+                    ? Diceforge.Audio.WoodlandCue.LevelComplete : Diceforge.Audio.WoodlandCue.Retry);
+                FinalizeMatchResult(result);
+            }
         }
         private System.Collections.IEnumerator FinishAfterPresentation(MatchResult result)
         {
@@ -552,8 +558,8 @@ namespace Diceforge.View
                 {
                     if (!ReferenceEquals(endedRunner, _runner) || endedGeneration != matchGeneration) return;
                     boardViewController?.ReactToMatchEnd(result.Winner);
-                    var cue = result.Winner == localPlayer ? profile?.victoryClip : profile?.defeatClip;
-                    Diceforge.Audio.AudioManager.Instance?.PlayGameSfx(cue, profile != null ? profile.soundGain : 1f);
+                    Diceforge.Audio.WoodlandSfx.Play(result.Winner == localPlayer
+                        ? Diceforge.Audio.WoodlandCue.LevelComplete : Diceforge.Audio.WoodlandCue.Retry);
                 }, () => { });
             if (!ReferenceEquals(endedRunner, _runner) || endedGeneration != matchGeneration || !_runner.State.IsFinished) yield break;
             DemoCheckpoint?.RetrySave();
@@ -709,6 +715,7 @@ namespace Diceforge.View
 
             _rerollUsedThisTurn = true;
             _runner.RerollCurrentTurnOutcome();
+            Diceforge.Audio.WoodlandSfx.Play(Diceforge.Audio.WoodlandCue.DiceRoll);
             OnHumanRerollUsed?.Invoke();
             _waitingForFromCell = false;
             _lastHumanInputFeedback = string.Empty;

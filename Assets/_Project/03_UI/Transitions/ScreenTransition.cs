@@ -12,6 +12,7 @@ namespace Diceforge.Transitions
     public sealed class ScreenTransition : MonoBehaviour
     {
         private static ScreenTransition instance;
+        public static event Action<TransitionPhase> PhaseChanged;
         public static bool IsBusy => instance != null && instance.Phase != TransitionPhase.Idle;
         public static bool IsCovered => instance != null && (instance.Phase == TransitionPhase.Preparing || instance.Phase == TransitionPhase.Failed);
         public TransitionPhase Phase { get; private set; }
@@ -28,7 +29,7 @@ namespace Diceforge.Transitions
         private bool dismissError;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void ResetStatics() => instance = null;
+        private static void ResetStatics() { instance = null; PhaseChanged = null; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Bootstrap() => EnsureInstance();
@@ -95,7 +96,7 @@ namespace Diceforge.Transitions
         private bool Begin(Action change, string sceneName, Func<bool> ready)
         {
             if (!isActiveAndEnabled || Phase != TransitionPhase.Idle) return false;
-            Phase = TransitionPhase.Closing;
+            SetPhase(TransitionPhase.Closing);
             LastError = null;
             dismissError = false;
             input.Capture(document);
@@ -111,7 +112,7 @@ namespace Diceforge.Transitions
             try
             {
                 yield return Animate(false);
-                Phase = TransitionPhase.Preparing;
+                SetPhase(TransitionPhase.Preparing);
                 yield return null; // Fully opaque frame before any content mutation.
                 AsyncOperation loading = null;
                 try
@@ -144,7 +145,7 @@ namespace Diceforge.Transitions
                 }
                 if (LastError != null)
                 {
-                    Phase = TransitionPhase.Failed;
+                    SetPhase(TransitionPhase.Failed);
                     status.text = "Could not open the screen. Please try again.";
                     status.style.display = dismiss.style.display = DisplayStyle.Flex;
                     dismiss.Focus();
@@ -153,7 +154,7 @@ namespace Diceforge.Transitions
                 else if (Settings.coveredHold > 0)
                     yield return new WaitForSecondsRealtime(Settings.coveredHold);
                 status.style.display = dismiss.style.display = DisplayStyle.None;
-                Phase = TransitionPhase.Opening;
+                SetPhase(TransitionPhase.Opening);
                 yield return Animate(true);
             }
             finally { Release(); }
@@ -180,6 +181,13 @@ namespace Diceforge.Transitions
             Debug.LogError("[ScreenTransition] " + exception, this);
         }
 
+        private void SetPhase(TransitionPhase phase)
+        {
+            if (Phase == phase) return;
+            Phase = phase;
+            PhaseChanged?.Invoke(phase);
+        }
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (IsBusy) input.Capture(document);
@@ -189,7 +197,7 @@ namespace Diceforge.Transitions
         {
             input.Release();
             if (curtainRoot != null) curtainRoot.style.display = DisplayStyle.None;
-            Phase = TransitionPhase.Idle;
+            SetPhase(TransitionPhase.Idle);
         }
 
         private void OnDisable() { StopAllCoroutines(); Release(); }

@@ -216,10 +216,8 @@ namespace Diceforge.View
             if (animate && _geometry is DioramaBoard board)
             {
                 _finishingId=result.MovedId;
-                AudioClip cue = presentation != null ? presentation.moveClip : null;
-                if (record.Move?.Kind == MoveKind.BearOff) cue = presentation != null ? presentation.exitClip : null;
-                else if (hitOrigins.Count > 0) cue = presentation != null ? presentation.hitClip : null;
-                AudioManager.Instance?.PlayGameSfx(cue, presentation != null ? presentation.soundGain : 1f);
+                if (record.Move?.Kind == MoveKind.BearOff) WoodlandSfx.Play(WoodlandCue.TokenExit);
+                else if (hitOrigins.Count > 0) WoodlandSfx.Play(WoodlandCue.TokenHit);
                 if(record.Move?.Kind==MoveKind.BearOff)
                 {
                     movingToken.root.SetActive(true);

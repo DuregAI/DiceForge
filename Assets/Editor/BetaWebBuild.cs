@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Diceforge.EditorTools
 {
@@ -13,6 +17,56 @@ namespace Diceforge.EditorTools
     {
         public const string OutputDirectory = "C:/Backforge/Builds/GlimblehopBetaPolish";
         public const string ReportDirectory = "docs/Validation/BetaPolishWeb";
+
+        /// <summary>Include runtime-switched pipelines in URP's build analysis without changing menu quality.</summary>
+        public static string PrepareRuntimePipelines()
+        {
+            var board = AssetDatabase.LoadAssetAtPath<GameObject>(
+                "Assets/_Project/05_Gameplay_Data/Battle/Diorama/FirstTrail8.prefab");
+            if (board == null) throw new BuildFailedException("FirstTrail8 prefab is missing.");
+            var pipelines = new HashSet<UniversalRenderPipelineAsset>();
+            foreach (var component in board.GetComponents<MonoBehaviour>())
+            {
+                if (component == null) continue;
+                var serialized = new SerializedObject(component);
+                foreach (var field in new[] { "desktopPipeline", "mobilePipeline", "pipelineOverride" })
+                {
+                    var property = serialized.FindProperty(field);
+                    if (property?.objectReferenceValue is UniversalRenderPipelineAsset pipeline) pipelines.Add(pipeline);
+                }
+            }
+            if (pipelines.Count == 0) throw new BuildFailedException("No runtime diorama pipelines are assigned.");
+            var inclusion = GraphicsSettings.GetRenderPipelineSettings<IncludeAdditionalRPAssets>();
+            if (inclusion == null) throw new BuildFailedException("URP additional asset inclusion settings are missing.");
+            string label = string.IsNullOrWhiteSpace(inclusion.labelToInclude)
+                ? "GlimbleHopRuntimePipeline" : inclusion.labelToInclude;
+            inclusion.labelToInclude = label;
+            inclusion.includeAssetsByLabel = true;
+            foreach (var pipeline in pipelines)
+            {
+                var labels = AssetDatabase.GetLabels(pipeline);
+                if (!labels.Contains(label)) AssetDatabase.SetLabels(pipeline, labels.Concat(new[] { label }).ToArray());
+            }
+            var globalSettings = AssetDatabase.LoadAssetAtPath<RenderPipelineGlobalSettings>(
+                "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset");
+            if (globalSettings == null) throw new BuildFailedException("URP global settings asset is missing.");
+            EditorUtility.SetDirty(globalSettings);
+            AssetDatabase.SaveAssets();
+
+            var collected = new List<UniversalRenderPipelineAsset>();
+            if (!BuildTarget.WebGL.TryGetRenderPipelineAssets(collected) || pipelines.Any(p => !collected.Contains(p)))
+                throw new BuildFailedException("URP build collection still excludes a runtime diorama pipeline.");
+            var result = JsonUtility.ToJson(new PipelineInclusion
+            {
+                label = label,
+                defaultPipeline = AssetDatabase.GetAssetPath(GraphicsSettings.defaultRenderPipeline),
+                currentQualityPipeline = AssetDatabase.GetAssetPath(QualitySettings.renderPipeline),
+                included = collected.Select(AssetDatabase.GetAssetPath).OrderBy(path => path).ToArray()
+            }, true);
+            Directory.CreateDirectory(ReportDirectory);
+            File.WriteAllText(Path.Combine(ReportDirectory, "render-pipeline-inclusion.json"), result);
+            return result;
+        }
         // Invoke directly: unfocused Editor delayCall scheduling can stall.
         // Long builds may outlive an MCP timeout; poll ReportDirectory/status.json instead of retrying.
         // Also usable with Unity.exe -batchmode -buildTarget WebGL -executeMethod ...Build -quit.
@@ -27,6 +81,8 @@ namespace Diceforge.EditorTools
             var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(scene => scene.path).ToArray();
             if (scenes.Length == 0 || scenes.Any(scene => !File.Exists(scene)))
                 throw new BuildFailedException("Enabled build scenes are empty or missing.");
+
+            PrepareRuntimePipelines();
 
             Directory.CreateDirectory(OutputDirectory);
             Directory.CreateDirectory(ReportDirectory);
@@ -89,6 +145,13 @@ namespace Diceforge.EditorTools
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || BuildPipeline.isBuildingPlayer)
                 throw new InvalidOperationException("Wait until Unity is idle in Edit Mode before building the beta.");
+        }
+
+        [Serializable]
+        private sealed class PipelineInclusion
+        {
+            public string label, defaultPipeline, currentQualityPipeline;
+            public string[] included;
         }
 
         [Serializable]

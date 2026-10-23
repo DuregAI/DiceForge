@@ -95,6 +95,8 @@ namespace Diceforge.Audio
             if (defaultUiClickClip != null && defaultUiClickClip.loadState == AudioDataLoadState.Unloaded)
                 defaultUiClickClip.LoadAudioData();
 
+            WoodlandSfx.Preload();
+
             ApplyVolumes();
         }
 
@@ -103,18 +105,33 @@ namespace Diceforge.Audio
             if (Instance != null && Instance != this) return;
             Instance = this;
             InitializeRuntimeState();
+            Diceforge.Transitions.ScreenTransition.PhaseChanged -= HandleTransitionPhase;
+            Diceforge.Transitions.ScreenTransition.PhaseChanged += HandleTransitionPhase;
+            Diceforge.UI.ModalDismiss.VisibilityChanged -= HandleModalVisibility;
+            Diceforge.UI.ModalDismiss.VisibilityChanged += HandleModalVisibility;
             if (_playbackWatcher == null)
                 _playbackWatcher = StartCoroutine(PlaybackWatcher());
         }
 
         private void OnDisable()
         {
+            Diceforge.Transitions.ScreenTransition.PhaseChanged -= HandleTransitionPhase;
+            Diceforge.UI.ModalDismiss.VisibilityChanged -= HandleModalVisibility;
             if (_playbackWatcher != null)
             {
                 StopCoroutine(_playbackWatcher);
                 _playbackWatcher = null;
             }
         }
+
+        private void HandleTransitionPhase(Diceforge.Transitions.TransitionPhase phase)
+        {
+            if (phase == Diceforge.Transitions.TransitionPhase.Closing) WoodlandSfx.Play(WoodlandCue.TransitionClose);
+            else if (phase == Diceforge.Transitions.TransitionPhase.Opening) WoodlandSfx.Play(WoodlandCue.TransitionOpen);
+        }
+
+        private void HandleModalVisibility(bool visible)
+            => WoodlandSfx.Play(visible ? WoodlandCue.WindowOpen : WoodlandCue.WindowClose);
 
         private void OnDestroy()
         {

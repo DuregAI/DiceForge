@@ -15,6 +15,7 @@ namespace Diceforge.Map
         private bool moving;
         private bool loaded;
         private Sprite displayed;
+        private int lastFootContact = -1;
 
         public void Show(Image target)
         {
@@ -40,7 +41,7 @@ namespace Diceforge.Map
 
         public void SetMoving(bool isMoving, bool faceLeft = false)
         {
-            if (moving != isMoving) startedAt = Time.unscaledTime;
+            if (moving != isMoving) { startedAt = Time.unscaledTime; lastFootContact = -1; }
             moving = isMoving;
             if (image != null && isMoving) image.style.scale = new Scale(new Vector3(faceLeft ? -1f : 1f, 1f, 1f));
         }
@@ -53,6 +54,13 @@ namespace Diceforge.Map
             float elapsed = Time.unscaledTime - startedAt;
             if (moving)
             {
+                // Two ground contacts in the twenty-frame running cycle.
+                int contact = (int)(elapsed * RunFramesPerSecond / 10f);
+                if (contact != lastFootContact)
+                {
+                    lastFootContact = contact;
+                    Diceforge.Audio.WoodlandSfx.Play(Diceforge.Audio.WoodlandCue.Footstep, .8f);
+                }
                 ShowFrame(run[(int)(elapsed * RunFramesPerSecond) % run.Length]);
                 return;
             }
